@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "HTML: Семантические теги", "description": "Руководство по использованию семантических тегов HTML и их значении" })
+    <style>
+        .tags-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .tags-list h3 {
+            padding: 0;
+            margin: 0 0 1rem 0;
+        }
+        .tags-list h4 {
+            font-size: 1.2rem;
+        }
+        .intro-code-block {
+            background: #f8f8f8;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 24px 0;
+            font-size: 1rem;
+            overflow-x: auto;
+        }
+    </style>
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <!-- Навигация по разделам -->
+                <nav class="nav-tabs">
+                    <a class="nav-tabs__link" href="#intro">Введение</a>
+                    <a class="nav-tabs__link" href="#semantic-structure">Структурные теги</a>
+                    <a class="nav-tabs__link" href="#semantic-content">Контентные теги</a>
+                    <a class="nav-tabs__link" href="#semantic-media">Медиа и детали</a>
+                    <a class="nav-tabs__link" href="#examples">Примеры</a>
+                    <a class="nav-tabs__link" href="#how-use">Как использовать</a>
+                    <a class="nav-tabs__link" href="#tips">Советы</a>
+                </nav>
+
+                <!-- Введение -->
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>HTML: Семантические теги</h1>
+                        <p class="note note--info">
+                            <strong>Семантические теги</strong>
+                            — это специальные элементы HTML, которые описывают смысловую структуру контента на странице. Используя такие теги, вы помогаете браузерам, поисковым системам и вспомогательным технологиям (например, скринридерам) лучше понимать содержимое сайта.
+                        </p>
+
+                        <h4>Зачем нужны семантические теги?</h4>
+                        <ul class="list-ul">
+                            <li>
+                                <b>Доступность:</b>
+                                Теги позволяют вспомогательным технологиям (скринридерам и др.) правильно озвучивать и структурировать страницу.
+                            </li>
+                            <li>
+                                <b>SEO:</b>
+                                Поисковые системы лучше индексируют и ранжируют сайты с корректной семантикой.
+                            </li>
+                            <li>
+                                <b>Поддержка:</b>
+                                Код становится понятнее для других разработчиков, легче проверять и расширять.
+                            </li>
+                        </ul>
+                        <h4>Примеры популярных семантических тегов:</h4>
+                        <p>
+                            <code>&lt;header&gt;</code>
+                            ,
+                            <code>&lt;nav&gt;</code>
+                            ,
+                            <code>&lt;main&gt;</code>
+                            ,
+                            <code>&lt;footer&gt;</code>
+                            ,
+                            <code>&lt;article&gt;</code>
+                            ,
+                            <code>&lt;section&gt;</code>
+                            ,
+                            <code>&lt;aside&gt;</code>
+                            .
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Структурные теги -->
+                <section class="section" id="semantic-structure">
+                    <div class="container">
+                        <h2 class="section__subtitle">Структурные теги</h2>
+                        <p class="note note--info">
+                            <strong>Структурные семантические теги</strong>
+                            задают основную организацию страницы и разделов. Они определяют «каркас» сайта: шапка, подвал, главное содержимое, навигация.
+                        </p>
+                        <ul class="list-ul">
+                            <li>
+                                <code>&lt;header&gt;</code>
+                                — "шапка" страницы или раздела, обычно содержит заголовок, лого, навигацию.
+                            </li>
+                            <li>
+                                <code>&lt;nav&gt;</code>
+                                — блок для основного навигационного меню или списка ссылок.
+                            </li>
+                            <li>
+                                <code>&lt;main&gt;</code>
+                                — уникальное основное содержимое страницы (только один на странице).
+                            </li>
+                            <li>
+                                <code>&lt;footer&gt;</code>
+                                — "подвал" страницы или раздела: контакты, копирайты, доп. ссылки.
+                            </li>
+                        </ul>
+                        <ul class="tags-list tags-list--semantic">
+                            <!-- header -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;header&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;header&gt;</b>
+                                        — Шапка страницы или раздела, содержит вводную информацию, меню, логотип, заголовки.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>Где использовать:</b>
+                                            В начале страницы, статьи, секции. Можно использовать несколько
+                                            <code>&lt;header&gt;</code>
+                                            на разных уровнях.
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Внутри
+                                            <code>&lt;header&gt;</code>
+                                            нельзя размещать
+                                            <code>&lt;footer&gt;</code>
+                                            ,
+                                            <code>&lt;address&gt;</code>
+                                            .
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;header&gt;
+  &lt;h2&gt;Заголовок сайта&lt;/h2&gt;
+  &lt;nav&gt;...&lt;/nav&gt;
+&lt;/header&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- nav -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;nav&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;nav&gt;</b>
+                                        — Навигационный блок, хранит основные ссылки для перемещения по сайту или разделу.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>Обычно содержит:</b>
+                                            Списки ссылок (
+                                            <code>&lt;ul&gt;</code>
+                                            ,
+                                            <code>&lt;a&gt;</code>
+                                            ).
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Может быть несколько
+                                            <code>&lt;nav&gt;</code>
+                                            (главное меню, футер, боковое меню).
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;nav&gt;
+  &lt;a href="#home"&gt;Главная&lt;/a&gt;
+  &lt;a href="#about"&gt;О нас&lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- main -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;main&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;main&gt;</b>
+                                        — Единственное на странице место для основного уникального содержимого.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>Внутри:</b>
+                                            Ключевой контент: статьи, разделы, изображения, видео.
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Только один
+                                            <code>&lt;main&gt;</code>
+                                            на странице. Не размещайте внутри
+                                            <code>&lt;header&gt;</code>
+                                            ,
+                                            <code>&lt;nav&gt;</code>
+                                            ,
+                                            <code>&lt;footer&gt;</code>
+                                            ,
+                                            <code>&lt;aside&gt;</code>
+                                            .
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;main&gt;
+  &lt;section&gt;Основной контент&lt;/section&gt;
+&lt;/main&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- footer -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;footer&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;footer&gt;</b>
+                                        — Подвал страницы или секции, содержит копирайт, контакты, ссылки на политику и т.д.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>Можно использовать:</b>
+                                            Для всей страницы, для статей или разделов.
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Внутри
+                                            <code>&lt;footer&gt;</code>
+                                            нельзя размещать
+                                            <code>&lt;header&gt;</code>
+                                            ,
+                                            <code>&lt;nav&gt;</code>
+                                            .
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;footer&gt;
+  &lt;p&gt;Контактная информация&lt;/p&gt;
+&lt;/footer&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Контентные теги -->
+                <section class="section" id="semantic-content">
+                    <div class="container">
+                        <h2 class="section__subtitle">Контентные теги</h2>
+                        <p class="note note--info">
+                            <strong>Контентные семантические теги</strong>
+                            служат для выделения самостоятельных или логически связанных блоков информации.
+                        </p>
+                        <ul class="list-ul">
+                            <li>
+                                <code>&lt;section&gt;</code>
+                                — логический раздел документа (может содержать свой заголовок).
+                            </li>
+                            <li>
+                                <code>&lt;article&gt;</code>
+                                — самостоятельный блок контента (новость, пост, статья).
+                            </li>
+                            <li>
+                                <code>&lt;aside&gt;</code>
+                                — побочный контент (боковая колонка, реклама, доп. ссылки).
+                            </li>
+                        </ul>
+                        <ul class="tags-list tags-list--semantic">
+                            <!-- section -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;section&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;section&gt;</b>
+                                        — Логический раздел, группирует схожий по смыслу контент (например, услуги, новости, отзывы).
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>Рекомендуется:</b>
+                                            Начинайте
+                                            <code>&lt;section&gt;</code>
+                                            с заголовка (
+                                            <code>&lt;h2&gt;</code>
+                                            -
+                                            <code>&lt;h6&gt;</code>
+                                            ).
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — якорь для навигации.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Не используйте
+                                            <code>&lt;section&gt;</code>
+                                            только для стилизации — он нужен для логической группировки!
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;section&gt;
+  &lt;h2&gt;Заголовок раздела&lt;/h2&gt;
+  &lt;p&gt;Содержимое раздела&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- article -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;article&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;article&gt;</b>
+                                        — Самостоятельная публикация: статья, новость, пост, комментарий.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>Структура:</b>
+                                            Может содержать заголовки, текст, списки,
+                                            <code>&lt;section&gt;</code>
+                                            и другие элементы.
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            <code>&lt;article&gt;</code>
+                                            должен быть самостоятельным и может быть распространён вне контекста сайта.
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;article&gt;
+  &lt;h2&gt;Заголовок статьи&lt;/h2&gt;
+  &lt;p&gt;Содержимое статьи&lt;/p&gt;
+&lt;/article&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- aside -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;aside&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;aside&gt;</b>
+                                        — Боковое или дополнительное содержание, не связанное напрямую с основным (например, боковая колонка, реклама, ссылки).
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>Использование:</b>
+                                            Для информации, которая дополняет основной контент, но не является его частью.
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;aside&gt;
+  &lt;h3&gt;Дополнительная информация&lt;/h3&gt;
+  &lt;p&gt;Боковой контент или реклама&lt;/p&gt;
+&lt;/aside&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Медиа и детали -->
+                <section class="section" id="semantic-media">
+                    <div class="container">
+                        <h2 class="section__subtitle">Медиа и детали</h2>
+                        <p class="note note--info">Теги для описания иллюстраций, дат, времени и других деталей, которые помогают структурировать и описывать контент более точно.</p>
+                        <ul class="list-ul">
+                            <li>
+                                <code>&lt;figure&gt;</code>
+                                — иллюстрация, диаграмма, медиа;
+                                <code>&lt;figcaption&gt;</code>
+                                — подпись к иллюстрации.
+                            </li>
+                            <li>
+                                <code>&lt;time&gt;</code>
+                                — дата или время для распознавания машинами (например, для событий, публикаций).
+                            </li>
+                        </ul>
+                        <ul class="tags-list tags-list--semantic">
+                            <!-- figure + figcaption -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;figure&gt; и &lt;figcaption&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;figure&gt;</b>
+                                        — содержит иллюстрацию, фото, схему, диаграмму.
+                                        <br />
+                                        <b>&lt;figcaption&gt;</b>
+                                        — подпись к иллюстрации, размещается внутри
+                                        <code>&lt;figure&gt;</code>
+                                        .
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>Использование:</b>
+                                            Для любых медиа, которым требуется подпись или пояснение.
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;figure&gt;
+  &lt;img src="photo.jpg" alt="Фото"&gt;
+  &lt;figcaption&gt;Подпись к фото&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- time -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;time&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;time&gt;</b>
+                                        — тег для даты или времени, используемый для событий, публикаций, расписаний.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>Атрибут datetime:</b>
+                                            Позволяет задать дату/время для машинного анализа.
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                <b><code>datetime</code></b>
+                                                — формат даты/времени (например,
+                                                <code>2025-08-18</code>
+                                                ).
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;time datetime="2025-08-18"&gt;18 августа 2025&lt;/time&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Примеры использования -->
+                <section class="section" id="examples">
+                    <div class="container">
+                        <h2>Примеры использования семантических тегов</h2>
+                        <p class="note note--info">Семантические теги делают код HTML осмысленным, улучшают доступность и визуальную структуру страницы для людей и поисковых систем.</p>
+
+                        <div class="examples-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: flex-start">
+                            <!-- Визуальная схема -->
+                            <div>
+                                <h3>Визуальная структура</h3>
+                                <div style="border: 1px solid #d4d4d4; border-radius: 8px; background: #f9f9fa; padding: 16px; font-size: 1rem">
+                                    <div style="background: #e9f5ff; border-radius: 6px; margin-bottom: 10px; padding: 8px 12px">
+                                        <b>&lt;header&gt;</b>
+                                        — шапка сайта
+                                        <br />
+                                        <span style="color: #888; margin-left: 18px">(логотип, меню)</span>
+                                    </div>
+                                    <div style="background: #fff7e6; border-radius: 6px; margin-bottom: 10px; padding: 8px 12px">
+                                        <b>&lt;nav&gt;</b>
+                                        — навигационное меню
+                                    </div>
+                                    <div style="background: #eaffea; border-radius: 6px; margin-bottom: 10px; padding: 8px 12px">
+                                        <b>&lt;main&gt;</b>
+                                        — основное содержимое
+                                        <div style="margin-left: 16px">
+                                            <div style="background: #f1f8e9; border-radius: 4px; margin: 6px 0 6px 0; padding: 6px 10px">
+                                                <b>&lt;section&gt;</b>
+                                                — раздел
+                                                <br />
+                                                <span style="margin-left: 16px">
+                                                    <b>&lt;article&gt;</b>
+                                                    — статья/новость
+                                                    <br />
+                                                    <span style="margin-left: 16px">
+                                                        <b>&lt;figure&gt;</b>
+                                                        — иллюстрация
+                                                        <br />
+                                                        <b>&lt;figcaption&gt;</b>
+                                                        — подпись к картинке
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div style="background: #f9eafc; border-radius: 4px; margin: 6px 0 6px 0; padding: 6px 10px">
+                                                <b>&lt;aside&gt;</b>
+                                                — боковая колонка
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="background: #e6f0ff; border-radius: 6px; padding: 8px 12px">
+                                        <b>&lt;footer&gt;</b>
+                                        — подвал страницы
+                                        <br />
+                                        <span style="color: #888; margin-left: 18px">(контакты, копирайт, дата)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Код HTML -->
+                            <div>
+                                <h3>HTML-код</h3>
+                                <pre style="background: #f5f8fa; border-radius: 8px; padding: 16px; font-size: 0.97rem; overflow-x: auto"><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="ru"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Пример семантической страницы&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;header&gt;
+      &lt;h1&gt;Заголовок сайта&lt;/h1&gt;
+      &lt;nav&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href="#"&gt;Главная&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href="#"&gt;О нас&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+      &lt;section&gt;
+        &lt;article&gt;
+          &lt;h2&gt;Статья&lt;/h2&gt;
+          &lt;p&gt;Текст статьи.&lt;/p&gt;
+          &lt;figure&gt;
+            &lt;img src="photo.jpg" alt="Фото"&gt;
+            &lt;figcaption&gt;Подпись к фото&lt;/figcaption&gt;
+          &lt;/figure&gt;
+        &lt;/article&gt;
+      &lt;/section&gt;
+      &lt;aside&gt;
+        &lt;h3&gt;Боковая колонка&lt;/h3&gt;
+        &lt;p&gt;Дополнительная информация.&lt;/p&gt;
+      &lt;/aside&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+      &lt;p&gt;Копирайт &copy; 2025&lt;/p&gt;
+      &lt;time datetime="2025-08-18"&gt;18 августа 2025&lt;/time&gt;
+    &lt;/footer&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+                </code></pre>
+                            </div>
+                        </div>
+                        <p class="note note--info" style="margin-top: 24px">Такая структура помогает поисковым системам, скринридерам и разработчикам быстро понять смысловую организацию страницы.</p>
+                    </div>
+                </section>
+
+                <!-- Как использовать семантические теги -->
+                <section class="section" id="how-use">
+                    <div class="container">
+                        <h2>Как правильно использовать семантические теги</h2>
+                        <p class="note note--info">Семантические теги делают ваш HTML осмысленным и структурированным, облегчая работу поисковых систем и вспомогательных технологий.</p>
+                        <ul class="list-ul">
+                            <li>
+                                Используйте
+                                <code>&lt;header&gt;</code>
+                                ,
+                                <code>&lt;main&gt;</code>
+                                ,
+                                <code>&lt;footer&gt;</code>
+                                для базовой структуры страницы.
+                            </li>
+                            <li>
+                                <code>&lt;nav&gt;</code>
+                                — только для основного меню или навигационных блоков, чтобы обозначить область с ссылками по сайту.
+                            </li>
+                            <li>
+                                <code>&lt;article&gt;</code>
+                                — для самостоятельных материалов, например, статьи, новости, посты.
+                                <br />
+                                <code>&lt;section&gt;</code>
+                                — для логических разделов внутри
+                                <code>&lt;main&gt;</code>
+                                или
+                                <code>&lt;article&gt;</code>
+                                .
+                            </li>
+                            <li>
+                                <code>&lt;aside&gt;</code>
+                                — для дополнительной информации, рекламы, вспомогательных ссылок, боковой колонки.
+                            </li>
+                            <li>Не используйте семантические теги ради их наличия — выбирайте тот, что отражает смысл контента.</li>
+                            <li>
+                                Проверяйте разметку в
+                                <a href="https://validator.w3.org/" target="_blank">валидаторе HTML</a>
+                                для обнаружения ошибок.
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Советы -->
+                <section class="section" id="tips">
+                    <div class="container">
+                        <h2>Советы и best practices</h2>
+                        <p class="note note--info">Применяйте семантику осознанно — она упрощает поддержку сайта, делает код читабельным и доступным.</p>
+                        <ul class="list-ul">
+                            <li>Пишите код так, чтобы его было удобно читать без CSS — структура должна быть ясна даже без оформления.</li>
+                            <li>
+                                Для повышения доступности используйте атрибуты, например
+                                <code>aria-label</code>
+                                для
+                                <code>&lt;nav&gt;</code>
+                                или других важных областей.
+                            </li>
+                            <li>
+                                Избегайте избыточного вложения тегов ("дивовый ад"). Используйте семантику для логичной структуры, а
+                                <code>&lt;div&gt;</code>
+                                и
+                                <code>&lt;span&gt;</code>
+                                — только для группировки и стилизации.
+                            </li>
+                            <li>Структурируйте контент так, чтобы пользователю было легко ориентироваться на странице.</li>
+                            <li>Семантические теги помогают поисковым системам и вспомогательным технологиям — используйте их вместо несемантических контейнеров там, где это возможно.</li>
+                        </ul>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+    </body>
+</html>

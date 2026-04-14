@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Контекст выполнения: this, call, apply, bind", "description": "Понимание ключевого слова this и методов управления контекстом исполнения функций: call, apply, bind." })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#intro">Введение</a>
+                    <a href="#concepts">Основные понятия</a>
+                    <a href="#examples">Примеры</a>
+                    <a href="#practice">Практика</a>
+                    <a href="#tips">Советы</a>
+                    <a href="#best-practices">Лучшие практики</a>
+                </nav>
+
+                <section class="section" id="intro">
+                    <div class="container">
+                        <div class="intro-code-block">
+                            <h1>
+                                Контекст выполнения:
+                                <code>this</code>
+                                ,
+                                <code>call</code>
+                                ,
+                                <code>apply</code>
+                                ,
+                                <code>bind</code>
+                            </h1>
+                            <p>
+                                Понимание
+                                <b>this</b>
+                                — ключ к написанию гибкого, многоразового и чистого кода. А методы
+                                <b>call</b>
+                                ,
+                                <b>apply</b>
+                                и
+                                <b>bind</b>
+                                помогут управлять контекстом и решать сложные задачи элегантно.
+                            </p>
+                            <p class="note">
+                                <strong><code>this</code></strong>
+                                — это ключевое слово в JavaScript, которое указывает на
+                                <b>контекст выполнения</b>
+                                функции.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="concepts">
+                    <div class="container">
+                        <h2>Основные понятия</h2>
+                        <ul class="list-ul">
+                            <li>
+                                <b>this</b>
+                                указывает на объект, в контексте которого вызвана функция.
+                            </li>
+                            <li>
+                                Значение
+                                <b>this</b>
+                                зависит от
+                                <b>способа вызова</b>
+                                функции.
+                            </li>
+                            <li>
+                                Методы
+                                <code>call</code>
+                                ,
+                                <code>apply</code>
+                                ,
+                                <code>bind</code>
+                                позволяют явно задать
+                                <b>this</b>
+                                .
+                            </li>
+                            <li>
+                                В глобальной области видимости
+                                <b>this</b>
+                                ссылается на глобальный объект (
+                                <code>window</code>
+                                в браузере).
+                            </li>
+                            <li>
+                                В методах объекта
+                                <b>this</b>
+                                ссылается на сам объект.
+                            </li>
+                            <li>
+                                В конструкторах
+                                <b>this</b>
+                                — вновь созданный объект.
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="examples">
+                    <div class="container">
+                        <h2>Примеры</h2>
+
+                        <!-- Пример 1: Метод объекта и контекст this -->
+                        <h4>
+                            Пример 1: Метод объекта и контекст
+                            <code>this</code>
+                        </h4>
+                        <p>
+                            В этом примере видно, как
+                            <code>this</code>
+                            в методе объекта ссылается на сам объект. Это позволяет обращаться к его свойствам.
+                        </p>
+                        <div class="grid-column-50">
+                            <div class="code-block">
+                                <pre><code>const user = {
+    name: "Анна",
+    greet() {
+        console.log(`Привет, ${this.name}!`);
+    },
+};
+
+user.greet(); // "Привет, Анна!"</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                            <div class="example" style="font-size: 14px">
+                                <ul class="list-ul">
+                                    <li>
+                                        Внутри метода
+                                        <code>greet</code>
+                                        ключевое слово
+                                        <code>this</code>
+                                        ссылается на объект
+                                        <code>user</code>
+                                        , так как функция вызвана в его контексте.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Пример 2: Глобальный контекст this -->
+                        <h4>
+                            Пример 2: Глобальный контекст
+                            <code>this</code>
+                        </h4>
+                        <p>
+                            Если вызвать функцию вне объекта,
+                            <code>this</code>
+                            будет ссылаться на глобальный объект (
+                            <code>window</code>
+                            в браузере).
+                        </p>
+                        <div class="grid-column-50">
+                            <div class="code-block">
+                                <pre><code>console.log(this); // В браузере: Window {...}</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                            <div class="example" style="font-size: 14px">
+                                <ul class="list-ul">
+                                    <li>
+                                        В глобальной области видимости
+                                        <code>this</code>
+                                        ссылается на глобальный объект (
+                                        <code>window</code>
+                                        ).
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Пример 3: Конструктор и this -->
+                        <h4>
+                            Пример 3: Конструктор и
+                            <code>this</code>
+                        </h4>
+                        <p>
+                            При создании объекта через конструктор
+                            <code>this</code>
+                            относится к новому экземпляру, который создаётся с помощью
+                            <code>new</code>
+                            .
+                        </p>
+                        <div class="grid-column-50">
+                            <div class="code-block">
+                                <pre><code>function User(name) {
+    this.name = name; // this = новый объект
+}
+const alice = new User("Alice");
+console.log(alice.name); // "Alice"</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                            <div class="example" style="font-size: 14px">
+                                <ul class="list-ul">
+                                    <li>
+                                        В конструкторах
+                                        <code>this</code>
+                                        указывает на новый объект, созданный через
+                                        <code>new</code>
+                                        .
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Пример 4: Управление контекстом через call, apply, bind -->
+                        <h4>
+                            Пример 4: Управление контекстом через
+                            <code>call</code>
+                            ,
+                            <code>apply</code>
+                            ,
+                            <code>bind</code>
+                        </h4>
+                        <p>
+                            Эти методы позволяют явно указывать, каким должен быть
+                            <code>this</code>
+                            для функции.
+                        </p>
+                        <div class="grid-column-50">
+                            <div class="code-block">
+                                <pre><code>function greet(greeting) {
+    console.log(`${greeting}, ${this.name}!`);
+}
+
+const hero = { name: "Человек-паук" };
+greet.call(hero, "Привет"); // "Привет, Человек-паук!"
+greet.apply(hero, ["Здравствуйте"]); // "Здравствуйте, Человек-паук!"
+
+const sayHiLater = greet.bind(hero, "Хей");
+sayHiLater(); // "Хей, Человек-паук!"</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                            <div class="example" style="font-size: 14px">
+                                <ul class="list-ul">
+                                    <li>
+                                        <code>call</code>
+                                        вызывает функцию с указанным
+                                        <code>this</code>
+                                        и аргументами через запятую.
+                                    </li>
+                                    <li>
+                                        <code>apply</code>
+                                        — то же, но аргументы передаются массивом.
+                                    </li>
+                                    <li>
+                                        <code>bind</code>
+                                        возвращает новую функцию с закреплённым
+                                        <code>this</code>
+                                        и аргументами.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Пример 5: Разница между call и apply -->
+                        <h4>
+                            Пример 5: Разница между
+                            <code>call</code>
+                            и
+                            <code>apply</code>
+                        </h4>
+                        <p>Главное отличие — способ передачи аргументов: через запятую или массив.</p>
+                        <div class="grid-column-100">
+                            <div class="code-block">
+                                <pre><code>// Разница между call и apply:
+greet.call(hero, "Привет"); // аргументы через запятую
+greet.apply(hero, ["Здравствуйте"]); // аргументы массивом</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                            <div class="example" style="font-size: 14px">
+                                <ul class="list-ul">
+                                    <li>
+                                        Если у тебя уже есть массив аргументов, используй
+                                        <code>apply</code>
+                                        .
+                                    </li>
+                                    <li>
+                                        Если аргументы перечислены явно —
+                                        <code>call</code>
+                                        .
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="practice">
+                    <div class="container">
+                        <h2>Практика</h2>
+                        <div class="interactive-demo">
+                            <div class="demo-box">
+                                <button
+                                    class="demo-btn"
+                                    onclick="(function(){
+                                    const user = { name: 'Вася' };
+                                    function show() { document.querySelector('.demo-result').innerText = `Hello, ${this.name}`; }
+                                    show.call(user);
+                                })()">
+                                    Показать приветствие через call
+                                </button>
+                                <div class="demo-result" style="margin-top: 10px; font-weight: bold"></div>
+                            </div>
+                        </div>
+                        <div class="note note--info">
+                            Попробуй изменить объект и повторить вызов — увидишь, как
+                            <code>this</code>
+                            меняет контекст исполнения!
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="tips">
+                    <div class="container">
+                        <h2>Советы и типичные ошибки</h2>
+                        <ul class="list-ul">
+                            <li>
+                                Следи за тем, как вызывается функция — это влияет на
+                                <code>this</code>
+                                .
+                            </li>
+                            <li>
+                                В строгом режиме (
+                                <code>'use strict'</code>
+                                )
+                                <code>this</code>
+                                может быть
+                                <code>undefined</code>
+                                вне объектов.
+                            </li>
+                            <li>
+                                Не используйте
+                                <code>this</code>
+                                в стрелочных функциях — они не имеют собственного
+                                <code>this</code>
+                                .
+                            </li>
+                        </ul>
+                        <div class="note note--info">
+                            💡
+                            <b>this</b>
+                            не фиксировано! Оно определяется в момент вызова функции, а не при объявлении.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="best-practices">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+                        <ul class="list-ul">
+                            <li>
+                                Используйте
+                                <code>call</code>
+                                ,
+                                <code>apply</code>
+                                ,
+                                <code>bind</code>
+                                для явного управления контекстом.
+                            </li>
+                            <li>
+                                Не злоупотребляйте
+                                <code>this</code>
+                                в сложных структурах — это может запутать код.
+                            </li>
+                            <li>
+                                Чётко разделяйте функции и методы для предсказуемого поведения
+                                <code>this</code>
+                                .
+                            </li>
+                            <li>
+                                Используйте стрелочные функции, если нужен внешний
+                                <code>this</code>
+                                .
+                            </li>
+                        </ul>
+                        <div class="note note--info">
+                            Умение управлять
+                            <code>this</code>
+                            помогает создавать гибкий и чистый JavaScript-код.
+                        </div>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+    </body>
+</html>

@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../html/head.html', { "title": "Циклы и условные конструкции во Vue", "description": "Как использовать v-for, v-if, v-else, v-show и v-else-if для динамического и условного отображения данных" })
+
+<body>
+  <div class="wrapper">
+    @@include('../html/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="#intro">Введение</a>
+        <a href="#v-for">v-for</a>
+        <a href="#v-if">v-if/v-else/v-show</a>
+        <a href="#v-else-if">v-else-if</a>
+        <a href="#practice">Практика</a>
+        <a href="#examples">Примеры</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="intro">
+        <div class="container">
+          <h1>Циклы и условные конструкции во Vue</h1>
+          <p class="note">
+            <strong>Циклы и условные конструкции во Vue</strong>
+            — ключевые инструменты для динамического отображения данных и управления видимостью элементов на странице.
+
+          </p>
+          <h4>Циклы и условные конструкции нужны для:</h4>
+          <ul class="list-ul">
+            <li>Динамического создания списков и элементов на основе данных</li>
+            <li>Управления видимостью контента в зависимости от состояния приложения</li>
+            <li>Создания интерактивных интерфейсов с адаптивным отображением информации</li>
+          </ul>
+
+          <h4>Основные директивы:</h4>
+          <h4></h4>
+          <ul class="list-ul">
+            <li><strong>v-for</strong> — директива для перебора массивов и отображения элементов списка.</li>
+            <li><strong>v-if</strong> — директива для условного отображения элементов на основе логических выражений.</li>
+            <li><strong>v-else</strong> — директива для отображения альтернативного контента, если условие v-if не выполнено.</li>
+            <li><strong>v-else-if</strong> — директива для добавления дополнительных условий к цепочке v-if/v-else.</li>
+            <li><strong>v-show</strong> — директива для условного отображения элементов с помощью CSS-свойства display.</li>
+          </ul>
+
+          <!-- Вывод: -->
+          <p class="note note--info">
+            🚀
+            Освоение циклов и условных конструкций во Vue позволит создавать динамичные и интерактивные веб-приложения с гибким управлением отображением контента.
+          </p>
+        </div>
+      </section>
+
+      <!-- v-for -->
+      <section class="section" id="v-for">
+        <div class="container">
+          <h2>v-for</h2>
+          <p class="note">
+            <strong>v-for</strong> - директива Vue.js для перебора массивов и отображения элементов списка.
+            Она позволяет динамически создавать элементы на основе данных, что делает интерфейсы более гибкими и интерактивными.
+          </p>
+
+          <h4>Базовый синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>&lt;li v-for="item in items" :key="item.id"&gt;{{ item }}&lt;/li&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>v-for</code> — директива для перебора массива <code>items</code>.</li>
+            <li><code>item</code> — текущий элемент массива <code>items</code> в каждой итерации.</li>
+            <li><code>:key</code> — уникальный идентификатор для каждого элемента, помогающий Vue эффективно обновлять DOM.</li>
+            <li><code>item.id</code> — предполагается, что каждый элемент массива имеет уникальное свойство <code>id</code>.</li>
+            <li><code>{{ item }}</code> — отображение текущего элемента в списке.</li>
+          </ul>
+          <h4>Пример:</h4>
+          <p>Отобразим список пользователей с их именами и возрастом:</p>
+          <div class="interactive-demo">
+            <div id="users-demo">
+              <ul>
+                <li v-for="user in users" :key="user.id">
+                  👤 {{ user.name }} (Возраст: {{ user.age }})
+                </li>
+              </ul>
+            </div>
+          </div>
+          <script>
+            Vue.createApp({
+              data() {
+                return {
+                  users: [{
+                      id: 1,
+                      name: "Алиса",
+                      age: 25
+                    },
+                    {
+                      id: 2,
+                      name: "Боб",
+                      age: 30
+                    },
+                    {
+                      id: 3,
+                      name: "Чарли",
+                      age: 35
+                    }
+                  ]
+                }
+              }
+            }).mount("#users-demo");
+          </script>
+          <div class="code-block">
+            <pre><code>&lt;ul&gt;
+   &lt;li v-for="user in users" :key="user.id"&gt;
+     👤 {{ user.name }} (Возраст: {{ user.age }})
+   &lt;/li&gt;
+&lt;/ul&gt;
+
+ &lt;script&gt;
+ Vue.createApp({
+   data() {
+     return {
+       users: [
+         { id: 1, name: "Алиса", age: 25 },
+         { id: 2, name: "Боб", age: 30 },
+         { id: 3, name: "Чарли", age: 35 }
+       ]
+     }
+   }
+ }).mount("#users-demo");
+ &lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Создаём Vue-приложение с массивом пользователей в данных.</li>
+            <li>Используем <code>v-for</code> для перебора массива <code>users</code> и отображения каждого пользователя в списке.</li>
+            <li>Каждому элементу списка присваиваем уникальный ключ с помощью <code>:key="user.id"</code>.</li>
+          </ul>
+
+
+
+          <h3>Нумерация элементов: v-for с индексом</h3>
+          <div class="note note--info">Нумерация элементов: v-for с индексом позволяет отображать порядковый номер каждого элемента в списке.</div>
+          <h4>Пример с нумерацией пользователей:</h4>
+          <p>Отобразим список пользователей с их именами и порядковыми номерами:</p>
+          <div class="interactive-demo">
+            <div id="users-demo-indexed">
+              <ul>
+                <li v-for="(user, index) in users" :key="user.id">
+                  {{ index + 1 }}. 👤 {{ user.name }}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <script>
+            Vue.createApp({
+              data() {
+                return {
+                  users: [{
+                      id: 1,
+                      name: "Алиса",
+                      age: 25
+                    },
+                    {
+                      id: 2,
+                      name: "Боб",
+                      age: 30
+                    },
+                    {
+                      id: 3,
+                      name: "Чарли",
+                      age: 35
+                    }
+                  ]
+                }
+              }
+            }).mount("#users-demo-indexed");
+          </script>
+
+
+
+          <div class="code-block">
+            <pre><code>&lt;ul&gt;
+  &lt;li v-for="(user, index) in users" :key="user.id"&gt;
+    {{ index + 1 }}. 👤 {{ user.name }}
+  &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Используем синтаксис <code>(user, index)</code> для получения текущего элемента и его индекса.</li>
+            <li>Отображаем порядковый номер с помощью <code>{{ index + 1 }}</code>, так как индексация начинается с 0.</li>
+          </ul>
+          <!-- Вывод: -->
+          <p class="note note--info">
+            🚀
+            <strong>v-for с индексом</strong> — удобный способ нумеровать элементы в списке при их отображении.
+          </p>
+        </div>
+      </section>
+
+      <!-- v-if/v-else/v-show -->
+      <section class="section" id="v-if">
+        <div class="container">
+          <h2>Условное отображение</h2>
+          <p class="note">
+            <strong>v-if, v-else и v-show</strong> — директивы Vue.js для условного отображения элементов на странице.
+            Они позволяют управлять видимостью контента в зависимости от состояния приложения или логических условий.
+          </p>
+          <h3>v-if и v-else</h3>
+          <p class="note note--info">
+            <strong>v-if</strong> - директива для условного отображения элемента, если выражение истинно. <br>
+            <strong>v-else</strong> - директива для отображения альтернативного контента, если условие v-if ложно.
+          </p>
+
+          <h4>Различие между v-if и v-else:</h4>
+          <ul class="list-ul">
+            <li><code>v-if</code> проверяет условие и отображает элемент, если оно истинно.</li>
+            <li><code>v-else</code> следует сразу за <code>v-if</code> и отображается, когда условие <code>v-if</code> ложно.</li>
+          </ul>
+          <h4>Пример:</h4>
+          <p>Отобразим кнопки <b>"Войти"</b> и <b>"Выйти"</b> в зависимости от состояния авторизации пользователя:</p>
+
+          <div class="interactive-demo">
+            <div id="auth-demo">
+              <button v-if="isLoggedIn">Выйти</button>
+              <button v-else>Войти</button>
+            </div>
+          </div>
+          <div class="code-block">
+            <pre><code>&lt;div id="auth-demo"&gt;
+  &lt;button v-if="isLoggedIn"&gt;Выйти&lt;/button&gt;
+  &lt;button v-else&gt;Войти&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return { isLoggedIn: false }
+  }
+}).mount("#auth-demo");
+&lt;/script&gt;</code></pre>
+          </div>
+
+
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Создаём Vue-приложение с булевым состоянием <code>isLoggedIn</code>.</li>
+            <li>Используем <code>v-if</code> для отображения кнопки "Выйти", если пользователь авторизован.</li>
+            <li>Используем <code>v-else</code> для отображения кнопки "Войти", если пользователь не авторизован.</li>
+          </ul>
+
+          <h3>v-show</h3>
+          <p class="note note--info">
+            <strong>v-show</strong> - директива для условного отображения элемента с помощью CSS-свойства <code>display</code>.
+            В отличие от <code>v-if</code>, элемент остаётся в DOM, но скрывается визуально.
+          </p>
+
+          <h4>Отличием между v-if и v-show:</h4>
+          <ul class="list-ul">
+            <li><code>v-if</code> добавляет или удаляет элемент из DOM в зависимости от условия.</li>
+            <li><code>v-show</code> всегда оставляет элемент в DOM, но управляет его видимостью через CSS.</li>
+          </ul>
+          <h4>Пример:</h4>
+          <p>Скрыть и показать текст по кнопке:</p>
+
+          <div class="interactive-demo">
+            <div id="show-demo">
+              <button @click="isVisible = !isVisible">Переключить</button>
+              <p v-show="isVisible">Этот текст можно скрыть!</p>
+            </div>
+          </div>
+
+          <div class="code-block">
+            <pre><code>&lt;div id="show-demo"&gt;
+  &lt;button @click="isVisible = !isVisible"&gt;Переключить&lt;/button&gt;
+  &lt;p v-show="isVisible"&gt;Этот текст можно скрыть!&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return { isVisible: true }
+  }
+}).mount("#show-demo");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Создаём Vue-приложение с булевым состоянием <code>isVisible</code>.</li>
+            <li>Используем <code>v-show</code> для управления видимостью текста по кнопке.</li>
+            <li>Кнопка переключает значение <code>isVisible</code>, скрывая или показывая текст.</li>
+          </ul>
+          <div class="note note--info">
+            <b>Когда использовать v-if vs v-show:</b>
+            <ul class="list-ul">
+              <li>Используйте <code>v-if</code>, когда условие редко меняется и важно экономить ресурсы DOM.</li>
+              <li>Используйте <code>v-show</code>, когда нужно часто переключать видимость элемента без удаления из DOM.</li>
+            </ul>
+          </div>
+      </section>
+
+      <!-- v-else-if -->
+      <section class="section" id="v-else-if">
+        <div class="container">
+          <h2>v-else-if: несколько условий</h2>
+          <p class="note">
+            <strong>v-else-if</strong> — директива Vue.js для добавления промежуточных условий между <code>v-if</code> и <code>v-else</code>.
+            Она позволяет создавать цепочки условий для более сложной логики отображения элементов.
+          </p>
+          <h4>Пример:</h4>
+          <p>Покажем разные сообщения в зависимости от роли пользователя:</p>
+
+          <div class="interactive-demo">
+            <div id="role-demo">
+              <p v-if="role === 'admin'">Привет, Админ! 👑</p>
+              <p v-else-if="role === 'user'">Привет, Пользователь! 👤</p>
+              <p v-else>Привет, Гость! 🚪</p>
+            </div>
+          </div>
+          <div class="code-block">
+            <pre><code>&lt;div id="role-demo"&gt;
+  &lt;p v-if="role === 'admin'"&gt;Привет, Админ! 👑&lt;/p&gt;
+  &lt;p v-else-if="role === 'user'"&gt;Привет, Пользователь! 👤&lt;/p&gt;
+  &lt;p v-else&gt;Привет, Гость! 🚪&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return { role: "user" } // 'admin', 'user', 'guest'
+  }
+}).mount("#role-demo");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Создаём Vue-приложение с состоянием <code>role</code>, которое может принимать значения 'admin', 'user' или 'guest'.</li>
+            <li>Используем <code>v-if</code> для отображения сообщения для администратора.</li>
+            <li>Используем <code>v-else-if</code> для отображения сообщения для обычного пользователя.</li>
+            <li>Используем <code>v-else</code> для отображения сообщения для гостя.</li>
+          </ul>
+
+          <!-- Вывод: -->
+          <p class="note note--info">
+            🚀
+            <strong>v-else-if</strong> — мощный инструмент для создания сложных условий отображения в Vue.js.
+          </p>
+        </div>
+      </section>
+
+      <!-- Практика -->
+      <section class="section" id="practice">
+        <div class="container">
+          <h2>Практика: переключение текста</h2>
+          <div class="interactive-demo">
+            <div id="toggle-demo">
+              <button @click="toggleText">Переключить текст</button>
+              <p v-if="isVisible">Этот текст можно скрыть!</p>
+            </div>
+          </div>
+          <div class="code-block">
+            <pre><code>&lt;div id="toggle-demo"&gt;
+  &lt;button @click="toggleText"&gt;Переключить текст&lt;/button&gt;
+  &lt;p v-if="isVisible"&gt;Этот текст можно скрыть!&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return { isVisible: true }
+  },
+  methods: {
+    toggleText() {
+      this.isVisible = !this.isVisible;
+    }
+  }
+}).mount("#toggle-demo");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Создаём Vue-приложение с булевым состоянием <code>isVisible</code>.</li>
+            <li>Используем <code>v-if</code> для условного отображения текста.</li>
+            <li>Метод <code>toggleText</code> переключает значение <code>isVisible</code> при нажатии кнопки.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Реальные примеры -->
+      <section class="section" id="examples">
+        <div class="container">
+          <h2>Реальные примеры циклов и условий во Vue</h2>
+          <p class="note">
+            Рассмотрим несколько практических примеров использования директив <code>v-for</code>, <code>v-if</code>, <code>v-else-if</code> и <code>v-show</code> в реальных сценариях.
+          </p>
+
+          <!-- Пример 1 -->
+          <h3>Пример 1. Список задач с фильтрацией</h3>
+          <p class="note note--info">Фильтруем задачи по поисковому запросу:</p>
+          <div class="interactive-demo">
+            <div id="tasks-demo">
+              <input type="text" v-model="search" placeholder="Поиск задачи" />
+              <ul v-if="filteredTasks.length">
+                <li v-for="task in filteredTasks" :key="task.id">{{ task.text }}</li>
+              </ul>
+              <p v-else>Нет задач!</p>
+            </div>
+          </div>
+
+          <h4>Код:</h4>
+          <div class="code-block">
+            <pre><code>&lt;input type="text" v-model="search" placeholder="Поиск задачи"&gt;
+&lt;ul v-if="filteredTasks.length"&gt;
+  &lt;li v-for="task in filteredTasks" :key="task.id"&gt;{{ task.text }}&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p v-else&gt;Нет задач!&lt;/p&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return {
+      search: "",
+      tasks: [
+        { id: 1, text: "Купить хлеб" },
+        { id: 2, text: "Сделать уроки" },
+        { id: 3, text: "Позвонить другу" }
+      ]
+    }
+  },
+  computed: {
+    filteredTasks() {
+      return this.tasks.filter(t => t.text.toLowerCase().includes(this.search.toLowerCase()));
+    }
+  }
+}).mount("#tasks-demo");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Используем <code>v-model</code> для двусторонней привязки поискового запроса.</li>
+            <li>Используем <code>v-if</code> для отображения списка задач, если есть совпадения.</li>
+            <li>Используем <code>v-else</code> для отображения сообщения, если нет задач.</li>
+            <li>Используем <code>v-for</code> для перебора отфильтрованных задач и их отображения.</li>
+          </ul>
+
+          <!-- Пример 2 -->
+          <h3 style="margin-top: 50px;">Пример 2. Галерея с v-show</h3>
+          <p class="note note--info">Показываем и скрываем галерею изображений по кнопке:</p>
+
+          <div class="interactive-demo">
+            <div id="gallery-demo">
+              <button @click="isOpen = !isOpen">Показать/Скрыть галерею</button>
+              <div v-show="isOpen" class="gallery">
+                <img v-for="img in images" :src="img" :key="img" style="width: 80px; margin: 6px" />
+              </div>
+            </div>
+          </div>
+
+          <h4>Код:</h4>
+          <div class="code-block">
+            <pre><code>&lt;button @click="isOpen = !isOpen"&gt;Показать/Скрыть галерею&lt;/button&gt;
+&lt;div v-show="isOpen"&gt;
+  &lt;img v-for="img in images" :src="img" :key="img"&gt;
+&lt;/div&gt;
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return {
+      isOpen: true,
+      images: [
+        "https://placehold.co/80x80?text=1",
+        "https://placehold.co/80x80?text=2",
+        "https://placehold.co/80x80?text=3"
+      ]
+    }
+  }
+}).mount("#gallery-demo");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Используем <code>v-show</code> для управления видимостью галереи изображений.</li>
+            <li>Кнопка переключает значение <code>isOpen</code>, показывая или скрывая галерею.</li>
+            <li>Используем <code>v-for</code> для перебора массива изображений и их отображения.</li>
+          </ul>
+
+
+
+
+
+          <!-- Пример 3 -->
+          <h3 style="margin-top: 50px;">Пример 3. Таблица пользователей с ролями</h3>
+          <p class="note note--info">Отображаем роли пользователей с помощью v-if/v-else-if/v-else:</p>
+
+          <div class="interactive-demo">
+            <div id="table-demo">
+              <table>
+                <tr>
+                  <th>Имя</th>
+                  <th>Роль</th>
+                </tr>
+                <tr v-for="user in users" :key="user.id">
+                  <td>{{ user.name }}</td>
+                  <td>
+                    <span v-if="user.role === 'admin'">👑 Админ</span>
+                    <span v-else-if="user.role === 'user'">👤 Пользователь</span>
+                    <span v-else>🚪 Гость</span>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <h4>Код:</h4>
+          <div class="code-block">
+            <pre><code>&lt;tr v-for="user in users" :key="user.id"&gt;
+  &lt;td&gt;{{ user.name }}&lt;/td&gt;
+  &lt;td&gt;
+    &lt;span v-if="user.role === 'admin'"&gt;👑 Админ&lt;/span&gt;
+    &lt;span v-else-if="user.role === 'user'"&gt;👤 Пользователь&lt;/span&gt;
+    &lt;span v-else&gt;🚪 Гость&lt;/span&gt;
+  &lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return {
+      users: [
+        { id: 1, name: "Алиса", role: "admin" },
+        { id: 2, name: "Боб", role: "user" },
+        { id: 3, name: "Гость", role: "guest" }
+      ]
+    }
+  }
+}).mount("#table-demo");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Используем <code>v-for</code> для перебора массива пользователей и отображения их в таблице.</li>
+            <li>Используем <code>v-if</code>, <code>v-else-if</code> и <code>v-else</code> для отображения роли пользователя с соответствующей иконкой.</li>
+
+
+        </div>
+      </section>
+    </main>
+    @@include('../html/footer.html', {})
+  </div>
+  @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <script>
+    // v-if/v-else demo: авторизация
+    Vue.createApp({
+      data() {
+        return {
+          isLoggedIn: false,
+        };
+      },
+    }).mount("#auth-demo");
+
+    // v-show demo
+    Vue.createApp({
+      data() {
+        return {
+          isVisible: true,
+        };
+      },
+    }).mount("#show-demo");
+
+    // v-else-if demo
+    Vue.createApp({
+      data() {
+        return {
+          role: "user",
+        };
+      },
+    }).mount("#role-demo");
+
+    // Практика: переключение текста
+    Vue.createApp({
+      data() {
+        return {
+          isVisible: true,
+        };
+      },
+      methods: {
+        toggleText() {
+          this.isVisible = !this.isVisible;
+        },
+      },
+    }).mount("#toggle-demo");
+
+    // Пример 1: задачи с фильтрацией
+    Vue.createApp({
+      data() {
+        return {
+          search: "",
+          tasks: [{
+              id: 1,
+              text: "Купить хлеб"
+            },
+            {
+              id: 2,
+              text: "Сделать уроки"
+            },
+            {
+              id: 3,
+              text: "Позвонить другу"
+            },
+          ],
+        };
+      },
+      computed: {
+        filteredTasks() {
+          return this.tasks.filter((t) => t.text.toLowerCase().includes(this.search.toLowerCase()));
+        },
+      },
+    }).mount("#tasks-demo");
+
+    // Пример 2: галерея с v-show
+    Vue.createApp({
+      data() {
+        return {
+          isOpen: true,
+          images: ["https://placehold.co/80x80?text=1", "https://placehold.co/80x80?text=2", "https://placehold.co/80x80?text=3"],
+        };
+      },
+    }).mount("#gallery-demo");
+
+    // Пример 3: таблица пользователей с ролями
+    Vue.createApp({
+      data() {
+        return {
+          users: [{
+              id: 1,
+              name: "Алиса",
+              role: "admin"
+            },
+            {
+              id: 2,
+              name: "Боб",
+              role: "user"
+            },
+            {
+              id: 3,
+              name: "Гость",
+              role: "guest"
+            },
+          ],
+        };
+      },
+    }).mount("#table-demo");
+  </script>
+
+
+
+</body>
+
+</html>

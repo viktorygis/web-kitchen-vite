@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>📝 Мой список дел</title>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic" rel="stylesheet" />
+        <style>
+            :root {
+                --todo-bg: #fcfcfc;
+                --todo-radius: 18px;
+                --todo-shadow: 0 6px 32px rgba(60, 60, 60, 0.13);
+                --input-bg: #f7fafc;
+                --input-border: #b8c2cc;
+                --input-radius: 8px;
+                --btn-bg: #5ca9fa;
+                --btn-bg-hover: #2979ff;
+                --btn-radius: 7px;
+                --btn-color: #fff;
+                --li-bg: #f5f7fb;
+                --li-bg-hover: #e3eaf5;
+                --li-radius: 7px;
+                --li-done-bg: #eaeaea;
+                --li-done-color: #b5b5b5;
+                --del-btn-color: #db4242;
+                --del-btn-hover: #a00;
+                --error-bg: #ffeaea;
+                --error-color: #db4242;
+                --error-radius: 7px;
+                --transition-fast: 0.13s;
+                --transition-normal: 0.23s;
+                --font-main: "Montserrat", Arial, sans-serif;
+                --font-size-base: 17px;
+                --container-padding: 2rem 1.7rem;
+                --box-shadow-hover: 0 8px 24px rgba(41, 121, 255, 0.13);
+                --shadow-btn: 0 1px 6px rgba(41, 121, 255, 0.1);
+            }
+
+            .page {
+                font-family: var(--font-main);
+                background: #f3f6fa;
+            }
+
+            .page__container {
+                padding: 2.3rem 0;
+            }
+
+            .todo-layout {
+                max-width: 760px;
+                margin: 0 auto;
+                display: flex;
+                gap: 36px;
+                align-items: flex-start;
+            }
+
+            .todo-panel {
+                flex: 1 1 0;
+                background: var(--todo-bg);
+                border-radius: var(--todo-radius);
+                box-shadow: var(--todo-shadow);
+                padding: var(--container-padding);
+                min-width: 280px;
+            }
+
+            .todo-panel_left {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .todo-panel_right {
+                padding-top: 2.8rem;
+                min-width: 280px;
+            }
+
+            .todo-panel__title {
+                font-size: 1.5rem;
+                font-weight: 700;
+                margin-bottom: 0.7rem;
+                color: #2362c7;
+                letter-spacing: 0.5px;
+            }
+
+            .todo-panel__error {
+                width: 100%;
+                text-align: left;
+                color: var(--error-color);
+                background: var(--error-bg);
+                border-radius: var(--error-radius);
+                padding: 7px 14px;
+                font-size: 15px;
+                margin-bottom: 10px;
+                display: none;
+                font-weight: 500;
+                letter-spacing: 0.1px;
+                box-shadow: 0 1px 6px rgba(219, 66, 66, 0.09);
+            }
+
+            .todo-panel__input-row {
+                display: flex;
+                gap: 10px;
+                width: 100%;
+                margin-bottom: 18px;
+            }
+
+            .todo-panel__input {
+                flex: 1;
+                padding: 11px 16px;
+                font-size: var(--font-size-base);
+                border: 1.5px solid var(--input-border);
+                border-radius: var(--input-radius);
+                background: var(--input-bg);
+                transition: border var(--transition-normal), box-shadow var(--transition-normal);
+                box-shadow: 0 2px 8px rgba(41, 121, 255, 0.06);
+            }
+            .todo-panel__input:focus {
+                border-color: var(--btn-bg-hover);
+                outline: none;
+                box-shadow: 0 2px 16px rgba(41, 121, 255, 0.11);
+            }
+
+            .todo-panel__btn-row {
+                display: flex;
+                gap: 10px;
+                width: 100%;
+                margin-bottom: 8px;
+            }
+            .todo-panel__btn {
+                padding: 10px 20px;
+                font-size: var(--font-size-base);
+                border: none;
+                border-radius: var(--btn-radius);
+                background: var(--btn-bg);
+                color: var(--btn-color);
+                cursor: pointer;
+                transition: background var(--transition-normal), box-shadow var(--transition-normal), transform var(--transition-fast);
+                box-shadow: var(--shadow-btn);
+                font-weight: 600;
+                letter-spacing: 0.2px;
+                flex: 1 1 0;
+            }
+            .todo-panel__btn:hover {
+                background: var(--btn-bg-hover);
+                box-shadow: 0 6px 15px rgba(41, 121, 255, 0.18);
+                transform: translateY(-2px) scale(1.04);
+            }
+
+            .todo-list {
+                list-style: none;
+                padding: 0;
+                margin-top: 0.7rem;
+                width: 100%;
+            }
+            .todo-list__item {
+                background: var(--li-bg);
+                padding: 12px 48px 12px 15px;
+                margin: 7px 0;
+                border-radius: var(--li-radius);
+                font-size: var(--font-size-base);
+                position: relative;
+                cursor: pointer;
+                transition: background var(--transition-normal), color var(--transition-normal), box-shadow var(--transition-normal);
+                user-select: none;
+                box-shadow: 0 1px 5px rgba(41, 121, 255, 0.07);
+                display: flex;
+                align-items: center;
+                min-height: 44px;
+            }
+            .todo-list__item_done {
+                text-decoration: line-through;
+                color: var(--li-done-color);
+                background: var(--li-done-bg);
+                opacity: 0.8;
+            }
+            .todo-list__item:hover {
+                background: var(--li-bg-hover);
+                box-shadow: 0 4px 14px rgba(41, 121, 255, 0.13);
+            }
+
+            .todo-list__delete-btn {
+                position: absolute;
+                right: 14px;
+                top: 50%;
+                transform: translateY(-50%);
+                background: none;
+                border: none;
+                color: var(--del-btn-color);
+                font-size: 21px;
+                cursor: pointer;
+                opacity: 0.8;
+                transition: color var(--transition-normal), transform var(--transition-fast);
+                padding: 0 5px;
+            }
+            .todo-list__delete-btn:hover {
+                color: var(--del-btn-hover);
+                transform: scale(1.18);
+                opacity: 1;
+            }
+
+            .todo-list__item_fade-out {
+                opacity: 0;
+                transition: opacity var(--transition-fast);
+            }
+
+            @media (max-width: 900px) {
+                .todo-layout {
+                    flex-direction: column;
+                    gap: 16px;
+                    max-width: 98vw;
+                }
+                .todo-panel {
+                    min-width: 0;
+                }
+            }
+        </style>
+    </head>
+    <body class="page">
+        <div class="todo-layout">
+            <div class="todo-panel todo-panel_left">
+                <h1 class="todo-panel__title">📝 Мой список дел</h1>
+                <div class="todo-panel__error" id="errorMsg"></div>
+                <div class="todo-panel__input-row">
+                    <input class="todo-panel__input" type="text" id="taskInput" placeholder="Введите задачу..." autocomplete="off" />
+                </div>
+                <div class="todo-panel__btn-row">
+                    <button class="todo-panel__btn" id="addTaskBtn">Добавить</button>
+                    <button class="todo-panel__btn" id="clearAllBtn">Очистить список</button>
+                </div>
+            </div>
+            <div class="todo-panel todo-panel_right">
+                <ul class="todo-list" id="taskList"></ul>
+            </div>
+        </div>
+        <script>
+            "use strict";
+
+            const taskInput = document.querySelector("#taskInput");
+            const addTaskBtn = document.querySelector("#addTaskBtn");
+            const clearAllBtn = document.querySelector("#clearAllBtn");
+            const taskList = document.querySelector("#taskList");
+            const errorMsg = document.querySelector("#errorMsg");
+
+            function saveTasks() {
+                const tasks = [];
+                taskList.querySelectorAll(".todo-list__item").forEach((li) => {
+                    tasks.push({
+                        text: li.querySelector(".todo-list__text")?.textContent || "",
+                        done: li.classList.contains("todo-list__item_done"),
+                    });
+                });
+                localStorage.setItem("todo-tasks", JSON.stringify(tasks));
+            }
+
+            function loadTasks() {
+                let tasks = [];
+                let raw = localStorage.getItem("todo-tasks");
+                if (raw) {
+                    try {
+                        let parsed = JSON.parse(raw);
+                        if (Array.isArray(parsed)) tasks = parsed;
+                    } catch (e) {
+                        localStorage.removeItem("todo-tasks");
+                    }
+                }
+                tasks.forEach((task) => {
+                    if (typeof task.text === "string" && task.text.trim() && !["null", "undefined"].includes(task.text.trim().toLowerCase())) {
+                        addTaskToDOM(task.text, !!task.done);
+                    }
+                });
+            }
+
+            function addTaskToDOM(taskText, isDone = false) {
+                if (typeof taskText !== "string" || !taskText.trim()) return;
+                const li = document.createElement("li");
+                li.className = "todo-list__item";
+                if (isDone) li.classList.add("todo-list__item_done");
+
+                // Текст задачи в отдельный элемент (для БЭМ)
+                const spanText = document.createElement("span");
+                spanText.className = "todo-list__text";
+                spanText.textContent = taskText;
+                li.appendChild(spanText);
+
+                // Кнопка удаления
+                const delBtn = document.createElement("button");
+                delBtn.textContent = "✖";
+                delBtn.className = "todo-list__delete-btn";
+                delBtn.setAttribute("aria-label", "Удалить задачу");
+                delBtn.addEventListener("click", function (e) {
+                    e.stopPropagation();
+                    li.classList.add("todo-list__item_fade-out");
+                    setTimeout(() => {
+                        if (li.parentNode === taskList) taskList.removeChild(li);
+                        saveTasks();
+                    }, 180);
+                });
+
+                // Отметка задачи как выполненной
+                li.addEventListener("click", function (e) {
+                    if (e.target === delBtn) return;
+                    li.classList.toggle("todo-list__item_done");
+                    saveTasks();
+                });
+
+                li.appendChild(delBtn);
+                taskList.appendChild(li);
+            }
+
+            function addTask() {
+                let taskText = taskInput.value;
+                if (typeof taskText !== "string") taskText = String(taskText);
+                taskText = taskText.trim();
+
+                if (!taskText || taskText.toLowerCase() === "null" || taskText.toLowerCase() === "undefined") {
+                    showError("Введите реальную задачу! 🧐");
+                    return;
+                }
+
+                let duplicate = false;
+                taskList.querySelectorAll(".todo-list__item").forEach((li) => {
+                    if ((li.querySelector(".todo-list__text")?.textContent ?? "") === taskText) duplicate = true;
+                });
+                if (duplicate) {
+                    showError("Такая задача уже есть!");
+                    return;
+                }
+                addTaskToDOM(taskText, false);
+                taskInput.value = "";
+                hideError();
+                saveTasks();
+            }
+
+            function clearAllTasks() {
+                taskList.innerHTML = "";
+                saveTasks();
+            }
+
+            function showError(msg) {
+                errorMsg.textContent = msg;
+                errorMsg.style.display = "block";
+            }
+            function hideError() {
+                errorMsg.textContent = "";
+                errorMsg.style.display = "none";
+            }
+
+            addTaskBtn.addEventListener("click", addTask);
+            clearAllBtn.addEventListener("click", clearAllTasks);
+            taskInput.addEventListener("keypress", function (event) {
+                if (event.key === "Enter") {
+                    addTask();
+                }
+            });
+
+            window.addEventListener("load", loadTasks);
+        </script>
+    </body>
+</html>

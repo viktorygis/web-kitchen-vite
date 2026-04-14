@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Props в React", "description": "Что такое props, передача свойств, лучшие практики, примеры использования props в React." })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#intro">Введение</a>
+                    <a href="#props-basics">Основы props</a>
+                    <a href="#passing">Передача props</a>
+                    <a href="#children">Дочерние элементы</a>
+                    <a href="#practice">Практика</a>
+                    <a href="#tips">Советы</a>
+                    <a href="#best-practices">Лучшие практики</a>
+                    <a href="#examples">Примеры</a>
+                </nav>
+
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>Props в React</h1>
+                        <p class="note">
+                            <b>Props</b>
+                            — способ передавать данные компонентам.
+                            <br />
+                            Любой компонент может принимать props (свойства) от родителя.
+                            <br />
+                            Props — только для чтения!
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section" id="props-basics">
+                    <div class="container">
+                        <h2>Основы props</h2>
+                        <pre><code>
+function Welcome(props) {
+  return &lt;h2&gt;Привет, {props.name}!&lt;/h2&gt;;
+}
+                        </code></pre>
+                        <div class="note note--info">В props приходит объект со всеми переданными свойствами.</div>
+                    </div>
+                </section>
+
+                <section class="section" id="passing">
+                    <div class="container">
+                        <h2>Передача props</h2>
+                        <pre><code>
+&lt;Welcome name="Аня" /&gt;
+                        </code></pre>
+                        <div class="note note--info">Передавайте любые данные: строки, числа, функции, массивы!</div>
+                    </div>
+                </section>
+
+                <section class="section" id="children">
+                    <div class="container">
+                        <h2>Дочерние элементы: props.children</h2>
+                        <pre><code>
+function Wrapper(props) {
+  return &lt;div className="wrap"&gt;{props.children}&lt;/div&gt;;
+}
+&lt;Wrapper&gt;Контент внутри!&lt;/Wrapper&gt;
+                        </code></pre>
+                        <div class="note note--info">
+                            <code>props.children</code>
+                            — всё, что написано внутри тега компонента.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="practice">
+                    <div class="container">
+                        <h2>Практика: карточка с props</h2>
+                        <div class="interactive-demo demo-box">
+                            <div class="code-block">
+                                <pre><code>
+&lt;div id="root"&gt;&lt;/div&gt;
+&lt;script type="text/babel"&gt;
+function Card(props) {
+  return &lt;div style={{border:"1px solid #ccc", padding:10}}&gt;
+    &lt;h3&gt;{props.title}&lt;/h3&gt;
+    &lt;div&gt;{props.children}&lt;/div&gt;
+  &lt;/div&gt;;
+}
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  &lt;Card title="Заголовок"&gt;Текст карточки&lt;/Card&gt;
+);
+&lt;/script&gt;
+                                </code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="tips">
+                    <div class="container">
+                        <h2>Советы и типичные ошибки</h2>
+                        <ul class="list-ul">
+                            <li>Props нельзя изменять внутри компонента!</li>
+                            <li>Для передачи данных вниз по дереву — используйте props.</li>
+                            <li>
+                                Используйте деструктуризацию для удобства:
+                                <code>function Comp({title})</code>
+                                .
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="best-practices">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+                        <ul class="list-ul">
+                            <li>Документируйте props (PropTypes, JSDoc).</li>
+                            <li>
+                                Используйте
+                                <code>defaultProps</code>
+                                или значения по умолчанию.
+                            </li>
+                            <li>Не передавайте избыточные props.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="examples">
+                    <div class="container">
+                        <h2>Примеры использования props</h2>
+                        <h4>Передача функции как props</h4>
+                        <pre><code>
+function Button({onClick, children}) {
+  return &lt;button onClick={onClick}&gt;{children}&lt;/button&gt;;
+}
+                        </code></pre>
+                        <h4>Массив как props</h4>
+                        <pre><code>
+function List({items}) {
+  return &lt;ul&gt;{items.map(i =&gt; &lt;li key={i}&gt;{i}&lt;/li&gt;)}&lt;/ul&gt;;
+}
+                        </code></pre>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    </body>
+</html>

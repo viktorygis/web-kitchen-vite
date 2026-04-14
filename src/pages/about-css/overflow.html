@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        @@include('../html/head.html', { "title": "overflow в CSS: Полное руководство", "description": "Виды overflow в CSS, примеры, практические советы" })
+        <style>
+            .overflow-examples-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(260px, 1fr));
+                gap: 24px;
+                margin-top: 32px;
+            }
+            .overflow-example-card {
+                background: #fff;
+                border-radius: 16px;
+                box-shadow: 0 4px 16px rgba(40, 60, 100, 0.1), 0 1.5px 3px rgba(40, 60, 100, 0.08);
+                padding: 22px 18px 18px 18px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                transition: box-shadow 0.4s;
+                position: relative;
+                overflow: hidden;
+            }
+            .overflow-example-card:hover {
+                box-shadow: 0 8px 28px rgba(40, 60, 100, 0.16), 0 3px 8px rgba(40, 60, 100, 0.1);
+                z-index: 1;
+            }
+            .overflow-example-title {
+                font-weight: 600;
+                font-size: 1.11em;
+                margin-bottom: 10px;
+                text-align: center;
+            }
+            .overflow-example-desc {
+                font-size: 0.98em;
+                color: #7a7a7a;
+                margin-bottom: 14px;
+                text-align: center;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .overflow-example-code {
+                background: #f7f7fa;
+                color: #263238;
+                padding: 10px 12px;
+                border-radius: 8px;
+                font-size: 0.97em;
+                width: 100%;
+                margin-bottom: 12px;
+                overflow-x: auto;
+            }
+            .overflow-demo-box {
+                width: 170px;
+                height: 48px;
+                border: 1px dashed #bdbdbd;
+                background: #f4f7fa;
+                color: #37474f;
+                font-size: 0.97em;
+                border-radius: 8px;
+                padding: 6px 10px;
+                margin: 0 auto 10px auto;
+                line-height: 1.5;
+                text-align: left;
+                position: relative;
+            }
+            .overflow-demo-long {
+                width: 320px;
+                height: 38px;
+                background: #e3f2fd;
+                color: #333;
+                border-radius: 7px;
+                margin-bottom: 8px;
+                padding: 6px 10px;
+                overflow: visible;
+            }
+            .overflow-example-badge {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                background: linear-gradient(90deg, #1976d2, #ffd740);
+                color: #fff;
+                font-size: 0.84em;
+                font-weight: 700;
+                border-radius: 7px;
+                width: 105px;
+                padding: 4px 10px;
+                text-align: center;
+                box-shadow: 0 1px 5px rgba(25, 118, 210, 0.07);
+                visibility: hidden;
+            }
+            /* Для demo overflow:auto/scroll */
+            .overflow-demo-scroll {
+                width: 170px;
+                height: 48px;
+                border: 1px dashed #bdbdbd;
+                background: #f4f7fa;
+                color: #37474f;
+                font-size: 0.97em;
+                border-radius: 8px;
+                padding: 6px 10px;
+                margin: 0 auto 10px auto;
+                line-height: 1.5;
+                text-align: left;
+                overflow: auto;
+                white-space: nowrap;
+            }
+            /* Для demo overflow-x/y */
+            .overflow-demo-x {
+                width: 170px;
+                height: 44px;
+                border: 1px dashed #bdbdbd;
+                background: #f4f7fa;
+                color: #37474f;
+                font-size: 0.97em;
+                border-radius: 8px;
+                padding: 6px 10px;
+                margin: 0 auto 10px auto;
+                line-height: 1.5;
+                text-align: left;
+                overflow-x: auto;
+                overflow-y: hidden;
+                white-space: nowrap;
+            }
+            /* Для demo overflow:clip */
+            .overflow-demo-clip {
+                width: 170px;
+                height: 48px;
+                border: 1px dashed #bdbdbd;
+                background: #f4f7fa;
+                color: #37474f;
+                font-size: 0.97em;
+                border-radius: 8px;
+                padding: 6px 10px;
+                margin: 0 auto 10px auto;
+                line-height: 1.5;
+                text-align: left;
+                overflow: clip;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <aside>
+                    <nav class="nav-tabs">
+                        <a href="#overflow-intro" class="active">Введение</a>
+                        <a href="#overflow-types">Виды overflow</a>
+                        <a href="#overflow-examples">Примеры</a>
+                        <a href="#overflow-tips">Советы</a>
+                    </nav>
+                </aside>
+
+                <!-- Введение -->
+                <section class="section" id="overflow-intro">
+                    <div class="container">
+                        <h1>
+                            Свойство
+                            <code>overflow</code>
+                            в CSS
+                        </h1>
+                        <p class="note">
+                            <b>overflow</b>
+                            управляет тем, как содержимое блока ведет себя, если оно выходит за пределы его размеров.
+                            <br />
+                            Это важно для создания скроллируемых областей, обрезки лишнего текста, адаптивных карточек и таблиц.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Виды overflow -->
+                <section class="section" id="overflow-types">
+                    <div class="container">
+                        <h2>Значения свойства overflow</h2>
+                        <ul>
+                            <li>
+                                <b>visible</b>
+                                — По умолчанию. Содержимое выходит за границы блока, ничего не обрезается.
+                            </li>
+                            <li>
+                                <b>hidden</b>
+                                — Лишнее содержимое скрывается/обрезается, скролл не появляется.
+                            </li>
+                            <li>
+                                <b>scroll</b>
+                                — Появляется скролл, даже если содержимое влезает полностью.
+                            </li>
+                            <li>
+                                <b>auto</b>
+                                — Скролл появляется только когда содержимое не помещается.
+                            </li>
+                            <li>
+                                <b>clip</b>
+                                — Обрезает содержимое без скролла (современная замена hidden, без создания scroll container).
+                            </li>
+                            <li>
+                                <b>overflow-x</b>
+                                и
+                                <b>overflow-y</b>
+                                — Управляют переполнением по горизонтали и вертикали отдельно.
+                            </li>
+                        </ul>
+                        <div class="note tip">
+                            Для текста часто используют
+                            <b>overflow: hidden</b>
+                            +
+                            <b>text-overflow: ellipsis</b>
+                            +
+                            <b>white-space: nowrap</b>
+                            для появления троеточия.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Примеры -->
+                <section class="section" id="overflow-examples">
+                    <div class="container">
+                        <h2>
+                            Примеры использования
+                            <code>overflow</code>
+                        </h2>
+                        <div class="overflow-examples-grid">
+                            <!-- visible -->
+                            <div class="overflow-example-card">
+                                <span class="overflow-example-badge">visible</span>
+                                <div class="overflow-example-title">По умолчанию (visible)</div>
+                                <div class="overflow-example-desc">Содержимое выходит за рамки блока и видно полностью.</div>
+                                <div class="overflow-demo-box" style="overflow: visible">Это длинный текст, который выйдет за границы контейнера и будет виден.</div>
+                                <div class="overflow-example-code">
+                                    <pre><code>
+.block {
+  overflow: visible; /* default */
+}
+                </code></pre>
+                                </div>
+                            </div>
+                            <!-- hidden -->
+                            <div class="overflow-example-card">
+                                <span class="overflow-example-badge">hidden</span>
+                                <div class="overflow-example-title">Обрезка (hidden)</div>
+                                <div class="overflow-example-desc">Всё, что не помещается, скрывается без скролла.</div>
+                                <div class="overflow-demo-box" style="overflow: hidden">Это длинный текст, который не поместится и будет обрезан.</div>
+                                <div class="overflow-example-code">
+                                    <pre><code>
+.block {
+  overflow: hidden;
+}
+                </code></pre>
+                                </div>
+                            </div>
+                            <!-- scroll -->
+                            <div class="overflow-example-card">
+                                <span class="overflow-example-badge">scroll</span>
+                                <div class="overflow-example-title">Принудительный скролл</div>
+                                <div class="overflow-example-desc">Появится скролл, даже если содержимое влезает.</div>
+                                <div class="overflow-demo-scroll" style="overflow: scroll">Это очень длинный текст, который обязательно вызовет появление полосы прокрутки даже если влезает.</div>
+                                <div class="overflow-example-code">
+                                    <pre><code>
+.block {
+  overflow: scroll;
+}
+                </code></pre>
+                                </div>
+                            </div>
+                            <!-- auto -->
+                            <div class="overflow-example-card">
+                                <span class="overflow-example-badge">auto</span>
+                                <div class="overflow-example-title">Автоматический скролл</div>
+                                <div class="overflow-example-desc">Скролл появится только если не хватает места.</div>
+                                <div class="overflow-demo-scroll" style="overflow: auto">Это длинный текст, который вызовет скролл только если не помещается.</div>
+                                <div class="overflow-example-code">
+                                    <pre><code>
+.block {
+  overflow: auto;
+}
+                </code></pre>
+                                </div>
+                            </div>
+                            <!-- overflow-x/y -->
+                            <div class="overflow-example-card">
+                                <span class="overflow-example-badge">overflow-x/y</span>
+                                <div class="overflow-example-title">Только по одной оси</div>
+                                <div class="overflow-example-desc">Скролл или обрезка только горизонтально или вертикально.</div>
+                                <div class="overflow-demo-x">Длинная строка для проверки горизонтального скролла или обрезки.</div>
+                                <div class="overflow-example-code">
+                                    <pre><code>
+.block {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+                </code></pre>
+                                </div>
+                            </div>
+                            <!-- clip -->
+                            <div class="overflow-example-card">
+                                <span class="overflow-example-badge">clip</span>
+                                <div class="overflow-example-title">clip (обрезка без скролла)</div>
+                                <div class="overflow-example-desc">Обрезает лишнее, не делает контейнер скроллируемым (CSS3+).</div>
+                                <div class="overflow-demo-clip">Это длинный текст, и он просто будет обрезан, не появится даже скролл.</div>
+                                <div class="overflow-example-code">
+                                    <pre><code>
+.block {
+  overflow: clip;
+}
+                </code></pre>
+                                </div>
+                            </div>
+                            <!-- text-overflow ellipsis -->
+                            <div class="overflow-example-card">
+                                <span class="overflow-example-badge">ellipsis</span>
+                                <div class="overflow-example-title">Троеточие для текста</div>
+                                <div class="overflow-example-desc">Часто используют для однострочных заголовков и карточек.</div>
+                                <div class="overflow-demo-box" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Это очень длинный текст для демонстрации работы троеточия.</div>
+                                <div class="overflow-example-code">
+                                    <pre><code>
+.block {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+                </code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Советы -->
+                <section class="section" id="overflow-tips">
+                    <div class="container">
+                        <h2>Советы и лайфхаки по overflow</h2>
+                        <ul>
+                            <li>
+                                Для скроллируемых областей (таблицы, галереи, меню) сочетайте
+                                <b>overflow: auto/scroll</b>
+                                и фиксированную высоту/ширину.
+                            </li>
+                            <li>
+                                Для скрытия лишнего текста —
+                                <b>overflow: hidden</b>
+                                +
+                                <b>text-overflow: ellipsis</b>
+                                +
+                                <b>white-space: nowrap</b>
+                                .
+                            </li>
+                            <li>
+                                <b>overflow: clip</b>
+                                не создаёт scroll container, и не позволяет прокручивать содержимое.
+                            </li>
+                            <li>
+                                Свойства
+                                <b>overflow-x</b>
+                                и
+                                <b>overflow-y</b>
+                                независимы, удобно для горизонтальных/вертикальных списков.
+                            </li>
+                            <li>Следите за доступностью: скрытый скролл может затруднить навигацию для пользователей.</li>
+                        </ul>
+                        <div class="note tip">
+                            <strong>Совет:</strong>
+                            Проверяйте overflow на мобильных устройствах — там часто появляются горизонтальные скроллы из-за длинных строк или таблиц!
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="overflow-visibility">
+                    <div class="container">
+                        <h2>
+                            Свойство
+                            <code>visibility</code>
+                        </h2>
+                        <p class="note">
+                            Свойство
+                            <b>visibility</b>
+                            управляет видимостью элемента на странице, но не влияет на его место в потоке и размеры.
+                            <br />
+                            Это удобно, когда нужно временно скрыть элемент, не удаляя его из разметки и не меняя расположение соседей.
+                        </p>
+                        <ul>
+                            <li>
+                                <b>visible</b>
+                                — (по умолчанию) элемент виден.
+                            </li>
+                            <li>
+                                <b>hidden</b>
+                                — элемент невидим, но занимает то же пространство на странице.
+                            </li>
+                            <li>
+                                <b>collapse</b>
+                                — для таблиц: ячейки исчезают и не занимают место (у
+                                <code>display: table</code>
+                                и подобных элементов).
+                            </li>
+                        </ul>
+                        <div class="visibility-box">
+                            <div class="visibility-box__item" style="background: #1976d2; color: #fff; border-radius: 5px; visibility: visible">
+                                .item1
+                                <br />
+                                Видимый
+                                <br />
+                                <code style="color: #263238">visibility: visible</code>
+                            </div>
+                            <div style="border: 2px solid #000; border-radius: 5px; width: 33%; position: relative">
+                                <div class="visibility-box__item" style="background: #bdbdbd; color: #fff; border-radius: 5px; visibility: hidden">Скрытый</div>
+                                <p style="position: absolute; top: -16px; left: 7px; background: #ffffff; padding: 2px 5px; border-radius: 10px; border: 2px dotted #7e57c2">
+                                    Элемент скрыт
+                                    <code>visibility: hidden</code>
+                                </p>
+                            </div>
+                        </div>
+                        <style>
+                            .visibility-box {
+                                background: #e3f2fd;
+                                margin-bottom: 8px;
+                                display: flex;
+                                gap: 30px;
+                                padding: 20px;
+                                margin: 10px 0;
+                            }
+                            .visibility-box__item {
+                                width: 33%;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                justify-content: center;
+                                padding: 20px;
+                                text-align: center;
+                            }
+                        </style>
+                        <div class="overflow-example-code">
+                            <pre><code>
+.item1 { visibility: visible; }
+.item2 { visibility: hidden; }
+    </code></pre>
+                        </div>
+                        <div class="note tip">
+                            <b>
+                                Отличие от
+                                <code>display: none</code>
+                                :
+                            </b>
+                            <br />
+                            <b>visibility: hidden</b>
+                            скрывает элемент, но сохраняет его место на странице.
+                            <br />
+                            <b>display: none</b>
+                            полностью убирает элемент и его пространство из потока.
+                        </div>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+    </body>
+</html>

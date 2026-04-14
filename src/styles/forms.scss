@@ -1,0 +1,117 @@
+//	src/scss/forms.scss
+@use 'variables' as *; // Импортируем переменные в текущий файл
+
+// =================== Form Styles ===================
+form {
+	max-width: $formMaxWidth;
+	border: 1px solid $formBorderColor;
+	padding: 20px;
+	margin: 10px 0;
+	border-radius: $borderRadiusLarge;
+	box-shadow: $shadowSmall;
+
+	@media (max-width: $media-md) {
+		max-width: 100%;
+		margin: 0;
+	}
+}
+
+label {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin: 10px 0 5px;
+	font-weight: $formLabelFontWeight;
+}
+
+input,
+select,
+textarea {
+	width: 100%;
+	padding: $formInputPadding;
+	margin-bottom: $formMarginBottom;
+	border: 1px solid $formBorderColor;
+	border-radius: $formInputBorderRadius;
+	font-size: $formInputFontSize;
+	background-color: $formBackgroundColor;
+}
+
+input[type="checkbox"] {
+	width: $checkboxSize;
+	margin-bottom: 0;
+	height: $checkboxSize;
+}
+
+.checkbox {
+	margin-bottom: $formMarginBottom;
+}
+
+input[type="radio"] {
+	accent-color: $radioAccentColor;
+	width: $radioSize;
+	height: $radioSize;
+	margin-right: $radioMarginRight;
+	vertical-align: middle;
+	margin-bottom: 0;
+}
+
+input[type="number"] {
+	accent-color: $numberAccentColor;
+	width: $numberWidth;
+	height: $numberHeight;
+	margin-right: $radioMarginRight;
+	vertical-align: middle;
+	margin-bottom: 0;
+}
+
+button {
+	background-color: $buttonColor;
+	color: $whiteColor;
+	border: none;
+	cursor: pointer;
+	transition: $transition;
+	padding: 10px 15px;
+	margin: 15px 0;
+	border-radius: $formInputBorderRadius;
+	font-size: $formInputFontSize;
+}
+
+button:hover {
+	background-color: $buttonColorHover;
+}
+
+fieldset {
+	border: 2px solid $formAccentColor;
+	border-radius: $borderRadiusLarge;
+	padding: 24px 24px 16px 24px;
+	background: $formFieldsetBg;
+	margin-bottom: 20px;
+	box-shadow: $shadowFieldset;
+}
+
+legend {
+	font-weight: $formLabelFontWeight;
+	color: $formAccentColor;
+	background: $formLegendBg;
+	padding: 0 14px;
+	border-radius: $borderRadius;
+	font-size: 1.1em;
+	box-shadow: $shadowLegend;
+}
+
+.button {
+	background-color: $buttonColor;
+	color: $whiteColor;
+	border: none;
+	cursor: pointer;
+	transition: $transition;
+	padding: 10px 15px;
+	margin: 15px 0;
+	border-radius: $formInputBorderRadius;
+	font-size: $formInputFontSize;
+	justify-self: start;
+}
+
+.button:hover {
+	background-color: $buttonColorHover;
+}

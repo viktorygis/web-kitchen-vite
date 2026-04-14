@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Объекты", "description": "Объекты" })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+
+            <main class="page">
+                <!-- Локальное меню -->
+                <nav class="nav-tabs" id="page-nav" style="max-width: max-content">
+                    <ul>
+                        <li><a href="#intro">Объекты</a></li>
+                    </ul>
+                </nav>
+
+                <section class="section" id="intro" class="topic-section">
+                    <div class="container">
+                        <h1>Объекты</h1>
+                        <p class="note">Объекты — это коллекции данных и/или функциональности, которые связаны между собой и обычно представляют собой что-то конкретное из реального мира.</p>
+                    </div>
+                </section>
+            </main>
+
+            @@include('../html/footer.html', {})
+        </div>
+
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+
+        <script>
+            "use strict";
+            //Задание 1:
+            //Напишите код, выполнив задание из каждого пункта отдельной строкой:
+
+            //Создайте пустой объект user.
+            //Добавьте свойство name со значением John.
+            //Добавьте свойство surname со значением Smith.
+            //Измените значение свойства name на Pete.
+            //Удалите свойство name из объекта.
+
+            //Создаем пустой объект
+            /*             const person = {};
+                                                            console.log(person);
+
+                                                            person.name = "John";
+                                                            console.log(person);
+
+                                                            person.surname = "Smith";
+                                                            console.log(person);
+
+                                                            person.name = "Pete";
+                                                            console.log(person);
+
+                                                            delete person.name;
+                                                            console.log(person); */
+
+            //Задание 2:
+            //Напишите функцию isEmpty(obj), которая возвращает true, если у объекта нет свойств, иначе false.
+
+            //Должно работать так:
+            //let schedule = {};
+            //alert( isEmpty(schedule) ); // true
+            //schedule["8:30"] = "get up";
+            //alert( isEmpty(schedule) ); // false
+            /*             let schedule = {};
+                                    function isEmpty(obj) {
+                                        if (Object.keys(obj).length === 0) {
+                                            return true;
+                                        } else {
+                                            return false;
+                                        }
+                                    }
+
+                                    alert(isEmpty(schedule));
+                                    schedule["8:30"] = "get up";
+                                    alert(isEmpty(schedule));
+                                    console.log(schedule);
+
+                                    for (let key in schedule) {
+                                        console.log(key);
+                                    }
+
+                                    //Решение
+                        												//вариант 2
+                                    function isEmpty(obj) {
+                                        for (let key in obj) {
+                                            // если тело цикла начнет выполняться - значит в объекте есть свойства
+                                            return false;
+                                        }
+                                        return true;
+                                    } */
+
+            //Задание 3:
+            //Объекты-константы?
+            //Можно ли изменить объект, объявленный с помощью const? Как вы думаете?
+
+            //const user = {
+            //  name: "John"
+            //};
+
+            // это будет работать?
+            //user.name = "Pete";
+
+            //Да, будет работать. Объект можно менять
+            //Объявление const защищает от изменений только саму переменную user, а	не её содержимое.
+
+            //Если мы присвоим переменной другое значение: user=...., тогда будет ошибка
+            //user хранит ссылку на объект. И это не может быть изменено. Но содержимое объекта менять можно.
+
+            //Задание 4:
+            //Сумма свойств объекта
+            //У нас есть объект, в котором хранятся зарплаты нашей команды:
+
+            /*            let salaries = {
+                                        John: 100,
+                                        Ann: 160,
+                                        Pete: 130,
+                                    };
+
+                                    //Напишите код для суммирования всех зарплат и сохраните результат в переменной sum. Должно получиться 390.
+                                    //Если объект salaries пуст, то результат должен быть 0.
+
+                                    let sum = 0;
+                                    // for (let key in salaries) это перебор ключей объекта
+                                    //	salaries[key] это обращение к значению свойства объекта по ключу
+                                    //	т.е. salaries["John"] будет 100
+                                    for (let key in salaries) {
+                                        sum += salaries[key];
+                                    }
+                                    console.log(sum); */
+
+            //Задание 5:
+            //Умножаем все числовые свойства на 2
+            //Создайте функцию multiplyNumeric(obj), которая умножает все числовые свойства объекта obj на 2.
+
+            //Например:
+            /*
+                        // до вызова функции
+                        let menu = {
+                          width: 200,
+                          height: 300,
+                          title: "My menu"
+                        };
+
+                        multiplyNumeric(menu);
+
+                        // после вызова функции
+                        menu = {
+                          width: 400,
+                          height: 600,
+                          title: "My menu"
+                        }; */
+            //Обратите внимание, что multiplyNumeric не нужно ничего возвращать. Следует напрямую изменять объект.
+            //P.S. Используйте typeof для проверки, что значение свойства числовое.
+
+            let menu = {
+                width: 200,
+                height: 300,
+                title: "My menu",
+            };
+
+            console.log(menu); //до вызова функции
+            //{width: 200, height: 300, title: 'My menu'}
+
+            function multiplyNumeric(obj) {
+                for (let key in obj) {
+                    if (typeof obj[key] === "number") {
+                        obj[key] *= 2;
+                    }
+                }
+            }
+
+            multiplyNumeric(menu);
+            console.log(menu); //после вызова функции
+            //{width: 400, height: 600, title: 'My menu'}
+        </script>
+    </body>
+</html>

@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Пример страницы со всеми тегами</title>
+        <meta name="description" content="Описание страницы" />
+        <meta name="keywords" content="ключевое, слово, пример" />
+        <meta name="author" content="Имя Автора" />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="Заголовок для соцсетей" />
+        <meta property="og:description" content="Описание для соцсетей" />
+        <meta property="og:image" content="Изображение для соцсетей" />
+        <meta property="og:url" content="https://example.com/page" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@ваш_аккаунт" />
+
+        <meta name="twitter:title" content="Заголовок для твиттера" />
+        <meta name="twitter:description" content="Описание для твиттера" />
+        <meta name="twitter:image" content="Изображение для твиттера" />
+
+        <style>
+            :root {
+                --main-bg-color: #e4e4e4;
+                --accent-color: #c41cc4;
+                --accent-hover-color: #672e67;
+
+                --header-bg-color: #333;
+                --header-text-color: #39813b;
+                --footer-bg-color: #333;
+                --footer-text-color: #fff;
+                --btn-bg-color: #4caf50;
+                --btn-text-color: #fff;
+                --border-color: #c6c6c6;
+                --border-radius: 12px;
+                --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            }
+            html {
+                height: 100%;
+            }
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+                font-size: 16px;
+            }
+            nav {
+                ul {
+                    list-style: none;
+                    padding: 0;
+                }
+                li {
+                    display: inline;
+                    margin-right: 20px;
+                }
+                a {
+                    color: var(--main-bg-color);
+                    text-decoration: none;
+                    font-weight: 500;
+                    transition: all 0.3s ease 0s;
+                }
+                a:hover {
+                    color: var(--accent-color);
+                }
+            }
+            main {
+                flex: 1;
+            }
+
+            header {
+                background: var(--header-bg-color);
+                color: var(--header-text-color);
+                padding: 10px 0;
+                text-align: center;
+            }
+            main {
+                padding: 20px;
+            }
+            footer {
+                background: var(--footer-bg-color);
+                color: var(--footer-text-color);
+                text-align: center;
+                padding: 10px 0;
+                position: relative;
+                bottom: 0;
+                width: 100%;
+            }
+            h1 {
+                font-size: 2em;
+                margin-bottom: 20px;
+                color: var(--header-text-color);
+                font-weight: 700;
+            }
+            h2 {
+                font-size: 1.5em;
+                margin: 0 0 15px 0;
+                color: var(--header-text-color);
+                font-weight: 500;
+            }
+            h3 {
+                font-size: 1.2em;
+                margin: 0 0 10px 0;
+                font-weight: 500;
+                color: var(--header-text-color);
+            }
+            h4 {
+                font-size: 1.1em;
+                margin: 0 0 10px 0;
+                font-weight: 400;
+                color: var(--header-text-color);
+            }
+            code {
+                background: var(--main-bg-color);
+                padding: 2px 4px;
+                border-radius: 4px;
+                font-family: monospace;
+            }
+            time {
+                /* Стили для тега time */
+                font-weight: bold;
+                color: var(--accent-color);
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 20px 0;
+            }
+            th,
+            td {
+                padding: 12px 15px;
+                border: 1px solid var(--border-color);
+                text-align: left;
+            }
+            th {
+                background: var(--header-bg-color);
+                color: var(--header-text-color);
+            }
+            caption {
+                font-weight: bold;
+                padding: 8px 12px;
+                text-align: left;
+                background: var(--header-bg-color);
+                color: var(--header-text-color);
+            }
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 20px;
+                max-width: 600px;
+                border: 1px solid var(--border-color);
+                border-radius: 4px;
+                padding: 20px;
+            }
+
+            input,
+            textarea {
+                padding: 10px;
+                border: 1px solid var(--border-color);
+                border-radius: 4px;
+            }
+            button {
+                padding: 10px 15px;
+                border: none;
+                border-radius: 4px;
+                background: var(--btn-bg-color);
+                color: var(--btn-text-color);
+                cursor: pointer;
+            }
+            select {
+                padding: 10px;
+                border: 1px solid var(--border-color);
+                border-radius: 4px;
+            }
+            label {
+                font-weight: bold;
+                color: var(--header-text-color);
+            }
+
+            .form-group:checked {
+                background: var(--accent-color);
+            }
+            .form-group {
+                margin-bottom: 15px;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+            .form-group--checkbox {
+                flex-direction: row-reverse;
+                justify-content: flex-end;
+                align-items: center;
+                gap: 5px;
+            }
+            .form-group--radio,
+            .form-group--checkbox label {
+                font-size: 14px;
+                font-weight: 400;
+            }
+            .form-group--checkbox input[type="checkbox"] {
+                margin-left: 15px;
+            }
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            /* Базовые стили */
+            /* basic */
+            .basic {
+                margin-bottom: 20px;
+            }
+            .basic img {
+                max-width: 100%;
+                height: auto;
+            }
+            .basic a {
+                color: var(--accent-color);
+                text-decoration: none;
+                font-weight: 500;
+                transition: all 0.3s ease 0s;
+            }
+            .basic a:hover {
+                color: var(--accent-hover-color);
+            }
+
+            .basic__block {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+            .basic__body {
+                display: flex;
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .basic__item {
+                padding: 20px;
+                border: 1px solid var(--border-color);
+                border-radius: var(--border-radius);
+                box-shadow: var(--box-shadow);
+            }
+            .basic__item ul {
+                padding-left: 20px;
+                margin: 0;
+            }
+            .basic__item li:not(:last-child) {
+                margin-bottom: 5px;
+            }
+            .basic__item li::marker {
+                color: var(--header-text-color);
+            }
+            .btn {
+                background-color: var(--btn-bg-color);
+                color: var(--btn-text-color);
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            .text-direction__body {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+            .text-direction__item {
+                padding: 20px;
+                border: 1px solid var(--border-color);
+                border-radius: var(--border-radius);
+                box-shadow: var(--box-shadow);
+            }
+            /* article */
+            .article {
+            }
+
+            .article__body {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+            .article__item {
+                padding: 20px;
+                border: 1px solid var(--border-color);
+                border-radius: var(--border-radius);
+                box-shadow: var(--box-shadow);
+                transition: all 0.3s ease 0s;
+            }
+            .article__item:hover {
+                transform: translateY(-2px);
+                box-shadow: var(--box-shadow-hover);
+            }
+            /* additional-info */
+            /* закреплено справа в колонке */
+            .additional-info {
+                position: fixed;
+                right: 0;
+                top: 20px;
+                padding: 20px;
+                max-width: 300px;
+                background-color: #fff;
+                border: 1px solid var(--border-color);
+                border-radius: var(--border-radius);
+                box-shadow: var(--box-shadow);
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Пример страницы</h1>
+            <nav>
+                <ul>
+                    <li><a href="#main-content">Основной контент</a></li>
+                    <li><a href="#text-direction">Управление страницей</a></li>
+                    <li><a href="#article">Статьи</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <!-- Основной контент -->
+            <section class="section" class="basic" id="main-content">
+                <div class="container">
+                    <h2>Примеры тегов</h2>
+                    <p>В этом разделе представлены различные примеры HTML-тегов и их использование.</p>
+                    <p>
+                        Этот блок сделан с помощью
+                        <code>&lt;section&gt;</code>
+                        .
+                    </p>
+                    <div class="basic__body">
+                        <!-- Списки -->
+                        <div class="basic__content">
+                            <h3>Списки</h3>
+                            <div class="basic__block">
+                                <div class="basic__item">
+                                    <h4>Нумерованный список</h4>
+                                    <ol>
+                                        <li>Первый элемент</li>
+                                        <li>Второй элемент</li>
+                                    </ol>
+                                </div>
+                                <div class="basic__item">
+                                    <h4>Маркированный список</h4>
+                                    <ul>
+                                        <li>Элемент списка</li>
+                                        <li>Еще один элемент списка</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Примеры: -->
+                        <div class="basic__content">
+                            <h3>Примеры:</h3>
+                            <div class="basic__block">
+                                <!-- Ссылки -->
+                                <div class="basic__item">
+                                    <h4>Ссылки</h4>
+                                    <p>Это пример ссылки.</p>
+                                    <a href="https://example.com">Перейти на пример</a>
+                                </div>
+
+                                <!-- Изображение -->
+                                <div class="basic__item">
+                                    <h4>Изображение</h4>
+                                    <p>Это пример изображения с атрибутом alt.</p>
+                                    <img src="/img/background/background.jpg" alt="Описание изображения" />
+                                </div>
+
+                                <!-- Изображение figure -->
+                                <div class="basic__item">
+                                    <h4>Изображение figure</h4>
+                                    <p>
+                                        Это пример изображения в
+                                        <code>figure</code>
+                                        с атрибутом alt и
+                                        <code>figcaption</code>
+                                        для подписи.
+                                    </p>
+                                    <figure>
+                                        <img src="/img/background/background.jpg" alt="Описание изображения" />
+                                        <figcaption>Подпись к фото</figcaption>
+                                    </figure>
+                                </div>
+                                <!-- Адаптивное изображение picture -->
+                                <div class="basic__item">
+                                    <h4>Адаптивное изображение picture</h4>
+                                    <p>
+                                        Это пример использования тега
+                                        <code>picture</code>
+                                        для выбора подходящего формата изображения.
+                                        <br />
+                                        Внутри
+                                        <code>picture</code>
+                                        могут быть
+                                        <code>source</code>
+                                        для разных форматов и
+                                        <code>img</code>
+                                        как fallback.
+                                    </p>
+                                    <picture>
+                                        <source srcset="/img/background/background.jpg" type="image/webp" />
+                                        <source srcset="/img/background/background.jpg" type="image/jpeg" />
+                                        <img src="/img/background/background.jpg" alt="Адаптивное изображение" width="300" height="200" />
+                                    </picture>
+                                </div>
+
+                                <!-- Субтитры для видео track -->
+                                <div class="basic__item">
+                                    <h4>Субтитры для видео track</h4>
+                                    <p>
+                                        Пример видео с субтитрами через тег
+                                        <code>track</code>
+                                        .
+                                        <br />
+                                        Субтитры можно выбрать в настройках плеера.
+                                    </p>
+                                    <video controls width="320" height="180" poster="/img/background/background.jpg">
+                                        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+                                        <track kind="subtitles" src="https://gist.githubusercontent.com/viktorygis/9ee0e1d9b08b7c6b370e8a5ed8b8b9df/raw/subtitles_ru.vtt" srclang="ru" label="Русский" default />
+                                        Ваш браузер не поддерживает видеоэлемент.
+                                    </video>
+                                </div>
+
+                                <!-- Встроенная графика svg -->
+                                <div class="basic__item">
+                                    <h4>Встроенная графика SVG</h4>
+                                    <p>
+                                        Это пример встроенной графики через тег
+                                        <code>svg</code>
+                                        .
+                                        <br />
+                                        SVG позволяет рисовать фигуры прямо в HTML.
+                                    </p>
+                                    <svg width="100" height="100">
+                                        <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+                                    </svg>
+                                </div>
+
+                                <!-- Интерактивная карта изображений map и area -->
+                                <div class="basic__item">
+                                    <h4>Интерактивная карта изображений map и area</h4>
+                                    <p>
+                                        Это пример изображения с интерактивными областями через
+                                        <code>map</code>
+                                        и
+                                        <code>area</code>
+                                        .
+                                        <br />
+                                        Клик по выделенной области приведёт на соответствующий сайт.
+                                    </p>
+                                    <div style="position: relative; display: inline-block">
+                                        <img src="/img/background/background.jpg" usemap="#examplemap" alt="Пример карты изображений" width="400" height="200" />
+                                        <!-- Визуализация областей на картинке -->
+                                        <div style="position: absolute; left: 50px; top: 50px; width: 100px; height: 100px; border: 2px dashed red; border-radius: 6px; pointer-events: none"></div>
+                                        <div style="position: absolute; left: 260px; top: 60px; width: 80px; height: 80px; border: 2px dashed blue; border-radius: 50%; pointer-events: none"></div>
+                                    </div>
+                                    <map name="examplemap">
+                                        <area shape="rect" coords="50,50,150,150" href="https://example.com/" alt="Прямоугольная область" />
+                                        <area shape="circle" coords="300,100,40" href="https://example.org/" alt="Круглая область" />
+                                    </map>
+                                </div>
+                                <!-- time -->
+                                <div class="basic__item">
+                                    <h4>Время</h4>
+                                    <p>
+                                        Это пример времени с тегом
+                                        <code>time</code>
+                                        и атрибутом datetime.
+                                    </p>
+                                    <time datetime="2025-08-18">18 августа 2025 года</time>
+                                </div>
+
+                                <!-- progress -->
+                                <div class="basic__item">
+                                    <h4>Индикатор выполнения</h4>
+                                    <p>
+                                        Это пример индикатора выполнения с тегом
+                                        <code>progress</code>
+                                        и атрибутом value.
+                                    </p>
+                                    <progress value="70" max="100">70%</progress>
+                                </div>
+
+                                <!-- meter -->
+                                <div class="basic__item">
+                                    <h4>Индикатор измерения</h4>
+                                    <p>
+                                        Это пример индикатора измерения с тегом
+                                        <code>meter</code>
+                                        и атрибутом value.
+                                    </p>
+                                    <meter value="0.7" min="0" max="1">70%</meter>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Форматирование -->
+                        <div class="basic__content">
+                            <h3>Форматирование</h3>
+                            <div class="basic__text">
+                                <!-- Абзац 1: Про жирный, курсивный и подчеркнутый текст -->
+                                <p>
+                                    <b>Жирный текст</b>
+                                    используется для выделения важных частей предложения, например:
+                                    <b>Это очень важно!</b>
+                                    с помощью тега
+                                    <code>&lt;b&gt;</code>
+                                    .
+                                    <br />
+                                    Иногда
+                                    <i>курсивный текст</i>
+                                    (с помощью тега
+                                    <code>&lt;i&gt;</code>
+                                    ) помогает подчеркнуть мысли, например:
+                                    <i>Обратите внимание на детали.</i>
+                                    <br />
+                                    <u>Подчеркнутый текст</u>
+                                    (с помощью тега
+                                    <code>&lt;u&gt;</code>
+                                    ) часто применяется для выделения ссылок или специальных терминов, например:
+                                    <u>это термин</u>
+                                    .
+                                </p>
+
+                                <!-- Абзац 2: Про комбинированные стили и другие способы выделения -->
+                                <p>
+                                    Можно комбинировать стили, например:
+                                    <b>
+                                        <i><u>Жирный, курсив и подчеркнутый одновременно</u></i>
+                                    </b>
+                                    (с помощью тегов
+                                    <code>&lt;b&gt;</code>
+                                    ,
+                                    <code>&lt;i&gt;</code>
+                                    и
+                                    <code>&lt;u&gt;</code>
+                                    ) — для особо важных примечаний.
+                                    <br />
+                                    <mark>Маркером выделяют</mark>
+                                    (с помощью тега
+                                    <code>&lt;mark&gt;</code>
+                                    ) ключевые моменты,
+                                    <br />
+                                    а
+                                    <small>мелкий текст</small>
+                                    (с помощью тега
+                                    <code>&lt;small&gt;</code>
+                                    ) — для сносок или пояснений.
+                                    <br />
+                                    <del>Зачёркнутый текст</del>
+                                    (с помощью тега
+                                    <code>&lt;del&gt;</code>
+                                    ) обозначает устаревшую или отменённую информацию.
+                                </p>
+
+                                <!-- Абзац 3: Про индексы и код -->
+                                <p>
+                                    При написании формул удобно использовать индексы: H
+                                    <span>
+                                        <sub>2</sub>
+                                        O
+                                    </span>
+                                    (с помощью тега
+                                    <code>&lt;sub&gt;</code>
+                                    ),
+                                    <br />
+                                    а для обозначения степеней — верхний индекс, например: x
+                                    <sup>2</sup>
+                                    (с помощью тега
+                                    <code>&lt;sup&gt;</code>
+                                    ).
+                                    <br />
+                                    Для примеров кода используют тег
+                                    <code>&lt;code&gt;</code>
+                                    .
+                                </p>
+
+                                <!-- Абзац 4: Итог — зачем нужны эти теги -->
+                                <p>
+                                    Таким образом,
+                                    <b>грамотное использование тегов форматирования</b>
+                                    (с помощью тега
+                                    <code>&lt;b&gt;</code>
+                                    ) позволяет сделать текст более
+                                    <i>наглядным</i>
+                                    (с помощью тега
+                                    <code>&lt;i&gt;</code>
+                                    ),
+                                    <u>структурированным</u>
+                                    (с помощью тега
+                                    <code>&lt;u&gt;</code>
+                                    ) и
+                                    <mark>удобным для чтения</mark>
+                                    (с помощью тега
+                                    <code>&lt;mark&gt;</code>
+                                    ).
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Теги -->
+                        <div class="basic__content">
+                            <h3>Теги</h3>
+                            <div class="basic__block">
+                                <!-- Основные теги -->
+                                <div class="basic__item">
+                                    <h4>Основные теги</h4>
+                                    <ul>
+                                        <li>
+                                            <b>&lt;h1&gt;</b>
+                                            - Заголовок первого уровня
+                                        </li>
+                                        <li>
+                                            <b>&lt;h2&gt;</b>
+                                            - Заголовок второго уровня
+                                        </li>
+                                        <li>
+                                            <b>&lt;h3&gt;</b>
+                                            - Заголовок третьего уровня
+                                        </li>
+                                        <li>
+                                            <b>&lt;h4&gt;</b>
+                                            - Заголовок четвертого уровня
+                                        </li>
+                                        <li>
+                                            <b>&lt;p&gt;</b>
+                                            - Абзац текста
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Базовые теги -->
+                                <div class="basic__item">
+                                    <h4>Базовые теги</h4>
+                                    <ul>
+                                        <li>
+                                            <b>&lt;html&gt;</b>
+                                            - Корневой элемент HTML-документа
+                                        </li>
+                                        <li>
+                                            <b>&lt;head&gt;</b>
+                                            - Заголовок документа
+                                        </li>
+                                        <li>
+                                            <b>&lt;body&gt;</b>
+                                            - Основное содержимое страницы
+                                        </li>
+                                        <li>
+                                            <b>&lt;title&gt;</b>
+                                            - Заголовок страницы
+                                        </li>
+                                        <li>
+                                            <b>&lt;meta&gt;</b>
+                                            - Метаданные страницы
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Теги форматирования -->
+                                <div class="basic__item">
+                                    <h4>Теги форматирования</h4>
+                                    <ul>
+                                        <li>
+                                            <b>&lt;b&gt;</b>
+                                            - Жирный текст
+                                        </li>
+                                        <li>
+                                            <b>&lt;i&gt;</b>
+                                            - Курсивный текст
+                                        </li>
+                                        <li>
+                                            <b>&lt;u&gt;</b>
+                                            - Подчеркнутый текст
+                                        </li>
+                                        <li>
+                                            <b>&lt;mark&gt;</b>
+                                            - Выделенный текст
+                                        </li>
+                                        <li>
+                                            <b>&lt;small&gt;</b>
+                                            - Маленький текст
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Теги стилей -->
+                                <div class="basic__item">
+                                    <h4>Теги стилей</h4>
+                                    <ul>
+                                        <li>
+                                            <b>&lt;link&gt;</b>
+                                            - Стили для внешних ресурсов
+                                        </li>
+                                        <li>
+                                            <b>&lt;style&gt;</b>
+                                            - Стили для внутреннего использования
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Теги семантики -->
+                                <div class="basic__item">
+                                    <h4>Семантические теги</h4>
+                                    <ul>
+                                        <li>
+                                            <b>&lt;header&gt;</b>
+                                            - Заголовок страницы
+                                        </li>
+                                        <li>
+                                            <b>&lt;nav&gt;</b>
+                                            - Навигационное меню
+                                        </li>
+                                        <li>
+                                            <b>&lt;main&gt;</b>
+                                            - Основной контент
+                                        </li>
+                                        <li>
+                                            <b>&lt;footer&gt;</b>
+                                            - Подвал страницы
+                                        </li>
+                                        <li>
+                                            <b>&lt;article&gt;</b>
+                                            - Статья
+                                        </li>
+                                        <li>
+                                            <b>&lt;section&gt;</b>
+                                            - Секция
+                                        </li>
+                                        <li>
+                                            <b>&lt;aside&gt;</b>
+                                            - Боковая панель
+                                        </li>
+                                        <li>
+                                            <b>&lt;h1&gt; - &lt;h6&gt;</b>
+                                            - Заголовки
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Мета-теги и SEO -->
+                                <div class="basic__item">
+                                    <h4>Мета-теги и SEO</h4>
+                                    <ul>
+                                        <li>
+                                            <b>&lt;title&gt;</b>
+                                            - Заголовок страницы
+                                        </li>
+                                        <li>
+                                            <b>&lt;meta name="description"&gt;</b>
+                                            - Описание страницы
+                                        </li>
+
+                                        <li>
+                                            <b>&lt;meta name="robots"&gt;</b>
+                                            - Управление индексацией страницы
+                                        </li>
+                                        <li>
+                                            <b>&lt;meta property="og:title"&gt;</b>
+                                            - Заголовок для соцсетей
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Управление страницей -->
+            <section class="section" class="text-direction" id="text-direction">
+                <div class="container">
+                    <h2>Управление страницей</h2>
+                    <p>В этом разделе вы можете управлять направлением текста на странице.</p>
+                    <p>
+                        Этот блок сделан с помощью
+                        <code>&lt;section&gt;</code>
+                        .
+                    </p>
+                    <div class="text-direction__body">
+                        <div class="text-direction__item">
+                            <h3>направление текста</h3>
+                            <p>Нажмите на кнопку ниже, чтобы переключить направление текста на странице.</p>
+                            <button class="btn" onclick="toggleDirection()">Переключить направление текста</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Статьи -->
+            <section class="section" class="article" id="article">
+                <div class="container">
+                    <h2>Статьи</h2>
+                    <p>
+                        В этом разделе представлены различные статьи, каждая в теге
+                        <code>&lt;article&gt;</code>
+                        .
+                    </p>
+                    <p>
+                        Этот блок сделан с помощью
+                        <code>&lt;section&gt;</code>
+                        .
+                    </p>
+                    <div class="article__body">
+                        <article class="article__item">
+                            <h3>Теги html</h3>
+                            <p>Теги HTML - это строительные блоки веб-страниц. Каждый тег имеет свое назначение и используется для разметки контента.</p>
+                        </article>
+                        <article class="article__item">
+                            <h3>Семантика</h3>
+                            <p>Семантика HTML - это смысл, который стоит за тегами. Правильное использование семантических тегов помогает улучшить доступность и SEO.</p>
+                        </article>
+                        <article class="article__item">
+                            <h3>HTML5</h3>
+                            <p>HTML5 - это последняя версия HTML, которая включает новые элементы и атрибуты, улучшая поддержку мультимедиа и графики.</p>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="additional-info">
+                <h2>Дополнительная информация</h2>
+                <p>В этом разделе вы можете найти дополнительную информацию по теме.</p>
+                <p>
+                    Раздел создан с использованием семантических тегов HTML5, такого как
+                    <code>&lt;aside&gt;</code>
+                    .
+                </p>
+            </aside>
+
+            <!-- Таблица -->
+            <section class="section" class="table" id="table">
+                <div class="container">
+                    <h2>Таблица</h2>
+                    <p>В этом разделе представлена таблица с различными тегами HTML.</p>
+                    <p>
+                        Этот блок сделан с помощью
+                        <code>&lt;section&gt;</code>
+                        .
+                    </p>
+                    <table>
+                        <caption>Таблица тегов HTML</caption>
+                        <thead>
+                            <tr>
+                                <th>Тег</th>
+                                <th>Описание</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>&lt;img&gt;</td>
+                                <td>Вставка изображения</td>
+                            </tr>
+                            <tr>
+                                <td>&lt;audio&gt;</td>
+                                <td>Вставка аудио</td>
+                            </tr>
+                            <tr>
+                                <td>&lt;video&gt;</td>
+                                <td>Вставка видео</td>
+                            </tr>
+                            <tr>
+                                <td>&lt;iframe&gt;</td>
+                                <td>Встраивание другого документа</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2">Итого</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <h3>Доступность таблиц</h3>
+                    <h4>Пример таблицы с учетом доступности</h4>
+                    <table>
+                        <caption>Таблица с учетом доступности</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Тег</th>
+                                <th scope="col">Описание</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>&lt;img&gt;</td>
+                                <td>Вставка изображения</td>
+                            </tr>
+                            <tr>
+                                <td>&lt;audio&gt;</td>
+                                <td>Вставка аудио</td>
+                            </tr>
+                            <tr>
+                                <td>&lt;video&gt;</td>
+                                <td>Вставка видео</td>
+                            </tr>
+                            <tr>
+                                <td>&lt;iframe&gt;</td>
+                                <td>Встраивание другого документа</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2">Итого</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <h4>Пример таблицы с использованием ARIA</h4>
+                    <table aria-labelledby="ariaTableCaption">
+                        <caption id="ariaTableCaption">Таблица с использованием ARIA и мультимедийных HTML-тегов</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Тег</th>
+                                <th scope="col">Описание</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>&lt;img&gt;</code></td>
+                                <td>Вставка изображения</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;audio&gt;</code></td>
+                                <td>Вставка аудио</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;video&gt;</code></td>
+                                <td>Вставка видео</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;iframe&gt;</code></td>
+                                <td>Встраивание другого документа</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;embed&gt;</code></td>
+                                <td>Встраивание медиа и других файлов (PDF, SVG, Flash)</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;object&gt;</code></td>
+                                <td>Встраивание различных внешних ресурсов с поддержкой альтернативного контента</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;canvas&gt;</code></td>
+                                <td>Рисование графики с помощью JavaScript</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;picture&gt;</code></td>
+                                <td>Адаптивные изображения для разных устройств и форматов</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;track&gt;</code></td>
+                                <td>Субтитры, титры и текстовые дорожки для видео/аудио</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;svg&gt;</code></td>
+                                <td>Встраивание векторной графики (SVG)</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>&lt;map&gt;</code>
+                                    и
+                                    <code>&lt;area&gt;</code>
+                                </td>
+                                <td>Интерактивные области на изображениях (image maps)</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>&lt;figure&gt;</code>
+                                    и
+                                    <code>&lt;figcaption&gt;</code>
+                                </td>
+                                <td>Группировка медиа и подписи к ним</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;progress&gt;</code></td>
+                                <td>Отображение прогресса задачи</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;meter&gt;</code></td>
+                                <td>Визуализация значения в диапазоне (например, уровень заряда)</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2">Итого: современные мультимедийные HTML-теги</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Формы -->
+            <section class="section" class="form" id="form">
+                <div class="container">
+                    <form action="submit.php" method="post" class="form__body">
+                        <fieldset>
+                            <legend>Личные данные</legend>
+                            <!-- имя -->
+                            <div class="form-group">
+                                <label for="name">Имя</label>
+                                <input type="text" id="name" name="name" required />
+                            </div>
+                            <!-- password -->
+                            <div class="form-group">
+                                <label for="password">Пароль</label>
+                                <input type="password" id="password" name="password" required />
+                            </div>
+                            <!-- email -->
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" required />
+                            </div>
+                            <!-- телефон -->
+                            <div class="form-group">
+                                <label for="phone">Телефон</label>
+                                <input type="tel" id="phone" name="phone" required />
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Дополнительная информация</legend>
+                            <!-- дата -->
+                            <div class="form-group">
+                                <label for="date">Дата</label>
+                                <input type="date" id="date" name="date" required />
+                            </div>
+                            <!-- number -->
+                            <div class="form-group">
+                                <label for="age">Возраст</label>
+                                <input type="number" id="age" name="age" required />
+                            </div>
+                            <!-- checkbox -->
+                            <div class="form-group form-group--checkbox">
+                                <label for="subscribe">Подписаться на рассылку</label>
+                                <input type="checkbox" id="subscribe" name="subscribe" />
+                            </div>
+
+                            <!-- radio -->
+                            <div class="form-group form-group--radio">
+                                <label>Пол</label>
+                                <div>
+                                    <input type="radio" id="male" name="gender" value="male" />
+                                    <label for="male">Мужской</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="female" name="gender" value="female" />
+                                    <label for="female">Женский</label>
+                                </div>
+                            </div>
+
+                            <!-- select -->
+                            <div class="form-group">
+                                <label for="country">Страна</label>
+                                <select id="country" name="country" required>
+                                    <optgroup label="Европа">
+                                        <option value="">Выберите страну</option>
+                                        <option value="ru">Россия</option>
+                                        <option value="us">США</option>
+                                        <option value="de">Германия</option>
+                                        <option disabled value="fr">Франция</option>
+                                    </optgroup>
+                                    <optgroup label="Азия">
+                                        <option value="cn">Китай</option>
+                                        <option value="jp">Япония</option>
+                                        <option value="kr">Южная Корея</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="birthday">Дата рождения:</label>
+                                <input type="date" id="birthday" name="birthday" />
+                            </div>
+                        </fieldset>
+                        <!-- сообщение -->
+                        <div class="form-group">
+                            <label for="message">Сообщение</label>
+                            <textarea id="message" name="message" rows="5" cols="30" maxlength="200" placeholder="Ваш отзыв (до 200 символов)">Ваш текст по умолчанию</textarea>
+                        </div>
+                        <button type="submit">Отправить</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <footer>footer</footer>
+        <script>
+            //Переключение направление текста с помощью атрибута dir при нажатии кнопки
+            function toggleDirection() {
+                const currentDir = document.body.getAttribute("dir");
+                document.body.setAttribute("dir", currentDir === "rtl" ? "ltr" : "rtl");
+            }
+
+            function addInteractivity() {
+                document.querySelectorAll(".basic progress").forEach((progress) => {
+                    progress.addEventListener("click", () => {
+                        progress.value = Math.min(progress.value + 10, progress.max);
+                    });
+                });
+            }
+
+            //В виде функции
+            function addMeterInteractivity() {
+                document.querySelectorAll(".basic meter").forEach((meter) => {
+                    meter.addEventListener("click", () => {
+                        meter.value = Math.min(meter.value + 0.1, meter.max);
+                    });
+                });
+            }
+            // Добавляем интерактивность для progress meter
+            document.addEventListener("DOMContentLoaded", () => {
+                addInteractivity();
+            });
+            addMeterInteractivity();
+        </script>
+    </body>
+</html>

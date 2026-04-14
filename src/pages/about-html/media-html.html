@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "HTML: Мультимедийные теги (img, iframe, audio, video)", "description": "Руководство по использованию мультимедийных тегов: IMG, IFRAME, AUDIO, VIDEO, EMBED, OBJECT, CANVAS в HTML" })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#intro">Введение</a>
+                    <a href="#concepts">Основные теги</a>
+                    <a href="#img">-- &lt;img&gt;</a>
+                    <a href="#picture">-- &lt;picture&gt;</a>
+                    <a href="#figure">-- &lt;figure&gt;</a>
+                    <a href="#svg">-- &lt;svg&gt;</a>
+                    <a href="#map-area">-- &lt;map&gt; и &lt;area&gt;</a>
+                    <a href="#iframe">-- &lt;iframe&gt;</a>
+                    <a href="#audio">-- &lt;audio&gt;</a>
+                    <a href="#video">-- &lt;video&gt;</a>
+                    <a href="#track">-- &lt;track&gt;</a>
+                    <a href="#embed">-- &lt;embed&gt;</a>
+                    <a href="#object">-- &lt;object&gt;</a>
+                    <a href="#canvas">-- &lt;canvas&gt;</a>
+                    <a href="#progress-meter">-- &lt;progress&gt; и &lt;meter&gt;</a>
+
+                    <a href="#examples">Примеры</a>
+                    <a href="#practice">Практика</a>
+                    <a href="#tips">Советы</a>
+                    <a href="#best-practices">Лучшие практики</a>
+                </nav>
+
+                <!--Введение  -->
+                <section class="section" id="intro">
+                    <div class="container">
+                        <div class="intro-code-block">
+                            <h1>
+                                HTML: Мультимедийные теги
+                                <br />
+                                (img, iframe, audio, video)
+                            </h1>
+                            <p class="note">
+                                <strong>Мультимедийные теги HTML</strong>
+                                позволяют добавлять на страницу изображения, видео, аудио и сторонние ресурсы — делают сайт более наглядным и интерактивным.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Основные теги -->
+                <section class="section" id="concepts">
+                    <div class="container">
+                        <h2>Основные теги</h2>
+                        <p>
+                            В HTML есть несколько ключевых тегов для работы с мультимедиа.
+                            <br />
+                            Каждый из них имеет свои особенности и предназначение:
+                        </p>
+
+                        <ul class="list-ul">
+                            <li>
+                                <b>&lt;img&gt;</b>
+                                — отображение изображений на странице.
+                            </li>
+                            <li>
+                                <b>&lt;iframe&gt;</b>
+                                — встраивание сторонних сайтов, видео, карт, документов.
+                            </li>
+                            <li>
+                                <b>&lt;audio&gt;</b>
+                                — воспроизведение аудиофайлов.
+                            </li>
+                            <li>
+                                <b>&lt;video&gt;</b>
+                                — воспроизведение видеофайлов.
+                            </li>
+                            <li>
+                                <b>&lt;embed&gt;</b>
+                                — встраивание медиа- и других файлов (PDF, SVG, Flash).
+                            </li>
+                            <li>
+                                <b>&lt;object&gt;</b>
+                                — подключение различных объектов, с поддержкой альтернативного контента.
+                            </li>
+                            <li>
+                                <b>&lt;canvas&gt;</b>
+                                — рисование графики на странице с помощью JavaScript.
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- img -->
+                <section class="section" id="img">
+                    <div class="container">
+                        <h2>&lt;img&gt;</h2>
+                        <div class="note note--info">
+                            Тег
+                            <code>&lt;img&gt;</code>
+                            — один из самых часто используемых в HTML.
+                            <br />
+                            Он позволяет вставлять изображения в контент, делая его более наглядным и привлекательным.
+                            <br />
+                            Важно всегда указывать атрибут
+                            <code>alt</code>
+                            — это не только помогает поисковым системам индексировать изображения, но и делает ваш сайт доступным для людей с нарушениями зрения.
+                            <br />
+                            Также старайтесь оптимизировать изображения для быстрой загрузки страниц.
+                        </div>
+                        <div class="code-block">
+                            <pre><code>&lt;img src="https://via.placeholder.com/300x200" alt="Пример" width="300" height="200"&gt;</code></pre>
+                            <button class="copy-btn">Скопировать</button>
+                        </div>
+
+                        <ul class="list-ul">
+                            <li>
+                                Тег
+                                <code>&lt;img&gt;</code>
+                                вставляет изображение. Атрибут
+                                <code>alt</code>
+                                нужен для доступности и SEO.
+                            </li>
+                            <li>
+                                Размеры можно задать атрибутами
+                                <code>width</code>
+                                и
+                                <code>height</code>
+                                .
+                            </li>
+                        </ul>
+                        <h4>Пример:</h4>
+                        <img src="/img/background/background.jpg" alt="Пример" width="300" height="200" />
+                    </div>
+                </section>
+
+                <!-- picture -->
+                <section class="section" id="picture">
+                    <div class="container">
+                        <h2>&lt;picture&gt;</h2>
+                        <p class="note">
+                            Тег
+                            <code>&lt;picture&gt;</code>
+                            позволяет выводить разные изображения в зависимости от устройства, плотности пикселей или поддерживаемого формата.
+                        </p>
+                        <picture>
+                            <source srcset="https://via.placeholder.com/300x200.webp" type="image/webp" />
+                            <source srcset="https://via.placeholder.com/300x200.jpg" type="image/jpeg" />
+                            <img src="https://via.placeholder.com/300x200.jpg" alt="Адаптивное изображение" width="300" height="200" />
+                        </picture>
+                        <div class="code-block">
+                            <pre><code>&lt;picture&gt;
+  &lt;source srcset="image.webp" type="image/webp"&gt;
+  &lt;source srcset="image.jpg" type="image/jpeg"&gt;
+  &lt;img src="image.jpg" alt="Адаптивное изображение"&gt;
+&lt;/picture&gt;</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!--figure  -->
+                <section class="section" id="figure">
+                    <div class="container">
+                        <h2>&lt;figure&gt; и &lt;figcaption&gt;</h2>
+                        <p class="note">
+                            Теги
+                            <code>&lt;figure&gt;</code>
+                            и
+                            <code>&lt;figcaption&gt;</code>
+                            используются для группировки иллюстраций и их подписей.
+                        </p>
+                        <figure>
+                            <img src="https://via.placeholder.com/300x200" alt="Картинка с подписью" width="300" height="200" />
+                            <figcaption>Это пример подписи к изображению.</figcaption>
+                        </figure>
+                        <div class="code-block">
+                            <pre><code>&lt;figure&gt;
+  &lt;img src="photo.jpg" alt="Фото"&gt;
+  &lt;figcaption&gt;Подпись к фото&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- svg -->
+                <section class="section" id="svg">
+                    <div class="container">
+                        <h2>&lt;svg&gt;</h2>
+                        <p class="note">
+                            Тег
+                            <code>&lt;svg&gt;</code>
+                            позволяет создавать векторную графику прямо в HTML.
+                        </p>
+                        <svg width="100" height="100">
+                            <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+                        </svg>
+                        <div class="code-block">
+                            <pre><code>&lt;svg width="100" height="100"&gt;
+  &lt;circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" /&gt;
+&lt;/svg&gt;</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- map и area-->
+                <section class="section" id="map-area">
+                    <div class="container">
+                        <h2>&lt;map&gt; и &lt;area&gt;</h2>
+                        <p class="note">
+                            Теги
+                            <code>&lt;map&gt;</code>
+                            и
+                            <code>&lt;area&gt;</code>
+                            позволяют создавать интерактивные области на изображениях (image maps).
+                        </p>
+                        <h4>Как это работает?</h4>
+                        <ul class="list-ul">
+                            <li>
+                                Тег
+                                <code>&lt;map&gt;</code>
+                                определяет область изображения, на которую можно кликнуть.
+                            </li>
+                            <li>
+                                Тег
+                                <code>&lt;area&gt;</code>
+                                определяет интерактивные области внутри тега
+                                <code>&lt;map&gt;</code>
+                                .
+                            </li>
+                            <li>Каждая область может иметь свою форму (прямоугольник, круг и т.д.) и ссылку.</li>
+                        </ul>
+                        <h4>Как визуально обозначить области?</h4>
+                        <p>Визуально области могут быть обозначены с помощью CSS, как показано ниже.</p>
+
+                        <div style="position: relative; display: inline-block">
+                            <img src="/img/background/background.jpg" usemap="#examplemap" alt="Пример карты изображений" width="400" height="200" />
+                            <!-- Визуальные подсказки для областей -->
+                            <div style="position: absolute; left: 50px; top: 50px; width: 100px; height: 100px; border: 2px dashed red; border-radius: 6px; pointer-events: none"></div>
+                            <div style="position: absolute; left: 260px; top: 60px; width: 80px; height: 80px; border: 2px dashed blue; border-radius: 50%; pointer-events: none"></div>
+                        </div>
+                        <map name="examplemap">
+                            <area shape="rect" coords="50,50,150,150" href="https://example.com/" alt="Прямоугольная область" />
+                            <area shape="circle" coords="300,100,40" href="https://example.org/" alt="Круглая область" />
+                        </map>
+                        <style>
+                            /* Стили для карты изображений */
+                            map {
+                                border: 1px solid var(--border-color);
+                                border-radius: var(--border-radius);
+                                box-shadow: var(--box-shadow);
+                            }
+                            area {
+                                outline: 2px solid var(--border-color);
+                                outline-offset: 2px;
+                                background-color: #fff;
+                                z-index: 10;
+                                position: relative;
+                                height: 20px;
+                                width: 20px;
+                            }
+                        </style>
+                        <div class="code-block">
+                            <pre><code>&lt;img src="plan.png" usemap="#planmap" alt="План"&gt;
+&lt;map name="planmap"&gt;
+  &lt;area shape="rect" coords="34,44,270,350" href="room.html" alt="Комната"&gt;
+  &lt;area shape="circle" coords="130,120,40" href="garden.html" alt="Сад"&gt;
+&lt;/map&gt;</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <!-- iframe -->
+                <section class="section" id="iframe">
+                    <div class="container">
+                        <h2>&lt;iframe&gt;</h2>
+                        <p>
+                            <strong>&lt;iframe&gt;</strong>
+                            - это HTML-тег, который используется для встраивания одного веб-документа (например, другой веб-страницы, видео, карты) внутрь текущей страницы. Он позволяет отображать содержимое с другого URL в рамках (frame) на вашей странице.
+                        </p>
+                        <div class="code-block">
+                            <pre><code>&lt;iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+   width="400"
+   height="225"
+   title="Пример видео"
+   allowfullscreen&gt;
+&lt;/iframe&gt;</code></pre>
+                            <button class="copy-btn">Скопировать</button>
+                        </div>
+                        <ul class="list-ul">
+                            <li>
+                                <code>&lt;iframe&gt;</code>
+                                позволяет встроить видео, карту или другой сайт.
+                            </li>
+                            <li>
+                                Атрибут
+                                <code>allowfullscreen</code>
+                                даёт пользователю перейти в полноэкранный режим.
+                            </li>
+                            <li>
+                                Атрибут
+                                <code>sandbox</code>
+                                ограничивает доступ встроенного контента к функциям браузера, повышая безопасность.
+                            </li>
+                            <li>
+                                Некоторые сайты могут запрещать показ своего содержимого в
+                                <code>&lt;iframe&gt;</code>
+                                через специальные HTTP-заголовки.
+                            </li>
+                            <li>
+                                Для доступности обязательно указывайте атрибут
+                                <code>title</code>
+                                .
+                            </li>
+                        </ul>
+                        <h4>Пример с sandbox:</h4>
+                        <div class="code-block">
+                            <pre><code>&lt;iframe
+  src="https://www.example.com"
+  width="400"
+  height="225"
+  sandbox="allow-scripts allow-same-origin"
+  title="Пример с sandbox"&gt;&lt;/iframe&gt;</code></pre>
+                            <button class="copy-btn">Скопировать</button>
+                        </div>
+                        <h4>Стилизация через CSS:</h4>
+                        <div class="code-block">
+                            <pre><code>iframe {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border: none;
+}
+</code></pre>
+                            <button class="copy-btn">Скопировать</button>
+                        </div>
+                        <h4>Пример:</h4>
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" width="400" height="225" title="Пример видео" allowfullscreen></iframe>
+                    </div>
+                </section>
+
+                <!-- audio -->
+                <section class="section" id="audio">
+                    <div class="container">
+                        <h2>&lt;audio&gt;</h2>
+                        <p class="note">
+                            <strong>&lt;audio&gt;</strong>
+                            - элемент позволяет воспроизводить звук на веб-странице.
+                        </p>
+                        <h4>В браузере</h4>
+                        <audio controls>
+                            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
+                            Ваш браузер не поддерживает аудиоэлемент.
+                        </audio>
+                        <div>
+                            <h4>Пример с атрибутами:</h4>
+
+                            <div class="code-block">
+                                <pre><code>&lt;audio controls&gt;
+  &lt;source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"&gt;
+  Ваш браузер не поддерживает аудиоэлемент.
+&lt;/audio&gt;</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                            <h4>Основные правила:</h4>
+                            <ul class="list-ul">
+                                <li>
+                                    Тег
+                                    <code>&lt;audio&gt;</code>
+                                    нужен для воспроизведения звука.
+                                </li>
+                                <li>
+                                    <code>&lt;source&gt;</code>
+                                    нужен для указания различных аудиофайлов и их форматов.
+                                    <br />
+                                    Например, вы можете указать один файл в формате MP3 и другой в формате OGG.
+                                </li>
+                                <li>
+                                    Для доступности всегда добавляйте текст внутри тега на случай, если браузер не поддерживает
+                                    <code>&lt;audio&gt;</code>
+                                    .
+                                </li>
+                            </ul>
+
+                            <h4>Атрибуты:</h4>
+
+                            <ul class="list-ul">
+                                <li>
+                                    <code>src</code>
+                                    - указывает путь к аудиофайлу.
+                                </li>
+                                <li>
+                                    <code>type</code>
+                                    - указывает MIME-тип аудиофайла. (значения:
+                                    <code>audio/mpeg</code>
+                                    - для MP3,
+                                    <code>audio/ogg</code>
+                                    - для OGG )
+                                </li>
+                                <li>
+                                    <code>controls</code>
+                                    - отображает элементы управления воспроизведением.
+                                </li>
+
+                                <li>
+                                    <code>autoplay</code>
+                                    - позволяет автоматически запускать звук при загрузке страницы.
+                                </li>
+                                <li>
+                                    <code>loop</code>
+                                    - повторяет воспроизведение аудио по кругу.
+                                </li>
+                                <li>
+                                    <code>muted</code>
+                                    - делает аудио изначально беззвучным.
+                                </li>
+                                <li>
+                                    <code>preload</code>
+                                    - управляет загрузкой аудиофайла (значения:
+                                    <code>auto</code>
+                                    - браузер сам решает, загружать аудио или нет ,
+                                    <code>metadata</code>
+                                    - загружает только метаданные (например, длительность) ,
+                                    <code>none</code>
+                                    - не загружает аудио до тех пор, пока пользователь не нажмет кнопку воспроизведения ).
+                                </li>
+                            </ul>
+
+                            <h4>Пример с дополнительными атрибутами:</h4>
+                            <div class="code-block">
+                                <pre><code>&lt;audio
+  controls                &lt;!-- отображает элементы управления (play, pause, громкость и др.) --&gt;
+  autoplay                &lt;!-- автоматически запускает аудио при загрузке страницы --&gt;
+  loop                    &lt;!-- повторяет аудио по кругу --&gt;
+  muted                   &lt;!-- аудио стартует без звука --&gt;
+  preload="auto"          &lt;!-- стратегия предзагрузки аудио (auto, metadata, none) --&gt;
+&gt;
+  &lt;source src="audio.mp3" type="audio/mpeg"&gt;      &lt;!-- основной аудиофайл (mp3) --&gt;
+  &lt;source src="audio.ogg" type="audio/ogg"&gt;      &lt;!-- альтернативный формат для совместимости --&gt;
+  Ваш браузер не поддерживает аудиоэлемент.       &lt;!-- текст для старых браузеров --&gt;
+&lt;/audio&gt;</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- video -->
+                <section class="section" id="video">
+                    <div class="container">
+                        <h2>&lt;video&gt;</h2>
+                        <p class="note">
+                            <strong>&lt;video&gt;</strong>
+                            — элемент позволяет воспроизводить видеоролики на веб-странице.
+                        </p>
+                        <h4>В браузере</h4>
+                        <video controls width="320" height="180" poster="https://via.placeholder.com/320x180">
+                            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+                            Ваш браузер не поддерживает видеоэлемент.
+                        </video>
+                        <div>
+                            <h4>Пример с атрибутами:</h4>
+                            <div class="code-block">
+                                <pre><code>&lt;video controls width="320" height="180" poster="https://via.placeholder.com/320x180"&gt;
+  &lt;source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4"&gt;
+  Ваш браузер не поддерживает видеоэлемент.
+&lt;/video&gt;</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                            <h4>Основные правила:</h4>
+                            <ul class="list-ul">
+                                <li>
+                                    Тег
+                                    <code>&lt;video&gt;</code>
+                                    нужен для воспроизведения видеофайлов.
+                                </li>
+                                <li>
+                                    <code>&lt;source&gt;</code>
+                                    нужен для указания различных видеофайлов и их форматов.
+                                    <br />
+                                    Например, можно указать файлы в формате MP4 и WEBM.
+                                </li>
+                                <li>
+                                    Для доступности всегда добавляйте текст внутри тега, если браузер не поддерживает
+                                    <code>&lt;video&gt;</code>
+                                    .
+                                </li>
+                            </ul>
+
+                            <h4>Атрибуты:</h4>
+                            <ul class="list-ul">
+                                <li>
+                                    <code>src</code>
+                                    — указывает путь к видеофайлу.
+                                </li>
+                                <li>
+                                    <code>type</code>
+                                    — указывает MIME-тип видеофайла (
+                                    <code>video/mp4</code>
+                                    ,
+                                    <code>video/webm</code>
+                                    и др.).
+                                </li>
+                                <li>
+                                    <code>controls</code>
+                                    — отображает элементы управления: play, pause, громкость и пр.
+                                </li>
+                                <li>
+                                    <code>autoplay</code>
+                                    — позволяет автоматически запускать видео при загрузке страницы.
+                                </li>
+                                <li>
+                                    <code>loop</code>
+                                    — повторяет воспроизведение видео по кругу.
+                                </li>
+                                <li>
+                                    <code>muted</code>
+                                    — делает видео изначально беззвучным.
+                                </li>
+                                <li>
+                                    <code>preload</code>
+                                    — управляет загрузкой видеофайла (
+                                    <code>auto</code>
+                                    — браузер сам решает, загружать видео или нет,
+                                    <code>metadata</code>
+                                    — загружает только метаданные,
+                                    <code>none</code>
+                                    — не загружает видео до нажатия play).
+                                </li>
+                                <li>
+                                    <code>width</code>
+                                    и
+                                    <code>height</code>
+                                    — задают размеры видеоплеера.
+                                </li>
+                                <li>
+                                    <code>poster</code>
+                                    — изображение-заставка, отображается до начала воспроизведения.
+                                </li>
+                            </ul>
+
+                            <h4>Пример с дополнительными атрибутами:</h4>
+                            <div class="code-block">
+                                <pre><code>&lt;video
+  src="video.mp4"                &lt;!-- путь к видеофайлу; можно использовать &lt;source&gt; вместо src --&gt;
+  controls                       &lt;!-- отображает элементы управления (play, pause, громкость и др.) --&gt;
+  autoplay                       &lt;!-- автоматически запускает видео при загрузке страницы --&gt;
+  loop                           &lt;!-- повторяет видео по кругу --&gt;
+  muted                          &lt;!-- видео стартует без звука --&gt;
+  preload="auto"                 &lt;!-- стратегия предзагрузки видео (auto, metadata, none) --&gt;
+  width="640"                    &lt;!-- ширина видеоплеера --&gt;
+  height="360"                   &lt;!-- высота видеоплеера --&gt;
+  poster="preview.jpg"           &lt;!-- изображение-заставка до начала воспроизведения --&gt;
+  playsinline                    &lt;!-- воспроизведение внутри страницы (на мобильных устройствах) --&gt;
+  disablePictureInPicture        &lt;!-- запрет режима "картинка в картинке" --&gt;
+&gt;
+  &lt;source src="video.mp4" type="video/mp4"&gt;         &lt;!-- основной видеофайл (mp4) --&gt;
+  &lt;source src="video.webm" type="video/webm"&gt;       &lt;!-- альтернативный формат для совместимости --&gt;
+  Ваш браузер не поддерживает видеоэлемент.          &lt;!-- текст для старых браузеров --&gt;
+&lt;/video&gt;</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- track -->
+                <section class="section" id="track">
+                    <div class="container">
+                        <h2>&lt;track&gt;</h2>
+                        <p class="note">
+                            Тег
+                            <code>&lt;track&gt;</code>
+                            используется внутри
+                            <code>&lt;video&gt;</code>
+                            для добавления субтитров, титров и других текстовых дорожек.
+                        </p>
+                        <video controls width="320" height="180" poster="https://via.placeholder.com/320x180">
+                            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+                            <track kind="subtitles" src="https://gist.githubusercontent.com/viktorygis/9ee0e1d9b08b7c6b370e8a5ed8b8b9df/raw/subtitles_ru.vtt" srclang="ru" label="Русский" default />
+                            Ваш браузер не поддерживает видеоэлемент.
+                        </video>
+                        <div class="code-block">
+                            <pre><code>&lt;video controls&gt;
+  &lt;source src="movie.mp4" type="video/mp4"&gt;
+  &lt;track kind="subtitles" src="subtitles_ru.vtt" srclang="ru" label="Русский"&gt;
+&lt;/video&gt;</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- embed -->
+                <section class="section" id="embed">
+                    <div class="container">
+                        <h2>&lt;embed&gt;</h2>
+                        <p class="note">
+                            Тег
+                            <strong><code>&lt;embed&gt;</code></strong>
+                            позволяет вставлять медиафайлы (PDF, SVG, видео, аудио) прямо в страницу.
+                        </p>
+                        <embed src="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" type="application/pdf" width="320" height="180" />
+                        <div>
+                            <h4>Пример кода:</h4>
+
+                            <div class="code-block">
+                                <pre><code>&lt;embed
+  src="presentation.pdf"         &lt;!-- путь к файлу для вставки --&gt;
+  type="application/pdf"         &lt;!-- MIME-тип файла (PDF, SVG, видео, аудио и др.) --&gt;
+  width="320"                    &lt;!-- ширина области отображения --&gt;
+  height="180"                   &lt;!-- высота области отображения --&gt;
+&gt;</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+
+                            <div class="example">
+                                <ul class="list-ul">
+                                    <li>
+                                        Тег
+                                        <code>&lt;embed&gt;</code>
+                                        позволяет вставлять медиафайлы (PDF, SVG, видео, аудио) прямо в страницу.
+                                    </li>
+                                    <li>
+                                        Поддерживает атрибуты
+                                        <code>src</code>
+                                        ,
+                                        <code>type</code>
+                                        ,
+                                        <code>width</code>
+                                        ,
+                                        <code>height</code>
+                                        .
+                                    </li>
+                                    <li>Не имеет "парного" закрывающего тега (самозакрывающийся).</li>
+                                    <li>Подходит для вставки интерактивных и мультимедийных файлов (например, PDF-презентаций или SVG-графики).</li>
+                                    <li>
+                                        Для доступа к содержимому нет fallback-текста — если браузер не поддерживает
+                                        <code>&lt;embed&gt;</code>
+                                        , файл не будет показан.
+                                    </li>
+                                </ul>
+                            </div>
+                            <h4>Пример с SVG:</h4>
+                            <div class="code-block">
+                                <pre><code>&lt;embed
+  src="image.svg"                &lt;!-- путь к SVG-файлу --&gt;
+  type="image/svg+xml"           &lt;!-- MIME-тип SVG --&gt;
+  width="320"                    &lt;!-- ширина --&gt;
+  height="180"                   &lt;!-- высота --&gt;
+&gt;</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+
+                        <h4>Разница с другими тегами</h4>
+                        <ul class="list-ul">
+                            <li>
+                                Тег
+                                <code>&lt;embed&gt;</code>
+                                используется для встраивания медиафайлов, но не поддерживает fallback-контент и не имеет элементов управления воспроизведением.
+                            </li>
+                            <li>
+                                В отличие от
+                                <code>&lt;video&gt;</code>
+                                и
+                                <code>&lt;audio&gt;</code>
+                                , которые предназначены для мультимедиа, тег
+                                <code>&lt;embed&gt;</code>
+                                более универсален и может использоваться для вставки различных типов файлов.
+                            </li>
+                            <li>
+                                Тег
+                                <code>&lt;embed&gt;</code>
+                                не имеет "парного" закрывающего тега (самозакрывающийся).
+                            </li>
+                        </ul>
+                        <h4>
+                            Пример разницы между
+                            <code>&lt;embed&gt;</code>
+                            и
+                            <code>&lt;audio&gt;</code>
+                        </h4>
+                        <div class="grid-column-50">
+                            <div class="example">
+                                <h5><code>&lt;embed&gt;</code></h5>
+                                <embed src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" width="320" height="100" />
+                            </div>
+                            <div class="example">
+                                <h5><code>&lt;audio&gt;</code></h5>
+                                <audio controls>
+                                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
+                                    Ваш браузер не поддерживает аудиоэлемент.
+                                </audio>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- object -->
+                <section class="section" id="object">
+                    <div class="container">
+                        <h2>&lt;object&gt;</h2>
+                        <p class="note">
+                            Тег
+                            <strong>&lt;object&gt;</strong>
+                            используется для встраивания различных типов мультимедиа и других ресурсов в HTML-документ.
+                        </p>
+                        <h4>Пример использования</h4>
+                        <object data="https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/410.svg" type="image/svg+xml" width="320" height="180">Не удалось загрузить изображение.</object>
+                        <div>
+                            <h4>Пример кода:</h4>
+                            <div class="code-block">
+                                <pre><code>&lt;object
+  data="diagram.svg"             &lt;!-- путь к файлу/ресурсу --&gt;
+  type="image/svg+xml"           &lt;!-- MIME-тип файла --&gt;
+  width="320"                    &lt;!-- ширина области отображения --&gt;
+  height="180"                   &lt;!-- высота области отображения --&gt;
+&gt;
+  Не удалось загрузить изображение. &lt;!-- fallback-контент --&gt;
+&lt;/object&gt;</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+
+                            <h4>Основные правила:</h4>
+                            <ul class="list-ul">
+                                <li>
+                                    Тег
+                                    <code>&lt;object&gt;</code>
+                                    используется для встраивания различных типов мультимедиа и других ресурсов в HTML-документ.
+                                </li>
+                                <li>
+                                    Тег
+                                    <code>&lt;object&gt;</code>
+                                    — универсальный для вставки SVG, PDF, HTML, Flash и других внешних ресурсов.
+                                </li>
+                            </ul>
+                            <h4>Атрибуты:</h4>
+                            <ul class="list-ul">
+                                <li>
+                                    <code>data</code>
+                                    — путь к файлу/ресурсу.
+                                </li>
+                                <li>
+                                    <code>type</code>
+                                    — MIME-тип файла.
+                                </li>
+                                <li>
+                                    <code>width</code>
+                                    — ширина области отображения.
+                                </li>
+                                <li>
+                                    <code>height</code>
+                                    — высота области отображения.
+                                </li>
+                            </ul>
+                            <h4>Разница с другими тегами</h4>
+                            <ul class="list-ul">
+                                <li>
+                                    <code>&lt;object&gt;</code>
+                                    — более универсальный и поддерживает различные типы контента.
+                                </li>
+                                <li>
+                                    <code>&lt;embed&gt;</code>
+                                    — используется для встраивания контента, но с меньшей гибкостью.
+                                </li>
+                                <li>
+                                    <code>&lt;iframe&gt;</code>
+                                    — встраивает другой HTML-документ, но не поддерживает такие типы, как SVG или PDF.
+                                </li>
+                            </ul>
+
+                            <h4>Пример с PDF и fallback:</h4>
+                            <div class="code-block">
+                                <pre><code>&lt;object
+  data="presentation.pdf"        &lt;!-- путь к PDF-файлу --&gt;
+  type="application/pdf"         &lt;!-- MIME-тип PDF --&gt;
+  width="320"                    &lt;!-- ширина --&gt;
+  height="180"                   &lt;!-- высота --&gt;
+&gt;
+  Ваш браузер не поддерживает отображение PDF.
+  &lt;a href="presentation.pdf"&gt;Скачать PDF&lt;/a&gt;
+&lt;/object&gt;</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+
+                        <h4>Когда какой тег использовать?</h4>
+                        <ul class="list-ul">
+                            <li>
+                                Используйте
+                                <code>&lt;object&gt;</code>
+                                для встраивания различных типов мультимедиа и других ресурсов.
+                            </li>
+                            <li>
+                                Используйте
+                                <code>&lt;embed&gt;</code>
+                                для встраивания контента, когда вам не нужна гибкость
+                                <code>&lt;object&gt;</code>
+                                .
+                            </li>
+                            <li>
+                                Используйте
+                                <code>&lt;iframe&gt;</code>
+                                для встраивания другого HTML-документа.
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- canvas -->
+                <section class="section" id="canvas">
+                    <div class="container">
+                        <h2>&lt;canvas&gt;</h2>
+                        <p class="note">
+                            Тег
+                            <code>&lt;canvas&gt;</code>
+                            используется для рисования графики с помощью JavaScript.
+                        </p>
+                        <p>canvas — это инструмент для рисования в браузере. Его используют для всего, где нужна динамика и визуализация: графики, игры, анимация, редакторы, интерактивные элементы, обработка изображений и даже просто для рисования на сайте!</p>
+                        <h4>Пример использования:</h4>
+                        <canvas id="demoCanvas" width="320" height="180" style="border: 1px solid #ccc"></canvas>
+                        <script>
+                            // Пример простого рисования на canvas
+                            const canvas = document.getElementById("demoCanvas");
+                            if (canvas.getContext) {
+                                const ctx = canvas.getContext("2d");
+                                ctx.fillStyle = "skyblue";
+                                ctx.fillRect(20, 40, 100, 60);
+                                ctx.fillStyle = "navy";
+                                ctx.font = "18px sans-serif";
+                                ctx.fillText("Canvas demo", 30, 80);
+                            }
+                        </script>
+                        <h4>Пример кода:</h4>
+                        <h5>HTML:</h5>
+                        <div class="code-block">
+                            <pre><code>&lt;canvas
+  id="demoCanvas"                &lt;!-- уникальный идентификатор для JS --&gt;
+  width="320"                    &lt;!-- ширина области canvas --&gt;
+  height="180"                   &lt;!-- высота области canvas --&gt;
+&gt;
+  Ваш браузер не поддерживает canvas.
+&lt;/canvas&gt;
+</code></pre>
+                            <button class="copy-btn">Скопировать</button>
+                        </div>
+
+                        <h5>JavaScript:</h5>
+                        <div class="code-block">
+                            <pre><code>&lt;script&gt;
+  // Получаем элемент canvas по id
+  const canvas = document.getElementById("demoCanvas");
+
+  // Проверяем, поддерживает ли браузер canvas
+  if (canvas.getContext) {
+    // Получаем 2D-контекст для рисования
+    const ctx = canvas.getContext("2d");
+
+    // Задаём цвет заливки и рисуем прямоугольник
+    ctx.fillStyle = "skyblue";
+    ctx.fillRect(20, 40, 100, 60);
+
+    // Меняем цвет и рисуем текст
+    ctx.fillStyle = "navy";
+    ctx.font = "18px sans-serif";
+    ctx.fillText("Canvas demo", 30, 80);
+  }
+&lt;/script&gt;
+</code></pre>
+                            <button class="copy-btn">Скопировать</button>
+                        </div>
+
+                        <h4>Основные правила:</h4>
+                        <ul class="list-ul">
+                            <li>
+                                Тег
+                                <code>&lt;canvas&gt;</code>
+                                должен иметь заданные
+                                <code>width</code>
+                                и
+                                <code>height</code>
+                                в атрибутах, а не в CSS.
+                            </li>
+                            <li>
+                                Для рисования используйте JavaScript и методы
+                                <code>getContext()</code>
+                                и
+                                <code>drawImage()</code>
+                                .
+                            </li>
+                            <li>
+                                Не забывайте проверять поддержку
+                                <code>&lt;canvas&gt;</code>
+                                в браузере.
+                            </li>
+                            <li>
+                                Внутри тега можно указать текст для браузеров, не поддерживающих
+                                <code>&lt;canvas&gt;</code>
+                                .
+                            </li>
+                        </ul>
+                        <h4>Атрибуты:</h4>
+                        <ul class="list-ul">
+                            <li>
+                                <code>id</code>
+                                - уникальный идентификатор для элемента, используется в JavaScript.
+                            </li>
+                            <li>
+                                <code>width</code>
+                                и
+                                <code>height</code>
+                                - задают размеры области рисования.
+                            </li>
+                            <li>
+                                <code>style</code>
+                                - позволяет задавать стили для элемента canvas.
+                            </li>
+                        </ul>
+                        <div class="examples">
+                            <h4>Примеры использования canvas:</h4>
+
+                            <h5>1. Прямоугольник</h5>
+                            <div class="grid-column-100">
+                                <pre><code>&lt;canvas id="rectCanvas" width="200" height="100" style="border: 1px solid #ccc"&gt;&lt;/canvas&gt;
+&lt;script&gt;
+  // Получаем элемент canvas
+  const canvas1 = document.getElementById("rectCanvas");
+  // Получаем 2D-контекст
+  const ctx1 = canvas1.getContext("2d");
+  // Рисуем заполненный прямоугольник
+  ctx1.fillStyle = "orange";
+  ctx1.fillRect(20, 20, 160, 60);
+&lt;/script&gt;
+</code></pre>
+                                <div class="example">
+                                    <canvas id="rectCanvas" width="200" height="100" style="border: 1px solid #ccc"></canvas>
+                                    <script>
+                                        // Получаем элемент canvas
+                                        const canvas1 = document.getElementById("rectCanvas");
+                                        // Получаем 2D-контекст
+                                        const ctx1 = canvas1.getContext("2d");
+                                        // Рисуем заполненный прямоугольник
+                                        ctx1.fillStyle = "orange";
+                                        ctx1.fillRect(20, 20, 160, 60);
+                                    </script>
+                                </div>
+                            </div>
+
+                            <h5>2. Круг</h5>
+                            <div class="grid-column-100">
+                                <pre><code>&lt;canvas id="circleCanvas" width="150" height="150" style="border: 1px solid #ccc"&gt;&lt;/canvas&gt;
+&lt;script&gt;
+  const canvas2 = document.getElementById("circleCanvas");
+  const ctx2 = canvas2.getContext("2d");
+  // Рисуем круг
+  ctx2.beginPath();
+  ctx2.arc(75, 75, 50, 0, Math.PI * 2); // x, y, радиус, угол от, угол до
+  ctx2.fillStyle = "lightblue";
+  ctx2.fill();
+  ctx2.strokeStyle = "blue";
+  ctx2.stroke();
+&lt;/script&gt;
+</code></pre>
+                                <div class="example">
+                                    <canvas id="circleCanvas" width="150" height="150" style="border: 1px solid #ccc"></canvas>
+                                    <script>
+                                        const canvas2 = document.getElementById("circleCanvas");
+                                        const ctx2 = canvas2.getContext("2d");
+                                        // Рисуем круг
+                                        ctx2.beginPath();
+                                        ctx2.arc(75, 75, 50, 0, Math.PI * 2); // x, y, радиус, угол от, угол до
+                                        ctx2.fillStyle = "lightblue";
+                                        ctx2.fill();
+                                        ctx2.strokeStyle = "blue";
+                                        ctx2.stroke();
+                                    </script>
+                                </div>
+                            </div>
+
+                            <h5>3. Текст</h5>
+                            <div class="grid-column-100">
+                                <pre><code>&lt;canvas id="textCanvas" width="300" height="60" style="border: 1px solid #ccc"&gt;&lt;/canvas&gt;
+&lt;script&gt;
+  const canvas3 = document.getElementById("textCanvas");
+  const ctx3 = canvas3.getContext("2d");
+  ctx3.font = "24px Arial";
+  ctx3.fillStyle = "green";
+  ctx3.fillText("Hello Canvas!", 20, 40);
+&lt;/script&gt;
+</code></pre>
+                                <div class="example">
+                                    <canvas id="textCanvas" width="300" height="60" style="border: 1px solid #ccc"></canvas>
+                                    <script>
+                                        const canvas3 = document.getElementById("textCanvas");
+                                        const ctx3 = canvas3.getContext("2d");
+                                        ctx3.font = "24px Arial";
+                                        ctx3.fillStyle = "green";
+                                        ctx3.fillText("Hello Canvas!", 20, 40);
+                                    </script>
+                                </div>
+                            </div>
+
+                            <h5>4. Линия</h5>
+                            <div class="grid-column-100">
+                                <pre><code>&lt;canvas id="lineCanvas" width="200" height="100" style="border: 1px solid #ccc"&gt;&lt;/canvas&gt;
+&lt;script&gt;
+  const canvas4 = document.getElementById("lineCanvas");
+  const ctx4 = canvas4.getContext("2d");
+  ctx4.beginPath();
+  ctx4.moveTo(10, 10); // Начало линии
+  ctx4.lineTo(190, 90); // Конец линии
+  ctx4.strokeStyle = "red";
+  ctx4.lineWidth = 3;
+  ctx4.stroke();
+&lt;/script&gt;
+</code></pre>
+                                <div class="example">
+                                    <canvas id="lineCanvas" width="200" height="100" style="border: 1px solid #ccc"></canvas>
+                                    <script>
+                                        const canvas4 = document.getElementById("lineCanvas");
+                                        const ctx4 = canvas4.getContext("2d");
+                                        ctx4.beginPath();
+                                        ctx4.moveTo(10, 10); // Начало линии
+                                        ctx4.lineTo(190, 90); // Конец линии
+                                        ctx4.strokeStyle = "red";
+                                        ctx4.lineWidth = 3;
+                                        ctx4.stroke();
+                                    </script>
+                                </div>
+                            </div>
+
+                            <h5>5. Градиент и прозрачность</h5>
+                            <div class="grid-column-100">
+                                <pre><code>&lt;canvas id="gradientCanvas" width="220" height="100" style="border: 1px solid #ccc"&gt;&lt;/canvas&gt;
+&lt;script&gt;
+  const canvas5 = document.getElementById("gradientCanvas");
+  const ctx5 = canvas5.getContext("2d");
+  // Создаём градиент
+  const grad = ctx5.createLinearGradient(0, 0, 220, 0);
+  grad.addColorStop(0, "purple");
+  grad.addColorStop(1, "yellow");
+  ctx5.fillStyle = grad;
+  ctx5.globalAlpha = 0.7; // прозрачность
+  ctx5.fillRect(0, 0, 220, 100);
+&lt;/script&gt;
+</code></pre>
+                                <div class="example">
+                                    <canvas id="gradientCanvas" width="220" height="100" style="border: 1px solid #ccc"></canvas>
+                                    <script>
+                                        const canvas5 = document.getElementById("gradientCanvas");
+                                        const ctx5 = canvas5.getContext("2d");
+                                        // Создаём градиент
+                                        const grad = ctx5.createLinearGradient(0, 0, 220, 0);
+                                        grad.addColorStop(0, "purple");
+                                        grad.addColorStop(1, "yellow");
+                                        ctx5.fillStyle = grad;
+                                        ctx5.globalAlpha = 0.7; // прозрачность
+                                        ctx5.fillRect(0, 0, 220, 100);
+                                    </script>
+                                </div>
+                            </div>
+                            <h5>6. Интерактивная подпись</h5>
+                            <div class="grid-column-100">
+                                <pre><code>&lt;canvas id="signature" width="400" height="100" style="border:1px solid #ccc"&gt;&lt;/canvas&gt;
+&lt;script&gt;
+  // Позволяет пользователю рисовать мышью свою подпись
+  const canvas = document.getElementById("signature");
+  const ctx = canvas.getContext("2d");
+  let drawing = false;
+  canvas.onmousedown = () => drawing = true;
+  canvas.onmouseup = () => drawing = false;
+  canvas.onmousemove = function(e) {
+    if (!drawing) return;
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(e.offsetX, e.offsetY);
+  };
+&lt;/script&gt;
+</code></pre>
+                                <div class="example">
+                                    <canvas id="signature" width="400" height="100" style="border: 1px solid #ccc"></canvas>
+                                    <script>
+                                        // Позволяет пользователю рисовать мышью свою подпись
+                                        const canvas6 = document.getElementById("signature");
+                                        const ctx6 = canvas6.getContext("2d");
+                                        let drawing = false;
+                                        canvas6.onmousedown = () => (drawing = true);
+                                        canvas6.onmouseup = () => (drawing = false);
+                                        canvas6.onmousemove = function (e) {
+                                            if (!drawing) return;
+                                            ctx6.lineTo(e.offsetX, e.offsetY);
+                                            ctx6.stroke();
+                                            ctx6.beginPath();
+                                            ctx6.moveTo(e.offsetX, e.offsetY);
+                                        };
+                                    </script>
+                                </div>
+                            </div>
+
+                            <h5>7. График реального времени</h5>
+                            <div class="grid-column-100">
+                                <pre><code>&lt;canvas id="graph" width="500" height="100"&gt;&lt;/canvas&gt;
+&lt;script&gt;
+  // Визуализация случайных данных
+  const canvas = document.getElementById("graph");
+  const ctx = canvas.getContext("2d");
+  setInterval(() => {
+    ctx.clearRect(0,0,500,100);
+    ctx.beginPath();
+    for(let x=0; x&lt;500; x+=10){
+      ctx.lineTo(x, 50 + Math.random()*40 - 20);
+    }
+    ctx.strokeStyle = "blue";
+    ctx.stroke();
+  }, 500);
+&lt;/script&gt;
+</code></pre>
+                                <div class="example">
+                                    <canvas id="graph" width="500" height="100"></canvas>
+                                    <script>
+                                        // Визуализация случайных данных
+                                        const canvas7 = document.getElementById("graph");
+                                        const ctx7 = canvas7.getContext("2d");
+                                        setInterval(() => {
+                                            ctx7.clearRect(0, 0, 500, 100);
+                                            ctx7.beginPath();
+                                            for (let x = 0; x < 500; x += 10) {
+                                                ctx7.lineTo(x, 50 + Math.random() * 40 - 20);
+                                            }
+                                            ctx7.strokeStyle = "blue";
+                                            ctx7.stroke();
+                                        }, 500);
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Примеры: progress и meter -->
+                <section class="section" id="progress-meter">
+                    <div class="container">
+                        <h2>Примеры: progress и meter</h2>
+                        <div class="tags-list">
+                            <!-- progress -->
+                            <div class="card">
+                                <h3>Элемент &lt;progress&gt;</h3>
+                                <p class="note">
+                                    Элемент
+                                    <code>&lt;progress&gt;</code>
+                                    отображает прогресс выполнения задачи.
+                                    <br />
+                                    Задайте текущий прогресс через атрибут
+                                    <code>value</code>
+                                    , максимальное значение — через
+                                    <code>max</code>
+                                    .
+                                </p>
+                                <ul class="list-ul">
+                                    <li>Используется для отображения загрузки, выполнения процессов и т.д.</li>
+                                </ul>
+                                <div class="intro-code-block">
+                                    <pre><code>&lt;progress value="70" max="100"&gt;70%&lt;/progress&gt;</code></pre>
+                                </div>
+                                <p>В результате:</p>
+                                <progress value="70" max="100">70%</progress>
+                            </div>
+                            <!-- meter -->
+                            <div class="card">
+                                <h3>Элемент &lt;meter&gt;</h3>
+                                <p class="note">
+                                    Элемент
+                                    <code>&lt;meter&gt;</code>
+                                    отображает значение в заданном диапазоне.
+                                    <br />
+                                    Часто используется для визуализации уровня заряда, оценки результатов, скорости и т.п.
+                                </p>
+                                <ul class="list-ul">
+                                    <li>
+                                        <strong>value</strong>
+                                        : текущее значение.
+                                    </li>
+                                    <li>
+                                        <strong>min</strong>
+                                        : минимальное значение (по умолчанию — 0).
+                                    </li>
+                                    <li>
+                                        <strong>max</strong>
+                                        : максимальное значение (по умолчанию — 1).
+                                    </li>
+                                    <li>
+                                        <strong>low</strong>
+                                        : низкий порог (значение ниже считается низким).
+                                    </li>
+                                    <li>
+                                        <strong>high</strong>
+                                        : высокий порог (значение выше считается высоким).
+                                    </li>
+                                    <li>
+                                        <strong>optimum</strong>
+                                        : оптимальное значение.
+                                    </li>
+                                </ul>
+                                <div class="intro-code-block">
+                                    <pre><code>&lt;meter value="0.6" min="0" max="1" low="0.4" high="0.8" optimum="0.7"&gt;60%&lt;/meter&gt;</code></pre>
+                                </div>
+                                <p>В результате:</p>
+                                <meter value="0.6" min="0" max="1" low="0.4" high="0.8" optimum="0.7">60%</meter>
+                            </div>
+                            <!-- В чем разница? -->
+                            <div class="card">
+                                <h4>В чем разница?</h4>
+                                <p class="note">
+                                    Элементы
+                                    <code>&lt;progress&gt;</code>
+                                    и
+                                    <code>&lt;meter&gt;</code>
+                                    имеют разные семантические значения и предназначены для разных целей.
+                                </p>
+                                <ul class="list-ul">
+                                    <li>
+                                        <strong>&lt;progress&gt;</strong>
+                                        используется для отображения прогресса выполнения задачи (например, загрузка файла).
+                                    </li>
+                                    <li>
+                                        <strong>&lt;meter&gt;</strong>
+                                        отображает измеренное значение в пределах заданного диапазона (например, уровень заряда батареи).
+                                    </li>
+                                </ul>
+                            </div>
+                            <h4>Пример разницы</h4>
+                            <div class="intro-code-block">
+                                <pre><code>&lt;progress value="70" max="100"&gt;70%&lt;/progress&gt;
+&lt;meter value="0.6" min="0" max="1" low="0.4" high="0.8" optimum="0.7"&gt;60%&lt;/meter&gt;</code></pre>
+                            </div>
+                            <!-- Пример форматирования -->
+                            <style>
+                                .example {
+                                    display: flex;
+                                    gap: 10px;
+                                }
+                                .example progress {
+                                    appearance: none;
+                                    width: 100%;
+                                    height: 20px;
+                                    border-radius: 10px;
+                                    background: #eee;
+                                }
+                                .example meter {
+                                    appearance: none;
+                                    width: 100%;
+                                    height: 20px;
+                                    border-radius: 10px;
+                                    background: #eee;
+                                }
+                            </style>
+                            <h4>Пример: Нажмите на элементы</h4>
+
+                            <div class="example">
+                                <progress value="70" max="100">70%</progress>
+                                <meter value="0.6" min="0" max="1" low="0.4" high="0.8" optimum="0.7">60%</meter>
+                            </div>
+                            <script>
+                                // Добавляем интерактивность для примеров
+                                document.querySelectorAll(".example progress").forEach((progress) => {
+                                    progress.addEventListener("click", () => {
+                                        progress.value = Math.min(progress.value + 10, progress.max);
+                                    });
+                                });
+                                // Добавляем интерактивность для примеров
+                                document.querySelectorAll(".example meter").forEach((meter) => {
+                                    meter.addEventListener("click", () => {
+                                        meter.value = Math.min(meter.value + 0.1, meter.max);
+                                    });
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Практика -->
+                <section class="section" id="practice">
+                    <div class="container">
+                        <h2>Практика</h2>
+                        <div class="interactive-demo">
+                            <div class="demo-box">
+                                <button class="demo-btn" onclick="document.getElementById('demoAudio').play()">▶️ Воспроизвести аудио</button>
+                                <audio id="demoAudio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"></audio>
+                            </div>
+                            <div class="demo-box">
+                                <button class="demo-btn" onclick="document.getElementById('demoVideo').play()">▶️ Воспроизвести видео</button>
+                                <video id="demoVideo" width="240" controls poster="https://via.placeholder.com/240x135">
+                                    <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4" />
+                                </video>
+                            </div>
+                        </div>
+                        <div class="note note--info">Попробуйте взаимодействовать с элементами: воспроизвести аудио или видео с помощью кнопки.</div>
+                    </div>
+                </section>
+
+                <!-- Советы и типичные ошибки -->
+                <section class="section" id="tips">
+                    <div class="container">
+                        <h2>Советы и типичные ошибки</h2>
+                        <ul class="list-ul">
+                            <li>
+                                Указывайте
+                                <code>alt</code>
+                                для изображений — это важно для доступности.
+                            </li>
+                            <li>
+                                Добавляйте несколько форматов в
+                                <code>&lt;audio&gt;</code>
+                                и
+                                <code>&lt;video&gt;</code>
+                                для поддержки разных браузеров.
+                            </li>
+                            <li>Проверяйте размер медиафайлов — большие изображения и видео замедляют загрузку сайта.</li>
+                            <li>
+                                Используйте
+                                <code>controls</code>
+                                для удобства пользователя.
+                            </li>
+                            <li>
+                                Для видео добавляйте субтитры через
+                                <code>&lt;track&gt;</code>
+                                .
+                            </li>
+                        </ul>
+                        <div class="note note--info">Частая ошибка — отсутствие альтернативного текста для изображений и некорректные источники файлов.</div>
+                    </div>
+                </section>
+
+                <!-- Лучшие практики -->
+                <section class="section" id="best-practices">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+                        <ul class="list-ul">
+                            <li>Оптимизируйте изображения и видео для быстрой загрузки.</li>
+                            <li>Проверяйте доступность мультимедийных элементов (alt, title, track).</li>
+                            <li>Проверяйте кроссбраузерную совместимость медиаформатов.</li>
+                            <li>Используйте современные форматы изображений (WebP, SVG) и видео (MP4, WebM).</li>
+                            <li>По возможности используйте CDN для хранения больших файлов.</li>
+                        </ul>
+                        <div class="note note--info">Соблюдение этих практик поможет сделать сайт быстрым, доступным и удобным для всех пользователей.</div>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+    </body>
+</html>

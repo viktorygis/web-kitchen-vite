@@ -1,0 +1,8 @@
+# generated html output (nunjucks render)
+src/site/
+
+# build output
+dist/
+
+# deps
+node_modules/

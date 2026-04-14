@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../html/head.html', { "title": "API во Vue: основные концепции и примеры использования", "description": "Краткое описание основных API Vue: Options API, Composition API, жизненный цикл, реактивность, работа с DOM и best practices." })
+
+<head>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    @@include('../html/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="#intro">Введение</a>
+        <a href="#options-api">Options API</a>
+        <a href="#composition-api">Composition API</a>
+        <a href="#reactivity">Реактивность</a>
+        <a href="#lifecycle">Жизненный цикл</a>
+        <a href="#dom">Работа с DOM</a>
+        <a href="#bestpractices">Best Practices</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="intro">
+        <div class="container">
+          <h1>API во Vue: краткий обзор</h1>
+          <p class="note">
+            В Vue под “API” подразумевается не серверное взаимодействие, а способы работы с возможностями самого фреймворка.<br>
+            Основные подходы — <b>Options API</b> (классический) и <b>Composition API</b> (современный). Они позволяют создавать реактивные компоненты любого уровня сложности.
+          </p>
+        </div>
+      </section>
+
+      <!-- Options API -->
+      <section class="section" id="options-api">
+        <div class="container">
+          <h2>Options API (Классический подход)</h2>
+          <p class="note">
+            <strong>Options API</strong> — “традиционный” синтаксис Vue 2 и совместим с Vue 3.<br>
+            Описывается с помощью объектных опций: <code>data</code>, <code>methods</code>, <code>computed</code>, <code>watch</code>, <code>props</code> и др.
+          </p>
+          <div class="code-block">
+            <pre><code>&lt;template&gt;
+  &lt;div&gt;
+    Привет, {{ name }}!
+    &lt;button @click="sayHi"&gt;Поздороваться&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  data() { return { name: "Vue" } },
+  methods: {
+    sayHi() { alert(`Привет, ${this.name}!`) }
+  }
+}
+&lt;/script&gt;
+</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Composition API -->
+      <section class="section" id="composition-api">
+        <div class="container">
+          <h2>Composition API (Современный подход)</h2>
+          <p class="note">
+            <strong>Composition API</strong> — синтаксис Vue 3 для создания логики через функции и реактивные переменные.<br>
+            Используются примитивы <code>ref</code>, <code>reactive</code>, <code>computed</code>, <code>watch</code> и <code>hooks</code>.
+          </p>
+          <div class="code-block">
+            <pre><code>&lt;script setup&gt;
+import { ref } from 'vue'
+const name = ref('Vue 3')
+function sayHi() {
+  alert(`Привет, ${name.value}!`)
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div&gt;Привет, {{ name }}! &lt;button @click="sayHi"&gt;Поздороваться&lt;/button&gt;&lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+          </div>
+          <ul class="list-ul">
+            <li><b>Повторное использование логики</b> через composables (пользовательские функции).</li>
+            <li><b>Явный импорт реактивных инструментов</b> из <code>vue</code>.</li>
+            <li>Совместим с TypeScript и идеально для сложных компонентов.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Реактивность -->
+      <section class="section" id="reactivity">
+        <div class="container">
+          <h2>Реактивность во Vue</h2>
+          <p class="note">
+            Основной принцип Vue — реактивное отслеживание данных.<br>
+            Любые изменения реактивных переменных немедленно отражаются в шаблоне.
+          </p>
+          <ul class="list-ul">
+            <li><b>ref()</b> — реактивное значение-примитив</li>
+            <li><b>reactive()</b> — реактивный объект</li>
+            <li><b>computed()</b> — реактивное вычисляемое свойство на основе других реактивных значений</li>
+            <li><b>watch()</b> — слушатель изменений реактивных данных</li>
+          </ul>
+          <div class="code-block">
+            <pre><code>&lt;script setup&gt;
+import { ref, computed, watch } from 'vue'
+const count = ref(0)
+const double = computed(() =&gt; count.value * 2)
+watch(count, (newVal) =&gt; console.log('Новое значение:', newVal))
+&lt;/script&gt;
+</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Жизненный цикл -->
+      <section class="section" id="lifecycle">
+        <div class="container">
+          <h2>Хуки жизненного цикла компонента</h2>
+          <p class="note">
+            У каждого Vue-компонента есть цикл жизни: создание, монтирование, обновление и уничтожение.<br>
+            Вы можете выполнять действия в определённые моменты с помощью хуков:
+          </p>
+          <div class="code-block">
+            <pre><code>&lt;script setup&gt;
+import { onMounted, onUnmounted } from 'vue'
+onMounted(() =&gt; {
+  console.log('Компонент смонтирован!')
+})
+onUnmounted(() =&gt; {
+  console.log('Компонент уничтожен!')
+})
+&lt;/script&gt;
+</code></pre>
+          </div>
+          <ul class="list-ul">
+            <li><b>onBeforeMount</b> — до монтирования</li>
+            <li><b>onMounted</b> — после монтирования</li>
+            <li><b>onUpdated</b> — после обновления</li>
+            <li><b>onUnmounted</b> — после удаления компонента</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Работа с DOM -->
+      <section class="section" id="dom">
+        <div class="container">
+          <h2>Работа с DOM через ref</h2>
+          <p class="note">
+            Для получения доступа к DOM-элементу используйте директиву <code>ref</code> внутри шаблона и функцию <code>ref</code> из API.
+          </p>
+          <div class="code-block">
+            <pre><code>&lt;template&gt;
+  &lt;input ref="inputEl" /&gt;
+  &lt;button @click="focusInput"&gt;Фокус&lt;/button&gt;
+&lt;/template&gt;
+&lt;script setup&gt;
+import { ref, onMounted } from 'vue'
+const inputEl = ref(null)
+function focusInput() {
+  inputEl.value &amp;&amp; inputEl.value.focus()
+}
+&lt;/script&gt;
+</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Best Practices -->
+      <section class="section" id="bestpractices">
+        <div class="container">
+          <h2>Best Practices для работы с API Vue</h2>
+          <ul class="list-ul">
+            <li>Выбирайте <b>Composition API</b> для новых проектов и сложных компонентов.</li>
+            <li>Options API хорош для небольших и учебных примеров.</li>
+            <li>Логику, которую можно переиспользовать, выносите в <b>composables</b> (пользовательские функции).</li>
+            <li>Используйте хуки жизненного цикла для асинхронных запросов, подписок, очистки ресурсов.</li>
+            <li>Для сложной реактивности предпочитайте <b>computed</b> и <b>watch</b>, избегайте сложных вложенных <b>watch</b> без необходимости.</li>
+            <li>Всегда используйте <code>ref</code> и <code>reactive</code> для реактивности внутри Composition API.</li>
+          </ul>
+          <div class="note note--info">
+            🚀 <strong>Главное:</strong> Организуйте логику понятно, используйте сильные стороны двух API, не бойтесь совмещать варианты там, где это реально ускоряет разработку.
+          </div>
+        </div>
+      </section>
+    </main>
+    @@include('../html/footer.html', {})
+  </div>
+  @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+
+</body>
+</html>

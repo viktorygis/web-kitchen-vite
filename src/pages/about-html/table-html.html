@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Полное руководство по таблицам HTML", "description": "Полное руководство по таблицам HTML" })
+    <style>
+        .table-zebra {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .table-zebra th {
+            background: #0077cc;
+            color: #fff;
+            padding: 10px;
+        }
+        .table-zebra td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        .table-zebra tr:nth-child(even) {
+            background-color: #f2f6fa;
+        }
+
+        .table-hover {
+            width: 100%;
+            border: none;
+            font-size: 16px;
+        }
+        .table-hover th,
+        .table-hover td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #eee;
+        }
+        .table-hover tr:hover td {
+            background-color: #e7f7ff;
+        }
+        .table-shadow {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .table-shadow th,
+        .table-shadow td {
+            padding: 12px 16px;
+        }
+        .table-shadow th {
+            background-color: #005f73;
+            color: #fff;
+        }
+        .table-shadow tr:nth-child(even) td {
+            background-color: #f2f6fa;
+        }
+    </style>
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#table-intro" class="active">Введение</a>
+                    <a href="#table-tags">Основные теги</a>
+                    <a href="#table-tags-summary">Сводная таблица тегов</a>
+                    <a href="#table-merge">Объединение ячеек</a>
+                    <a href="#table-accessibility">Доступность таблиц</a>
+                    <a href="#table-css">Стилизация таблиц (CSS)</a>
+                    <a href="#table-errors">Ошибки в таблицах</a>
+                    <a href="#responsive-table">Адаптивные таблицы</a>
+                    <a href="#table-attributes">Атрибуты таблицы</a>
+                    <a href="#colgroup">colgroup</a>
+                    <a href="#table-tips">Советы</a>
+                </nav>
+
+                <!-- Введение -->
+                <section class="section" id="table-intro">
+                    <div class="container">
+                        <h1>Таблицы HTML</h1>
+                        <p class="note">
+                            HTML предоставляет несколько тегов для создания и работы с таблицами.
+                            <br />
+                            Таблицы используются для отображения данных в строках и столбцах, обеспечивая удобочитаемость и структуру.
+                        </p>
+
+                        <!-- Основные теги таблиц -->
+                        <div>
+                            <h3>Основные теги таблиц</h3>
+                            <ul class="list-ul">
+                                <li>
+                                    <code>&lt;table&gt;</code>
+                                    — создаёт таблицу
+                                </li>
+                                <li>
+                                    <code>&lt;tr&gt;</code>
+                                    — строка таблицы
+                                </li>
+                                <li>
+                                    <code>&lt;td&gt;</code>
+                                    — ячейка данных
+                                </li>
+                                <li>
+                                    <code>&lt;th&gt;</code>
+                                    — заголовок столбца
+                                </li>
+                                <li>
+                                    <code>&lt;caption&gt;</code>
+                                    — подпись таблицы
+                                </li>
+                                <li>
+                                    <code>&lt;thead&gt;</code>
+                                    ,
+                                    <code>&lt;tbody&gt;</code>
+                                    ,
+                                    <code>&lt;tfoot&gt;</code>
+                                    — группы содержимого
+                                </li>
+                            </ul>
+
+                            <h4>Пример</h4>
+                            <div class="grid-column-50">
+                                <pre><code>
+&lt;table&gt;
+  &lt;caption&gt;Статистика&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th&gt;Имя&lt;/th&gt;&lt;th&gt;Возраст&lt;/th&gt;&lt;th&gt;Город&lt;/th&gt;&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Иван&lt;/td&gt;&lt;td&gt;30&lt;/td&gt;&lt;td&gt;Москва&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Анна&lt;/td&gt;&lt;td&gt;25&lt;/td&gt;&lt;td&gt;Питер&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tfoot&gt;
+    &lt;tr&gt;&lt;td&gt;Итого&lt;/td&gt;&lt;td&gt;55&lt;/td&gt;&lt;td&gt;—&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;
+        </code></pre>
+                                <div class="example">
+                                    <table class="table-example">
+                                        <caption>Статистика</caption>
+                                        <thead>
+                                            <tr>
+                                                <th>Имя</th>
+                                                <th>Возраст</th>
+                                                <th>Город</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Иван</td>
+                                                <td>30</td>
+                                                <td>Москва</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Анна</td>
+                                                <td>25</td>
+                                                <td>Питер</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td>Итого</td>
+                                                <td>55</td>
+                                                <td>—</td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Основные теги -->
+                <section class="section" id="table-tags">
+                    <div class="container">
+                        <h2>Основные теги</h2>
+                        <div>
+                            <h3>&lt;table&gt;</h3>
+                            <p class="note">
+                                <b>&lt;table&gt;</b>
+                                — Этот тег создаёт таблицу.
+                                <br />
+                                Он должен содержать в себе другие теги, такие как &lt;tr&gt;, &lt;th&gt; и &lt;td&gt;.
+                            </p>
+                            <div class="grid-column-50">
+                                <pre><code>&lt;table&gt;...&lt;/table&gt;</code></pre>
+                                <div class="example">
+                                    <table class="table-example">
+                                        <tr>
+                                            <td>Ячейка 1</td>
+                                            <td>Ячейка 2</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <h3>&lt;tr&gt;</h3>
+                            <p class="note">&lt;tr&gt; используется для определения строки таблицы.</p>
+                            <div class="grid-column-50">
+                                <pre><code>&lt;tr&gt;
+  &lt;td&gt;Ячейка 1&lt;/td&gt;
+  &lt;td&gt;Ячейка 2&lt;/td&gt;
+&lt;/tr&gt;</code></pre>
+                                <div class="example">
+                                    <table class="table-example">
+                                        <tr>
+                                            <td>Ячейка 1</td>
+                                            <td>Ячейка 2</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <h3>&lt;th&gt;</h3>
+                            <p class="note">&lt;th&gt; используется для определения заголовков столбцов или строк. Текст отображается жирным и по центру.</p>
+                            <div class="grid-column-50">
+                                <pre><code>&lt;th&gt;Заголовок 1&lt;/th&gt;</code></pre>
+                                <div class="example">
+                                    <table class="table-example">
+                                        <tr>
+                                            <th>Заголовок 1</th>
+                                            <th>Заголовок 2</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Данные 1</td>
+                                            <td>Данные 2</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <h3>&lt;td&gt;</h3>
+                            <p class="note">&lt;td&gt; используется для стандартных (данных) ячеек таблицы.</p>
+                            <div class="grid-column-50">
+                                <pre><code>&lt;td&gt;Данные ячейки&lt;/td&gt;</code></pre>
+                                <div class="example">
+                                    <table class="table-example">
+                                        <tr>
+                                            <td>Данные ячейки</td>
+                                            <td>Ещё ячейка</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <h3>&lt;caption&gt;</h3>
+                            <p class="note">&lt;caption&gt; добавляет заголовок к таблице.</p>
+                            <div class="grid-column-50">
+                                <pre><code>&lt;caption&gt;Заголовок таблицы&lt;/caption&gt;</code></pre>
+                                <div class="example">
+                                    <table class="table-example">
+                                        <caption>Заголовок таблицы</caption>
+                                        <tr>
+                                            <td>Ячейка 1</td>
+                                            <td>Ячейка 2</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <h3>&lt;thead&gt;, &lt;tbody&gt; и &lt;tfoot&gt;</h3>
+                            <p class="note">Эти теги позволяют группировать разделы таблицы для лучшей структуры и стилизации.</p>
+                            <div class="grid-column-50">
+                                <pre><code>&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Заголовок 1&lt;/th&gt;
+      &lt;th&gt;Заголовок 2&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Данные 1&lt;/td&gt;
+      &lt;td&gt;Данные 2&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tfoot&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Итого&lt;/td&gt;
+      &lt;td&gt;100&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;</code></pre>
+                                <div class="example">
+                                    <table class="table-example">
+                                        <thead>
+                                            <tr>
+                                                <th>Заголовок 1</th>
+                                                <th>Заголовок 2</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Данные 1</td>
+                                                <td>Данные 2</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td>Итого</td>
+                                                <td>100</td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Сводная таблица тегов -->
+                <section class="section" id="table-tags-summary">
+                    <div class="container">
+                        <h2>Сводная таблица тегов</h2>
+                        <table class="table-note">
+                            <thead>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Описание</th>
+                                    <th>Пример кода</th>
+                                    <th>English Translation</th>
+                                    <th>Происхождение и значение</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>&lt;table&gt;</td>
+                                    <td>Создаёт таблицу</td>
+                                    <td>&lt;table&gt;...&lt;/table&gt;</td>
+                                    <td>&lt;table&gt;</td>
+                                    <td>От лат. "tabula" — "доска, плоская поверхность"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;tr&gt;</td>
+                                    <td>Создаёт строку таблицы</td>
+                                    <td>&lt;tr&gt;...&lt;/tr&gt;</td>
+                                    <td>&lt;tr&gt;</td>
+                                    <td>От англ. "table row" — "строка таблицы"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;th&gt;</td>
+                                    <td>Создаёт заголовок столбца</td>
+                                    <td>&lt;th&gt;Заголовок&lt;/th&gt;</td>
+                                    <td>&lt;th&gt;</td>
+                                    <td>От англ. "table header" — "заголовок таблицы"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;td&gt;</td>
+                                    <td>Создаёт стандартную ячейку данных</td>
+                                    <td>&lt;td&gt;Данные&lt;/td&gt;</td>
+                                    <td>&lt;td&gt;</td>
+                                    <td>От англ. "table data" — "данные таблицы"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;caption&gt;</td>
+                                    <td>Добавляет заголовок к таблице</td>
+                                    <td>&lt;caption&gt;Название&lt;/caption&gt;</td>
+                                    <td>&lt;caption&gt;</td>
+                                    <td>От лат. "captio" — "заголовок, название"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;thead&gt;</td>
+                                    <td>Группирует заголовки таблицы</td>
+                                    <td>&lt;thead&gt;...&lt;/thead&gt;</td>
+                                    <td>&lt;thead&gt;</td>
+                                    <td>От англ. "table head" — "верхняя часть таблицы"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;tbody&gt;</td>
+                                    <td>Группирует основной контент таблицы</td>
+                                    <td>&lt;tbody&gt;...&lt;/tbody&gt;</td>
+                                    <td>&lt;tbody&gt;</td>
+                                    <td>От англ. "table body" — "тело таблицы"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;tfoot&gt;</td>
+                                    <td>Группирует футер таблицы</td>
+                                    <td>&lt;tfoot&gt;...&lt;/tfoot&gt;</td>
+                                    <td>&lt;tfoot&gt;</td>
+                                    <td>От англ. "table footer" — "нижняя часть таблицы"</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Объединение ячеек -->
+                <section class="section" id="table-merge">
+                    <div class="container">
+                        <h1>Объединение ячеек в таблицах</h1>
+                        <p class="note">
+                            Для улучшения структуры таблицы и визуального выделения информации в HTML используются атрибуты
+                            <code>colspan</code>
+                            и
+                            <code>rowspan</code>
+                            .
+                            <br />
+                            Они позволяют объединять ячейки по горизонтали и вертикали, создавая более читаемые и компактные таблицы.
+                        </p>
+
+                        <!-- Основные атрибуты объединения -->
+                        <div>
+                            <h3>Основные атрибуты объединения</h3>
+                            <ul class="list-ul">
+                                <li>
+                                    <code>colspan</code>
+                                    — объединяет ячейки по горизонтали (в пределах одной строки).
+                                    <br />
+                                    Например:
+                                    <code>&lt;th colspan="2"&gt;</code>
+                                </li>
+                                <li>
+                                    <code>rowspan</code>
+                                    — объединяет ячейки по вертикали (на несколько строк вниз).
+                                    <br />
+                                    Например:
+                                    <code>&lt;td rowspan="3"&gt;</code>
+                                </li>
+                            </ul>
+
+                            <h4>Пример colspan="2"</h4>
+                            <div class="grid-column-50">
+                                <pre><code>
+&lt;table&gt;
+  &lt;caption&gt;Бюджет отдела&lt;/caption&gt;
+  &lt;tr&gt;
+    &lt;th colspan="2"&gt;Бюджет отдела&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Маркетинг&lt;/td&gt;
+    &lt;td&gt;200 000₽&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+        </code></pre>
+                                <div class="example">
+                                    <table class="table-example">
+                                        <caption>Бюджет отдела</caption>
+                                        <tr>
+                                            <th colspan="2">Бюджет отдела</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Маркетинг</td>
+                                            <td>200 000₽</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <h4>Пример rowspan="2"</h4>
+                            <div class="grid-column-50">
+                                <pre><code>
+&lt;table&gt;
+  &lt;caption&gt;Группы расходов&lt;/caption&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Отдел&lt;/th&gt;
+    &lt;th&gt;Бюджет&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td rowspan="2"&gt;Маркетинг&lt;/td&gt;
+    &lt;td&gt;200 000₽&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Продажи&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+        </code></pre>
+                                <div class="example">
+                                    <table class="table-example">
+                                        <caption>Группы расходов</caption>
+                                        <tr>
+                                            <th>Отдел</th>
+                                            <th>Бюджет</th>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="2">Маркетинг</td>
+                                            <td>200 000₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Продажи</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <h4>
+                                Комбинирование
+                                <code>rowspan</code>
+                                и
+                                <code>colspan</code>
+                            </h4>
+                            <div class="grid-column-100">
+                                <pre><code>
+&lt;table&gt;
+  &lt;caption&gt;Годовой бюджет&lt;/caption&gt;
+  &lt;tr&gt;
+    &lt;th colspan="3"&gt;Годовой бюджет&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td rowspan="2"&gt;Маркетинг&lt;/td&gt;
+    &lt;td&gt;Q1&lt;/td&gt;
+    &lt;td&gt;100 000₽&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Q2&lt;/td&gt;
+    &lt;td&gt;120 000₽&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+        </code></pre>
+                                <div class="example">
+                                    <table class="table-example">
+                                        <caption>Годовой бюджет</caption>
+                                        <tr>
+                                            <th colspan="3">Годовой бюджет</th>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="2">Маркетинг</td>
+                                            <td>Q1</td>
+                                            <td>100 000₽</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Q2</td>
+                                            <td>120 000₽</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <p class="note">
+                                <strong>Важно:</strong>
+                                Используйте
+                                <code>colspan</code>
+                                и
+                                <code>rowspan</code>
+                                для создания отчётливых заголовков, объединённых категорий, итоговых строк и других структурных элементов таблицы.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Доступность таблиц -->
+                <section class="section" id="table-accessibility">
+                    <div class="container">
+                        <h2>Доступность таблиц</h2>
+                        <p class="note">Доступные таблицы важны для пользователей с ограниченными возможностями. Следуйте этим рекомендациям, чтобы ваша таблица была понятна скринридерам и удобна для всех.</p>
+
+                        <h3>Рекомендации по семантической разметке</h3>
+                        <ul class="list-ul">
+                            <li>
+                                <strong>
+                                    Используйте атрибут
+                                    <code>scope</code>
+                                </strong>
+                                — он определяет, к какому элементу относится заголовок: к столбцу (
+                                <code>scope="col"</code>
+                                ) или строке (
+                                <code>scope="row"</code>
+                                ). Это важно для правильного восприятия структуры таблицы скринридерами и другими вспомогательными технологиями.
+                            </li>
+                            <li>
+                                <strong>&lt;th&gt; вместо &lt;td&gt;</strong>
+                                — используйте
+                                <code>&lt;th&gt;</code>
+                                для заголовков. Это улучшает семантику и доступность, позволяя вспомогательным технологиям правильно интерпретировать данные и улучшая навигацию.
+                            </li>
+                            <li>
+                                <strong>Избегайте вложенных таблиц</strong>
+                                — они могут затруднять восприятие данных и усложнять работу вспомогательных технологий. Если необходимо, используйте более простые структуры.
+                            </li>
+                        </ul>
+
+                        <h4>Пример доступной разметки</h4>
+                        <div class="grid-column-50">
+                            <pre><code>
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th scope="col"&gt;Имя&lt;/th&gt;
+      &lt;th scope="col"&gt;Возраст&lt;/th&gt;
+      &lt;th scope="col"&gt;Город&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Иван&lt;/td&gt;&lt;td&gt;30&lt;/td&gt;&lt;td&gt;Москва&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Анна&lt;/td&gt;&lt;td&gt;25&lt;/td&gt;&lt;td&gt;Питер&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+      </code></pre>
+                            <div class="example">
+                                <table class="table-example">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Имя</th>
+                                            <th scope="col">Возраст</th>
+                                            <th scope="col">Город</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Иван</td>
+                                            <td>30</td>
+                                            <td>Москва</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Анна</td>
+                                            <td>25</td>
+                                            <td>Питер</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <p class="note note--info">
+                            <strong>Важно:</strong>
+                            Семантическая разметка и правильные атрибуты делают ваши таблицы доступными для всех пользователей, включая людей с ограничениями по зрению или слуху.
+                        </p>
+                        <!-- Использование ARIA для улучшения доступности -->
+                        <h3>Использование ARIA для улучшения доступности</h3>
+                        <p class="note">
+                            <strong>ARIA (Accessible Rich Internet Applications)</strong>
+                            предоставляет дополнительные возможности для улучшения доступности веб-контента, включая таблицы. Используйте ARIA-атрибуты, чтобы сделать ваши таблицы более понятными для пользователей с ограниченными возможностями.
+                        </p>
+                        <h4>Для чего это нужно?</h4>
+                        <p class="note note--info">
+                            <strong>ARIA</strong>
+                            - помогает улучшить восприятие таблиц для пользователей, использующих вспомогательные технологии, такие как экранные читалки. Правильное использование ARIA-атрибутов позволяет более точно передавать структуру и содержание таблицы.
+                        </p>
+                        <ul class="list-ul">
+                            <li>
+                                Используйте
+                                <code>role="table"</code>
+                                для самой таблицы.
+                            </li>
+                            <li>
+                                Используйте
+                                <code>role="rowgroup"</code>
+                                для групп строк (обычно
+                                <code>&lt;thead&gt;</code>
+                                и
+                                <code>&lt;tbody&gt;</code>
+                                ).
+                            </li>
+                            <li>
+                                Используйте
+                                <code>role="row"</code>
+                                для каждой строки таблицы.
+                            </li>
+                            <li>
+                                Используйте
+                                <code>role="columnheader"</code>
+                                для заголовков столбцов.
+                            </li>
+                            <li>
+                                Используйте
+                                <code>role="cell"</code>
+                                для ячеек таблицы.
+                            </li>
+                        </ul>
+                        <p>
+                            <b>role="table"</b>
+                            - это атрибут, который указывает, что элемент является таблицей. Он помогает вспомогательным технологиям, таким как экранные читалки, правильно интерпретировать структуру таблицы. table - перевод "таблица".
+                        </p>
+
+                        <p>
+                            <b>role="rowgroup"</b>
+                            - это атрибут, который указывает, что элемент является группой строк таблицы. Он помогает вспомогательным технологиям, таким как экранные читалки, правильно интерпретировать структуру таблицы. rowgroup - перевод "группа строк".
+                        </p>
+                        <p>
+                            <b>role="row"</b>
+                            - это атрибут, который указывает, что элемент является строкой таблицы. Он помогает вспомогательным технологиям, таким как экранные читалки, правильно интерпретировать структуру таблицы. row - перевод "строка".
+                        </p>
+
+                        <p>
+                            <b>role="columnheader"</b>
+                            - это атрибут, который указывает, что элемент является заголовком столбца таблицы. Он помогает вспомогательным технологиям, таким как экранные читалки, правильно интерпретировать структуру таблицы. columnheader - перевод "заголовок столбца".
+                        </p>
+
+                        <p>
+                            <b>role="cell"</b>
+                            - это атрибут, который указывает, что элемент является ячейкой таблицы. Он помогает вспомогательным технологиям, таким как экранные читалки, правильно интерпретировать структуру таблицы. cell - перевод "ячейка".
+                        </p>
+
+                        <div class="grid-column-100">
+                            <pre><code>
+&lt;table role="table"&gt;
+  &lt;thead role="rowgroup"&gt;
+    &lt;tr role="row"&gt;
+      &lt;th role="columnheader"&gt;Имя&lt;/th&gt;
+      &lt;th role="columnheader"&gt;Возраст&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody role="rowgroup"&gt;
+    &lt;tr role="row"&gt;
+      &lt;td role="cell"&gt;Мария&lt;/td&gt;
+      &lt;td role="cell"&gt;34&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+      </code></pre>
+                            <div class="example">
+                                <table class="table-example" role="table">
+                                    <thead role="rowgroup">
+                                        <tr role="row">
+                                            <th role="columnheader">Имя</th>
+                                            <th role="columnheader">Возраст</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody role="rowgroup">
+                                        <tr role="row">
+                                            <td role="cell">Мария</td>
+                                            <td role="cell">34</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <p class="note">
+                            <strong>Замечание:</strong>
+                            ARIA-атрибуты, такие как
+                            <code>role</code>
+                            и
+                            <code>aria-*</code>
+                            , позволяют сделать таблицу более доступной для пользователей с ограниченными возможностями. Тем не менее, старайтесь использовать семантическую разметку в первую очередь, так как ARIA не заменяет хорошую HTML-разметку.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Стилизация таблиц (CSS) -->
+                <section class="section" id="table-css">
+                    <div class="container">
+                        <h1>Стилизация таблиц (CSS)</h1>
+                        <p class="note">CSS позволяет сделать таблицы яркими, читаемыми и приятными на вид. Вот базовые правила для стилизации таблиц.</p>
+                        <div>
+                            <h3>Основные приёмы стилизации</h3>
+                            <ul class="list-ul">
+                                <li>
+                                    <strong>Границы</strong>
+                                    — используйте
+                                    <code>border-collapse: collapse;</code>
+                                    для удаления двойных линий между ячейками.
+                                </li>
+                                <li>
+                                    <strong>Выравнивание</strong>
+                                    :
+                                    <ul class="list-ul">
+                                        <li>
+                                            Вертикальное:
+                                            <code>vertical-align: top;</code>
+                                            (по умолчанию —
+                                            <code>middle</code>
+                                            ).
+                                        </li>
+                                        <li>
+                                            Горизонтальное:
+                                            <code>text-align: center;</code>
+                                            или
+                                            <code>left</code>
+                                            .
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Заливка строк при наведении</strong>
+                                    —
+                                    <code>tr:hover { background-color: #f5f5f5; }</code>
+                                    для выделения строки под курсором.
+                                </li>
+                                <li>
+                                    <strong>Центрирование таблицы</strong>
+                                    —
+                                    <code>margin: 0 auto;</code>
+                                    размещает таблицу по центру страницы.
+                                </li>
+                            </ul>
+                            <div class="card">
+                                <h4>Пример CSS для таблицы</h4>
+                                <div class="grid-column-50">
+                                    <pre><code>
+	.table-example {
+	  border-collapse: collapse;
+	  margin: 0 auto;
+	}
+	.table-example th, .table-example td {
+	  border: 1px solid #ccc;
+	  padding: 8px 12px;
+	  text-align: center;
+	}
+	.table-example tr:hover {
+	  background-color: #f5f5f5;
+	}
+	        </code></pre>
+                                    <div class="example">
+                                        <table class="table-example">
+                                            <tr>
+                                                <th>Имя</th>
+                                                <th>Баллы</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Олег</td>
+                                                <td>95</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Лена</td>
+                                                <td>88</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <h4>Пример: Зебра и выделение заголовка</h4>
+                                <div class="grid-column-50">
+                                    <pre><code>
+.table-zebra {
+  border-collapse: collapse;
+  width: 100%;
+}
+.table-zebra th {
+  background: #0077cc;
+  color: #fff;
+  padding: 10px;
+}
+.table-zebra td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+.table-zebra tr:nth-child(even) {
+  background-color: #f2f6fa;
+}
+        </code></pre>
+                                    <div class="example">
+                                        <table class="table-zebra">
+                                            <tr>
+                                                <th>Товар</th>
+                                                <th>Цена</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Книга</td>
+                                                <td>500₽</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ручка</td>
+                                                <td>50₽</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <h4>Пример: Минималистичная таблица с hover</h4>
+                                <div class="grid-column-50">
+                                    <pre><code>
+.table-hover {
+  width: 100%;
+  border: none;
+  font-size: 16px;
+}
+.table-hover th, .table-hover td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #eee;
+}
+.table-hover tr:hover td {
+  background-color: #e7f7ff;
+}
+        </code></pre>
+                                    <div class="example">
+                                        <table class="table-hover">
+                                            <tr>
+                                                <th>Город</th>
+                                                <th>Страна</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Москва</td>
+                                                <td>Россия</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Берлин</td>
+                                                <td>Германия</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <h4>Пример: Таблица с закруглёнными углами и тенью</h4>
+                                <div class="grid-column-50">
+                                    <pre><code>
+.table-shadow {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.table-shadow th, .table-shadow td {
+  padding: 12px 16px;
+}
+.table-shadow th {
+  background-color: #005f73;
+  color: #fff;
+}
+.table-shadow tr:nth-child(even) td {
+  background-color: #f2f6fa;
+}
+        </code></pre>
+                                    <div class="example">
+                                        <table class="table-shadow">
+                                            <tr>
+                                                <th>День</th>
+                                                <th>Температура</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Понедельник</td>
+                                                <td>+20°C</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Вторник</td>
+                                                <td>+22°C</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="note">
+                                <strong>Совет:</strong>
+                                Для расширенной стилизации используйте переменные и кастомные классы, чтобы таблицы гармонировали с общим дизайном сайта.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Распространённые ошибки в таблицах -->
+                <section class="section" id="table-errors">
+                    <div class="container">
+                        <h1>Распространённые ошибки в таблицах</h1>
+                        <p class="note">Типичные ошибки при работе с таблицами могут привести к проблемам с отображением, доступностью и структурой данных.</p>
+                        <div>
+                            <h3>Что нельзя делать</h3>
+                            <ul class="list-ul">
+                                <li>
+                                    <strong>Использование таблиц для вёрстки страниц</strong>
+                                    — таблицы предназначены только для табличных данных! Для макетов используйте Flexbox или Grid.
+                                </li>
+                                <li>
+                                    <strong>Неравное количество ячеек в строках</strong>
+                                    — нарушает структуру таблицы, приводит к некорректному отображению.
+                                </li>
+                                <li>
+                                    <strong>Игнорирование семантических тегов</strong>
+                                    — усложняет стилизацию, доступность и дальнейшую работу с таблицей.
+                                </li>
+                            </ul>
+                            <h4>Пример ошибочной таблицы</h4>
+                            <div class="grid-column-50">
+                                <pre><code>
+&lt;table&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Имя&lt;/td&gt;
+    &lt;td&gt;Возраст&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Иван&lt;/td&gt;
+    &lt;td&gt;30&lt;/td&gt;
+    &lt;td&gt;Москва&lt;/td&gt; &lt;!-- Лишняя ячейка --&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+        </code></pre>
+                                <div class="example">
+                                    <table class="table-example">
+                                        <tr>
+                                            <td>Имя</td>
+                                            <td>Возраст</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Иван</td>
+                                            <td>30</td>
+                                            <td>Москва</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <p class="note">
+                                <strong>Важно:</strong>
+                                Проверяйте структуру таблицы и используйте только табличные элементы для отображения данных!
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 7. Адаптивная таблица -->
+                <section class="section" id="responsive-table">
+                    <div class="container">
+                        <h2>Адаптивная таблица</h2>
+                        <div class="grid-column-50">
+                            <div class="example">
+                                <table class="table-example">
+                                    <thead>
+                                        <tr>
+                                            <th>Имя</th>
+                                            <th>Email</th>
+                                            <th>Телефон</th>
+                                            <th>Компания</th>
+                                            <th>Город</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Ольга</td>
+                                            <td>olga@example.com</td>
+                                            <td>+7 999 123-45-67</td>
+                                            <td>Innova</td>
+                                            <td>Самара</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <pre><code>
+&lt;style&gt;
+  .overflow {
+    overflow-x: auto;
+  }
+&lt;/style&gt;
+
+&lt;div class="overflow"&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Имя&lt;/th&gt;
+        &lt;th&gt;Email&lt;/th&gt;
+        &lt;th&gt;Телефон&lt;/th&gt;
+        &lt;th&gt;Компания&lt;/th&gt;
+        &lt;th&gt;Город&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Ольга&lt;/td&gt;
+        &lt;td&gt;olga@example.com&lt;/td&gt;
+        &lt;td&gt;+7 999 123-45-67&lt;/td&gt;
+        &lt;td&gt;Innova&lt;/td&gt;
+        &lt;td&gt;Самара&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+        </code></pre>
+                        </div>
+                        <p class="note">
+                            <strong>Важно:</strong>
+                            Для мобильных устройств используйте контейнер с
+                            <code>overflow-x: auto;</code>
+                            для горизонтальной прокрутки таблицы.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- 8. Атрибуты таблицы -->
+                <section class="section" id="table-attributes">
+                    <div class="container">
+                        <h2>Атрибуты таблицы</h2>
+                        <p class="note">
+                            Ранее для управления внешним видом таблицы использовали HTML-атрибуты
+                            <code>cellpadding</code>
+                            и
+                            <code>cellspacing</code>
+                            .
+                            <br />
+                            Сейчас эти атрибуты устарели, их заменяют CSS-свойствами:
+                        </p>
+                        <ul class="list-ul">
+                            <li>
+                                <code>cellpadding</code>
+                                →
+                                <code>padding</code>
+                                для ячеек
+                                <code>&lt;td&gt;</code>
+                                и
+                                <code>&lt;th&gt;</code>
+                            </li>
+                            <li>
+                                <code>cellspacing</code>
+                                →
+                                <code>border-spacing</code>
+                                для самой таблицы
+                            </li>
+                            <li>
+                                <code>border</code>
+                                (устаревший атрибут) →
+                                <code>border</code>
+                                в CSS
+                            </li>
+                        </ul>
+                        <div class="grid-column-50">
+                            <pre><code>
+<!-- Устаревший способ (НЕ рекомендуется) -->
+&lt;table cellpadding="8" cellspacing="4" border="1"&gt;...&lt;/table&gt;
+
+<!-- Современный способ через CSS -->
+&lt;table class="table-example"&gt;...&lt;/table&gt;
+
+<style>
+.table-example {
+  border-spacing: 4px;    /* Заменяет cellspacing */
+  border: 1px solid #ccc; /* Заменяет border */
+}
+.table-example td,
+.table-example th {
+  padding: 8px;           /* Заменяет cellpadding */
+}
+</style>
+    </code></pre>
+
+                            <div class="example">
+                                <table class="example-atribut">
+                                    <thead>
+                                        <tr>
+                                            <th>Имя</th>
+                                            <th>Город</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Анна</td>
+                                            <td>Казань</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Игорь</td>
+                                            <td>Томск</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <style>
+                            .example-atribut {
+                                border-spacing: 4px; /* Заменяет cellspacing */
+                                border: 1px solid #ccc; /* Заменяет border */
+                            }
+                            .example-atribut td,
+                            .example-atribut th {
+                                padding: 8px; /* Заменяет cellpadding */
+                            }
+                        </style>
+                        <p class="note">
+                            <strong>Важно:</strong>
+                            Управляйте отступами и расстояниями через CSS для гибкости, совместимости и современного кода.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- 9. Использование <colgroup> -->
+                <section class="section" id="colgroup">
+                    <div class="container">
+                        <h2>Использование &lt;colgroup&gt; и &lt;col&gt;</h2>
+                        <p class="note">
+                            Элемент
+                            <code>&lt;colgroup&gt;</code>
+                            используется для оформления определенных столбцов таблицы. Это удобно для выделения отдельных колонок цветом, шириной или другими свойствами, что делает таблицы более читабельными и структурированными.
+                        </p>
+
+                        <h3>Оформление таблицы</h3>
+                        <p>
+                            Если вы хотите оформить два первых столбца таблицы, используйте элементы
+                            <code>&lt;colgroup&gt;</code>
+                            и
+                            <code>&lt;col&gt;</code>
+                            . Ниже приведен пример:
+                        </p>
+
+                        <div class="grid-column-100">
+                            <div class="example">
+                                <table class="styled-table">
+                                    <colgroup>
+                                        <col span="2" style="background-color: #d6eeee" />
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>MON</th>
+                                            <th>TUE</th>
+                                            <th>WED</th>
+                                            <th>THU</th>
+                                            <th>FRI</th>
+                                            <th>SAT</th>
+                                            <th>SUN</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>3</td>
+                                            <td>4</td>
+                                            <td>5</td>
+                                            <td>6</td>
+                                            <td>7</td>
+                                        </tr>
+                                        <tr>
+                                            <td>8</td>
+                                            <td>9</td>
+                                            <td>10</td>
+                                            <td>11</td>
+                                            <td>12</td>
+                                            <td>13</td>
+                                            <td>14</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <pre><code>
+&lt;table class="styled-table"&gt;
+  &lt;colgroup&gt;
+    &lt;col span="2" style="background-color: #D6EEEE;" /&gt;
+  &lt;/colgroup&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;MON&lt;/th&gt;
+      &lt;th&gt;TUE&lt;/th&gt;
+      &lt;th&gt;WED&lt;/th&gt;
+      &lt;th&gt;THU&lt;/th&gt;
+      &lt;th&gt;FRI&lt;/th&gt;
+      &lt;th&gt;SAT&lt;/th&gt;
+      &lt;th&gt;SUN&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;7&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;8&lt;/td&gt;&lt;td&gt;9&lt;/td&gt;&lt;td&gt;10&lt;/td&gt;&lt;td&gt;11&lt;/td&gt;&lt;td&gt;12&lt;/td&gt;&lt;td&gt;13&lt;/td&gt;&lt;td&gt;14&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+      </code></pre>
+                        </div>
+                        <style>
+                            /* Стили для таблицы */
+                            .styled-table {
+                                width: 100%;
+                                border-collapse: collapse;
+                                margin: 20px 0;
+                                font-size: 18px;
+                                text-align: left;
+                            }
+
+                            /* Стили для заголовков */
+                            .styled-table th {
+                                padding: 12px; /* Отступы внутри ячеек заголовка */
+                            }
+
+                            /* Стили для ячеек */
+                            .styled-table td {
+                                padding: 10px; /* Отступы внутри ячеек данных */
+                                border: 1px solid #dddddd; /* Граница ячеек */
+                            }
+                        </style>
+                        <h3>Примечания</h3>
+                        <ul class="list-ul">
+                            <li>
+                                Элемент
+                                <code>&lt;colgroup&gt;</code>
+                                должен быть дочерним элементом элемента
+                                <code>&lt;table&gt;</code>
+                                и должен находиться перед любыми другими элементами таблицы, такими как
+                                <code>&lt;thead&gt;</code>
+                                ,
+                                <code>&lt;tr&gt;</code>
+                                ,
+                                <code>&lt;td&gt;</code>
+                                и т.д., но после элемента
+                                <code>&lt;caption&gt;</code>
+                                , если он присутствует.
+                            </li>
+                            <li>
+                                Атрибут
+                                <code>span</code>
+                                указывает, сколько столбцов получают указанный стиль.
+                            </li>
+                            <li>
+                                Стили, применяемые через
+                                <code>&lt;col&gt;</code>
+                                , не влияют на содержимое ячеек, а только на сам столбец.
+                            </li>
+                        </ul>
+
+                        <h3>Допустимые свойства CSS</h3>
+                        <p>
+                            В
+                            <code>&lt;colgroup&gt;</code>
+                            разрешено использовать следующие CSS-свойства:
+                        </p>
+                        <ul class="list-ul">
+                            <li><code>width</code></li>
+                            <li><code>visibility</code></li>
+                            <li><code>background</code></li>
+                            <li><code>border</code></li>
+                        </ul>
+                        <p>Все остальные CSS-свойства не будут иметь никакого эффекта на таблицы.</p>
+
+                        <h3>
+                            Несколько элементов
+                            <code>&lt;col&gt;</code>
+                        </h3>
+                        <p>
+                            Если вы хотите оформить больше столбцов разными стилями, используйте несколько элементов
+                            <code>&lt;col&gt;</code>
+                            внутри
+                            <code>&lt;colgroup&gt;</code>
+                            :
+                        </p>
+                        <div class="example">
+                            <table class="styled-table">
+                                <colgroup>
+                                    <col span="2" style="background-color: #d6eeee" />
+                                    <col span="3" style="background-color: pink" />
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>MON</th>
+                                        <th>TUE</th>
+                                        <th>WED</th>
+                                        <th>THU</th>
+                                        <th>FRI</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>4</td>
+                                        <td>5</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>Скрытие столбцов</h3>
+                        <p>
+                            Вы можете скрыть столбцы с помощью свойства
+                            <code>visibility: collapse</code>
+                            :
+                        </p>
+                        <div class="example">
+                            <table class="styled-table">
+                                <colgroup>
+                                    <col span="2" />
+                                    <col span="3" style="visibility: collapse" />
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>MON</th>
+                                        <th>TUE</th>
+                                        <th>WED</th>
+                                        <th>THU</th>
+                                        <th>FRI</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>4</td>
+                                        <td>5</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p class="note">
+                            <strong>
+                                Используйте
+                                <code>&lt;colgroup&gt;</code>
+                                для групповой стилизации столбцов. Это значительно облегчает визуальное оформление и поддержку таблиц, а также улучшает доступность для пользователей.
+                            </strong>
+                        </p>
+                    </div>
+                </section>
+
+                <!-- 11. Советы -->
+                <section class="section" id="table-tips">
+                    <div class="container">
+                        <h2>11. Советы</h2>
+                        <ul class="list-ul">
+                            <li>
+                                <strong>Адаптивность</strong>
+                                : Для мобильных устройств используйте
+                                <code>overflow-x: auto;</code>
+                                у контейнера таблицы.
+                            </li>
+                            <li>
+                                <strong>Атрибуты cellspacing/cellpadding</strong>
+                                : Заменяются CSS:
+                                <ul class="list-ul">
+                                    <li>
+                                        <code>cellspacing</code>
+                                        →
+                                        <code>border-spacing</code>
+                                        .
+                                    </li>
+                                    <li>
+                                        <code>cellpadding</code>
+                                        →
+                                        <code>padding</code>
+                                        в &lt;td&gt;.
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>Прозрачность</strong>
+                                :
+                                <code>opacity: 0.7;</code>
+                                (для IE используйте
+                                <code>filter: alpha(opacity=70);</code>
+                                ).
+                            </li>
+                            <li>
+                                <strong>Используйте семантические элементы и ARIA</strong>
+                                для лучшей доступности.
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+    </body>
+</html>

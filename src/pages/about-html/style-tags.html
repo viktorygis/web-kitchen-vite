@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Основные теги HTML", "description": "Основные теги HTML" })
+    <style>
+        .tags-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .tags-list h3 {
+            padding: 0;
+            margin: 0 0 1rem 0;
+        }
+        .tags-list h4 {
+            font-size: 1.2rem;
+        }
+
+        .tags-list--semantic .tags-list__item {
+            border: 1px solid #878787;
+            border-radius: 20px;
+            padding: 20px;
+        }
+    </style>
+    <body class="page">
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page__main">
+                <nav class="nav-tabs">
+                    <a href="#html-intro" class="nav-tabs__link active">Введение</a>
+                    <a href="#html-style" class="nav-tabs__link">&lt;style&gt;</a>
+                    <a href="#html-link" class="nav-tabs__link">&lt;link&gt;</a>
+                </nav>
+                <!-- введение -->
+                <section class="section" id="html-intro">
+                    <div class="container">
+                        <h1 class="page__title">Теги стилей HTML</h1>
+                        <p class="note">
+                            <strong>Теги стилей HTML</strong>
+                            —
+                            <code>style</code>
+                            и
+                            <code>link</code>
+                            это основные теги, используемые для добавления стилей и подключения внешних ресурсов в HTML-документ.
+                            <br />
+                            Они позволяют управлять внешним видом страницы, подключать CSS-файлы и другие ресурсы, такие как шрифты и иконки.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- style -->
+                <section class="section" id="html-style">
+                    <div class="container">
+                        <h2 class="section__subtitle">&lt;style&gt;</h2>
+
+                        <div class="card">
+                            <p class="note">
+                                <b>&lt;style&gt;</b>
+                                — Позволяет встраивать CSS-стили непосредственно в HTML-документ. Содержимое тега интерпретируется браузером как CSS-код.
+                            </p>
+                            <div class="tags-list__details card__desc">
+                                <p>
+                                    <b>Где использовать:</b>
+                                    В разделе
+                                    <code>&lt;head&gt;</code>
+                                    или внутри элементов (с атрибутом
+                                    <code>scoped</code>
+                                    , но устарел).
+                                </p>
+                                <ul class="list-ul">
+                                    <li>
+                                        <b><code>type</code></b>
+                                        — MIME-тип (по умолчанию
+                                        <code>text/css</code>
+                                        ).
+                                    </li>
+                                    <li>
+                                        <b><code>media</code></b>
+                                        — Определяет медиа-запрос для применения стилей.
+                                    </li>
+                                    <li>
+                                        <b><code>scoped</code></b>
+                                        — Ограничивает стили родительским элементом (устарело).
+                                    </li>
+                                </ul>
+                                <p>
+                                    <b>Примечание:</b>
+                                    Для больших проектов рекомендуется использовать внешние стили через
+                                    <code>&lt;link&gt;</code>
+                                    .
+                                </p>
+                            </div>
+                            <h4>Пример:</h4>
+                            <div class="code-block">
+                                <pre><code>&lt;style&gt;
+  body {
+    background-color: #f0f0f0;
+    font-family: Arial;
+  }
+&lt;/style&gt;</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- link -->
+                <section class="section" id="html-link">
+                    <div class="container">
+                        <h2 class="section__subtitle">&lt;link&gt;</h2>
+
+                        <ul class="tags-list tags-list--style">
+                            <!-- link -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <p class="note">
+                                        <b>&lt;link&gt;</b>
+                                        — Подключает внешние ресурсы к документу. Чаще всего используется для подключения CSS-файлов.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>Где использовать:</b>
+                                            В разделе
+                                            <code>&lt;head&gt;</code>
+                                            документа. Может подключать иконки, шрифты, стили.
+                                        </p>
+                                        <ul class="list-ul">
+                                            <li>
+                                                <b><code>rel</code></b>
+                                                — Тип отношения (обязательный):
+                                                <code>stylesheet</code>
+                                                ,
+                                                <code>icon</code>
+                                                ,
+                                                <code>preload</code>
+                                                .
+                                            </li>
+                                            <li>
+                                                <b><code>href</code></b>
+                                                — Путь к ресурсу (обязательный).
+                                            </li>
+                                            <li>
+                                                <b><code>type</code></b>
+                                                — MIME-тип ресурса.
+                                            </li>
+                                            <li>
+                                                <b><code>media</code></b>
+                                                — Медиа-запрос для применения стилей.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Может использоваться для предзагрузки ресурсов (
+                                            <code>rel="preload"</code>
+                                            ) для оптимизации скорости загрузки.
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;!-- Подключение CSS --&gt;
+&lt;link rel="stylesheet" href="styles.css"&gt;
+
+&lt;!-- Иконка сайта --&gt;
+&lt;link rel="icon" href="favicon.ico"&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+    </body>
+</html>

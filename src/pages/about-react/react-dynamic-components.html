@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Динамические компоненты в React", "description": "Что такое динамические компоненты, как рендерить компоненты по условию, примеры и лучшие практики." })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#intro">Введение</a>
+                    <a href="#basics">Основы динамических компонентов</a>
+                    <a href="#conditional">Условный рендеринг</a>
+                    <a href="#dynamic-types">Динамический выбор компонента</a>
+                    <a href="#practice">Практика</a>
+                    <a href="#tips">Советы</a>
+                    <a href="#best-practices">Лучшие практики</a>
+                    <a href="#examples">Примеры</a>
+                </nav>
+
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>Динамические компоненты в React</h1>
+                        <p class="note">
+                            <b>Динамические компоненты</b>
+                            — это компоненты, которые выбираются и отображаются в зависимости от условий или данных.
+                            <br />
+                            Это позволяет строить гибкие интерфейсы, где контент меняется "на лету".
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section" id="basics">
+                    <div class="container">
+                        <h2>Основы динамических компонентов</h2>
+                        <pre><code>
+function Page({type}) {
+  if (type === 'main') return &lt;Main /&gt;;
+  if (type === 'about') return &lt;About /&gt;;
+  return &lt;NotFound /&gt;;
+}
+                        </code></pre>
+                        <div class="note note--info">
+                            В зависимости от
+                            <code>type</code>
+                            выбирается нужный компонент.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="conditional">
+                    <div class="container">
+                        <h2>Условный рендеринг компонентов</h2>
+                        <pre><code>
+function Status({online}) {
+  return online
+    ? &lt;span style={{color:"green"}}&gt;Онлайн&lt;/span&gt;
+    : &lt;span style={{color:"gray"}}&gt;Оффлайн&lt;/span&gt;;
+}
+                        </code></pre>
+                        <div class="note note--info">
+                            Можно использовать
+                            <code>if</code>
+                            ,
+                            <code>switch</code>
+                            , тернарные операторы и даже массивы для динамического выбора.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="dynamic-types">
+                    <div class="container">
+                        <h2>Рендеринг компонента из переменной</h2>
+                        <pre><code>
+const components = {
+  main: Main,
+  about: About,
+  help: Help
+};
+function Page({type}) {
+  const Tag = components[type] || NotFound;
+  return &lt;Tag /&gt;;
+}
+                        </code></pre>
+                        <div class="note note--info">Можно хранить компоненты в объекте и выбирать их по ключу!</div>
+                    </div>
+                </section>
+
+                <section class="section" id="practice">
+                    <div class="container">
+                        <h2>Практика: динамическая панель</h2>
+                        <div class="interactive-demo demo-box">
+                            <div class="code-block">
+                                <pre><code>
+&lt;div id="root"&gt;&lt;/div&gt;
+&lt;script type="text/babel"&gt;
+function Home() { return &lt;div&gt;🏠 Домашняя страница&lt;/div&gt;; }
+function Profile() { return &lt;div&gt;👤 Профиль&lt;/div&gt;; }
+function Settings() { return &lt;div&gt;⚙ Настройки&lt;/div&gt;; }
+
+const components = { home: Home, profile: Profile, settings: Settings };
+
+function App() {
+  const [active, setActive] = React.useState('home');
+  const ActiveComponent = components[active];
+  return (
+    &lt;div&gt;
+      &lt;nav&gt;
+        {Object.keys(components).map(key =&gt;
+          &lt;button key={key} onClick={() =&gt; setActive(key)}&gt;{key}&lt;/button&gt;
+        )}
+      &lt;/nav&gt;
+      &lt;ActiveComponent /&gt;
+    &lt;/div&gt;
+  );
+}
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;App /&gt;);
+&lt;/script&gt;
+                                </code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="tips">
+                    <div class="container">
+                        <h2>Советы и типичные ошибки</h2>
+                        <ul class="list-ul">
+                            <li>Не передавайте компонент как строку: используйте переменные!</li>
+                            <li>Компонент с большой буквы — это функция, а не строка.</li>
+                            <li>Проверяйте, что динамический компонент существует.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="best-practices">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+                        <ul class="list-ul">
+                            <li>Объединяйте динамические компоненты в объект или Map для удобного доступа.</li>
+                            <li>Избегайте лишних условий — используйте ключи и переменные.</li>
+                            <li>Документируйте, какие значения можно передавать для динамического выбора.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="examples">
+                    <div class="container">
+                        <h2>Примеры динамического рендеринга</h2>
+                        <h4>Switch-case для разных видов</h4>
+                        <pre><code>
+function RenderByType({type}) {
+  switch(type) {
+    case 'a': return &lt;A /&gt;;
+    case 'b': return &lt;B /&gt;;
+    default: return &lt;NotFound /&gt;;
+  }
+}
+                        </code></pre>
+                        <h4>Массив компонентов</h4>
+                        <pre><code>
+const steps = [StepOne, StepTwo, StepThree];
+function Wizard({step}) {
+  const Step = steps[step] || NotFound;
+  return &lt;Step /&gt;;
+}
+                        </code></pre>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    </body>
+</html>

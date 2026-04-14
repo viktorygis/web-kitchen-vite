@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../html/head.html', { "title": "Работа с Fetch API: запросы, ошибки и практика", "description": "Как использовать Fetch API для работы с внешними данными: GET, POST, PUT, DELETE, обработка ответов и ошибок — всё на примерах и для практики!" })
+
+<body>
+  <div class="wrapper">
+    @@include('../html/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="#intro">Введение</a>
+        <a href="#fetch-basics">Как работает Fetch API</a>
+        <a href="#get">GET запросы</a>
+        <a href="#post">POST запросы</a>
+        <a href="#put">PUT запросы</a>
+        <a href="#delete">DELETE запросы</a>
+        <a href="#response-errors">Обработка ответов и ошибок</a>
+        <a href="#comparison">Сравнение методов</a>
+        <a href="#full-post-example">Пример полного POST запроса</a>
+      </nav>
+
+      <!-- Введение -->
+      <section id="intro" class="section">
+        <div class="container">
+          <h1>Работа с Fetch API</h1>
+          <p class="note">
+            <strong>Fetch API</strong> — (Fetch - перевод "получить") это встроенный инструмент в JavaScript, с помощью которого ты можешь отправлять HTTP-запросы на сервер, а также получать и отправлять данные ("по сети"). <br> Он заменяет старый XMLHttpRequest ( XMLHttpRequest - "объект для запросов по XML" , устаревший метод для работы с сетью в JavaScript) и делает работу с сетью проще и удобнее благодаря использованию промисов (Promises - "обещания", современный способ работы с асинхронным кодом в JavaScript).
+          </p>
+          <p>
+            Fetch API делает работу с данными простой: ты можешь без лишних библиотек получать, изменять или удалять информацию на сервере.
+          </p>
+          <h4>С помощью Fetch API ты можешь:</h4>
+          <ul class="list-ul">
+            <li>🔄 Получать данные для профиля, чата или списка товаров</li>
+            <li>📝 Отправлять новую информацию (регистрация, заказ, комментарий)</li>
+            <li>📦 Менять или удалять объекты на сервере</li>
+            <li>🛠️ Обрабатывать ответы и ошибки для стабильной работы приложения</li>
+
+          </ul>
+          <p class="note note--info">
+            <strong>Fetch API</strong> — основной способ общаться с сервером в современных front-end приложениях!
+          </p>
+        </div>
+      </section>
+
+
+
+      <!-- Как работает Fetch API -->
+      <section id="fetch-basics" class="section">
+        <div class="container">
+          <h2>🌐 Как работает Fetch API?</h2>
+          <p class="note">
+            <strong>Fetch API</strong> — это метод JavaScript, который возвращает <b>promise</b> (обещание) в ответ на запрос, чтобы обработать данные или ошибки.
+          </p>
+          <h4>Как работает Fetch API?</h4>
+          <ol class="list-ol">
+            <li>Отправляешь запрос через <code>fetch(url)</code></li>
+            <li>Получаешь ответ <code>promise</code>, из которого можно сделать JSON</li>
+            <li>В зависимости от ответа сервера обновляешь интерфейс приложения</li>
+          </ol>
+          <h4>Пример простого GET-запроса:</h4>
+          <div class="code-block">
+            <pre><code>fetch('https://api.example.com/data')
+  .then(response => response.json())
+  .then(data => console.log(data)) // Выводим данные в консоль
+  .catch(error => console.error('Ошибка:', error));
+</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>fetch('URL')</code> — отправляет запрос на указанный URL</li>
+            <li><code>fetch</code> — это функция, которая возвращает <code>promise</code></li>
+            <li><code>promise</code> — это обещание, что в будущем будет результат (успех или ошибка)</li>
+            <li><code>где здесь promise</code> — это результат вызова <code>fetch()</code></li>
+            <li><code>.then(response => response.json())</code> — преобразует ответ в JSON</li>
+            <li><code>.then</code> — это метод для обработки успешного ответа</li>
+            <li><code>.then(data => ...)</code> — работает с полученными данными</li>
+            <li><code>.catch(error => ...)</code> — обрабатывает ошибки, если что-то пошло не так</li>
+          </ul>
+          <p class="note note--info">
+            ️<strong>Совет:</strong> Всегда обрабатывай ошибки с помощью <code>catch()</code> для надёжной работы приложения!
+          </p>
+
+        </div>
+      </section>
+
+      <!-- GET запросы -->
+      <section id="get" class="section">
+        <div class="container">
+          <h2>🔎 GET запрос </h2>
+
+          <p class="note">
+            <strong>GET</strong> — это метод <b>HTTP-запроса</b>, который используется для <b>получения</b> данных с сервера. Когда ты делаешь GET-запрос, ты запрашиваешь информацию, не изменяя её на сервере. <br> Это самый распространённый тип запроса, который используется для загрузки страниц, профилей пользователей, списков товаров и многого другого.
+            <br> GET-запросы обычно не содержат тела запроса (body), так как они предназначены только для получения данных.
+            <br> Испоьзуется по умолчанию, если не указан другой метод.
+          </p>
+          <h4>Где используется GET?</h4>
+          <ul class="list-ul">
+            <li>Загрузка профиля пользователя</li>
+            <li>Получение списка товаров в интернет-магазине</li>
+            <li>Загрузка комментариев к статье</li>
+            <li>Получение данных для отображения на странице</li>
+          </ul>
+          <h4>Пример использования GET-запроса с Fetch API:</h4>
+          <div class="code-block">
+            <pre><code >fetch('https://api.example.com/data')
+  .then(response => response.json())
+  .then(data => console.log(data)) // Выводим данные в консоль
+  .catch(error => console.error('Ошибка:', error));
+</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>fetch('URL')</code> — отправляет GET-запрос на указанный URL</li>
+            <li><code>response.json()</code> — преобразует ответ в формат JSON</li>
+            <li><code>data</code> — содержит полученные данные с сервера</li>
+            <li><code>console.log(data)</code> — выводит данные в консоль для проверки</li>
+            <li><code>catch(error)</code> — обрабатывает возможные ошибки при запросе</li>
+          </ul>
+          <p class="note note--info">
+            ️<strong>Совет:</strong> GET-запросы не должны изменять данные на сервере — они только получают информацию!
+          </p>
+        </div>
+      </section>
+
+      <!-- POST запросы -->
+      <section id="post" class="section">
+        <div class="container">
+          <h2>🔎 POST запросы</h2>
+
+          <p class="note">
+            <strong>POST</strong> — это метод <b>HTTP-запроса</b>, который используется для <b>отправки</b> данных на сервер. В отличие от GET-запросов, которые только получают информацию, <b>POST-запросы</b> позволяют создавать новые записи или изменять существующие данные на сервере. <br> Обычно POST-запросы используются при отправке форм, регистрации пользователей, создании заказов и других действиях, которые требуют передачи данных на сервер.
+          </p>
+
+          <h4>Где используется POST?</h4>
+          <ul class="list-ul">
+            <li>Регистрация нового пользователя</li>
+            <li>Добавление комментария к статье</li>
+            <li>Создание нового заказа в интернет-магазине</li>
+            <li>Отправка формы обратной связи</li>
+          </ul>
+
+
+          <h4>Пример POST запроса с Fetch API:</h4>
+          <div class="code-block">
+            <pre><code>fetch('https://api.example.com/data', {
+  method: 'POST', // Указываем, что это POST-запрос
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ name: 'John', age: 30 }) // Отправляем данные в формате JSON
+})
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Ошибка:', error));
+</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>method: 'POST'</code> — указывает, что это POST-запрос</li>
+            <li><code>headers</code> — задаёт заголовки запроса (например, тип контента)</li>
+            <li><code>body: JSON.stringify(...)</code> — преобразует объект в строку JSON для отправки на сервер</li>
+            <li>Остальная часть кода аналогична GET-запросу</li>
+          </ul>
+          <p class="note note--info">
+            ️<strong>Совет:</strong> Всегда проверяй, что данные отправляются в правильном формате (обычно JSON) при использовании POST-запросов!
+          </p>
+          <h4>Возможные параметры в POST запросах:</h4>
+          <ul class="list-ul">
+            <li><code>method</code> — указывает метод запроса (в данном случае 'POST')</li>
+            <li><code>headers</code> — задаёт заголовки запроса, например, тип контента</li>
+            <li><code>body</code> — содержит данные, которые отправляются на сервер (обычно в формате JSON)</li>
+          </ul>
+
+        </div>
+      </section>
+
+      <!-- PUT  запросы -->
+      <section id="put" class="section">
+        <div class="container">
+          <h2>🔄 PUT запросы</h2>
+          <p class="note">
+            <strong>PUT</strong> — это метод <b>HTTP-запроса</b>, который используется для <b>обновления</b> существующих данных на сервере. В отличие от POST-запросов, которые создают новые записи, <b>PUT-запросы</b> заменяют все данные указанного ресурса новыми данными. <br> Обычно PUT-запросы используются при изменении информации о пользователях, обновлении заказов и других действиях, которые требуют замены существующих данных на сервере.
+          </p>
+          <h4>Где используется PUT?</h4>
+          <ul class="list-ul">
+            <li>Обновление профиля пользователя</li>
+            <li>Изменение информации о заказе</li>
+            <li>Редактирование комментария</li>
+            <li>Обновление настроек приложения</li>
+          </ul>
+          <h4>Пример PUT запроса с Fetch API:</h4>
+          <div class="code-block">
+            <pre><code >fetch('https://api.example.com/user/1', {
+  method: 'PUT',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ name: 'Alice', age: 25 })
+})
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Ошибка:', error));
+</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>method: 'PUT'</code> — указывает, что это PUT-запрос</li>
+            <li><code>headers</code> — задаёт заголовки запроса (например, тип контента)</li>
+            <li><code>body: JSON.stringify(...)</code> — преобразует объект в строку JSON для отправки на сервер</li>
+            <li>Остальная часть кода аналогична GET и POST-запросам</li>
+          </ul>
+          <p class="note note--info">
+            ️<strong>Совет:</strong> Используй PUT-запросы, когда нужно полностью заменить существующие данные на сервере!
+          </p>
+          <h4>Возможные параметры в PUT запросах:</h4>
+          <ul class="list-ul">
+            <li><code>method</code> — указывает метод запроса (в данном случае 'PUT')</li>
+            <li><code>headers</code> — задаёт заголовки запроса, например, тип контента</li>
+            <li><code>body</code> — содержит данные, которые отправляются на сервер (обычно в формате JSON)</li>
+          </ul>
+
+        </div>
+      </section>
+
+      <!-- DELETE запросы -->
+      <section id="delete" class="section">
+        <div class="container">
+          <h2>🔄 DELETE запросы</h2>
+          <p class="note">
+            <strong>DELETE</strong> — это метод <b>HTTP-запроса</b>, который используется для <b>удаления</b> данных с сервера. В отличие от GET, POST и PUT, DELETE-запросы не возвращают данные, а просто удаляют указанный ресурс.
+          </p>
+          <h4>Где используется DELETE?</h4>
+          <ul class="list-ul">
+            <li>Удаление пользователя</li>
+            <li>Удаление комментария</li>
+            <li>Удаление заказа</li>
+            <li>Удаление файла или изображения</li>
+          </ul>
+
+          <h4>Пример DELETE запроса с Fetch API:</h4>
+          <div class="code-block">
+            <pre><code >fetch('https://api.example.com/user/1', {
+  method: 'DELETE'
+})
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Ошибка:', error));
+</code></pre>
+          </div>
+
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>method: 'DELETE'</code> — указывает, что это DELETE-запрос</li>
+            <li>Остальная часть кода аналогична GET, POST и PUT-запросам</li>
+          </ul>
+          <p class="note note--info">
+            ️<strong>Совет:</strong> Будь осторожен с DELETE-запросами — они удаляют данные без возможности восстановления!
+          </p>
+          <h4>Возможные параметры в DELETE запросах:</h4>
+          <ul class="list-ul">
+            <li><code>method</code> — указывает метод запроса (в данном случае 'DELETE')</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Ответы и обработка ошибок -->
+      <section id="response-errors" class="section">
+        <div class="container">
+          <h2>🛠 Обработка ответов и ошибок</h2>
+          <p class="note">
+            <strong>Обработка ответов и ошибок</strong> — важный аспект работы с Fetch API. Даже если запрос выполнен успешно, сервер может вернуть ошибку (например, 404 или 500). Поэтому важно проверять статус ответа и обрабатывать ошибки корректно. <br> Это помогает создавать надёжные приложения, которые могут справляться с различными ситуациями.
+          </p>
+          <h4>Для обработки ответов и ошибок с Fetch API, можно использовать следующие подходы:</h4>
+          <ol class="list-ol">
+            <li>Проверка статуса ответа с помощью <code>response.ok</code></li>
+            <li>Обработка ошибок с помощью <code>catch()</code></li>
+            <li>Логирование ошибок для отладки</li>
+            <li>Отображение сообщений пользователю в случае ошибок</li>
+            <li>Повторные попытки запросов при временных ошибках</li>
+          </ol>
+
+          <h4>Чтобы обработать ошибки, нужно:</h4>
+          <ul class="list-ul">
+            <li>Проверить, успешен ли ответ с помощью <code>response.ok</code></li>
+            <li>Если ответ не успешен, выбросить ошибку с помощью <code>throw new Error()</code> <br><b>throw new Error()</b> - это способ выбросить ошибку в JavaScript, переводиться как "выбросить ошибку"</li>
+            <li>Использовать <code>catch()</code> для обработки любых ошибок (сетевых и наших)</li>
+          </ul>
+
+          <h4>Варианты ошибок:</h4>
+          <ul class="list-ul">
+            <li>Сетевые ошибки (например, отсутствие интернета)</li>
+            <li>Ошибки сервера (например, 500 Internal Server Error)</li>
+            <li>Ошибки клиента (например, 404 Not Found)</li>
+          </ul>
+          <h4>Пример обработки ответов и ошибок с Fetch API:</h4>
+          <div class="code-block">
+            <pre><code >fetch(url)
+  .then(response => {
+    if (!response.ok) { // Проверяем, успешен ли запрос
+      throw new Error(`Ошибка: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => console.log(data))
+  .catch(error => console.error('Что-то пошло не так:', error));
+</code></pre>
+          </div>
+          <ul class="list-ul">
+            <li><b>response.ok</b> — true, если HTTP-код 200-299</li>
+            <li><b>throw new Error()</b> — выбрасывает ошибку, если запрос неудачен</li>
+            <li>catch() — ловит любые ошибки (сетевые и наши)</li>
+          </ul>
+          <p class="note note--info">
+            <strong>Совет:</strong> Всегда обрабатывай ошибки для создания надёжных приложений, которые могут справляться с различными ситуациями!
+          </p>
+        </div>
+      </section>
+
+      <!-- Сравнение методов  -->
+      <section class="section" id="comparison">
+        <div class="container">
+          <h2>🔍 Сравнение методов</h2>
+          <p>
+            Вот краткое сравнение основных методов HTTP-запросов, которые ты можешь использовать с Fetch API:
+
+          </p>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th style="width: 10%;">Метод</th>
+                <th style="width: 25%;">Описание</th>
+                <th style="width: 30%;">Когда использовать</th>
+                <th style="width: 30%;">Пример кода на Fetch API</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>GET</b></td>
+                <td>Получение данных с сервера</td>
+                <td>
+                  <ul class="list-ul">
+                    <li>Загрузка профиля пользователя</li>
+                    <li>Получение списка товаров</li>
+                    <li>Загрузка комментариев</li>
+                  </ul>
+                </td>
+                <td>
+                  <div class="code-block">
+                    <pre><code>fetch('https://api.example.com/items')
+  .then(response => response.json())
+  .then(data => console.log(data));
+</code></pre>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><b>POST</b></td>
+                <td>Отправка новых данных на сервер</td>
+                <td>
+                  <ul class="list-ul">
+                    <li>Регистрация</li>
+                    <li>Создание заказов</li>
+                    <li>Отправка форм</li>
+                  </ul>
+                </td>
+                <td>
+                  <div class="code-block">
+                    <pre><code >fetch('https://api.example.com/items', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name: 'Item', price: 100 })
+})
+  .then(response => response.json())
+  .then(data => console.log(data));
+</code></pre>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><b>PUT</b></td>
+                <td>Обновление существующих данных на сервере</td>
+                <td>
+                  <ul class="list-ul">
+                    <li>Обновление профиля</li>
+                    <li>Изменение заказов</li>
+                    <li>Редактирование комментариев</li>
+                  </ul>
+                </td>
+                <td>
+                  <div class="code-block">
+                    <pre><code>fetch('https://api.example.com/items/1', {
+  method: 'PUT',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name: 'Updated Item', price: 120 })
+})
+  .then(response => response.json())
+  .then(data => console.log(data));
+</code></pre>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><b>DELETE</b></td>
+                <td>Удаление данных с сервера</td>
+                <td>
+                  <ul class="list-ul">
+                    <li>Удаление пользователя</li>
+                    <li>Удаление комментариев</li>
+                    <li>Удаление заказов</li>
+                  </ul>
+                </td>
+                <td>
+                  <div class="code-block">
+                    <pre><code >fetch('https://api.example.com/items/1', {
+  method: 'DELETE'
+})
+  .then(response => response.json())
+  .then(data => console.log(data));
+</code></pre>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <ul class="list-ul">
+            <li><b>fetch</b> - это встроенный метод JavaScript для выполнения HTTP-запросов к серверу. Используется для всех типов HTTP-запросов (GET, POST, PUT, DELETE).</li>
+            <li><b>По умолчанию</b> используется метод GET, если не указано иное.</li>
+            <li><b>fetch('url')</b> - это основной способ вызова API с помощью Fetch API. Внутри указывается URL, к которому нужно выполнить запрос.</li>
+            <li><b>fetch('url', {...})</b> - расширенный вызов, где можно указать дополнительные параметры, такие как метод запроса, заголовки и тело запроса (body).</li>
+            <li><b>method</b> — указывает метод запроса (для POST, PUT, DELETE, GET)</li>
+            <li><b>headers</b> — задаёт заголовки запроса, например, тип контента, для POST и PUT запросов (для DELETE и GET
+              запросов обычно не нужен так как они не отправляют тело запроса)</li>
+            <li><b>body</b> — содержит данные, которые отправляются на сервер (обычно в формате JSON), для POST и PUT запросов(для DELETE и GET запросов обычно не нужен так как они не отправляют тело запроса)</li>
+            <li><b>response.json()</b> — преобразует ответ сервера из формата JSON в объект JavaScript. Используется для всех типов запросов, когда ожидается ответ в формате JSON.</li>
+            <li><b>.then(data => console.log(data))</b> — обрабатывает полученные данные после успешного запроса. Используется для всех типов запросов.</li>
+
+          </ul>
+        </div>
+      </section>
+
+          <!-- Пример полного запроса POST с отработкой ошибок (реальный сервис) -->
+      <section class="section" id="full-post-example">
+        <div class="container">
+          <h2>Пример полного запроса POST с отработкой ошибок (реальный сервис)</h2>
+          <p>
+            Для демонстрации мы используем бесплатный сервис <a href="https://jsonplaceholder.typicode.com/" target="_blank">JSONPlaceholder</a>, который отлично подходит для тренировок с запросами.
+          </p>
+          <div class="code-block">
+            <pre><code >const resultDiv = document.getElementById('fetch-post-result');
+resultDiv.textContent = 'Выполнение запроса...';
+fetch('https://jsonplaceholder.typicode.com/posts', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    title: 'Hello World',
+    body: 'Текст сообщения',
+    userId: 1
+  })
+})
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`Ошибка: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    resultDiv.innerHTML = "<b>Ответ сервера:</b><br><pre style='white-space:pre-wrap;word-break:break-all;background:#9d9d9d;padding:1em 0.5em;margin:0;border-radius:4px;'>" +
+      JSON.stringify(data, null, 2) + "</pre>";
+  })
+  .catch(error => {
+    resultDiv.innerHTML = "<span style='color:crimson;'><b>Что-то пошло не так:</b> " + error.message + "</span>";
+  });
+</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>https://jsonplaceholder.typicode.com/posts</code> — адрес тестового API для добавления поста</li>
+            <li>Перед выполнением запроса выводится текст <b>"Выполнение запроса..."</b> ниже кнопки</li>
+            <li><code>method: 'POST'</code> — указывает, что это POST-запрос</li>
+            <li><code>headers</code> — задаёт необходимые заголовки запроса</li>
+            <li><code>body: JSON.stringify(...)</code> — отправляем данные в формате JSON</li>
+            <li><code>if (!response.ok) { ... }</code> — проверяем, что сервер вернул успешный ответ</li>
+            <li><code>throw new Error(...)</code> — выбрасываем ошибку, если ответ не успешный</li>
+            <li><b>Результат (успех или ошибка) выводится в тот же блок под кнопкой</b></li>
+          </ul>
+
+          <div class="interactive-demo">
+            <h4>Попробуй сам!</h4>
+            <p>Нажми кнопку ниже, чтобы выполнить запрос и увидеть ответ сервера ниже.</p>
+            <button id="fetch-post-btn" class="btn btn--primary">Выполнить POST запрос</button>
+            <div id="fetch-post-result" style="margin-top:1.2em;"></div>
+            <script>
+              document.getElementById('fetch-post-btn').addEventListener('click', () => {
+                const resultDiv = document.getElementById('fetch-post-result');
+                resultDiv.textContent = 'Выполнение запроса...';
+                fetch('https://jsonplaceholder.typicode.com/posts', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    title: 'Hello World',
+                    body: 'Текст сообщения',
+                    userId: 1
+                  })
+                })
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error(`Ошибка: ${response.status}`);
+                  }
+                  return response.json();
+                })
+                .then(data => {
+                  resultDiv.innerHTML = "<b>Ответ сервера:</b><br><pre style='white-space:pre-wrap;word-break:break-all;background:#9d9d9d;padding:1em 0.5em;margin:0;border-radius:4px;'>" +
+                    JSON.stringify(data, null, 2) + "</pre>";
+                })
+                .catch(error => {
+                  resultDiv.innerHTML = "<span style='color:crimson;'><b>Что-то пошло не так:</b> " + error.message + "</span>";
+                });
+              });
+            </script>
+          </div>
+
+          <p class="note note--info">
+            <b>Совет:</b> Можешь скопировать пример и попробовать его прямо сейчас в консоли браузера — сервер всегда вернёт созданный тестовый пост!
+          </p>
+        </div>
+      </section>
+    </main>
+    @@include('../html/footer.html', {})
+  </div>
+  @@include('../html/popup.html', {})
+  @@include('../html/js.html', {})
+</body>
+
+</html>

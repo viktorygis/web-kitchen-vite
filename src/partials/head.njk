@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  {# CSS: на этапе миграции можно оставить как есть.
+     Позже лучше перевести на Vite (import CSS/SCSS через JS entry). #}
+<!--   <link rel="stylesheet" href="/css/style.min.css" /> -->
+
+  <title>{{ title | default("Web Kitchen") }}</title>
+  <meta name="description" content="{{ description | default('') }}" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic" rel="stylesheet" />
+
+  <!-- Подключение Highlight.js для подсветки синтаксиса -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+  <script>
+    hljs.highlightAll();
+  </script>
+</head>

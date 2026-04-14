@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Компоненты React: кратко", "description": "Кратко о компонентах в React, виды, props, children, композиция, примеры." })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>Компоненты React: кратко</h1>
+                        <p class="note">Компоненты — основа любого React-приложения. Позволяют разбивать интерфейс на независимые части и переиспользовать их.</p>
+                    </div>
+                </section>
+
+                <section class="section" id="types">
+                    <div class="container">
+                        <h2>Виды компонентов</h2>
+                        <ul class="list-ul">
+                            <li>
+                                <b>Функциональные</b>
+                                — обычные функции, возвращающие JSX.
+                            </li>
+                            <li>
+                                <b>Классовые</b>
+                                — используются редко, в новых проектах предпочтительнее функции с хуками.
+                            </li>
+                        </ul>
+                        <pre><code>
+function MyComp() { return &lt;div&gt;Текст&lt;/div&gt;; }
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section class="section" id="props">
+                    <div class="container">
+                        <h2>Props — свойства компонента</h2>
+                        <pre><code>
+function Button({children, onClick}) {
+  return &lt;button onClick={onClick}&gt;{children}&lt;/button&gt;;
+}
+                        </code></pre>
+                        <div class="note note--info">Props позволяют делать компоненты гибкими и настраиваемыми.</div>
+                    </div>
+                </section>
+
+                <section class="section" id="children">
+                    <div class="container">
+                        <h2>Children — композиция компонентов</h2>
+                        <pre><code>
+function Panel({children}) {
+  return &lt;section&gt;{children}&lt;/section&gt;;
+}
+&lt;Panel&gt;&lt;h2&gt;Заголовок&lt;/h2&gt;&lt;/Panel&gt;
+                        </code></pre>
+                        <div class="note note--info">
+                            <code>props.children</code>
+                            — всё, что внутри тега компонента.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="composition">
+                    <div class="container">
+                        <h2>Композиция</h2>
+                        <pre><code>
+function Card({children}) {
+  return &lt;div className="card"&gt;{children}&lt;/div&gt;;
+}
+                        </code></pre>
+                        <div class="note note--info">Композиция — основной способ строить интерфейсы из простых блоков.</div>
+                    </div>
+                </section>
+
+                <section class="section" id="example">
+                    <div class="container">
+                        <h2>Пример: карточка</h2>
+                        <pre><code>
+function Card({title, children}) {
+  return &lt;div&gt;
+    &lt;h3&gt;{title}&lt;/h3&gt;
+    &lt;div&gt;{children}&lt;/div&gt;
+  &lt;/div&gt;;
+}
+&lt;Card title="Заголовок"&gt;Контент&lt;/Card&gt;
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section class="section" id="tips">
+                    <div class="container">
+                        <h2>Советы</h2>
+                        <ul class="list-ul">
+                            <li>Делайте компоненты максимально независимыми и простыми.</li>
+                            <li>Передавайте только нужные props.</li>
+                            <li>Используйте composition для гибких интерфейсов.</li>
+                            <li>Документируйте props и структуру компонентов.</li>
+                        </ul>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    </body>
+</html>

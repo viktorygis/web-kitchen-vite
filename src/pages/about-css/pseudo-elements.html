@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Псевдоэлементы в CSS", "description": "Обзор псевдоэлементов в CSS, их использование и примеры." })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <!-- Меню страницы -->
+                <nav class="nav-tabs">
+                    <a href="#pseudoelem-intro">Введение</a>
+                    <a href="#pseudoelem-before">before</a>
+                    <a href="#pseudoelem-after">after</a>
+                    <a href="#pseudoelem-first-letter">first-letter</a>
+                    <a href="#pseudoelem-first-line">first-line</a>
+                    <a href="#pseudoelem-table">Сводная таблица</a>
+                </nav>
+
+                <!-- Введение: Что такое псевдоэлементы -->
+                <section class="section" id="pseudoelem-intro">
+                    <div class="container">
+                        <h2>🔍 Что такое псевдоэлементы?</h2>
+                        <p class="note">
+                            <b>Псевдоэлементы</b>
+                            — это специальные ключевые слова в CSS, которые добавляют стили к определённой части элемента или создают дополнительное содержимое, не меняя HTML-разметку.
+                        </p>
+                        <ul class="list-ul">
+                            <li>
+                                Начинаются с двойного двоеточия
+                                <b>::</b>
+                                (например,
+                                <code>::before</code>
+                                ), но для совместимости часто поддерживается и одно двоеточие.
+                            </li>
+                            <li>Позволяют стилизовать первую букву, первую строку, добавлять контент до или после элемента и многое другое.</li>
+                            <li>Используются для украшения, создания декоративных элементов, выделения или вспомогательного оформления.</li>
+                        </ul>
+                        <h4>Пример</h4>
+                        <p>
+                            Добавим слово "Внимание:" перед параграфом с помощью
+                            <code>::before</code>
+                            :
+                        </p>
+                        <div class="grid-column-50">
+                            <pre><code>
+p.warning::before {
+  content: "Внимание: ";
+  color: red;
+  font-weight: bold;
+}
+              </code></pre>
+                            <div class="example">
+                                <p class="warning">Это сообщение с псевдоэлементом.</p>
+                                <style>
+                                    .example .warning::before {
+                                        content: "Внимание: ";
+                                        color: red;
+                                        font-weight: bold;
+                                    }
+                                </style>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ::before -->
+                <section class="section" id="pseudoelem-before">
+                    <div class="container">
+                        <h2>::before</h2>
+                        <p class="note">
+                            <b>::before</b>
+                            позволяет добавить виртуальный элемент
+                            <b>перед</b>
+                            содержимым тега. Это удобно для добавления иконок, пометок или декоративных символов без изменения HTML-разметки.
+                        </p>
+
+                        <div class="grid-column-50">
+                            <pre><code>HTML:
+	&lt;p&gt;Пример текста&lt;/p&gt;
+
+	CSS:
+	p::before {
+	  content: "🔥 ";
+	  color: red;
+	}</code></pre>
+                            <div class="example">
+                                <p class="before-demo">Пример текста</p>
+                                <style>
+                                    .example .before-demo::before {
+                                        content: "🔥 ";
+                                        color: red;
+                                    }
+                                </style>
+                            </div>
+                        </div>
+                        <ul>
+                            <li>
+                                <b>::before</b>
+                                — добавляет содержимое
+                                <b>до</b>
+                                текста элемента.
+                            </li>
+                            <li>Часто используется для декоративных иконок, лейблов и т.д.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- ::after -->
+                <section class="section" id="pseudoelem-after">
+                    <div class="container">
+                        <h2>::after</h2>
+                        <p class="note">
+                            <b>::after</b>
+                            работает аналогично
+                            <code>::before</code>
+                            , но добавляет виртуальный элемент
+                            <b>после</b>
+                            содержимого тега. Это часто используется для добавления иконок, декоративных символов или пояснений без изменения HTML-кода.
+                        </p>
+
+                        <div class="grid-column-50">
+                            <pre><code>HTML:
+&lt;p&gt;Пример текста&lt;/p&gt;
+
+CSS:
+p::after {
+   content: " ✨";
+   color: gold;
+}</code></pre>
+                            <div class="example">
+                                <p class="after-demo">Пример текста</p>
+                                <style>
+                                    .example .after-demo::after {
+                                        content: " ✨";
+                                        color: gold;
+                                    }
+                                </style>
+                            </div>
+                        </div>
+                        <ul>
+                            <li>
+                                <b>::after</b>
+                                — добавляет содержимое
+                                <b>после</b>
+                                текста элемента.
+                            </li>
+                            <li>Часто используется для декоративных целей: иконки, хвостики, стрелки, подписи и т.д.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- ::first-line -->
+                <section class="section" id="pseudoelem-first-line">
+                    <div class="container">
+                        <h2>::first-line</h2>
+                        <p class="note">
+                            <b>::first-line</b>
+                            позволяет стилизовать
+                            <b>первую строку</b>
+                            текста в блочном элементе (например, абзаце или заголовке).
+                            <br />
+                            <br />
+                            Это удобно для выделения начала абзаца, цитаты или привлечения внимания к первой строке текста.
+                            <br />
+                            <br />
+                            💡
+                            <b>Работает только с блочными элементами и зависит от ширины контейнера. Если текст переносится, первая строка меняется.</b>
+                        </p>
+                        <div class="grid-column-50">
+                            <pre><code>HTML:
+&lt;p&gt;Прекрасное утро!
+Пусть оно принесёт вам радость и вдохновение.&lt;/p&gt;
+
+CSS:
+p::first-line {
+   font-size: 1.5em;
+   color: navy;
+   font-style: italic;
+}</code></pre>
+                            <div class="example">
+                                <p class="first-line-demo">Прекрасное утро! Пусть оно принесёт вам радость и вдохновение.</p>
+                                <style>
+                                    .example .first-line-demo::first-line {
+                                        font-size: 1.5em;
+                                        color: navy;
+                                        font-style: italic;
+                                    }
+                                </style>
+                            </div>
+                        </div>
+                        <ul>
+                            <li>Стили применяются только к первой строке текста (до первого переноса строки).</li>
+                            <li>Удобно для выделения зачинки или первой строки абзаца.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- ::first-letter -->
+                <section class="section" id="pseudoelem-first-letter">
+                    <div class="container">
+                        <h2>::first-letter</h2>
+                        <p class="note">
+                            <b>::first-letter</b>
+                            позволяет стилизовать
+                            <b>первую букву</b>
+                            блочного элемента (например, абзаца или заголовка).
+                            <br />
+                            <br />
+                            Это удобно для создания красивых заглавных букв, как в книгах и блогах.
+                            <br />
+                            <br />
+                            💡
+                            <b>Работает только с блочными элементами.</b>
+                        </p>
+                        <div class="grid-column-50">
+                            <pre><code>HTML:
+&lt;p&gt;Начните день с улыбки!&lt;/p&gt;
+
+CSS:
+p::first-letter {
+   font-size: 2em;
+   color: red;
+   font-family: serif;
+   font-weight: bold;
+   float: left;
+   line-height: 1;
+   margin-right: 0.1em;
+}</code></pre>
+                            <div class="example">
+                                <p class="first-letter-demo">Начните день с улыбки!</p>
+                                <style>
+                                    .example .first-letter-demo::first-letter {
+                                        font-size: 2em;
+                                        color: red;
+                                        font-family: serif;
+                                        font-weight: bold;
+                                        float: left;
+                                        line-height: 1;
+                                        margin-right: 0.1em;
+                                    }
+                                </style>
+                            </div>
+                        </div>
+                        <ul>
+                            <li>Стили применяются только к первой букве блочного элемента.</li>
+                            <li>Применяют для эффектных drop caps (больших букв в начале абзаца), оформления статей, блогов и книг.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Сводная таблица псевдоэлементов -->
+                <section class="section" id="pseudoelem-table">
+                    <div class="container">
+                        <style>
+                            .example-table tr:hover {
+                                background: none;
+                            }
+                            .example-table tr:nth-child(even) {
+                                background: none;
+                            }
+                        </style>
+                        <h2>Сводная таблица псевдоэлементов</h2>
+                        <table class="example-table">
+                            <thead>
+                                <tr>
+                                    <th>Псевдоэлемент</th>
+                                    <th>Описание</th>
+                                    <th>Пример CSS</th>
+                                    <th>Видимый результат</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- before -->
+                                <tr>
+                                    <!-- ::before -->
+                                    <td><b>::before</b></td>
+                                    <td>Добавляет контент перед содержимым элемента.</td>
+                                    <td>
+                                        <pre><code>/* ::before — перед элементом */
+p::before {
+  content: "Примечание: ";
+  color: #3498db;
+}</code></pre>
+                                    </td>
+                                    <td>
+                                        <div class="example">
+                                            <p class="ex-before">Это абзац текста</p>
+                                            <style>
+                                                .example .ex-before::before {
+                                                    content: "Примечание: ";
+                                                    color: #3498db;
+                                                }
+                                            </style>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- after -->
+                                <tr>
+                                    <!-- ::after -->
+                                    <td><b>::after</b></td>
+                                    <td>Добавляет контент после содержимого элемента.</td>
+                                    <td>
+                                        <pre><code>/* ::after — после элемента */
+p::after {
+  content: " (конец)";
+  color: #ff9800;
+}</code></pre>
+                                    </td>
+                                    <td>
+                                        <div class="example">
+                                            <p class="ex-after">Это абзац текста</p>
+                                            <style>
+                                                .example .ex-after::after {
+                                                    content: " (конец)";
+                                                    color: #ff9800;
+                                                }
+                                            </style>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- first-line -->
+                                <tr>
+                                    <!-- ::first-line -->
+                                    <td><b>::first-line</b></td>
+                                    <td>Применяется к первой строке текста элемента.</td>
+                                    <td>
+                                        <pre><code>/* ::first-line — первая строка */
+p::first-line {
+  font-weight: bold;
+  color: green;
+}</code></pre>
+                                    </td>
+                                    <td>
+                                        <div class="example" style="max-width: 250px">
+                                            <p class="ex-fl">Это пример абзаца, где первая строка будет выделена жирным и зелёным цветом.</p>
+                                            <style>
+                                                .example .ex-fl::first-line {
+                                                    font-weight: bold;
+                                                    color: green;
+                                                }
+                                            </style>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- first-letter -->
+                                <tr>
+                                    <!-- ::first-letter -->
+                                    <td><b>::first-letter</b></td>
+                                    <td>Применяется к первой букве текста элемента.</td>
+                                    <td>
+                                        <pre><code>/* ::first-letter — первая буква */
+p::first-letter {
+  font-size: 2em;
+  color: red;
+}</code></pre>
+                                    </td>
+                                    <td>
+                                        <div class="example">
+                                            <p class="ex-flt">Яркая заглавная буква.</p>
+                                            <style>
+                                                .example .ex-flt::first-letter {
+                                                    font-size: 2em;
+                                                    color: red;
+                                                }
+                                            </style>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- selection -->
+                                <tr>
+                                    <!-- ::selection -->
+                                    <td><b>::selection</b></td>
+                                    <td>Позволяет стилизовать выделенный текст.</td>
+                                    <td>
+                                        <pre><code>/* ::selection — выделение */
+::selection {
+  background: yellow;
+  color: black;
+}</code></pre>
+                                    </td>
+                                    <td>
+                                        <div class="example">
+                                            <p class="ex-selection">Выдели этот текст мышкой!</p>
+                                            <style>
+                                                .example .ex-selection::selection {
+                                                    background: yellow;
+                                                    color: black;
+                                                }
+                                            </style>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- placeholder -->
+                                <tr>
+                                    <!-- ::placeholder -->
+                                    <td><b>::placeholder</b></td>
+                                    <td>
+                                        Стилизует текст плейсхолдера в
+                                        <code>&lt;input&gt;</code>
+                                        и
+                                        <code>&lt;textarea&gt;</code>
+                                        .
+                                    </td>
+                                    <td>
+                                        <pre><code>/* ::placeholder — плейсхолдер */
+input::placeholder {
+  color: gray;
+}</code></pre>
+                                    </td>
+                                    <td>
+                                        <div class="example">
+                                            <input class="ex-ph" type="text" placeholder="Введите текст..." />
+                                            <style>
+                                                .example .ex-ph::placeholder {
+                                                    color: gray;
+                                                }
+                                            </style>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- marker -->
+                                <tr>
+                                    <!-- ::marker -->
+                                    <td><b>::marker</b></td>
+                                    <td>Стилизует маркеры списка.</td>
+                                    <td>
+                                        <pre><code>/* ::marker — маркеры списка */
+li::marker {
+  color: blue;
+}</code></pre>
+                                    </td>
+                                    <td>
+                                        <div class="example">
+                                            <ul>
+                                                <li class="ex-marker">Первый пункт</li>
+                                                <li class="ex-marker">Второй пункт</li>
+                                            </ul>
+                                            <style>
+                                                .example .ex-marker::marker {
+                                                    color: blue;
+                                                }
+                                            </style>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- backdrop -->
+                                <tr>
+                                    <td><b>::backdrop</b></td>
+                                    <td>
+                                        Стилизация фона модальных окон (например,
+                                        <code>&lt;dialog&gt;</code>
+                                        ).
+                                    </td>
+                                    <td>
+                                        <pre><code>/* ::backdrop — фон модального окна */
+::backdrop {
+  background: rgba(0,0,0,0.5);
+}</code></pre>
+                                    </td>
+                                    <td>
+                                        <div class="example">
+                                            <div>
+                                                <div class="backdrop" id="backdrop" onclick="closeModal()"></div>
+                                                <div class="modal" id="modal">
+                                                    <p>Это модальное окно!</p>
+                                                    <button onclick="closeModal()">Закрыть</button>
+                                                </div>
+                                                <button onclick="openModal()">Открыть модальное окно</button>
+                                                <script>
+                                                    function openModal() {
+                                                        document.getElementById("modal").style.display = "block";
+                                                        document.getElementById("backdrop").style.display = "block";
+                                                    }
+                                                    function closeModal() {
+                                                        document.getElementById("modal").style.display = "none";
+                                                        document.getElementById("backdrop").style.display = "none";
+                                                    }
+                                                </script>
+                                                <style>
+                                                    .modal {
+                                                        display: none;
+                                                        background: white;
+                                                        padding: 20px;
+                                                        border-radius: 8px;
+                                                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                                                        position: relative;
+                                                        z-index: 2;
+                                                    }
+                                                    .backdrop {
+                                                        display: none;
+                                                        position: fixed;
+                                                        top: 0;
+                                                        left: 0;
+                                                        right: 0;
+                                                        bottom: 0;
+                                                        background: rgba(0, 0, 0, 0.5);
+                                                        z-index: 1;
+                                                    }
+                                                </style>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- slotted -->
+                                <tr>
+                                    <!-- ::slotted -->
+                                    <td><b>::slotted</b></td>
+                                    <td>
+                                        Стилизует элементы внутри
+                                        <code>&lt;slot&gt;</code>
+                                        в Web Components.
+                                    </td>
+                                    <td>
+                                        <pre><code>/* ::slotted — для Web Components */
+::slotted(p) {
+  color: red;
+}</code></pre>
+                                    </td>
+                                    <td>
+                                        <span style="font-size: 0.95em; color: #888">Работает только внутри Web Components</span>
+                                    </td>
+                                </tr>
+
+                                <!-- grammar-error -->
+                                <tr>
+                                    <!-- ::grammar-error -->
+                                    <td><b>::grammar-error</b></td>
+                                    <td>Стилизует текст с грамматическими ошибками.</td>
+                                    <td>
+                                        <pre><code>/* ::grammar-error — грамматическая ошибка */
+::grammar-error {
+  background: pink;
+}</code></pre>
+                                    </td>
+                                    <td>
+                                        <span style="background: pink; border-radius: 3px; padding: 0 3px">ошибка</span>
+                                    </td>
+                                </tr>
+
+                                <!-- spelling-error -->
+                                <tr>
+                                    <!-- ::spelling-error -->
+                                    <td><b>::spelling-error</b></td>
+                                    <td>Стилизует текст с орфографическими ошибками.</td>
+                                    <td>
+                                        <pre><code>/* ::spelling-error — орфографическая ошибка */
+::spelling-error {
+  background: lightblue;
+}</code></pre>
+                                    </td>
+                                    <td>
+                                        <span style="background: lightblue; border-radius: 3px; padding: 0 3px">текс</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+
+        <style>
+            .example-box {
+                background-color: #f8f9fa;
+                border-left: 4px solid #3498db;
+                padding: 1.5rem;
+                margin: 1.5rem 0;
+                border-radius: 0 8px 8px 0;
+            }
+            .spec-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 1.5rem 0;
+            }
+            .spec-table th,
+            .spec-table td {
+                border: 1px solid #dee2e6;
+                padding: 0.75rem;
+                text-align: left;
+            }
+            .spec-table th {
+                background-color: #e9ecef;
+                font-weight: 600;
+            }
+            .spec-table tr:nth-child(even) {
+                background-color: #f8f9fa;
+            }
+            @media (max-width: 768px) {
+                .comparison {
+                    flex-direction: column;
+                }
+            }
+        </style>
+    </body>
+</html>

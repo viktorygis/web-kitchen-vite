@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Строгий режим — 'use strict'",
+    "description": "Строгий режим JavaScript" })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#strict-intro" class="active">Введение</a>
+                    <a href="#strict-usage">Использование</a>
+                    <a href="#strict-features">Особенности</a>
+                    <a href="#strict-recommend">Рекомендации</a>
+                </nav>
+
+                <!-- Введение -->
+                <section class="section" id="strict-intro">
+                    <div class="container">
+                        <h1>Строгий режим — "use strict"</h1>
+
+                        <p class="note">
+                            <strong>Строгий режим</strong>
+                            в JavaScript был введен с появлением ECMAScript 5 в
+                            2009 году для устранения проблем с обратной
+                            совместимостью.
+                            <br />
+                            Он помогает избежать ошибок и улучшить безопасность
+                            кода.
+                        </p>
+
+                        <div class="grid-column-50">
+                            <div class="example">
+                                <h4>Основные цели:</h4>
+                                <ul class="list-ul">
+                                    <li>Устранение "небрежных" ошибок</li>
+                                    <li>
+                                        Предотвращение использования устаревших
+                                        возможностей
+                                    </li>
+                                    <li>Упрощение оптимизации кода</li>
+                                </ul>
+                            </div>
+                            <div class="example">
+                                <h4>Где применяется:</h4>
+                                <ul class="list-ul">
+                                    <li>В отдельных скриптах</li>
+                                    <li>В функциях</li>
+                                    <li>Автоматически в модулях и классах</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Использование -->
+                <section class="section" id="strict-usage">
+                    <div class="container">
+                        <h2>Использование "use strict"</h2>
+
+                        <p class="note">
+                            <strong>Директива "use strict"</strong>
+                            — активирует строгий режим, который меняет поведение
+                            некоторых функций.
+                            <br />
+                            Должна быть первой исполняемой строкой в скрипте или
+                            функции.
+                        </p>
+
+                        <div
+                            class="grid-column-100"
+                            style="margin-bottom: 20px">
+                            <div class="">
+                                <h4>Глобальное применение:</h4>
+                                <pre><code>"use strict";
+// Весь код ниже будет в строгом режиме
+let x = 10;
+</code></pre>
+                            </div>
+                            <div class="">
+                                <h4>Локальное применение:</h4>
+                                <pre><code>function strictFunction() {
+  'use strict';
+  // Только эта функция в строгом режиме
+}
+</code></pre>
+                            </div>
+                        </div>
+
+                        <h4>Особенности активации:</h4>
+                        <table class="table-note">
+                            <thead>
+                                <tr>
+                                    <th>Ситуация</th>
+                                    <th>Поведение</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Не первая строка</td>
+                                    <td>Строгий режим не активируется</td>
+                                </tr>
+                                <tr>
+                                    <td>В консоли браузера</td>
+                                    <td>Требуется обернуть в IIFE</td>
+                                </tr>
+                                <tr>
+                                    <td>В модулях/классах</td>
+                                    <td>Активирован по умолчанию</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Особенности -->
+                <section class="section" id="strict-features">
+                    <div class="container">
+                        <h2>Особенности строгого режима</h2>
+
+                        <div class="note-block">
+                            <h3>Запрещенные действия</h3>
+                            <p class="note">
+                                Строгий режим запрещает потенциально проблемные
+                                конструкции:
+                            </p>
+
+                            <pre><code>// Без strict:
+x = 10; // Создает глобальную переменную
+
+// Со strict:
+"use strict";
+x = 10; // ReferenceError: x is not defined
+</code></pre>
+                        </div>
+
+                        <div class="note-block">
+                            <h3>Изменения в поведении</h3>
+                            <pre><code>// Без strict:
+function fn(a, a) { // Дублирование параметров
+  console.log(a);
+}
+
+// Со strict:
+"use strict";
+function fn(a, a) { // SyntaxError
+  // ...
+}
+</code></pre>
+                        </div>
+
+                        <h4>Другие изменения:</h4>
+                        <div class="note">
+                            <ul class="list-ul">
+                                <li>Запрет на удаление обычных переменных</li>
+                                <li>
+                                    Ограничения на использование
+                                    <code>eval</code>
+                                </li>
+                                <li>
+                                    Запрет на использование
+                                    <code>with</code>
+                                </li>
+                                <li>
+                                    Изменения в работе
+                                    <code>this</code>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Рекомендации -->
+                <section class="section" id="strict-recommend">
+                    <div class="container">
+                        <h2>Рекомендации по использованию</h2>
+
+                        <p class="note">
+                            <strong>Современная практика</strong>
+                            — всегда использовать строгий режим для нового кода.
+                            <br />
+                            В будущих версиях JavaScript многие его ограничения
+                            станут стандартом.
+                        </p>
+
+                        <div class="note-block">
+                            <h3>Когда использовать:</h3>
+                            <pre><code>// Для всего скрипта
+"use strict";
+// ... весь код
+
+// Или для отдельных функций
+function strictFn() {
+  'use strict';
+  // ...
+}
+</code></pre>
+                        </div>
+
+                        <div class="note-block">
+                            <h3>Консоль разработчика:</h3>
+                            <pre><code>(function() {
+  'use strict';
+  // Ваш код для консоли
+})();
+</code></pre>
+                        </div>
+
+                        <h4>Лучшие практики:</h4>
+                        <div class="note">
+                            <ol class="list-ol">
+                                <li>Всегда включать в начале новых скриптов</li>
+                                <li>
+                                    Для старых проектов - постепенный переход
+                                </li>
+                                <li>
+                                    В модулях можно не указывать (включен по
+                                    умолчанию)
+                                </li>
+                                <li>Тестировать код в строгом режиме</li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+    </body>
+</html>

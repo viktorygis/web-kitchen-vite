@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        @@include('../html/head.html', { "title": "HTML: Формы и элементы ввода", "description": "Руководство по созданию HTML-форм и использованию элементов ввода" })
+    </head>
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#button-intro" class="active">Введение</a>
+                    <a href="#button-properties">Основные свойства</a>
+                    <a href="#button-hover">Интерактивность :hover</a>
+                    <a href="#button-shadow">Тени (box-shadow)</a>
+                    <a href="#button-modern">Современные стили</a>
+                </nav>
+
+                <!-- 1. Введение -->
+                <section class="section" id="button-intro">
+                    <div class="container">
+                        <h1>Стилизация кнопок в HTML и CSS</h1>
+
+                        <p class="note">
+                            <b>Кнопки</b>
+                            — важная часть интерфейса.
+                            <br />
+                            С помощью CSS можно сделать их яркими, современными, удобными: изменить цвет, форму, добавить эффекты наведения, тени или иконки.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- 2. Основные свойства для стилизации кнопок -->
+                <section class="section" id="button-properties">
+                    <div class="container">
+                        <h2>Основные свойства для стилизации кнопок</h2>
+                        <ul class="list-ul">
+                            <li>
+                                <b>background-color</b>
+                                — цвет фона кнопки
+                            </li>
+                            <li>
+                                <b>color</b>
+                                — цвет текста
+                            </li>
+                            <li>
+                                <b>border</b>
+                                — рамка кнопки (или её отсутствие)
+                            </li>
+                            <li>
+                                <b>padding</b>
+                                — внутренние отступы, пространство между текстом и краями кнопки
+                            </li>
+                            <li>
+                                <b>border-radius</b>
+                                — закругление углов кнопки
+                            </li>
+                            <li>
+                                <b>cursor</b>
+                                — вид курсора (например,
+                                <code>pointer</code>
+                                для указателя)
+                            </li>
+                        </ul>
+                        <h4>Пример базовой стилизации кнопки</h4>
+                        <div class="grid-column-50">
+                            <pre><code>
+	&lt;button&gt;Нажми меня&lt;/button&gt;
+
+	&lt;style&gt;
+	button {
+	background-color: #4CAF50; /* Зелёный фон */
+	color: white;              /* Белый текст */
+	border: none;              /* Без рамки */
+	padding: 10px 20px;        /* Внутренние отступы */
+	border-radius: 5px;        /* Закруглённые углы */
+	cursor: pointer;           /* Курсор-указатель */
+	}
+	&lt;/style&gt;
+			</code></pre>
+                            <div class="example">
+                                <button style="background-color: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer">Нажми меня</button>
+                            </div>
+                        </div>
+                        <p class="note">Кнопка выглядит аккуратно, современно и буквально приглашает к действию! 🖱️💚</p>
+                    </div>
+                </section>
+
+                <!-- 3. Интерактивность: псевдокласс :hover -->
+                <section class="section" id="button-hover">
+                    <div class="container">
+                        <h2>
+                            Интерактивность: псевдокласс
+                            <code>:hover</code>
+                        </h2>
+                        <p>
+                            Чтобы кнопка "оживала" при наведении, используют псевдокласс
+                            <code>:hover</code>
+                            .
+                        </p>
+                        <h4>Пример кнопки с эффектом наведения</h4>
+                        <div class="grid-column-50">
+                            <pre><code>
+	&lt;button&gt;Наведи на меня&lt;/button&gt;
+
+	&lt;style&gt;
+	button {
+	background-color: #008CBA; /* Синий фон */
+	color: white;              /* Белый текст */
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+	}
+
+	button:hover {
+	background-color: #005f73; /* Фон становится темнее */
+	}
+	&lt;/style&gt;
+			</code></pre>
+                            <div class="example">
+                                <button style="background-color: #008cba; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer" onmouseover="this.style.backgroundColor='#005f73'" onmouseout="this.style.backgroundColor='#008CBA'">Наведи на меня</button>
+                            </div>
+                        </div>
+                        <p class="note">При наведении фон кнопки становится темнее — она выглядит "живой" и привлекательной! 🖱️✨</p>
+                    </div>
+                </section>
+
+                <!-- 4. Тени для кнопок: box-shadow -->
+                <section class="section" id="button-shadow">
+                    <div class="container">
+                        <h2>
+                            Тени для кнопок:
+                            <code>box-shadow</code>
+                        </h2>
+                        <p>
+                            Свойство
+                            <code>box-shadow</code>
+                            добавляет тень к кнопке, делая её объёмнее и выразительнее.
+                        </p>
+                        <h4>Пример кнопки с тенью</h4>
+                        <div class="grid-column-50">
+                            <pre><code>
+	&lt;button&gt;Кнопка с тенью&lt;/button&gt;
+
+	&lt;style&gt;
+	button {
+	background-color: #4CAF50; /* Зелёный фон */
+	color: white;              /* Белый текст */
+	padding: 10px 20px;
+	border-radius: 8px;        /* Закруглённые углы */
+	border: none;
+	box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3); /* Лёгкая тень */
+	cursor: pointer;
+	}
+	&lt;/style&gt;
+			</code></pre>
+                            <div class="example">
+                                <button style="background-color: #4caf50; color: white; padding: 10px 20px; border-radius: 8px; border: none; box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3); cursor: pointer">Кнопка с тенью</button>
+                            </div>
+                        </div>
+                        <div class="note">
+                            <b>
+                                Как работает
+                                <code>box-shadow</code>
+                                :
+                            </b>
+                            <br />
+                            <ul class="list-ul">
+                                <li>
+                                    <b>3px 3px</b>
+                                    — смещение тени вправо и вниз
+                                </li>
+                                <li>
+                                    <b>10px</b>
+                                    — размытие (чем больше число, тем мягче тень)
+                                </li>
+                                <li>
+                                    <b>rgba(0, 0, 0, 0.3)</b>
+                                    — цвет тени, 30% прозрачности
+                                </li>
+                            </ul>
+                            Тень делает кнопку "воздушной" и современной!
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 5. Современные стили кнопок — с описанием справа -->
+                <section class="section" id="button-modern-explained">
+                    <div class="container">
+                        <h2>Современные стили кнопок — с описанием</h2>
+                        <style>
+                            .btn-modern {
+                                font-family: inherit;
+                                font-size: 1rem;
+                                padding: 10px 24px;
+                                border: none;
+                                cursor: pointer;
+                                margin: 8px 0;
+                                transition: all 0.2s;
+                                min-width: 120px;
+                                display: inline-block;
+                                max-width: 400px;
+                            }
+                            .btn-primary {
+                                background: #1976d2;
+                                color: #fff;
+                                border-radius: 6px;
+                            }
+                            .btn-primary:hover {
+                                background: #1256a0;
+                            }
+                            .btn-outline {
+                                background: #fff;
+                                color: #1976d2;
+                                border: 2px solid #1976d2;
+                                border-radius: 6px;
+                            }
+                            .btn-outline:hover {
+                                background: #1976d2;
+                                color: #fff;
+                            }
+                            .btn-success {
+                                background: #43a047;
+                                color: #fff;
+                                border-radius: 25px;
+                                box-shadow: 0 2px 8px rgba(67, 160, 71, 0.08);
+                            }
+                            .btn-success:hover {
+                                background: #388e3c;
+                            }
+                            .btn-danger {
+                                background: #e53935;
+                                color: #fff;
+                                border-radius: 6px;
+                            }
+                            .btn-danger:hover {
+                                background: #b71c1c;
+                            }
+                            .btn-gradient {
+                                background: linear-gradient(90deg, #ff512f 10%, #dd2476 90%);
+                                color: #fff;
+                                border-radius: 25px;
+                                box-shadow: 0 4px 16px rgba(221, 36, 118, 0.1);
+                            }
+                            .btn-gradient:hover {
+                                filter: brightness(0.9);
+                            }
+                            .btn-glass {
+                                background: rgba(255, 255, 255, 0.2);
+                                color: #222;
+                                border-radius: 12px;
+                                backdrop-filter: blur(4px);
+                                border: 1px solid #bbb;
+                                box-shadow: 0 2px 24px rgba(0, 0, 0, 0.06);
+                            }
+                            .btn-glass:hover {
+                                background: rgba(255, 255, 255, 0.45);
+                                color: #111;
+                                box-shadow: 0 6px 32px rgba(0, 0, 0, 0.16);
+                                border-color: #888;
+                            }
+                            .btn-shadow {
+                                background: #fff;
+                                color: #444;
+                                border-radius: 8px;
+                                box-shadow: 0 4px 16px rgba(25, 118, 210, 0.13);
+                                border: 1px solid #eee;
+                            }
+                            .btn-shadow:hover {
+                                background: #f5faff;
+                                box-shadow: 0 12px 36px rgba(25, 118, 210, 0.22);
+                                color: #1976d2;
+                                border-color: #1976d2;
+                            }
+                            .btn-dark {
+                                background: #222;
+                                color: #f5f5f5;
+                                border-radius: 6px;
+                                letter-spacing: 1px;
+                            }
+                            .btn-dark:hover {
+                                background: #111;
+                            }
+                            .btn-link {
+                                background: none;
+                                color: #1976d2;
+                                text-decoration: underline;
+                                padding: 0 4px;
+                                border-radius: 0;
+                            }
+                            .btn-link:hover {
+                                color: #0d3880;
+                                background: #e3ecfa;
+                            }
+                            .btn-icon {
+                                background: #fff;
+                                border: 2px solid #1976d2;
+                                color: #1976d2;
+                                border-radius: 50%;
+                                width: 44px;
+                                height: 44px;
+                                display: inline-flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-size: 1.4em;
+                                padding: 0;
+                                min-width: 44px;
+                            }
+                            .btn-icon:hover {
+                                background: #1976d2;
+                                color: #fff;
+                            }
+                            .modern-btn {
+                                background-color: #fff;
+                                padding: 20px;
+                            }
+                            .modern-btn-row {
+                                display: grid;
+                                grid-template-columns: repeat(2, 1fr);
+                                align-items: center;
+                                gap: 28px;
+                                margin-bottom: 18px;
+                            }
+
+                            .modern-btn-description {
+                                flex: 1;
+                                font-size: 1em;
+                            }
+                        </style>
+                        <div class="modern-btn">
+                            <div class="modern-btn-row">
+                                <button class="btn-modern btn-primary" type="button">Primary</button>
+                                <div class="modern-btn-description">
+                                    <b>Primary</b>
+                                    — стандартная цветная кнопка для главных действий.
+                                </div>
+                            </div>
+                            <div class="modern-btn-row">
+                                <button class="btn-modern btn-outline" type="button">Outline</button>
+                                <div class="modern-btn-description">
+                                    <b>Outline</b>
+                                    — прозрачная кнопка с цветной рамкой.
+                                </div>
+                            </div>
+                            <div class="modern-btn-row">
+                                <button class="btn-modern btn-success" type="button">Success</button>
+                                <div class="modern-btn-description">
+                                    <b>Success</b>
+                                    — зелёная кнопка для успешных или подтверждающих действий.
+                                </div>
+                            </div>
+                            <div class="modern-btn-row">
+                                <button class="btn-modern btn-danger" type="button">Danger</button>
+                                <div class="modern-btn-description">
+                                    <b>Danger</b>
+                                    — красная кнопка для удаления и предупреждений.
+                                </div>
+                            </div>
+                            <div class="modern-btn-row">
+                                <button class="btn-modern btn-gradient" type="button">Градиент</button>
+                                <div class="modern-btn-description">
+                                    <b>Градиент</b>
+                                    — модный плавный переход цветов.
+                                </div>
+                            </div>
+                            <div class="modern-btn-row">
+                                <button class="btn-modern btn-glass" type="button">Стекло</button>
+                                <div class="modern-btn-description">
+                                    <b>Стекло</b>
+                                    — лёгкая, с прозрачностью и размытием.
+                                </div>
+                            </div>
+                            <div class="modern-btn-row">
+                                <button class="btn-modern btn-shadow" type="button">Тень</button>
+                                <div class="modern-btn-description">
+                                    <b>Тень</b>
+                                    — белая с эффектом парящей тени.
+                                </div>
+                            </div>
+                            <div class="modern-btn-row">
+                                <button class="btn-modern btn-dark" type="button">Тёмная</button>
+                                <div class="modern-btn-description">
+                                    <b>Тёмная</b>
+                                    — минималистичная тёмная кнопка.
+                                </div>
+                            </div>
+                            <div class="modern-btn-row">
+                                <button class="btn-modern btn-link" type="button">Ссылка</button>
+                                <div class="modern-btn-description">
+                                    <b>Ссылка</b>
+                                    — выглядит как текстовая ссылка.
+                                </div>
+                            </div>
+                            <div class="modern-btn-row">
+                                <button class="btn-modern btn-icon" type="button" title="Like">&#10084;</button>
+                                <div class="modern-btn-description">
+                                    <b>Icon</b>
+                                    — круглая кнопка с иконкой, например “лайк”.
+                                </div>
+                            </div>
+                        </div>
+                        <p class="note">✨ Экспериментируйте с цветами, тенями, градиентами, скруглением и иконками, чтобы создавать собственные современные стили кнопок!</p>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+    </body>
+</html>

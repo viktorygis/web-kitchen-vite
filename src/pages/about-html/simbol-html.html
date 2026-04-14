@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Специальные символы, якори, ссылки и комментарии в HTML", "description": "Руководство по работе со специальными символами, якорями, ссылками и комментариями в HTML" })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <!-- Навигация по разделам -->
+                <nav class="nav-tabs">
+                    <a class="nav-tabs__link" href="#intro">Введение</a>
+                    <a class="nav-tabs__link" href="#special-symbols">Спецсимволы</a>
+                    <a class="nav-tabs__link" href="#anchors">Якоря</a>
+                    <a class="nav-tabs__link" href="#links">Ссылки</a>
+                    <a class="nav-tabs__link" href="#comments">Комментарии</a>
+                    <a class="nav-tabs__link" href="#tips">Советы</a>
+                </nav>
+
+                <!-- Введение -->
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>Специальные символы, якори, ссылки и комментарии в HTML</h1>
+                        <p class="note">В HTML есть множество инструментов для оформления, навигации и комментирования веб-страниц. На этой странице вы узнаете:</p>
+                        <ul>
+                            <li>Что такое специальные символы и как их использовать для корректного отображения текста;</li>
+                            <li>Как создавать якори для переходов внутри страницы;</li>
+                            <li>Как оформлять и управлять ссылками на другие страницы и документы;</li>
+                            <li>Как добавлять комментарии — заметки для себя и других разработчиков;</li>
+                            <li>Полезные советы для чистого, доступного и безопасного кода.</li>
+                        </ul>
+                        <p>Эта информация пригодится каждому, кто работает с HTML — от новичков до профессионалов.</p>
+                    </div>
+                </section>
+
+                <!-- 1. Специальные символы -->
+                <section class="section" id="special-symbols">
+                    <div class="container">
+                        <h2>1. Специальные символы в HTML</h2>
+                        <p class="note">
+                            <strong>Специальные символы</strong>
+                            — это символы, которые невозможно напрямую написать в HTML-коде, либо они имеют специальное значение в языке (например, угловые скобки
+                            <code>&lt;</code>
+                            и
+                            <code>&gt;</code>
+                            ). Для их отображения используются специальные коды —
+                            <b>HTML-сущности</b>
+                            .
+                        </p>
+                        <p>
+                            Если вы напишете
+                            <code>&lt;</code>
+                            или
+                            <code>&gt;</code>
+                            в тексте, браузер воспримет их как начало или конец тега. Чтобы вывести эти символы именно как текст, используйте соответствующую сущность:
+                            <code>&amp;lt;</code>
+                            для «меньше»,
+                            <code>&amp;gt;</code>
+                            для «больше» и т.д.
+                        </p>
+                        <p>Также есть символы, которых нет на клавиатуре: пробелы, валюты, авторское право, математические знаки. Они добавляются с помощью сущностей.</p>
+                        <p>Пример использования специальных символов:</p>
+                        <table class="table-note">
+                            <thead>
+                                <tr>
+                                    <th>Символ</th>
+                                    <th>HTML-сущность</th>
+                                    <th>Код (числовой)</th>
+                                    <th>Описание</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>&amp;nbsp;</td>
+                                    <td>&amp;#160;</td>
+                                    <td>Неразрывный пробел (для создания отступа внутри строки)</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;</td>
+                                    <td>&amp;lt;</td>
+                                    <td>&amp;#60;</td>
+                                    <td>
+                                        Знак «меньше», используется для отображения символа
+                                        <code>&lt;</code>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>&gt;</td>
+                                    <td>&amp;gt;</td>
+                                    <td>&amp;#62;</td>
+                                    <td>
+                                        Знак «больше», используется для отображения символа
+                                        <code>&gt;</code>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>&amp;</td>
+                                    <td>&amp;amp;</td>
+                                    <td>&amp;#38;</td>
+                                    <td>
+                                        Амперсанд (и), используется для отображения символа
+                                        <code>&amp;</code>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>&copy;</td>
+                                    <td>&amp;copy;</td>
+                                    <td>&amp;#169;</td>
+                                    <td>Символ авторского права</td>
+                                </tr>
+                                <tr>
+                                    <td>&euro;</td>
+                                    <td>&amp;euro;</td>
+                                    <td>&amp;#8364;</td>
+                                    <td>Символ евро</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="note note-info">
+                            <b>Полный список спецсимволов:</b>
+                            <a href="https://www.w3schools.com/html/html_entities.asp" target="_blank">HTML Entities Reference</a>
+                        </p>
+                        <h4>Пример использования:</h4>
+                        <div class="grid-column-50">
+                            <pre><code>&lt;p&gt;Выражение: 5 &amp;lt; 10 &amp;amp;&amp;nbsp;7 &amp;gt; 4&lt;/p&gt;</code></pre>
+                            <div class="example"><p>Результат: Выражение: 5 &lt; 10 7 &gt; 4</p></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. Якоря -->
+                <section class="section" id="anchors">
+                    <div class="container">
+                        <h2>2. Якоря в HTML</h2>
+                        <p class="note">
+                            <strong>Якорь</strong>
+                            — это специальная метка внутри страницы, позволяющая быстро перейти к нужной области. Для этого используется тег
+                            <code>&lt;a&gt;</code>
+                            с атрибутом
+                            <code>href="#имя_якоря"</code>
+                            и элемент с соответствующим
+                            <code>id</code>
+                            .
+                        </p>
+                        <p>Это удобно для длинных статей, FAQ, оглавлений или навигации по разделам.</p>
+
+                        <h4>Пример якоря:</h4>
+                        <pre><code>
+&lt;a href="#section1"&gt;Перейти к Разделу 1&lt;/a&gt;
+
+...
+
+&lt;h2 id="section1"&gt;Раздел 1&lt;/h2&gt;
+                        </code></pre>
+                        <h3>Реализация на странице:</h3>
+                        <a href="#example-anchor" class="button">Перейти к якорю</a>
+                    </div>
+                </section>
+
+                <!-- 3. Ссылки -->
+                <section class="section" id="links">
+                    <div class="container">
+                        <h2>3. Ссылки в HTML</h2>
+                        <p class="note">
+                            <strong>Ссылка</strong>
+                            — это элемент, который позволяет переходить на другие страницы, сайты, файлы или разделы внутри документа. Для создания ссылки используется тег
+                            <code>&lt;a&gt;</code>
+                            .
+                        </p>
+                        <h3>Основные атрибуты:</h3>
+                        <ul class="list-ul">
+                            <li>
+                                <code>href</code>
+                                : путь к странице, документу или якорю (например,
+                                <code>href="https://site.com"</code>
+                                ,
+                                <code>href="#section"</code>
+                                )
+                            </li>
+                            <li>
+                                <code>target</code>
+                                : способ открытия ссылки (
+                                <code>_blank</code>
+                                — в новой вкладке,
+                                <code>_self</code>
+                                — в текущей)
+                            </li>
+                            <li>
+                                <code>title</code>
+                                : всплывающая подсказка при наведении
+                            </li>
+                        </ul>
+                        <h4>Пример:</h4>
+                        <div class="grid-column-100">
+                            <pre><code>
+	&lt;a href="https://www.example.com" target="_blank" title="Перейти на Example.com"&gt;Открыть Example.com&lt;/a&gt;
+	                        </code></pre>
+                            <a class="button" href="https://www.example.com" target="_blank" title="Перейти на Example.com">Открыть Example.com</a>
+                        </div>
+                        <h3>Внутренние ссылки (на якорь):</h3>
+                        <pre><code>
+&lt;a href="#tips"&gt;Полезные советы&lt;/a&gt;
+                        </code></pre>
+                        <a class="button" href="#tips">Полезные советы</a>
+                    </div>
+                </section>
+
+                <!-- 4. Комментарии -->
+                <section class="section" id="comments">
+                    <div class="container">
+                        <h2>4. Комментарии в HTML</h2>
+                        <p class="note">
+                            <strong>Комментарий</strong>
+                            — это текст, который виден только в исходном коде страницы. Комментарии помогают разработчикам пояснять структуру, оставлять подсказки или отключать части кода без удаления.
+                        </p>
+                        <p>Комментарии не отображаются в браузере для пользователей.</p>
+                        <h3>Пример комментария:</h3>
+                        <pre><code>
+&lt;!-- Это комментарий --&gt;
+
+&lt;p&gt;Этот текст виден, а комментарий выше — нет.&lt;/p&gt;
+                        </code></pre>
+                        <!-- Это пример комментария -->
+                        <p>Этот текст виден, а комментарий выше — нет.</p>
+                        <p class="note note--info">
+                            <b>Совет:</b>
+                            Используйте комментирование для объяснения неочевидных решений, TODO и временного отключения кода.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- 5. Советы -->
+                <section class="section" id="tips">
+                    <div class="container">
+                        <h2>5. Советы</h2>
+                        <ul class="list-ul">
+                            <li>
+                                Используйте специальные символы для корректного отображения текста (например,
+                                <code>&lt;</code>
+                                ,
+                                <code>&gt;</code>
+                                ,
+                                <code>&amp;</code>
+                                ).
+                            </li>
+                            <li>
+                                Для навигации по длинной странице используйте якори и уникальные
+                                <code>id</code>
+                                .
+                            </li>
+                            <li>
+                                Оформляйте ссылки понятно: используйте
+                                <code>title</code>
+                                ,
+                                <code>target="_blank"</code>
+                                для внешних сайтов, а для внутренней навигации — якори.
+                            </li>
+                            <li>Комментируйте важные участки кода, чтобы ускорить командную работу и облегчить поддержку сайта.</li>
+                            <li>Старайтесь писать код чисто и понятно, избегайте ненужных спецсимволов и неочевидных решений.</li>
+                        </ul>
+                        <p class="note note--info">
+                            <b>Дополнительно:</b>
+                            Изучите
+                            <a href="https://developer.mozilla.org/ru/docs/Web/HTML" target="_blank">документацию MDN</a>
+                            для получения полной информации о HTML.
+                        </p>
+                        <div class="button" id="example-anchor">Пример якоря</div>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+    </body>
+</html>

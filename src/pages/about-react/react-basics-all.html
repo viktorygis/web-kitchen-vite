@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Основы React: кратко", "description": "Краткое изложение основных концепций React, компоненты, props, состояние, события, рендеринг." })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>Основы React: кратко</h1>
+                        <p class="note">React — библиотека для создания пользовательских интерфейсов. Главные концепции: компоненты, props, состояние, события.</p>
+                    </div>
+                </section>
+
+                <section class="section" id="component">
+                    <div class="container">
+                        <h2>Компоненты</h2>
+                        <pre><code>
+function Hello() {
+  return &lt;h2&gt;Привет, React!&lt;/h2&gt;;
+}
+                        </code></pre>
+                        <div class="note note--info">Каждый компонент — функция, возвращающая JSX.</div>
+                    </div>
+                </section>
+
+                <section class="section" id="props">
+                    <div class="container">
+                        <h2>Props (свойства)</h2>
+                        <pre><code>
+function Welcome(props) {
+  return &lt;h2&gt;Привет, {props.name}!&lt;/h2&gt;;
+}
+&lt;Welcome name="Аня" /&gt;
+                        </code></pre>
+                        <div class="note note--info">Props — способ передавать данные в компонент.</div>
+                    </div>
+                </section>
+
+                <section class="section" id="state">
+                    <div class="container">
+                        <h2>Состояние (state)</h2>
+                        <pre><code>
+function Counter() {
+  const [count, setCount] = React.useState(0);
+  return &lt;button onClick={() =&gt; setCount(count + 1)}&gt;{count}&lt;/button&gt;;
+}
+                        </code></pre>
+                        <div class="note note--info">useState — хук для хранения и изменения состояния компонента.</div>
+                    </div>
+                </section>
+
+                <section class="section" id="event">
+                    <div class="container">
+                        <h2>События</h2>
+                        <pre><code>
+&lt;button onClick={handleClick}&gt;Кликни меня&lt;/button&gt;
+                        </code></pre>
+                        <div class="note note--info">События передаются как props (например, onClick, onChange).</div>
+                    </div>
+                </section>
+
+                <section class="section" id="render">
+                    <div class="container">
+                        <h2>Рендеринг</h2>
+                        <pre><code>
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;App /&gt;);
+                        </code></pre>
+                        <div class="note note--info">Вся страница — дерево компонентов, рендерится через ReactDOM.</div>
+                    </div>
+                </section>
+
+                <section class="section" id="tips">
+                    <div class="container">
+                        <h2>Советы</h2>
+                        <ul class="list-ul">
+                            <li>Именуйте компоненты с большой буквы.</li>
+                            <li>Props — только для чтения.</li>
+                            <li>Состояние — для динамики.</li>
+                            <li>Стройте интерфейс из простых и переиспользуемых компонентов.</li>
+                        </ul>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    </body>
+</html>

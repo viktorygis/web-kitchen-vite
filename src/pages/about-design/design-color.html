@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Цвет", "description": "Руководство по цвету: цветовой круг, психология цвета и подбор палитры" })
+    <style>
+        .intro {
+            background: rgba(142, 68, 173, 0.08);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2.5rem;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .intro p {
+            font-size: 1.2rem;
+            margin-bottom: 0;
+        }
+
+        .grid-column-50 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .color-wheel {
+            width: 100%;
+            max-width: 500px;
+            height: 500px;
+            margin: 2rem auto;
+            position: relative;
+            border-radius: 50%;
+            background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
+            box-shadow: var(--shadow);
+        }
+
+        .harmony-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            justify-content: center;
+        }
+
+        .harmony-btn {
+            padding: 0.8rem 1.5rem;
+            background: var(--light);
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .harmony-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .palette {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 2rem 0;
+        }
+
+        .color-swatch {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .color-swatch:hover {
+            transform: scale(1.1);
+        }
+
+        .psychology-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .color-card {
+            padding: 1.5rem;
+            border-radius: 10px;
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .color-card h3 {
+            color: white;
+            margin-top: 0;
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .concept-item {
+            padding: 1.5rem;
+            border-radius: 10px;
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .concept-visual {
+            height: 150px;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .space-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .space-card {
+            padding: 1.5rem;
+            border-radius: 10px;
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .space-visual {
+            height: 150px;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .mood-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            justify-content: center;
+        }
+
+        .mood-btn {
+            padding: 0.8rem 1.5rem;
+            background: var(--light);
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .mood-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .contrast-checker {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin: 2rem 0;
+        }
+
+        .contrast-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .color-picker {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .color-picker label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .color-input {
+            width: 100%;
+            height: 50px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .contrast-result {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .contrast-good {
+            background: rgba(39, 174, 96, 0.1);
+            border-left: 4px solid var(--success);
+            color: var(--success);
+        }
+
+        .contrast-bad {
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .contrast-demo {
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .color-wheel {
+                height: 300px;
+                width: 300px;
+            }
+        }
+    </style>
+
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#color-wheel" class="active">Цветовой круг</a>
+                    <a href="#color-psychology">Психология цвета</a>
+                    <a href="#basic-color-concepts">Основные понятия</a>
+                    <a href="#color-spaces">Цветовые пространства</a>
+                    <a href="#color-mood">Цвет-настроение</a>
+                    <a href="#palette-practice">Практика</a>
+                </nav>
+                <!-- Цветовой круг -->
+                <section class="section" id="color-wheel">
+                    <div class="container">
+                        <h1>Цветовой круг и гармонии</h1>
+
+                        <div class="intro">
+                            <p>Цветовой круг — основа для понимания цветовых гармоний. Он помогает визуализировать отношения между цветами и создавать гармоничные сочетания.</p>
+                        </div>
+
+                        <div class="color-wheel"></div>
+
+                        <div class="harmony-controls">
+                            <button class="harmony-btn active" data-harmony="complementary">Дополнительные</button>
+                            <button class="harmony-btn" data-harmony="analogous">Аналоговые</button>
+                            <button class="harmony-btn" data-harmony="triadic">Триадные</button>
+                            <button class="harmony-btn" data-harmony="split">Разделенные</button>
+                            <button class="harmony-btn" data-harmony="monochromatic">Монохромные</button>
+                        </div>
+
+                        <div class="palette" id="harmony-palette">
+                            <div class="color-swatch" style="background: #ff6b6b">#FF6B6B</div>
+                            <div class="color-swatch" style="background: #4ecdc4">#4ECDC4</div>
+                        </div>
+
+                        <div class="card">
+                            <h3>Как использовать цветовые гармонии</h3>
+                            <ul class="list-ul">
+                                <li>
+                                    <strong>Дополнительные:</strong>
+                                    цвета, расположенные напротив друг друга на круге (высокий контраст)
+                                </li>
+                                <li>
+                                    <strong>Аналоговые:</strong>
+                                    соседние цвета на круге (гармоничные сочетания)
+                                </li>
+                                <li>
+                                    <strong>Триадные:</strong>
+                                    три цвета, равноудаленные друг от друга (динамичные сочетания)
+                                </li>
+                                <li>
+                                    <strong>Разделенные:</strong>
+                                    основной цвет и два соседних к его дополнению (сбалансированный контраст)
+                                </li>
+                                <li>
+                                    <strong>Монохромные:</strong>
+                                    различные оттенки одного цвета (минималистичный подход)
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Психология цвета -->
+                <section class="section" id="color-psychology">
+                    <div class="container">
+                        <h2>Психология цвета и контекст</h2>
+                        <p>Цвета вызывают эмоции и ассоциации, которые могут значительно влиять на восприятие вашего дизайна.</p>
+
+                        <div class="psychology-grid">
+                            <div class="color-card" style="background: #e74c3c">
+                                <h3>Красный</h3>
+                                <p>Страсть, энергия, опасность, важность. Используется для призыва к действию, предупреждений.</p>
+                            </div>
+
+                            <div class="color-card" style="background: #3498db">
+                                <h3>Синий</h3>
+                                <p>Спокойствие, доверие, профессионализм. Популярен в корпоративном дизайне, технологиях.</p>
+                            </div>
+
+                            <div class="color-card" style="background: #2ecc71">
+                                <h3>Зеленый</h3>
+                                <p>Природа, рост, гармония, здоровье. Используется в экологических и медицинских проектах.</p>
+                            </div>
+
+                            <div class="color-card" style="background: #f39c12">
+                                <h3>Желтый</h3>
+                                <p>Оптимизм, радость, энергия. Привлекает внимание, но может вызывать напряжение.</p>
+                            </div>
+
+                            <div class="color-card" style="background: #9b59b6">
+                                <h3>Фиолетовый</h3>
+                                <p>Роскошь, творчество, духовность. Ассоциируется с креативностью и инновациями.</p>
+                            </div>
+
+                            <div class="color-card" style="background: #1abc9c">
+                                <h3>Бирюзовый</h3>
+                                <p>Свежесть, ясность, баланс. Сочетает стабильность синего и энергию зеленого.</p>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3>Культурные различия</h3>
+                            <p>Значение цветов может сильно различаться в разных культурах:</p>
+                            <ul class="list-ul">
+                                <li>В Китае красный - цвет удачи и процветания</li>
+                                <li>В Индии белый - цвет траура</li>
+                                <li>В Бразилии фиолетовый - цвет смерти</li>
+                                <li>В Египте желтый - цвет траура</li>
+                            </ul>
+                            <p>Всегда учитывайте культурный контекст вашей целевой аудитории.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Основные понятия цвета -->
+                <section class="section" id="basic-color-concepts">
+                    <div class="container">
+                        <h2>Основные понятия цвета</h2>
+                        <p>Понимание этих концепций поможет вам осознанно работать с цветом.</p>
+
+                        <div class="concept-grid">
+                            <div class="concept-item">
+                                <h3>Оттенок (Hue)</h3>
+                                <p>Основное качество цвета, которое отличает его от других цветов (красный, синий, зеленый).</p>
+                                <div class="concept-visual" style="background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet)">Спектр оттенков</div>
+                            </div>
+
+                            <div class="concept-item">
+                                <h3>Насыщенность (Saturation)</h3>
+                                <p>Интенсивность или чистота цвета. Полностью насыщенный цвет не содержит серого.</p>
+                                <div class="concept-visual" style="background: linear-gradient(to right, #cccccc, #ff6b6b)">От ненасыщенного к насыщенному</div>
+                            </div>
+
+                            <div class="concept-item">
+                                <h3>Светлота (Lightness)</h3>
+                                <p>Степень светлоты или темноты цвета. Определяет, насколько цвет близок к белому или черному.</p>
+                                <div class="concept-visual" style="background: linear-gradient(to right, black, #ff6b6b, white)">От темного к светлому</div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3>Цветовые модели</h3>
+                            <p>Различные способы описания и работы с цветом:</p>
+                            <ul class="list-ul">
+                                <li>
+                                    <strong>RGB:</strong>
+                                    Аддитивная модель для экранов (Red, Green, Blue)
+                                </li>
+                                <li>
+                                    <strong>CMYK:</strong>
+                                    Субтрактивная модель для печати (Cyan, Magenta, Yellow, Key/Black)
+                                </li>
+                                <li>
+                                    <strong>HSL:</strong>
+                                    Интуитивная модель (Hue, Saturation, Lightness)
+                                </li>
+                                <li>
+                                    <strong>HSV:</strong>
+                                    Похожа на HSL, но с Value вместо Lightness
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Цветовые пространства -->
+                <section class="section" id="color-spaces">
+                    <div class="container">
+                        <h2>Цветовые пространства и технические нюансы</h2>
+                        <p>Различные цветовые пространства используются для разных целей и устройств.</p>
+
+                        <div class="space-cards">
+                            <div class="space-card">
+                                <h3>RGB (Экраны)</h3>
+                                <p>Аддитивная модель, где цвета создаются смешением красного, зеленого и синего света. Используется во всех цифровых устройствах.</p>
+                                <div class="space-visual" style="background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff)">RGB</div>
+                                <p>
+                                    <strong>Диапазон значений:</strong>
+                                    0-255 для каждого канала
+                                </p>
+                            </div>
+
+                            <div class="space-card">
+                                <h3>CMYK (Печать)</h3>
+                                <p>Субтрактивная модель, где цвета создаются вычитанием света из белого. Используется в полиграфии.</p>
+                                <div class="space-visual" style="background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00, #000000)">CMYK</div>
+                                <p>
+                                    <strong>Диапазон значений:</strong>
+                                    0-100% для каждого канала
+                                </p>
+                            </div>
+
+                            <div class="space-card">
+                                <h3>HSL (Дизайн)</h3>
+                                <p>Интуитивная модель, основанная на восприятии цвета человеком. Позволяет легко создавать гармоничные палитры.</p>
+                                <div class="space-visual" style="background: linear-gradient(90deg, hsl(0, 100%, 50%), hsl(60, 100%, 50%), hsl(120, 100%, 50%), hsl(180, 100%, 50%), hsl(240, 100%, 50%), hsl(300, 100%, 50%), hsl(360, 100%, 50%))">HSL</div>
+                                <p>
+                                    <strong>Компоненты:</strong>
+                                    Оттенок (0-360°), Насыщенность (0-100%), Светлота (0-100%)
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3>Важные технические аспекты</h3>
+                            <ul class="list-ul">
+                                <li>
+                                    <strong>Цветовой профиль:</strong>
+                                    sRGB для веба, Adobe RGB для фотографии
+                                </li>
+                                <li>
+                                    <strong>Глубина цвета:</strong>
+                                    8-бит (16.7 млн цветов), 10-бит (1 млрд цветов)
+                                </li>
+                                <li>
+                                    <strong>Цветовой охват:</strong>
+                                    sRGB ≈ 35% видимого спектра, Adobe RGB ≈ 50%
+                                </li>
+                                <li>
+                                    <strong>Конвертация:</strong>
+                                    Всегда тестируйте цвета при переходе между пространствами
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Цвет-настроение -->
+                <section class="section" id="color-mood">
+                    <div class="container">
+                        <h2>Цвет-настроение: как выстраивать палитру</h2>
+                        <p>Создавайте палитры, соответствующие нужному настроению и атмосфере.</p>
+
+                        <div class="mood-selector">
+                            <button class="mood-btn active" data-mood="calm">Спокойствие</button>
+                            <button class="mood-btn" data-mood="energy">Энергия</button>
+                            <button class="mood-btn" data-mood="elegant">Элегантность</button>
+                            <button class="mood-btn" data-mood="nature">Природа</button>
+                            <button class="mood-btn" data-mood="tech">Технологии</button>
+                        </div>
+
+                        <div class="palette" id="mood-palette">
+                            <div class="color-swatch" style="background: #3498db">#3498DB</div>
+                            <div class="color-swatch" style="background: #2ecc71">#2ECC71</div>
+                            <div class="color-swatch" style="background: #9b59b6">#9B59B6</div>
+                            <div class="color-swatch" style="background: #f1c40f">#F1C40F</div>
+                            <div class="color-swatch" style="background: #e67e22">#E67E22</div>
+                        </div>
+
+                        <div class="card">
+                            <h3>Структура цветовой палитры</h3>
+                            <p>Эффективная палитра включает несколько типов цветов:</p>
+                            <ul class="list-ul">
+                                <li>
+                                    <strong>Основной цвет:</strong>
+                                    Доминирующий цвет бренда (60% дизайна)
+                                </li>
+                                <li>
+                                    <strong>Вторичный цвет:</strong>
+                                    Дополняет основной (30% дизайна)
+                                </li>
+                                <li>
+                                    <strong>Акцентный цвет:</strong>
+                                    Яркие элементы для привлечения внимания (10% дизайна)
+                                </li>
+                                <li>
+                                    <strong>Нейтральные цвета:</strong>
+                                    Фоны и текст (белый, серый, бежевый)
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Практика: подбор палитры -->
+                <section class="section" id="palette-practice">
+                    <div class="container">
+                        <h2>Практика: подбор палитры и проверка контраста</h2>
+                        <p>Применяйте знания на практике с этими инструментами.</p>
+
+                        <div class="contrast-checker">
+                            <h3>Проверка контраста</h3>
+                            <p>Убедитесь, что ваш текст легко читается на фоне. Рекомендуемое соотношение контраста 4.5:1 для обычного текста.</p>
+
+                            <div class="contrast-controls">
+                                <div class="color-picker">
+                                    <label for="text-color">Цвет текста</label>
+                                    <input type="color" id="text-color" value="#ffffff" class="color-input" />
+                                </div>
+
+                                <div class="color-picker">
+                                    <label for="bg-color">Цвет фона</label>
+                                    <input type="color" id="bg-color" value="#333333" class="color-input" />
+                                </div>
+                            </div>
+
+                            <div class="contrast-result contrast-good" id="contrast-result">Соотношение контраста: 12.3:1 (Отлично)</div>
+
+                            <div class="contrast-demo" id="contrast-demo">Это пример текста для проверки контраста. Убедитесь, что текст легко читается на выбранном фоне.</div>
+                        </div>
+
+                        <div class="card">
+                            <h3>Инструменты для работы с цветом</h3>
+                            <ul class="list-ul">
+                                <li>
+                                    <strong>Adobe Color:</strong>
+                                    Создание и исследование цветовых палитр
+                                </li>
+                                <li>
+                                    <strong>Coolors.co:</strong>
+                                    Генератор цветовых палитр
+                                </li>
+                                <li>
+                                    <strong>Color Contrast Checker:</strong>
+                                    Проверка доступности цветовых сочетаний
+                                </li>
+                                <li>
+                                    <strong>Paletton:</strong>
+                                    Создание гармоничных цветовых схем
+                                </li>
+                                <li>
+                                    <strong>ColorZilla:</strong>
+                                    Расширение для браузера для определения цветов на веб-страницах
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="card">
+                            <h3>Практические советы</h3>
+                            <ul class="list-ul">
+                                <li>Начинайте с ограниченной палитры (3-5 цветов)</li>
+                                <li>Используйте 60-30-10 правило для распределения цветов</li>
+                                <li>Тестируйте палитру на реальных элементах интерфейса</li>
+                                <li>Проверяйте цветовые сочетания на разных устройствах</li>
+                                <li>Учитывайте культурные ассоциации цветов</li>
+                                <li>Создайте систему для последовательного использования цветов</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+
+        <script>
+            // Инициализация страницы
+            document.addEventListener("DOMContentLoaded", function () {
+                // Обновление демо палитры при изменении гармонии
+                const harmonyButtons = document.querySelectorAll(".harmony-btn");
+                const harmonyPalette = document.getElementById("harmony-palette");
+
+                harmonyButtons.forEach((button) => {
+                    button.addEventListener("click", function () {
+                        harmonyButtons.forEach((btn) => btn.classList.remove("active"));
+                        this.classList.add("active");
+
+                        const harmony = this.dataset.harmony;
+                        updateHarmonyPalette(harmony);
+                    });
+                });
+
+                function updateHarmonyPalette(harmony) {
+                    let colors = [];
+
+                    switch (harmony) {
+                        case "complementary":
+                            colors = ["#FF6B6B", "#4ECDC4"];
+                            break;
+                        case "analogous":
+                            colors = ["#FF9E6B", "#FF6B6B", "#FF6B9E"];
+                            break;
+                        case "triadic":
+                            colors = ["#FF6B6B", "#6BFF8A", "#6B8AFF"];
+                            break;
+                        case "split":
+                            colors = ["#FF6B6B", "#4ECDC4", "#C4DC4E"];
+                            break;
+                        case "monochromatic":
+                            colors = ["#FF6B6B", "#FF8E8E", "#FFB1B1", "#FFD5D5"];
+                            break;
+                        default:
+                            colors = ["#FF6B6B", "#4ECDC4"];
+                    }
+
+                    harmonyPalette.innerHTML = "";
+                    colors.forEach((color) => {
+                        const swatch = document.createElement("div");
+                        swatch.className = "color-swatch";
+                        swatch.style.backgroundColor = color;
+                        swatch.textContent = color;
+                        harmonyPalette.appendChild(swatch);
+                    });
+                }
+
+                // Обновление палитры настроения
+                const moodButtons = document.querySelectorAll(".mood-btn");
+                const moodPalette = document.getElementById("mood-palette");
+
+                moodButtons.forEach((button) => {
+                    button.addEventListener("click", function () {
+                        moodButtons.forEach((btn) => btn.classList.remove("active"));
+                        this.classList.add("active");
+
+                        const mood = this.dataset.mood;
+                        updateMoodPalette(mood);
+                    });
+                });
+
+                function updateMoodPalette(mood) {
+                    let colors = [];
+
+                    switch (mood) {
+                        case "calm":
+                            colors = ["#3498DB", "#2ECC71", "#9B59B6", "#F1C40F", "#E67E22"];
+                            break;
+                        case "energy":
+                            colors = ["#E74C3C", "#F39C12", "#2ECC71", "#9B59B6", "#3498DB"];
+                            break;
+                        case "elegant":
+                            colors = ["#2C3E50", "#7F8C8D", "#BDC3C7", "#ECF0F1", "#9B59B6"];
+                            break;
+                        case "nature":
+                            colors = ["#27AE60", "#2ECC71", "#F1C40F", "#D35400", "#16A085"];
+                            break;
+                        case "tech":
+                            colors = ["#2980B9", "#3498DB", "#2C3E50", "#1ABC9C", "#E74C3C"];
+                            break;
+                        default:
+                            colors = ["#3498DB", "#2ECC71", "#9B59B6", "#F1C40F", "#E67E22"];
+                    }
+
+                    moodPalette.innerHTML = "";
+                    colors.forEach((color) => {
+                        const swatch = document.createElement("div");
+                        swatch.className = "color-swatch";
+                        swatch.style.backgroundColor = color;
+                        swatch.textContent = color;
+                        moodPalette.appendChild(swatch);
+                    });
+                }
+
+                // Проверка контраста
+                const textColorInput = document.getElementById("text-color");
+                const bgColorInput = document.getElementById("bg-color");
+                const contrastResult = document.getElementById("contrast-result");
+                const contrastDemo = document.getElementById("contrast-demo");
+
+                function updateContrast() {
+                    const textColor = textColorInput.value;
+                    const bgColor = bgColorInput.value;
+
+                    // Упрощенный расчет контраста (в реальном приложении нужен точный алгоритм)
+                    const contrast = calculateContrast(textColor, bgColor);
+
+                    contrastDemo.style.color = textColor;
+                    contrastDemo.style.backgroundColor = bgColor;
+
+                    if (contrast > 4.5) {
+                        contrastResult.className = "contrast-result contrast-good";
+                        contrastResult.textContent = `Соотношение контраста: ${contrast.toFixed(2)}:1 (Отлично)`;
+                    } else if (contrast > 3) {
+                        contrastResult.className = "contrast-result contrast-good";
+                        contrastResult.textContent = `Соотношение контраста: ${contrast.toFixed(2)}:1 (Хорошо)`;
+                    } else {
+                        contrastResult.className = "contrast-result contrast-bad";
+                        contrastResult.textContent = `Соотношение контраста: ${contrast.toFixed(2)}:1 (Слишком низкий)`;
+                    }
+                }
+
+                function calculateContrast(color1, color2) {
+                    // Упрощенный расчет контраста (в реальном приложении используйте WCAG алгоритм)
+                    const r1 = parseInt(color1.substr(1, 2), 16) / 255;
+                    const g1 = parseInt(color1.substr(3, 2), 16) / 255;
+                    const b1 = parseInt(color1.substr(5, 2), 16) / 255;
+
+                    const r2 = parseInt(color2.substr(1, 2), 16) / 255;
+                    const g2 = parseInt(color2.substr(3, 2), 16) / 255;
+                    const b2 = parseInt(color2.substr(5, 2), 16) / 255;
+
+                    const lum1 = 0.2126 * r1 + 0.7152 * g1 + 0.0722 * b1;
+                    const lum2 = 0.2126 * r2 + 0.7152 * g2 + 0.0722 * b2;
+
+                    const lighter = Math.max(lum1, lum2);
+                    const darker = Math.min(lum1, lum2);
+
+                    return (lighter + 0.05) / (darker + 0.05);
+                }
+
+                textColorInput.addEventListener("input", updateContrast);
+                bgColorInput.addEventListener("input", updateContrast);
+
+                // Инициализация
+                updateHarmonyPalette("complementary");
+                updateMoodPalette("calm");
+                updateContrast();
+            });
+        </script>
+    </body>
+</html>

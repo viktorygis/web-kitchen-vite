@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Основы JavaScript: Массивы", "description": "Краткое руководство по работе с массивами в JavaScript" })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#arrays-intro" class="active">Введение</a>
+                    <a href="#arrays-create">Создание</a>
+                    <a href="#arrays-methods">Методы</a>
+                    <a href="#arrays-operations">Операции</a>
+                </nav>
+
+                <!-- Введение -->
+                <section class="section" id="arrays-intro">
+                    <div class="container">
+                        <h1>Массивы в JavaScript</h1>
+
+                        <p class="note">
+                            <strong>Массив</strong>
+                            — это упорядоченная коллекция данных, которая может содержать элементы разных типов.
+                            <br />
+                            В JavaScript массивы являются объектами и имеют специальные методы для работы с элементами.
+                        </p>
+
+                        <div class="grid-column-50">
+                            <div class="example">
+                                <h4>Основные характеристики:</h4>
+                                <ul class="list-ul">
+                                    <li>Индексация начинается с 0</li>
+                                    <li>Могут изменяться (мутировать)</li>
+                                    <li>Автоматически изменяют длину</li>
+                                    <li>Могут содержать любые типы данных</li>
+                                </ul>
+                            </div>
+                            <div class="example">
+                                <h4>Пример массива:</h4>
+                                <pre><code>const mixedArray = [
+  'текст',
+  42,
+  true,
+  { name: 'Объект' },
+  [1, 2, 3]
+];</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Создание массивов -->
+                <section class="section" id="arrays-create">
+                    <div class="container">
+                        <h2>Создание массивов</h2>
+
+                        <p class="note">В JavaScript есть несколько способов создания массивов, каждый из которых имеет свои особенности.</p>
+
+                        <table class="table-note">
+                            <thead>
+                                <tr>
+                                    <th>Способ</th>
+                                    <th>Пример</th>
+                                    <th>Примечание</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Литерал массива</td>
+                                    <td><code>const arr = [1, 2, 3];</code></td>
+                                    <td>Наиболее распространенный способ</td>
+                                </tr>
+                                <tr>
+                                    <td>Конструктор Array</td>
+                                    <td><code>const arr = new Array(1, 2, 3);</code></td>
+                                    <td>Не рекомендуется для простых случаев</td>
+                                </tr>
+                                <tr>
+                                    <td>Array.of()</td>
+                                    <td><code>const arr = Array.of(1, 2, 3);</code></td>
+                                    <td>Полезен для единичных числовых элементов</td>
+                                </tr>
+                                <tr>
+                                    <td>Array.from()</td>
+                                    <td><code>const arr = Array.from('123');</code></td>
+                                    <td>Создает массив из итерируемого объекта</td>
+                                </tr>
+                                <tr>
+                                    <td>Пустой массив + заполнение</td>
+                                    <td><code>const arr = []; arr[0] = 1;</code></td>
+                                    <td>Постепенное добавление элементов</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="note-block">
+                            <h3>Особенности создания:</h3>
+                            <ul class="list-ul">
+                                <li>Массивы, созданные разными способами, идентичны по функциональности</li>
+                                <li>
+                                    Конструктор
+                                    <code>new Array(n)</code>
+                                    создает массив с пустыми слотами длины n
+                                </li>
+                                <li>
+                                    <code>Array.from()</code>
+                                    может принимать функцию преобразования
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Методы массивов -->
+                <section class="section" id="arrays-methods">
+                    <div class="container">
+                        <h2>Основные методы массивов</h2>
+
+                        <p class="note">
+                            JavaScript предоставляет множество полезных методов для работы с массивами.
+                            <br />
+                            Методы можно разделить на мутирующие (изменяют исходный массив) и неммутирующие.
+                        </p>
+
+                        <div class="grid-column-50">
+                            <div>
+                                <h4>Мутирующие методы:</h4>
+                                <ul class="list-ul">
+                                    <li>
+                                        <code>push()</code>
+                                        - добавляет элемент в конец
+                                    </li>
+                                    <li>
+                                        <code>pop()</code>
+                                        - удаляет последний элемент
+                                    </li>
+                                    <li>
+                                        <code>shift()</code>
+                                        - удаляет первый элемент
+                                    </li>
+                                    <li>
+                                        <code>unshift()</code>
+                                        - добавляет элемент в начало
+                                    </li>
+                                    <li>
+                                        <code>splice()</code>
+                                        - добавляет/удаляет элементы
+                                    </li>
+                                    <li>
+                                        <code>sort()</code>
+                                        - сортирует массив
+                                    </li>
+                                    <li>
+                                        <code>reverse()</code>
+                                        - переворачивает массив
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>Немутирующие методы:</h4>
+                                <ul class="list-ul">
+                                    <li>
+                                        <code>concat()</code>
+                                        - объединяет массивы
+                                    </li>
+                                    <li>
+                                        <code>slice()</code>
+                                        - возвращает часть массива
+                                    </li>
+                                    <li>
+                                        <code>join()</code>
+                                        - объединяет элементы в строку
+                                    </li>
+                                    <li>
+                                        <code>indexOf()</code>
+                                        - ищет индекс элемента
+                                    </li>
+                                    <li>
+                                        <code>includes()</code>
+                                        - проверяет наличие элемента
+                                    </li>
+                                    <li>
+                                        <code>find()</code>
+                                        - ищет элемент по условию
+                                    </li>
+                                    <li>
+                                        <code>filter()</code>
+                                        - фильтрует элементы
+                                    </li>
+                                    <li>
+                                        <code>map()</code>
+                                        - преобразует элементы
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="note-block">
+                            <h3>Примеры использования методов:</h3>
+                            <pre><code>const numbers = [1, 2, 3];
+
+// Добавление элементов
+numbers.push(4); // [1, 2, 3, 4]
+numbers.unshift(0); // [0, 1, 2, 3, 4]
+
+// Удаление элементов
+numbers.pop(); // [0, 1, 2, 3]
+numbers.shift(); // [1, 2, 3]
+
+// Поиск и фильтрация
+const even = numbers.filter(n => n % 2 === 0); // [2]
+const doubled = numbers.map(n => n * 2); // [2, 4, 6]</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Операции с массивами -->
+                <section class="section" id="arrays-operations">
+                    <div class="container">
+                        <h2>Распространенные операции с массивами</h2>
+
+                        <p class="note">Массивы используются для решения множества задач. Рассмотрим наиболее частые операции.</p>
+
+                        <div class="grid-column-100">
+                            <div>
+                                <h4>1. Итерация по массиву</h4>
+                                <pre><code>const fruits = ['apple', 'banana', 'orange'];
+
+// forEach
+fruits.forEach((fruit, index) => {
+  console.log(`${index}: ${fruit}`);
+});
+
+// for..of
+for (const fruit of fruits) {
+  console.log(fruit);
+}</code></pre>
+                            </div>
+
+                            <div>
+                                <h4>2. Копирование массива</h4>
+                                <pre><code>const original = [1, 2, 3];
+
+// Способ 1: spread оператор
+const copy1 = [...original];
+
+// Способ 2: slice()
+const copy2 = original.slice();
+
+// Способ 3: Array.from()
+const copy3 = Array.from(original);</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="grid-column-100">
+                            <div>
+                                <h4>3. Объединение массивов</h4>
+                                <pre><code>const arr1 = [1, 2];
+const arr2 = [3, 4];
+
+// Способ 1: concat()
+const combined1 = arr1.concat(arr2);
+
+// Способ 2: spread оператор
+const combined2 = [...arr1, ...arr2];</code></pre>
+                            </div>
+
+                            <div>
+                                <h4>4. Проверка массива</h4>
+                                <pre><code>const arr = [1, 2, 3];
+
+// Проверка, что это массив
+console.log(Array.isArray(arr)); // true
+
+// Проверка наличия элемента
+console.log(arr.includes(2)); // true
+console.log(arr.indexOf(3) !== -1); // true
+
+// Проверка всех элементов
+const allPositive = arr.every(n => n > 0); // true</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="note-block">
+                            <h3>Продвинутые операции:</h3>
+                            <div class="grid-column-50">
+                                <div>
+                                    <h4>Деструктуризация</h4>
+                                    <pre><code>const rgb = [255, 128, 0];
+
+// Извлечение значений
+const [red, green, blue] = rgb;
+console.log(red); // 255</code></pre>
+                                </div>
+                                <div>
+                                    <h4>Редукция (reduce)</h4>
+                                    <pre><code>const nums = [1, 2, 3, 4];
+
+// Сумма элементов
+const sum = nums.reduce((acc, n) => acc + n, 0);
+console.log(sum); // 10</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="note">
+                            <h4>Рекомендации по работе с массивами:</h4>
+                            <ul class="list-ul">
+                                <li>Используйте методы массивов вместо циклов, где это возможно</li>
+                                <li>Для сложных операций комбинируйте методы (map + filter + reduce)</li>
+                                <li>Избегайте мутаций исходных массивов, если это не требуется</li>
+                                <li>Для больших массивов используйте typed arrays (Int32Array и др.)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+    </body>
+</html>

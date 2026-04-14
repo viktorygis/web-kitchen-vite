@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Методы React", "description": "Методы компонентов, жизненный цикл, useEffect, пользовательские методы и лучшие практики в React." })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#intro">Введение</a>
+                    <a href="#lifecycle">Жизненный цикл и useEffect</a>
+                    <a href="#user-methods">Пользовательские методы</a>
+                    <a href="#practice">Практика</a>
+                    <a href="#tips">Советы</a>
+                    <a href="#best-practices">Лучшие практики</a>
+                    <a href="#examples">Примеры</a>
+                </nav>
+
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>Методы React-компонентов</h1>
+                        <p class="note">
+                            <b>Методы</b>
+                            — функции внутри компонента.
+                            <br />
+                            Для side-эффектов и "жизненного цикла" используйте
+                            <code>useEffect</code>
+                            .
+                            <br />
+                            Для обработки событий — свои методы.
+                            <br />
+                            Все методы — обычные функции JS!
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section" id="lifecycle">
+                    <div class="container">
+                        <h2>Жизненный цикл и useEffect</h2>
+                        <div class="grid-column-100">
+                            <div class="example">
+                                <div id="lifecycle-demo"></div>
+                            </div>
+                            <div class="note note--info">
+                                <b>useEffect</b>
+                                заменяет методы жизненного цикла из class-компонентов.
+                                <br />
+                                Для подписок, запросов, таймеров — используйте useEffect!
+                            </div>
+                        </div>
+                        <pre><code>
+React.useEffect(() =&gt; {
+  // код выполнится при монтировании (аналог componentDidMount)
+  return () =&gt; {
+    // cleanup: выполнится при размонтировании
+  }
+}, []);
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section class="section" id="user-methods">
+                    <div class="container">
+                        <h2>Пользовательские методы</h2>
+                        <div class="grid-column-100">
+                            <div class="example">
+                                <div id="counter-demo"></div>
+                            </div>
+                        </div>
+                        <div class="code-block">
+                            <pre><code>
+function Counter() {
+  const [count, setCount] = React.useState(0);
+  function increment() {
+    setCount(count + 1);
+  }
+  return &lt;button onClick={increment}&gt;{count}&lt;/button&gt;;
+}
+                            </code></pre>
+                        </div>
+                        <div class="note note--info">Все методы — обычные функции, объявляйте их внутри компонента.</div>
+                    </div>
+                </section>
+
+                <section class="section" id="practice">
+                    <div class="container">
+                        <h2>Практика: useEffect и методы</h2>
+                        <div class="interactive-demo demo-box">
+                            <div class="example">
+                                <div id="timer-demo"></div>
+                            </div>
+                            <div class="code-block">
+                                <pre><code>
+function Timer() {
+  const [sec, setSec] = React.useState(0);
+  React.useEffect(() =&gt; {
+    const id = setInterval(() =&gt; setSec(s =&gt; s + 1), 1000);
+    return () =&gt; clearInterval(id);
+  }, []);
+  return &lt;div&gt;Прошло секунд: {sec}&lt;/div&gt;;
+}
+                                </code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="tips">
+                    <div class="container">
+                        <h2>Советы и типичные ошибки</h2>
+                        <ul class="list-ul">
+                            <li>Не объявляйте методы вне компонента, если они используют state.</li>
+                            <li>useEffect без зависимостей [] — только при монтировании.</li>
+                            <li>Не забывайте про очистку (cleanup) внутри useEffect!</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="best-practices">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+                        <ul class="list-ul">
+                            <li>Для side-эффектов всегда используйте useEffect.</li>
+                            <li>
+                                Давайте методам осмысленные имена:
+                                <code>fetchData</code>
+                                ,
+                                <code>handleClick</code>
+                                .
+                            </li>
+                            <li>Не дублируйте логику — выносите общие методы.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="examples">
+                    <div class="container">
+                        <h2>Примеры методов в React</h2>
+                        <h4>useEffect для fetch</h4>
+                        <div class="grid-column-100">
+                            <div class="example">
+                                <div id="users-demo"></div>
+                            </div>
+                        </div>
+                        <pre><code>
+function Users() {
+  const [users, setUsers] = React.useState([]);
+  React.useEffect(() =&gt; {
+    fetch("https://reqres.in/api/users?per_page=3").then(r =&gt; r.json()).then(json =&gt; setUsers(json.data));
+  }, []);
+  return &lt;ul&gt;{users.map(u =&gt; &lt;li key={u.id}&gt;{u.first_name} {u.last_name}&lt;/li&gt;)}&lt;/ul&gt;;
+}
+                        </code></pre>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+        <script type="text/babel">
+            // useEffect (жизненный цикл)
+            function LifecycleDemo() {
+                const [mounted, setMounted] = React.useState(true);
+                return (
+                    <div>
+                        <button onClick={() => setMounted((m) => !m)}>{mounted ? "Размонтировать таймер" : "Смонтировать таймер"}</button>
+                        <br />
+                        {mounted && <MountMessage />}
+                    </div>
+                );
+            }
+            function MountMessage() {
+                React.useEffect(() => {
+                    // eslint-disable-next-line no-console
+                    console.log("Монтировано!");
+                    return () => {
+                        // eslint-disable-next-line no-console
+                        console.log("Размонтировано!");
+                    };
+                }, []);
+                return <div style={{ marginTop: 8 }}>Компонент смонтирован! (смотрите консоль)</div>;
+            }
+            const lifecycleDemo = document.getElementById("lifecycle-demo");
+            if (lifecycleDemo) {
+                ReactDOM.createRoot(lifecycleDemo).render(<LifecycleDemo />);
+            }
+
+            // Counter: пользовательский метод внутри компонента
+            function Counter() {
+                const [count, setCount] = React.useState(0);
+                function increment() {
+                    setCount((c) => c + 1);
+                }
+                function decrement() {
+                    setCount((c) => c - 1);
+                }
+                return (
+                    <div>
+                        <button onClick={decrement}>-</button>
+                        <span style={{ margin: "0 12px" }}>{count}</span>
+                        <button onClick={increment}>+</button>
+                    </div>
+                );
+            }
+            const counterDemo = document.getElementById("counter-demo");
+            if (counterDemo) {
+                ReactDOM.createRoot(counterDemo).render(<Counter />);
+            }
+
+            // Практика: Timer с useEffect и очисткой
+            function Timer() {
+                const [sec, setSec] = React.useState(0);
+                React.useEffect(() => {
+                    const id = setInterval(() => setSec((s) => s + 1), 1000);
+                    return () => clearInterval(id);
+                }, []);
+                return <div>Прошло секунд: {sec}</div>;
+            }
+            const timerDemo = document.getElementById("timer-demo");
+            if (timerDemo) {
+                ReactDOM.createRoot(timerDemo).render(<Timer />);
+            }
+
+            // Пример useEffect для fetch
+            function Users() {
+                const [users, setUsers] = React.useState([]);
+                React.useEffect(() => {
+                    fetch("https://reqres.in/api/users?per_page=3")
+                        .then((r) => r.json())
+                        .then((json) => setUsers(json.data || []));
+                }, []);
+                return (
+                    <ul>
+                        {users.map((u) => (
+                            <li key={u.id}>
+                                {u.first_name} {u.last_name}
+                            </li>
+                        ))}
+                    </ul>
+                );
+            }
+            const usersDemo = document.getElementById("users-demo");
+            if (usersDemo) {
+                ReactDOM.createRoot(usersDemo).render(<Users />);
+            }
+        </script>
+    </body>
+</html>

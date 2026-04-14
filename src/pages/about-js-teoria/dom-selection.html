@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "JavaScript: Получение и выбор элементов", "description": "Практическое руководство по поиску элементов с примерами" })
+    <style>
+        .interactive-demo {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+        .demo-container {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .demo-box {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            flex: 1;
+        }
+        .demo-result {
+            padding: 1rem;
+            background: #e3f2fd;
+            border-radius: 4px;
+        }
+        .menu-main {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .menu-main a {
+            padding: 0.5rem 1.2rem;
+            border-radius: 6px;
+            background: #f3f4f6;
+            color: #222;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .menu-main a.active,
+        .menu-main a:hover {
+            background: #e3f2fd;
+            color: #1a48a9;
+        }
+    </style>
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#intro" class="active">Введение</a>
+                    <a href="#methods">Методы выбора</a>
+
+                    <a href="#getElementsByClassName">getElementsByClassName</a>
+                    <a href="#getElementsByTagName">getElementsByTagName</a>
+                    <a href="#querySelectorAll">querySelectorAll</a>
+                    <a href="#practice">Практика</a>
+                </nav>
+
+                <!-- Введение -->
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>Получение элементов</h1>
+                        <p class="note note--info">
+                            Вся веб-страница — это дерево элементов, с которым можно работать через JavaScript.
+                            <br />
+                            <strong>Зачем это нужно?</strong>
+                        </p>
+                        <ul class="list-ul" style="margin-bottom: 1.5rem">
+                            <li>
+                                <b>Найти нужный блок</b>
+                                — например, заголовок, кнопку, список.
+                            </li>
+                            <li>
+                                <b>Изменить содержимое</b>
+                                — заменить текст, спрятать или показать элемент.
+                            </li>
+                            <li>
+                                <b>Добавить интерактив</b>
+                                — реагировать на действия пользователя (например, по клику).
+                            </li>
+                        </ul>
+                        <p>
+                            <strong>Как это сделать?</strong>
+                            <br />
+                            В JavaScript есть специальные методы поиска — они позволяют быстро найти нужный элемент по
+                            <b>id</b>
+                            ,
+                            <b>классу</b>
+                            ,
+                            <b>тегу</b>
+                            или
+                            <b>CSS-селектору</b>
+                            .
+                            <br />
+                            Выберите подходящий способ — и управляйте любым элементом на странице!
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Методы выбора элементов -->
+                <section class="section" id="methods">
+                    <div class="container">
+                        <h2>Основные методы поиска элементов в DOM</h2>
+                        <div class="grid-column-100">
+                            <div>
+                                <h3>🔎 document.getElementById</h3>
+                                <p class="note">
+                                    <b>getElementById</b>
+                                    — быстрый способ найти элемент по
+                                    <strong>уникальному</strong>
+                                    атрибуту
+                                    <b>id</b>
+                                    .
+                                </p>
+                                <div class="code-block">
+                                    <pre><code>&lt;h1 id="main-title"&gt;Добро пожаловать!&lt;/h1&gt;</code></pre>
+                                </div>
+                                <h4>Как использовать:</h4>
+                                <ol class="list-ol">
+                                    <li>
+                                        <code>document</code>
+                                        — доступ к DOM.
+                                    </li>
+                                    <li>
+                                        Метод
+                                        <code>.getElementById</code>
+                                        .
+                                    </li>
+                                    <li>В скобках — строка с id элемента.</li>
+                                </ol>
+                                <div class="code-block">
+                                    <pre><code>const title = document.getElementById("main-title");
+console.log(title); // &lt;h1 id="main-title"&gt;Добро пожаловать!&lt;/h1&gt;</code></pre>
+                                </div>
+                                <div class="note note--info">
+                                    <b>Обратите внимание:</b>
+                                    <br />
+                                    • id должен быть уникальным на странице
+                                    <br />
+                                    • Если id повторяется, будет найден только первый элемент
+                                    <br />
+                                    • Если элемента нет, результат —
+                                    <code>null</code>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid-column-100" style="margin-top: 2rem">
+                            <div>
+                                <h3>🌟 document.querySelector</h3>
+                                <p class="note">
+                                    <b>querySelector</b>
+                                    — универсальный способ поиска по
+                                    <strong>CSS‑селектору</strong>
+                                    .
+                                </p>
+                                <div class="code-block">
+                                    <pre><code>&lt;p class="text"&gt;Привет, DOM!&lt;/p&gt;</code></pre>
+                                </div>
+                                <div class="code-block">
+                                    <pre><code>const paragraph = document.querySelector(".text");
+console.log(paragraph); // &lt;p class="text"&gt;Привет, DOM!&lt;/p&gt;</code></pre>
+                                </div>
+                                <h4>Как использовать:</h4>
+                                <ol class="list-ol">
+                                    <li>
+                                        <code>document</code>
+                                        — доступ к DOM.
+                                    </li>
+                                    <li>
+                                        Метод
+                                        <code>.querySelector</code>
+                                        .
+                                    </li>
+                                    <li>В скобках — CSS‑селектор искомого элемента.</li>
+                                </ol>
+                                <ul class="list-ul">
+                                    <li>
+                                        <code>.text</code>
+                                        — класс (точка перед именем)
+                                    </li>
+                                    <li>
+                                        <code>#header</code>
+                                        — id (решётка перед идентификатором)
+                                    </li>
+                                    <li>
+                                        <code>div &gt; p</code>
+                                        — первый
+                                        <code>&lt;p&gt;</code>
+                                        внутри
+                                        <code>&lt;div&gt;</code>
+                                    </li>
+                                </ul>
+                                <div class="note note--info">
+                                    <b>Особенности:</b>
+                                    <br />
+                                    • Возвращает только
+                                    <b>первый</b>
+                                    найденный элемент
+                                    <br />
+                                    • Для всех совпадений — используйте
+                                    <code>querySelectorAll</code>
+                                    <br />
+                                    • Если элемента нет — результат
+                                    <code>null</code>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid-column-100" style="margin-top: 2rem">
+                            <div>
+                                <h3>🤔 Когда использовать какой метод?</h3>
+                                <ul class="list-ul">
+                                    <li>
+                                        <b>getElementById</b>
+                                        — для поиска по уникальному id (быстро и надёжно)
+                                    </li>
+                                    <li>
+                                        <b>querySelector</b>
+                                        — для гибкого поиска по классу, тегу, вложенности, сложному селектору
+                                    </li>
+                                </ul>
+                                <div class="note note--info">
+                                    <strong>Резюме:</strong>
+                                    Для уникальных элементов — id, для остального — CSS‑селекторы.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- getElementsByClassName -->
+                <section class="section" id="getElementsByClassName">
+                    <div class="container">
+                        <h2>
+                            Получить элементы по классу:
+                            <code>getElementsByClassName</code>
+                        </h2>
+                        <p>
+                            Этот метод возвращает коллекцию всех элементов с указанным классом.
+                            <br />
+                            Получается
+                            <b>HTMLCollection</b>
+                            — похожий на массив объект, с которым удобно работать в цикле.
+                        </p>
+                        <div class="code-block">
+                            <pre><code>&lt;p class="main-text"&gt;Первый абзац&lt;/p&gt;
+&lt;p class="main-text"&gt;Второй абзац&lt;/p&gt;
+&lt;p&gt;Обычный абзац&lt;/p&gt;
+
+const textElements = document.getElementsByClassName("main-text");
+console.log(textElements);
+
+for (let i = 0; i &lt; textElements.length; i++) {
+  console.log(textElements[i].textContent);
+}</code></pre>
+                        </div>
+                        <div class="note note--info">
+                            • Коллекция обновляется при изменении DOM.
+                            <br />
+                            • Нет Array-методов, но можно работать через индексы.
+                            <br />
+                            • Если элементов нет, коллекция пустая.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- getElementsByTagName -->
+                <section class="section" id="getElementsByTagName">
+                    <div class="container">
+                        <h2>
+                            Получить элементы по тегу:
+                            <code>getElementsByTagName</code>
+                        </h2>
+                        <p>
+                            Позволяет получить
+                            <b>HTMLCollection</b>
+                            всех элементов с заданным тегом, например, все
+                            <code>&lt;p&gt;</code>
+                            или
+                            <code>&lt;div&gt;</code>
+                            на странице.
+                        </p>
+                        <div class="code-block">
+                            <pre><code>&lt;p&gt;Первый абзац&lt;/p&gt;
+&lt;p&gt;Второй абзац&lt;/p&gt;
+&lt;div&gt;Какой-то блок&lt;/div&gt;
+
+const allParagraphs = document.getElementsByTagName("p");
+console.log(allParagraphs);
+
+for (let i = 0; i &lt; allParagraphs.length; i++) {
+  console.log(allParagraphs[i].textContent);
+}</code></pre>
+                        </div>
+                        <div class="note note--info">
+                            • Работает для любого тега.
+                            <br />
+                            • Коллекция обновляется при изменении DOM.
+                            <br />
+                            • Если элементов нет, коллекция пустая.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- querySelectorAll -->
+                <section class="section" id="querySelectorAll">
+                    <div class="container">
+                        <h2>
+                            Получить все элементы по селектору:
+                            <code>querySelectorAll</code>
+                        </h2>
+                        <p>
+                            Возвращает
+                            <b>NodeList</b>
+                            всех элементов, подходящих под CSS-селектор. Можно использовать любые сложные селекторы.
+                        </p>
+                        <div class="code-block">
+                            <pre><code>&lt;p class="main-text"&gt;Первый абзац&lt;/p&gt;
+&lt;p class="main-text"&gt;Второй абзац&lt;/p&gt;
+&lt;div class="main-text"&gt;Какой-то блок&lt;/div&gt;
+
+const allMainTexts = document.querySelectorAll(".main-text");
+console.log(allMainTexts);
+
+allMainTexts.forEach(el =&gt; {
+  console.log(el.textContent);
+});</code></pre>
+                        </div>
+                        <div class="note note--info">
+                            • NodeList поддерживает
+                            <code>forEach</code>
+                            .
+                            <br />
+                            • Список статический (не обновляется при изменении DOM).
+                            <br />
+                            • Если элементов нет, NodeList пустой.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Практика -->
+                <section class="section" id="practice">
+                    <div class="container">
+                        <h2>Практика: попробуйте выбрать элементы на странице</h2>
+                        <div class="interactive-demo">
+                            <div class="demo-container" id="selection-demo">
+                                <div class="demo-box" id="demo-box1">
+                                    <h4>Элемент 1</h4>
+                                    <p>class="demo-item"</p>
+                                </div>
+                                <div class="demo-box" id="demo-box2">
+                                    <h4>Элемент 2</h4>
+                                    <p>class="demo-item"</p>
+                                </div>
+                                <div class="demo-box demo-special">
+                                    <h4>Специальный</h4>
+                                    <p>class="demo-item demo-special"</p>
+                                </div>
+                            </div>
+                            <div class="demo-buttons">
+                                <button class="demo-btn" id="select-by-id">Найти по ID</button>
+                                <button class="demo-btn" id="select-by-class">Найти по классу</button>
+                                <button class="demo-btn" id="select-by-tag">Найти по тегу</button>
+                                <button class="demo-btn" id="select-by-query">querySelector</button>
+                            </div>
+                            <div class="demo-result" id="selection-result"></div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+
+        <script>
+            // Демо: Получение элементов
+            function setupSelectionDemo() {
+                document.getElementById("select-by-id").addEventListener("click", () => {
+                    const element = document.getElementById("demo-box1");
+                    showResult("selection-result", `Найден элемент с ID "demo-box1": ${element.outerHTML}`);
+                });
+                document.getElementById("select-by-class").addEventListener("click", () => {
+                    const elements = document.getElementsByClassName("demo-item");
+                    showResult("selection-result", `Найдено элементов с классом "demo-item": ${elements.length}`);
+                });
+                document.getElementById("select-by-tag").addEventListener("click", () => {
+                    const elements = document.getElementsByTagName("div");
+                    showResult("selection-result", `Найдено div элементов: ${elements.length}`);
+                });
+                document.getElementById("select-by-query").addEventListener("click", () => {
+                    const element = document.querySelector(".demo-special");
+                    showResult("selection-result", `Найден специальный элемент: ${element.outerHTML}`);
+                });
+            }
+
+            // Вспомогательная функция для вывода результата
+            function showResult(id, text) {
+                const result = document.getElementById(id);
+                if (result) {
+                    result.textContent = text;
+                    result.style.display = "block";
+                }
+            }
+
+            function initDomDemo() {
+                setupSelectionDemo();
+            }
+            document.addEventListener("DOMContentLoaded", initDomDemo);
+        </script>
+    </body>
+</html>

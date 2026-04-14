@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../html/head.html', { "title": "Управление событиями во Vue", "description": "Как обрабатывать клики, наведение, нажатия клавиш и другие события с помощью директивы v-on и методов во Vue.js" })
+
+<head>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    @@include('../html/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="#intro">Введение</a>
+        <a href="#v-on">Директива v-on</a>
+        <a href="#modifiers">Модификаторы</a>
+        <a href="#methods">Методы и this</a>
+        <a href="#mouse">События мыши</a>
+        <a href="#keyboard">События клавиатуры</a>
+        <a href="#other">События другие</a>
+        <a href="#practice">Практика</a>
+        <a href="#tips">Советы</a>
+        <a href="#best-practices">Лучшие практики</a>
+        <a href="#examples">Примеры</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="intro">
+        <div class="container">
+          <h1>Управление событиями во Vue</h1>
+          <p class="note">
+            <strong>События в Vue</strong> — это способ реагировать на действия пользователя: 👆 клики, наведение мыши, нажатия клавиш и другие взаимодействия.
+            <br />
+            С помощью событий можно создавать интерактивные интерфейсы, улучшать пользовательский опыт и делать приложения более динамичными.
+          </p>
+
+          <h4>Для чего нужны события:</h4>
+          <ul class="list-ul">
+            <li><b>Реагировать</b> на действия пользователя</li>
+            <li><b>Создавать</b> интерактивные элементы</li>
+            <li><b>Управлять</b> состоянием приложения</li>
+          </ul>
+
+          <h4>Виды событий:</h4>
+          <ul class="list-ul">
+            <li><b>События мыши:</b> клики, наведение, двойные клики</li>
+            <li><b>События клавиатуры:</b> нажатия клавиш, комбинации</li>
+            <li><b>Другие события:</b> загрузка страницы, изменение размера окна</li>
+          </ul>
+
+          <!-- Вывод: -->
+          <p class="note note--info">
+            🚀
+            <strong>События</strong> — делают приложения Vue живыми и отзывчивыми, позволяя пользователям взаимодействовать с интерфейсом естественным образом.
+          </p>
+
+
+
+        </div>
+      </section>
+
+      <!-- Директива v-on -->
+      <section class="section" id="v-on">
+        <div class="container">
+          <h2>Директива v-on</h2>
+          <p class="note">
+            <strong><code>v-on</code></strong> — директива Vue для обработки событий. <br> Она позволяет привязывать <b>события</b> к элементам и вызывать <b>методы</b> при их срабатывании.
+            <br />
+            Существует короткая запись для <code>v-on:</code> — символ <code>@</code>.
+          </p>
+
+
+          <h4>Примеры использования:</h4>
+          <div class="code-block">
+            <pre><code>//Пример с полной записью v-on
+&lt;button v-on:click="message = 'Ты нажал на кнопку!'"&gt;Нажми меня&lt;/button&gt;
+
+//Пример с короткой записью
+&lt;button @click="message = 'Новый текст'"&gt;Нажми меня&lt;/button&gt;</code></pre>
+          </div>
+
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>v-on</code> — директива для обработки событий.</li>
+            <li><code>click</code> — тип события (клик мыши).</li>
+            <li><code>v-on:click</code> и <code>@click</code> — обработчики события клика.</li>
+            <li>При клике на кнопку переменная <code>message</code> изменяется.</li>
+          </ul>
+
+          <!-- Вывод: -->
+          <p class="note note--info">
+            🚀
+            <strong>v-on</strong> позволяет легко реагировать на действия пользователя, делая интерфейс интерактивным!
+          </p>
+        </div>
+      </section>
+
+      <!-- Модификаторы -->
+      <section class="section" id="modifiers">
+        <div class="container">
+          <h2>Модификаторы событий</h2>
+          <p class="note">
+            <strong>Модификаторы событий</strong> — это специальные дополнения к директиве <code>v-on</code>, которые позволяют изменить поведение обработчика события.
+            <br />
+            Например, модификатор <code>.stop</code> предотвращает всплытие события, а <code>.prevent</code> — предотвращает действие по умолчанию.
+          </p>
+          <h4>Виды модификаторов:</h4>
+          <ul class="list-ul">
+            <li><code>.stop</code> — предотвращает всплытие события.</li>
+            <li><code>.prevent</code> — предотвращает действие по умолчанию.</li>
+            <li><code>.capture</code> — использует фазу захвата для события.</li>
+            <li><code>.self</code> — срабатывает только если событие произошло на самом элементе.</li>
+            <li><code>.once</code> — обработчик сработает только один раз.</li>
+          </ul>
+
+          <h4>Примеры модификаторов:</h4>
+          <div class="code-block">
+            <pre><code>//Пример с модификатором .stop
+&lt;button @click.stop="handleClick"&gt;Кликни&lt;/button&gt;
+//Пример с модификатором .prevent
+&lt;form @submit.prevent="submitForm"&gt;...&lt;/form&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>@click.stop</code> — обработчик события клика с модификатором <code>.stop</code>, который предотвращает всплытие события.</li>
+            <li><code>@submit.prevent</code> — обработчик события отправки формы с модификатором <code>.prevent</code>, который предотвращает действие по умолчанию (перезагрузку страницы).</li>
+          </ul>
+          <!-- Вывод: -->
+          <div class="note note--info">
+            🚀
+            <strong>Модификаторы событий</strong> делают обработку событий во Vue более гибкой и удобной, позволяя легко управлять поведением событий!
+          </div>
+        </div>
+      </section>
+
+      <!-- Методы и this -->
+      <section class="section" id="methods">
+        <div class="container">
+          <h2>Методы и this</h2>
+          <p class="note">
+            <strong>Методы</strong> - это функции, определенные внутри компонента <b>Vue</b>, которые выполняют определенные действия, например, обработку событий.
+            <br />
+            В Vue методы компонента хранятся в объекте
+            <code>methods</code>
+            . Они позволяют выполнять логику при срабатывании событий.
+            <br />
+            Внутри методов для доступа к данным компонента используется
+            <code>this</code>
+            .
+            <br>
+            <code>this</code> - это ссылка на текущий экземпляр Vue, позволяющая обращаться к его свойствам и методам. Это всегда актуально внутри методов компонента.
+
+          </p>
+
+          <h4>Примеры методов:</h4>
+          <div class="code-block">
+            <pre><code>methods: {
+  updateText(event) {
+    console.log(event.target.value);
+  }
+}</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>updateText</code>- метод, принимающий параметр <code>event</code> — объект события.</li>
+            <li><code>updateText(event) {...}</code> - значение в скобках — тело метода.</li>
+            <li>Внутри метода используется <code>console.log</code> для вывода значения введенного текста.</li>
+            <li><code>event.target.value</code> - значение поля ввода.</li>
+          </ul>
+
+
+
+          <h3>Передача параметров в метод</h3>
+
+          <p class="note"><strong>Передача параметров в метод</strong> - позволяет передавать дополнительные данные в обработчики событий для более гибкой логики. Передача осуществляется прямо в обработчике события с помощью круглых скобок и аргументов.
+            <br>
+            this в этом случае также используется для доступа к данным компонента внутри метода.
+          </p>
+
+
+          <h4>Пример передачи параметров:</h4>
+          <div class="code-block">
+            <pre><code>//HTML с передачей параметра в метод  amount = 1
+&lt;button @click="increase(1)"&gt;+1&lt;/button&gt;
+
+//Метод с параметром amount = 5
+&lt;button @click="increase(5)"&gt;+5&lt;/button&gt;
+
+//methods - метод с параметром amount
+methods: {
+  // Метод с параметром amount
+  increase(amount) {
+    this.count += amount;
+  }
+}</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code> increase(amount)</code> - метод с параметром <code>amount</code>, который используется для увеличения переменной <code>count</code>.</li>
+            <li><code>this.count</code> - доступ к переменной <code>count</code> через <code>this</code>.</li>
+
+            <li>В обработчике события <code>@click="increase(1)"</code> вызывается метод <code>increase</code> с параметром <code>1</code>.</li>
+          </ul>
+          <!-- Вывод: -->
+          <div class="note note--info">
+            🚀
+            <strong>Методы и this</strong> позволяют создавать мощную логику обработки событий, делая приложения Vue динамичными и интерактивными!
+
+
+          </div>
+        </div>
+      </section>
+
+      <!-- События мыши -->
+      <section class="section" id="mouse">
+        <div class="container">
+          <h2>События мыши</h2>
+
+          <p class="note">
+            <strong>События мыши</strong> позволяют реагировать на действия пользователя с помощью мыши, такие как клики, наведение и движение. Во Vue это делается с помощью директивы
+            <code>v-on</code>
+            (или короткой записи <code>@</code>) и различных типов событий мыши.
+            <br /> Например, можно обрабатывать клики, двойные клики, наведение и другие действия. Это полезно для создания интерактивных элементов, таких как кнопки, ссылки и выпадающие меню.
+          </p>
+
+          <h4>Виды событий мыши:</h4>
+          <p>Во Vue есть несколько основных событий мыши:</p>
+          <ul class="list-ul">
+            <li><code>click</code> — срабатывает при клике мыши.</li>
+            <li><code>dblclick</code> — срабатывает при двойном клике.</li>
+            <li><code>mousedown</code> — срабатывает при нажатии кнопки мыши.</li>
+            <li><code>mouseup</code> — срабатывает при отпускании кнопки мыши.</li>
+            <li><code>mousemove</code> — срабатывает при движении мыши.</li>
+            <li><code>mouseenter</code> — срабатывает при наведении мыши на элемент.</li>
+            <li><code>mouseleave</code> — срабатывает, когда мышь уходит с элемента.</li>
+          </ul>
+          <h4>Как использовать события мыши:</h4>
+          <p>Во Vue для обработки событий мыши используются директивы <code>@click</code>, <code>@dblclick</code> и другие. Где <code>@</code> - это сокращение от <code>v-on</code>.</p>
+          <ul class="list-ul">
+            <li><code>@click</code> — срабатывает при клике мыши.</li>
+            <li><code>@dblclick</code> — срабатывает при двойном клике.</li>
+            <li><code>@mousedown</code> — срабатывает при нажатии кнопки мыши.</li>
+            <li><code>@mouseup</code> — срабатывает при отпускании кнопки мыши.</li>
+            <li><code>@mousemove</code> — срабатывает при движении мыши.</li>
+            <li><code>@mouseenter</code> — срабатывает при наведении мыши на элемент.</li>
+            <li><code>@mouseleave</code> — срабатывает, когда мышь уходит с элемента.</li>
+          </ul>
+          <h4>Примеры событий мыши:</h4>
+
+          <div class="code-block">
+            <pre><code>&lt;button @mouseenter="message = 'Ты навёлся!'" @mouseleave="message = 'Наведи курсор!'"&gt;
+  {{ message }}
+&lt;/button&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>@mouseenter</code> — обработчик события наведения мыши, который изменяет переменную <code>message</code> на "Ты навёлся!".</li>
+            <li><code>@mouseleave</code> — обработчик события ухода мыши, который изменяет переменную <code>message</code> на "Наведи курсор!".</li>
+            <li>Когда пользователь наводит мышь на кнопку, текст меняется на "Ты навёлся!", а когда уводит мышь — на "Наведи курсор!".</li>
+          </ul>
+          <!-- Вывод: -->
+          <div class="note note--info">
+            🚀
+            <strong>События мыши</strong> делают интерфейс более интерактивным и отзывчивым, позволяя пользователям легко взаимодействовать с элементами на странице!
+
+          </div>
+        </div>
+      </section>
+
+
+
+      <!-- События клавиатуры -->
+      <section class="section" id="keyboard">
+        <div class="container">
+          <h2>События клавиатуры</h2>
+          <p class="note">
+            <strong>События клавиатуры</strong> позволяют реагировать на нажатия клавиш пользователем. Во Vue это делается с помощью директивы
+            <code>v-on</code>
+            (или короткой записи <code>@</code>) и специальных модификаторов для клавиш.
+            <br /> Например, можно обрабатывать нажатия Enter, Esc, Space и другие. Это полезно для создания форм, навигации и других интерактивных элементов.
+            <br />
+            <strong>Модификаторы клавиш</strong> - специальные суффиксы, добавляемые к обработчикам событий клавиатуры во Vue.js. Они позволяют легко реагировать на нажатия конкретных клавиш без необходимости вручную проверять код клавиши в методах. Например, <code>.enter</code> для клавиши Enter, <code>.esc</code> для Esc и другие.
+          </p>
+          <h4>Виды событий клавиатуры:</h4>
+          <p>Во Vue есть два основных события клавиатуры:</p>
+          <ul class="list-ul">
+            <li><code>keydown</code> — срабатывает при нажатии клавиши.</li>
+            <li><code>keyup</code> — срабатывает при отпускании клавиши.</li>
+            <li><code>keypress</code> — срабатывает при нажатии клавиши, но устарел и не рекомендуется к использованию.</li>
+          </ul>
+          <h4>Как использовать события клавиатуры:</h4>
+          <p>Во Vue для обработки событий клавиатуры используются директивы <code>@keydown</code> и <code>@keyup</code>. Можно также использовать модификаторы для конкретных клавиш. Где <code>@</code> - это сокращение от <code>v-on</code>.</p>
+          <ul class="list-ul">
+            <li><code>@keydown</code> — срабатывает при нажатии клавиши.</li>
+            <li><code>@keyup</code> — срабатывает при отпускании клавиши.</li>
+          </ul>
+          <h4>Модификаторы клавиш:</h4>
+          <p>Модификаторы позволяют обрабатывать конкретные клавиши. Вот некоторые из них:</p>
+          <ul class="list-ul">
+            <li><code>.enter</code> — для клавиши Enter.</li>
+            <li><code>.esc</code> — для клавиши Esc.</li>
+            <li><code>.space</code> — для пробела.</li>
+            <li>И другие: <code>.tab</code>, <code>.up</code>, <code>.down</code>, <code>.left</code>, <code>.right</code></li>
+          </ul>
+
+
+          <h4>Примеры событий клавиатуры:</h4>
+          <div class="code-block">
+            <pre><code>&lt;input type="text" @keyup="logInput"&gt;
+
+methods: {
+  logInput(event) {
+    console.log("Вы ввели: " + event.target.value);
+  }
+}</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>@keyup="logInput"</code> — обработчик события отпускания клавиши, который вызывает метод <code>logInput</code>.</li>
+            <li><code>logInput</code> — метод, принимающий параметр <code>event</code> — объект события.</li>
+            <li><code>event.target.value</code> — значение введенного текста в поле.</li>
+            <li>При отпускании клавиши вызывается метод, который выводит введенный текст в консоль.</li>
+          </ul>
+
+          <h4>Пример с модификатором клавиши:</h4>
+          <div class="code-block">
+            <pre><code>&lt;input type="text" @keyup.enter="sendMessage"&gt;</code></pre>
+          </div>
+
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>@keyup</code> — обработчик события отпускания клавиши.</li>
+            <li><code>.enter</code> — модификатор для клавиши Enter.</li>
+            <li><code>sendMessage</code> — метод, вызываемый при отпускании Enter.</li>
+            <li><code>@keyup.enter="sendMessage"</code> — обработчик события отпускания клавиши Enter, который вызывает метод <code>sendMessage</code>.</li>
+            <li>Когда пользователь нажимает и отпускает клавишу Enter, вызывается метод <code>sendMessage</code>.</li>
+          </ul>
+          <!-- Вывод: -->
+          <div class="note note--info">
+            🚀
+            <strong>События клавиатуры</strong> делают взаимодействие с приложением более удобным и интуитивным, позволяя пользователям быстро выполнять действия с помощью клавиатуры!
+          </div>
+        </div>
+      </section>
+
+
+
+      <!-- События другие -->
+      <section class="section" id="other">
+        <div class="container">
+          <h2>Другие события</h2>
+          <p class="note">
+            <strong>Другие события</strong> во Vue позволяют реагировать на различные действия пользователя и изменения состояния приложения, такие как загрузка страницы, изменение размера окна и другие.
+
+          </p>
+          <h4>Другие события:</h4>
+          <ul class="list-ul">
+            <li><b>input</b> и <b>change</b> — часто используются при работе с формами и вводом данных.</li>
+            <li><b>focus</b> и <b>blur</b> — полезны для управления фокусом на элементах формы и создания интерактивных интерфейсов.               <code>focus</code> — срабатывает при получении фокуса элементом.
+              <code>blur</code> — срабатывает при потере фокуса элементом.</li>
+            <li><b>submit</b> — важно для обработки отправки форм и выполнения соответствующих действий.</li>
+            <li><b>contextmenu</b> — позволяет создавать пользовательские контекстные меню при клике правой кнопкой мыши.</li>
+            <li><b>scroll</b> — полезно для отслеживания прокрутки страницы и выполнения действий в зависимости от положения прокрутки.
+              <code>scroll</code> — срабатывает при прокрутке страницы.</li>
+            <li><b>custom-event</b> — позволяет создавать и обрабатывать пользовательские события между компонентами Vue.</li>
+            <li><code>load</code> — срабатывает при загрузке страницы или изображения.</li>
+            <li><code>resize</code> — срабатывает при изменении размера окна браузера.</li>
+          </ul>
+          <h4>Примеры других событий:</h4>
+          <div class="code-block">
+            <pre><code>&lt;window @resize="handleResize"&gt;
+methods: {
+  handleResize() {
+    console.log("Окно изменило размер");
+  }
+}</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>@resize="handleResize"</code> — обработчик события изменения размера окна, который вызывает метод <code>handleResize</code>.</li>
+            <li><code>handleResize</code> — метод, который выводит сообщение в консоль при изменении размера окна.</li>
+            <li>Когда пользователь изменяет размер окна браузера, вызывается метод <code>handleResize</code>, и в консоль выводится сообщение.</li>
+          </ul>
+
+          <h4>Еще один пример с событием загрузки:</h4>
+          <div class="code-block">
+            <pre><code>&lt;img src="image.jpg" @load="imageLoaded"&gt;
+methods: {
+  imageLoaded() {
+    console.log("Изображение загружено");
+  }
+}</code></pre>
+
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>@load="imageLoaded"</code> — обработчик события загрузки изображения, который вызывает метод <code>imageLoaded</code>.</li>
+            <li><code>imageLoaded</code> — метод, который выводит сообщение в консоль при загрузке изображения.</li>
+            <li>Когда изображение полностью загружается, вызывается метод <code>imageLoaded</code>, и в консоль выводится сообщение.</li>
+          </ul>
+
+          <!-- Вывод: -->
+          <div class="note note--info">
+            🚀
+            <strong>Другие события</strong> позволяют создавать более динамичные и отзывчивые приложения, реагируя на различные действия пользователя и изменения состояния!
+          </div>
+        </div>
+      </section>
+
+      <!-- Практика -->
+      <section class="section" id="practice">
+        <div class="container">
+          <h2>Практика</h2>
+          <p>Давайте рассмотрим практический пример обработки события клавиатуры во Vue. В этом примере мы создадим модальное окно, которое закрывается при нажатии клавиши Esc.</p>
+
+
+          <div class="interactive-demo">
+            <div id="app">
+              <div v-if="isOpen" class="modal" style="background: #f0f8ff; padding: 16px; border-radius: 8px">
+                <p>Нажми Esc, чтобы закрыть</p>
+              </div>
+              <input type="text" @keyup.esc="closeModal" placeholder="Фокус сюда и нажмите Esc" />
+            </div>
+          </div>
+          <script>
+            // Практика: закрытие модального окна по Esc
+            Vue.createApp({
+              data() {
+                return {
+                  isOpen: true
+                };
+              },
+              methods: {
+                closeModal() {
+                  this.isOpen = false;
+                }
+              }
+            }).mount("#app");
+          </script>
+          <div class="code-block">
+            <pre><code>&lt;div id="app"&gt;
+  &lt;div v-if="isOpen" class="modal"&gt;
+    &lt;p&gt;Нажми Esc, чтобы закрыть&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;input type="text" @keyup.esc="closeModal" placeholder="Фокус сюда и нажмите Esc" &gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  Vue.createApp({
+    data() {
+      return {
+        isOpen: true
+      };
+    },
+    methods: {
+      closeModal() {
+        this.isOpen = false;
+      }
+    }
+  }).mount("#app");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>v-if="isOpen"</code> — условная отрисовка модального окна, которое отображается только если <code>isOpen</code> равно <code>true</code>.</li>
+            <li><code>@keyup.esc="closeModal"</code> — обработчик события отпускания клавиши Esc, который вызывает метод <code>closeModal</code>.</li>
+            <li><code>closeModal</code> — метод, который изменяет переменную <code>isOpen</code> на <code>false</code>, закрывая модальное окно.</li>
+            <li>Когда пользователь нажимает и отпускает клавишу Esc, вызывается метод <code>closeModal</code>, и модальное окно скрывается.</li>
+          </ul>
+          <!-- Вывод: -->
+          <div class="note note--info">
+            🚀
+            <strong>Практика</strong> показывает, как легко можно обрабатывать события клавиатуры во Vue для создания интерактивных элементов, таких как модальные окна!
+          </div>
+        </div>
+      </section>
+
+      <!-- Советы -->
+      <section class="section" id="tips">
+        <div class="container">
+          <h2>Советы и типичные ошибки</h2>
+          <p class="note">
+            <strong>Советы по работе с событиями во Vue</strong> помогут вам избежать распространенных ошибок и улучшить качество кода.
+          </p>
+          <ul class="list-ul">
+            <li>Всегда используйте <b>методы для обработки событий</b>, чтобы код оставался чистым и поддерживаемым.</li>
+            <li>Не забывайте про <b>модификаторы клавиш</b> для упрощения кода при обработке специфичных клавиш.</li>
+            <li>Проверяйте правильность использования <code>this</code> внутри методов — оно должно ссылаться на экземпляр Vue.</li>
+            <li>Избегайте использования устаревших событий, таких как <code>keypress</code>.</li>
+            <li><b>Тестируйте</b> обработчики событий на разных устройствах и браузерах для обеспечения совместимости.</li>
+          </ul>
+          <div class="note note--info">
+            🚀
+            <strong>Советы</strong> помогут вам эффективно использовать события во Vue и избегать распространенных ошибок!
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Лучшие практики -->
+      <section class="section" id="best-practices">
+        <div class="container">
+          <h2>Лучшие практики</h2>
+          <p class="note">
+            <strong>Лучшие практики работы с событиями во Vue</strong> помогут вам создавать более эффективные и поддерживаемые приложения.
+          </p>
+
+          <ul class="list-ul">
+            <li>Используйте <b>именованные методы</b> для обработки событий вместо инлайн-функций (инлайн-функции -это функции, определенные прямо в атрибуте обработчика события, например, <code>@click="() => doSomething()"</code>. ), чтобы улучшить читаемость кода.</li>
+            <li>Группируйте связанные события в отдельные методы для лучшей организации кода.</li>
+            <li>Используйте <b>модификаторы событий</b> (например, <code>.stop</code>, <code>.prevent</code>) для управления поведением событий.</li>
+            <li>Документируйте обработчики событий, чтобы другие разработчики понимали их назначение.</li>
+            <li>Регулярно рефакторьте код, чтобы избежать дублирования логики обработки событий.</li>
+          </ul>
+          <div class="note note--info">
+            🚀
+            <strong>Лучшие практики</strong> помогут вам создавать качественные приложения Vue с эффективной обработкой событий!
+          </div>
+        </div>
+      </section>
+
+      <!-- Примеры событий во Vue -->
+      <section class="section" id="event-examples">
+        <div class="container">
+          <h2>Реальные примеры работы с событиями во Vue</h2>
+
+          <!-- Пример 1 -->
+          <h3>Пример 1. Кнопка для изменения текста</h3>
+          <p class="note">В этом примере при клике на кнопку изменяется текст на странице. Текст меняется с "Исходный текст" на "Новый текст!" с помощью обработчика события <code>@click</code> и метода <code>changeMessage</code>.</p>
+
+
+          <div class="interactive-demo">
+            <div id="event-click-demo">
+              <p>{{ message }}</p>
+              <button @click="changeMessage">Изменить текст</button>
+            </div>
+          </div>
+          <h4>HTML и JavaScript код:</h4>
+          <div class="code-block">
+            <pre><code>//Отображение текста
+&lt;p&gt;{{ message }}&lt;/p&gt;
+
+//Кнопка с обработчиком клика
+&lt;button @click="changeMessage"&gt;Изменить текст&lt;/button&gt;
+
+methods: {
+  //Метод для изменения текста
+  changeMessage() {
+    //this.message - переменная с текстом
+    this.message = 'Новый текст!';
+  }
+}</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>{{ message }}</code> — отображение переменной <code>message</code> на странице.</li>
+            <li><code>@click="changeMessage"</code> — обработчик события клика, который вызывает метод <code>changeMessage</code>.</li>
+            <li><code>changeMessage</code> — метод, который изменяет значение переменной <code>message</code> на "Новый текст!".</li>
+            <li>Когда пользователь кликает на кнопку, вызывается метод <code>changeMessage</code>, и текст на странице обновляется.</li>
+          </ul>
+
+          <!-- Пример 2 -->
+          <h3>Пример 2. Автоматическое скрытие по клавише Esc</h3>
+          <p class="note">В этом примере модальное окно закрывается при нажатии клавиши Esc. Используется обработчик события <code>@keyup.esc</code> и метод <code>closeModal</code> для изменения состояния окна.</p>
+
+
+          <div class="interactive-demo">
+            <div id="event-esc-demo">
+              <div v-if="isOpen" class="modal" style="background: #50ff9c; padding: 16px; margin-bottom: 20px; border-radius: 8px">
+                <p>Нажмите Esc, чтобы закрыть окно</p>
+              </div>
+              <input type="text" @keyup.esc="closeModal" placeholder="Фокус сюда и нажмите Esc" />
+            </div>
+          </div>
+          <h4>HTML и JavaScript код:</h4>
+          <div class="code-block">
+            <pre><code>//Модальное окно, отображаемое при isOpen = true
+&lt;div v-if="isOpen" class="modal"&gt;...&lt;/div&gt;
+//Поле ввода с обработчиком Esc
+&lt;input type="text" @keyup.esc="closeModal"&gt;
+
+methods: {
+  //Метод для закрытия окна
+  closeModal() {
+    //isOpen - состояние окна
+    this.isOpen = false;
+  }
+}</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>v-if="isOpen"</code> — условная отрисовка окна, которое отображается только если <code>isOpen</code> равно <code>true</code>.</li>
+            <li><code>@keyup.esc="closeModal"</code> — обработчик события отпускания клавиши Esc, который вызывает метод <code>closeModal</code>.</li>
+            <li><code>closeModal</code> — метод, который изменяет переменную <code>isOpen</code> на <code>false</code>, скрывая окно.</li>
+            <li>Когда пользователь нажимает и отпускает клавишу Esc, вызывается метод <code>closeModal</code>, и окно скрывается.</li>
+          </ul>
+
+
+          <!-- Пример 3 -->
+          <h3>Пример 3. Наведение и уход мыши</h3>
+          <p class="note">В этом примере текст на кнопке меняется при наведении и уходе мыши. Используются обработчики событий <code>@mouseenter</code> и <code>@mouseleave</code> для изменения текста.</p>
+
+
+          <div class="interactive-demo">
+            <div id="event-hover-demo">
+              <button style="width: 200px;" @mouseenter="message = 'Навели!'" @mouseleave="message = 'Наведите курсор!'">{{ message }}</button>
+            </div>
+          </div>
+          <h4>HTML и JavaScript код:</h4>
+          <div class="code-block">
+            <pre><code>&lt;button @mouseenter="message = 'Навели!'" @mouseleave="message = 'Наведите курсор!'"&gt;
+  {{ message }}
+&lt;/button&gt;</code></pre>
+          </div>
+
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>@mouseenter="message = 'Навели!'"</code> — обработчик события наведения мыши, который изменяет переменную <code>message</code> на "Навели!".</li>
+            <li><code>@mouseleave="message = 'Наведите курсор!'"</code> — обработчик события ухода мыши, который изменяет переменную <code>message</code> на "Наведите курсор!".</li>
+            <li>Когда пользователь наводит мышь на кнопку, текст меняется на "Навели!", а когда уводит мышь — на "Наведите курсор!".</li>
+          </ul>
+
+      </section>
+    </main>
+    @@include('../html/footer.html', {})
+  </div>
+  @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+  <script>
+    // Пример 1: @click изменить текст
+    Vue.createApp({
+      data() {
+        return {
+          message: "Исходный текст"
+        };
+      },
+      methods: {
+        changeMessage() {
+          this.message = "Новый текст!";
+        },
+      },
+    }).mount("#event-click-demo");
+
+    // Пример 2: @keyup.esc скрыть окно
+    Vue.createApp({
+      data() {
+        return {
+          isOpen: true
+        };
+      },
+      methods: {
+        closeModal() {
+          this.isOpen = false;
+        },
+      },
+    }).mount("#event-esc-demo");
+
+    // Пример 3: @mouseenter / @mouseleave
+    Vue.createApp({
+      data() {
+        return {
+          message: "Наведите курсор!"
+        };
+      },
+    }).mount("#event-hover-demo");
+  </script>
+</body>
+
+</html>

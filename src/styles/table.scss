@@ -1,0 +1,147 @@
+@use 'variables' as *; // Импортируем переменные в текущий файл
+
+// =================== Table (note) ===================
+.table-note {
+  border: 2px dashed $greenColor;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+  border-radius: ($borderRadius * 2);
+  font-family: $fontFamilyAccent;
+  border: 1px solid $greenColor;
+  background: $lightYellowColor;
+
+  //caption - заголовок таблицы
+  caption {
+    caption-side: bottom;
+    font-weight: 700;
+    font-size: 1.15em;
+    padding: 10px;
+    color: $greenColor;
+    background: $captionBgColor;
+    border: 2px dashed $greenColor;
+    border-radius: 0 0 ($borderRadius * 2) ($borderRadius * 2);
+  }
+
+  // Стили для ячеек таблицы
+  th,
+  td {
+    border: 1px solid $greenColor;
+    padding: 10px 16px;
+    text-align: left;
+    font-size: $fontSizeAccent;
+    transition: all 0.3s ease 0s;
+    //background: $lightYellowColor;
+  }
+
+  // Стили для заголовков таблицы
+  th {
+    background: $greenColor;
+    font-weight: 600;
+    color: $headerTextColor;
+  }
+
+  // Стили для подвала таблицы
+  tfoot {
+    td {
+      background: $lightGreenColor;
+      font-weight: 600;
+      color: $greenColor;
+    }
+  }
+
+  // Стили для тела таблицы
+  thead {
+    tr {
+      border-bottom: 1px solid $greenColor;
+    }
+  }
+
+  // Стили для строк тела таблицы при наведении
+  tbody {
+    tr {
+      &:hover {
+        background: $lightYellowColor2;
+      }
+    }
+  }
+
+  code {
+    background: $lightGreenColor;
+  }
+
+  //Стили для ячеек с colspan="3"
+  td[colspan="3"] {
+    background: $lightGreenColor;
+    font-weight: 600;
+
+  }
+
+}
+
+// =================== Table Example ===================
+.table-example {
+  border: 2px dashed $accentColor;
+  width: 100%;
+  border-collapse: separate;
+  margin: 16px 0;
+  font-size: 1.05em;
+  background: $exampleBgColor;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+  border-radius: ($borderRadius * 2);
+  overflow: hidden;
+  font-family: $fontFamilyAccent;
+
+  caption {
+    caption-side: bottom;
+    font-weight: 700;
+    font-size: 1.15em;
+    padding: 10px;
+    color: $accentColor;
+    background: $captionBgColor;
+    border: 2px dashed $accentColor;
+    border-radius: 0 0 ($borderRadius * 2) ($borderRadius * 2);
+  }
+
+  th,
+  td {
+    border: 1px solid $accentColor;
+    padding: 10px 16px;
+    text-align: center;
+    background: $cellBgColor;
+    font-size: $fontSizeAccent;
+    transition: background 0.2s;
+  }
+
+  th {
+    background: $headerBgColor;
+    font-weight: 700;
+    color: $headerTextColor;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  tfoot {
+    td {
+      background: $footerBgColor;
+      font-weight: 600;
+      color: $accentColor;
+    }
+  }
+
+  thead {
+    tr {
+      border-bottom: 3px double $accentColor;
+    }
+  }
+
+  tbody {
+    tr {
+      &:hover {
+        background: $rowHoverBgColor;
+        color: $rowHoverTextColor;
+      }
+    }
+  }
+}

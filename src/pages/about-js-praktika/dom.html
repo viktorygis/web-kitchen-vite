@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "DOM", "description": "DOM" })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <section class="section">
+                    <div class="container">
+                        <!--      <div>
+                        	<h1>1. DOM</h1>
+	                        <h2 id="greeting">Привет, мир!</h2>
+	                        <div class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum porro at facere perspiciatis ad ratione aperiam quibusdam saepe recusandae. Quos dolore enim velit eos fuga quia nesciunt repellat reprehenderit numquam?</div>
+	                        <form action="">
+	                            <input type="text" placeholder="Введите текст" />
+	                            <button id="button-submit" type="submit">Отправить</button>
+	                        </form>
+	                        <button id="button">Нажми</button>
+	                        <button id="btn-hello">Привет</button>
+
+	                        <h3 id="main-title">Добро пожаловать!</h3>
+	                        <h3 id="subtitle">Добро пожаловать!</h3>
+	                        <p class="main-text">Привет, DOM!</p>
+	                        <p class="label">Привет, DOM!</p>
+	                        <div class="content"></div>
+                        </div> -->
+
+                        <div class="contents">
+                            <div id="box" class="highlight">Это блок</div>
+                            <div id="box-2" class="highlight">Это блок включается</div>
+                            <button id="btn-3">Нажми</button>
+                        </div>
+                        <!--  <script>
+                            "use strict";
+                            // Получаем элемент по ID
+                            const box = document.getElementById("box");
+                            console.log(box);
+
+                            //Посмотреть классы элемента
+                            console.log(box.classList); // Выводим классы элемента в консоль
+
+                            //add - это метод, который позволяет добавить новый класс к элементу.
+                            //Добавить новый класс
+                            box.classList.add("shadow");
+                            console.log(box);
+
+                            //	remove - это метод, который позволяет удалить класс из элемента.
+                            //Удалить класс
+                            box.classList.remove("shadow");
+                            //	Проверяем, что класс удален
+                            console.log(box.classList);
+
+                            //	toggle - это метод, который позволяет переключать класс элемента.
+                            //Переключить класс
+                            const box2 = document.getElementById("box-2");
+
+                            box2.addEventListener("click", function () {
+                                box2.classList.toggle("shadow");
+                                console.log("Класс 'shadow' переключен");
+                                if (box2.classList.contains("shadow")) {
+                                    box2.textContent = "Класс 'shadow' переключен";
+                                    //Меняем фон
+                                    box2.style.backgroundColor = "lightblue";
+                                    console.log("Элемент содержит класс 'shadow'");
+                                } else {
+                                    box2.textContent = "Это блок включается";
+                                    //Меняем фон
+                                    box2.style.backgroundColor = "yellow";
+                                    console.log("Элемент не содержит класс 'shadow'");
+                                }
+                            });
+
+                            //	contains - это метод, который позволяет проверить, содержит ли элемент определенный класс.
+                            //Проверить наличие класса
+                            console.log(box2.classList.contains("shadow")); // Выводит true или false
+                            console.log(box2); // Выводит true или false
+
+                            if (box2.classList.contains("shadow")) {
+                                box2.textContent = "Класс 'shadow' переключен";
+                                console.log("Элемент содержит класс 'shadow'");
+                            } else {
+                                box2.textContent = "Это блок включается";
+                                console.log("Элемент не содержит класс 'shadow'");
+                            }
+                        </script> -->
+                        <style>
+                            .contents {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 20px;
+                                justify-content: center;
+                                align-items: center;
+                                height: 100vh;
+                            }
+                            .highlight {
+                                width: 400px;
+                                border-radius: 20px;
+                                background-color: yellow;
+                                padding: 20px;
+                                border: 2px solid rgb(144, 144, 144);
+                                font-size: 20px;
+                                text-align: center;
+                            }
+                            .shadow {
+                                box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+                            }
+                        </style>
+
+                        <!-- timer -->
+                        <script>
+                            //setTimeout
+                            //setTimeout - это функция, которая позволяет выполнить код через определенное время.
+                            /*   setTimeout(function () {
+                                console.log("Время вышло!");
+                            }, 500);
+                            setTimeout(() => {
+                                console.log("Время вышло!");
+                            }, 800); */
+                            //setInterval - это функция, которая позволяет выполнять код через определенные интервалы времени.
+                            /*   setInterval(() => {
+                                console.log("Интервал сработал!");
+                            }, 5000);
+                            const btn3 = document.getElementById("btn-3");
+                            btn3.addEventListener("click", () => {
+                                setTimeout(() => {
+                                    console.log("Кнопка 3 нажата!");
+                                }, 1000);
+                            }); */
+
+                            //clearInterval
+                            //clearInterval это функция, которая позволяет остановить выполнение кода, запланированного с помощью setInterval.
+                            clearInterval();
+                            // Пример использования clearInterval
+                            //intervalId это идентификатор интервала, который мы можем использовать для его остановки.
+                            const intervalId = setInterval(() => {
+                                console.log("Интервал сработал!");
+                            }, 1000);
+                            setTimeout(() => {
+                                clearInterval(intervalId);
+                                console.log("Счётчик остановлен.");
+                            }, 5000);
+                        </script>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+        <!--    <script>
+            "use strict";
+
+            //Получение элементов-----------------------
+            // getElementById
+            //это метод, который позволяет выбрать элемент на странице по уникальному идентификатору (ID).
+            const mainTitle = document.getElementById("main-title");
+            console.log(mainTitle);
+
+            // querySelector
+            //querySelector - это метод, который позволяет выбрать элемент на странице по CSS-селектору.
+            const textParagraph = document.querySelector(".main-text");
+            console.log(textParagraph);
+
+            // getElementsByClassName
+            //это метод, который позволяет выбрать элементы на странице по классу.
+            const textElements = document.getElementsByClassName("main-text");
+            console.log(textElements);
+
+            // Пример перебора элементов
+            //это метод, который позволяет выбрать несколько элементов на странице по классу.
+            for (let i = 0; i < textElements.length; i++) {
+                console.log(textElements[i].textContent);
+            }
+
+            //🤔 Когда использовать какой метод?
+            // - getElementById: когда нужно получить один элемент по ID
+            // - querySelector: когда нужно получить один элемент по селектору
+            // - getElementsByClassName: когда нужно получить несколько элементов по классу
+
+            //Еще методы получения элементов
+            // - getElementsByTagName: когда нужно получить несколько элементов по тегу
+            // - querySelectorAll: когда нужно получить несколько элементов по селектору
+
+            //getElementsByTagName
+            //это метод, который позволяет выбрать несколько элементов на странице по тегу.
+            const allParagraphs = document.getElementsByTagName("p");
+            console.log(allParagraphs);
+
+            //querySelectorAll
+            //это метод, который позволяет выбрать несколько элементов на странице по селектору.
+            const allMainTexts = document.querySelectorAll(".main-text");
+            console.log(allMainTexts);
+
+            //-------------------------------
+            // Изменять текст и HTML
+            //-------------------------------
+
+            //это методы, которые позволяют изменять содержимое элементов на странице.
+            //textContent
+            //textContent - это свойство, которое позволяет получить или установить текстовое содержимое элемента.
+            const subTitle = document.getElementById("subtitle");
+            subTitle.textContent = "Новый подзаголовок";
+            console.log(subTitle.textContent);
+
+            //innerHTML
+            //innerHTML - это свойство, которое позволяет получить или установить HTML-содержимое элемента.
+            const textLabel = document.querySelector(".label");
+            textLabel.innerHTML = "<strong>Привет, ВИКА!</strong>";
+            console.log(textLabel.innerHTML);
+
+            //Получить текущее содержимое (textContent)
+            const currentSubTitle = document.getElementById("subtitle").textContent;
+            console.log(`текущее содержимое subtitle: ${currentSubTitle}`);
+
+            //Получить текущее содержимое (innerHTML)
+            const currentTextLabel = document.querySelector(".label").innerHTML;
+            console.log(`текущее содержимое label: ${currentTextLabel}`);
+
+            //Пример: очистить содержимое (textContent)
+            subTitle.textContent = "";
+            console.log(`текущее содержимое subtitle: ${subTitle.textContent}`);
+            //Пример: очистить содержимое (innerHTML)
+            textLabel.innerHTML = "";
+            console.log(`текущее содержимое label: ${textLabel.innerHTML}`);
+
+            //Когда что использовать?
+            // - textContent: когда нужно получить текст без HTML
+            // - innerHTML: когда нужно получить HTML-содержимое
+
+            //-----------------------------
+            //Создавать и удалять элементы
+            //--------------------------------------
+            //это методы, которые позволяют создавать и удалять элементы на странице.
+            //createElement
+            //это метод, который позволяет создать новый элемент на странице.
+            const newDiv = document.createElement("div");
+            newDiv.innerHTML = "<p>Новый элемент createElement</p>";
+            const mainContent = document.querySelector(".content");
+            mainContent.appendChild(newDiv);
+            console.log(`текущее содержимое нового элемента: ${newDiv.innerHTML}`);
+
+            //Современный способ: append
+            //это метод, который позволяет добавить элемент в конец родительского элемента.
+            mainContent.append("Новый элемент append	");
+
+            //Если элемент уже есть в DOM, он будет перемещён:
+
+            //removeChild
+            //это метод, который позволяет удалить элемент со страницы.
+
+            //Обработка событий
+            //это механизм, который позволяет реагировать на действия пользователя, такие как клики, ввод текста и другие события.
+            const button = document.getElementById("button");
+            //click это событие, которое срабатывает, когда элемент был нажат
+
+            button.addEventListener("click", function () {
+                console.log("Кнопка нажата!");
+            });
+
+            //событие для кнопки "Привет" с помощью функции
+            const btnHello = document.getElementById("btn-hello");
+            btnHello.addEventListener("click", handleClick);
+
+            function handleClick() {
+                console.log("Привет, мир!");
+            }
+
+            //mouseover это событие, которое срабатывает, когда указатель мыши перемещается на элемент
+            button.addEventListener("mouseover", function () {
+                button.style.backgroundColor = "lightblue";
+            });
+
+            //mouseout это событие, которое срабатывает, когда указатель мыши покидает элемент
+            button.addEventListener("mouseout", function () {
+                button.style.backgroundColor = "";
+            });
+
+            //input это событие, которое срабатывает, когда пользователь вводит текст в поле ввода
+            const inputField = document.querySelector("input[type='text']");
+            inputField.addEventListener("input", function () {
+                console.log(`Текущее значение поля ввода: ${inputField.value}`);
+            });
+
+            //keydown  это событие, которое срабатывает, когда пользователь нажимает клавишу
+            inputField.addEventListener("keydown", function (event) {
+                console.log(`Нажата клавиша: ${event.key}`);
+            });
+
+            // изменение текста кнопки при клике на нее
+            button.addEventListener("click", function () {
+                button.textContent = "Кнопка нажата!";
+            });
+
+            //removeEventListener это метод, который позволяет удалить обработчик события
+            button.removeEventListener("click", function () {
+                console.log("Кнопка не нажата!");
+            });
+        </script> -->
+    </body>
+</html>

@@ -1,0 +1,153 @@
+@use 'variables' as *; // Импортируем переменные в текущий файл
+
+.cards {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: $gap;
+
+	&--main {
+		grid-template-columns: repeat(1, minmax(0, 1fr));
+	}
+
+	&--50 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	&--3 {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	@media (max-width: 1200px) {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	@media (max-width: 900px) {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	@media (max-width: 560px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+
+
+.card {
+	padding: 0px 0px 0px 0px;
+	background: $whiteColor;
+	border: 1px solid $formBorderColor;
+	border-radius: $borderRadiusLarge;
+	padding: $containerPadding;
+	box-shadow: $shadowSmall;
+	transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+
+	&:hover {
+		border-color: $greyColor;
+		box-shadow: $shadow;
+		transform: translateY(-2px);
+	}
+
+	&:focus-within {
+		outline: 2px solid $accentColor;
+		outline-offset: 2px;
+	}
+
+	// card__title
+	&__title {
+		margin: 0 0 8px;
+		font-size: 1.3rem;
+		line-height: 1.3;
+		font-weight: 700;
+		color: $darkColor;
+		font-family: $fontFamilyAccent;
+	}
+
+	//card p
+	p {
+		margin: 0 0 8px;
+		font-size: 1rem;
+		line-height: 1.2;
+		font-weight: 500;
+		color: $darkColor;
+		font-family: $fontFamily;
+	}
+
+	// card__desc
+	&__desc {
+		margin: 0;
+		color: $darkColor;
+		line-height: 1.6;
+
+
+	}
+
+	// ul
+	ul {
+		margin: 0;
+		padding: 5px 20px;
+		list-style: none;
+
+
+		li {
+			margin-bottom: 8px;
+			list-style: none;
+			position: relative;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+
+
+		}
+
+		li::before {
+			content: '•';
+
+			color: $primary;
+			display: inline-block;
+			width: 1em;
+			height: 20px;
+			margin-left: -1em;
+			vertical-align: middle;
+		}
+	}
+
+	//card pre code
+	pre {
+		padding: 10px;
+		font-family: $fontFamilyCode;
+		font-size: 12.5px;
+		color: $darkColor;
+		background-color: #f4f9ff;
+
+	}
+
+
+}
+
+@media (prefers-color-scheme: dark) {
+	.card {
+		background: $dark;
+		border-color: $primary;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+
+		&:hover {
+			border-color: $secondary;
+			box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+		}
+
+		&__title {
+			color: $whiteColor;
+		}
+
+		&__desc {
+			color: $backgroundColor;
+
+			code {
+				background: $primary;
+				border-color: $secondary;
+				color: $whiteColor;
+			}
+		}
+	}
+}

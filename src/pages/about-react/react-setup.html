@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../html/head.html', {
+  "title": "Настройка React: VS Code, TypeScript, React DevTools и компиляция JSX",
+  "description": "Практическая настройка окружения для React: расширения и настройки VS Code, Prettier/ESLint, TypeScript, React Developer Tools, как работает компиляция JSX (Babel/SWC) и что такое React Compiler."
+})
+
+<body>
+  <div class="wrapper">
+    @@include('../html/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="#intro">Введение</a>
+        <a href="#vscode">Настройка VS Code</a>
+        <a href="#formatting">Форматирование (Prettier)</a>
+        <a href="#linting">Линтеры (ESLint)</a>
+        <a href="#typescript">TypeScript в React</a>
+        <a href="#react-devtools">React Developer Tools</a>
+        <a href="#compiler">Компиляция React (JSX, Babel/SWC, React Compiler)</a>
+        <a href="#checklist">Чеклист настройки</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="intro">
+        <div class="container">
+          <div class="intro-code-block">
+            <h1>Настройка React-проекта</h1>
+            <p class="note">
+              В этой инструкции собраны практические шаги, которые делают разработку React удобной:
+              <strong>настройка редактора</strong>, <strong>форматирование</strong>, <strong>линтинг</strong>,
+              <strong>TypeScript</strong>, <strong>инструменты разработчика</strong> и понимание того,
+              как работает <strong>компиляция JSX</strong>.
+            </p>
+          </div>
+
+          <h3>Зачем это нужно</h3>
+          <ul class="list-ul">
+            <li><b>Меньше ошибок</b> — линтер и TypeScript ловят проблемы раньше, чем браузер.</li>
+            <li><b>Единый стиль кода</b> — Prettier форматирует код одинаково у всей команды.</li>
+            <li><b>Быстрее дебаг</b> — React DevTools помогает понимать, почему компонент ререндерится.</li>
+            <li><b>Понимание сборки</b> — вы знаете, что именно “компилируется”, и где искать проблемы.</li>
+          </ul>
+
+          <p class="note note--info">
+            Рекомендуется: начать с <b>Vite + React</b>, затем добавить <b>Prettier</b>, <b>ESLint</b> и при необходимости <b>TypeScript</b>.
+          </p>
+        </div>
+      </section>
+
+      <!-- Настройка VS Code -->
+      <section class="section" id="vscode">
+        <div class="container">
+          <h2>Настройка редактора VS Code</h2>
+
+          <h4>Базовые расширения</h4>
+          <ul class="list-ul">
+            <li><b>ESLint</b> — подсветка проблем и автофикс (расширение от Microsoft).</li>
+            <li><b>Prettier - Code formatter</b> — автоформатирование кода.</li>
+            <li><b>TypeScript and JavaScript Language Features</b> — встроено, но важно держать VS Code обновлённым.</li>
+            <li><b>React Developer Tools</b> — это расширение браузера (Chrome/Firefox), не VS Code, но обязательно.</li>
+            <li><b>EditorConfig for VS Code</b> (опционально) — если команда использует .editorconfig.</li>
+          </ul>
+
+          <h4>Полезные настройки VS Code (settings.json)</h4>
+          <p class="note">
+            Эти настройки включают автоформатирование при сохранении и позволяют VS Code “доверять” Prettier/ESLint.
+          </p>
+
+          <div class="code-block">
+            <pre><code>{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true
+}</code></pre>
+          </div>
+
+          <p class="note note--info">
+            Если форматирование “не срабатывает”, проверьте: установлен ли Prettier, выбран ли он как форматтер по умолчанию,
+            и нет ли конфликта с другими форматтерами.
+          </p>
+        </div>
+      </section>
+
+      <!-- Форматирование -->
+      <section class="section" id="formatting">
+        <div class="container">
+          <h2>Форматирование кода (Prettier)</h2>
+
+          <p class="note">
+            <b>Prettier</b> отвечает только за стиль (отступы, кавычки, переносы строк). Он не “проверяет правильность логики” —
+            это задача линтера и TypeScript.
+          </p>
+
+          <h4>Установка</h4>
+          <div class="code-block">
+            <pre><code>npm i -D prettier</code></pre>
+          </div>
+
+          <h4>Пример .prettierrc</h4>
+          <div class="code-block">
+            <pre><code>{
+  "semi": true,
+  "singleQuote": true,
+  "printWidth": 100,
+  "trailingComma": "all"
+}</code></pre>
+          </div>
+
+          <h4>Игнорирование файлов (.prettierignore)</h4>
+          <div class="code-block">
+            <pre><code>dist
+build
+node_modules
+coverage</code></pre>
+          </div>
+
+          <p class="note note--info">
+            Обычно Prettier запускают автоматически “на сохранение” (VS Code) и дополнительно — в CI (опционально).
+          </p>
+        </div>
+      </section>
+
+      <!-- Линтинг -->
+      <section class="section" id="linting">
+        <div class="container">
+          <h2>Линтеры кода (ESLint)</h2>
+
+          <p class="note">
+            <b>ESLint</b> помогает находить ошибки и антипаттерны: неиспользуемые переменные, неправильные зависимости хуков,
+            потенциальные баги в коде и т.д.
+          </p>
+
+          <h4>Если вы используете Vite</h4>
+          <p class="note">
+            В Vite ESLint обычно настраивается явно (в отличие от CRA, где многое “из коробки”).
+          </p>
+
+          <h4>Минимальная установка (пример)</h4>
+          <div class="code-block">
+            <pre><code>npm i -D eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-import</code></pre>
+          </div>
+
+          <h4>Пример конфигурации eslint (очень упрощённо)</h4>
+          <div class="code-block">
+            <pre><code>// eslint.config.js или .eslintrc.cjs (вариант зависит от выбранного подхода)
+module.exports = {
+  env: { browser: true, es2022: true, node: true },
+  extends: [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"
+  ],
+  settings: {
+    react: { version: "detect" }
+  }
+};</code></pre>
+          </div>
+
+          <p class="note note--info">
+            Важно: для React используйте правила <b>react-hooks</b> — они предотвращают критические ошибки с хуками.
+          </p>
+        </div>
+      </section>
+
+      <!-- TypeScript -->
+      <section class="section" id="typescript">
+        <div class="container">
+          <h2>Использование TypeScript в React</h2>
+
+          <p class="note">
+            <b>TypeScript</b> добавляет типы в JavaScript и помогает:
+            автодополнением, безопасным рефакторингом и ранним обнаружением ошибок.
+          </p>
+
+          <h4>Когда TypeScript особенно полезен</h4>
+          <ul class="list-ul">
+            <li>сложные формы и валидации;</li>
+            <li>много данных из API и преобразований;</li>
+            <li>большая команда и долгий срок жизни проекта.</li>
+          </ul>
+
+          <h4>Как начать (Vite + React + TS)</h4>
+          <div class="code-block">
+            <pre><code>npm create vite@latest my-app -- --template react-ts</code></pre>
+          </div>
+
+          <h4>Если проект уже существует на JS</h4>
+          <ul class="list-ul">
+            <li>можно добавлять TypeScript постепенно — сначала типизировать новые файлы;</li>
+            <li>переименовывать компоненты с <code>.jsx</code> на <code>.tsx</code> по мере необходимости;</li>
+            <li>начать с типизации данных: ответы теста, пользовательские данные, результат API.</li>
+          </ul>
+
+          <h4>Пример простых типов (props + данные)</h4>
+          <div class="code-block">
+            <pre><code>type UserData = {
+  name: string;
+  email: string;
+};
+
+type SubmitPayload = {
+  user: UserData;
+  answers: Record&lt;string, number&gt;;
+  patterns: string[];
+  date: string;
+};</code></pre>
+          </div>
+
+          <p class="note note--info">
+            Подход “постепенно” обычно лучше, чем попытка типизировать весь проект за один день.
+          </p>
+        </div>
+      </section>
+
+      <!-- React DevTools -->
+      <section class="section" id="react-devtools">
+        <div class="container">
+          <h2>Инструменты разработчика React (React Developer Tools)</h2>
+
+          <p class="note">
+            <b>React Developer Tools</b> — расширение для Chrome/Firefox, которое добавляет вкладки
+            <b>Components</b> и <b>Profiler</b> в DevTools браузера.
+          </p>
+
+          <h4>Что полезно смотреть</h4>
+          <ul class="list-ul">
+            <li><b>Props/State</b> — какие данные получает компонент и что у него в состоянии.</li>
+            <li><b>Компонентное дерево</b> — быстро понять структуру страницы.</li>
+            <li><b>Profiler</b> — измерение производительности и причин ререндеров.</li>
+          </ul>
+
+          <h4>Типичный кейс: “почему компонент ререндерится?”</h4>
+          <ul class="list-ul">
+            <li>Откройте вкладку <b>Profiler</b>.</li>
+            <li>Нажмите запись, сделайте действие в UI, остановите запись.</li>
+            <li>Посмотрите, какие компоненты ререндерятся и сколько времени это занимает.</li>
+          </ul>
+
+          <p class="note note--info">
+            React DevTools — один из самых практичных инструментов для ежедневной разработки.
+          </p>
+        </div>
+      </section>
+
+      <!-- Компилятор / сборка -->
+      <section class="section" id="compiler">
+        <div class="container">
+          <h2>Компиляция React: JSX, Babel/SWC и React Compiler</h2>
+
+          <h3>1) Что “компилируется” в React</h3>
+          <p class="note">
+            Браузер не понимает JSX напрямую. Код вида <code>&lt;div&gt;Hello&lt;/div&gt;</code> должен быть преобразован в JavaScript.
+            Это делает сборщик (например Vite) через транспайлер (<b>Babel</b> или <b>SWC</b>).
+          </p>
+
+          <h4>Пример: JSX → JS (упрощённо)</h4>
+          <div class="code-block">
+            <pre><code>// JSX
+const el = &lt;button onClick={onClick}&gt;OK&lt;/button&gt;;
+
+// После трансформации (примерно)
+const el = React.createElement("button", { onClick }, "OK");</code></pre>
+          </div>
+
+          <h3>2) Babel и SWC — что выбрать</h3>
+          <ul class="list-ul">
+            <li><b>Babel</b> — самый распространённый транспайлер, огромная экосистема плагинов.</li>
+            <li><b>SWC</b> — очень быстрый транспайлер на Rust, часто даёт ускорение сборки.</li>
+          </ul>
+
+          <p class="note note--info">
+            В большинстве случаев достаточно “дефолтов” Vite/плагина React — не нужно вручную настраивать Babel, пока нет специфических требований.
+          </p>
+
+          <h3>3) React Compiler (опционально)</h3>
+          <p class="note">
+            <b>React Compiler</b> — это отдельная идея: автоматическая оптимизация ререндеров (вместо ручного <code>useMemo</code>/<code>useCallback</code> везде).
+            Это не “обязательная часть” React-приложения и внедряется постепенно.
+          </p>
+
+          <ul class="list-ul">
+            <li>Если у вас небольшое/среднее приложение — обычно можно жить без него.</li>
+            <li>Если есть сложные ререндеры и производительность — можно изучать и пробовать точечно.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Чеклист -->
+      <section class="section" id="checklist">
+        <div class="container">
+          <h2>Чеклист настройки (коротко)</h2>
+
+          <ol class="list-ol">
+            <li>Установить расширения VS Code: ESLint, Prettier.</li>
+            <li>Включить <code>formatOnSave</code> и автофикс ESLint по сохранению.</li>
+            <li>Добавить <code>.prettierrc</code> и <code>.prettierignore</code>.</li>
+            <li>Настроить ESLint (минимально: react + react-hooks).</li>
+            <li>При необходимости добавить TypeScript постепенно.</li>
+            <li>Установить React Developer Tools в браузер.</li>
+            <li>Понимать базовый пайплайн: JSX компилируется (Babel/SWC), затем бандлится (Vite/Rollup).</li>
+          </ol>
+
+          <div class="note note--info">
+            Если хотите — могу сделать продолжение страницы: “настройка проекта под команду” (husky + lint-staged + CI),
+            а также пример конфигураций под Vite (ESLint/Prettier/TS) в реальных файлах проекта.
+          </div>
+        </div>
+      </section>
+    </main>
+
+    @@include('../html/footer.html', {})
+  </div>
+
+  @@include('../html/popup.html', {})
+  @@include('../html/js.html', {})
+</body>
+</html>

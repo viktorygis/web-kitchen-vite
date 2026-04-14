@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        @@include('../html/head.html', { "title": "Руководство по display: block, inline, inline-block в CSS", "description": "Руководство по display" })
+        <style>
+            .block {
+                display: block;
+                background: #e3f2fd;
+                padding: 10px;
+                margin-bottom: 10px;
+                border: 1px solid #000;
+                border-radius: 8px;
+            }
+            .inline {
+                display: inline;
+                background: #ffe0b2;
+                padding: 4px 8px;
+                margin-right: 8px;
+            }
+            .inline-block {
+                display: inline-block;
+                background: #dcedc8;
+                padding: 10px;
+                width: 120px;
+                height: 60px;
+                margin-right: 10px;
+                text-align: center;
+            }
+
+            /* Стили для таблицы списков по умолчанию */
+            .defaults-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 16px;
+                margin-top: 12px;
+            }
+            .defaults-card {
+                border: 1px solid #e5e7eb;
+                border-radius: 8px;
+                padding: 12px 14px;
+                background: #fafafa;
+            }
+            .defaults-card h3 {
+                margin: 0 0 8px;
+                font-size: 16px;
+            }
+            .defaults-card ul {
+                margin: 0;
+                padding-left: 16px;
+                columns: 2;
+                column-gap: 20px;
+            }
+            .defaults-note {
+                font-size: 13px;
+                color: #556;
+                background: #f6f8fa;
+                border: 1px solid #e5e7eb;
+                padding: 10px 12px;
+                border-radius: 6px;
+                margin-top: 12px;
+            }
+            .vertical-table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            .vertical-table th,
+            .vertical-table td {
+                border: 1px solid #e5e7eb;
+                padding: 8px 10px;
+                text-align: left;
+            }
+            .vertical-table thead th {
+                background: #f8fafc;
+            }
+            .legend {
+                font-size: 13px;
+                color: #444;
+                margin-top: 8px;
+            }
+            .legend code {
+                background: #f3f4f6;
+                padding: 2px 6px;
+                border-radius: 4px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <div class="nav-tabs">
+                    <a href="#block" class="active">block</a>
+                    <a href="#inline">inline</a>
+                    <a href="#inline-block">inline-block</a>
+                    <a href="#comparison">Сравнение</a>
+                    <a href="#defaults">По умолчанию</a>
+                    <a href="#use-cases">Примеры использования</a>
+                </div>
+                <!-- Введение -->
+                <section class="section">
+                    <div class="container">
+                        <h1>Руководство по свойствам display: block,inline и inline-block</h1>
+                        <p class="note">
+                            Свойство
+                            <code>display</code>
+                            определяет, как элемент отображается в потоке документа.
+                            <br />
+                            В этом руководстве мы рассмотрим ключевые режимы отображения —
+                            <code>block</code>
+                            ,
+                            <code>inline</code>
+                            и
+                            <code>inline-block</code>
+                            — и разницу между ними.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- display: block -->
+                <section class="section" id="block">
+                    <div class="container">
+                        <h2>display: block</h2>
+                        <p class="note">Элемент занимает всю доступную ширину, начиная с новой строки. Блоки могут иметь отступы, padding, ширину и высоту.</p>
+                        <pre><code>
+.block {
+  display: block;
+  background: #e3f2fd;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+            </code></pre>
+                        <div style="display: flex; gap: 10px; flex-direction: column; padding: 20px 0">
+                            <div class="block">Блочный элемент 1</div>
+                            <div class="block">Блочный элемент 2</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- display: inline -->
+                <section class="section" id="inline">
+                    <div class="container">
+                        <h2>display: inline</h2>
+                        <p class="note">
+                            Элемент располагается в одну строку с другими элементами.
+                            <br />
+                            Нельзя задавать ширину и высоту, но можно использовать
+                            <code>padding</code>
+                            и
+                            <code>margin</code>
+                            по горизонтали.
+                        </p>
+                        <pre><code>
+.inline {
+  display: inline;
+  background: #ffe0b2;
+  padding: 4px 8px;
+  margin-right: 8px;
+}
+            </code></pre>
+                        <p>
+                            Пример:
+                            <br />
+                            <br />
+                            <span class="inline">Слово 1</span>
+                            <span class="inline">Слово 2</span>
+                            <span class="inline">Слово 3</span>
+                            <br />
+                        </p>
+                    </div>
+                </section>
+
+                <!-- display: inline-block -->
+                <section class="section" id="inline-block">
+                    <div class="container">
+                        <h2>display: inline-block</h2>
+                        <p class="note">
+                            Элемент отображается в строке, как
+                            <code>inline</code>
+                            , но при этом можно задавать
+                            <code>width</code>
+                            ,
+                            <code>height</code>
+                            ,
+                            <code>padding</code>
+                            и
+                            <code>margin</code>
+                            по всем сторонам.
+                        </p>
+                        <pre><code>
+.inline-block {
+  display: inline-block;
+  background: #dcedc8;
+  padding: 10px;
+  width: 120px;
+  height: 60px;
+  margin-right: 10px;
+  text-align: center;
+}
+            </code></pre>
+                        <div>
+                            <div class="inline-block">Блок 1</div>
+                            <div class="inline-block">Блок 2</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Сравнение -->
+                <section class="section" id="comparison">
+                    <div class="container">
+                        <h2>Сравнительная таблица</h2>
+                        <table class="vertical-table">
+                            <thead>
+                                <tr>
+                                    <th>Свойство</th>
+                                    <th>block</th>
+                                    <th>inline</th>
+                                    <th>inline-block</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Начинает с новой строки</td>
+                                    <td>Да</td>
+                                    <td>Нет</td>
+                                    <td>Нет</td>
+                                </tr>
+                                <tr>
+                                    <td>Можно задать width/height</td>
+                                    <td>Да</td>
+                                    <td>Нет</td>
+                                    <td>Да</td>
+                                </tr>
+                                <tr>
+                                    <td>Встраивается в текст</td>
+                                    <td>Нет</td>
+                                    <td>Да</td>
+                                    <td>Да</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Значения display по умолчанию -->
+                <section class="section" id="defaults">
+                    <div class="container">
+                        <h2>Какие элементы по умолчанию имеют display: inline, block, inline-block</h2>
+                        <p class="note">Значения по умолчанию задаются таблицами стилей браузера (UA styles) и могут немного отличаться между движками и платформами. Ниже — наиболее распространённые категории.</p>
+
+                        <div class="defaults-grid">
+                            <div class="defaults-card">
+                                <h3>Чаще всего display: block</h3>
+                                <ul>
+                                    <li>div, p, pre, hr</li>
+                                    <li>header, footer, main, nav</li>
+                                    <li>section, article, aside, address</li>
+                                    <li>h1–h6</li>
+                                    <li>ul, ol, menu, dl</li>
+                                    <li>form, fieldset, legend</li>
+                                    <li>figure, figcaption</li>
+                                    <li>details</li>
+                                </ul>
+                            </div>
+
+                            <div class="defaults-card">
+                                <h3>display: inline (фразовый контент)</h3>
+                                <ul>
+                                    <li>span, a, br, wbr</li>
+                                    <li>em, strong, b, i, u, s, small</li>
+                                    <li>sub, sup, mark, q, cite</li>
+                                    <li>abbr, time, data, var, kbd, code, samp</li>
+                                    <li>label, bdi, bdo</li>
+                                    <li>img, video, audio, canvas, iframe*</li>
+                                </ul>
+                            </div>
+
+                            <div class="defaults-card">
+                                <h3>Чаще всего display: inline-block</h3>
+                                <ul>
+                                    <li>button</li>
+                                    <li>input</li>
+                                    <li>select</li>
+                                    <li>textarea</li>
+                                    <li>progress, meter</li>
+                                    <li>output</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="defaults-note">
+                            Примечания:
+                            <ul>
+                                <li>
+                                    Многие «медийные» и встроенные элементы (например,
+                                    <code>img</code>
+                                    ,
+                                    <code>video</code>
+                                    ,
+                                    <code>canvas</code>
+                                    ,
+                                    <code>iframe</code>
+                                    ) являются встроенными по умолчанию (
+                                    <code>inline</code>
+                                    ), но как заменяемые элементы допускают размеры и ведут себя «как
+                                    <code>inline-block</code>
+                                    » с точки зрения коробочной модели.
+                                </li>
+                                <li>
+                                    <code>li</code>
+                                    по умолчанию имеет
+                                    <code>display: list-item</code>
+                                    , а таблицы — свои типы отображения (
+                                    <code>table</code>
+                                    ,
+                                    <code>table-row</code>
+                                    ,
+                                    <code>table-cell</code>
+                                    и т. д.).
+                                </li>
+                                <li>
+                                    У элемента
+                                    <code>summary</code>
+                                    по умолчанию обычно
+                                    <code>display: list-item</code>
+                                    , а у
+                                    <code>details</code>
+                                    —
+                                    <code>block</code>
+                                    .
+                                </li>
+                                <li>CSS‑фреймворки и нормалайзеры могут переопределять эти значения. Проверяйте «Computed» в DevTools для актуального проекта.</li>
+                            </ul>
+                        </div>
+
+                        <h3 style="margin-top: 16px">Краткая таблица часто используемых элементов</h3>
+                        <table class="vertical-table">
+                            <thead>
+                                <tr>
+                                    <th>Элемент</th>
+                                    <th>Обычно по умолчанию</th>
+                                    <th>Комментарий</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>div</td>
+                                    <td>block</td>
+                                    <td>Базовый блочный контейнер</td>
+                                </tr>
+                                <tr>
+                                    <td>p</td>
+                                    <td>block</td>
+                                    <td>Абзац, имеет внешние отступы по умолчанию</td>
+                                </tr>
+                                <tr>
+                                    <td>h1–h6</td>
+                                    <td>block</td>
+                                    <td>Заголовки</td>
+                                </tr>
+                                <tr>
+                                    <td>span</td>
+                                    <td>inline</td>
+                                    <td>Бесстрочный контейнер без семантики</td>
+                                </tr>
+                                <tr>
+                                    <td>a</td>
+                                    <td>inline</td>
+                                    <td>Ссылка</td>
+                                </tr>
+                                <tr>
+                                    <td>img</td>
+                                    <td>inline</td>
+                                    <td>Заменяемый элемент, размеры применяются</td>
+                                </tr>
+                                <tr>
+                                    <td>button</td>
+                                    <td>inline-block</td>
+                                    <td>Интерактивный элемент формы</td>
+                                </tr>
+                                <tr>
+                                    <td>input</td>
+                                    <td>inline-block</td>
+                                    <td>Интерактивный элемент формы</td>
+                                </tr>
+                                <tr>
+                                    <td>select</td>
+                                    <td>inline-block</td>
+                                    <td>Интерактивный элемент формы</td>
+                                </tr>
+                                <tr>
+                                    <td>textarea</td>
+                                    <td>inline-block</td>
+                                    <td>Интерактивный элемент формы</td>
+                                </tr>
+                                <tr>
+                                    <td>ul, ol</td>
+                                    <td>block</td>
+                                    <td>
+                                        Списки; элементы
+                                        <code>li</code>
+                                        —
+                                        <code>list-item</code>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>table</td>
+                                    <td>table</td>
+                                    <td>
+                                        Имеет табличные типы для потомков (
+                                        <code>tr</code>
+                                        ,
+                                        <code>td</code>
+                                        )
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>details</td>
+                                    <td>block</td>
+                                    <td>Раскрывающийся контейнер</td>
+                                </tr>
+                                <tr>
+                                    <td>summary</td>
+                                    <td>list-item</td>
+                                    <td>
+                                        Заголовок для
+                                        <code>details</code>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="legend">Значения указаны для типичных UA‑стилей современных браузеров.</p>
+                    </div>
+                </section>
+
+                <!-- Примеры использования -->
+                <section class="section" id="use-cases">
+                    <div class="container">
+                        <h2>Практические примеры</h2>
+                        <div class="note tip">
+                            <strong>Совет:</strong>
+                            Используйте
+                            <code>inline-block</code>
+                            , если вам нужен контроль размеров, но элемент должен оставаться в строке.
+                        </div>
+                        <div class="flex-grid">
+                            <div style="display: inline-block; background: #bbdefb; padding: 10px; margin: 5px">Кнопка</div>
+                            <div style="display: inline; background: #ffccbc; padding: 10px">
+                                Текст
+                                <span style="color: #e53935">в строке</span>
+                            </div>
+                            <div style="display: block; background: #c8e6c9; padding: 10px; margin-top: 10px">Секция</div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+    </body>
+</html>

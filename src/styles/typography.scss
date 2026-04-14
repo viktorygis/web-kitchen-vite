@@ -1,0 +1,50 @@
+//src/scss/typography.scss
+@use 'variables' as *; // Импортируем переменные в текущий файл
+
+// =================== Typography ===================
+h1,
+h2,
+h3,
+h4 {
+	color: $primary;
+}
+
+h1 {
+	font-size: 2.8rem;
+	margin-bottom: 1.5rem;
+	line-height: 1.2;
+}
+
+h2 {
+	font-size: 2.2rem;
+	margin: 0 0 1.8rem;
+	color: $blueColor;
+	padding-bottom: 0.8rem;
+	border-bottom: 3px solid $blueColor;
+}
+
+h3 {
+	font-size: 1.7rem;
+	margin: 0 0 1.2rem 0;
+	color: $blueColor;
+}
+
+h4 {
+	font-size: 1.3rem;
+	margin: 1.3rem 0 0.8rem;
+	color: $blueColor;
+	font-family: "Raleway", sans-serif;
+}
+
+h5 {
+	font-size: 1rem;
+	margin: 1.3rem 0 0.8rem;
+	color: $greyColor;
+	font-weight: 500;
+	font-family: "Raleway", sans-serif;
+}
+
+p {
+	margin-bottom: 1.2rem;
+	font-size: 1.05rem;
+}

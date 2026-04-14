@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        @@include('../html/head.html', { "title": "Полное руководство по шрифтам и стилям в CSS", "description": "Полное руководство по шрифтам и стилям в CSS" })
+
+        <style>
+            .vertical-table th,
+            td {
+                padding: 12px 15px;
+                text-align: left;
+                border: 1px solid #a1a1aa;
+            }
+            .vertical-table td {
+                background-color: #fff;
+            }
+            .vertical-table {
+                border: 1px solid #000;
+                background: #000000;
+            }
+            .font-example {
+                font-size: 18px;
+                margin: 15px 0;
+                padding: 10px;
+                border-left: 4px solid #4f46e5;
+            }
+            .font-showcase {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+                margin: 20px 0;
+            }
+            .font-card {
+                flex: 1;
+                min-width: 200px;
+                padding: 15px;
+                border-radius: 8px;
+                background: white;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .font-preview {
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+            .code-block {
+                background: #1e293b;
+                color: #f8fafc;
+                padding: 15px;
+                border-radius: 6px;
+                font-family: monospace;
+                overflow-x: auto;
+                margin: 15px 0;
+            }
+            .comparison {
+                display: flex;
+                gap: 30px;
+                margin: 25px 0;
+            }
+            .comparison-item {
+                flex: 1;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <div class="nav-tabs">
+                    <a href="#font" class="active">Шрифты</a>
+                    <a href="#font-family">font-family</a>
+                    <a href="#font-size">font-size</a>
+                    <a href="#font-weight">font-weight</a>
+                    <a href="#font-style">font-style</a>
+                    <a href="#line-height">line-height</a>
+                    <a href="#text-transform">text-transform</a>
+                    <a href="#text-decoration">text-decoration</a>
+                    <a href="#word-spacing">word-spacing</a>
+                    <a href="#letter-spacing">letter-spacing</a>
+                    <a href="#table">Сравнительная таблица</a>
+                </div>
+                <!-- Введение -->
+                <section class="section">
+                    <div class="container">
+                        <h1>Шрифты и стили в CSS</h1>
+                        <p class="note">
+                            <strong>Шрифт</strong>
+                            — это графический стиль отображения текста, определяющий внешний вид символов. Выбор шрифта влияет на восприятие информации и удобство чтения на сайте. В этом руководстве рассмотрим основные свойства, влияющие на текст, и покажем, как их применять в CSS.
+                        </p>
+                        <pre><code>
+/* Пример подключения собственного шрифта */
+@font-face {
+  font-family: "CustomFont";
+  src: url("fonts/custom-font.woff2") format("woff2"), url("fonts/custom-font.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+    </code></pre>
+                    </div>
+                </section>
+
+                <!-- Шрифты с засечками и без засечек -->
+                <section class="section" id="font">
+                    <div class="container">
+                        <h2>Шрифты с засечками и без засечек</h2>
+                        <p class="note">
+                            Все шрифты относятся к определенному
+                            <strong>семейству</strong>
+                            , которое определяет их внешний вид и характер. Наиболее распространены два семейства:
+                        </p>
+                        <ul class="list-ul">
+                            <li>
+                                <b>Serif</b>
+                                — шрифты с засечками: классические и элегантные, легко узнаваемы по маленьким линиям и штрихам на концах символов (например, Times New Roman).
+                            </li>
+                            <li>
+                                <b>Sans-serif</b>
+                                — шрифты без засечек: современные, простые и лаконичные, имеют ровные края без дополнительных элементов (например, Arial).
+                            </li>
+                        </ul>
+                        <div class="comparison">
+                            <div class="comparison-item example">
+                                <h3>Шрифты с засечками (Serif)</h3>
+                                <div class="font-example" style="font-family: 'Times New Roman', serif">Times New Roman — классический шрифт с засечками</div>
+                                <div class="font-example" style="font-family: Georgia, serif">Georgia — популярный шрифт для веба</div>
+                                <p><i>Рекомендуется для:</i></p>
+                                <ul class="list-ul">
+                                    <li>Печатных материалов</li>
+                                    <li>Длинных текстов (статьи, книги)</li>
+                                    <li>Традиционного и строгого дизайна</li>
+                                </ul>
+                            </div>
+
+                            <div class="comparison-item example">
+                                <h3>Шрифты без засечек (Sans-serif)</h3>
+                                <div class="font-example" style="font-family: Arial, sans-serif">Arial — чистый и современный шрифт</div>
+                                <div class="font-example" style="font-family: Helvetica, sans-serif">Helvetica — стандарт современного дизайна</div>
+                                <p><i>Рекомендуется для:</i></p>
+                                <ul class="list-ul">
+                                    <li>Веб-интерфейсов и экранного отображения</li>
+                                    <li>Коротких текстов (меню, кнопки, заголовки)</li>
+                                    <li>Современного и минималистичного дизайна</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h4>💡 Как задать семейство шрифта в CSS:</h4>
+                        <pre><code>body {
+  font-family: "Arial", sans-serif;
+}</code></pre>
+
+                        <strong>🎯 Как работает код:</strong>
+                        <ul class="list-ul">
+                            <li>Браузер сначала попытается использовать Arial</li>
+                            <li>Если Arial недоступен, будет выбран любой доступный шрифт из семейства sans-serif</li>
+                        </ul>
+                        <strong>⚠️ Рекомендация:</strong>
+                        Всегда указывайте запасное семейство, чтобы текст отображался корректно на всех устройствах.
+
+                        <p class="note">
+                            <strong>Совет:</strong>
+                            Для основного текста сайта обычно используют шрифты без засечек (sans-serif) — они лучше читаются на экранах. Для заголовков можно выбрать шрифты с засечками (serif) для создания визуального контраста.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Свойство font-family -->
+                <section class="section" id="font-family">
+                    <div class="container">
+                        <h2>Свойство font-family</h2>
+                        <p class="note">
+                            <strong>font-family</strong>
+                            определяет, какие шрифты будут использоваться для отображения текста. Можно указать конкретный шрифт или семейство шрифтов (например,
+                            <code>serif</code>
+                            ,
+                            <code>sans-serif</code>
+                            ,
+                            <code>monospace</code>
+                            ). Если первый указанный шрифт недоступен, браузер выберет следующий из списка.
+                            <br />
+                            <br />
+                            <b>Рекомендуется:</b>
+                            Всегда указывать запасные семейства, чтобы текст отображался корректно на любых устройствах.
+                        </p>
+                        <pre><code>
+/* Универсальный подход для современных интерфейсов */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+}
+    </code></pre>
+
+                        <table class="vertical-table" style="table-layout: fixed; width: 100%">
+                            <thead>
+                                <tr>
+                                    <th style="width: 25%">Тип шрифта</th>
+                                    <th style="width: 25%">CSS-пример</th>
+                                    <th style="width: 25%">Вид текста</th>
+                                    <th style="width: 25%">Описание</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Системные семейства
+                                        <br />
+                                        (serif, sans-serif, monospace)
+                                    </td>
+                                    <td><code>font-family: 'Arial', sans-serif;</code></td>
+                                    <td style="font-family: 'Arial', sans-serif">Пример текста Arial</td>
+                                    <td>Безопасные веб-шрифты, есть на большинстве устройств</td>
+                                </tr>
+                                <tr>
+                                    <td>Google Fonts</td>
+                                    <td><code>font-family: 'Roboto', sans-serif;</code></td>
+                                    <td style="font-family: 'Roboto', sans-serif">Пример текста Roboto</td>
+                                    <td>
+                                        Популярные шрифты от Google, требуют подключения через
+                                        <code>&lt;link&gt;</code>
+                                        или CSS-импорт
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Пользовательские шрифты</td>
+                                    <td><code>font-family: 'CustomFont', fallback, sans-serif;</code></td>
+                                    <td style="font-family: 'Times New Roman', serif">Пример кастомного шрифта</td>
+                                    <td>
+                                        Собственные шрифты, загружаемые через
+                                        <code>@font-face</code>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3>Популярные сочетания шрифтов</h3>
+                        <h4>Шрифты без засечек (Sans-serif)</h4>
+                        <div class="font-showcase">
+                            <div class="font-card">
+                                <div class="font-preview" style="font-family: 'Roboto', sans-serif">Roboto</div>
+                                <p>Современный, чистый шрифт от Google. Отлично подходит для интерфейсов.</p>
+                                <code>font-family: 'Roboto', sans-serif;</code>
+                            </div>
+
+                            <div class="font-card">
+                                <div class="font-preview" style="font-family: 'Open Sans', sans-serif">Open Sans</div>
+                                <p>Универсальный шрифт с хорошей читаемостью. Подходит для основного текста.</p>
+                                <code>font-family: 'Open Sans', sans-serif;</code>
+                            </div>
+
+                            <div class="font-card">
+                                <div class="font-preview" style="font-family: 'Montserrat', sans-serif">Montserrat</div>
+                                <p>Геометрический стиль, хорошо смотрится в заголовках.</p>
+                                <code>font-family: 'Montserrat', sans-serif;</code>
+                            </div>
+
+                            <div class="font-card">
+                                <div class="font-preview" style="font-family: 'Lato', sans-serif">Lato</div>
+                                <p>Элегантный, нейтральный шрифт. Хорош для корпоративных сайтов.</p>
+                                <code>font-family: 'Lato', sans-serif;</code>
+                            </div>
+
+                            <div class="font-card">
+                                <div class="font-preview" style="font-family: 'Nunito Sans', sans-serif">Nunito Sans</div>
+                                <p>Округлый, дружелюбный стиль. Подходит для мобильных приложений и современных интерфейсов.</p>
+                                <code>font-family: 'Nunito Sans', sans-serif;</code>
+                            </div>
+                        </div>
+
+                        <h4>Шрифты с засечками (Serif)</h4>
+                        <div class="font-showcase">
+                            <div class="font-card">
+                                <div class="font-preview" style="font-family: 'Roboto Slab', serif">Roboto Slab</div>
+                                <p>Современный slab-serif. Хорош для акцентных заголовков и кода.</p>
+                                <code>font-family: 'Roboto Slab', serif;</code>
+                            </div>
+
+                            <div class="font-card">
+                                <div class="font-preview" style="font-family: 'Playfair Display', serif">Playfair Display</div>
+                                <p>Элегантный, с высоким контрастом. Отлично подходит для заголовков и модных сайтов.</p>
+                                <code>font-family: 'Playfair Display', serif;</code>
+                            </div>
+
+                            <div class="font-card">
+                                <div class="font-preview" style="font-family: 'PT Serif', serif">PT Serif</div>
+                                <p>Комфортен для чтения длинного текста, оптимизирован для экранов.</p>
+                                <code>font-family: 'PT Serif', serif;</code>
+                            </div>
+
+                            <div class="font-card">
+                                <div class="font-preview" style="font-family: 'Merriweather', serif">Merriweather</div>
+                                <p>Традиционный шрифт с засечками, хорошо смотрится в вебе.</p>
+                                <code>font-family: 'Merriweather', serif;</code>
+                            </div>
+
+                            <div class="font-card">
+                                <div class="font-preview" style="font-family: 'Georgia', serif">Georgia</div>
+                                <p>Классика для веба, встроен во все системы.</p>
+                                <code>font-family: Georgia, serif;</code>
+                            </div>
+                        </div>
+
+                        <h4>Моноширинные шрифты (Monospace)</h4>
+                        <div class="font-showcase">
+                            <div class="font-card">
+                                <div class="font-preview" style="font-family: 'Courier New', monospace">Courier New</div>
+                                <p>Стандартный моноширинный шрифт для отображения кода.</p>
+                                <code>font-family: 'Courier New', monospace;</code>
+                            </div>
+
+                            <div class="font-card">
+                                <div class="font-preview" style="font-family: 'Source Code Pro', monospace">Source Code Pro</div>
+                                <p>Современный моноширинный шрифт от Adobe. Отлично подходит для IDE и редакторов кода.</p>
+                                <code>font-family: 'Source Code Pro', monospace;</code>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Свойство font-size -->
+                <section class="section" id="font-size">
+                    <div class="container">
+                        <h2>Размер шрифта: font-size</h2>
+                        <p class="note">
+                            <strong>
+                                Свойство
+                                <code>font-size</code>
+                            </strong>
+                            позволяет задать размер текста на странице.
+                        </p>
+
+                        <p>Размер можно указывать в разных единицах:</p>
+                        <ul class="list-ul">
+                            <li>
+                                <b>px</b>
+                                — пиксели, фиксированный размер.
+                            </li>
+                            <li>
+                                <b>em</b>
+                                — относительная единица, зависит от размера шрифта родительского элемента.
+                            </li>
+                            <li>
+                                <b>rem</b>
+                                — относительная единица, зависит от размера шрифта корневого элемента (
+                                <code>html</code>
+                                ).
+                            </li>
+                            <li>
+                                <b>%</b>
+                                — процент от размера шрифта родителя.
+                            </li>
+                            <li>
+                                <b>vw/vh</b>
+                                — относительные единицы, основаны на ширине/высоте окна браузера.
+                            </li>
+                        </ul>
+                        <p class="note">
+                            <b>Рекомендуется</b>
+                            использовать
+                            <code>rem</code>
+                            или
+                            <code>em</code>
+                            для большей гибкости и доступности — так шрифт будет масштабироваться по настройкам пользователя и корневого элемента.
+                        </p>
+
+                        <h4>Примеры использования:</h4>
+                        <pre><code>
+h1 {
+  font-size: 36px; /* Крупный фиксированный заголовок */
+}
+
+p {
+  font-size: 1.2rem; /* Относительный размер — зависит от размера html */
+}
+      </code></pre>
+
+                        <p class="note">
+                            <b>Совет:</b>
+                            Используйте
+                            <code>rem</code>
+                            , если хотите, чтобы размеры шрифтов масштабировались относительно корневого элемента
+                            <code>html</code>
+                            для лучшей адаптивности.
+                        </p>
+
+                        <h4>Пример</h4>
+                        <p>
+                            Можно задать базовый размер для всего документа через
+                            <code>html</code>
+                            :
+                        </p>
+
+                        <pre><code>
+/* Базовый размер на корневом элементе */
+html {
+  font-size: 16px;
+}
+/* Основной размер для текста */
+body {
+  font-size: 1rem;
+}
+/* Крупный заголовок */
+h1 {
+  font-size: 2rem;
+}
+/* Мелкий текст */
+.small {
+  font-size: 0.875rem;
+}
+      </code></pre>
+                        <h4 style="padding: 20px 0">Сравнительная таблица шрифтов</h4>
+                        <table class="vertical-table" style="table-layout: fixed; width: 100%">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%">Единица</th>
+                                    <th style="width: 20%">Пример</th>
+                                    <th style="width: 20%">Видимый результат</th>
+                                    <th style="width: 40%">Описание</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>px</td>
+                                    <td><code>font-size: 16px;</code></td>
+                                    <td style="font-size: 16px">Фиксированный размер</td>
+                                    <td>Абсолютная единица, не зависит от настроек пользователя</td>
+                                </tr>
+                                <tr>
+                                    <td>em</td>
+                                    <td><code>font-size: 1.2em;</code></td>
+                                    <td style="font-size: 1.2em">Относительно родителя</td>
+                                    <td>1em = размер шрифта родителя. Может накапливаться при вложенности</td>
+                                </tr>
+                                <tr>
+                                    <td>rem</td>
+                                    <td><code>font-size: 1.2rem;</code></td>
+                                    <td style="font-size: 1.2rem">Относительно html</td>
+                                    <td>1rem = размер шрифта корневого элемента. Наиболее предсказуемо и удобно для адаптивности</td>
+                                </tr>
+                                <tr>
+                                    <td>%</td>
+                                    <td><code>font-size: 120%;</code></td>
+                                    <td style="font-size: 120%">Процент от родителя</td>
+                                    <td>Похоже на em, 100% = 1em. Используется для сброса и адаптации стилей</td>
+                                </tr>
+                                <tr>
+                                    <td>vw/vh</td>
+                                    <td><code>font-size: 2vw;</code></td>
+                                    <td style="font-size: 2vw">Относительно окна</td>
+                                    <td>1vw = 1% ширины окна; удобно для адаптивного дизайна</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3>Рекомендуемые размеры шрифтов</h3>
+                        <div class="font-showcase">
+                            <div class="font-card">
+                                <div class="font-preview" style="font-size: 0.75rem"><b>12px / 0.75rem</b></div>
+                                <p>Мелкий текст: подписи, комментарии, вспомогательная информация</p>
+                            </div>
+                            <div class="font-card">
+                                <div class="font-preview" style="font-size: 1rem"><b>16px / 1rem</b></div>
+                                <p>Основной текст: абзацы, основной контент (стандартный размер)</p>
+                            </div>
+                            <div class="font-card">
+                                <div class="font-preview" style="font-size: 1.25rem"><b>20px / 1.25rem</b></div>
+                                <p>Подзаголовки: важные элементы, но не основные заголовки</p>
+                            </div>
+                            <div class="font-card">
+                                <div class="font-preview" style="font-size: 2rem"><b>32px / 2rem</b></div>
+                                <p>Заголовки: h2–h3, акцентные элементы страницы</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Свойство font-weight -->
+                <section class="section" id="font-weight">
+                    <div class="container">
+                        <h2>font-weight</h2>
+                        <p class="note">
+                            <strong>font-weight</strong>
+                            — свойство, которое управляет толщиной (насыщенностью) символов текста.
+                            <br />
+                            Значения бывают числовыми (от 100 до 900) и ключевыми словами (
+                            <code>normal</code>
+                            ,
+                            <code>bold</code>
+                            и др.).
+                            <br />
+                            <br />
+                            <b>Обратите внимание:</b>
+                            Не все шрифты поддерживают полный спектр начертаний.
+                        </p>
+
+                        <pre><code>
+/* Примеры использования */
+body {
+  font-weight: 400; /* Обычный текст */
+}
+strong {
+  font-weight: 700; /* Жирный текст */
+}
+.light {
+  font-weight: 300; /* Светлый вариант */
+}
+</code></pre>
+                        <table class="vertical-table" style="table-layout: fixed; width: 100%">
+                            <thead>
+                                <tr>
+                                    <th style="width: 15%">Вес</th>
+                                    <th style="width: 25%">CSS</th>
+                                    <th style="width: 20%">Видимый результат</th>
+                                    <th style="width: 40%">Описание</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>100 (Thin)</td>
+                                    <td><code>font-weight: 100;</code></td>
+                                    <td style="font-weight: 100">Очень тонкий текст</td>
+                                    <td>Тонкие заголовки, декоративные элементы</td>
+                                </tr>
+                                <tr>
+                                    <td>300 (Light)</td>
+                                    <td><code>font-weight: 300;</code></td>
+                                    <td style="font-weight: 300">Светлый текст</td>
+                                    <td>Мягкий, современный текст</td>
+                                </tr>
+                                <tr>
+                                    <td>400 (Normal)</td>
+                                    <td><code>font-weight: 400;</code></td>
+                                    <td style="font-weight: 400">Обычный текст</td>
+                                    <td>Стандартный вес для контента</td>
+                                </tr>
+                                <tr>
+                                    <td>500 (Medium)</td>
+                                    <td><code>font-weight: 500;</code></td>
+                                    <td style="font-weight: 500">Полужирный текст</td>
+                                    <td>Акцентные элементы, подзаголовки</td>
+                                </tr>
+                                <tr>
+                                    <td>700 (Bold)</td>
+                                    <td><code>font-weight: 700;</code></td>
+                                    <td style="font-weight: 700">Жирный текст</td>
+                                    <td>Заголовки, кнопки, важные элементы</td>
+                                </tr>
+                                <tr>
+                                    <td>900 (Black)</td>
+                                    <td><code>font-weight: 900;</code></td>
+                                    <td style="font-weight: 900">Очень жирный текст</td>
+                                    <td>Акцентные заголовки, декоративные надписи</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3>Практические советы</h3>
+                        <ul class="list-ul">
+                            <li>Используйте максимум 2–3 веса на странице для визуального баланса</li>
+                            <li>
+                                Для основного текста —
+                                <b>normal (400)</b>
+                                или
+                                <b>light (300)</b>
+                            </li>
+                            <li>
+                                Для акцентных элементов/заголовков —
+                                <b>medium (500)</b>
+                                или
+                                <b>bold (700)</b>
+                            </li>
+                            <li>Проверяйте доступные веса для выбранного шрифта</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Свойство font-style -->
+                <section class="section" id="font-style">
+                    <div class="container">
+                        <h2>font-style</h2>
+                        <p class="note">
+                            <strong>font-style</strong>
+                            позволяет задать стиль текста: обычный, курсивный или наклонный.
+                            <br />
+                            Используйте для выделения или стилизации отдельных фрагментов.
+                        </p>
+                        <pre><code>
+/* Примеры */
+em {
+  font-style: italic;
+}
+.oblique-text {
+  font-style: oblique 14deg; /* Наклон с углом */
+}
+</code></pre>
+                        <table class="vertical-table" style="table-layout: fixed; width: 100%">
+                            <thead>
+                                <tr>
+                                    <th style="width: 25%">Значение</th>
+                                    <th style="width: 25%">CSS</th>
+                                    <th style="width: 25%">Видимый результат</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>normal</td>
+                                    <td><code>font-style: normal;</code></td>
+                                    <td style="font-style: normal">Обычный текст</td>
+                                </tr>
+                                <tr>
+                                    <td>italic</td>
+                                    <td><code>font-style: italic;</code></td>
+                                    <td style="font-style: italic">Курсивный текст</td>
+                                </tr>
+                                <tr>
+                                    <td>oblique</td>
+                                    <td><code>font-style: oblique;</code></td>
+                                    <td style="font-style: oblique">Наклонный текст</td>
+                                </tr>
+                                <tr>
+                                    <td>oblique [угол]</td>
+                                    <td><code>font-style: oblique 10deg;</code></td>
+                                    <td style="font-style: oblique">Наклон с углом</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3>Разница между italic и oblique</h3>
+                        <div class="comparison">
+                            <div class="comparison-item example">
+                                <h4>Italic</h4>
+                                <p style="font-style: italic; font-family: 'Times New Roman'; font-size: 20px">Это курсив — отдельный дизайн символов</p>
+                                <ul class="list-ul">
+                                    <li>Использует уникальное курсивное начертание</li>
+                                    <li>Форма букв может меняться</li>
+                                    <li>Не все шрифты содержат курсив</li>
+                                </ul>
+                            </div>
+                            <div class="comparison-item example">
+                                <h4>Oblique</h4>
+                                <p style="font-style: oblique; font-family: 'Times New Roman'; font-size: 20px">Это oblique — просто наклон оригинального шрифта</p>
+                                <ul class="list-ul">
+                                    <li>Буквы просто наклонены, не изменяют форму</li>
+                                    <li>Поддерживается у большинства шрифтов</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Свойство line-height -->
+                <section class="section" id="line-height">
+                    <div class="container">
+                        <h2>line-height</h2>
+                        <p class="note">
+                            <strong>line-height</strong>
+                            — свойство, которое определяет высоту строки текста и влияет на вертикальные интервалы между строками.
+                            <br />
+                            Используйте относительные значения (например,
+                            <code>1.5</code>
+                            ) для лучшей адаптивности и читаемости.
+                        </p>
+                        <pre><code>
+/* Оптимальные значения */
+body {
+  line-height: 1.5; /* Основной текст */
+}
+h1, h2, h3 {
+  line-height: 1.2; /* Заголовки */
+}
+.compact {
+  line-height: 1.2;
+}
+.spacious {
+  line-height: 1.8;
+}
+</code></pre>
+                        <table class="vertical-table" style="table-layout: fixed; width: 100%">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%">Значение</th>
+                                    <th style="width: 20%">CSS</th>
+                                    <th style="width: 30%">Видимый результат</th>
+                                    <th style="width: 30%">Рекомендации</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1.0</td>
+                                    <td><code>line-height: 1;</code></td>
+                                    <td style="line-height: 1; font-weight: 600">Очень плотный текст</td>
+                                    <td>Редко для основного текста, подходит для однострочных элементов</td>
+                                </tr>
+                                <tr>
+                                    <td>1.2</td>
+                                    <td><code>line-height: 1.2;</code></td>
+                                    <td style="line-height: 1.2; font-weight: 600">Компактный текст</td>
+                                    <td>Заголовки, короткие фрагменты</td>
+                                </tr>
+                                <tr>
+                                    <td>1.5</td>
+                                    <td><code>line-height: 1.5;</code></td>
+                                    <td style="line-height: 1.5; font-weight: 600">Оптимальная читаемость</td>
+                                    <td>Рекомендуется для основного текста и длинных абзацев</td>
+                                </tr>
+                                <tr>
+                                    <td>1.8</td>
+                                    <td><code>line-height: 1.8;</code></td>
+                                    <td style="line-height: 1.8; font-weight: 600">Просторный текст</td>
+                                    <td>Для улучшенной доступности, длинные статьи</td>
+                                </tr>
+                                <tr>
+                                    <td>2.0</td>
+                                    <td><code>line-height: 2;</code></td>
+                                    <td style="line-height: 2; font-weight: 600">Очень большой интервал</td>
+                                    <td>Декоративные и поэтические тексты</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h3>Примеры</h3>
+                        <div class="font-showcase">
+                            <div class="font-card">
+                                <h4>Плотно</h4>
+                                <p style="line-height: 1; max-width: 300px">Текст с маленьким межстрочным интервалом труден для чтения, строки "слипаются".</p>
+                            </div>
+                            <div class="font-card">
+                                <h4>Оптимально</h4>
+                                <p style="line-height: 1.5; max-width: 300px">Текст с хорошим межстрочным интервалом легко читается и выглядит аккуратно.</p>
+                            </div>
+                            <div class="font-card">
+                                <h4>Слишком свободно</h4>
+                                <p style="line-height: 2.5; max-width: 300px">Слишком большой интервал делает текст разрозненным и теряет связанность.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Свойство text-transform -->
+                <section class="section" id="text-transform">
+                    <div class="container">
+                        <h2>text-transform</h2>
+                        <p class="note">
+                            <strong>text-transform</strong>
+                            управляет регистром текста, не изменяя исходные данные.
+                            <br />
+                            Используется для стилизации заголовков, кнопок и других элементов интерфейса.
+                        </p>
+                        <pre><code>
+/* Примеры */
+.uppercase {
+  text-transform: uppercase; /* ВСЕ ЗАГЛАВНЫЕ */
+}
+.lowercase {
+  text-transform: lowercase; /* все строчные */
+}
+.capitalize {
+  text-transform: capitalize; /* Каждое Слово С Заглавной */
+}
+.none {
+  text-transform: none; /* Оригинальный регистр */
+}
+</code></pre>
+                        <table class="vertical-table" style="table-layout: fixed; width: 100%">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%">Значение</th>
+                                    <th style="width: 20%">CSS</th>
+                                    <th style="width: 30%">Видимый результат</th>
+                                    <th style="width: 30%">Рекомендации</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>uppercase</td>
+                                    <td><code>text-transform: uppercase;</code></td>
+                                    <td style="text-transform: uppercase; font-weight: 600">этот текст станет заглавными буквами</td>
+                                    <td>Подходит для кнопок, заголовков, акронимов</td>
+                                </tr>
+                                <tr>
+                                    <td>lowercase</td>
+                                    <td><code>text-transform: lowercase;</code></td>
+                                    <td style="text-transform: lowercase; font-weight: 600">ЭТОТ ТЕКСТ СТАНЕТ СТРОЧНЫМИ</td>
+                                    <td>Используется редко, для особых случаев</td>
+                                </tr>
+                                <tr>
+                                    <td>capitalize</td>
+                                    <td><code>text-transform: capitalize;</code></td>
+                                    <td style="text-transform: capitalize; font-weight: 600">этот текст будет с заглавных букв</td>
+                                    <td>Заголовки, подписи (осторожно с предлогами)</td>
+                                </tr>
+                                <tr>
+                                    <td>none</td>
+                                    <td><code>text-transform: none;</code></td>
+                                    <td style="text-transform: none; font-weight: 600">Оригинальный регистр</td>
+                                    <td>Сброс наследуемых значений</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h3>Примеры использования</h3>
+                        <div class="font-showcase">
+                            <div class="font-card">
+                                <h4>Заголовки</h4>
+                                <p style="text-transform: uppercase">Section Title — верхний регистр</p>
+                                <p style="text-transform: capitalize">список последних новостей — каждое слово с заглавной</p>
+                            </div>
+                            <div class="font-card">
+                                <h4>Кнопки</h4>
+                                <button style="text-transform: uppercase; padding: 8px 16px; margin: 4px">подтвердить</button>
+                                <button style="text-transform: capitalize; padding: 8px 16px; margin: 4px">cancel action</button>
+                            </div>
+                            <div class="font-card">
+                                <h4>Особые случаи</h4>
+                                <p style="text-transform: lowercase">
+                                    <abbr title="HyperText Markup Language" style="text-transform: none">HTML</abbr>
+                                    и
+                                    <abbr title="Cascading Style Sheets" style="text-transform: none">CSS</abbr>
+                                    — акронимы лучше оставить без преобразования
+                                </p>
+                                <p style="font-variant: small-caps">Small Caps — альтернатива для изящного стиля</p>
+                            </div>
+                        </div>
+                        <div class="note warning">
+                            <strong>Внимание:</strong>
+                            Не используйте text-transform для замены правильного регистра в HTML. Для важных названий и имен сохраняйте корректный регистр в исходной разметке.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Свойство text-decoration -->
+                <section class="section" id="text-decoration">
+                    <div class="container">
+                        <h2>text-decoration</h2>
+                        <p class="note">
+                            <strong>text-decoration</strong>
+                            управляет декоративными линиями для текста: подчеркивание, перечеркивание, надчеркивание.
+                            <br />
+                            Современный синтаксис позволяет настраивать стиль и цвет линий.
+                        </p>
+                        <pre><code>
+/* Примеры */
+.underline {
+  text-decoration: underline;
+}
+.line-through {
+  text-decoration: line-through;
+}
+.overline {
+  text-decoration: overline;
+}
+.none {
+  text-decoration: none;
+}
+/* Настройка стиля и цвета */
+.fancy-underline {
+  text-decoration: underline wavy #ff5722;
+}
+</code></pre>
+                        <table class="vertical-table" style="table-layout: fixed; width: 100%">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%">Значение</th>
+                                    <th style="width: 20%">CSS</th>
+                                    <th style="width: 30%">Видимый результат</th>
+                                    <th style="width: 30%">Рекомендации</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>underline</td>
+                                    <td><code>text-decoration: underline;</code></td>
+                                    <td style="text-decoration: underline">Подчеркнутый текст</td>
+                                    <td>Для акцентов; у ссылок — по умолчанию</td>
+                                </tr>
+                                <tr>
+                                    <td>line-through</td>
+                                    <td><code>text-decoration: line-through;</code></td>
+                                    <td style="text-decoration: line-through">Зачеркнутый текст</td>
+                                    <td>Цены, устаревшие значения</td>
+                                </tr>
+                                <tr>
+                                    <td>overline</td>
+                                    <td><code>text-decoration: overline;</code></td>
+                                    <td style="text-decoration: overline">Надчеркнутый текст</td>
+                                    <td>Редко, для особых случаев</td>
+                                </tr>
+                                <tr>
+                                    <td>underline dotted</td>
+                                    <td><code>text-decoration: underline dotted;</code></td>
+                                    <td style="text-decoration: underline dotted">Пунктирное подчеркивание</td>
+                                    <td>Подсказки, hover-эффекты</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h3>Практические примеры</h3>
+                        <div class="font-showcase">
+                            <div class="font-card">
+                                <h4>Ссылки</h4>
+                                <p>
+                                    <a href="#" style="text-decoration: none; color: #0066cc">Ссылка без подчеркивания</a>
+                                    →
+                                    <a href="#" style="text-decoration: underline dashed; color: #0066cc">Пунктир при наведении</a>
+                                </p>
+                            </div>
+                            <div class="font-card">
+                                <h4>Редактура</h4>
+                                <p>
+                                    Цена:
+                                    <span style="text-decoration: line-through">5000₽</span>
+                                    <span style="color: #e53935">3500₽</span>
+                                </p>
+                            </div>
+                            <div class="font-card">
+                                <h4>Креатив</h4>
+                                <p style="text-decoration: overline underline dotted #4caf50">Праздничное предложение</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Свойство word-spacing -->
+                <section class="section" id="word-spacing">
+                    <div class="container">
+                        <h2>word-spacing</h2>
+                        <p class="note">
+                            <strong>word-spacing</strong>
+                            — свойство для управления интервалом между словами. Может повышать читаемость или создавать визуальные эффекты.
+                        </p>
+                        <pre><code>
+/* Примеры */
+.normal {
+  word-spacing: normal;
+}
+.wide {
+  word-spacing: 0.5em;
+}
+.narrow {
+  word-spacing: -0.1em;
+}
+</code></pre>
+                        <table class="vertical-table" style="table-layout: fixed; width: 100%">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%">Значение</th>
+                                    <th style="width: 20%">CSS</th>
+                                    <th style="width: 30%">Видимый результат</th>
+                                    <th style="width: 30%">Рекомендации</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>normal</td>
+                                    <td><code>word-spacing: normal;</code></td>
+                                    <td style="word-spacing: normal">Стандартный интервал</td>
+                                    <td>Рекомендуется для основного текста</td>
+                                </tr>
+                                <tr>
+                                    <td>0.3em</td>
+                                    <td><code>word-spacing: 0.3em;</code></td>
+                                    <td style="word-spacing: 0.3em">Широкие интервалы</td>
+                                    <td>Заголовки, короткие фрагменты</td>
+                                </tr>
+                                <tr>
+                                    <td>-0.05em</td>
+                                    <td><code>word-spacing: -0.05em;</code></td>
+                                    <td style="word-spacing: -0.05em">Плотное расположение</td>
+                                    <td>Узкие интерфейсы, компактные колонки</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h3>Примеры</h3>
+                        <div class="font-showcase">
+                            <div class="font-card">
+                                <h4>Слишком широко</h4>
+                                <p style="word-spacing: 0.8em; max-width: 300px">Слишком большие интервалы между словами ухудшают восприятие текста.</p>
+                            </div>
+                            <div class="font-card">
+                                <h4>Оптимально</h4>
+                                <p style="word-spacing: 0.1em; max-width: 300px">Умеренное увеличение интервала улучшает читаемость заголовков.</p>
+                            </div>
+                            <div class="font-card">
+                                <h4>Плотно</h4>
+                                <p style="word-spacing: -0.1em; font-weight: bold; max-width: 300px">Маленькие интервалы создают ощущение плотности и срочности.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Свойство letter-spacing -->
+                <section class="section" id="letter-spacing">
+                    <div class="container">
+                        <h2>letter-spacing</h2>
+                        <p class="note">
+                            <strong>letter-spacing</strong>
+                            — свойство для регулировки расстояния между буквами (трекинга). Используется для улучшения читаемости и создания акцентов.
+                        </p>
+                        <pre><code>
+/* Примеры */
+.normal {
+  letter-spacing: normal;
+}
+.wide {
+  letter-spacing: 0.1em;
+}
+.tight {
+  letter-spacing: -0.05em;
+}
+</code></pre>
+                        <table class="vertical-table" style="table-layout: fixed; width: 100%">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%">Значение</th>
+                                    <th style="width: 20%">CSS</th>
+                                    <th style="width: 30%">Видимый результат</th>
+                                    <th style="width: 30%">Рекомендации</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>normal</td>
+                                    <td><code>letter-spacing: normal;</code></td>
+                                    <td style="letter-spacing: normal">Стандартное расстояние</td>
+                                    <td>Для основного текста</td>
+                                </tr>
+                                <tr>
+                                    <td>0.05em</td>
+                                    <td><code>letter-spacing: 0.05em;</code></td>
+                                    <td style="letter-spacing: 0.05em">Чуть разреженные буквы</td>
+                                    <td>Заголовки, логотипы</td>
+                                </tr>
+                                <tr>
+                                    <td>-0.03em</td>
+                                    <td><code>letter-spacing: -0.03em;</code></td>
+                                    <td style="letter-spacing: -0.03em">Чуть плотные буквы</td>
+                                    <td>Кнопки, компактный текст</td>
+                                </tr>
+                                <tr>
+                                    <td>0.2em</td>
+                                    <td><code>letter-spacing: 0.2em;</code></td>
+                                    <td style="letter-spacing: 0.2em">Сильно разреженные буквы</td>
+                                    <td>Декор, акценты</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h3>Примеры использования</h3>
+                        <div class="font-showcase">
+                            <div class="font-card">
+                                <h4>Заголовки</h4>
+                                <h3 style="letter-spacing: 0.1em; margin: 0">ВЕЛИКОЛЕПНЫЙ ЗАГОЛОВОК</h3>
+                                <p style="letter-spacing: 0.05em">Подзаголовок с небольшим трекингом</p>
+                            </div>
+                            <div class="font-card">
+                                <h4>Кнопки</h4>
+                                <button style="letter-spacing: 0.05em; padding: 8px 16px; margin: 4px">ПОДТВЕРДИТЬ</button>
+                                <button style="letter-spacing: -0.02em; padding: 8px 16px; margin: 4px">compact</button>
+                            </div>
+                            <div class="font-card">
+                                <h4>Микротипографика</h4>
+                                <p style="letter-spacing: -0.03em; font-size: 0.9em">Уплотненный текст для сносок и комментариев</p>
+                            </div>
+                        </div>
+                        <div class="note tip">
+                            <strong>Совет:</strong>
+                            Для заглавного текста (uppercase) используйте небольшой
+                            <code>letter-spacing</code>
+                            (0.05–0.1em) для лучшей читаемости.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Сравнительная таблица свойств для работы со шрифтами -->
+                <section class="section" id="table">
+                    <div class="container" style="max-width: 1600px">
+                        <h2>Сравнительная таблица свойств для шрифтов в CSS</h2>
+                        <p class="note">В этой таблице собраны основные CSS-свойства, используемые для управления типографикой: выбор шрифта, размер, насыщенность, стиль, оформление, интервалы и преобразования текста.</p>
+                        <table class="vertical-table" style="table-layout: fixed; width: 1600px">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10%">Свойство</th>
+                                    <th style="width: 25%">CSS</th>
+                                    <th style="width: 15%">Назначение</th>
+                                    <th style="width: 15%">Значения</th>
+                                    <th style="width: 15%">Рекомендации</th>
+                                    <th style="width: 15%">Видимый пример</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><b>font-family</b></td>
+                                    <td>
+                                        <pre><code>font-family: 'Arial',
+sans-serif;</code></pre>
+                                    </td>
+                                    <td>Выбор шрифта и запасных семейств</td>
+                                    <td>Название шрифта, семейство: serif, sans-serif, monospace и др.</td>
+                                    <td>Указывайте запасные семейства для кроссбраузерности</td>
+                                    <td>
+                                        <div class="example" style="font-family: Arial, sans-serif">Пример текста Arial</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>font-size</b></td>
+                                    <td>
+                                        <pre><code>font-size: 1.2rem;</code></pre>
+                                    </td>
+                                    <td>Размер текста</td>
+                                    <td>px, em, rem, %, vw/vh</td>
+                                    <td>Используйте rem для масштабируемости и доступности</td>
+                                    <td>
+                                        <div class="example" style="font-size: 1.2rem">Увеличенный размер текста</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>font-weight</b></td>
+                                    <td>
+                                        <pre><code>font-weight: 700;</code></pre>
+                                    </td>
+                                    <td>Толщина (насыщенность) текста</td>
+                                    <td>100–900, normal, bold, lighter, bolder</td>
+                                    <td>Используйте до 2–3 весов на странице</td>
+                                    <td>
+                                        <div class="example" style="font-weight: 700">Жирный текст</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>font-style</b></td>
+                                    <td>
+                                        <pre><code>font-style: italic;</code></pre>
+                                    </td>
+                                    <td>Стиль — обычный, курсив, наклон</td>
+                                    <td>normal, italic, oblique, oblique [угол]</td>
+                                    <td>italic — отдельное начертание, oblique — наклон</td>
+                                    <td>
+                                        <div class="example" style="font-style: italic">Курсивный текст</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>line-height</b></td>
+                                    <td>
+                                        <pre><code>line-height: 1.5;</code></pre>
+                                    </td>
+                                    <td>Высота строки (межстрочный интервал)</td>
+                                    <td>без единиц, px, %, em</td>
+                                    <td>Для основного текста — 1.4–1.6</td>
+                                    <td>
+                                        <div class="example" style="line-height: 1.5">Строки с хорошим интервалом</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>letter-spacing</b></td>
+                                    <td>
+                                        <pre><code>letter-spacing: 0.05em;</code></pre>
+                                    </td>
+                                    <td>Интервал между буквами (трекинг)</td>
+                                    <td>normal, px, em, %</td>
+                                    <td>Для заглавных или декоративных текстов</td>
+                                    <td>
+                                        <div class="example" style="letter-spacing: 0.05em">РАЗРЕЖЕННЫЙ ТЕКСТ</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>word-spacing</b></td>
+                                    <td>
+                                        <pre><code>word-spacing: 0.5em;</code></pre>
+                                    </td>
+                                    <td>Интервал между словами</td>
+                                    <td>normal, px, em, %</td>
+                                    <td>Редко изменяется, для акцентов</td>
+                                    <td>
+                                        <div class="example" style="word-spacing: 0.5em">Широкий интервал между словами</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>text-transform</b></td>
+                                    <td>
+                                        <pre><code>text-transform: uppercase;</code></pre>
+                                    </td>
+                                    <td>Изменение регистра текста</td>
+                                    <td>none, uppercase, lowercase, capitalize</td>
+                                    <td>Для заголовков, кнопок, акронимов</td>
+                                    <td>
+                                        <div class="example" style="text-transform: uppercase">ВСЕ ЗАГЛАВНЫЕ БУКВЫ</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>text-decoration</b></td>
+                                    <td>
+                                        <pre><code>text-decoration:
+underline wavy #f00;</code></pre>
+                                    </td>
+                                    <td>Декоративные линии (подчеркивание и др.)</td>
+                                    <td>underline, line-through, overline, стиль, цвет</td>
+                                    <td>Используйте для ссылок и акцентных элементов</td>
+                                    <td>
+                                        <div class="example" style="text-decoration: underline wavy red">Волнистое подчеркивание</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>font-variant</b></td>
+                                    <td>
+                                        <pre><code>font-variant: small-caps;</code></pre>
+                                    </td>
+                                    <td>Альтернативные начертания (например, капитель)</td>
+                                    <td>normal, small-caps, и др.</td>
+                                    <td>Для изящной типографики, акцентов</td>
+                                    <td>
+                                        <div class="example" style="font-variant: small-caps">Пример капитель</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="note">
+                            <strong>Совет:</strong>
+                            Для грамотной типографики комбинируйте эти свойства с учетом задачи, стилистики и аудитории сайта.
+                        </p>
+                    </div>
+                </section>
+            </main>
+
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+    </body>
+</html>

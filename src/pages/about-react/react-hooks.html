@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Hooks в React", "description": "Что такое hooks, useState, useEffect, кастомные хуки, лучшие практики, подробные примеры." })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#intro">Введение</a>
+                    <a href="#useState">useState</a>
+                    <a href="#useEffect">useEffect</a>
+                    <a href="#custom-hooks">Кастомные хуки</a>
+                    <a href="#practice">Практика</a>
+                    <a href="#tips">Советы</a>
+                    <a href="#best-practices">Лучшие практики</a>
+                    <a href="#examples">Примеры</a>
+                </nav>
+
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>Hooks в React</h1>
+                        <p class="note">
+                            <b>Hooks</b>
+                            — это функции, которые позволяют использовать состояние и другие возможности React в функциональных компонентах.
+                            <br />
+                            Основные хуки:
+                            <code>useState</code>
+                            ,
+                            <code>useEffect</code>
+                            ,
+                            <code>useRef</code>
+                            ,
+                            <code>useContext</code>
+                            ,
+                            <code>useReducer</code>
+                            ,
+                            <code>useCallback</code>
+                            ,
+                            <code>useMemo</code>
+                            .
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section" id="useState">
+                    <div class="container">
+                        <h2>useState — состояние компонента</h2>
+                        <pre><code>
+function Counter() {
+  const [count, setCount] = React.useState(0);
+  return (
+    &lt;button onClick={() =&gt; setCount(count + 1)&gt;{count}&lt;/button&gt;
+  );
+}
+                        </code></pre>
+                        <div class="note note--info">
+                            <code>useState</code>
+                            возвращает массив: [текущее значение, функция для обновления].
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="useEffect">
+                    <div class="container">
+                        <h2>useEffect — побочные эффекты</h2>
+                        <pre><code>
+function Timer() {
+  const [time, setTime] = React.useState(0);
+  React.useEffect(() =&gt; {
+    const id = setInterval(() =&gt; setTime(t =&gt; t + 1), 1000);
+    return () =&gt; clearInterval(id);
+  }, []);
+  return &lt;div&gt;Время: {time}&lt;/div&gt;;
+}
+                        </code></pre>
+                        <div class="note note--info">
+                            <code>useEffect</code>
+                            запускает код после рендера. Массив зависимостей — когда перезапускать.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="custom-hooks">
+                    <div class="container">
+                        <h2>Кастомные хуки</h2>
+                        <pre><code>
+function useOnlineStatus() {
+  const [online, setOnline] = React.useState(navigator.onLine);
+  React.useEffect(() =&gt; {
+    function handleStatus() { setOnline(navigator.onLine); }
+    window.addEventListener('online', handleStatus);
+    window.addEventListener('offline', handleStatus);
+    return () =&gt; {
+      window.removeEventListener('online', handleStatus);
+      window.removeEventListener('offline', handleStatus);
+    };
+  }, []);
+  return online;
+}
+function Status() {
+  const online = useOnlineStatus();
+  return &lt;div&gt;{online ? 'Онлайн' : 'Оффлайн'}&lt;/div&gt;;
+}
+                        </code></pre>
+                        <div class="note note--info">Кастомные хуки — простые функции, начинающиеся с "use", для переиспользования логики.</div>
+                    </div>
+                </section>
+
+                <section class="section" id="practice">
+                    <div class="container">
+                        <h2>Практика: счетчик и таймер</h2>
+                        <div class="interactive-demo demo-box">
+                            <div class="code-block">
+                                <pre><code>
+&lt;div id="root"&gt;&lt;/div&gt;
+&lt;script type="text/babel"&gt;
+function Counter() {
+  const [count, setCount] = React.useState(0);
+  return (
+    &lt;button onClick={() =&gt; setCount(count + 1)}&gt;{count}&lt;/button&gt;
+  );
+}
+function Timer() {
+  const [time, setTime] = React.useState(0);
+  React.useEffect(() =&gt; {
+    const id = setInterval(() =&gt; setTime(t =&gt; t + 1), 1000);
+    return () =&gt; clearInterval(id);
+  }, []);
+  return &lt;div&gt;Время: {time}&lt;/div&gt;;
+}
+function App() {
+  return (
+    &lt;div&gt;
+      &lt;Counter /&gt;
+      &lt;Timer /&gt;
+    &lt;/div&gt;
+  );
+}
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;App /&gt;);
+&lt;/script&gt;
+                                </code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="tips">
+                    <div class="container">
+                        <h2>Советы и типичные ошибки</h2>
+                        <ul class="list-ul">
+                            <li>Все хуки вызываются только на верхнем уровне компонента!</li>
+                            <li>Не вызывайте хуки внутри условий, циклов или вложенных функций.</li>
+                            <li>useEffect с пустым массивом зависимостей выполняется один раз (аналог componentDidMount).</li>
+                            <li>Переиспользуйте логику через кастомные хуки.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="best-practices">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+                        <ul class="list-ul">
+                            <li>Всегда начинайте кастомные хуки с "use".</li>
+                            <li>Не дублируйте логику — выносите её в хуки.</li>
+                            <li>Документируйте хуки (PropTypes, JSDoc).</li>
+                            <li>Для сложных состояний используйте useReducer.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="examples">
+                    <div class="container">
+                        <h2>Примеры hook-логики</h2>
+                        <h4>useRef — ссылка на DOM-элемент</h4>
+                        <pre><code>
+function FocusInput() {
+  const inputRef = React.useRef();
+  function focus() {
+    inputRef.current.focus();
+  }
+  return (
+    &lt;div&gt;
+      &lt;input ref={inputRef} /&gt;
+      &lt;button onClick={focus}&gt;Фокус&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+                        </code></pre>
+                        <h4>useMemo — оптимизация вычислений</h4>
+                        <pre><code>
+function Expensive({n}) {
+  const result = React.useMemo(() =&gt; compute(n), [n]);
+  return &lt;div&gt;Результат: {result}&lt;/div&gt;;
+}
+                        </code></pre>
+                        <h4>useCallback — мемоизация функций</h4>
+                        <pre><code>
+const handleClick = React.useCallback(() =&gt; alert('Клик!'), []);
+                        </code></pre>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    </body>
+</html>

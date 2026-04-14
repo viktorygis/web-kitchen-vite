@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Children и Composition в React", "description": "Что такое props.children, композиция компонентов, лучшие практики, примеры использования composition и children в React." })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#intro">Введение</a>
+                    <a href="#children-basics">Основы props.children</a>
+                    <a href="#composition">Композиция компонентов</a>
+                    <a href="#render-props">Render Props</a>
+                    <a href="#practice">Практика</a>
+                    <a href="#tips">Советы</a>
+                    <a href="#best-practices">Лучшие практики</a>
+                    <a href="#examples">Примеры</a>
+                </nav>
+
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>Children и композиция компонентов в React</h1>
+                        <p class="note">
+                            <b>Композиция</b>
+                            — основной способ организации интерфейса в React.
+                            <br />
+                            <b>props.children</b>
+                            — позволяет передавать контент (JSX, текст, другие компоненты) внутрь компонента.
+                            <br />
+                            Благодаря композиции можно строить гибкие и переиспользуемые UI-блоки.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section" id="children-basics">
+                    <div class="container">
+                        <h2>Основы props.children</h2>
+                        <pre><code>
+function Wrapper(props) {
+  return &lt;div className="wrap"&gt;{props.children}&lt;/div&gt;;
+}
+&lt;Wrapper&gt;Контент внутри!&lt;/Wrapper&gt;
+                        </code></pre>
+                        <div class="note note--info">
+                            <code>props.children</code>
+                            — всё, что написано между открывающим и закрывающим тегом компонента.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="composition">
+                    <div class="container">
+                        <h2>Композиция компонентов</h2>
+                        <pre><code>
+function Card({children}) {
+  return &lt;div className="card"&gt;{children}&lt;/div&gt;;
+}
+function App() {
+  return (
+    &lt;Card&gt;
+      &lt;h3&gt;Заголовок&lt;/h3&gt;
+      &lt;p&gt;Текст карточки&lt;/p&gt;
+    &lt;/Card&gt;
+  );
+}
+                        </code></pre>
+                        <div class="note note--info">Можно передавать любое количество дочерних элементов, в том числе другие компоненты и JSX.</div>
+                    </div>
+                </section>
+
+                <section class="section" id="render-props">
+                    <div class="container">
+                        <h2>Render Props — функция как дочерний элемент</h2>
+                        <pre><code>
+function List({ renderItem, items }) {
+  return &lt;ul&gt;{items.map(renderItem)}&lt;/ul&gt;;
+}
+function App() {
+  const products = ['Ноутбук', 'Смартфон', 'Наушники'];
+  return (
+    &lt;List
+      items={products}
+      renderItem={(item, i) =&gt; &lt;li key={i}&gt;{item}&lt;/li&gt;}
+    /&gt;
+  );
+}
+                        </code></pre>
+                        <div class="note note--info">
+                            <b>Render Prop</b>
+                            — паттерн, когда компонент принимает функцию для рендера содержимого.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="practice">
+                    <div class="container">
+                        <h2>Практика: создаём Layout с children</h2>
+                        <div class="interactive-demo demo-box">
+                            <div class="code-block">
+                                <pre><code>
+&lt;div id="root"&gt;&lt;/div&gt;
+&lt;script type="text/babel"&gt;
+function Layout({children}) {
+  return (
+    &lt;div style={{
+      border: "2px solid #3366d4",
+      padding: "14px",
+      borderRadius: "8px"
+    }}&gt;
+      &lt;header&gt;&lt;h2&gt;Шапка сайта&lt;/h2&gt;&lt;/header&gt;
+      &lt;main&gt;{children}&lt;/main&gt;
+      &lt;footer&gt;© 2025&lt;/footer&gt;
+    &lt;/div&gt;
+  );
+}
+function App() {
+  return (
+    &lt;Layout&gt;
+      &lt;p&gt;Это контент внутри макета!&lt;/p&gt;
+      &lt;button&gt;Кнопка&lt;/button&gt;
+    &lt;/Layout&gt;
+  );
+}
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;App /&gt;);
+&lt;/script&gt;
+                                </code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="tips">
+                    <div class="container">
+                        <h2>Советы и типичные ошибки</h2>
+                        <ul class="list-ul">
+                            <li>
+                                Всегда используйте
+                                <code>props.children</code>
+                                для передачи вложенного контента!
+                            </li>
+                            <li>Композиция = переиспользуемость. Делайте компоненты максимально гибкими.</li>
+                            <li>
+                                Для сложных случаев используйте
+                                <code>React.cloneElement</code>
+                                или
+                                <code>render props</code>
+                                .
+                            </li>
+                            <li>Передавайте не только JSX, но и функции, массивы, даже другие компоненты!</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="best-practices">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+                        <ul class="list-ul">
+                            <li>
+                                Документируйте
+                                <code>children</code>
+                                (PropTypes, JSDoc).
+                            </li>
+                            <li>Используйте композицию вместо наследования — это философия React!</li>
+                            <li>Не злоупотребляйте сложными вложенными структурами — следите за читаемостью.</li>
+                            <li>Разделяйте ответственность: layout-компоненты для структуры, UI-компоненты для отображения.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="examples">
+                    <div class="container">
+                        <h2>Примеры использования children и composition</h2>
+                        <h4>Передача компонента как children</h4>
+                        <pre><code>
+function Alert({children}) {
+  return &lt;div className="alert"&gt;{children}&lt;/div&gt;;
+}
+&lt;Alert&gt;&lt;strong&gt;Внимание!&lt;/strong&gt; Что-то случилось.&lt;/Alert&gt;
+                        </code></pre>
+                        <h4>Композиция: вложенные компоненты</h4>
+                        <pre><code>
+function Panel({children}) {
+  return &lt;section className="panel"&gt;{children}&lt;/section&gt;;
+}
+function App() {
+  return (
+    &lt;Panel&gt;
+      &lt;h3&gt;Заголовок&lt;/h3&gt;
+      &lt;p&gt;Описание&lt;/p&gt;
+    &lt;/Panel&gt;
+  );
+}
+                        </code></pre>
+                        <h4>Render Prop для кастомного рендера</h4>
+                        <pre><code>
+function CustomList({items, renderItem}) {
+  return &lt;ul&gt;{items.map(renderItem)}&lt;/ul&gt;;
+}
+&lt;CustomList
+  items={[1,2,3]}
+  renderItem={item =&gt; &lt;li key={item}&gt;{item * 2}&lt;/li&gt;}
+/&gt;
+                        </code></pre>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    </body>
+</html>

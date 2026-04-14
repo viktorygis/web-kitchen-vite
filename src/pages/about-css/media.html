@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        @@include('../html/head.html', { "title": "Медиа-запросы в CSS", "description": "Полное руководство по CSS media queries" })
+        <style>
+            .media-examples-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(260px, 1fr));
+                gap: 24px;
+                margin-top: 32px;
+            }
+            .media-example-card {
+                background: #fff;
+                border-radius: 16px;
+                box-shadow: 0 4px 16px rgba(40, 60, 100, 0.1), 0 1.5px 3px rgba(40, 60, 100, 0.08);
+                padding: 23px 18px 18px 18px;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                transition: box-shadow 0.4s;
+                position: relative;
+                overflow: hidden;
+            }
+            .media-example-card:hover {
+                box-shadow: 0 8px 28px rgba(40, 60, 100, 0.16), 0 3px 8px rgba(40, 60, 100, 0.1);
+                z-index: 1;
+            }
+            .media-example-title {
+                font-weight: 600;
+                font-size: 1.11em;
+                margin-bottom: 10px;
+                text-align: left;
+            }
+            .media-example-desc {
+                font-size: 0.98em;
+                color: #7a7a7a;
+                margin-bottom: 14px;
+                text-align: center;
+                height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .media-example-code {
+                background: #f7f7fa;
+                color: #263238;
+                padding: 10px 12px;
+                border-radius: 8px;
+                font-size: 0.97em;
+                width: 100%;
+                margin-bottom: 12px;
+                overflow-x: auto;
+            }
+            .media-example-badge {
+                position: absolute;
+                top: 18px;
+                right: 18px;
+                background: linear-gradient(90deg, #5c6bc0, #ffd740);
+                color: #fff;
+                font-size: 0.84em;
+                font-weight: 700;
+                border-radius: 7px;
+                padding: 4px 10px;
+                box-shadow: 0 1px 5px rgba(92, 107, 192, 0.07);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#media-intro" class="active">Введение</a>
+                    <a href="#media-basics">Синтаксис</a>
+                    <a href="#media-orientation">Ориентация экрана</a>
+                    <a href="#media-combine">Комбинирование условий</a>
+                    <a href="#media-types">Типы медиа-запросов</a>
+                    <a href="#media-examples">Примеры</a>
+                    <a href="#media-tips">Советы</a>
+                </nav>
+
+                <!-- Введение -->
+                <section class="section" id="media-intro">
+                    <div class="container">
+                        <h1>Медиа-запросы в CSS</h1>
+                        <p class="note">
+                            <b>Медиа-запросы</b>
+                            — это специальная возможность в CSS, которая позволяет сайту менять внешний вид в зависимости от устройства, на котором он открыт.
+                        </p>
+
+                        <p>Например, на большом экране меню может быть сбоку, а на телефоне — сверху. Всё это делается с помощью медиа-запросов.</p>
+
+                        <p>
+                            <b>Media queries</b>
+                            — основа адаптивного (responsive) дизайна. Благодаря им сайты выглядят удобно и красиво на любом экране: от телевизора 📺 до смартфона 📱.
+                        </p>
+
+                        <p>
+                            <b>Зачем нужны?</b>
+                            Чтобы каждый пользователь видел сайт, который удобно читать и использовать на своём устройстве.
+                        </p>
+                        <p>
+                            <span style="color: #1976d2; font-weight: 600">Попробуйте добавить медиа-запросы в свой проект и увидеть, как легко сайт может "примерить" новый стиль!</span>
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Синтаксис -->
+                <section class="section" id="media-basics">
+                    <div class="container">
+                        <h2>Синтаксис медиа-запросов</h2>
+                        <p class="note">
+                            <b>Медиа-запрос</b>
+                            — это особое правило в CSS, которое говорит браузеру: "Применяй эти стили, только если выполнено определённое условие."
+                            <br />
+                            Обычно медиа-запрос начинается с
+                            <code>@media</code>
+                            , после него указывается условие (например, ширина экрана), а внутри — CSS-правила, которые применяются только при выполнении этого условия.
+                            <br />
+                            Так сайт подстраивается под разные устройства: большие мониторы, планшеты, телефоны.
+                        </p>
+
+                        <h4>Пример: меняем фон для маленьких экранов</h4>
+                        <div class="grid-column-50">
+                            <pre><code>
+@media (max-width: 600px) {
+  body {
+    background-color: lightblue; /* Голубой фон для маленьких экранов */
+  }
+}
+      </code></pre>
+                            <div class="example">
+                                <span style="background: lightblue; padding: 8px 14px; border-radius: 6px; color: #333">На экранах ≤ 600px фон станет голубым</span>
+                            </div>
+                        </div>
+
+                        <ul class="list-ul">
+                            <li>
+                                <b>1️⃣ @media</b>
+                                — ключевое слово для медиа-запроса.
+                            </li>
+                            <li>
+                                <b>2️⃣ (max-width: 600px)</b>
+                                — условие: если ширина экрана ≤ 600px, стили внутри скобок применяются.
+                            </li>
+                            <li>
+                                <b>3️⃣ CSS-правила</b>
+                                — внутри скобок указываете, что изменять (цвет, размер, выравнивание и т.д.).
+                            </li>
+                        </ul>
+
+                        <div class="note tip">
+                            <b>Можно комбинировать условия:</b>
+                            <br />
+                            <code>@media (max-width: 600px) and (orientation: portrait) { ... }</code>
+                            <br />
+                            <b>Что можно проверять:</b>
+                            <ul class="list-ul">
+                                <li>
+                                    Ширину:
+                                    <code>max-width</code>
+                                    ,
+                                    <code>min-width</code>
+                                </li>
+                                <li>
+                                    Высоту:
+                                    <code>max-height</code>
+                                    ,
+                                    <code>min-height</code>
+                                </li>
+                                <li>
+                                    Ориентацию:
+                                    <code>orientation: portrait</code>
+                                    или
+                                    <code>landscape</code>
+                                </li>
+                                <li>
+                                    Разрешение экрана:
+                                    <code>resolution</code>
+                                </li>
+                            </ul>
+                            <b>Важно:</b>
+                            Без условия (например,
+                            <code>max-width</code>
+                            ) медиа-запрос не работает!
+                        </div>
+
+                        <h4>Пример: адаптация заголовка на телефоне</h4>
+                        <div class="grid-column-50">
+                            <pre><code>
+@media (max-width: 600px) {
+  h1 {
+    font-size: 20px; /* Заголовок становится меньше */
+    color: blue;     /* Цвет текста синий */
+  }
+}
+      </code></pre>
+                            <div class="example">
+                                <h1 style="font-size: 20px; color: blue">Заголовок станет меньше и синим на экранах ≤ 600px</h1>
+                            </div>
+                        </div>
+
+                        <ul class="list-ul">
+                            <li>На экранах шире 600px — все стили остаются обычными.</li>
+                            <li>
+                                На телефоне или маленьком экране — заголовок
+                                <code>&lt;h1&gt;</code>
+                                станет меньше и синим.
+                            </li>
+                        </ul>
+
+                        <div class="note tip">
+                            💡
+                            <b>Совет:</b>
+                            Измените цвет фона, размер текста или расположение элементов для разных устройств — это поможет лучше понять, как работают медиа-запросы!
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Ориентация экрана и медиа-запросы -->
+                <section class="section" id="media-orientation">
+                    <div class="container">
+                        <h2>Медиа-запросы по ориентации экрана</h2>
+                        <p class="note">
+                            <b>Ориентация экрана</b>
+                            — это положение устройства:
+                            <br />
+                            <span style="color: #1976d2"><b>portrait</b></span>
+                            — вертикально (например, телефон в обычном режиме) 📱
+                            <br />
+                            <span style="color: #388e3c"><b>landscape</b></span>
+                            — горизонтально (например, планшет или телефон, повернутый набок) 📟
+                        </p>
+                        <p>
+                            <b>Медиа-запросы</b>
+                            позволяют изменять стили сайта в зависимости от ориентации экрана.
+                            <br />
+                            Это особенно полезно для приложений, игр, видео и любого контента, который должен выглядеть по-разному в разных положениях устройства.
+                        </p>
+
+                        <p class="note">
+                            <b>Синтаксис:</b>
+                            После слова
+                            <code>orientation</code>
+                            обязательно ставь двоеточие
+                            <code>:</code>
+                            и указывай значение
+                            <code>portrait</code>
+                            или
+                            <code>landscape</code>
+                            .
+                            <br />
+                            Всё это пишется внутри круглых скобок
+                            <code>()</code>
+                            — без них запрос не сработает!
+                        </p>
+
+                        <h4>Примеры: меняем фон в зависимости от ориентации</h4>
+                        <div class="grid-column-100">
+                            <pre><code>
+@media (orientation: portrait) {
+  body {
+    background-color: lightblue; /* Голубой фон для вертикальной ориентации */
+  }
+}
+
+@media (orientation: landscape) {
+  body {
+    background-color: lightgreen; /* Зелёный фон для горизонтальной ориентации */
+  }
+}
+      </code></pre>
+                            <div class="example">
+                                <span style="display: block; background: lightblue; color: #333; padding: 8px 14px; border-radius: 6px; margin-bottom: 8px">Если устройство вертикально — фон голубой</span>
+                                <span style="display: block; background: lightgreen; color: #333; padding: 8px 14px; border-radius: 6px">Если устройство горизонтально — фон зелёный</span>
+                            </div>
+                        </div>
+
+                        <h4><b>Зачем использовать?</b></h4>
+                        <ul class="list-ul">
+                            <li>Менять расположение элементов, кнопок, текста или изображений в зависимости от ориентации.</li>
+                            <li>Улучшать удобство для игр, видео, презентаций, интерактивных приложений.</li>
+                            <li>Делать сайт или приложение более адаптивным и приятным для пользователя.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Комбинирование условий в медиа-запросах -->
+                <section class="section" id="media-combine">
+                    <div class="container">
+                        <h2>Как объединять условия в медиа-запросах</h2>
+                        <p class="note">
+                            Иногда нужно менять стили только если выполнено сразу несколько требований, например:
+                            <br />
+                            устройство узкое
+                            <b>и</b>
+                            находится в портретной ориентации.
+                            <br />
+                            Для этого используют ключевое слово
+                            <code>and</code>
+                            между условиями.
+                            <br />
+                            <code><b>@media (max-width: 768px) and (orientation: portrait) {}</b></code>
+                        </p>
+
+                        <p><b>Зачем это нужно?</b></p>
+                        <p>
+                            Такой подход позволяет создавать ещё более точную и гибкую адаптацию макета — например,
+                            <br />
+                            показывать специальные стили только для телефонов, которые пользователь держит вертикально.
+                        </p>
+
+                        <h4>Пример: комбинированный медиа-запрос</h4>
+                        <div class="grid-column-100">
+                            <pre><code>
+@media (max-width: 768px) and (orientation: portrait) {
+  body {
+    background-color: lightcoral; /* Красный фон для портретной ориентации на узких экранах */
+  }
+}
+      </code></pre>
+                            <div class="example">
+                                <span style="background: lightcoral; color: #fff; padding: 8px 14px; border-radius: 6px">
+                                    Если ширина ≤ 768px
+                                    <b>и</b>
+                                    экран вертикальный — фон станет красным
+                                </span>
+                            </div>
+                        </div>
+
+                        <ul class="list-ul">
+                            <li>
+                                <b>1️⃣ (max-width: 768px)</b>
+                                — ширина экрана меньше или равна 768px.
+                            </li>
+                            <li>
+                                <b>2️⃣ and</b>
+                                — объединяет условия: нужно проверить ещё одно.
+                            </li>
+                            <li>
+                                <b>3️⃣ (orientation: portrait)</b>
+                                — экран находится в вертикальном положении.
+                            </li>
+                            <li>
+                                <b>4️⃣</b>
+                                Только если
+                                <u>оба условия выполнены</u>
+                                , стили внутри фигурных скобок
+                                <code>{}</code>
+                                будут применены.
+                            </li>
+                        </ul>
+
+                        <div class="note tip">
+                            💡
+                            <b>Совет:</b>
+                            Чем больше условий в медиа-запросе, тем точнее можно управлять адаптивностью сайта. Комбинируйте параметры для продвинутых решений!
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Типы media queries -->
+                <section class="section" id="media-types">
+                    <div class="container">
+                        <h2>Часто используемые типы и параметры медиа-запросов</h2>
+                        <p class="note">
+                            Медиа-запросы позволяют адаптировать сайт под разные устройства, возможности пользователя и режимы работы браузера.
+                            <br />
+                            Вот основные параметры, которые чаще всего применяют:
+                        </p>
+                        <ul class="list-ul">
+                            <li>
+                                <b>width, min-width, max-width</b>
+                                — ширина области просмотра (экрана).
+                                <br />
+                                <span style="color: #1976d2">Используется для создания брейкпоинтов: например, для мобильных, планшетов и компьютеров.</span>
+                            </li>
+                            <li>
+                                <b>height, min-height, max-height</b>
+                                — высота области просмотра.
+                                <br />
+                                <span style="color: #1976d2">Редко, но полезно, если важна вертикальная прокрутка или высота окна.</span>
+                            </li>
+                            <li>
+                                <b>orientation</b>
+                                — ориентация экрана:
+                                <b>portrait</b>
+                                (вертикально) и
+                                <b>landscape</b>
+                                (горизонтально).
+                                <br />
+                                <span style="color: #1976d2">Удобно для изменения макета на телефонах и планшетах при вращении устройства.</span>
+                            </li>
+                            <li>
+                                <b>pointer, hover</b>
+                                — есть ли мышь и поддержка наведения (hover).
+                                <br />
+                                <span style="color: #1976d2">Позволяет отличать сенсорные устройства от десктопов и менять стили для кнопок и меню.</span>
+                            </li>
+                            <li>
+                                <b>resolution</b>
+                                — плотность пикселей (например, Retina-экраны).
+                                <br />
+                                <span style="color: #1976d2">Позволяет подгружать изображения с высоким разрешением для современных дисплеев.</span>
+                            </li>
+                            <li>
+                                <b>color-scheme</b>
+                                — предпочтения пользователя по теме: светлая или тёмная.
+                                <br />
+                                <span style="color: #1976d2">Сайт может автоматически переключаться между светлой и тёмной темой.</span>
+                            </li>
+                        </ul>
+                        <div class="note">
+                            <b>Практический совет:</b>
+                            Самые популярные параметры —
+                            <b>min-width</b>
+                            и
+                            <b>max-width</b>
+                            .
+                            <br />
+                            Их используют для создания
+                            <b>брейкпоинтов</b>
+                            — точек, в которых макет "переключается" под размер экрана (например, мобильный, планшет, десктоп).
+                        </div>
+                        <h4><b>Пример брейкпоинта:</b></h4>
+                        <pre><code>
+@media (max-width: 900px) {
+  .menu {
+    flex-direction: column;
+  }
+}
+      </code></pre>
+                    </div>
+                </section>
+
+                <!-- Примеры -->
+                <section class="section" id="media-examples">
+                    <div class="container">
+                        <h2>Примеры медиа-запросов</h2>
+                        <div class="media-examples-grid">
+                            <div class="media-example-card">
+                                <span class="media-example-badge">base</span>
+                                <div class="media-example-title">Адаптивная сетка</div>
+                                <div class="media-example-desc">Меняет количество колонок на мобильных устройствах.</div>
+                                <div class="media-example-code">
+                                    <pre><code>
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+    </code></pre>
+                                </div>
+                            </div>
+                            <div class="media-example-card">
+                                <span class="media-example-badge">breakpoint</span>
+                                <div class="media-example-title">Два брейкпоинта</div>
+                                <div class="media-example-desc">Сетка меняется на планшете и телефоне.</div>
+                                <div class="media-example-code">
+                                    <pre><code>
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+    </code></pre>
+                                </div>
+                            </div>
+                            <div class="media-example-card">
+                                <span class="media-example-badge">orientation</span>
+                                <div class="media-example-title">Разная верстка в портретном режиме</div>
+                                <div class="media-example-desc">Меняет фон, если устройство повернули вертикально.</div>
+                                <div class="media-example-code">
+                                    <pre><code>
+@media (orientation: portrait) {
+  body {
+    background: #e3f2fd;
+  }
+}
+    </code></pre>
+                                </div>
+                            </div>
+                            <div class="media-example-card">
+                                <span class="media-example-badge">dark mode</span>
+                                <div class="media-example-title">Тёмная тема</div>
+                                <div class="media-example-desc">Стили для темной темы на устройствах.</div>
+                                <div class="media-example-code">
+                                    <pre><code>
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #181b1f;
+    color: #eee;
+  }
+}
+    </code></pre>
+                                </div>
+                            </div>
+                            <div class="media-example-card">
+                                <span class="media-example-badge">retina</span>
+                                <div class="media-example-title">Retina/HiDPI дисплеи</div>
+                                <div class="media-example-desc">Стили для экранов с высокой плотностью пикселей.</div>
+                                <div class="media-example-code">
+                                    <pre><code>
+@media (min-resolution: 2dppx) {
+  .logo {
+    background-image: url(logo@2x.png);
+  }
+}
+    </code></pre>
+                                </div>
+                            </div>
+                            <div class="media-example-card">
+                                <span class="media-example-badge">hover</span>
+                                <div class="media-example-title">Только для устройств с мышкой</div>
+                                <div class="media-example-desc">Ховер-эффекты только на десктопах.</div>
+                                <div class="media-example-code">
+                                    <pre><code>
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
+    background: #1976d2;
+    color: #fff;
+  }
+}
+    </code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Советы -->
+                <section class="section" id="media-tips">
+                    <div class="container">
+                        <h2>Советы по использованию media queries</h2>
+                        <p class="note">Медиа-запросы — мощный инструмент для адаптивной верстки. Несколько простых правил помогут сделать ваш сайт удобным и современным на любых устройствах!</p>
+                        <ul class="list-ul">
+                            <li>
+                                <b>Используйте подход mobile-first</b>
+                                <br />
+                                Сначала пишите базовые стили для мобильных устройств, а затем добавляйте медиа-запросы для планшетов и десктопов. Так проще контролировать адаптивность и избегать лишних переопределений.
+                            </li>
+                            <li>
+                                <b>Старайтесь использовать минимум брейкпоинтов</b>
+                                <br />
+                                Добавляйте точки переключения только там, где действительно “ломается” дизайн, чтобы код был проще и быстрее работал.
+                            </li>
+                            <li>
+                                <b>Группируйте похожие стили с помощью SASS или CSS Custom Properties</b>
+                                <br />
+                                Это делает код более структурированным и легко изменяемым.
+                            </li>
+                            <li>
+                                <b>Проверяйте макет на разных устройствах и в DevTools</b>
+                                <br />
+                                Используйте режим Responsive в браузере или тестируйте на реальных телефонах и планшетах. Не забывайте про горизонтальную и вертикальную ориентацию!
+                            </li>
+                            <li>
+                                <b>Для сложных проектов используйте container queries</b>
+                                <br />
+                                <span style="color: #1976d2">Container queries</span>
+                                позволяют делать адаптивные компоненты, которые меняют вид не только в зависимости от размера экрана, но и от размера самого контейнера. Пока поддержка не во всех браузерах, но это современный тренд.
+                            </li>
+                            <li>
+                                <b>Пишите понятные условия и комментарии</b>
+                                <br />
+                                Если медиа-запрос сложный, добавьте комментарий, чтобы другим разработчикам было ясно, зачем он нужен.
+                            </li>
+                            <li>
+                                <b>Тестируйте на доступность</b>
+                                <br />
+                                Не отключайте масштабирование, используйте относительные единицы (
+                                <code>em</code>
+                                ,
+                                <code>rem</code>
+                                ,
+                                <code>%</code>
+                                ) вместо фиксированных
+                                <code>px</code>
+                                . Так ваш сайт будет удобнее для всех пользователей.
+                            </li>
+                        </ul>
+                        <div class="note tip">
+                            <strong>Совет:</strong>
+                            Думайте о каждом пользователе! Адаптивность — это не только про размеры, но и про удобство и доступность для всех.
+                        </div>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+    </body>
+</html>

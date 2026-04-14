@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../html/head.html', { "title": "Эмиссия событий во Vue", "description": "Как дочерний компонент отправляет события родителю с помощью $emit во Vue. Примеры: как передавать данные, объекты, несколько аргументов и обрабатывать их." })
+
+<head>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    @@include('../html/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="#emits-intro">Введение в emits</a>
+        <a href="#emits-basic">Базовая передача событий</a>
+        <a href="#emits-object">Передача объектов и форм</a>
+        <a href="#emits-multiargs">Передача нескольких аргументов</a>
+        <a href="#emits-multiple">Несколько дочерних компонентов</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="emits-intro">
+        <div class="container">
+          <h1>Введение в emits</h1>
+          <p class="note">
+            <strong>$emit</strong> - это способ, с помощью которого дочерний компонент может отправлять
+            <b>события</b> родительскому компоненту во Vue.js.
+            <br /> Это позволяет дочерним компонентам сообщать родителям о действиях или изменениях, чтобы те могли реагировать соответствующим образом. <br>Название <b>"$emit"</b> происходит от английского слова "emit", что означает "излучать" или "передавать".
+          </p>
+          <h4>Для чего используется $emit:</h4>
+          <ul class="list-ul">
+            <li>Сообщение родительскому компоненту о <b>действиях пользователя</b> в дочернем компоненте.</li>
+            <li><b>Передача данных или изменений состояния</b> от дочернего компонента к родителю.</li>
+            <li><b>Создание взаимодействия</b> между компонентами без прямого изменения данных родителя из дочернего компонента.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Базовая передача событий -->
+      <section class="section" id="emits-basic">
+        <div class="container">
+          <h2>Базовая передача событий</h2>
+          <div class="note">
+            <strong>Базовая передача событий через $emit:</strong> - это когда дочерний компонент отправляет простое событие родительскому компоненту без дополнительных данных.
+            <br> Например, когда пользователь нажимает кнопку в дочернем компоненте, и дочерний компонент сообщает об этом родителю, чтобы тот мог выполнить какое-то действие, например, увеличить счётчик.
+          </div>
+
+          <h3>Пример: увеличение счётчика:</h3>
+          <h4>Родительский компонент </h4>
+          <div class="code-block">
+            <pre><code>&lt;template&gt;
+  &lt;div&gt;
+    &lt;h2&gt;Счётчик: {{ count }}&lt;/h2&gt;
+    &lt;CounterButton @increase="incrementCount" /&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import CounterButton from './CounterButton.vue';
+
+export default {
+  components: { CounterButton },
+  data() {
+    return { count: 0 };
+  },
+  methods: {
+    incrementCount() {
+      this.count++;
+    }
+  }
+};
+&lt;/script&gt;</code></pre>
+          </div>
+
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>
+              В родительском компоненте есть переменная
+              <code>count</code>
+              , которая хранит текущее значение счётчика.
+            </li>
+            <li>
+              Родительский компонент включает дочерний компонент
+              <code>CounterButton</code>
+              и слушает событие
+              <code>increase</code>
+              с помощью
+              <code>@increase="incrementCount"</code>
+              .
+            </li>
+            <li>
+              Когда дочерний компонент отправляет событие
+              <code>increase</code>
+              , вызывается метод
+              <code>incrementCount</code>
+              , который увеличивает значение
+              <code>count</code>
+              на 1.
+            </li>
+          </ul>
+
+          <h4>Дочерний компонент: CounterButton.vue</h4>
+          <div class="code-block">
+            <pre><code>&lt;template&gt;
+  &lt;button @click="$emit('increase')"&gt;+1&lt;/button&gt;
+&lt;/template&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>
+              В дочернем компоненте есть кнопка, которая при нажатии вызывает
+              <code>$emit('increase')</code>
+              .
+            </li>
+            <li>
+              Это отправляет событие
+              <code>increase</code>
+              родительскому компоненту.
+            </li>
+          </ul>
+
+
+          <div class="interactive-demo">
+            <div id="emits-basic-demo"></div>
+          </div>
+
+          <div class="note note--info">
+            <b>Кратко:</b>
+            <ul class="list-ul">
+              <li>Дочерний компонент не меняет данные родителя напрямую!</li>
+              <li>Он только сообщает о действии — родитель реагирует и меняет данные.</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- Передача объектов -->
+      <section class="section" id="emits-object">
+        <div class="container">
+          <h2>Передача объектов и форм</h2>
+          <p class="note">
+            <b>$emit</b>
+            может передавать сложные данные, такие как объекты или формы.
+            <br />
+            Это полезно, когда дочерний компонент собирает данные от пользователя и отправляет их родителю.
+          </p>
+
+          <h3>Пример: форма пользователя</h3>
+          <p>Родительский компонент получает объект с именем и возрастом пользователя от дочернего компонента.</p>
+
+          <div class="code-block">
+            <pre><code><!-- Родительский компонент -->
+&lt;div id="app"&gt;
+  &lt;h2&gt;Пользователь: {{ user.name }}, {{ user.age }} лет&lt;/h2&gt;
+  &lt;child-component @send-user="updateUser"&gt;&lt;/child-component&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return {
+      user: { name: "Неизвестно", age: 0 }
+    };
+  },
+  methods: {
+    updateUser(newUser) {
+      this.user = newUser;
+    }
+  }
+}).component("child-component", {
+  template: `
+    &lt;div&gt;
+      &lt;input v-model="name" placeholder="Имя"&gt;
+      &lt;input v-model="age" type="number" placeholder="Возраст"&gt;
+      &lt;button @click="$emit('send-user', { name, age })"&gt;Отправить&lt;/button&gt;
+    &lt;/div&gt;
+  `,
+  data() {
+    return {
+      name: "",
+      age: null
+    };
+  }
+}).mount("#app");
+&lt;/script&gt;</code></pre>
+            <h5>Объяснение кода:</h5>
+            <ul class="list-ul">
+              <li>
+                В родительском компоненте есть объект
+                <code>user</code>
+                , который хранит имя и возраст пользователя.
+              </li>
+              <li>
+                Родительский компонент включает дочерний компонент
+                <code>child-component</code>
+                и слушает событие
+                <code>send-user</code>
+                с помощью
+                <code>@send-user="updateUser"</code>
+                .
+              </li>
+              <li>
+                Когда пользователь заполняет форму в дочернем компоненте и нажимает кнопку,
+                <code>$emit('send-user', { name, age })</code>
+                отправляет объект с именем и возрастом родителю.
+              </li>
+              <li>
+                Родительский компонент получает этот объект в методе
+                <code>updateUser</code>
+                и обновляет свой объект
+                <code>user</code>
+                .
+              </li>
+            </ul>
+            <div class="interactive-demo">
+              <div id="emits-object-demo"></div>
+            </div>
+          </div>
+          <div class="note note--info">
+            <b>Так часто отправляются формы:</b>
+            <ul>
+              <li>Дочерний компонент собирает данные</li>
+              <li>
+                Через
+                <code>$emit</code>
+                передаёт их родителю
+              </li>
+              <li>Родитель обновляет свои данные</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Передача нескольких аргументов -->
+      <section class="section" id="emits-multiargs">
+        <div class="container">
+          <h2>Передача нескольких аргументов</h2>
+          <p class="note">
+            <b>$emit</b>
+            может передавать сразу несколько значений.
+            <br />
+            Это удобно для передачи ID и статуса задачи, например.
+          </p>
+          <div class="grid-column-100">
+            <pre><code>
+<!-- Родительский компонент -->
+&lt;div id="app"&gt;
+  &lt;h2&gt;Статус задачи:&lt;/h2&gt;
+  &lt;p&gt;ID: {{ taskInfo.id }}, Статус: {{ taskInfo.status }}&lt;/p&gt;
+  &lt;child-component @update-task="handleTaskUpdate"&gt;&lt;/child-component&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return {
+      taskInfo: { id: null, status: 'Не задан' }
+    };
+  },
+  methods: {
+    handleTaskUpdate(taskId, newStatus) {
+      this.taskInfo.id = taskId;
+      this.taskInfo.status = newStatus;
+    }
+  }
+}).component("child-component", {
+  template: `&lt;button @click="$emit('update-task', 101, 'выполнено')"&gt;Обновить задачу&lt;/button&gt;`
+}).mount("#app");
+&lt;/script&gt;
+                            </code></pre>
+            <div class="example">
+              <div id="emits-multiargs-demo"></div>
+            </div>
+          </div>
+          <div class="note note--info">
+            <b>Передавать можно сколько угодно аргументов!</b>
+            <br />
+            Главное — соблюдать порядок.
+          </div>
+        </div>
+      </section>
+
+      <!-- Несколько дочерних компонентов -->
+      <section class="section" id="emits-multiple">
+        <div class="container">
+          <h2>Несколько дочерних компонентов: сообщения</h2>
+          <p class="note">Родитель может принимать сообщения от нескольких дочерних компонентов.</p>
+          <div class="grid-column-100">
+            <pre><code>
+&lt;div id="app"&gt;
+  &lt;h2&gt;Сообщения от детей:&lt;/h2&gt;
+  &lt;child-component @child-event="handleEvent('Компонент 1', $event)"&gt;&lt;/child-component&gt;
+  &lt;child-component @child-event="handleEvent('Компонент 2', $event)"&gt;&lt;/child-component&gt;
+  &lt;p&gt;{{ message }}&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return { message: "" }
+  },
+  methods: {
+    handleEvent(name, msg) {
+      this.message = `${name} говорит: ${msg}`;
+    }
+  }
+})
+.component("child-component", {
+  template: `
+    &lt;button @click="$emit('child-event', 'Привет, родитель!')"&gt;
+      Нажми меня! 👍
+    &lt;/button&gt;
+  `
+})
+.mount("#app");
+&lt;/script&gt;
+                            </code></pre>
+            <div class="example">
+              <div id="emits-multiple-demo"></div>
+            </div>
+          </div>
+          <div class="note note--info">
+            <b>Родитель слушает события от любых детей.</b>
+            <br />
+            Можно узнать, кто отправил сообщение, и обработать его по-своему.
+          </div>
+        </div>
+      </section>
+    </main>
+    @@include('../html/footer.html', {})
+  </div>
+  @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+  <script>
+    // Базовый пример эмиссии события: увеличение счётчика
+    const CounterButton = {
+      template: `<button @click="$emit('increase')">+1</button>`,
+    };
+
+    Vue.createApp({
+      components: {
+        CounterButton
+      },
+      data() {
+        return {
+          count: 0
+        };
+      },
+      methods: {
+        incrementCount() {
+          this.count++;
+        },
+      },
+      template: `
+                  <div>
+                    <h2>Счётчик: {{ count }}</h2>
+                    <CounterButton @increase="incrementCount" />
+                  </div>
+                `,
+    }).mount("#emits-basic-demo");
+
+    // Передача объекта: форма пользователя
+    Vue.createApp({
+        data() {
+          return {
+            user: {
+              name: "Неизвестно",
+              age: 0
+            },
+          };
+        },
+        methods: {
+          updateUser(newUser) {
+            this.user = newUser;
+          },
+        },
+        template: `
+        <div>
+          <h2>Пользователь: {{ user.name }}, {{ user.age }} лет</h2>
+          <child-component @send-user="updateUser"></child-component>
+        </div>
+      `,
+      })
+      .component("child-component", {
+        template: `
+        <div>
+          <input v-model="name" placeholder="Имя">
+          <input v-model="age" type="number" placeholder="Возраст">
+          <button @click="$emit('send-user', { name, age })">Отправить</button>
+        </div>
+      `,
+        data() {
+          return {
+            name: "",
+            age: null
+          };
+        },
+      })
+      .mount("#emits-object-demo");
+
+    // Передача нескольких аргументов
+    Vue.createApp({
+        data() {
+          return {
+            taskInfo: {
+              id: null,
+              status: "Не задан"
+            },
+          };
+        },
+        methods: {
+          handleTaskUpdate(taskId, newStatus) {
+            this.taskInfo.id = taskId;
+            this.taskInfo.status = newStatus;
+          },
+        },
+        template: `
+        <div>
+          <h2>Статус задачи:</h2>
+          <p>ID: {{ taskInfo.id }}, Статус: {{ taskInfo.status }}</p>
+          <child-component @update-task="handleTaskUpdate"></child-component>
+        </div>
+      `,
+      })
+      .component("child-component", {
+        template: `<button @click="$emit('update-task', 101, 'выполнено')">Обновить задачу</button>`,
+      })
+      .mount("#emits-multiargs-demo");
+
+    // Несколько дочерних компонентов
+    Vue.createApp({
+        data() {
+          return {
+            message: ""
+          };
+        },
+        methods: {
+          handleEvent(name, msg) {
+            this.message = `${name} говорит: ${msg}`;
+          },
+        },
+      })
+      .component("child-component", {
+        template: `<button @click="$emit('child-event', 'Привет, родитель!')">Нажми меня! 👍</button>`,
+      })
+      .mount(
+        (function (el) {
+          const container = document.getElementById("emits-multiple-demo");
+          container.innerHTML = `
+                  <child-component @child-event="handleEvent('Компонент 1', $event)"></child-component>
+                  <child-component @child-event="handleEvent('Компонент 2', $event)"></child-component>
+                  <p>{{ message }}</p>
+                `;
+          return container;
+        })("#emits-multiple-demo")
+      );
+  </script>
+</body>
+
+</html>

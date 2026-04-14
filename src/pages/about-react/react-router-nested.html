@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Вложенные маршруты в React Router", "description": "Как организовать вложенные маршруты, Outlet, примеры, лучшие практики для React Router." })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#intro">Введение</a>
+                    <a href="#structure">Структура вложенных маршрутов</a>
+                    <a href="#outlet">Outlet — место для вложенных компонентов</a>
+                    <a href="#default">Страница по умолчанию</a>
+                    <a href="#practice">Практика</a>
+                    <a href="#tips">Советы</a>
+                    <a href="#best-practices">Лучшие практики</a>
+                    <a href="#examples">Примеры</a>
+                </nav>
+
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>Вложенные маршруты в React Router</h1>
+                        <p class="note">
+                            <b>Вложенные маршруты</b>
+                            позволяют строить иерархию страниц — разделы с собственными подстраницами.
+                            <br />
+                            Это удобно для личных кабинетов, магазинов, профилей и других сложных интерфейсов.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section" id="structure">
+                    <div class="container">
+                        <h2>Структура вложенных маршрутов</h2>
+                        <pre><code>
+&lt;Routes&gt;
+  &lt;Route path="/profile" element={&lt;Profile /&gt;}&gt;
+    &lt;Route path="settings" element={&lt;Settings /&gt;} /&gt;
+    &lt;Route path="orders" element={&lt;Orders /&gt;} /&gt;
+  &lt;/Route&gt;
+&lt;/Routes&gt;
+                        </code></pre>
+                        <div class="note note--info">
+                            Вложенные маршруты описываются внутри родительского
+                            <code>Route</code>
+                            !
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="outlet">
+                    <div class="container">
+                        <h2>Outlet — место для вложенных компонентов</h2>
+                        <pre><code>
+import { Outlet, Link } from 'react-router-dom';
+
+function Profile() {
+  return (
+    &lt;div&gt;
+      &lt;nav&gt;
+        &lt;Link to="settings"&gt;Настройки&lt;/Link&gt;
+        &lt;Link to="orders"&gt;История&lt;/Link&gt;
+      &lt;/nav&gt;
+      &lt;Outlet /&gt; {/* Здесь будут подстраницы! */}
+    &lt;/div&gt;
+  );
+}
+                        </code></pre>
+                        <div class="note note--info">
+                            <code>Outlet</code>
+                            — специальный компонент, куда React Router вставляет дочерние маршруты.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="default">
+                    <div class="container">
+                        <h2>Страница по умолчанию для вложенного маршрута</h2>
+                        <pre><code>
+&lt;Route path="" element={&lt;Settings /&gt;} /&gt;
+                        </code></pre>
+                        <div class="note note--info">
+                            Пустой путь
+                            <code>""</code>
+                            означает, что при переходе на
+                            <code>/profile</code>
+                            загрузится
+                            <code>Settings</code>
+                            .
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="practice">
+                    <div class="container">
+                        <h2>Практика: личный кабинет с вложенными страницами</h2>
+                        <div class="interactive-demo demo-box">
+                            <div class="code-block">
+                                <pre><code>
+import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom';
+
+function Settings() { return &lt;div&gt;Настройки&lt;/div&gt;; }
+function Orders() { return &lt;div&gt;История заказов&lt;/div&gt;; }
+
+function Profile() {
+  return (
+    &lt;div&gt;
+      &lt;h2&gt;Личный кабинет&lt;/h2&gt;
+      &lt;nav&gt;
+        &lt;Link to="settings"&gt;Настройки&lt;/Link&gt;
+        &lt;Link to="orders"&gt;История&lt;/Link&gt;
+      &lt;/nav&gt;
+      &lt;Outlet /&gt;
+    &lt;/div&gt;
+  );
+}
+
+function App() {
+  return (
+    &lt;BrowserRouter&gt;
+      &lt;Routes&gt;
+        &lt;Route path="/profile" element={&lt;Profile /&gt;}&gt;
+          &lt;Route path="" element={&lt;Settings /&gt;} /&gt;
+          &lt;Route path="settings" element={&lt;Settings /&gt;} /&gt;
+          &lt;Route path="orders" element={&lt;Orders /&gt;} /&gt;
+        &lt;/Route&gt;
+      &lt;/Routes&gt;
+    &lt;/BrowserRouter&gt;
+  );
+}
+                                </code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="tips">
+                    <div class="container">
+                        <h2>Советы и типичные ошибки</h2>
+                        <ul class="list-ul">
+                            <li>
+                                Не забывайте про
+                                <code>Outlet</code>
+                                в родительском компоненте!
+                            </li>
+                            <li>
+                                Вложенные маршруты — это не просто слэш в пути, а иерархия в
+                                <code>Routes</code>
+                                !
+                            </li>
+                            <li>
+                                Используйте относительные ссылки
+                                <code>to="settings"</code>
+                                внутри вложенного маршрута.
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="best-practices">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+                        <ul class="list-ul">
+                            <li>Общий UI (заголовок, меню) — в родителе, контент — в дочерних маршрутах.</li>
+                            <li>
+                                Делайте страницу по умолчанию с пустым
+                                <code>path</code>
+                                для удобства.
+                            </li>
+                            <li>Документируйте вложенную структуру маршрутов для команды.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="examples">
+                    <div class="container">
+                        <h2>Примеры вложенных маршрутов</h2>
+                        <h4>Магазин с вложенными страницами</h4>
+                        <pre><code>
+&lt;Route path="/shop" element={&lt;Shop /&gt;}&gt;
+  &lt;Route path="" element={&lt;Products /&gt;} /&gt;
+  &lt;Route path="products" element={&lt;Products /&gt;} /&gt;
+  &lt;Route path="cart" element={&lt;Cart /&gt;} /&gt;
+&lt;/Route&gt;
+                        </code></pre>
+                        <h4>Вложенные ссылки</h4>
+                        <pre><code>
+&lt;Link to="products"&gt;Товары&lt;/Link&gt;
+                        </code></pre>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+    </body>
+</html>

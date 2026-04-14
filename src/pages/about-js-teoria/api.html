@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "API: основы, примеры и лучшие практики", "description": "Страница с основами и примерами работы с API, типичными ошибками и лучшими практиками использования." })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#intro">Введение</a>
+                    <a href="#concepts">Основные понятия</a>
+                    <a href="#fetch">fetch</a>
+                    <a href="#json">json</a>
+                    <a href="#error-handling">Обработка ошибок</a>
+                    <a href="#post">POST</a>
+                    <a href="#examples">Примеры</a>
+                    <a href="#practice">Практика</a>
+                    <a href="#tips">Советы</a>
+                    <a href="#best-practices">Лучшие практики</a>
+                </nav>
+
+                <section class="section" id="intro">
+                    <div class="container">
+                        <div class="intro-code-block">
+                            <h1>Работа с API в JavaScript</h1>
+                            <p class="note">
+                                <strong>API (Application Programming Interface)</strong>
+                                - это интерфейс, который позволяет программам взаимодействовать друг с другом. Веб-приложения часто используют API для получения данных с серверов, отправки запросов и выполнения различных операций.
+                            </p>
+                            <p class="note note--info">
+                                <strong>API</strong>
+                                — это "мостик" между твоим приложением и внешними данными. А с помощью функции
+                                <code>fetch</code>
+                                в JavaScript ты можешь легко отправлять запросы и получать данные.
+                            </p>
+                            <h4>💡 Что такое API?</h4>
+                            <ul class="list-ul">
+                                <li>API — это набор правил и протоколов, позволяющих приложениям обмениваться данными.</li>
+                                <li>С помощью API можно получать данные с серверов, отправлять запросы и выполнять действия.</li>
+                                <li>
+                                    В JavaScript для работы с API часто используется функция
+                                    <code>fetch</code>
+                                    для отправки HTTP-запросов и получения ответов.
+                                </li>
+                                <li>API чаще всего возвращает данные в формате JSON, который легко преобразуется в объекты JavaScript.</li>
+                                <li>API может требовать авторизации, для чего используется токен доступа.</li>
+                            </ul>
+
+                            <h4>Для чего нужно API?</h4>
+                            <ul class="list-ul">
+                                <li>Интеграция с внешними сервисами (платежные системы, карты, соцсети и др.).</li>
+                                <li>Получение актуальных данных с серверов (погода, новости и др.).</li>
+                                <li>Отправка данных на сервер (формы обратной связи, комментарии и др.).</li>
+                                <li>Автоматизация процессов (обновление данных, синхронизация).</li>
+                                <li>Расширение функциональности приложений без необходимости писать весь код с нуля.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="concepts">
+                    <div class="container">
+                        <h2>Основные понятия</h2>
+                        <ul class="list-ul">
+                            <li>API — интерфейс для взаимодействия между программами.</li>
+                            <li>REST — архитектурный стиль для построения API.</li>
+                            <li>
+                                <code>fetch</code>
+                                — встроенная функция JavaScript для запросов к серверу.
+                            </li>
+                            <li>JSON — популярный формат передачи данных в API.</li>
+                            <li>Запрос (request) и ответ (response) — основные компоненты общения с API.</li>
+                            <li>Токен авторизации — ключ для доступа к защищённым API.</li>
+                            <li>Эндпоинт — конкретный URL для обращения к функции API.</li>
+                            <li>response.ok — свойство ответа, показывающее успешность запроса.</li>
+                        </ul>
+
+                        <h3><code>fetch</code></h3>
+                        <p class="note">
+                            <strong><code>fetch</code></strong>
+                            это встроенная функция JavaScript, которая позволяет отправлять запросы на сервер и получать данные.
+                        </p>
+                        <h4>📜 Синтаксис fetch</h4>
+                        <div class="grid-column-50">
+                            <div class="code-block">
+                                <pre><code>fetch("URL")
+// Преобразование данных в JSON
+.then((response) =&gt; response.json())
+
+// Работа с полученными данными
+.then((data) =&gt; {
+   console.log(data);
+})
+
+// Обработка ошибок
+.catch((error) =&gt; {
+   console.error("Произошла ошибка:", error);
+});</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                            <div class="example">
+                                <p><b>Как это работает?</b></p>
+                                <ul class="list-ul">
+                                    <li>
+                                        <strong>fetch("URL")</strong>
+                                        — отправляет запрос по указанному адресу (например, к API).
+                                    </li>
+                                    <li>
+                                        <b>.then((response) => response.json())</b>
+                                        — преобразует ответ сервера из формата JSON в JavaScript-объект.
+                                    </li>
+                                    <li>
+                                        <b>.then((data) => {...})</b>
+                                        — получает готовые данные и работает с ними.
+                                    </li>
+                                    <li>
+                                        <b>.catch((error) => {...})</b>
+                                        — обрабатывает ошибки, если что-то пошло не так (например, сервер недоступен).
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="note note--info">
+                            <p><strong>⚠ Важно:</strong></p>
+                            <p>
+                                ●
+                                <code>fetch</code>
+                                возвращает промис, поэтому его результат нужно обрабатывать через
+                                <b>.then</b>
+                                или
+                                <b>async/await</b>
+                            </p>
+                            <p>
+                                ● Если сервер возвращает ошибку
+                                <i>(например, 404)</i>
+                                ,
+                                <code>fetch</code>
+                                сам по себе не считает это ошибкой — статус нужно проверять вручную
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- fetch -->
+                <section class="section" id="fetch">
+                    <div class="container">
+                        <h2><code>fetch</code></h2>
+                        <p class="note">
+                            <strong><code>fetch</code></strong>
+                            это встроенная функция JavaScript, которая позволяет отправлять запросы на сервер и получать данные.
+                        </p>
+                        <h4>📜 Синтаксис fetch</h4>
+                        <div class="grid-column-50">
+                            <div class="code-block">
+                                <pre><code>fetch("URL")
+// Преобразование данных в JSON
+.then((response) =&gt; response.json())
+
+// Работа с полученными данными
+.then((data) =&gt; {
+   console.log(data);
+})
+
+// Обработка ошибок
+.catch((error) =&gt; {
+   console.error("Произошла ошибка:", error);
+});</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                            <div class="example">
+                                <p><b>Как это работает?</b></p>
+                                <ul class="list-ul">
+                                    <li>
+                                        <strong>fetch("URL")</strong>
+                                        — отправляет запрос по указанному адресу (например, к API).
+                                    </li>
+                                    <li>
+                                        <b>.then((response) => response.json())</b>
+                                        — преобразует ответ сервера из формата JSON в JavaScript-объект.
+                                    </li>
+                                    <li>
+                                        <b>.then((data) => {...})</b>
+                                        — получает готовые данные и работает с ними.
+                                    </li>
+                                    <li>
+                                        <b>.catch((error) => {...})</b>
+                                        — обрабатывает ошибки, если что-то пошло не так (например, сервер недоступен).
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="note note--info">
+                            <p><strong>⚠ Важно:</strong></p>
+                            <p>
+                                ●
+                                <code>fetch</code>
+                                возвращает промис, поэтому его результат нужно обрабатывать через
+                                <b>.then</b>
+                                или
+                                <b>async/await</b>
+                            </p>
+                            <p>
+                                ● Если сервер возвращает ошибку
+                                <i>(например, 404)</i>
+                                ,
+                                <code>fetch</code>
+                                сам по себе не считает это ошибкой — статус нужно проверять вручную
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- JSON  -->
+                <section class="section" id="json">
+                    <div class="container">
+                        <h2><code>JSON</code></h2>
+                        <p class="note">
+                            <strong><code>JSON (JavaScript Object Notation)</code></strong>
+                            — это формат для передачи данных, который выглядит как объект JavaScript.
+                        </p>
+                        <h4>📜 Как выглядит JSON</h4>
+                        <div class="grid-column-50">
+                            <div class="code-block">
+                                <pre><code>{
+  "name": "Анна",
+  "age": 25,
+  "skills": ["HTML", "CSS", "JavaScript"]
+}
+
+{
+  "name": "Анна",
+  "age": 25,
+  "skills": ["HTML", "CSS", "JavaScript"]
+}</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                            <div class="example">
+                                <p>JSON — это текстовый формат, который выглядит как объект JavaScript.</p>
+                            </div>
+                        </div>
+                        <h4>Как обработать JSON с помощью fetch?</h4>
+                        <ol class="list-ol">
+                            <li>
+                                Сначала отправляем запрос с помощью
+                                <code>fetch</code>
+                            </li>
+                            <li>
+                                Используем метод
+                                <b>.json()</b>
+                                для преобразования данных из
+                                <b>JSON</b>
+                                в объект
+                                <b>JavaScript</b>
+                            </li>
+                            <li>Работаем с данными, как с обычным объектом</li>
+                            <li>
+                                Если сервер вернёт ошибку, обработаем её в блоке
+                                <b>catch</b>
+                            </li>
+                        </ol>
+
+                        <div class="grid-column-100">
+                            <div class="code-block">
+                                <pre><code>fetch("https://jsonplaceholder.typicode.com/users/1")
+
+// Преобразуем JSON в объект
+.then((response) =&gt; response.json())
+
+// Работаем с полученными данными
+.then((data) =&gt; {
+
+//Выводим имя и email пользователя
+   console.log(`Имя: ${data.name}`);
+   console.log(`Email: ${data.email}`);
+})
+
+// Обрабатываем ошибки
+.catch((error) =&gt; {
+   console.error("Ошибка:", error.message);
+});</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                            <div class="example" style="font-size: 14px">
+                                <p><b>💬 Что здесь происходит?</b></p>
+                                <ul class="list-ul">
+                                    <li>
+                                        Отправляем
+                                        <b>GET-запрос</b>
+                                        к
+                                        <b>API</b>
+                                        , получаем объект пользователя.
+                                    </li>
+                                    <li>
+                                        <b>response.json()</b>
+                                        преобразует ответ от сервера в
+                                        <b>JavaScript</b>
+                                        -объект.
+                                    </li>
+                                    <li>
+                                        Выводим
+                                        <b>имя</b>
+                                        и
+                                        <b>email</b>
+                                        пользователя.
+                                    </li>
+                                    <li>
+                                        Обработка ошибок: если сервер вернёт не JSON,
+                                        <b>.json()</b>
+                                        выдаст ошибку — используем
+                                        <b>.catch()</b>
+                                        .
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <p class="note note--info">
+                            <strong>⚠ Важно:</strong>
+                            <br />
+                            <b>JSON</b>
+                            — это текст, его нужно преобразовать в объект с помощью
+                            <code>.json()</code>
+                            .
+                            <br />
+                            Если сервер возвращает не
+                            <b>JSON</b>
+                            , метод
+                            <code>.json()</code>
+                            выдаст ошибку — не забудь добавить обработку ошибок с помощью
+                            <b>.catch()</b>
+                            .
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Обработка ошибок -->
+                <section class="section" id="error-handling">
+                    <div class="container">
+                        <h2>Обработка ошибок</h2>
+                        <p class="note">При работе с API важно правильно обрабатывать ошибки, чтобы приложение не ломалось при сбоях.</p>
+                        <p>
+                            Иногда запрос может завершиться с ошибкой
+                            <i>(например, сервер недоступен или URL неправильный)</i>
+                            . Если мы не обработаем такие ситуации, наш код может сломаться.
+                        </p>
+                        <h4>Как это сделать?</h4>
+                        <ul class="list-ul">
+                            <li>
+                                Используй свойство
+                                <code>response.ok</code>
+                                , чтобы проверить, успешен ли запрос.
+                                <br />
+                                Если значение
+                                <b>false</b>
+                                , значит, произошла ошибка.
+                            </li>
+                            <li>
+                                Обрабатывай ошибки с помощью
+                                <code>.catch()</code>
+                                <br />
+                                Этот метод ловит любые проблемы, которые возникают во время выполнения запроса.
+                            </li>
+                            <li>
+                                Если сервер вернёт ошибку
+                                <b>(например, 404)</b>
+                                , но мы не проверим
+                                <code>response.ok</code>
+                                ,
+                                <b>fetch</b>
+                                успешно выполнится, но данные будут недоступны!
+                            </li>
+                        </ul>
+
+                        <h4>📜 Пример обработки ошибок</h4>
+                        <div class="grid-column-100">
+                            <div class="code-block">
+                                <pre><code>//Отправляем запрос к API
+fetch("https://jsonplaceholder.typicode.com/invalid-url")
+
+//Проверяем статус ответа
+.then((response) =&gt; {
+
+//Проверяем, успешен ли запрос c помощью response.ok
+   if (!response.ok) {
+
+      //Если нет, выбрасываем ошибку с кодом статуса
+      throw new Error("Ошибка: " + response.status);
+   }
+
+   //Преобразуем ответ в JSON
+   return response.json();
+})
+
+//Работаем с полученными данными
+.then((data) =&gt; {
+   //Выводим данные в консоль
+   console.log("Данные:", data);
+})
+
+//Обрабатываем ошибки
+.catch((error) =&gt; {
+   console.error("Произошла ошибка:", error.message);
+});</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                            <div class="example" style="font-size: 14px">
+                                <ul class="list-ul">
+                                    <li>
+                                        Проверяем
+                                        <code>response.ok</code>
+                                        — если запрос неудачен, выбрасываем ошибку.
+                                    </li>
+                                    <li>
+                                        Все ошибки попадают в
+                                        <code>.catch()</code>
+                                        .
+                                    </li>
+                                    <li>
+                                        Если сервер вернёт ошибку (например, 404), но мы не проверим
+                                        <code>response.ok</code>
+                                        , fetch успешно выполнится, но данные будут недоступны!
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p class="note note--info">
+                            <strong>⚠ Важно:</strong>
+                            <br />
+                            Проверяйте
+                            <code>response.ok</code>
+                            — если запрос неудачен, выбрасывайте ошибку.
+                            <br />
+                            Все ошибки должны попадать в блок
+                            <code>.catch()</code>
+                            , чтобы приложение не ломалось.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- POST  -->
+                <section class="section" id="post">
+                    <div class="container">
+                        <h2>Отправка данных с помощью POST</h2>
+
+                        <p class="note">
+                            <strong>POST</strong>
+                            — это метод HTTP-запроса, который используется для отправки данных на сервер.
+                        </p>
+                        <h4>📜 Пример отправки данных</h4>
+                        <div class="grid-column-100">
+                            <div class="code-block">
+                                <pre><code>
+//Отправляем POST-запрос на сервер
+fetch("https://jsonplaceholder.typicode.com/posts", {
+    //Указываем метод запроса
+    method: "POST",
+    //Заголовки запроса
+    headers: {
+        //Формат данных, которые мы отправляем
+        "Content-Type": "application/json",
+    },
+    //Данные, которые мы отправляем на сервер
+    //Преобразуем объект в JSON-строку
+    body: JSON.stringify({
+        //Заголовок нового поста
+        title: "Новый пост",
+        //Содержимое поста
+        body: "Это содержимое поста",
+        //ID пользователя, к которому относится пост
+        userId: 1,
+    }),
+})
+    //Преобразуем ответ сервера в объект
+    .then((response) => response.json())
+    //Обрабатываем ответ
+    .then((data) => {
+        //Выводим данные в консоль
+        console.log("Успешно отправлено:", data);
+    })
+    //Обрабатываем ошибки
+    .catch((error) => {
+        console.error("Ошибка:", error.message);
+    });
+</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                            <div class="example" style="font-size: 14px">
+                                <p><b>🔍 Что происходит в этом коде?</b></p>
+                                <ul class="list-ul">
+                                    <li>
+                                        Метод
+                                        <b>fetch</b>
+                                        : Мы отправляем запрос по адресу
+                                        <b>https://jsonplaceholder.typicode.com/posts</b>
+                                        .
+                                    </li>
+
+                                    <li>
+                                        <b>method: "POST"</b>
+                                        Указываем метод
+                                        <b>POST</b>
+                                        , чтобы отправить данные (по умолчанию используется
+                                        <b>GET</b>
+                                        , который только получает данные).
+                                    </li>
+
+                                    <li>
+                                        <b>headers:</b>
+                                        Указываем заголовок
+                                        <b>Content-Type: application/json</b>
+                                        , чтобы сервер понимал, что мы отправляем данные в формате
+                                        <b>JSON</b>
+                                    </li>
+
+                                    <li>
+                                        <b>body:</b>
+                                        Передаём данные в виде объекта, который нужно преобразовать в строку с помощью
+                                        <b>JSON.stringify()</b>
+                                    </li>
+
+                                    <li>
+                                        Ответ от сервера: Сервер возвращает ответ (например, успешно созданный объект), который мы преобразуем в
+                                        <b>JSON</b>
+                                        с помощью
+                                        <b>.json()</b>
+                                        и выводим в консоль.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p class="note note--info">
+                            <strong>⚠ Важно:</strong>
+                            <br />
+                            При отправке данных всегда указывайте заголовок
+                            <code>Content-Type: application/json</code>
+                            , если данные в формате JSON.
+                            <br />
+                            Используйте
+                            <code>JSON.stringify()</code>
+                            для преобразования объекта в строку JSON.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Примеры -->
+                <section class="section" id="examples">
+                    <div class="container">
+                        <h2>Примеры</h2>
+
+                        <p class="note">
+                            Вот несколько примеров работы с API с использованием
+                            <code>fetch</code>
+                            и обработки данных в формате JSON.
+                        </p>
+                        <div>
+                            <!--Пример 1 -->
+                            <div>
+                                <h4>📜 Пример 1: Получение списка товаров</h4>
+                                <p>
+                                    <b>Описание:</b>
+                                    Получаем список товаров интернет-магазина с сервера с помощью GET-запроса.
+                                </p>
+                                <div class="grid-column-100">
+                                    <div class="code-block">
+                                        <pre><code>// Отправляем GET-запрос для получения товаров
+	fetch("https://api.example.com/products")
+	    //Преобразуем ответ в объект JS
+	    .then((response) => response.json())
+
+	    //Метод response.json() также возвращает промис, который будет выполнен, когда ответ будет преобразован в JSON
+	    .then((data) => {
+	        // Здесь мы можем работать с полученными данными
+	        // Например, выводим список товаров в консоль
+	        console.log(data);
+	    })
+	    // Обработка ошибок
+	    .catch((error) => {
+	        console.error("Ошибка:", error);
+	    });
+	</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                    <div class="example" style="font-size: 14px">
+                                        <ul class="list-ul">
+                                            <li>Получение списка товаров с сервера через GET-запрос.</li>
+                                            <li>
+                                                Данные преобразуются в объект JavaScript с помощью
+                                                <code>response.json()</code>
+                                                .
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Пример 2 -->
+                            <div>
+                                <h4>📜 Пример 2: Получение текущей погоды</h4>
+                                <p>
+                                    <b>Описание:</b>
+                                    Получаем текущую температуру в выбранном городе через погодный API.
+                                </p>
+                                <div class="grid-column-50">
+                                    <div class="code-block">
+                                        <pre><code>// Получаем погоду для города Москва
+	fetch("https://api.weather.com/current?city=Moscow")
+	    //Преобразуем ответ в объект  JS
+	    .then((response) => response.json())
+	    .then((data) => {
+	        // Выводим температуру
+	        console.log(`Температура: ${data.temp}°C`);
+	    })
+	    // Обработка ошибок запроса
+	    .catch((error) => {
+	        console.error("Ошибка:", error);
+	    });
+	</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                    <div class="example" style="font-size: 14px">
+                                        <ul class="list-ul">
+                                            <li>Получение текущей погоды с помощью API.</li>
+                                            <li>Вывод температуры для выбранного города.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--  Пример 3 -->
+                            <div>
+                                <h4>📜 Пример 3: Получение новостей</h4>
+                                <p>
+                                    <b>Описание:</b>
+                                    Получаем последние новости с сервера и выводим массив статей.
+                                </p>
+                                <div class="grid-column-50">
+                                    <div class="code-block">
+                                        <pre><code>// Запрашиваем свежие новости
+	fetch("https://api.news.com/latest")
+	    // Отправляем GET-запрос для получения новостей
+	    // Преобразуем ответ в объект JS
+	    .then((response) => response.json())
+	    .then((data) => {
+	        // Выводим массив статей
+	        console.log(data.articles);
+	    })
+	    .catch((error) => {
+	        console.error("Ошибка:", error);
+	    });
+	</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                    <div class="example" style="font-size: 14px">
+                                        <ul class="list-ul">
+                                            <li>Получение последних новостей с сервера.</li>
+                                            <li>Ответ содержит массив статей.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Пример 4 -->
+                            <div>
+                                <h4>📜 Пример 4: Отправка отзыва пользователя</h4>
+                                <p>
+                                    <b>Описание:</b>
+                                    Отправляем отзыв пользователя на сервер методом POST с передачей данных в формате JSON.
+                                </p>
+                                <div class="grid-column-100">
+                                    <div class="code-block">
+                                        <pre><code>// Отправляем POST-запрос с отзывом
+	fetch("https://api.example.com/feedback", {
+	    // URL сервера для отправки отзыва
+	    // Указываем метод	запроса
+	    method: "POST",
+	    headers: {
+	        // Формат данных JSON
+	        "Content-Type": "application/json",
+	    },
+	    body: JSON.stringify({
+	        message: "Отличный сервис!", // Текст отзыва
+	    }),
+	})
+	    .then((response) => response.json()) // Преобразуем ответ в объект JS
+	    .then((data) => {
+	        console.log("Ответ сервера:", data); // Выводим результат
+	    })
+	    .catch((error) => {
+	        console.error("Ошибка:", error); // Обработка ошибок запроса
+	    });
+	</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                    <div class="example" style="font-size: 14px">
+                                        <ul class="list-ul">
+                                            <li>Отправка отзыва пользователя на сервер методом POST.</li>
+                                            <li>Данные отправляются в формате JSON.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Пример 5 -->
+                            <div>
+                                <h4>📜 Пример 5: Удаление пользователя</h4>
+                                <p>Описание: Удаляем пользователя по ID с помощью DELETE-запроса и проверяем статус ответа.</p>
+                                <div class="grid-column-100">
+                                    <div class="code-block">
+                                        <pre><code>// Отправляем DELETE-запрос для удаления пользователя
+	fetch("https://api.example.com/user/123", {
+	  method: "DELETE" // Указываем метод
+	})
+	  .then(response => {
+	    if (response.ok) {
+	      console.log("Пользователь удален"); // Успешное удаление
+	    } else {
+	      throw new Error("Ошибка удаления"); // Ошибка удаления
+	    }
+	  })
+	  .catch(error => {
+	    console.error("Ошибка:", error); // Обработка ошибок запроса
+	  });</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                    <div class="example" style="font-size: 14px">
+                                        <ul class="list-ul">
+                                            <li>Удаление пользователя по ID с помощью DELETE-запроса.</li>
+                                            <li>
+                                                Проверка статуса ответа через
+                                                <code>response.ok</code>
+                                                .
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!--Практика  -->
+                <section class="section" id="practice">
+                    <div class="container">
+                        <h2>Практика</h2>
+                        <div class="interactive-practice">
+                            <!-- Пример 1 -->
+                            <div>
+                                <h3>Интерактивная практика: получение пользователя по ID</h3>
+
+                                <div class="note note--info">
+                                    Введите ID пользователя от 1 до 10 и получите информацию с помощью API.
+                                    <br />
+                                    <strong>Это эмуляция работы с fetch: данные берутся с публичного тестового сервера.</strong>
+                                </div>
+
+                                <h4>Пример 1: Получение пользователя по ID</h4>
+                                <div class="interactive-demo">
+                                    <div class="demo-box">
+                                        <label>Введите ID пользователя:</label>
+                                        <input type="number" id="userIdDemo" min="1" max="10" placeholder="например, 1" />
+                                        <button class="demo-btn" onclick="getUserDemo()">Показать пользователя</button>
+                                        <div class="demo-result" id="userDemoResult"></div>
+                                    </div>
+                                </div>
+                                <h4>Код примера:</h4>
+                                <pre><code>
+	&lt;div class="demo-box"&gt;
+	    &lt;label&gt;Введите ID пользователя:&lt;/label&gt;
+	    &lt;input type="number" id="userIdDemo" min="1" max="10" placeholder="например, 1" /&gt;
+	    &lt;button class="demo-btn" onclick="getUserDemo()"&gt;Показать пользователя&lt;/button&gt;
+	    &lt;div class="demo-result" id="userDemoResult"&gt;&lt;/div&gt;
+	&lt;/div&gt;
+	</code></pre>
+                                <pre><code>
+	// Получение пользователя по ID
+	function getUserDemo() {
+	    const userId = document.getElementById("userIdDemo").value;
+	    const resultBlock = document.getElementById("userDemoResult");
+	    if (!userId || userId < 1 || userId > 10) {
+	        resultBlock.textContent = "Пожалуйста, введите ID от 1 до 10.";
+	        return;
+	    }
+	    resultBlock.textContent = "Загружаем данные...";
+	    fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
+	        .then((response) => {
+	            if (!response.ok) throw new Error("Ошибка: " + response.status);
+	            return response.json();
+	        })
+	        .then((data) => {
+	            resultBlock.innerHTML = `
+	                <b>Имя:</b> ${data.name}<br>
+	                <b>Email:</b> ${data.email}<br>
+	                <b>Город:</b> ${data.address.city}
+	            `;
+	        })
+	        .catch((error) => {
+	            resultBlock.textContent = "Ошибка запроса: " + error.message;
+	        });
+	}
+	</code></pre>
+                            </div>
+
+                            <!-- Пример 2 -->
+                            <div>
+                                <h3>Пример 2: Получение списка всех пользователей</h3>
+                                <p>Описание: Получаем список всех пользователей с сервера и выводим их имена и email.</p>
+                                <div class="interactive-demo">
+                                    <div class="demo-box">
+                                        <button class="demo-btn" onclick="getUsersDemo()">Показать всех пользователей</button>
+                                        <div class="demo-result" id="usersDemoResult"></div>
+                                    </div>
+                                </div>
+                                <h4>Код примера:</h4>
+                                <pre><code>
+	&lt;div class="demo-box"&gt;
+	    &lt;button class="demo-btn" onclick="getUsersDemo()"&gt;Показать всех пользователей&lt;/button&gt;
+	    &lt;div class="demo-result" id="usersDemoResult"&gt;&lt;/div&gt;
+	&lt;/div&gt;
+	</code></pre>
+                                <pre><code>
+	// Получение списка всех пользователей
+	function getUsersDemo() {
+	    const resultBlock = document.getElementById("usersDemoResult");
+	    resultBlock.textContent = "Загружаем данные...";
+	    fetch("https://jsonplaceholder.typicode.com/users")
+	        .then((response) => {
+	            if (!response.ok) throw new Error("Ошибка: " + response.status);
+	            return response.json();
+	        })
+	        .then((data) => {
+	            resultBlock.innerHTML = "<b>Пользователи:</b><br>" + data.map(u => `${u.id}: ${u.name} (${u.email})`).join("<br>");
+	        })
+	        .catch((error) => {
+	            resultBlock.textContent = "Ошибка запроса: " + error.message;
+	        });
+	}
+	</code></pre>
+                            </div>
+
+                            <!-- Пример 3 -->
+                            <div>
+                                <h3>Пример 3: Получение постов пользователя</h3>
+                                <p>Описание: Получаем список постов пользователя по его ID и выводим заголовки и содержимое.</p>
+                                <div class="interactive-demo">
+                                    <div class="demo-box">
+                                        <label>Введите ID пользователя:</label>
+                                        <input type="number" id="userPostsIdDemo" min="1" max="10" placeholder="например, 1" />
+                                        <button class="demo-btn" onclick="getUserPostsDemo()">Показать посты пользователя</button>
+                                        <div class="demo-result" id="userPostsDemoResult"></div>
+                                    </div>
+                                </div>
+                                <h4>Код примера:</h4>
+                                <pre><code>
+	&lt;div class="demo-box"&gt;
+	    &lt;label&gt;Введите ID пользователя:&lt;/label&gt;
+	    &lt;input type="number" id="userPostsIdDemo" min="1" max="10" placeholder="например, 1" /&gt;
+	    &lt;button class="demo-btn" onclick="getUserPostsDemo()"&gt;Показать посты пользователя&lt;/button&gt;
+	    &lt;div class="demo-result" id="userPostsDemoResult"&gt;&lt;/div&gt;
+	&lt;/div&gt;
+	</code></pre>
+                                <pre><code>
+	// Получение постов пользователя по ID
+	function getUserPostsDemo() {
+	    const userId = document.getElementById("userPostsIdDemo").value;
+	    const resultBlock = document.getElementById("userPostsDemoResult");
+	    if (!userId || userId < 1 || userId > 10) {
+	        resultBlock.textContent = "Пожалуйста, введите ID от 1 до 10.";
+	        return;
+	    }
+	    resultBlock.textContent = "Загружаем данные...";
+	    fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`)
+	        .then((response) => {
+	            if (!response.ok) throw new Error("Ошибка: " + response.status);
+	            return response.json();
+	        })
+	        .then((posts) => {
+	            if (!posts.length) {
+	                resultBlock.innerHTML = "Посты не найдены.";
+	                return;
+	            }
+	            resultBlock.innerHTML = "<b>Посты пользователя:</b><br>" + posts.map(p => `<b>${p.title}</b><br>${p.body}<br>`).join("<hr>");
+	        })
+	        .catch((error) => {
+	            resultBlock.textContent = "Ошибка запроса: " + error.message;
+	        });
+	}
+	</code></pre>
+                            </div>
+
+                            <!-- Пример 4 -->
+                            <div>
+                                <h3>Пример 4: Получение комментариев к посту</h3>
+                                <p>Описание: Получаем список комментариев к посту по его ID и выводим имя, email и текст комментария.</p>
+                                <div class="interactive-demo">
+                                    <div class="demo-box">
+                                        <label>Введите ID поста:</label>
+                                        <input type="number" id="postCommentsDemo" min="1" max="100" placeholder="например, 1" />
+                                        <button class="demo-btn" onclick="getPostCommentsDemo()">Показать комментарии</button>
+                                        <div class="demo-result" id="postCommentsDemoResult"></div>
+                                    </div>
+                                </div>
+                                <h4>Код примера:</h4>
+                                <pre><code>
+	&lt;div class="demo-box"&gt;
+	    &lt;label&gt;Введите ID поста:&lt;/label&gt;
+	    &lt;input type="number" id="postCommentsDemo" min="1" max="100" placeholder="например, 1" /&gt;
+	    &lt;button class="demo-btn" onclick="getPostCommentsDemo()"&gt;Показать комментарии&lt;/button&gt;
+	    &lt;div class="demo-result" id="postCommentsDemoResult"&gt;&lt;/div&gt;
+	&lt;/div&gt;
+	</code></pre>
+                                <pre><code>
+	// Получение комментариев к посту по ID
+	function getPostCommentsDemo() {
+	    const postId = document.getElementById("postCommentsDemo").value;
+	    const resultBlock = document.getElementById("postCommentsDemoResult");
+	    if (!postId || postId < 1 || postId > 100) {
+	        resultBlock.textContent = "Пожалуйста, введите ID поста от 1 до 100.";
+	        return;
+	    }
+	    resultBlock.textContent = "Загружаем данные...";
+	    fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`)
+	        .then((response) => {
+	            if (!response.ok) throw new Error("Ошибка: " + response.status);
+	            return response.json();
+	        })
+	        .then((comments) => {
+	            if (!comments.length) {
+	                resultBlock.innerHTML = "Комментариев не найдено.";
+	                return;
+	            }
+	            resultBlock.innerHTML = "<b>Комментарии к посту:</b><br>" + comments.map(c => `<b>${c.name}</b> (${c.email})<br>${c.body}<br>`).join("<hr>");
+	        })
+	        .catch((error) => {
+	            resultBlock.textContent = "Ошибка запроса: " + error.message;
+	        });
+	}
+	</code></pre>
+                            </div>
+
+                            <!-- Пример 5 -->
+                            <div>
+                                <h3>Пример 5: Получение информации о компании пользователя</h3>
+                                <p>Описание: Получаем информацию о компании пользователя по его ID и выводим название, слоган и вид деятельности.</p>
+                                <div class="interactive-demo">
+                                    <div class="demo-box">
+                                        <label>Введите ID пользователя:</label>
+                                        <input type="number" id="userCompanyDemo" min="1" max="10" placeholder="например, 1" />
+                                        <button class="demo-btn" onclick="getUserCompanyDemo()">Показать компанию пользователя</button>
+                                        <div class="demo-result" id="userCompanyDemoResult"></div>
+                                    </div>
+                                </div>
+                                <h4>Код примера:</h4>
+                                <pre><code>
+	&lt;div class="demo-box"&gt;
+	    &lt;label&gt;Введите ID пользователя:&lt;/label&gt;
+	    &lt;input type="number" id="userCompanyDemo" min="1" max="10" placeholder="например, 1" /&gt;
+	    &lt;button class="demo-btn" onclick="getUserCompanyDemo()"&gt;Показать компанию пользователя&lt;/button&gt;
+	    &lt;div class="demo-result" id="userCompanyDemoResult"&gt;&lt;/div&gt;
+	&lt;/div&gt;
+	</code></pre>
+                                <pre><code>
+	// Получение информации о компании пользователя
+	function getUserCompanyDemo() {
+	    const userId = document.getElementById("userCompanyDemo").value;
+	    const resultBlock = document.getElementById("userCompanyDemoResult");
+	    if (!userId || userId < 1 || userId > 10) {
+	        resultBlock.textContent = "Пожалуйста, введите ID от 1 до 10.";
+	        return;
+	    }
+	    resultBlock.textContent = "Загружаем данные...";
+	    fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
+	        .then((response) => {
+	            if (!response.ok) throw new Error("Ошибка: " + response.status);
+	            return response.json();
+	        })
+	        .then((data) => {
+	            if (!data.company) {
+	                resultBlock.innerHTML = "Компания не найдена.";
+	                return;
+	            }
+	            resultBlock.innerHTML = `
+	                <b>Компания:</b> ${data.company.name}<br>
+	                <b>Слоган:</b> ${data.company.catchPhrase}<br>
+	                <b>Вид деятельности:</b> ${data.company.bs}
+	            `;
+	        })
+	        .catch((error) => {
+	            resultBlock.textContent = "Ошибка запроса: " + error.message;
+	        });
+	}
+	</code></pre>
+                            </div>
+                        </div>
+
+                        <p class="note worning">
+                            Все примеры используют публичное
+                            <b>API</b>
+                            <a target="_blank" href="https://jsonplaceholder.typicode.com/"><b>jsonplaceholder.typicode.com</b></a>
+
+                            , удобно для учебных целей.
+                            <br />
+                            Вы можете копировать код и менять id/кнопки для реальных задач!
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Советы и типичные ошибки -->
+                <section class="section" id="tips">
+                    <div class="container">
+                        <h2>Советы и типичные ошибки</h2>
+                        <ul class="list-ul">
+                            <li>
+                                <b>fetch</b>
+                                возвращает промис, поэтому его результат нужно обрабатывать через
+                                <code>.then</code>
+                                или
+                                <code>async/await</code>
+                                .
+                            </li>
+                            <li>
+                                Если сервер возвращает ошибку
+                                <b><i>(например, 404)</i></b>
+                                ,
+                                <b>fetch</b>
+                                сам по себе не считает это ошибкой — статус
+                                <code>response.ok</code>
+                                нужно проверять вручную.
+                            </li>
+                            <li>
+                                <b>JSON</b>
+                                — это текст, его нужно преобразовать в объект с помощью
+                                <code>.json()</code>
+                                .
+                            </li>
+                            <li>
+                                Если сервер возвращает не
+                                <b>JSON</b>
+                                , метод
+                                <code>.json()</code>
+                                выдаст ошибку — не забудь добавить обработку ошибок с помощью
+                                <code>.catch()</code>
+                                .
+                            </li>
+                        </ul>
+                        <div class="note note--info">
+                            <strong>Частая ошибка</strong>
+                            — забытый или неверный токен, неправильный
+                            <b>Content-Type</b>
+                            заголовок, отсутствие проверки
+                            <code>response.ok</code>
+                            .
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="best-practices">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+                        <ul class="list-ul">
+                            <li>Используйте переменные окружения для хранения токенов и ключей.</li>
+                            <li>Не публикуйте приватные ключи и токены в открытом репозитории.</li>
+                            <li>Документируйте работу с API для вашей команды.</li>
+                            <li>Добавляйте обработку ошибок и логирование в интеграции с API.</li>
+                            <li>
+                                Проверяйте статус ответа
+                                <code>response.ok</code>
+                                и обрабатывайте ошибки корректно.
+                            </li>
+                        </ul>
+                        <div class="note note--info">Соблюдение лучших практик помогает обезопасить данные и упростить поддержку интеграций.</div>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+        <script>
+            // Пример 1: Получение пользователя по ID
+            function getUserDemo() {
+                const userId = document.getElementById("userIdDemo").value;
+                const resultBlock = document.getElementById("userDemoResult");
+                if (!userId || userId < 1 || userId > 10) {
+                    resultBlock.textContent = "Пожалуйста, введите ID от 1 до 10.";
+                    return;
+                }
+                resultBlock.textContent = "Загружаем данные...";
+                fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
+                    .then((response) => {
+                        if (!response.ok) throw new Error("Ошибка: " + response.status);
+                        return response.json();
+                    })
+                    .then((data) => {
+                        resultBlock.innerHTML = `
+                    <b>Имя:</b> ${data.name}<br>
+                    <b>Email:</b> ${data.email}<br>
+                    <b>Город:</b> ${data.address.city}
+                `;
+                    })
+                    .catch((error) => {
+                        resultBlock.textContent = "Ошибка запроса: " + error.message;
+                    });
+            }
+
+            // Пример 2: Получение списка всех пользователей
+            function getUsersDemo() {
+                const resultBlock = document.getElementById("usersDemoResult");
+                resultBlock.textContent = "Загружаем данные...";
+                fetch("https://jsonplaceholder.typicode.com/users")
+                    .then((response) => {
+                        if (!response.ok) throw new Error("Ошибка: " + response.status);
+                        return response.json();
+                    })
+                    .then((data) => {
+                        resultBlock.innerHTML = "<b>Пользователи:</b><br>" + data.map((u) => `${u.id}: ${u.name} (${u.email})`).join("<br>");
+                    })
+                    .catch((error) => {
+                        resultBlock.textContent = "Ошибка запроса: " + error.message;
+                    });
+            }
+
+            // Пример 3: Получение постов пользователя по ID
+            function getUserPostsDemo() {
+                const userId = document.getElementById("userPostsIdDemo").value;
+                const resultBlock = document.getElementById("userPostsDemoResult");
+                if (!userId || userId < 1 || userId > 10) {
+                    resultBlock.textContent = "Пожалуйста, введите ID от 1 до 10.";
+                    return;
+                }
+                resultBlock.textContent = "Загружаем данные...";
+                fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`)
+                    .then((response) => {
+                        if (!response.ok) throw new Error("Ошибка: " + response.status);
+                        return response.json();
+                    })
+                    .then((posts) => {
+                        if (!posts.length) {
+                            resultBlock.innerHTML = "Посты не найдены.";
+                            return;
+                        }
+                        resultBlock.innerHTML = "<b>Посты пользователя:</b><br>" + posts.map((p) => `<b>${p.title}</b><br>${p.body}<br>`).join("<hr>");
+                    })
+                    .catch((error) => {
+                        resultBlock.textContent = "Ошибка запроса: " + error.message;
+                    });
+            }
+
+            // Пример 4: Получение комментариев к посту по ID
+            function getPostCommentsDemo() {
+                const postId = document.getElementById("postCommentsDemo").value;
+                const resultBlock = document.getElementById("postCommentsDemoResult");
+                if (!postId || postId < 1 || postId > 100) {
+                    resultBlock.textContent = "Пожалуйста, введите ID поста от 1 до 100.";
+                    return;
+                }
+                resultBlock.textContent = "Загружаем данные...";
+                fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`)
+                    .then((response) => {
+                        if (!response.ok) throw new Error("Ошибка: " + response.status);
+                        return response.json();
+                    })
+                    .then((comments) => {
+                        if (!comments.length) {
+                            resultBlock.innerHTML = "Комментариев не найдено.";
+                            return;
+                        }
+                        resultBlock.innerHTML = "<b>Комментарии к посту:</b><br>" + comments.map((c) => `<b>${c.name}</b> (${c.email})<br>${c.body}<br>`).join("<hr>");
+                    })
+                    .catch((error) => {
+                        resultBlock.textContent = "Ошибка запроса: " + error.message;
+                    });
+            }
+
+            // Пример 5: Получение информации о компании пользователя
+            function getUserCompanyDemo() {
+                const userId = document.getElementById("userCompanyDemo").value;
+                const resultBlock = document.getElementById("userCompanyDemoResult");
+                if (!userId || userId < 1 || userId > 10) {
+                    resultBlock.textContent = "Пожалуйста, введите ID от 1 до 10.";
+                    return;
+                }
+                resultBlock.textContent = "Загружаем данные...";
+                fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
+                    .then((response) => {
+                        if (!response.ok) throw new Error("Ошибка: " + response.status);
+                        return response.json();
+                    })
+                    .then((data) => {
+                        if (!data.company) {
+                            resultBlock.innerHTML = "Компания не найдена.";
+                            return;
+                        }
+                        resultBlock.innerHTML = `
+                    <b>Компания:</b> ${data.company.name}<br>
+                    <b>Слоган:</b> ${data.company.catchPhrase}<br>
+                    <b>Вид деятельности:</b> ${data.company.bs}
+                `;
+                    })
+                    .catch((error) => {
+                        resultBlock.textContent = "Ошибка запроса: " + error.message;
+                    });
+            }
+        </script>
+    </body>
+</html>

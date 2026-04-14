@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Хранение состояния маршрутов: query и hash в Vue Router", "description": "Изучаем, как хранить состояние маршрутов с помощью query и hash в Vue Router." })
+
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#intro">Введение</a>
+                    <a href="#query">Query</a>
+                    <a href="#hash">Hash</a>
+                    <a href="#combined">Query + Hash</a>
+                    <a href="#practice">Практика</a>
+                    <a href="#faq">Вопросы/Ошибки</a>
+                </nav>
+
+                <!-- Введение -->
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>
+                            Хранение состояния маршрутов: query и hash в Vue
+                            Router
+                        </h1>
+                        <p class="note">
+                            <strong>Состояние маршрута</strong>
+                            — это параметры, которые сохраняются в адресной
+                            строке (URL) и позволяют
+                            <b>
+                                не терять фильтры, сортировку и позицию на
+                                странице
+                            </b>
+                            даже после обновления!
+                            <br />
+                            Это важно для поиска, фильтрации товаров в магазине,
+                            сортировки, перехода к нужному блоку и удобства
+                            пользователя.
+                        </p>
+                        <h4>Что изучаем?</h4>
+                        <ul class="list-ul">
+                            <li>
+                                Как использовать
+                                <b>query</b>
+                                для передачи параметров в URL
+                            </li>
+                            <li>
+                                Что такое
+                                <b>hash</b>
+                                и зачем он нужен
+                            </li>
+                            <li>Как программно менять query и hash</li>
+                            <li>Можно ли их комбинировать?</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Query -->
+                <section class="section" id="query">
+                    <div class="container">
+                        <h2>
+                            Передача параметров через
+                            <code>query</code>
+                        </h2>
+                        <p class="note">
+                            <b>Query-параметры</b>
+                            идут после
+                            <code>?</code>
+                            в URL и позволяют фильтровать или искать данные.
+                            <br />
+                            Они сохраняются даже после перезагрузки страницы!
+                        </p>
+                        <h4>Пример:</h4>
+                        <div class="code-block">
+                            <pre><code class="language-html">&lt;router-link :to="{ path: '/products', query: { category: 'laptops' } }"&gt;📱 Фильтр: Ноутбуки&lt;/router-link&gt;</code></pre>
+                        </div>
+                        <p>
+                            Итоговый URL:
+                            <code>/products?category=laptops</code>
+                        </p>
+                        <h4>Как получить query в компоненте?</h4>
+                        <div class="code-block">
+                            <pre><code >this.$route.query.category // "laptops"</code></pre>
+                        </div>
+                        <p>
+                            Можно передавать сразу несколько параметров:
+                            <code>/search?keyword=Vue&amp;sort=popular</code>
+                        </p>
+                        <h4>Программно изменить query:</h4>
+                        <div class="code-block">
+                            <pre><code >this.$router.push({ path: "/products", query: { category: "phones" } });</code></pre>
+                        </div>
+                        <p class="note note--info">
+                            <b>Query</b>
+                            сохраняется в истории и после обновления страницы.
+                            <br />
+                            Для удаления query передай пустой объект:
+                        </p>
+                        <div class="code-block">
+                            <pre><code >this.$router.push({ path: "/products", query: {} });</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Hash -->
+                <section class="section" id="hash">
+                    <div class="container">
+                        <h2>
+                            Якорь (
+                            <code>hash</code>
+                            ) в маршруте
+                        </h2>
+                        <p class="note">
+                            <b>Hash</b>
+                            — всё, что после
+                            <code>#</code>
+                            в URL.
+                            <br />
+                            Используется для прокрутки к нужному элементу на
+                            странице (например,
+                            <code>#features</code>
+                            или
+                            <code>#reviews</code>
+                            ).
+                        </p>
+                        <h4>Как добавить hash в ссылку:</h4>
+                        <div class="code-block">
+                            <pre><code class="language-html">&lt;router-link :to="{ path: '/docs', hash: '#installation' }"&gt;Перейти к установке&lt;/router-link&gt;</code></pre>
+                        </div>
+                        <h4>Программно перейти к якорю:</h4>
+                        <div class="code-block">
+                            <pre><code >this.$router.push({ path: "/about", hash: "#features" });</code></pre>
+                        </div>
+                        <h4>Как узнать hash в компоненте?</h4>
+                        <div class="code-block">
+                            <pre><code >this.$route.hash // Например: "#setup"</code></pre>
+                        </div>
+                        <p class="note note--info">
+                            <b>Hash</b>
+                            работает только внутри одной страницы и не
+                            переключает маршрут.
+                            <br />
+                            Если нет нужного id в разметке, hash не сработает.
+                        </p>
+                        <h4>
+                            Пример кнопки для перехода к блоку с id="features":
+                        </h4>
+                        <div class="code-block">
+                            <pre><code class="language-html">&lt;button @click="goToFeatures"&gt;🔗 Перейти к функциям&lt;/button&gt;
+
+&lt;script&gt;
+export default {
+  methods: {
+    goToFeatures() {
+      this.$router.push({ path: "/about", hash: "#features" });
+    }
+  }
+}
+&lt;/script&gt;
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Query + Hash одновременно -->
+                <section class="section" id="combined">
+                    <div class="container">
+                        <h2>Комбинируем query и hash</h2>
+                        <p>Можно передать и фильтр, и якорь одновременно:</p>
+                        <div class="code-block">
+                            <pre><code >this.$router.push({ path: "/products", query: { category: "phones" }, hash: "#filters" });
+// URL: /products?category=phones#filters
+</code></pre>
+                        </div>
+                        <ul class="list-ul">
+                            <li>
+                                Query сохраняется даже после перезагрузки 🔄
+                            </li>
+                            <li>
+                                Hash просто прокручивает страницу к нужному
+                                элементу
+                            </li>
+                        </ul>
+                        <h4>
+                            Что произойдет при перезагрузке
+                            <code>/products?category=phones#reviews</code>
+                            ?
+                        </h4>
+                        <div class="note note--info">
+                            <b>Параметры</b>
+                            и
+                            <b>якорь</b>
+                            останутся в адресе.
+                            <br />
+                            После загрузки страницы фильтр будет активен, а
+                            страница прокрутится к блоку с id="reviews".
+                        </div>
+                        <h4>Порядок обработки:</h4>
+                        <ul>
+                            <li>
+                                Vue Router сначала разбирает
+                                <b>path</b>
+                            </li>
+                            <li>
+                                Затем применяет
+                                <b>query</b>
+                            </li>
+                            <li>
+                                В конце переходит к
+                                <b>hash</b>
+                                (якорю), если он есть
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Практика -->
+                <section class="section" id="practice">
+                    <div class="container">
+                        <h2>Практика: работа с query и hash</h2>
+                        <ul>
+                            <li>
+                                Сделай ссылку, которая фильтрует товары по
+                                категории
+                                <b>ноутбуки</b>
+                            </li>
+                            <li>
+                                Сделай кнопку, которая по клику прокручивает
+                                страницу к блоку с id="features"
+                            </li>
+                            <li>
+                                Сделай ссылку, которая фильтрует по цене и сразу
+                                прокручивает к блоку с фильтрами
+                            </li>
+                        </ul>
+                        <div class="practice-demo example">
+                            <div id="vue-state-demo"></div>
+                        </div>
+                        <h4>App.vue</h4>
+                        <div class="code-block">
+                            <pre><code class="language-html">&lt;!-- App.vue --&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;router-link :to="{ path: '/products', query: { category: 'laptops' } }"&gt;Ноутбуки&lt;/router-link&gt;
+    &lt;button @click="goToFeatures"&gt;К функциям&lt;/button&gt;
+    &lt;router-link :to="{ path: '/products', query: { sort: 'price' }, hash: '#filters' }"&gt;Сортировать и к фильтрам&lt;/router-link&gt;
+    &lt;router-view/&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  methods: {
+    goToFeatures() {
+      this.$router.push({ path: "/about", hash: "#features" });
+    }
+  }
+}
+&lt;/script&gt;</code></pre>
+                        </div>
+                        <h4>Компонент с query/hash</h4>
+                        <div class="code-block">
+                            <pre><code class="language-html">&lt;!-- DemoQueryHash.vue --&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;h2&gt;Текущий query:&lt;/h2&gt;
+    &lt;pre&gt;{{ $route.query }}&lt;/pre&gt;
+    &lt;h2&gt;Текущий hash:&lt;/h2&gt;
+    &lt;pre&gt;{{ $route.hash }}&lt;/pre&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ и ошибки -->
+                <section class="section" id="faq">
+                    <div class="container">
+                        <h2>Частые ошибки и вопросы</h2>
+                        <ul class="list-ul">
+                            <li>
+                                <strong>Ошибка:</strong>
+                                <code>this.router.push(...)</code>
+                                — забыли
+                                <b>$</b>
+                                перед router!
+                            </li>
+                            <li>
+                                <strong>Ошибка:</strong>
+                                не передали
+                                <code>query</code>
+                                или
+                                <code>hash</code>
+                                как объект!
+                            </li>
+                            <li>
+                                <strong>Вопрос:</strong>
+                                Как одновременно передать query и hash?
+                                <br />
+                                <code>
+                                    this.$router.push({ path: "/products",
+                                    query: { sort: "price" }, hash: "#filters"
+                                    })
+                                </code>
+                            </li>
+                            <li>
+                                <strong>Вопрос:</strong>
+                                Почему параметры и hash не исчезают после
+                                обновления?
+                                <br />
+                                — Они хранятся в адресе и восстанавливаются при
+                                загрузке страницы.
+                            </li>
+                        </ul>
+                        <div class="note note--info">
+                            <b>
+                                Query и hash — твой инструмент для удобной и
+                                "живой" навигации!
+                            </b>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+        <script>
+            // Демонстрация для секции "Практика"
+            const DemoQueryHash = {
+                template: `
+                  <div>
+                    <h2>Текущий query:</h2>
+                    <pre>{{ $route.query }}</pre>
+                    <h2>Текущий hash:</h2>
+                    <pre>{{ $route.hash }}</pre>
+                  </div>
+                `,
+            };
+            const Features = {
+                template:
+                    "<div><h2 id='features'>✨ Блок функций (id='features')</h2></div>",
+            };
+            const Products = {
+                template: "<div><h2>🛒 Товары</h2><DemoQueryHash /></div>",
+                components: { DemoQueryHash },
+            };
+            const About = {
+                template:
+                    "<div><h2>О компании</h2><div id='features'>✨ Блок функций (id='features')</div></div>",
+            };
+            const routes = [
+                { path: "/products", component: Products },
+                { path: "/about", component: About },
+                { path: "/", component: DemoQueryHash },
+            ];
+            const router = VueRouter.createRouter({
+                history: VueRouter.createWebHistory(),
+                routes,
+            });
+            Vue.createApp({
+                methods: {
+                    goToFeatures() {
+                        this.$router.push({
+                            path: "/about",
+                            hash: "#features",
+                        });
+                    },
+                },
+                template: `<div>
+                    <router-link :to="{ path: '/products', query: { category: 'laptops' } }">Ноутбуки</router-link>
+                    <button @click="goToFeatures">К функциям</button>
+                    <router-link :to="{ path: '/products', query: { sort: 'price' }, hash: '#filters' }">Сортировать и к фильтрам</router-link>
+                    <router-view></router-view>
+                </div>`,
+            })
+                .use(router)
+                .mount("#vue-state-demo");
+        </script>
+        <style>
+            #vue-state-demo {
+                margin: 16px 0;
+            }
+            #vue-state-demo button {
+                margin-right: 14px;
+                padding: 7px 18px;
+                background: #3366d4;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                font-weight: 500;
+                cursor: pointer;
+            }
+            #vue-state-demo button:hover {
+                background: #2854a9;
+            }
+            #vue-state-demo a {
+                margin-right: 14px;
+                color: #3366d4;
+                text-decoration: none;
+                font-weight: 500;
+            }
+            #vue-state-demo a.router-link-exact-active {
+                color: #fff;
+                background: #3366d4;
+                border-radius: 5px;
+                padding: 5px 14px;
+            }
+        </style>
+    </body>
+</html>

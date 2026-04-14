@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../html/head.html', { "title": "Работа с данными через data() во Vue", "description": "Как правильно объявлять переменные в data(), использовать их в шаблоне и динамически обновлять данные во Vue.js" })
+
+<body>
+  <div class="wrapper">
+    @@include('../html/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="#intro">Введение</a>
+        <a href="#data-declare">Объявление переменных</a>
+        <a href="#data-template">Использование в шаблоне</a>
+        <a href="#data-change">Динамическое изменение</a>
+        <a href="#tips">Советы</a>
+        <a href="#best-practices">Лучшие практики</a>
+        <a href="#examples">Примеры</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="intro">
+        <div class="container">
+          <div class="intro-code-block">
+            <h1>Работа с данными через <code>data()</code></h1>
+            <p class="note">
+              <strong>data()</strong> - функция, которая возвращает объект с переменными, которые Vue делает реактивными. Это основа для хранения состояния приложения во Vue.js.
+            </p>
+            <h4>Для чего нужна data():</h4>
+            <ul class="list-ul">
+              <li>
+                Хранить данные приложения
+              </li>
+              <li>
+                Управлять интерфейсом
+              </li>
+              <li>
+                Делать страницу динамической
+              </li>
+            </ul>
+            <p class="note note--info">Можно не использовать <code>data()</code> в простых случаях, но для сложных приложений она обязательна!</p>
+          </div>
+      </section>
+
+      <!-- Как объявлять переменные -->
+      <section class="section" id="data-declare">
+        <div class="container">
+          <h2>Объявление переменных в <code>data()</code></h2>
+          <p class="note">
+            <strong>Объявление переменных в <code>data()</code></strong> - это создание свойств объекта, которые Vue будет отслеживать и обновлять в шаблоне при изменении.
+            <br /> Это делается внутри функции <code>data()</code>, которая возвращает объект с нужными переменными.
+          </p>
+          <h4>Пример:</h4>
+          <div class="code-block">
+            <pre><code>data() {
+  return {
+    username: "Алексей"
+  };
+}</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Функция <code>data()</code> возвращает объект с переменными</li>
+            <li>В объекте объявлена переменная <code>username</code> со значением "Алексей"</li>
+            <li>Теперь Vue будет следить за изменениями <code>username</code></li>
+
+          </ul>
+
+          <div class="note note--info">
+            <b>Правило:</b>
+            Все переменные для шаблона должны быть объявлены в
+            <code>data()</code>
+            , иначе Vue не сможет за ними следить!
+          </div>
+        </div>
+      </section>
+
+      <!-- Использование переменных в шаблоне -->
+      <section class="section" id="data-template">
+        <div class="container">
+          <h2>Использование переменных в шаблоне</h2>
+          <p class="note"><strong>Использование переменных в шаблоне Vue</strong> происходит через двойные фигурные скобки <code>{{ }}</code>, которые называются <b>интерполяцией</b>. Это позволяет динамически отображать значения переменных из <code>data()</code> в HTML.</p>
+
+          <h4>Пример:</h4>
+          <div class="code-block">
+            <pre><code>&lt;div id="app"&gt;
+  &lt;h1&gt;Привет, {{ username }}!&lt;/h1&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  Vue.createApp({
+    data() {
+      return {
+        username: "Алексей"
+      };
+    }
+  }).mount("#app");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>В HTML используется <code>{{ username }}</code> для вывода значения переменной</li>
+            <li>Переменная <code>username</code> объявлена в <code>data()</code> с начальным значением "Алексей"</li>
+            <li>Когда Vue монтирует приложение, он заменяет <code>{{ username }}</code> на текущее значение переменной</li>
+          </ul>
+          <!-- Вывод: -->
+          <p class="note note--info">
+            🚀
+            <strong>Использование переменных в шаблоне</strong>
+            — просто оберните имя переменной в
+            <code>{{ }}</code> и Vue сделает всё остальное!
+          </p>
+        </div>
+      </section>
+
+      <!-- Динамическое изменение данных -->
+      <section class="section" id="data-change">
+        <div class="container">
+          <h2>Динамическое изменение данных</h2>
+          <p class="note">
+            <strong>Динамическое изменение данных во Vue</strong> происходит через <b>события</b> и <b>методы</b>, которые изменяют значения переменных в <code>data()</code>. Когда переменные меняются, Vue автоматически обновляет все связанные элементы в шаблоне.
+          </p>
+
+          <p class="note note--info">
+            <strong>События</strong> — по английски <b>"events"</b>, действия пользователя (клики, ввод текста и т.д.).
+            <br>
+            <strong>Методы</strong> — по-английски <b>"methods"</b>, функции, которые выполняют логику изменения данных (например, обработчики событий).
+          </p>
+
+          <h4>Пример:</h4>
+          <p>В этом примере при клике на кнопку изменяется значение переменной <code>message</code>, и Vue обновляет текст на странице.</p>
+          <div class="code-block">
+            <pre><code>&lt;div id="app"&gt;
+  &lt;p&gt;{{ message }}&lt;/p&gt;
+  &lt;button @click="message = 'Ты нажал на кнопку!'"&gt;Нажми меня&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  Vue.createApp({
+    data() {
+      return {
+        message: "Привет, Vue!"
+      };
+    }
+  }).mount("#app");
+&lt;/script&gt;</code></pre>
+          </div>
+
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>В HTML есть параграф, который выводит значение <code>message</code></li>
+            <li>Есть кнопка с обработчиком события <code>@click</code>, который изменяет <code>message</code> при клике</li>
+            <li>Когда пользователь нажимает кнопку, значение <code>message</code> меняется, и Vue автоматически обновляет текст в параграфе</li>
+          </ul>
+          <h4>Какие здесь используются методы и события:</h4>
+          <ul class="list-ul">
+            <li><strong>Событие:</strong> <code>@click</code> — срабатывает при клике на кнопку</li>
+            <li><strong>Метод:</strong> присвоение нового значения переменной <code>message = 'Ты нажал на кнопку!'</code></li>
+          </ul>
+          <!-- Вывод: -->
+          <p class="note note--info">
+            🚀
+            <strong>Динамическое изменение данных</strong>
+            — просто изменяйте переменные в
+            <code>data()</code> через события и методы, и Vue обновит интерфейс автоматически!
+          </p>
+        </div>
+      </section>
+
+      <!-- Советы -->
+      <section class="section" id="tips">
+        <div class="container">
+          <h2>Советы и типичные ошибки</h2>
+          <p class="note">
+            <strong>Советы по работе с <code>data()</code> во Vue</strong> помогут избежать распространённых ошибок и улучшить понимание реактивности.
+          </p>
+          <h4>Основные советы:</h4>
+          <ul class="list-ul">
+            <li>Всегда объявляйте все переменные, которые планируете использовать в шаблоне, внутри <code>data()</code></li>
+            <li>Используйте методы для изменения данных, чтобы сохранить реактивность</li>
+            <li>Не изменяйте данные напрямую вне Vue (например, через обычный JavaScript), иначе Vue не сможет отследить изменения</li>
+            <li>Для сложных структур данных (объекты, массивы) используйте Vue методы для обновления (например, <code>Vue.set()</code> или методы массива)</li>
+            <li>Проверяйте консоль на наличие предупреждений Vue о реактивности</li>
+          </ul>
+          <div class="note note--info">
+            <b>Частая ошибка:</b> Если вы добавляете новые свойства к объекту, объявленному в <code>data()</code>, используйте <code>Vue.set()</code> или создайте новый объект, чтобы Vue мог отследить изменения!
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Лучшие практики -->
+      <section class="section" id="best-practices">
+        <div class="container">
+          <h2>Лучшие практики</h2>
+          <ul class="list-ul">
+            <li>
+              Храните все данные приложения в
+              <code>data()</code>
+            </li>
+            <li>
+              Структурируйте
+              <code>data()</code>
+              — группируйте схожие переменные
+            </li>
+            <li>
+              Меняйте данные только через
+              <code>data()</code>
+              — так Vue сможет их отслеживать
+            </li>
+            <li>
+              Используйте шаблон
+              <code>{{ }}</code>
+              для вывода переменных
+            </li>
+            <li>
+              Для работы с формами применяйте
+              <code>v-model</code>
+              — это удобно и надёжно
+            </li>
+          </ul>
+          <div class="note note--info">
+            <b>Vue делает работу с данными простой и быстрой — изменяйте переменные, а интерфейс обновится сам!</b>
+          </div>
+        </div>
+      </section>
+
+      <!-- Реальные примеры работы с данными через data() во Vue -->
+      <section class="section" id="examples">
+        <div class="container">
+          <h2>Реальные примеры использования data() во Vue</h2>
+
+          <!-- Пример 1: Интерактивный заголовок -->
+          <h3>Пример 1. Интерактивный заголовок</h3>
+          <p class="note">
+            Заголовок изменяется в реальном времени при вводе текста в поле ввода, данные хранятся в
+            <code>data()</code>
+            . Это пример на тему реактивности Vue и двустороннего связывания данных.
+          </p>
+
+          <div class="interactive-demo">
+            <div id="reactive-title-demo">
+              <input type="text" v-model="title" placeholder="Введите заголовок" />
+              <h2>{{ title }}</h2>
+            </div>
+          </div>
+          <h4>Код примера:</h4>
+          <div class="code-block">
+            <pre><code>&lt;input type="text" v-model="title" placeholder="Введите заголовок"&gt;
+&lt;h2&gt;{{ title }}&lt;/h2&gt;
+data() { return { title: "" } }</code></pre>
+          </div>
+          <h5>Пояснение к примеру:</h5>
+          <ul class="list-ul">
+            <li>Поле ввода связано с переменной <code>title</code> через <code>v-model</code></li>
+            <li>Заголовок отображает текущее значение <code>title</code> с помощью интерполяции</li>
+            <li>При вводе текста в поле значение <code>title</code> обновляется, и заголовок меняется в реальном времени</li>
+          </ul>
+
+
+
+          <!-- Пример 2: Счётчик -->
+          <h3 style="margin-top: 50px;">Пример 2. Реактивный счётчик</h3>
+          <p class="note">Простой счётчик, который увеличивается и уменьшается по нажатию кнопок. Значение счётчика хранится в <code>data()</code>
+            , и интерфейс обновляется автоматически при изменении. Используется реактивность Vue для мгновенного отображения изменений.
+          </p>
+          <div class="interactive-demo">
+            <div id="counter-demo">
+              <p>Счётчик: {{ count }}</p>
+              <button @click="count++" style="margin: 0 10px 0  0;">+1</button>
+              <button @click="count--">-1</button>
+            </div>
+
+          </div>
+          <h4>Код примера:</h4>
+          <div class="code-block">
+            <pre><code>&lt;p&gt;Счётчик: {{ count }}&lt;/p&gt;
+&lt;button @click="count++"&gt;+1&lt;/button&gt;
+&lt;button @click="count--"&gt;-1&lt;/button&gt;
+data() { return { count: 0 } }</code></pre>
+          </div>
+          <h5>Пояснение к примеру:</h5>
+          <ul class="list-ul">
+            <li>Переменная <code>count</code> объявлена в <code>data()</code> с начальным значением 0</li>
+            <li>Две кнопки с обработчиками событий <code>@click</code> увеличивают и уменьшают значение <code>count</code></li>
+            <li>Текущее значение <code>count</code> отображается в параграфе с помощью интерполяции</li>
+            <li>При нажатии на кнопки значение <code>count</code> изменяется, и Vue автоматически обновляет отображение счётчика</li>
+          </ul>
+
+          <!-- Пример 3: Список задач -->
+          <h3>Пример 3. Список задач с добавлением</h3>
+          <p class="note">
+            Простой список задач, где можно добавлять новые задачи через поле ввода. Все задачи хранятся в массиве в
+            <code>data()</code>
+            , и интерфейс обновляется автоматически при добавлении новых задач. Демонстрирует работу с массивами и реактивность Vue.
+          </p>
+
+          <div class="interactive-demo">
+            <div id="todo-demo">
+              <input type="text" v-model="newTask" placeholder="Новая задача" />
+              <button @click="addTask">Добавить</button>
+              <ul>
+                <li v-for="task in tasks" :key="task">{{ task }}</li>
+              </ul>
+            </div>
+          </div>
+          <h4>Код примера:</h4>
+          <div class="code-block">
+            <pre><code>&lt;input type="text" v-model="newTask" placeholder="Новая задача"&gt;
+&lt;button @click="addTask"&gt;Добавить&lt;/button&gt;
+&lt;ul&gt;
+  &lt;li v-for="task in tasks" :key="task"&gt;{{ task }}&lt;/li&gt;
+&lt;/ul&gt;
+data() { return { tasks: [], newTask: "" } }
+methods: {
+  addTask() { if (this.newTask) { this.tasks.push(this.newTask); this.newTask = ""; } }
+}</code></pre>
+          </div>
+          <h5>Пояснение к примеру:</h5>
+          <ul class="list-ul">
+            <li>Массив <code>tasks</code> хранит список задач, объявлен в <code>data()</code>, со значением по умолчанию пустой массив</li>
+            <li>Переменная <code>newTask</code>  хранит текст новой задачи, также объявлена в <code>data()</code></li>
+            <li>Переменная <code>newTask</code> связана с полем ввода через <code>v-model</code></li>
+            <li>Кнопка вызывает метод <code>addTask</code>, который добавляет новую задачу в массив и очищает поле ввода</li>
+            <li>метод <code>addTask</code> это функция, которая проверяет, что <code>newTask</code> не пустая, добавляет её в массив <code>tasks</code> и сбрасывает <code>newTask</code> в пустую строку</li>
+            <li>Список задач отображается с помощью <code>v-for</code>, который перебирает массив <code>tasks</code></li>
+          </ul>
+
+
+        </div>
+      </section>
+    </main>
+    @@include('../html/footer.html', {})
+  </div>
+  @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    // Пример 1: Интерактивный заголовок
+    Vue.createApp({
+      data() {
+        return {
+          title: ""
+        };
+      },
+    }).mount("#reactive-title-demo");
+
+    // Пример 2: Счётчик
+    Vue.createApp({
+      data() {
+        return {
+          count: 0
+        };
+      },
+    }).mount("#counter-demo");
+
+    // Пример 3: Список задач
+    Vue.createApp({
+      data() {
+        return {
+          tasks: [],
+          newTask: ""
+        };
+      },
+      methods: {
+        addTask() {
+          if (this.newTask) {
+            this.tasks.push(this.newTask);
+            this.newTask = "";
+          }
+        },
+      },
+    }).mount("#todo-demo");
+  </script>
+</body>
+
+</html>

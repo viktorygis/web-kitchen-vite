@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Асинхронность в JavaScript: промисы и async/await", "description": "Изучение асинхронного программирования в JavaScript: промисы, async/await, обработка ошибок и лучшие практики." })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#intro">Введение</a>
+                    <a href="#concepts">Основные понятия</a>
+                    <a href="#promise">Promise</a>
+                    <a href="#then">.then()</a>
+                    <a href="#catch">.catch()</a>
+                    <a href="#async-await">async/await</a>
+                    <a href="#examples">Примеры</a>
+                    <a href="#practice">Практика</a>
+                    <a href="#tips">Советы</a>
+                    <a href="#best-practices">Лучшие практики</a>
+                </nav>
+
+                <section class="section" id="intro">
+                    <div class="container">
+                        <div class="intro-code-block">
+                            <h1>Асинхронность в JavaScript: промисы и async/await</h1>
+                            <p class="note">
+                                <strong>JavaScript</strong>
+                                — однопоточный язык, но с помощью промисов и async/await можно удобно и безопасно работать с асинхронными операциями, такими как запросы к серверу, таймеры и обработка данных.
+                            </p>
+                            <p class="note note--info">
+                                <strong>Асинхронность в JavaScript</strong>
+                                — это способ выполнять операции, не блокируя основной поток выполнения. Это позволяет создавать отзывчивые приложения, которые могут обрабатывать события, такие как клики и ввод данных, в то время как другие задачи выполняются в фоновом режиме.
+                            </p>
+                            <h4>Примеры использования</h4>
+                            <ul class="list-ul">
+                                <li>Загрузка данных с сервера без блокировки интерфейса.</li>
+                                <li>Выполнение длительных операций, таких как обработка изображений или видео.</li>
+                                <li>Работа с таймерами и событиями, например, анимация или задержка выполнения кода.</li>
+                            </ul>
+                            <p class="note note--info">Асинхронность позволяет JavaScript быть более эффективным и отзывчивым, особенно в веб-приложениях, где важно быстро реагировать на действия пользователя.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Основные понятия -->
+                <section class="section" id="concepts">
+                    <div class="container">
+                        <h2>Основные понятия</h2>
+                        <ul class="list-ul">
+                            <li>
+                                <strong>Promise</strong>
+                                — объект, представляющий результат асинхронной операции.
+                                <br />
+                                Promise может находиться в одном из трёх состояний:
+                                <em>pending</em>
+                                (ожидание),
+                                <em>fulfilled</em>
+                                (успех) или
+                                <em>rejected</em>
+                                (ошибка).
+                            </li>
+                            <li>
+                                <strong>.then()</strong>
+                                — метод для обработки успешного результата промиса.
+                                <br />
+                                then() позволяет указать функцию, которая будет выполнена, когда промис завершится успешно.
+                            </li>
+                            <li>
+                                <strong>.catch()</strong>
+                                — метод для обработки ошибок промиса.
+                                <br />
+                                catch() позволяет указать функцию, которая будет выполнена, если промис завершится с ошибкой.
+                            </li>
+                            <li>
+                                <strong>async/await</strong>
+                                — синтаксис для написания асинхронного кода, похожего на последовательный.
+                                <br />
+                                async обозначает асинхронную функцию, а await позволяет "дождаться" завершения промиса перед выполнением следующей строки кода.
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- promise -->
+                <section class="section" id="promise">
+                    <div class="container">
+                        <h2>Promise</h2>
+                        <p class="note">
+                            <strong>Promise</strong>
+                            — это объект, который представляет асинхронную операцию и позволяет обрабатывать её результат или ошибку.
+                        </p>
+                        <ul class="list-ul">
+                            <li>
+                                У промиса три состояния:
+                                <strong>pending</strong>
+                                (ожидание),
+                                <strong>fulfilled</strong>
+                                (успех),
+                                <strong>rejected</strong>
+                                (ошибка).
+                            </li>
+                            <li>
+                                Для завершения промиса вызываются функции
+                                <code>resolve</code>
+                                (успех) или
+                                <code>reject</code>
+                                (ошибка).
+                            </li>
+                            <li>Промисы позволяют избежать "адских колбеков" и делают код более читаемым.</li>
+                            <li>
+                                Промисы можно цепочкой обрабатывать с помощью
+                                <code>.then()</code>
+                                и
+                                <code>.catch()</code>
+                                .
+                            </li>
+                        </ul>
+                        <h4>Пример кода:</h4>
+                        <div class="grid-column-100">
+                            <div class="code-block">
+                                <pre><code>const myPromise = new Promise((resolve, reject) => {
+  // Асинхронный код
+});</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+                        <h4>Пример pending:</h4>
+                        <div class="grid-column-100">
+                            <div class="code-block">
+                                <pre><code>// Асинхронная операция, которая ещё не завершена
+const myPromise = new Promise((resolve, reject) => {
+
+// Промис находится в состоянии pending
+console.log("Промис в состоянии pending");
+
+// Здесь можно выполнять асинхронные действия, например, запрос к	серверу
+setTimeout(() => {
+   resolve("Операция завершена успешно!");
+}, 2000);
+
+// После завершения асинхронной операции вызываем resolve или reject
+resolve("Результат операции");
+reject("Произошла ошибка.");
+});</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+                        <h4>Пример fulfilled:</h4>
+                        <div class="grid-column-100">
+                            <div class="code-block">
+                                <pre><code>// Промис успешно завершён
+const myPromise = new Promise((resolve, reject) => {
+
+// Асинхронная операция завершена успешно
+console.log("Промис в состоянии fulfilled");
+
+resolve("Операция завершена успешно!");
+
+// Здесь можно выполнять действия с результатом
+console.log("Результат операции:", "Операция завершена успешно!");
+
+// После успешного завершения вызываем resolve
+resolve("Результат операции");
+reject("Произошла ошибка.");
+});</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+                        <h4>Пример rejected:</h4>
+                        <div class="grid-column-100">
+                            <div class="code-block">
+                                <pre><code>// Промис завершён с ошибкой
+const myPromise = new Promise((resolve, reject) => {
+
+// Асинхронная операция завершена с ошибкой
+console.log("Промис в состоянии rejected");
+reject("Произошла ошибка.");
+
+// Здесь можно выполнять действия с ошибкой
+console.error("Ошибка операции:", "Произошла ошибка.");
+
+// После завершения с ошибкой вызываем reject
+reject("Ошибка операции");
+resolve("Результат операции");
+});
+</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+                        <div class="note note--info">Промисы позволяют писать асинхронный код, который легко читать и поддерживать. Они помогают избежать "адских колбеков" и делают обработку ошибок более структурированной.</div>
+                    </div>
+                </section>
+
+                <!-- then -->
+                <section class="section" id="then">
+                    <div class="container">
+                        <h2>.then()</h2>
+                        <p class="note">
+                            <strong>.then()</strong>
+                            - это метод промиса, который позволяет обработать успешный результат асинхронной операции. Он принимает функцию обратного вызова, которая будет выполнена, когда промис завершится успешно.
+                        </p>
+                        <p class="note note--info">
+                            <strong>then()</strong>
+                            позволяет писать асинхронный код в виде цепочек вызовов, что делает его более читаемым и понятным.
+                        </p>
+                        <ul class="list-ul">
+                            <li>
+                                <code>.then()</code>
+                                позволяет обработать успешный результат промиса.
+                            </li>
+                            <li>
+                                Внутри
+                                <code>.then()</code>
+                                можно выполнять любые действия с полученными данными.
+                            </li>
+
+                            <li>
+                                Можно цепочкой вызывать
+                                <code>.then()</code>
+                                для последовательной обработки результатов.
+                            </li>
+                            <li>
+                                Если нужно обработать ошибку, используйте
+                                <code>.catch()</code>
+                                после
+                                <code>.then()</code>
+                                .
+                            </li>
+                            <li>
+                                Если нужно выполнить действия независимо от результата промиса, используйте
+                                <code>.finally()</code>
+                                .
+                            </li>
+                            <li>
+                                Метод
+                                <code>.then()</code>
+                                возвращает новый промис, что позволяет строить цепочки вызовов.
+                            </li>
+                        </ul>
+                        <h4>Пример:</h4>
+                        <div class="grid-column-100">
+                            <div class="code-block">
+                                <pre><code>myPromise
+  .then((result) => {
+    console.log(result);
+  });</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+                        <h4>Пример:</h4>
+                        <div class="grid-column-100">
+                            <div class="code-block">
+                                <pre><code>//myPromise — это промис, который может завершиться успешно или с ошибкой
+//new Promise создаёт новый промис
+const myPromise = new Promise((resolve) => {
+setTimeout(() => resolve("Операция завершена успешно!"), 2000);
+});
+myPromise.then((result) => {
+console.log(result); // "Операция завершена успешно!"
+});</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- catch -->
+                <section class="section" id="catch">
+                    <div class="container">
+                        <h2>.catch()</h2>
+                        <p class="note">
+                            <strong>.catch()</strong>
+                            — это метод промиса, который позволяет обработать ошибки или отклонения промиса. Он принимает функцию обратного вызова, которая будет выполнена, если промис завершится с ошибкой.
+                        </p>
+                        <p class="note note--info">
+                            <strong>catch()</strong>
+                            позволяет централизованно обрабатывать ошибки в цепочке промисов, что делает код более чистым и понятным.
+                        </p>
+
+                        <ul class="list-ul">
+                            <li>
+                                <code>.catch()</code>
+                                используется для обработки ошибок или отклонения промиса.
+                            </li>
+                            <li>
+                                Внутри
+                                <code>.catch()</code>
+                                обычно выводится ошибка или выполняется альтернативная логика.
+                            </li>
+                            <li>
+                                Если промис завершился с ошибкой, управление передаётся в блок
+                                <code>.catch()</code>
+                                .
+                            </li>
+                            <li>
+                                Если нужно выполнить действия независимо от результата промиса, используйте
+                                <code>.finally()</code>
+                                .
+                            </li>
+                            <li>
+                                Метод
+                                <code>.catch()</code>
+                                возвращает новый промис, что позволяет строить цепочки вызовов.
+                            </li>
+                        </ul>
+                        <h4>Пример:</h4>
+                        <div class="grid-column-100">
+                            <div class="code-block">
+                                <pre><code>myPromise
+  .catch((error) => {
+    console.error(error);
+  });</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+                        <h4>Пример:</h4>
+                        <div class="grid-column-100">
+                            <div class="code-block">
+                                <pre><code>//myPromise — это промис, который может завершиться с ошибкой
+const myPromise = new Promise((resolve, reject) => {
+
+// Асинхронная операция, которая может завершиться с ошибкой
+// Например, запрос к серверу или таймер
+setTimeout(() => {
+   reject("Произошла ошибка.");
+}, 2000);
+});
+
+myPromise
+//Если промис завершился успешно, выводим результат
+.then((result) => {
+   console.log(result); // "Операция завершена успешно!"
+	})
+
+//Если промис завершился с ошибкой, выводим сообщение об ошибке
+.catch((error) => {
+   console.error(error); // "Произошла ошибка."
+});</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+                        <div class="note note--info">
+                            Метод
+                            <code>.catch()</code>
+                            позволяет обрабатывать ошибки в цепочке промисов, что делает код более чистым и понятным. Он помогает избежать "адских колбеков" и упрощает обработку ошибок.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- async-await -->
+                <section class="section" id="async-await">
+                    <div class="container">
+                        <h2>async/await</h2>
+                        <p class="note">
+                            <strong>async/await</strong>
+                            — это синтаксический сахар для работы с промисами, который позволяет писать асинхронный код в виде последовательных операций. С помощью
+                            <code>async</code>
+                            можно объявить асинхронную функцию, а
+                            <code>await</code>
+                            позволяет "дождаться" завершения промиса перед выполнением следующей строки кода.
+                        </p>
+                        <p class="note note--info">
+                            <strong>async/await</strong>
+                            делает асинхронный код более похожим на синхронный, что упрощает его чтение и понимание. Это позволяет избежать "адских колбеков" и делает обработку ошибок более структурированной.
+                        </p>
+                        <ul class="list-ul">
+                            <li>
+                                <code>async</code>
+                                обозначает асинхронную функцию.
+                            </li>
+                            <li>
+                                <code>await</code>
+                                позволяет "дождаться" завершения промиса перед переходом к следующей строке.
+                            </li>
+                            <li>
+                                Ошибки обрабатываются через
+                                <code>try/catch</code>
+                                внутри асинхронной функции.
+                            </li>
+                            <li>
+                                Асинхронные функции возвращают промис, что позволяет использовать
+                                <code>.then()</code>
+                                и
+                                <code>.catch()</code>
+                                для обработки результатов.
+                            </li>
+                            <li>Асинхронные функции можно вызывать как обычные функции, но они всегда возвращают промис.</li>
+                        </ul>
+                        <h4>Пример:</h4>
+                        <div class="grid-column-100">
+                            <div class="code-block">
+                                <pre><code>async function fetchData() {
+  const result = await new Promise((resolve) => {
+    setTimeout(() => resolve("Данные загружены!"), 2000);
+  });
+  console.log(result);
+}</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+                        <h4>Пример:</h4>
+                        <div class="grid-column-100">
+                            <div class="code-block">
+                                <pre><code>async function fetchData() {
+  try {
+    // Создаём промис, который через 2 секунды завершится с ошибкой
+    const result = await new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject("Ошибка: данные не найдены!");
+      }, 2000);
+    });
+
+    // Если промис завершился успешно, выводим результат
+    console.log(result);
+  } catch (error) {
+    // Если промис завершился с ошибкой, выводим ошибку
+    console.error(error); // "Ошибка: данные не найдены!"
+  }
+}
+
+fetchData();
+</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="examples">
+                    <div class="container">
+                        <h2>Примеры</h2>
+                        <div class="grid-column-50">
+                            <div class="code-block">
+                                <pre><code>const myPromise = new Promise((resolve, reject) => {
+  const success = true;
+  if (success) {
+    resolve("Операция завершена успешно!");
+  } else {
+    reject("Произошла ошибка.");
+  }
+});
+
+myPromise
+  .then((result) => {
+    console.log(result);
+  })
+  .catch((error) => {
+    console.error(error);
+  });</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                            <div class="example" style="font-size: 14px">
+                                <ul class="list-ul">
+                                    <li>Создаём промис, который завершится успешно или с ошибкой.</li>
+                                    <li>
+                                        Результат обрабатывается через
+                                        <code>.then</code>
+                                        (успех) или
+                                        <code>.catch</code>
+                                        (ошибка).
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="grid-column-50">
+                            <div class="code-block">
+                                <pre><code>async function fetchData() {
+  const result = await new Promise((resolve) => {
+    setTimeout(() => resolve("Данные загружены!"), 2000);
+  });
+  console.log(result); // "Данные загружены!"
+}
+
+fetchData();</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                            <div class="example" style="font-size: 14px">
+                                <ul class="list-ul">
+                                    <li>
+                                        <code>async</code>
+                                        говорит, что функция асинхронная.
+                                    </li>
+                                    <li>
+                                        <code>await</code>
+                                        ожидает завершения промиса, прежде чем выполнять код дальше.
+                                    </li>
+                                    <li>В результате, через 2 секунды в консоль выведется сообщение.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="grid-column-100">
+                            <div class="code-block">
+                                <pre><code>async function fetchData() {
+  try {
+    const result = await new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject("Ошибка: данные не найдены!");
+      }, 2000);
+    });
+    console.log(result);
+  } catch (error) {
+    console.error(error); // "Ошибка: данные не найдены!"
+  }
+}
+fetchData();</code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                            <div class="example" style="font-size: 14px">
+                                <ul class="list-ul">
+                                    <li>
+                                        Асинхронная функция с обработкой ошибок через
+                                        <code>try/catch</code>
+                                        .
+                                    </li>
+                                    <li>
+                                        Если промис завершится с ошибкой — управление перейдёт в блок
+                                        <code>catch</code>
+                                        .
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="practice">
+                    <div class="container">
+                        <h2>Практика</h2>
+                        <div class="interactive-demo">
+                            <div class="demo-box">
+                                <button class="demo-btn" onclick="(async()=>{const m=await new Promise(r=>setTimeout(()=>r('Привет, async/await!'),2000));document.getElementById('demoResult').textContent=m;})()">Ждать 2 секунды</button>
+                                <div class="demo-result" id="demoResult"></div>
+                            </div>
+                        </div>
+                        <div class="note note--info">Кнопка запускает асинхронную функцию, которая выводит сообщение после двух секунд ожидания.</div>
+                    </div>
+                </section>
+
+                <section class="section" id="tips">
+                    <div class="container">
+                        <h2>Советы и типичные ошибки</h2>
+                        <ul class="list-ul">
+                            <li>
+                                Используйте
+                                <code>try/catch</code>
+                                для обработки ошибок в
+                                <code>async</code>
+                                функциях.
+                            </li>
+                            <li>
+                                Не используйте
+                                <code>await</code>
+                                вне
+                                <code>async</code>
+                                функции — будет синтаксическая ошибка.
+                            </li>
+                            <li>
+                                Если цепочка промисов длинная — рассмотрите
+                                <code>.then</code>
+                                для последовательной обработки.
+                            </li>
+                        </ul>
+                        <div class="note note--info">Важно: всегда обрабатывайте ошибки промисов, чтобы приложение не "падало" неожиданно.</div>
+                    </div>
+                </section>
+
+                <section class="section" id="best-practices">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+                        <ul class="list-ul">
+                            <li>
+                                Старайтесь писать асинхронный код с
+                                <code>async/await</code>
+                                для лучшей читаемости.
+                            </li>
+                            <li>
+                                Обрабатывайте ошибки через
+                                <code>try/catch</code>
+                                или
+                                <code>.catch</code>
+                                .
+                            </li>
+                            <li>
+                                Не смешивайте
+                                <code>then/catch</code>
+                                и
+                                <code>async/await</code>
+                                в одном фрагменте кода — выберите один стиль.
+                            </li>
+                            <li>Документируйте асинхронные функции и их возвращаемые значения.</li>
+                        </ul>
+                        <div class="note note--info">Асинхронный код — мощный инструмент, если использовать его структурированно и с обработкой ошибок.</div>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+    </body>
+</html>

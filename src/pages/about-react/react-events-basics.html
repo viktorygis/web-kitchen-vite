@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "События в React", "description": "Обработка событий, onClick, onChange, основные паттерны и лучшие практики работы с событиями в React." })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#intro">Введение</a>
+                    <a href="#basic">Основы событий</a>
+                    <a href="#handlers">Обработчики</a>
+                    <a href="#event-object">Объект события</a>
+                    <a href="#practice">Практика</a>
+                    <a href="#tips">Советы</a>
+                    <a href="#best-practices">Лучшие практики</a>
+                    <a href="#examples">Примеры</a>
+                </nav>
+
+                <!-- Введение -->
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>События в React</h1>
+                        <p class="note">
+                            <strong>События</strong>
+                            — основной способ реагировать на действия пользователя.
+                            <br />
+                            В React обработка событий похожа на обычный JS, но есть отличия!
+                            <br />
+                            Всё — через camelCase (
+                            <code>onClick</code>
+                            ,
+                            <code>onChange</code>
+                            ), обработчики — функции.
+                            <br />
+                            На этой странице — всё для старта с событиями!
+                        </p>
+                        <ul class="list-ul">
+                            <li>
+                                <b>React</b>
+                                использует свои синтетические события, которые оборачивают стандартные события браузера для кроссбраузерности.
+                            </li>
+                            <li>
+                                События в React именуются в стиле
+                                <b>camelCase</b>
+                                :
+                                <code>onClick</code>
+                                ,
+                                <code>onChange</code>
+                                ,
+                                <code>onSubmit</code>
+                                и т.д.
+                            </li>
+                            <li>
+                                Обработчики событий — это
+                                <b>функции</b>
+                                , которые вы передаете в JSX.
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Основы событий -->
+                <section class="section" id="basic">
+                    <div class="container">
+                        <h2>Основы событий в React</h2>
+                        <ul class="list-ul">
+                            <li>
+                                Все события — это camelCase:
+                                <code>onClick</code>
+                                ,
+                                <code>onChange</code>
+                                ,
+                                <code>onSubmit</code>
+                                .
+                            </li>
+                            <li>
+                                Передавайте функцию-обработчик:
+                                <code>&lt;button onClick={fn}&gt;</code>
+                                .
+                            </li>
+                            <li>
+                                Обработчик получает объект события
+                                <span title="Объект события — это синтетическое событие React, повторяющее API стандартного DOM-события." style="cursor: pointer">&#128161;</span>
+                                <code>event</code>
+                                .
+                            </li>
+                            <li>
+                                <span style="color: green">&#9989;</span>
+                                Не вызывайте обработчик сразу:
+                                <code>onClick={handleClick}</code>
+                                — правильно,
+                                <code>onClick={handleClick()}</code>
+                                —
+                                <b>ошибка!</b>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Обработчики -->
+                <section class="section" id="handlers">
+                    <div class="container">
+                        <h2>Обработчики событий</h2>
+                        <div class="grid-column-100">
+                            <div class="example">
+                                <div id="clicker-demo"></div>
+                            </div>
+                            <div class="code-block">
+                                <pre><code>
+function Clicker() {
+  function handleClick() {
+    alert("Клик!");
+  }
+  return &lt;button onClick={handleClick}&gt;Нажми меня&lt;/button&gt;;
+}
+                                </code></pre>
+                                <div class="note note--info">
+                                    <span style="font-size: 1.2em">&#128077;</span>
+                                    <b>Пояснение:</b>
+                                    Обработчик — обычная функция.
+                                    <br />
+                                    Не вызывайте её напрямую:
+                                    <code>onClick={handleClick}</code>
+                                    ,
+                                    <span style="color: red">не</span>
+                                    <code>onClick={handleClick()}</code>
+                                    !
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Объект события -->
+                <section class="section" id="event-object">
+                    <div class="container">
+                        <h2>Объект события</h2>
+                        <p class="note">
+                            В обработчик автоматически передается объект события
+                            <code>event</code>
+                            . Он содержит всю информацию о событии (например, введённый текст или координаты клика).
+                        </p>
+                        <div class="grid-column-100">
+                            <div class="example">
+                                <div id="input-logger-demo"></div>
+                            </div>
+                            <div class="code-block">
+                                <pre><code>
+function InputLogger() {
+  function handleChange(event) {
+    console.log(event.target.value);
+  }
+  return &lt;input onChange={handleChange} /&gt;;
+}
+                                </code></pre>
+                                <div class="note note--info">
+                                    <span style="font-size: 1.2em">&#128209;</span>
+                                    <b>Пояснение:</b>
+                                    <code>event.target.value</code>
+                                    — текущее значение инпута.
+                                    <br />
+                                    Выводится в консоль при каждом изменении.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Практика -->
+                <section class="section" id="practice">
+                    <div class="container">
+                        <h2>Практика: Кликер и инпут</h2>
+                        <div class="interactive-demo demo-box">
+                            <div class="example">
+                                <div id="events-demo"></div>
+                            </div>
+                            <div class="code-block">
+                                <pre><code>
+&lt;div id="events-demo"&gt;&lt;/div&gt;
+&lt;script type="text/babel"&gt;
+function Demo() {
+  const [count, setCount] = React.useState(0);
+  const [text, setText] = React.useState("");
+  return (
+    &lt;div&gt;
+      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;Клик: {count}&lt;/button&gt;
+      &lt;br/&gt;
+      &lt;input onChange={e =&gt; setText(e.target.value)} placeholder="Пиши сюда!"/&gt;
+      &lt;p&gt;Вы ввели: {text}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+const eventsRoot = ReactDOM.createRoot(document.getElementById('events-demo'));
+eventsRoot.render(&lt;Demo /&gt;);
+&lt;/script&gt;
+                                </code></pre>
+                                <div class="note note--info">
+                                    <span style="font-size: 1.2em">&#9989;</span>
+                                    <b>Пояснение:</b>
+                                    <br />
+                                    <ul>
+                                        <li>
+                                            Клик по кнопке увеличивает счётчик (
+                                            <b>onClick</b>
+                                            ).
+                                        </li>
+                                        <li>
+                                            Ввод в поле обновляет текст (
+                                            <b>onChange</b>
+                                            ).
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Советы -->
+                <section class="section" id="tips">
+                    <div class="container">
+                        <h2>Советы и типичные ошибки</h2>
+                        <ul class="list-ul">
+                            <li>
+                                <span style="color: green">&#10004;</span>
+                                <b>Не вызывайте</b>
+                                обработчик в JSX:
+                                <code>onClick={fn}</code>
+                                — правильно,
+                                <code>onClick={fn()}</code>
+                                — ошибка!
+                            </li>
+                            <li>
+                                <span style="color: green">&#10004;</span>
+                                Используйте
+                                <b>event</b>
+                                для доступа к значению инпута:
+                                <code>event.target.value</code>
+                                .
+                            </li>
+                            <li>
+                                <span style="color: green">&#10004;</span>
+                                Для передачи параметров — используйте стрелочные функции:
+                                <code>onClick={() =&gt; fn(arg)}</code>
+                                .
+                            </li>
+                            <li>
+                                <span style="color: orange">&#9888;</span>
+                                Не пишите тяжелую логику прямо в JSX — выносите обработчики отдельно.
+                            </li>
+                        </ul>
+                        <div class="note note--info">
+                            <b>Частая ошибка:</b>
+                            <code>onClick={fn()}</code>
+                            вызовет функцию сразу при рендере, а не по клику!
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Лучшие практики -->
+                <section class="section" id="best-practices">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+                        <ul class="list-ul">
+                            <li>
+                                <span style="color: green">&#128161;</span>
+                                Выносите обработчики в отдельные функции, чтобы код был чище.
+                            </li>
+                            <li>
+                                <span style="color: green">&#128161;</span>
+                                Давайте обработчикам осмысленные имена:
+                                <code>handleClick</code>
+                                ,
+                                <code>handleChange</code>
+                                .
+                            </li>
+                            <li>
+                                <span style="color: green">&#128161;</span>
+                                Минимизируйте логику внутри JSX.
+                            </li>
+                            <li>
+                                <span style="color: green">&#128161;</span>
+                                Используйте хуки только внутри компонентов.
+                            </li>
+                        </ul>
+                        <div class="note note--info">
+                            <b>&#128161; Совет:</b>
+                            Старайтесь не использовать анонимные функции в props, если это не нужно для передачи параметров — это поможет избежать лишних перерисовок.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Примеры -->
+                <section class="section" id="examples">
+                    <div class="container">
+                        <h2>Примеры событий в React</h2>
+                        <h4>Пример 1: Кнопка</h4>
+                        <div class="grid-column-100">
+                            <div class="example">
+                                <div id="button-demo"></div>
+                            </div>
+                            <div class="note note--info">
+                                <b>Пояснение:</b>
+                                <span style="font-size: 1.2em">&#128072;</span>
+                                Кнопка с обработчиком
+                                <code>onClick</code>
+                                , который вызывает
+                                <code>alert</code>
+                                .
+                            </div>
+                        </div>
+                        <pre><code>
+function Button() {
+  return &lt;button onClick={() =&gt; alert("Нажато!")}&gt;Жми&lt;/button&gt;;
+}
+                        </code></pre>
+                        <h4>Пример 2: Инпут</h4>
+                        <div class="grid-column-100">
+                            <div class="example">
+                                <div id="input-demo"></div>
+                            </div>
+                            <div class="note note--info">
+                                <b>Пояснение:</b>
+                                <span style="font-size: 1.2em">&#128209;</span>
+                                Инпут с обработчиком
+                                <code>onChange</code>
+                                , который выводит значение в консоль.
+                            </div>
+                        </div>
+                        <pre><code>
+function InputDemo() {
+  return &lt;input onChange={e =&gt; console.log(e.target.value)} /&gt;;
+}
+                        </code></pre>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+
+        <!-- React и Babel -->
+        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+        <!-- React демо-компоненты -->
+        <script type="text/babel">
+            // Пример: Clicker
+            function Clicker() {
+                function handleClick() {
+                    alert("Клик!");
+                }
+                return <button onClick={handleClick}>Нажми меня</button>;
+            }
+            const clickerDemo = document.getElementById("clicker-demo");
+            if (clickerDemo) {
+                ReactDOM.createRoot(clickerDemo).render(<Clicker />);
+            }
+
+            // Пример: InputLogger
+            function InputLogger() {
+                function handleChange(event) {
+                    // eslint-disable-next-line no-console
+                    console.log(event.target.value);
+                }
+                return <input onChange={handleChange} placeholder="Печатайте..." />;
+            }
+            const inputLoggerDemo = document.getElementById("input-logger-demo");
+            if (inputLoggerDemo) {
+                ReactDOM.createRoot(inputLoggerDemo).render(<InputLogger />);
+            }
+
+            // Практическое демо: Кликер и инпут
+            function Demo() {
+                const [count, setCount] = React.useState(0);
+                const [text, setText] = React.useState("");
+                return (
+                    <div>
+                        <button onClick={() => setCount(count + 1)}>Клик: {count}</button>
+                        <br />
+                        <input onChange={(e) => setText(e.target.value)} placeholder="Пиши сюда!" />
+                        <p>Вы ввели: {text}</p>
+                    </div>
+                );
+            }
+            const eventsDemo = document.getElementById("events-demo");
+            if (eventsDemo) {
+                ReactDOM.createRoot(eventsDemo).render(<Demo />);
+            }
+
+            // Пример 1: Кнопка
+            function Button() {
+                return <button onClick={() => alert("Нажато!")}>Жми</button>;
+            }
+            const buttonDemo = document.getElementById("button-demo");
+            if (buttonDemo) {
+                ReactDOM.createRoot(buttonDemo).render(<Button />);
+            }
+
+            // Пример 2: Инпут
+            function InputDemo() {
+                return <input onChange={(e) => console.log(e.target.value)} placeholder="Вводите сюда..." />;
+            }
+            const inputDemo = document.getElementById("input-demo");
+            if (inputDemo) {
+                ReactDOM.createRoot(inputDemo).render(<InputDemo />);
+            }
+        </script>
+    </body>
+</html>

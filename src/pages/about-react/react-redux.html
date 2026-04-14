@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Redux в React", "description": "Глобальное состояние, основы Redux, useSelector, useDispatch, примеры и лучшие практики." })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#intro">Введение</a>
+                    <a href="#install">Установка</a>
+                    <a href="#basics">Основы Redux</a>
+                    <a href="#store">Store и reducer</a>
+                    <a href="#useSelector">useSelector</a>
+                    <a href="#useDispatch">useDispatch</a>
+                    <a href="#practice">Практика</a>
+                    <a href="#tips">Советы</a>
+                    <a href="#best-practices">Лучшие практики</a>
+                    <a href="#examples">Примеры</a>
+                </nav>
+
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>Redux в React</h1>
+                        <p class="note">
+                            <b>Redux</b>
+                            — популярная библиотека для управления глобальным состоянием приложения.
+                            <br />
+                            Работает по принципу единого хранилища (store), действий (actions) и функций-редьюсеров (reducers).
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section" id="install">
+                    <div class="container">
+                        <h2>Установка Redux</h2>
+                        <pre><code>
+npm install @reduxjs/toolkit react-redux
+                        </code></pre>
+                        <div class="note note--info">
+                            Рекомендуется использовать
+                            <code>@reduxjs/toolkit</code>
+                            для новых проектов.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="basics">
+                    <div class="container">
+                        <h2>Основы Redux</h2>
+                        <pre><code>
+import { createSlice, configureStore } from '@reduxjs/toolkit';
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState: 0,
+  reducers: {
+    increment: state =&gt; state + 1,
+    decrement: state =&gt; state - 1
+  }
+});
+const store = configureStore({ reducer: counterSlice.reducer });
+                        </code></pre>
+                        <div class="note note--info">
+                            <code>createSlice</code>
+                            — простой способ описать reducer и actions.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="store">
+                    <div class="container">
+                        <h2>Store и Provider</h2>
+                        <pre><code>
+import { Provider } from 'react-redux';
+&lt;Provider store={store}&gt;
+  &lt;App /&gt;
+&lt;/Provider&gt;
+                        </code></pre>
+                        <div class="note note--info">
+                            <code>Provider</code>
+                            делает store доступным для всех компонентов.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="useSelector">
+                    <div class="container">
+                        <h2>useSelector — получение состояния</h2>
+                        <pre><code>
+import { useSelector } from 'react-redux';
+const count = useSelector(state =&gt; state);
+                        </code></pre>
+                        <div class="note note--info">
+                            <code>useSelector</code>
+                            — хук для доступа к store.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="useDispatch">
+                    <div class="container">
+                        <h2>useDispatch — отправка действий</h2>
+                        <pre><code>
+import { useDispatch } from 'react-redux';
+const dispatch = useDispatch();
+dispatch(counterSlice.actions.increment());
+                        </code></pre>
+                        <div class="note note--info">
+                            <code>useDispatch</code>
+                            — хук для отправки actions.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="practice">
+                    <div class="container">
+                        <h2>Практика: счетчик на Redux Toolkit</h2>
+                        <div class="code-block">
+                            <pre><code>
+import { Provider, useSelector, useDispatch } from 'react-redux';
+import { createSlice, configureStore } from '@reduxjs/toolkit';
+
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState: 0,
+  reducers: {
+    increment: state =&gt; state + 1,
+    decrement: state =&gt; state - 1
+  }
+});
+const store = configureStore({ reducer: counterSlice.reducer });
+
+function Counter() {
+  const count = useSelector(state =&gt; state);
+  const dispatch = useDispatch();
+  return (
+    &lt;div&gt;
+      &lt;button onClick={() =&gt; dispatch(counterSlice.actions.increment())}&gt;+&lt;/button&gt;
+      &lt;span&gt;{count}&lt;/span&gt;
+      &lt;button onClick={() =&gt; dispatch(counterSlice.actions.decrement())}&gt;-&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+function App() {
+  return (
+    &lt;Provider store={store}&gt;
+      &lt;Counter /&gt;
+    &lt;/Provider&gt;
+  );
+}
+                            </code></pre>
+                            <button class="copy-btn">Скопировать</button>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="tips">
+                    <div class="container">
+                        <h2>Советы и типичные ошибки</h2>
+                        <ul class="list-ul">
+                            <li>Не храните в Redux то, что можно держать в локальном состоянии (input, UI).</li>
+                            <li>Все изменения состояния — через actions и reducer!</li>
+                            <li>Не изменяйте state напрямую.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="best-practices">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+                        <ul class="list-ul">
+                            <li>Разделяйте store на срезы (slice) по смыслу.</li>
+                            <li>Документируйте структуру store для команды.</li>
+                            <li>Используйте Redux Toolkit для новых проектов.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="examples">
+                    <div class="container">
+                        <h2>Примеры Redux</h2>
+                        <h4>Сложное состояние</h4>
+                        <pre><code>
+const initialState = { user: null, products: [] };
+                        </code></pre>
+                        <h4>Множественные слайсы</h4>
+                        <pre><code>
+const store = configureStore({ reducer: { counter: counterSlice.reducer, user: userSlice.reducer } });
+                        </code></pre>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+    </body>
+</html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../html/head.html', { "title": "Динамические компоненты во Vue", "description": "Как использовать динамические компоненты, переключать их через is, передавать props и строить систему вкладок во Vue. Подробные интерактивные примеры." })
+
+<head>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    @@include('../html/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="#dynamic-intro">Введение</a>
+        <a href="#dynamic-basic">Базовое переключение</a>
+        <a href="#dynamic-props">Передача props</a>
+        <a href="#dynamic-tabs">Система вкладок</a>
+        <a href="#dynamic-quiz">Упражнения</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="dynamic-intro">
+        <div class="container">
+          <h1>Динамические компоненты во Vue</h1>
+          <p class="note">
+            <strong>Динамические компоненты</strong> - это способ менять отображаемый компонент на лету, без
+            сложной логики. Вместо громоздких <code>v-if</code> или <code>v-show</code>, ты можешь просто указать, какой компонент должен быть показан в данный момент.
+            Это особенно полезно для создания вкладок, модальных окон и других интерфейсных элементов, где
+            нужно быстро менять содержимое.
+          </p>
+
+
+          <h4>Основной инструмент:</h4>
+          <ul class="list-ul">
+            <li>
+              Тег
+              <code>&lt;component :is="componentName"&gt;&lt;/component&gt;</code>
+              позволяет "вставлять" нужный компонент в зависимости от значения переменной
+              <code>componentName</code>.
+            </li>
+            <li>
+              Значение
+              <code>componentName</code>
+              может быть строкой с именем зарегистрированного компонента или самим объектом компонента.
+            </li>
+            <li>
+              Можно передавать props и слушать события, как в обычных компонентах.
+            </li>
+          </ul>
+
+        </div>
+      </section>
+
+      <!-- Базовое переключение -->
+      <section class="section" id="dynamic-basic">
+        <div class="container">
+          <h2>Базовое переключение между компонентами</h2>
+          <div class="note">
+            <strong>Базовое переключение между компонентами</strong> - простой пример использования динамических компонентов для
+            переключения между двумя компонентами по нажатию кнопок. Это демонстрирует, как легко можно менять отображаемый
+            компонент без сложной логики.
+          </div>
+          <h4>Как это работает:</h4>
+          <ul class="list-ul">
+            <li>
+              Две кнопки изменяют значение переменной
+              <b>currentComponent</b>
+              .
+            </li>
+            <li>
+              Тег
+              <b>&lt;component :is="currentComponent"&gt;</b>
+              отображает компонент, имя которого хранится в
+              <b>currentComponent</b>
+              .
+            </li>
+            <li>
+              Vue автоматически обновляет отображение при изменении
+              <b>currentComponent</b>
+              .
+            </li>
+          </ul>
+
+          <h4>Пример:</h4>
+
+          <div class="code-block">
+            <pre><code>&lt;div id="app"&gt;
+  &lt;button @click="currentComponent = 'first-component'"&gt;Показать первый&lt;/button&gt;
+  &lt;button @click="currentComponent = 'second-component'"&gt;Показать второй&lt;/button&gt;
+  &lt;component :is="currentComponent"&gt;&lt;/component&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return { currentComponent: "first-component" }
+  },
+  components: {
+    "first-component": { template: "&lt;p&gt;📌 Это первый компонент!&lt;/p&gt;" },
+    "second-component": { template: "&lt;p&gt;🔥 А это второй компонент!&lt;/p&gt;" }
+  }
+}).mount("#app");
+&lt;/script&gt;
+                            </code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+
+          <ul class="list-ul">
+            <li>
+              Создаём две кнопки, которые меняют
+              <b>currentComponent</b>
+              при клике.
+            </li>
+            <li>
+              Используем
+              <b>&lt;component :is="currentComponent"&gt;</b>
+              для отображения нужного компонента.
+            </li>
+            <li>
+              Регистрируем два простых компонента с шаблонами.
+            </li>
+          </ul>
+
+          <div class="interactive-demo">
+            <div id="dynamic-basic-demo"></div>
+          </div>
+          <!-- Вывод: -->
+          <p class="note note--info">
+            🚀
+            <strong>Вывод:</strong>
+            Динамические компоненты во Vue позволяют легко переключаться между разными компонентами на основе
+            состояния приложения, делая код чище и проще для понимания. Это мощный инструмент для создания
+            интерактивных интерфейсов. Попробуй изменить пример и добавить свои компоненты!
+          </p>
+        </div>
+      </section>
+
+      <!-- Передача props -->
+      <section class="section" id="dynamic-props">
+        <div class="container">
+          <h2>Передача props в динамический компонент</h2>
+          <div class="note">
+            <strong>Передача props в динамический компонент</strong> - это способ передать данные в компоненты, которые выбираются динамически с помощью
+            тега <code>&lt;component&gt;</code>. Это позволяет создавать более гибкие и переиспользуемые компоненты, которые могут
+            принимать различные входные данные в зависимости от контекста.
+          </div>
+          <h4>Как это работает:</h4>
+          <ul class="list-ul">
+            <li>Используем атрибут <b>:is</b> для выбора компонента.</li>
+            <li>Передаём <b>props</b> так же, как в обычных компонентах.</li>
+            <li>Компоненты принимают <b>props</b> и используют их в своих шаблонах.</li>
+          </ul>
+          <h4>Пример:</h4>
+
+          <div class="code-block">
+            <pre><code>&lt;div id="app"&gt;
+  &lt;button @click="currentComponent = 'hello-component'"&gt;Привет&lt;/button&gt;
+  &lt;button @click="currentComponent = 'bye-component'"&gt;Пока&lt;/button&gt;
+  &lt;component :is="currentComponent" :message="customMessage"&gt;&lt;/component&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return {
+      currentComponent: "hello-component",
+      customMessage: "Передано через prop!"
+    }
+  },
+  components: {
+    "hello-component": {
+      props: ["message"],
+      template: `&lt;p&gt;👋 {{ message }}&lt;/p&gt;`
+    },
+    "bye-component": {
+      props: ["message"],
+      template: `&lt;p&gt;👋 Пока! {{ message }}&lt;/p&gt;`
+    }
+  }
+}).mount("#app");
+&lt;/script&gt;</code></pre>
+
+          </div>
+          <h4>Объяснение кода:</h4>
+          <ul class="list-ul">
+            <li>
+              Две кнопки меняют значение
+              <b>currentComponent</b>
+              для переключения между компонентами.
+            </li>
+            <li>
+              Тег
+              <b>&lt;component :is="currentComponent" :message="customMessage"&gt;</b>
+              передаёт prop
+              <b>message</b>
+              в выбранный компонент.
+            </li>
+            <li>
+              Оба компонента принимают prop
+              <b>message</b>
+              и отображают его в своём шаблоне.
+            </li>
+          </ul>
+          <div class="interactive-demo">
+            <div id="dynamic-props-demo"></div>
+          </div>
+
+          <!-- Вывод: -->
+          <p class="note note--info">🚀<strong> Вывод:</strong> Передача props в динамический компонент позволяет гибко управлять данными, передаваемыми в компоненты, которые выбираются динамически. Это делает код более читаемым и переиспользуемым.
+          </p>
+        </div>
+      </section>
+
+      <!-- Система вкладок -->
+      <section class="section" id="dynamic-tabs">
+        <div class="container">
+          <h2>Пример: система вкладок (Tabs)</h2>
+          <div class="note">
+            <strong>Система вкладок</strong> - это интерфейсный элемент, который позволяет пользователям переключаться между разными
+            разделами контента, не покидая текущую страницу. Во Vue.js динамические компоненты идеально подходят для реализации
+            такой системы, так как они позволяют легко менять отображаемый контент на основе выбранной вкладки.
+          </div>
+          <h4>Пример:</h4>
+
+          <div class="code-block">
+            <pre><code>&lt;div id="app"&gt;
+  &lt;button @click="activeTab = 'tab-1'"&gt;📝 Описание&lt;/button&gt;
+  &lt;button @click="activeTab = 'tab-2'"&gt;📊 Характеристики&lt;/button&gt;
+  &lt;button @click="activeTab = 'tab-3'"&gt;🗣 Отзывы&lt;/button&gt;
+  &lt;component :is="activeTab"&gt;&lt;/component&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return { activeTab: "tab-1" }
+  },
+  components: {
+    "tab-1": { template: "&lt;p&gt;📝 Это описание продукта.&lt;/p&gt;" },
+    "tab-2": { template: "&lt;p&gt;📊 Здесь характеристики.&lt;/p&gt;" },
+    "tab-3": { template: "&lt;p&gt;🗣 Здесь будут отзывы клиентов.&lt;/p&gt;" }
+  }
+}).mount("#app");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h4>Объяснение кода:</h4>
+          <ul class="list-ul">
+            <li>Три кнопки изменяют значение <b>activeTab</b> для переключения между вкладками.</li>
+            <li>Тег <b>&lt;component :is="activeTab"&gt;</b> отображает компонент, соответствующий выбранной вкладке.</li>
+            <li>Каждая вкладка зарегистрирована как отдельный компонент с собственным шаблоном.</li>
+          </ul>
+          <div class="interactive-demo">
+            <div id="dynamic-tabs-demo"></div>
+          </div>
+
+          <div class="note note--info">
+            🚀
+            <strong>Вывод:</strong>
+            Динамические компоненты во Vue позволяют легко создавать системы вкладок, делая интерфейс более интерактивным и удобным для пользователей. Попробуй расширить пример, добавив больше вкладок или изменив их содержимое!
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Упражнения -->
+      <section class="section" id="dynamic-quiz">
+        <div class="container">
+          <h2>Упражнения: проверь себя!</h2>
+          <div class="note">
+            <strong>Вопрос 1:</strong>
+            <br />
+            Какой текст увидит пользователь сразу после загрузки страницы?
+          </div>
+          <div class="code-block">
+            <pre><code>&lt;div id="app"&gt;
+  &lt;button @click="currentComponent = 'big-cat'"&gt;Показать Большого кота&lt;/button&gt;
+  &lt;button @click="currentComponent = 'tiny-dog'"&gt;Показать Маленькую собаку&lt;/button&gt;
+  &lt;component :is="currentComponent" :message="'Лови привет!'"&gt;&lt;/component&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return { currentComponent: "big-cat" }; // По умолчанию показывается "big-cat"
+  },
+  components: {
+    "big-cat": {
+      template: "&lt;h2&gt;🐱 {{ message }}&lt;/h2&gt;",
+      props: ["message"]
+    },
+    "tiny-dog": {
+      template: "&lt;p&gt;🐶 {{ message }}&lt;/p&gt;",
+      props: ["message"]
+    }
+  }
+}).mount("#app");
+&lt;/script&gt;</code></pre>
+          </div>
+
+          <div class="interactive-demo">
+              <div id="dynamic-quiz-demo"></div>
+            </div>
+
+          <div class="note note--info">
+            <b>Ответ:</b>
+            <span style="font-weight: bold">🐱 Лови привет!</span>
+          </div>
+        </div>
+      </section>
+    </main>
+    @@include('../html/footer.html', {})
+  </div>
+  @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+  <script>
+    // Базовый пример динамического компонента
+    Vue.createApp({
+      data() {
+        return {
+          currentComponent: "first-component"
+        };
+      },
+      components: {
+        "first-component": {
+          template: "<p>📌 Это первый компонент!</p>"
+        },
+        "second-component": {
+          template: "<p>🔥 А это второй компонент!</p>"
+        },
+      },
+      template: `
+                  <div>
+                    <button @click="currentComponent = 'first-component'">Показать первый</button>
+                    <button @click="currentComponent = 'second-component'">Показать второй</button>
+                    <component :is="currentComponent"></component>
+                  </div>
+                `,
+    }).mount("#dynamic-basic-demo");
+
+    // Передача props в динамический компонент
+    Vue.createApp({
+      data() {
+        return {
+          currentComponent: "hello-component",
+          customMessage: "Передано через prop!",
+        };
+      },
+      components: {
+        "hello-component": {
+          props: ["message"],
+          template: `<p>👋 {{ message }}</p>`,
+        },
+        "bye-component": {
+          props: ["message"],
+          template: `<p>👋 Пока! {{ message }}</p>`,
+        },
+      },
+      template: `
+                  <div>
+                    <button @click="currentComponent = 'hello-component'">Привет</button>
+                    <button @click="currentComponent = 'bye-component'">Пока</button>
+                    <component :is="currentComponent" :message="customMessage"></component>
+                  </div>
+                `,
+    }).mount("#dynamic-props-demo");
+
+    // Система вкладок
+    Vue.createApp({
+      data() {
+        return {
+          activeTab: "tab-1"
+        };
+      },
+      components: {
+        "tab-1": {
+          template: "<p>📝 Это описание продукта.</p>"
+        },
+        "tab-2": {
+          template: "<p>📊 Здесь характеристики.</p>"
+        },
+        "tab-3": {
+          template: "<p>🗣 Здесь будут отзывы клиентов.</p>"
+        },
+      },
+      template: `
+                  <div>
+                    <button @click="activeTab = 'tab-1'">📝 Описание</button>
+                    <button @click="activeTab = 'tab-2'">📊 Характеристики</button>
+                    <button @click="activeTab = 'tab-3'">🗣 Отзывы</button>
+                    <component :is="activeTab"></component>
+                  </div>
+                `,
+    }).mount("#dynamic-tabs-demo");
+
+    // Вопрос-упражнение (big-cat/tiny-dog)
+    Vue.createApp({
+      data() {
+        return {
+          currentComponent: "big-cat"
+        };
+      },
+      components: {
+        "big-cat": {
+          template: "<h2>🐱 {{ message }}</h2>",
+          props: ["message"],
+        },
+        "tiny-dog": {
+          template: "<p>🐶 {{ message }}</p>",
+          props: ["message"],
+        },
+      },
+      template: `
+                  <div>
+                    <button @click="currentComponent = 'big-cat'">Показать Большого кота</button>
+                    <button @click="currentComponent = 'tiny-dog'">Показать Маленькую собаку</button>
+                    <component :is="currentComponent" :message="'Лови привет!'"></component>
+                  </div>
+                `,
+    }).mount("#dynamic-quiz-demo");
+  </script>
+</body>
+
+</html>

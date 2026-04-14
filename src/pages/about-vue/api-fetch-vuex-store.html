@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../html/head.html', {
+"title": "Управление состоянием данных во Vuex: работа с API, загрузка и обновление",
+"description": "Научись получать данные с сервера через Fetch API, сохранять их в Vuex store, обновлять состояние приложения, обрабатывать ошибки и отображать данные в компонентах Vue!"
+})
+
+<body>
+  <div class="wrapper">
+    @@include('../html/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="#intro">Введение</a>
+        <a href="#vuex-fundamentals">Что такое Vuex и state?</a>
+        <a href="#fetch-to-vuex">Получение данных через Fetch API во Vuex</a>
+        <a href="#actions-async">Работа с асинхронными actions</a>
+        <a href="#component-binding">Связь компонента и store</a>
+        <a href="#practice">Упражнение: загрузи пользователей!</a>
+      </nav>
+
+      <!-- Введение -->
+      <section id="intro" class="section">
+        <div class="container">
+          <h1>Управление состоянием данных во Vuex: работа с API, загрузка и обновление</h1>
+          <p class="note"><strong>Управление состоянием данных во Vuex</strong> - это ключевой аспект разработки приложений на Vue.js. В него входит получение данных с сервера через Fetch API, сохранение этих данных в централизованном хранилище Vuex, а также обновление состояния приложения и отображение данных в компонентах Vue. </p>
+          <h4>Основа Управление состоянием данных во Vuex</h4>
+          <ul class="list-ul">
+            <li>Понимание Vuex и его роли в управлении состоянием приложения</li>
+            <li>Использование Fetch API для получения данных с сервера</li>
+            <li>Сохранение и обновление данных в Vuex store</li>
+            <li>Обработка ошибок при работе с асинхронными операциями</li>
+            <li>Связывание компонентов Vue с Vuex для реактивного обновления интерфейса</li>
+          </ul>
+        </div>
+      </section>
+
+
+
+
+      <!-- Что такое Vuex и state? -->
+      <section id="vuex-fundamentals" class="section">
+        <div class="container">
+          <h1>Что такое Vuex и state?</h1>
+          <p class="note">
+            <strong>Vuex</strong> — официальная библиотека для управления состоянием в приложениях на Vue.js. Она помогает централизованно хранить и изменять данные, что особенно полезно при работе с асинхронными операциями, такими как загрузка данных с сервера через Fetch API.
+          </p>
+
+          <h4>Для чего нужен Vuex?</h4>
+          <ul class="list-ul">
+            <li>Централизованное хранение данных приложения</li>
+            <li>Упрощённое управление состоянием при взаимодействии с сервером</li>
+            <li>Обеспечение реактивности компонентов при изменении данных</li>
+            <li>Упрощение отладки и тестирования</li>
+          </ul>
+
+
+          <h4>Что такое state?</h4>
+          <p><strong>State</strong> — это объект, который хранит все данные приложения в Vuex. Компоненты Vue могут подписываться на изменения state и автоматически обновляться при его изменении.</p>
+
+
+
+
+
+          <h4>Как работает Vuex</h4>
+          <!-- Установка Vuex -->
+          <h5>Установка Vuex:</h5>
+          <p>Сначала установи Vuex через npm или yarn:</p>
+
+          <div class="code-block">
+            <pre><code class="language-bash">npm install vuex --save</code></pre>
+          </div>
+
+          <!-- Интеграция Vuex -->
+          <h5>Интеграция Vuex в Vue-приложение:</h5>
+          <p>Импортируй и подключи Vuex в главный файл приложения (обычно <code>main.js</code>):</p>
+          <div class="code-block">
+            <pre><code >// main.js
+import Vue from 'vue';
+import Vuex from 'vuex';
+import App from './App.vue';
+Vue.use(Vuex);
+const store = new Vuex.Store({
+  // Определение state, mutations, actions и getters
+});
+new Vue({ store, render: h => h(App) }).$mount('#app');</code></pre>
+          </div>
+
+          <!-- Создание хранилища Vuex -->
+          <h5>Создание хранилища Vuex:</h5>
+          <p>Создай файл <code>store.js</code> для определения структуры хранилища:</p>
+          <div class="code-block">
+            <pre><code >// store.js
+import Vue from 'vue';
+import Vuex from 'vuex';
+Vue.use(Vuex);
+export default new Vuex.Store({
+  state: {
+    // Определение начального состояния
+  },
+  mutations: {
+    // Определение мутаций для изменения состояния
+  },
+  actions: {
+    // Определение действий для асинхронных операций
+  },
+  getters: {
+    // Определение геттеров для получения данных из состояния
+  }
+});</code></pre>
+          </div>
+
+          <h5>Основные концепции Vuex:</h5>
+          <ul class="list-ul">
+            <li><strong>State</strong> — централизованное хранилище данных приложения</li>
+            <li><strong>Mutations</strong> — синхронные функции для изменения состояния</li>
+            <li><strong>Actions</strong> — асинхронные функции для выполнения операций, таких как запросы к API</li>
+            <li><strong>Getters</strong> — функции для получения и вычисления данных из состояния</li>
+          </ul>
+
+
+
+          <h4>Как работает Vuex с Fetch API?</h4>
+          <ul class="list-ul">
+            <li>Actions используют Fetch API для получения данных с сервера</li>
+            <li>После получения данных, actions вызывают mutations для обновления state</li>
+            <li>Компоненты Vue подписываются на изменения state и автоматически обновляются при изменении данных</li>
+          </ul>
+
+          <h4>Пример простейшего store с именем пользователя:</h4>
+          <p>Создадим Vuex store, который хранит имя пользователя и позволяет его изменять:</p>
+          <div class="code-block">
+            <pre><code>// store.js
+const store = new Vuex.Store({
+  state: {
+    userName: 'Петя'
+  },
+  mutations: {
+    changeName(state, newName) {
+      state.userName = newName;
+    }
+  }
+});</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><strong>state</strong> — место для хранения данных</li>
+            <li><strong>mutations</strong> — строго описывают, как можно менять state</li>
+          </ul>
+
+
+          <h4>Как получить данные из store в компоненте?</h4>
+          <p>Чтобы использовать данные из Vuex store в компоненте Vue, можно обратиться к состоянию через <code>this.$store.state</code>:</p>
+          <div class="code-block">
+            <pre><code >// В компоненте
+computed: {
+  userName() {
+    return this.$store.state.userName;
+  }
+}</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Используем <code>this.$store.state</code> для доступа к данным из store</li>
+            <li>Компонент автоматически обновится при изменении <code>userName</code> в store</li>
+          </ul>
+
+          <!-- Вывод: -->
+          <p class="note note--info">
+            🚀
+            <strong>Вывод:</strong> Vuex упрощает управление состоянием данных в приложениях Vue, особенно при работе с асинхронными операциями, такими как Fetch API. Он обеспечивает централизованное хранение данных и реактивное обновление компонентов.
+          </p>
+
+
+
+        </div>
+      </section>
+
+      <!-- Fetch API → Vuex -->
+      <section id="fetch-to-vuex" class="section">
+        <div class="container">
+          <h2>🔗 Получение данных с сервера и сохранение в Vuex</h2>
+          <p class="note">
+            <strong>Получение данных с сервера и сохранение в Vuex</strong> — это распространённый сценарий в разработке приложений на Vue.js. Обычно мы используем Fetch API для загрузки данных и сохраняем их в Vuex store для централизованного управления состоянием.
+          </p>
+
+          <h4>Как это работает?</h4>
+          <p>Основные шаги для получения данных с сервера и сохранения их в Vuex:</p>
+          <ul class="list-ul">
+            <li>Создание <b>action</b> в <b>Vuex</b> для выполнения <b>Fetch-запроса</b></li>
+            <li>Обработка ответа и передача данных в <b>mutation</b> с помощью <b>commit</b>(commit - вызов mutation)</li>
+            <li>Обновление <b>state</b> с помощью <b>mutation</b></li>
+            <li>Подписка компонентов на изменения <b>state</b> для отображения данных с помощью <b>mapState</b></li>
+          </ul>
+
+
+
+
+          <h4>Зачем использовать Vuex для загруженных данных?</h4>
+          <ul class="list-ul">
+            <li>Можем обращаться к этим данным из любого компонента</li>
+            <li>Перерисовка всех «подписанных» компонентов при обновлении данных</li>
+            <li>Управляем загрузкой и ошибками централизованно</li>
+          </ul>
+
+
+          <h4>Пример fetch-запроса и обновления state:</h4>
+          <p>Создадим Vuex store с action для загрузки списка пользователей с сервера и сохранения их в state:</p>
+          <div class="code-block">
+            <pre><code >// store.js
+export default {
+  state: {
+    users: []
+  },
+  mutations: {
+    setUsers(state, users) {
+      state.users = users;
+    }
+  },
+  actions: {
+    loadUsers({ commit }) {
+      fetch('https://jsonplaceholder.typicode.com/users')
+        .then(response => response.json())
+        .then(data => commit('setUsers', data))
+        .catch(error => console.error('Ошибка при загрузке:', error));
+    }
+  }
+}</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><b>state.users</b> — массив для хранения загруженных пользователей</li>
+            <li><b>mutation setUsers</b> — обновляет state с полученными данными</li>
+            <li><b>action loadUsers</b> — выполняет fetch-запрос, получает данные и вызывает mutation для обновления state</li>
+            <li>Обработка ошибок через <code>catch</code></li>
+          </ul>
+          <p class="note note--warning">
+            <strong>Внимание!</strong> Ниже мы разберём, как сделать загрузку асинхронной и более современной с помощью <code>async/await</code>.
+          </p>
+        </div>
+      </section>
+
+      <!-- Async Actions -->
+      <section id="actions-async" class="section">
+        <div class="container">
+          <h2>⏳ Асинхронные actions: async/await + обработка ошибок</h2>
+          <p class="note">
+            <strong>Асинхронные actions</strong> в Vuex позволяют выполнять операции, которые занимают время, такие как запросы к API. Использование <code>async/await</code> делает код чище и проще для понимания, а также облегчает обработку ошибок.
+          </p>
+          <h4>Почему async/await?</h4>
+          <ul class="list-ul">
+            <li>Код выглядит как синхронный, что упрощает чтение и понимание</li>
+            <li>Легче обрабатывать ошибки с помощью <code>try...catch</code></li>
+            <li>Избегаем «ад колбеков» и цепочек <code>.then()</code></li>
+          </ul>
+
+
+          <h4>Пример асинхронного action:</h4>
+          <p>Перепишем предыдущий пример с использованием <code>async/await</code>:</p>
+          <div class="code-block">
+            <pre><code>// store.js
+export default {
+  actions: {
+    async loadUsers({ commit }) {
+      try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/users');
+        const data = await response.json();
+        commit('setUsers', data);
+      } catch (error) {
+        console.log('Ошибка при загрузке данных:', error);
+      }
+    }
+  },
+  mutations: {
+    setUsers(state, users) {
+      state.users = users;
+    }
+  },
+  state: {
+    users: []
+  }
+}</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><b>async</b> — функция делает асинхронную работу (например, fetch-запросы)</li>
+            <li><b>await</b> — ждём ответа от сервера, прежде чем идти дальше</li>
+            <li>Всё, что после <code>await</code>, будет выполнено только после получения данных</li>
+            <li>Обработка ошибок через <code>try...catch</code></li>
+          </ul>
+
+          <!-- Вывод: -->
+          <p class="note note--info">
+            🚀
+            <strong>Вывод:</strong> Использование <code>async/await</code> в Vuex actions упрощает работу с асинхронными операциями и улучшает читаемость кода. Это особенно полезно при взаимодействии с API и обработке ошибок.
+          </p>
+        </div>
+      </section>
+
+      <!-- Component Binding -->
+      <section id="component-binding" class="section">
+        <div class="container">
+          <h2>🔗 Как компонент узнаёт о новых данных из store?</h2>
+          <p class="note">
+            <strong>Связь компонента и Vuex store</strong> позволяет компонентам автоматически обновляться при изменении данных в хранилище. Это достигается с помощью специальных методов Vuex, таких как <code>mapState</code> и <code>dispatch</code>.
+          </p>
+          <h4>Как это работает?</h4>
+          <p>Когда компонент вызывает action через <code>dispatch</code>, Vuex выполняет асинхронную операцию и обновляет state. Затем, благодаря <code>mapState</code>, компонент автоматически получает новые данные из store.</p>
+          <p>Компонент подписывается на изменения в store через <code>mapState</code>, поэтому при изменении данных в store, компонент перерисовывается автоматически.</p>
+          <p>
+            Чтобы получить загруженные пользователи в компоненте, используй <b>mapState</b> и вызови action при запуске компонента (mount):
+          </p>
+
+          <div class="code-block">
+            <pre><code >// В компоненте
+import { mapState } from 'vuex';
+
+export default {
+  mounted() {
+    this.$store.dispatch('loadUsers'); // вызывать action при монтировании
+  },
+  computed: {
+    ...mapState({
+      users: state => state.users
+    })
+  }
+}
+            </code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+
+          <ul class="list-ul">
+            <li><b>dispatch</b> — вызывает асинхронный action</li>
+            <li><b>mapState</b> — позволяет подписаться на часть state и использовать её как computed-свойство</li>
+            <li>Компонент <u>сам обновится</u>, когда users в store поменяются</li>
+          </ul>
+
+          <p class="note note--info">
+            🚀
+            <strong>Вывод:</strong> Связь компонентов Vue с Vuex store через <code>mapState</code> и <code>dispatch</code> обеспечивает реактивное обновление интерфейса при изменении данных, что упрощает разработку и улучшает пользовательский опыт.
+          </p>
+
+
+        </div>
+      </section>
+
+      <!-- Практика -->
+      <section class="section" id="practice">
+        <div class="container">
+          <h2>🔥 Практика: загрузи пользователей через Vuex 4 и Vue 3!</h2>
+          <p>Реальный пример использования Vuex для загрузки и отображения списка пользователей с сервера.
+            <br> Мы создадим Vuex store с асинхронным action для получения данных через Fetch API и компонент для отображения этих данных. </p>
+          <h4>Нужно будет создать 3 файла и связать их вместе: </h4>
+          <ul class="list-ul">
+            <li><code>store.js</code> — определение Vuex store с state, mutations и actions</li>
+            <li><code>UsersList.vue</code> — компонент для отображения списка пользователей</li>
+            <li><code>main.js</code> — главный файл приложения для подключения Vuex store</li>
+          </ul>
+
+
+          <h4>Шаг 1: Создай Vuex store (Vue 3)</h4>
+          <p>Создай файл <code>store.js</code> и определи state, mutations и actions для загрузки пользователей:</p>
+          <div class="code-block">
+            <pre><code>// store.js
+import { createStore } from 'vuex'
+
+export default createStore({
+  state: {
+    users: []
+  },
+  mutations: {
+    setUsers(state, users) {
+      state.users = users
+    }
+  },
+  actions: {
+    async loadUsers({ commit }) {
+      try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/users')
+        const data = await response.json()
+        commit('setUsers', data)
+      } catch (error) {
+        console.log('Ошибка при загрузке данных:', error)
+      }
+    }
+  }
+})
+</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><strong>state.users</strong> — массив для хранения загруженных пользователей</li>
+            <li><strong>mutation setUsers</strong> — обновляет state с полученными данными</li>
+            <li><strong>action loadUsers</strong> — выполняет fetch-запрос, получает данные и вызывает mutation для обновления state</li>
+            <li>Обработка ошибок через <code>catch</code></li>
+          </ul>
+
+          <h4>Шаг 2: Создай компонент для отображения пользователей</h4>
+          <p>Создай компонент <code>UsersList.vue</code>, который будет отображать список пользователей из Vuex store:</p>
+          <div class="code-block">
+            <pre><code>// UsersList.vue
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;h2&gt;Пользователи&lt;/h2&gt;
+    &lt;ul&gt;
+      &lt;li v-for="user in users" :key="user.id"&gt;
+        {{ user.name }}
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import { mapState } from 'vuex'
+
+export default {
+  name: 'UsersList',
+  computed: {
+    ...mapState({
+      users: state =&gt; state.users
+    })
+  },
+  mounted() {
+    this.$store.dispatch('loadUsers')
+  }
+}
+&lt;/script&gt;
+</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Используем <code>mapState</code> для получения списка пользователей из Vuex store</li>
+            <li>Вызываем action <code>loadUsers</code> при монтировании компонента для загрузки данных</li>
+            <li>Отображаем список пользователей с помощью директивы <code>v-for</code></li>
+          </ul>
+
+          <h4>Шаг 3: Подключи store и компонент к приложению</h4>
+          <p>Импортируй Vuex store в главный файл приложения и зарегистрируй компонент <code>UsersList</code>:</p>
+          <div class="code-block">
+            <pre><code>// main.js
+import { createApp } from 'vue'
+import App from './App.vue'
+import store from './store'
+
+createApp(App)
+  .use(store)
+  .mount('#app')
+</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Импортируем Vuex store и подключаем его к приложению с помощью <code>.use(store)</code></li>
+            <li>Теперь все компоненты приложения смогут обращаться к Vuex store</li>
+          </ul>
+
+          <h4>Шаг 4: Запусти приложение и наслаждайся!</h4>
+          <p>Теперь при запуске приложения компонент <code>UsersList</code> загрузит список пользователей с сервера и отобразит их.</p>
+
+        </div>
+      </section>
+
+    </main>
+    @@include('../html/footer.html', {})
+  </div>
+  @@include('../html/popup.html', {})
+  @@include('../html/js.html', {})
+</body>
+
+</html>

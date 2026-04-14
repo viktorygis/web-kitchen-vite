@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../html/head.html', { "title": "Организация компонентов во Vue: структура, переиспользование, чистота кода", "description": "Как правильно организовать и структурировать компоненты в больших Vue-проектах. Советы, примеры, архитектура." })
+
+<head>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    @@include('../html/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="#intro">Введение</a>
+        <a href="#structure">Структура компонентов</a>
+        <a href="#reuse">Переиспользование компонентов</a>
+        <a href="#principles">Принципы чистого Vue-кода</a>
+        <a href="#practice">Практика</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="intro">
+        <div class="container">
+          <h1>Организация компонентов во Vue</h1>
+          <p class="note"><strong>Компоненты</strong> — основа архитектуры любого Vue-проекта.
+            <br />
+            Правильная структура и переиспользование компонентов делают код чище и поддержку проще.
+          </p>
+          <h4>Лучшие практики организации Vue-компонентов в больших приложениях:</h4>
+          <ul class="list-ul">
+            <li>📁 Создавайте осмысленные папки для компонентов</li>
+            <li>✅ Создавайте переиспользуемые компоненты вместо копипаста</li>
+            <li>💡 Следуйте принципам чистого кода для удобства разработки</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Структура компонентов -->
+      <section class="section" id="structure">
+        <div class="container">
+          <h2>Структура компонентов</h2>
+          <p class="note"><strong>Структура компонентов</strong> — это способ организации файлов и папок в проекте для удобства навигации и поддержки кода.</p>
+          <h4>Лучшие практики структурирования Vue-компонентов:</h4>
+          <ul class="list-ul">
+            <li>📁 Разделяйте компоненты по <b>функциональности</b>. <u>Например:</u>
+              <ul>
+                <li><b>components/common/</b> — общие компоненты (кнопки, карточки)</li>
+                <li><b>components/layout/</b> — структурные компоненты (шапка, подвал)</li>
+                <li><b>components/pages/</b> — уникальные компоненты для страниц</li>
+              </ul>
+            </li>
+            <li>📂 Храните переиспользуемые компоненты в <b>отдельной папке</b>. <u>Например:</u>
+              <ul>
+                <li><b>components/common/</b> — кнопки, модальные окна, формы</li>
+              </ul>
+
+
+
+            <li>🗂️ Используйте осмысленные <b>имена файлов и папок</b>. <u>Например:</u>
+              <ul>
+                <li><b>Button.vue</b> вместо Btn.vue</li>
+                <li><b>Header.vue</b> вместо TopBar.vue</li>
+              </ul>
+          </ul>
+
+          <h4>Пример структуры Vue-проекта:</h4>
+          <div class="code-block">
+            <pre><code>📂 src/
+ ├── 📂 components/
+ │    ├── 📂 common/
+ │    │    ├── Button.vue
+ │    │    ├── Card.vue
+ │    ├── 📂 layout/
+ │    │    ├── Header.vue
+ │    │    ├── Footer.vue
+ │    ├── 📂 pages/
+ │    │    ├── HomePage.vue
+ │    │    ├── ProfilePage.vue
+ ├── 📂 views/
+ ├── 📂 store/
+ ├── 📂 router/
+ ├── App.vue
+ ├── main.js</code></pre>
+          </div>
+          <h5>Описание папок:</h5>
+
+
+          <ul class="list-ul">
+            <li><b>components/common/</b> — переиспользуемые компоненты (кнопки, карточки и т.д.)</li>
+            <li><b>components/layout/</b> — структурные компоненты (шапка, подвал и т.д.)</li>
+            <li><b>components/pages/</b> — уникальные компоненты для страниц (главная, профиль и т.д.)</li>
+          </ul>
+          <p>Такая структура помогает быстро находить нужные компоненты и поддерживать проект в порядке!</p>
+
+        </div>
+      </section>
+
+      <!-- Переиспользование компонентов -->
+      <section class="section" id="reuse">
+        <div class="container">
+          <h2>Переиспользование компонентов</h2>
+          <p class="note"><strong>Переиспользование компонентов</strong> — это создание универсальных компонентов, которые можно использовать в разных частях приложения без дублирования кода.<br />
+            Это повышает производительность разработки и облегчает поддержку кода. Простыми словами — это способ сделать код более читаемым и поддерживаемым.</p>
+
+
+
+
+          <h4>Почему это важно?</h4>
+          <ul class="list-ul">
+            <li>♻️ Избегает дублирования кода</li>
+            <li>⚙️ Упрощает поддержку и обновление</li>
+            <li>🚀 Повышает производительность разработки</li>
+          </ul>
+          <h4>Как создавать переиспользуемые компоненты:</h4>
+          <ul class="list-ul">
+            <li>🎨 Делайте компоненты универсальными с помощью <b>props</b>. <u>Например:</u>
+              <ul>
+                <li>Компонент кнопки, который принимает текст и тип оформления через <b>props</b></li>
+              </ul>
+            </li>
+            <li>🧩 Разбивайте сложные компоненты на мелкие переиспользуемые части. <u>Например:</u>
+              <ul>
+                <li>Карточка товара, состоящая из переиспользуемых компонентов изображения, названия и цены</li>
+                <li>Компоненты для отображения информации о пользователе, например, аватар, имя и email</li>
+                <li>Компоненты для отображения информации о товаре, например, изображение, название и цена </li>
+              </ul>
+            </li>
+          </ul>
+          <h4>Пример переиспользуемого компонента кнопки:</h4>
+          <p>Создадим универсальную кнопку, которая принимает текст и тип оформления через props:</p>
+          <div class="code-block">
+            <pre><code>&lt;!-- components/common/Button.vue --&gt;
+&lt;template&gt;
+  &lt;button :class="type"&gt;{{ text }}&lt;/button&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  props: {
+    text: String,
+    type: String
+  }
+};
+&lt;/script&gt;
+
+&lt;style scoped&gt;
+.primary {
+  background-color: blue;
+  color: white;
+}
+.secondary {
+  background-color: gray;
+  color: black;
+}
+&lt;/style&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>📥 <b>props</b> — позволяют передавать данные в компонент (текст и тип кнопки)</li>
+            <li>🎨 <b>:class</b> — динамически применяет CSS-класс в зависимости от типа кнопки</li>
+            <li>💅 <b>scoped styles</b> — стили применяются только к этому компоненту</li>
+          </ul>
+
+          <!-- Вывод: -->
+          <p class="note note--info">
+            🚀
+            <strong>
+              Вывод: переиспользуемые компоненты делают код чище и поддержку проще!
+            </strong> Измените внешний вид кнопки в одном месте — и все кнопки в проекте обновятся автоматически.
+          </p>
+
+
+          <h4>Использование переиспользуемой кнопки:</h4>
+          <p>Теперь можно использовать компонент кнопки в любом месте приложения:</p>
+
+          <div class="code-block">
+            <pre><code>&lt;template&gt;
+  &lt;Button text="Купить" type="primary" /&gt;
+  &lt;Button text="Отмена" type="secondary" /&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import Button from "@/components/common/Button.vue";
+export default {
+  components: { Button }
+}
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>📥 Импортируем переиспользуемый компонент кнопки</li>
+            <li>🔧 Используем компонент с разными props для разных вариантов кнопок</li>
+          </ul>
+          <p class="note note--info">
+            💡 Переиспользуемые компоненты экономят время и усилия при разработке!
+            <br />
+            Вместо копирования и вставки кода кнопки в разные места, мы просто используем компонент с нужными параметрами.
+          </p>
+
+
+
+        </div>
+      </section>
+
+      <!-- Принципы чистого Vue-кода -->
+      <section class="section" id="principles">
+        <div class="container">
+          <h2>Принципы чистого Vue-кода</h2>
+          <p class="note">
+            <strong>Чистый код</strong> — это такой код, который легко читать, тестировать и сопровождать. В архитектуре Vue важно поддерживать чистоту — проект быстро растёт за счет компонентов.
+          </p>
+          <h4>Базовые принципы чистого Vue-кода:</h4>
+          <ul class="list-ul">
+            <!-- Группа: Архитектура и организация компонентов -->
+            <li>
+              <b>🧹 Архитектурная чистота и простота компонентов</b><br>
+              Каждый компонент отвечает за одну задачу (Single Responsibility Principle). Разделяйте сложную логику на независимые компоненты, минимизируйте их размер и сложность.<br>
+              Организуйте структуру файлов и папок по функциональным областям (<code>components/common/</code> для общих компонентов, <code>components/layout/</code> для компоновки страницы, <code>pages/</code> для уникальных компонентов страниц).
+            </li>
+            <li>
+              <b>♻️ Переиспользуемость и избежание дублирования</b><br>
+              Выносите повторяющийся функционал в переиспользуемые компоненты или композиционные функции.<br>
+              Чистый и универсальный компонент облегчает тестирование и развитие приложения.
+            </li>
+            <!-- Группа: Связь между компонентами -->
+            <li>
+              <b>🔗 Ясная коммуникация между компонентами</b><br>
+              Передавайте данные только через <code>props</code> (родитель → ребёнок) и управляйте событиями через <code>emit</code> (ребёнок → родитель). Не используйте прямой доступ к родителю (<code>this.$parent</code>) — это нарушает инкапсуляцию и может привести к ошибкам.
+            </li>
+            <!-- Группа: Поддержка и стиль -->
+            <li>
+              <b>📝 Документирование и поддержка</b><br>
+              Комментируйте только неочевидную логику и поддерживайте актуальную документацию.<br>
+              Используйте линтеры и форматтеры (<code>eslint</code>, <code>prettier</code>, <code>stylelint</code>) для поддержания единого стиля кода, облегчая командную работу.
+            </li>
+          </ul>
+          <p class="note note--info">
+            🚀
+            <strong>Следуйте этим принципам — так ваш Vue-код будет чище, поддерживаемее и готов к масштабированию.</strong>
+            Чистая архитектура ускоряет появление новых фич и минимизирует количество багов.
+          </p>
+        </div>
+      </section>
+
+      <!-- Практика -->
+      <section class="section" id="practice">
+        <div class="container">
+          <h2>Практика: переиспользуемая кнопка</h2>
+          <p>
+            Попробуйте сами: универсальная кнопка, которая принимает текст и тип оформления.
+            <br />
+            Измените props — и внешний вид/надпись поменяются!
+          </p>
+          <div class="practice-demo">
+            <div id="vue-button-demo"></div>
+          </div>
+          <div class="code-block" style="margin-top: 12px">
+            <pre><code>&lt;template&gt;
+  &lt;Button text="Купить" type="primary" /&gt;
+  &lt;Button text="Отмена" type="secondary" /&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import Button from "@/components/common/Button.vue";
+export default {
+  components: { Button }
+}
+&lt;/script&gt;
+</code></pre>
+            <button class="copy-btn">Скопировать</button>
+          </div>
+        </div>
+      </section>
+    </main>
+    @@include('../html/footer.html', {})
+  </div>
+  @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+  <script>
+    // Демо-переиспользуемая кнопка
+    Vue.createApp({
+      components: {
+        Button: {
+          props: ["text", "type"],
+          template: `<button :class="type"><slot>{{ text }}</slot></button>`,
+        },
+      },
+      template: `
+                    <Button text="Купить" type="primary" />
+                    <Button text="Отмена" type="secondary" />
+                `,
+    }).mount("#vue-button-demo");
+  </script>
+  <style>
+    #vue-button-demo {
+      margin: 16px 0;
+    }
+
+    #vue-button-demo button.primary {
+      background-color: blue;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 7px 18px;
+      margin-right: 10px;
+    }
+
+    #vue-button-demo button.secondary {
+      background-color: gray;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      padding: 7px 18px;
+    }
+  </style>
+</body>
+
+</html>

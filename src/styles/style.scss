@@ -1,0 +1,21 @@
+//	src/scss/style.scss
+@use 'fonts';
+@use 'null';
+
+@use 'code';
+@use 'header';
+@use 'forms';
+@use 'table';
+@use 'back-to-top';
+@use 'nav-tabs';
+@use 'main-page';
+@use 'lists';
+@use 'typography';
+@use 'cards';
+@use 'demo';
+@use 'main';
+/*
+@use 'variables' as *; // Импортируем переменные в текущий файл
+
+*/
+//---------------------------------------

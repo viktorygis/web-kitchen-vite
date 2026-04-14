@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Функции в JavaScript — основы и примеры", "description": "" })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+
+            <main class="page">
+                <!-- Навигация по вкладкам -->
+                <nav class="nav-tabs">
+                    <a href="#fn-intro" class="active">Введение</a>
+                    <a href="#fn-create">Создание</a>
+                    <a href="#fn-call">Вызов</a>
+                    <a href="#fn-params">Параметры</a>
+                    <a href="#fn-return">Возврат</a>
+                    <a href="#fn-scope">Область видимости</a>
+                    <a href="#fn-defaults">По умолчанию</a>
+                    <a href="#fn-naming">Именование</a>
+                    <a href="#fn-good">Практики</a>
+                    <a href="#fn-summary">Сводка</a>
+                </nav>
+
+                <!-- Введение -->
+                <section class="section" id="fn-intro">
+                    <div class="container">
+                        <h1>Функции в JavaScript</h1>
+
+                        <p class="note">
+                            <strong>Функции</strong>
+                            — это основа программирования. Это блоки кода, которые выполняют конкретную задачу, и их можно запускать много раз. Они помогают:
+                        </p>
+
+                        <ul class="list-ul">
+                            <li>
+                                <strong>Повторно использовать код</strong>
+                                : написал один раз — вызывай когда нужно.
+                            </li>
+                            <li>
+                                <strong>Организовывать программу</strong>
+                                : дели большой код на небольшие понятные части.
+                            </li>
+                            <li>
+                                <strong>Делать код читаемым</strong>
+                                : хорошая функция = понятная мини-команда.
+                            </li>
+                        </ul>
+
+                        <div class="example" style="margin-top: 20px">
+                            <h4>Что такое функция простыми словами?</h4>
+                            <p>Представь рецепт. Ты записал шаги приготовления блюда — это и есть функция. Рецепт можно использовать снова и снова. Чтобы «приготовить блюдо» — нужно выполнить рецепт. Чтобы выполнить код функции — её нужно вызвать.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Создание функции -->
+                <section class="section" id="fn-create">
+                    <div class="container">
+                        <h2>Как создать функцию?</h2>
+
+                        <p>
+                            Используй ключевое слово
+                            <code>function</code>
+                            , за ним — имя функции, круглые скобки
+                            <code>()</code>
+                            , затем фигурные
+                            <code>{ }</code>
+                            с кодом внутри.
+                        </p>
+
+                        <ol class="list-ol">
+                            <li>
+                                Напиши
+                                <code>function</code>
+                            </li>
+                            <li>
+                                Придумай понятное имя (например,
+                                <code>greet</code>
+                                )
+                            </li>
+                            <li>Добавь круглые скобки (там позже будут параметры)</li>
+                            <li>В фигурных скобках — что должна делать функция</li>
+                        </ol>
+
+                        <div class="example">
+                            <h4>Пример:</h4>
+                            <pre><code>function greet() {
+  console.log("Привет, мир!");
+}</code></pre>
+                        </div>
+
+                        <p class="note">
+                            <strong>Совет:</strong>
+                            Имя должно описывать действие:
+                            <code>printReport</code>
+                            ,
+                            <code>loadUser</code>
+                            ,
+                            <code>calcTotal</code>
+                            .
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Вызов функции -->
+                <section class="section" id="fn-call">
+                    <div class="container">
+                        <h2>Как вызвать функцию?</h2>
+
+                        <p>
+                            Чтобы выполнить функцию — напиши её имя и добавь круглые скобки:
+                            <code>greet();</code>
+                        </p>
+
+                        <div class="example">
+                            <h4>Пример вызова:</h4>
+                            <pre><code>function greet() {
+  console.log("Привет!");
+}
+
+greet(); // Вызов функции
+greet(); // Можно снова
+greet(); // И ещё раз</code></pre>
+                        </div>
+
+                        <p class="note">
+                            <strong>Что происходит при вызове?</strong>
+                            <br />
+                            JS находит функцию → выполняет её код → возвращается к месту вызова.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Параметры -->
+                <section class="section" id="fn-params">
+                    <div class="container">
+                        <h2>Параметры и аргументы</h2>
+                        <p>
+                            <strong>Параметры</strong>
+                            — «переменные-заглушки» внутри круглых скобок при объявлении функции.
+                            <br />
+                            <strong>Аргументы</strong>
+                            — реальные значения, которые передаём при вызове.
+                        </p>
+
+                        <div class="example">
+                            <h4>Простой пример:</h4>
+                            <pre><code>function greet(name) {        // name — параметр
+  console.log("Привет, " + name + "!");
+}
+
+greet("Кодик");               // "Кодик" — аргумент
+// Привет, Кодик!</code></pre>
+                        </div>
+
+                        <div class="example">
+                            <h4>Несколько параметров:</h4>
+                            <pre><code>function introduce(name, age) {
+  console.log("Меня зовут " + name + ", мне " + age + " лет.");
+}
+
+introduce("Лена", 25);
+// Меня зовут Лена, мне 25 лет.</code></pre>
+                        </div>
+
+                        <p class="note">
+                            <strong>Советы:</strong>
+                            <br />
+                            Имена параметров — понятные. Можно передавать любые типы: строки, числа, объекты, массивы, функции.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Возврат -->
+                <section class="section" id="fn-return">
+                    <div class="container">
+                        <h2>Возврат значения</h2>
+
+                        <p>
+                            Функции в JavaScript могут не только выполнять код, но и
+                            <strong>возвращать результат</strong>
+                            . Для этого используется ключевое слово
+                            <code>return</code>
+                            . Как только интерпретатор встречает
+                            <code>return</code>
+                            — выполнение функции прекращается, и указанное значение передаётся «наружу».
+                        </p>
+
+                        <div class="note">
+                            <strong>Что можно вернуть?</strong>
+                            Любое значение: число, строку, булево, массив, объект,
+                            <code>null</code>
+                            ,
+                            <code>undefined</code>
+                            , другую функцию.
+                        </div>
+
+                        <div class="example">
+                            <h4>Базовый пример</h4>
+                            <pre><code>function sum(a, b) {
+  return a + b; // Возвращаем сумму
+}
+
+let result = sum(5, 10);         // Сохраняем результат
+console.log("Сумма:", result);   // Сумма: 15
+
+// Пояснение:
+// 1. sum получает a и b
+// 2. вычисляет a + b
+// 3. возвращает значение в место вызова
+// 4. мы сохраняем его в result и используем дальше
+</code></pre>
+                        </div>
+
+                        <div class="grid-column-50" style="margin-top: 24px">
+                            <div class="example">
+                                <h4>С return</h4>
+                                <pre><code>function multiply(a, b) {
+  return a * b;
+}
+
+let m = multiply(3, 4);
+console.log(m); // 12</code></pre>
+                            </div>
+                            <div class="example">
+                                <h4>Без return</h4>
+                                <pre><code>function logMultiply(a, b) {
+  console.log(a * b);
+}
+
+let v = logMultiply(3, 4); // выведет 12
+console.log(v);            // undefined</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="example">
+                            <h4>Возврат объекта / функции</h4>
+                            <pre><code>function makeUser(name) {
+  return { name, created: Date.now() };
+}
+
+function makeAdder(x) {
+  return function(y) {
+    return x + y;
+  };
+}
+
+const user = makeUser("Аня");
+console.log(user.name); // "Аня"
+
+const add5 = makeAdder(5);
+console.log(add5(3)); // 8</code></pre>
+                        </div>
+
+                        <div class="note">
+                            <strong>Почему это полезно?</strong>
+                            <ul class="list-ul">
+                                <li>Можно сохранить результат и использовать позже</li>
+                                <li>Код становится модульным и переиспользуемым</li>
+                                <li>Проще тестировать (функция возвращает «чистый» результат)</li>
+                                <li>Легче комбинировать функции между собой</li>
+                            </ul>
+                        </div>
+
+                        <div class="example">
+                            <h4>Остановка выполнения после return</h4>
+                            <pre><code>function check(n) {
+  if (n < 0) {
+    return "Отрицательное";
+  }
+  console.log("Это сообщение выполнится только если n >= 0");
+  return "Неотрицательное";
+}</code></pre>
+                        </div>
+
+                        <div class="warning">
+                            <strong>Опасность автоматической вставки точки с запятой (ASI):</strong>
+                            <br />
+                            Не переносите выражение на новую строку сразу после
+                            <code>return</code>
+                            .
+                            <pre><code>function bad() {
+  return
+  5; // интерпретатор вставит ; после return → вернёт undefined
+}
+
+function good() {
+  return 5; // правильно
+}</code></pre>
+                        </div>
+
+                        <div class="example">
+                            <h4>Мини-шпаргалка</h4>
+                            <pre><code>// Возврат простого значения
+return 42;
+
+// Возврат выражения
+return a * (b + c);
+
+// Возврат объекта
+return { ok: true };
+
+// Возврат ничего (явно)
+return;          // undefined
+
+// Без return (неявно)
+function f() {}
+f(); // undefined</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Область видимости -->
+                <section class="section" id="fn-scope">
+                    <div class="container">
+                        <h2>Область видимости (scope)</h2>
+
+                        <p>
+                            <strong>Область видимости</strong>
+                            — это зона, в которой переменная доступна. Понимание различий помогает избежать ошибок и конфликтов имён.
+                        </p>
+
+                        <div class="grid-column-50">
+                            <div class="example">
+                                <h4>👉 Локальные переменные</h4>
+                                <ul class="list-ul">
+                                    <li>Создаются внутри функции</li>
+                                    <li>Видны только внутри этой функции</li>
+                                    <li>Недоступны снаружи</li>
+                                </ul>
+                                <pre><code>function test() {
+  let localVar = "Я локальная!";
+  console.log(localVar); // Видна тут
+}
+
+test();
+console.log(localVar); // Ошибка: localVar is not defined</code></pre>
+                            </div>
+
+                            <div class="example">
+                                <h4>🌍 Глобальные переменные</h4>
+                                <ul class="list-ul">
+                                    <li>Создаются вне функций (в верхнем уровне файла/скрипта)</li>
+                                    <li>Доступны везде (если не в модульной изоляции)</li>
+                                    <li>Видны внутри функций</li>
+                                </ul>
+                                <pre><code>let globalVar = "Я глобальная!";
+
+function show() {
+  console.log(globalVar); // Видна
+}
+
+show();
+console.log(globalVar); // Тоже видна</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="example">
+                            <h4>Пример: локальная + глобальная вместе</h4>
+                            <pre><code>let globalVar = "Я глобальная!"; // Глобальная переменная
+
+function test() {
+  let localVar = "Я локальная!"; // Локальная
+  console.log(globalVar); // Видна
+  console.log(localVar);  // Видна
+}
+
+test();
+
+console.log(globalVar); // Видна
+console.log(localVar);  // Ошибка! localVar не существует здесь</code></pre>
+                        </div>
+
+                        <div class="grid-column-50" style="margin-top: 24px">
+                            <div class="example">
+                                <h4>Изменение глобальной внутри функции</h4>
+                                <pre><code>let count = 0;
+
+function inc() {
+  count++; // Меняем глобальную
+}
+
+inc();
+inc();
+console.log(count); // 2</code></pre>
+                            </div>
+                            <div class="example">
+                                <h4>«Затенение» (shadowing)</h4>
+                                <pre><code>let user = "Вася";
+
+function demo() {
+  let user = "Петя"; // Новая локальная, не изменяет глобальную
+  console.log(user); // Петя (локальная)
+}
+
+demo();
+console.log(user); // Вася (глобальная)</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="example">
+                            <h4>Функциональная область (var) vs блочная (let/const)</h4>
+                            <pre><code>if (true) {
+  var a = 1;      // function-scoped (утечёт наружу)
+  let b = 2;      // block-scoped
+  const c = 3;    // block-scoped
+}
+console.log(a); // 1
+console.log(b); // Ошибка
+console.log(c); // Ошибка</code></pre>
+                        </div>
+
+                        <div class="note">
+                            <strong>Советы:</strong>
+                            <ul class="list-ul">
+                                <li>Минимизируй количество глобальных переменных</li>
+                                <li>
+                                    Используй
+                                    <code>let</code>
+                                    /
+                                    <code>const</code>
+                                    вместо
+                                    <code>var</code>
+                                    для предсказуемой области видимости
+                                </li>
+                                <li>Давай переменным понятные имена в своей области</li>
+                                <li>
+                                    Избегай неявного создания глобальных (без
+                                    <code>let</code>
+                                    /
+                                    <code>const</code>
+                                    /
+                                    <code>var</code>
+                                    )
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="warning">
+                            <strong>Опасность:</strong>
+                            Случайно пропущенное ключевое слово может создать глобальную переменную (в нестрогом режиме):
+                            <pre><code>function oops() {
+  leaked = 42; // ❌ создаст глобальную leaked (если нет "use strict")
+}</code></pre>
+                            В строгом режиме (
+                            <code>"use strict"</code>
+                            ) это вызовет ошибку — и это хорошо.
+                        </div>
+
+                        <div class="example">
+                            <h4>Мини-шпаргалка</h4>
+                            <pre><code>// Локальная
+function f() {
+  let x = 10;
+}
+
+// Глобальная (в файле)
+let g = 5;
+
+// Затенение
+let value = 1;
+function show() {
+  let value = 2;
+  console.log(value); // 2
+}
+show();
+console.log(value);   // 1</code></pre>
+                        </div>
+                    </div>
+                </section>
+                <!-- Значения по умолчанию -->
+                <section class="section" id="fn-defaults">
+                    <div class="container">
+                        <h2>Параметры по умолчанию</h2>
+                        <p>Если аргумент не передан — можно задать значение по умолчанию.</p>
+
+                        <div class="grid-column-50">
+                            <div class="example">
+                                <h4>ES6 способ:</h4>
+                                <pre><code>function greet(name = "Гость") {
+  console.log("Привет, " + name + "!");
+}
+
+greet();        // Привет, Гость!
+greet("Аня");   // Привет, Аня!</code></pre>
+                            </div>
+                            <div class="example">
+                                <h4>Старый способ:</h4>
+                                <pre><code>function greet(name) {
+  name = name || "Гость";
+  console.log("Привет, " + name + "!");
+}</code></pre>
+                            </div>
+                        </div>
+
+                        <p class="note">
+                            <strong>Лучше</strong>
+                            использовать современный синтаксис
+                            <code>(param = value)</code>
+                            .
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Именование -->
+                <section class="section" id="fn-naming">
+                    <div class="container">
+                        <h2>Именование функций</h2>
+                        <p>Имя функции — глагол + уточнение. Оно должно отвечать на вопрос: «Что делает функция?»</p>
+
+                        <table class="table-note">
+                            <thead>
+                                <tr>
+                                    <th>Префикс</th>
+                                    <th>Смысл</th>
+                                    <th>Примеры</th>
+                                    <th>Что возвращает</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>get</code></td>
+                                    <td>Получить данные</td>
+                                    <td>getUser, getAge</td>
+                                    <td>Значение</td>
+                                </tr>
+                                <tr>
+                                    <td><code>set / update</code></td>
+                                    <td>Изменить данные</td>
+                                    <td>setTheme, updateUser</td>
+                                    <td>Обычно void</td>
+                                </tr>
+                                <tr>
+                                    <td><code>calc</code></td>
+                                    <td>Вычислить</td>
+                                    <td>calcTotal, calcAverage</td>
+                                    <td>Число</td>
+                                </tr>
+                                <tr>
+                                    <td><code>create</code></td>
+                                    <td>Создать что-то</td>
+                                    <td>createUser, createButton</td>
+                                    <td>Объект</td>
+                                </tr>
+                                <tr>
+                                    <td><code>is / has / can</code></td>
+                                    <td>Проверка</td>
+                                    <td>isReady, hasError</td>
+                                    <td>Boolean</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p class="note">
+                            <strong>Неудачные:</strong>
+                            <code>doStuff()</code>
+                            ,
+                            <code>handle()</code>
+                            ,
+                            <code>process()</code>
+                            — слишком общие.
+                            <br />
+                            <strong>Хорошие:</strong>
+                            <code>loadProfile()</code>
+                            ,
+                            <code>filterActiveUsers()</code>
+                            ,
+                            <code>formatDate()</code>
+                            .
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Лучшие практики -->
+                <section class="section" id="fn-good">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+
+                        <div class="example">
+                            <h4>Плохой пример (делает слишком много):</h4>
+                            <pre><code>function processUser(user) {
+  if (!user.name || !user.email) {
+    alert("Ошибка");
+    return;
+  }
+  saveToDatabase(user);
+  sendWelcomeEmail(user.email);
+  updateUserList();
+}</code></pre>
+                        </div>
+
+                        <div class="example">
+                            <h4>Лучше разбить:</h4>
+                            <pre><code>function isValidUser(user) {
+  return Boolean(user.name && user.email);
+}
+
+function saveUser(user) {
+  saveToDatabase(user);
+}
+
+function notifyUser(user) {
+  sendWelcomeEmail(user.email);
+}
+
+function registerUser(user) {
+  if (!isValidUser(user)) {
+    throw new Error("Неполные данные");
+  }
+  saveUser(user);
+  notifyUser(user);
+  updateUserList();
+}</code></pre>
+                        </div>
+
+                        <p class="note">
+                            <strong>Почему так лучше?</strong>
+                            <br />
+                            Проще тестировать, легче читать, ниже связанность, выше переиспользование.
+                        </p>
+
+                        <div class="example">
+                            <h4>Функции как «живые комментарии»:</h4>
+                            <pre><code>function showPrimes(limit) {
+  for (let n = 2; n < limit; n++) {
+    if (isPrime(n)) {
+      console.log(n);
+    }
+  }
+}
+
+function isPrime(num) {
+  for (let d = 2; d < num; d++) {
+    if (num % d === 0) return false;
+  }
+  return true;
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Сводка -->
+                <section class="section" id="fn-summary">
+                    <div class="container">
+                        <h2>Сводка</h2>
+
+                        <div class="grid-column-50">
+                            <div class="example">
+                                <h4>Ключевые идеи:</h4>
+                                <ul class="list-ul">
+                                    <li>Функция — переиспользуемый блок кода</li>
+                                    <li>
+                                        Создаётся через
+                                        <code>function имя()</code>
+                                    </li>
+                                    <li>
+                                        Вызывается через
+                                        <code>имя()</code>
+                                    </li>
+                                    <li>Параметры принимают данные</li>
+                                    <li>
+                                        <code>return</code>
+                                        возвращает результат
+                                    </li>
+                                    <li>Локальные переменные живут внутри функции</li>
+                                    <li>Используйте понятные имена</li>
+                                    <li>Одна функция = одно действие</li>
+                                </ul>
+                            </div>
+                            <div class="example">
+                                <h4>Мини-шпаргалка:</h4>
+                                <pre><code>// Объявление
+function add(a, b) {
+  return a + b;
+}
+
+// Вызов
+add(2, 3); // 5
+
+// Параметр по умолчанию
+function greet(name = "Гость") {
+  console.log("Привет, " + name);
+}
+
+// Проверка
+function isAdult(age) {
+  return age >= 18;
+}</code></pre>
+                            </div>
+                        </div>
+
+                        <p class="note">
+                            <strong>Дальше изучай:</strong>
+                            функции-выражения, стрелочные функции, замыкания, рекурсия, области видимости блоков, callback-и, промисы.
+                        </p>
+                    </div>
+                </section>
+            </main>
+
+            @@include('../html/footer.html', {})
+        </div>
+
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+    </body>
+</html>

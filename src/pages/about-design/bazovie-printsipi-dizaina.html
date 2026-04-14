@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Базовые принципы дизайна", "description": "Базовые принципы дизайна" })
+
+    <style>
+        .hero {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: rgba(0, 0, 0, 0.4);
+            margin-bottom: 4rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 8s infinite alternate;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #e0e0e0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        h1 i {
+            background: linear-gradient(45deg, #ff7e5f, #feb47b);
+            padding: 15px;
+            border-radius: 50%;
+            font-size: 1.8rem;
+        }
+
+        .example-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .example {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .example:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .example h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #ffb74d;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contrast-slider {
+            width: 100%;
+            height: 200px;
+            background: #333;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1.5rem 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .contrast-content {
+            padding: 20px;
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+
+        .slider-control {
+            width: 100%;
+            margin: 1rem 0;
+        }
+
+        .repetition-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 15px;
+            margin: 1.5rem 0;
+        }
+
+        .shape {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #2196f3, #21cbf3);
+            color: white;
+            font-size: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .shape:hover {
+            transform: scale(1.1);
+        }
+
+        .alignment-demo {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .alignment-option {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .alignment-option:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .alignment-option.active {
+            background: rgba(33, 150, 243, 0.3);
+            border-left: 4px solid #2196f3;
+        }
+
+        .proximity-demo {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .proximity-group {
+            flex: 1;
+            min-width: 250px;
+            padding: 1.5rem;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .proximity-good,
+        .proximity-bad {
+            margin-top: 1rem;
+        }
+
+        .proximity-item {
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 5px;
+        }
+
+        .proximity-good .proximity-item {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid rgba(76, 175, 80, 0.4);
+        }
+
+        .proximity-bad .proximity-item {
+            background: rgba(244, 67, 54, 0.2);
+            border: 1px solid rgba(244, 67, 54, 0.4);
+        }
+
+        .white-space-demo {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .space-example {
+            flex: 1;
+            min-width: 250px;
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        .space-good {
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .space-bad {
+            background: rgba(244, 67, 54, 0.1);
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 2rem 0;
+        }
+
+        .grid-item {
+            background: linear-gradient(45deg, #7b1fa2, #e91e63);
+            border-radius: 8px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .consistency-demo {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .button {
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .consistent-btn {
+            background: linear-gradient(45deg, #2196f3, #21cbf3);
+            color: white;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+        }
+
+        .inconsistent-btn {
+            background: #f57c00;
+            color: white;
+        }
+
+        .consistent-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(33, 150, 243, 0.4);
+        }
+
+        .inconsistent-btn:hover {
+            background: #ff9800;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .example-container {
+                flex-direction: column;
+            }
+
+            .proximity-demo,
+            .white-space-demo {
+                flex-direction: column;
+            }
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+    </style>
+
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#contrast">Контраст</a>
+                    <a href="#repetition">Повторение</a>
+                    <a href="#alignment">Выравнивание</a>
+                    <a href="#proximity">Близость</a>
+                    <a href="#white-space">Белое пространство</a>
+                    <a href="#grid-rhythm">Сетка и ритм</a>
+                    <a href="#consistency">Консистентность интерфейса</a>
+                </nav>
+
+                <div class="hero">
+                    <h1>Принципы Эффективного Веб-Дизайна</h1>
+                    <p>Изучите фундаментальные принципы, которые помогут создавать интуитивно понятные и визуально привлекательные интерфейсы</p>
+                </div>
+
+                <!-- Контраст -->
+                <section class="section" id="contrast">
+                    <div class="container">
+                        <h1>
+                            <i class="fas fa-adjust"></i>
+                            Контраст
+                        </h1>
+                        <p>
+                            Контраст помогает выделять ключевые элементы и облегчает восприятие информации. Используйте различия в цвете, размере и форме для создания акцентов.
+                            <span class="highlight">Эффективный контраст создает визуальную иерархию</span>
+                            и направляет внимание пользователя к важным элементам интерфейса.
+                        </p>
+
+                        <div class="example-container">
+                            <div class="example">
+                                <h3>
+                                    <i class="fas fa-check-circle"></i>
+                                    Примеры контраста
+                                </h3>
+                                <ul>
+                                    <li>Темный текст на светлом фоне</li>
+                                    <li>Крупный заголовок рядом с мелким текстом</li>
+                                    <li>Круглая кнопка среди прямоугольных элементов</li>
+                                    <li>Яркий акцентный цвет на нейтральном фоне</li>
+                                </ul>
+                            </div>
+
+                            <div class="example">
+                                <h3>
+                                    <i class="fas fa-sliders-h"></i>
+                                    Интерактивная демонстрация
+                                </h3>
+                                <p>Регулируйте контрастность текста:</p>
+                                <div class="contrast-slider">
+                                    <div class="contrast-content" id="contrast-content">
+                                        <h2 style="margin-bottom: 10px">Важный контент</h2>
+                                        <p>Это текст, контрастность которого вы можете изменять</p>
+                                    </div>
+                                </div>
+                                <input type="range" min="1" max="10" value="5" class="slider-control" id="contrast-slider" />
+                                <p id="contrast-value">Средний контраст: 5/10</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Повторение -->
+                <section class="section" id="repetition">
+                    <div class="container">
+                        <h1>
+                            <i class="fas fa-redo"></i>
+                            Повторение
+                        </h1>
+                        <p>
+                            Повторение элементов дизайна (цветов, шрифтов, форм) создает согласованность и помогает пользователю легче ориентироваться в интерфейсе.
+                            <span class="highlight">Этот принцип создает ритм и единство дизайна</span>
+                            , уменьшает когнитивную нагрузку и укрепляет идентичность бренда.
+                        </p>
+
+                        <div class="example-container">
+                            <div class="example">
+                                <h3>
+                                    <i class="fas fa-clone"></i>
+                                    Повторяющиеся элементы
+                                </h3>
+                                <ul>
+                                    <li>Одинаковые кнопки на всех страницах</li>
+                                    <li>Единый стиль иконок</li>
+                                    <li>Постоянные отступы между блоками</li>
+                                    <li>Одинаковые анимации для похожих действий</li>
+                                </ul>
+                            </div>
+
+                            <div class="example">
+                                <h3>
+                                    <i class="fas fa-th-large"></i>
+                                    Визуальная демонстрация
+                                </h3>
+                                <p>Повторяющиеся элементы создают гармонию:</p>
+                                <div class="repetition-grid">
+                                    <div class="shape">
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="shape">
+                                        <i class="fas fa-circle"></i>
+                                    </div>
+                                    <div class="shape">
+                                        <i class="fas fa-heart"></i>
+                                    </div>
+                                    <div class="shape">
+                                        <i class="fas fa-square"></i>
+                                    </div>
+                                    <div class="shape">
+                                        <i class="fas fa-cloud"></i>
+                                    </div>
+                                    <div class="shape">
+                                        <i class="fas fa-moon"></i>
+                                    </div>
+                                    <div class="shape">
+                                        <i class="fas fa-sun"></i>
+                                    </div>
+                                    <div class="shape">
+                                        <i class="fas fa-diamond"></i>
+                                    </div>
+                                </div>
+                                <p>Обратите внимание, как повторение форм и стилей создает ощущение порядка и единства.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Выравнивание -->
+                <section class="section" id="alignment">
+                    <div class="container">
+                        <h1>
+                            <i class="fas fa-align-left"></i>
+                            Выравнивание
+                        </h1>
+                        <p>
+                            Правильное выравнивание элементов создает порядок и структуру. Все элементы должны быть визуально связаны, чтобы обеспечить чистоту и организованность.
+                            <span class="highlight">Невидимые линии выравнивания создают профессиональный вид</span>
+                            и помогают пользователю воспринимать информацию как единое целое.
+                        </p>
+
+                        <div class="example-container">
+                            <div class="example">
+                                <h3>
+                                    <i class="fas fa-align-center"></i>
+                                    Типы выравнивания
+                                </h3>
+                                <div class="alignment-demo">
+                                    <div class="alignment-option active" data-align="left">
+                                        <h4>По левому краю</h4>
+                                        <p>Наиболее естественное для чтения, создает четкий вертикальный ритм</p>
+                                    </div>
+                                    <div class="alignment-option" data-align="center">
+                                        <h4>По центру</h4>
+                                        <p>Подходит для заголовков и коротких текстов, создает формальный вид</p>
+                                    </div>
+                                    <div class="alignment-option" data-align="right">
+                                        <h4>По правому краю</h4>
+                                        <p>Используется редко, может создавать визуальный дисбаланс</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="example">
+                                <h3>
+                                    <i class="fas fa-ruler-combined"></i>
+                                    Демонстрация выравнивания
+                                </h3>
+                                <div id="alignment-example" style="text-align: left; padding: 20px; background: rgba(255, 255, 255, 0.1); border-radius: 8px; min-height: 200px">
+                                    <h3>Заголовок раздела</h3>
+                                    <p>Это пример текста, который демонстрирует различные варианты выравнивания. Обратите внимание, как меняется восприятие контента в зависимости от выбранного типа выравнивания.</p>
+                                    <p>Правильное выравнивание создает визуальные связи между элементами и улучшает читаемость.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Близость -->
+                <section class="section" id="proximity">
+                    <div class="container">
+                        <h1>
+                            <i class="fas fa-object-group"></i>
+                            Близость
+                        </h1>
+                        <p>
+                            Когда элементы находятся близко друг к другу, они воспринимаются как связанные. Это помогает организовать информацию и улучшает восприятие.
+                            <span class="highlight">Правильная группировка элементов по смыслу уменьшает визуальный шум</span>
+                            и ускоряет навигацию.
+                        </p>
+
+                        <div class="example-container">
+                            <div class="example">
+                                <h3>
+                                    <i class="fas fa-object-ungroup"></i>
+                                    Правила близости
+                                </h3>
+                                <ul>
+                                    <li>Связанные элементы должны быть сгруппированы вместе</li>
+                                    <li>Несвязанные элементы должны быть разделены</li>
+                                    <li>Используйте отступы для создания визуальных групп</li>
+                                    <li>Избегайте равномерного распределения несвязанных элементов</li>
+                                </ul>
+                            </div>
+
+                            <div class="example">
+                                <h3>
+                                    <i class="fas fa-balance-scale"></i>
+                                    Сравнение подходов
+                                </h3>
+                                <div class="proximity-demo">
+                                    <div class="proximity-group">
+                                        <h4>
+                                            <i class="fas fa-check"></i>
+                                            Правильная группировка
+                                        </h4>
+                                        <div class="proximity-good">
+                                            <div class="proximity-item">Заголовок статьи</div>
+                                            <div class="proximity-item">Текст статьи</div>
+                                            <div style="height: 30px"></div>
+                                            <div class="proximity-item">Имя автора</div>
+                                            <div class="proximity-item">Дата публикации</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="proximity-group">
+                                        <h4>
+                                            <i class="fas fa-times"></i>
+                                            Плохая группировка
+                                        </h4>
+                                        <div class="proximity-bad">
+                                            <div class="proximity-item">Заголовок статьи</div>
+                                            <div class="proximity-item">Имя автора</div>
+                                            <div class="proximity-item">Текст статьи</div>
+                                            <div class="proximity-item">Дата публикации</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p>В хорошем примере связанные элементы сгруппированы вместе, что облегчает понимание структуры.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Белое пространство -->
+                <section class="section" id="white-space">
+                    <div class="container">
+                        <h1>
+                            <i class="fas fa-border-none"></i>
+                            Работа с белым пространством
+                        </h1>
+                        <p>
+                            Белое пространство не означает пустое пространство. Использование его эффективно позволяет улучшить читаемость и акцентировать внимание на важных элементах.
+                            <span class="highlight">Правильное использование негативного пространства создает элегантный, современный дизайн</span>
+                            и улучшает юзабилити интерфейса.
+                        </p>
+
+                        <div class="example-container">
+                            <div class="example">
+                                <h3>
+                                    <i class="fas fa-arrows-alt"></i>
+                                    Преимущества белого пространства
+                                </h3>
+                                <ul>
+                                    <li>Улучшает читаемость контента</li>
+                                    <li>Создает фокус на важных элементах</li>
+                                    <li>Придает дизайну элегантность и современность</li>
+                                    <li>Уменьшает когнитивную нагрузку</li>
+                                    <li>Повышает вовлеченность пользователя</li>
+                                </ul>
+                            </div>
+
+                            <div class="example">
+                                <h3>
+                                    <i class="fas fa-columns"></i>
+                                    Сравнение подходов
+                                </h3>
+                                <div class="white-space-demo">
+                                    <div class="space-example space-good">
+                                        <h4>
+                                            <i class="fas fa-check-circle"></i>
+                                            С хорошим пространством
+                                        </h4>
+                                        <p>Этот блок имеет достаточные отступы и межстрочные интервалы.</p>
+                                        <p>Текст легко читается, элементы не перегружены.</p>
+                                        <p>Важная информация выделяется за счет окружающего пространства.</p>
+                                    </div>
+
+                                    <div class="space-example space-bad">
+                                        <h4>
+                                            <i class="fas fa-exclamation-circle"></i>
+                                            С плохим пространством
+                                        </h4>
+                                        <p>Этот блок демонстрирует недостаток белого пространства.</p>
+                                        <p>Элементы расположены слишком близко друг к другу.</p>
+                                        <p>Текст сливается, сложно выделить важную информацию.</p>
+                                        <p>Пользователю трудно сфокусироваться на контенте.</p>
+                                        <p>Отсутствие воздуха создает ощущение хаоса и перегруженности.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Сетка и ритм -->
+                <section class="section" id="grid-rhythm">
+                    <div class="container">
+                        <h1>
+                            <i class="fas fa-th"></i>
+                            Сетка и ритм
+                        </h1>
+                        <p>
+                            Использование сетки помогает структурировать страницу и создавать ритм в дизайне. Это делает контент более доступным для восприятия.
+                            <span class="highlight">Сетка создает визуальную гармонию</span>
+                            , а ритм задает движение взгляда пользователя по странице.
+                        </p>
+
+                        <div class="example-container">
+                            <div class="example">
+                                <h3>
+                                    <i class="fas fa-border-style"></i>
+                                    Применение сеток
+                                </h3>
+                                <ul>
+                                    <li>Колонки текста в новостном сайте</li>
+                                    <li>Карточки товаров в сетке</li>
+                                    <li>Повторяющиеся элементы через равные интервалы</li>
+                                    <li>Выравнивание элементов по базовой линии</li>
+                                </ul>
+                                <p style="margin-top: 20px">Сетки обеспечивают структуру и согласованность, делая дизайн предсказуемым и легким для восприятия.</p>
+                            </div>
+
+                            <div class="example">
+                                <h3>
+                                    <i class="fas fa-grip-horizontal"></i>
+                                    Демонстрация сетки
+                                </h3>
+                                <div class="grid-container">
+                                    <div class="grid-item">1</div>
+                                    <div class="grid-item">2</div>
+                                    <div class="grid-item">3</div>
+                                    <div class="grid-item">4</div>
+                                    <div class="grid-item">5</div>
+                                    <div class="grid-item">6</div>
+                                    <div class="grid-item">7</div>
+                                    <div class="grid-item">8</div>
+                                </div>
+                                <p>Эта сетка демонстрирует, как элементы могут быть организованы в предсказуемой структуре. Обратите внимание на равные отступы и согласованные размеры элементов.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Консистентность интерфейса -->
+                <section class="section" id="consistency">
+                    <div class="container">
+                        <h1>
+                            <i class="fas fa-sync-alt"></i>
+                            Консистентность интерфейса
+                        </h1>
+                        <p>
+                            Консистентность в каждом элементе (шрифты, цвета, стили) позволяет пользователям легко и быстро освоиться с интерфейсом и улучшает пользовательский опыт.
+                            <span class="highlight">Консистентность уменьшает ошибки пользователей</span>
+                            и создает ощущение надежности продукта.
+                        </p>
+
+                        <div class="example-container">
+                            <div class="example">
+                                <h3>
+                                    <i class="fas fa-paint-brush"></i>
+                                    Элементы консистентности
+                                </h3>
+                                <ul>
+                                    <li>Одинаковые иконки для одинаковых действий</li>
+                                    <li>Единая цветовая схема во всем интерфейсе</li>
+                                    <li>Постоянные правила оформления заголовков</li>
+                                    <li>Согласованные стили интерактивных элементов</li>
+                                    <li>Единые паттерны навигации</li>
+                                </ul>
+                            </div>
+
+                            <div class="example">
+                                <h3>
+                                    <i class="fas fa-mouse-pointer"></i>
+                                    Демонстрация кнопок
+                                </h3>
+                                <div class="consistency-demo">
+                                    <button class="button consistent-btn">Консистентная кнопка</button>
+                                    <button class="button consistent-btn">Ещё одна</button>
+                                    <button class="button consistent-btn">И ещё</button>
+                                </div>
+
+                                <div class="consistency-demo" style="margin-top: 30px">
+                                    <button class="button inconsistent-btn">Непостоянная</button>
+                                    <button class="button" style="background: #9c27b0; border-radius: 5px">Разный стиль</button>
+                                    <button class="button" style="background: #4caf50; border-radius: 50%; padding: 15px">И форма</button>
+                                </div>
+
+                                <p style="margin-top: 20px">Верхний ряд демонстрирует консистентные кнопки, нижний - неконсистентные. Обратите внимание, как единство стиля создает ощущение цельности и профессионализма.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+        <script>
+            // Контрастность
+            const contrastSlider = document.getElementById("contrast-slider");
+            const contrastContent = document.getElementById("contrast-content");
+            const contrastValue = document.getElementById("contrast-value");
+
+            contrastSlider.addEventListener("input", function () {
+                const value = this.value;
+                const contrast = value / 5;
+                contrastContent.style.filter = `contrast(${contrast})`;
+
+                let text;
+                if (value < 3) text = "Низкий контраст: " + value + "/10 (плохо)";
+                else if (value < 7) text = "Средний контраст: " + value + "/10";
+                else text = "Высокий контраст: " + value + "/10 (отлично)";
+
+                contrastValue.textContent = text;
+            });
+
+            // Выравнивание
+            const alignmentOptions = document.querySelectorAll(".alignment-option");
+            const alignmentExample = document.getElementById("alignment-example");
+
+            alignmentOptions.forEach((option) => {
+                option.addEventListener("click", function () {
+                    const align = this.getAttribute("data-align");
+
+                    // Обновляем активный класс
+                    alignmentOptions.forEach((opt) => opt.classList.remove("active"));
+                    this.classList.add("active");
+
+                    // Применяем выравнивание
+                    alignmentExample.style.textAlign = align;
+                });
+            });
+
+            // Анимация при загрузке
+            document.addEventListener("DOMContentLoaded", function () {
+                setTimeout(() => {
+                    document.querySelector(".hero").style.opacity = 1;
+                    document.querySelector(".hero").style.transform = "translateY(0)";
+                }, 300);
+            });
+        </script>
+    </body>
+</html>

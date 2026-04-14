@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Основные теги HTML", "description": "Основные теги HTML" })
+    <style>
+        .tags-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .tags-list h3 {
+            padding: 0;
+            margin: 0 0 1rem 0;
+        }
+        .tags-list h4 {
+            font-size: 1.2rem;
+        }
+
+        .tags-list--semantic .tags-list__item {
+            border: 1px solid #878787;
+            border-radius: 20px;
+            padding: 20px;
+        }
+    </style>
+    <body class="page">
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page__main">
+                <nav class="nav-tabs">
+                    <a href="#html-intro" class="nav-tabs__link active">Введение</a>
+                    <a href="#html-formatting" class="nav-tabs__link">Теги форматирования</a>
+                    <a href="#html-table" class="nav-tabs__link">Сводная таблица</a>
+                </nav>
+                <!-- введение -->
+                <section class="section" id="html-intro">
+                    <div class="container">
+                        <h1 class="page__title">Теги форматирования текста</h1>
+                        <p class="note">
+                            <strong>Теги форматирования текста</strong>
+                            — это специальные элементы HTML, которые позволяют изменять внешний вид текста на веб-странице. Они помогают выделять важные части текста, добавлять стили и улучшать читаемость контента.
+                        </p>
+
+                        <p>Форматирование текста включает в себя такие элементы, как жирный шрифт, курсив, подчёркивание и другие. Эти теги не только улучшают визуальное восприятие, но и помогают передать смысловую нагрузку текста.</p>
+                    </div>
+                </section>
+
+                <!-- Теги форматирования текста -->
+                <section class="section" id="html-formatting">
+                    <div class="container">
+                        <h2 class="section__subtitle">Виды тегов форматирования текста</h2>
+                        <ul class="tags-list tags-list--formatting">
+                            <!-- b -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;b&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;b&gt;</b>
+                                        — Выделяет текст жирным шрифтом без придания ему дополнительной семантической важности.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>Использование:</b>
+                                            Для визуального выделения слов, которые не несут специального смысла (например, в рекламе, интерфейсах).
+                                        </p>
+                                        <ul class="list-ul">
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                            <li>
+                                                <b><code>style</code></b>
+                                                — встроенные CSS-стили.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Для смыслового выделения используйте
+                                            <code>&lt;strong&gt;</code>
+                                            .
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;p&gt;Это &lt;b&gt;важное&lt;/b&gt; слово выделено жирным.&lt;/p&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                    <p class="tags-list__demo">
+                                        Пример:
+                                        <b>Жирный текст</b>
+                                        .
+                                    </p>
+                                </div>
+                            </li>
+                            <!-- strong -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;strong&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;strong&gt;</b>
+                                        — Обозначает текст с высокой важностью или предупреждением, обычно отображается жирным.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>Использование:</b>
+                                            Для акцентирования внимания на важных предупреждениях, инструкциях, действиях.
+                                        </p>
+                                        <ul class="list-ul">
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                            <li>
+                                                <b><code>style</code></b>
+                                                — встроенные CSS-стили.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Семантически важнее, чем
+                                            <code>&lt;b&gt;</code>
+                                            — влияет на SEO и доступность.
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;strong&gt;Внимание!&lt;/strong&gt; Это важное предупреждение.</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                    <p class="tags-list__demo">
+                                        Пример:
+                                        <strong>Важный текст</strong>
+                                        .
+                                    </p>
+                                </div>
+                            </li>
+                            <!-- i -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;i&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;i&gt;</b>
+                                        — Отображает текст курсивом для выделения альтернативного голоса, термина, мысли.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>Использование:</b>
+                                            Для иностранных слов, научных терминов, цитат, названий.
+                                        </p>
+                                        <ul class="list-ul">
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                            <li>
+                                                <b><code>style</code></b>
+                                                — встроенные CSS-стили.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Семантика меньше, чем у
+                                            <code>&lt;em&gt;</code>
+                                            .
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;p&gt;Термин &lt;i&gt;Homo sapiens&lt;/i&gt; на латыни.&lt;/p&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                    <p class="tags-list__demo">
+                                        Пример:
+                                        <i>Курсивный текст</i>
+                                        .
+                                    </p>
+                                </div>
+                            </li>
+                            <!-- em -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;em&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;em&gt;</b>
+                                        — Подчеркивает смысловой акцент на тексте, обычно отображается курсивом.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>Использование:</b>
+                                            Для выражения интонации, акцента, особого отношения.
+                                        </p>
+                                        <ul class="list-ul">
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                            <li>
+                                                <b><code>style</code></b>
+                                                — встроенные CSS-стили.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Семантически выделяет важный акцент для скринридеров.
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>Я &lt;em&gt;настоятельно&lt;/em&gt; рекомендую это сделать.</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                    <p class="tags-list__demo">
+                                        Пример:
+                                        <em>Акцентируемый текст</em>
+                                        .
+                                    </p>
+                                </div>
+                            </li>
+                            <!-- small -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;small&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;small&gt;</b>
+                                        — Представляет побочные комментарии, сноски, юридические примечания мелким шрифтом.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>Использование:</b>
+                                            Для копирайта, условий, пояснений.
+                                        </p>
+                                        <ul class="list-ul">
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                            <li>
+                                                <b><code>style</code></b>
+                                                — встроенные CSS-стили.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Не используйте для обычного текста — только для неосновной информации.
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;small&gt;© 2023 Компания. Все права защищены.&lt;/small&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                    <p class="tags-list__demo">
+                                        Пример:
+                                        <small>Уменьшенный текст</small>
+                                        .
+                                    </p>
+                                </div>
+                            </li>
+                            <!-- mark -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;mark&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;mark&gt;</b>
+                                        — Выделяет текст как маркером, обычно жёлтой подсветкой (например, в результатах поиска).
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>Использование:</b>
+                                            Для акцента на важных или найденных фрагментах текста.
+                                        </p>
+                                        <ul class="list-ul">
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                            <li>
+                                                <b><code>style</code></b>
+                                                — встроенные CSS-стили.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Цвет подсветки можно менять через CSS.
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>В тексте найдено: &lt;mark&gt;ключевое слово&lt;/mark&gt;.</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                    <p class="tags-list__demo">
+                                        Пример:
+                                        <mark>Выделенный текст</mark>
+                                        .
+                                    </p>
+                                </div>
+                            </li>
+                            <!-- del -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;del&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;del&gt;</b>
+                                        — Показывает удаленный фрагмент текста (перечеркнутый), например, старую цену.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>Использование:</b>
+                                            Для редактирования, истории изменений, отменённых пунктов.
+                                        </p>
+                                        <ul class="list-ul">
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                            <li>
+                                                <b><code>style</code></b>
+                                                — встроенные CSS-стили.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Часто используется вместе с
+                                            <code>&lt;ins&gt;</code>
+                                            для показа изменений.
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>Цена: &lt;del&gt;5000 руб.&lt;/del&gt; 3500 руб.</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                    <p class="tags-list__demo">
+                                        Пример:
+                                        <del>Удаленный текст</del>
+                                        .
+                                    </p>
+                                </div>
+                            </li>
+                            <!-- ins -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;ins&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;ins&gt;</b>
+                                        — Показывает вставленный фрагмент текста (подчеркнутый), например, новый вариант.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>Использование:</b>
+                                            Для показа изменений, новых пунктов, редакций.
+                                        </p>
+                                        <ul class="list-ul">
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                            <li>
+                                                <b><code>style</code></b>
+                                                — встроенные CSS-стили.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Для визуального сравнения используйте с
+                                            <code>&lt;del&gt;</code>
+                                            .
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>Версия 2.&lt;ins&gt;1&lt;/ins&gt; с исправлениями.</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                    <p class="tags-list__demo">
+                                        Пример:
+                                        <ins>Вставленный текст</ins>
+                                        .
+                                    </p>
+                                </div>
+                            </li>
+                            <!-- sub -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;sub&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;sub&gt;</b>
+                                        — Нижний индекс для химических формул, математических обозначений, примечаний.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>Использование:</b>
+                                            Химия (
+                                            <code>
+                                                H
+                                                <sub>2</sub>
+                                                O
+                                            </code>
+                                            ), математика, примечания.
+                                        </p>
+                                        <ul class="list-ul">
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                            <li>
+                                                <b><code>style</code></b>
+                                                — встроенные CSS-стили.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Для верхнего индекса используйте
+                                            <code>&lt;sup&gt;</code>
+                                            .
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>Вода: H&lt;sub&gt;2&lt;/sub&gt;O</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                    <p class="tags-list__demo">
+                                        Пример: H
+                                        <sub>2</sub>
+                                        O.
+                                    </p>
+                                </div>
+                            </li>
+                            <!-- sup -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;sup&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;sup&gt;</b>
+                                        — Верхний индекс для степеней, порядковых числительных, сносок.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>Использование:</b>
+                                            Математика (
+                                            <code>
+                                                x
+                                                <sup>2</sup>
+                                            </code>
+                                            ), физика, сноски.
+                                        </p>
+                                        <ul class="list-ul">
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                            <li>
+                                                <b><code>style</code></b>
+                                                — встроенные CSS-стили.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Для нижнего индекса используйте
+                                            <code>&lt;sub&gt;</code>
+                                            .
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>Теорема Пифагора: a&lt;sup&gt;2&lt;/sup&gt; + b&lt;sup&gt;2&lt;/sup&gt; = c&lt;sup&gt;2&lt;/sup&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                    <p class="tags-list__demo">
+                                        Пример: x
+                                        <sup>2</sup>
+                                        .
+                                    </p>
+                                </div>
+                            </li>
+                            <!-- u -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;u&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;u&gt;</b>
+                                        — Подчеркивает текст, например для выделения орфографических ошибок, имён собственных.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>Использование:</b>
+                                            Для акцента, стилистических задач, выделения.
+                                        </p>
+                                        <ul class="list-ul">
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                            <li>
+                                                <b><code>style</code></b>
+                                                — встроенные CSS-стили.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Не рекомендуется для гиперссылок — чтобы не путать с
+                                            <code>&lt;a&gt;</code>
+                                            .
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>Это &lt;u&gt;подчеркнутое&lt;/u&gt; слово.</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                    <p class="tags-list__demo">
+                                        Пример:
+                                        <u>Подчеркнутый текст</u>
+                                        .
+                                    </p>
+                                </div>
+                            </li>
+                            <!-- br -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;br&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;br&gt;</b>
+                                        — Перенос строки внутри текста (адреса, стихи, подписи).
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>Использование:</b>
+                                            Для разметки поэтических или адресных строк.
+                                        </p>
+                                        <ul class="list-ul">
+                                            <li>
+                                                <b><code>clear</code></b>
+                                                — устаревший атрибут для управления обтеканием (почти не используется).
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Тег одиночный, не требует закрытия.
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>Улица Пушкина,&lt;br&gt;дом Колотушкина</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                    <p class="tags-list__demo">
+                                        Пример: Первая строка.
+                                        <br />
+                                        Вторая строка.
+                                    </p>
+                                </div>
+                            </li>
+                            <!-- code -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;code&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;code&gt;</b>
+                                        — Обозначает фрагмент компьютерного кода с моноширинным шрифтом.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>Использование:</b>
+                                            Для выделения команд, переменных, функций, частей программ.
+                                        </p>
+                                        <ul class="list-ul">
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                            <li>
+                                                <b><code>style</code></b>
+                                                — встроенные CSS-стили.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Внутри
+                                            <code>&lt;pre&gt;</code>
+                                            позволяет показывать форматированный код.
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>Используйте &lt;code&gt;console.log()&lt;/code&gt; для отладки.</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                    <p class="tags-list__demo">
+                                        Пример:
+                                        <code>фрагмент кода</code>
+                                        .
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="html-table" class="page__section">
+                    <div class="container">
+                        <h2>Сводная таблица</h2>
+                        <table class="table-note">
+                            <thead>
+                                <tr>
+                                    <th>Тег</th>
+                                    <th>Описание</th>
+                                    <th>Код</th>
+                                    <th>Пример</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><b>&lt;b&gt;</b></td>
+                                    <td>жирный текст</td>
+                                    <td>&lt;b&gt;Этот текст жирный&lt;/b&gt;</td>
+                                    <td><b>Этот текст жирный</b></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;strong&gt;</b></td>
+                                    <td>важный текст</td>
+                                    <td>&lt;strong&gt;Важный текст&lt;/strong&gt;</td>
+                                    <td><strong>Важный текст</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;i&gt;</b></td>
+                                    <td>курсив</td>
+                                    <td>&lt;i&gt;Текст курсивом&lt;/i&gt;</td>
+                                    <td><i>Текст курсивом</i></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;em&gt;</b></td>
+                                    <td>смысловой акцент</td>
+                                    <td>&lt;em&gt;Акцентированный текст&lt;/em&gt;</td>
+                                    <td><em>Акцентированный текст</em></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;small&gt;</b></td>
+                                    <td>мелкий текст</td>
+                                    <td>&lt;small&gt;Мелкий текст&lt;/small&gt;</td>
+                                    <td><small>Мелкий текст</small></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;mark&gt;</b></td>
+                                    <td>выделенный текст</td>
+                                    <td>&lt;mark&gt;Выделенный текст&lt;/mark&gt;</td>
+                                    <td><mark>Выделенный текст</mark></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;del&gt;</b></td>
+                                    <td>удалённый текст</td>
+                                    <td>&lt;del&gt;Удалённый текст&lt;/del&gt;</td>
+                                    <td><del>Удалённый текст</del></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;ins&gt;</b></td>
+                                    <td>вставленный текст</td>
+                                    <td>&lt;ins&gt;Вставленный текст&lt;/ins&gt;</td>
+                                    <td><ins>Вставленный текст</ins></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;sub&gt;</b></td>
+                                    <td>нижний индекс</td>
+                                    <td>H&lt;sub&gt;2&lt;/sub&gt;O</td>
+                                    <td>
+                                        H
+                                        <sub>2</sub>
+                                        O
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;sup&gt;</b></td>
+                                    <td>верхний индекс</td>
+                                    <td>X&lt;sup&gt;2&lt;/sup&gt;</td>
+                                    <td>
+                                        X
+                                        <sup>2</sup>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;u&gt;</b></td>
+                                    <td>подчёркнутый текст</td>
+                                    <td>&lt;u&gt;Подчёркнутый текст&lt;/u&gt;</td>
+                                    <td><u>Подчёркнутый текст</u></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;br&gt;</b></td>
+                                    <td>перенос строки</td>
+                                    <td>Текст&lt;br&gt;с новой строки</td>
+                                    <td>
+                                        Текст
+                                        <br />
+                                        с новой строки
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;code&gt;</b></td>
+                                    <td>код/команда</td>
+                                    <td>&lt;code&gt;print('Hello, world!')&lt;/code&gt;</td>
+                                    <td><code>print('Hello, world!')</code></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;pre&gt;</b></td>
+                                    <td>предварительно форматированный текст</td>
+                                    <td>
+                                        &lt;pre&gt;Это текст
+                                        <br />
+                                        с пробелами и
+                                        <br />
+                                        переносами строк.&lt;/pre&gt;
+                                    </td>
+                                    <td>
+                                        <pre>
+Это   текст
+с пробелами и
+переносами строк.</pre
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;blockquote&gt;</b></td>
+                                    <td>цитата</td>
+                                    <td>&lt;blockquote&gt;Это цитата&lt;/blockquote&gt;</td>
+                                    <td><blockquote>Это цитата</blockquote></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;abbr&gt;</b></td>
+                                    <td>аббревиатура с пояснением</td>
+                                    <td>&lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt;</td>
+                                    <td><abbr title="HyperText Markup Language">HTML</abbr></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;cite&gt;</b></td>
+                                    <td>ссылка на источник</td>
+                                    <td>&lt;cite&gt;Война и мир&lt;/cite&gt;</td>
+                                    <td><cite>Война и мир</cite></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;q&gt;</b></td>
+                                    <td>короткая цитата</td>
+                                    <td>&lt;q&gt;Короткая цитата&lt;/q&gt;</td>
+                                    <td><q>Короткая цитата</q></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;s&gt;</b></td>
+                                    <td>зачёркнутый текст (устаревший)</td>
+                                    <td>&lt;s&gt;Устаревший текст&lt;/s&gt;</td>
+                                    <td><s>Устаревший текст</s></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;dfn&gt;</b></td>
+                                    <td>определение термина</td>
+                                    <td>&lt;dfn&gt;Термин&lt;/dfn&gt;</td>
+                                    <td><dfn>Термин</dfn></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;kbd&gt;</b></td>
+                                    <td>ввод с клавиатуры</td>
+                                    <td>&lt;kbd&gt;Ctrl + C&lt;/kbd&gt;</td>
+                                    <td><kbd>Ctrl + C</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;samp&gt;</b></td>
+                                    <td>вывод программы</td>
+                                    <td>&lt;samp&gt;Ошибка: файл не найден&lt;/samp&gt;</td>
+                                    <td><samp>Ошибка: файл не найден</samp></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;var&gt;</b></td>
+                                    <td>переменная в коде</td>
+                                    <td>&lt;var&gt;x&lt;/var&gt;</td>
+                                    <td><var>x</var></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;bdo&gt;</b></td>
+                                    <td>направление текста</td>
+                                    <td>&lt;bdo dir="rtl"&gt;Текст справа налево&lt;/bdo&gt;</td>
+                                    <td><bdo dir="rtl">Текст справа налево</bdo></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+    </body>
+</html>

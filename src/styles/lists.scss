@@ -1,0 +1,86 @@
+//src/scss/lists.scss
+
+@use 'variables' as *; // Импортируем переменные в текущий файл
+
+// =================== List Styles ===================
+
+// =================== список с маркерами ===================
+.list-ul {
+  list-style: none;
+  padding-left: 1rem;
+  margin: 1rem 0;
+
+  & li {
+    position: relative;
+    padding-left: 1.3rem;
+  }
+
+  & li:not(:last-child) {
+    margin-bottom: 0.8rem;
+  }
+
+  & li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: $secondary;
+    font-size: 1.5rem;
+    top: -8px;
+  }
+
+  & ul {
+    margin-top: 10px;
+    padding-left: 20px;
+  }
+
+  & li li::before {
+    content: "-";
+  }
+}
+
+// =================== список с нумерацией ===================
+.list-ol {
+  list-style: none;
+  margin: 1em 0;
+  padding: 0;
+
+  & li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 0.5em;
+    counter-increment: item;
+  }
+
+  & li::before {
+    content: counter(item) ".";
+    position: absolute;
+    left: 0;
+    top: 13px;
+    transform: translateY(-50%);
+    font-weight: bold;
+    color: $darkColor;
+  }
+
+  & ol {
+    margin-top: 10px;
+    padding-left: 20px;
+  }
+}
+
+// =================== список с иконками ===================
+.list-icon {
+  list-style: none;
+  margin: 1em 0;
+  padding: 0;
+
+  & li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 0.5em;
+  }
+
+  & ul {
+    margin-top: 10px;
+    padding-left: 20px;
+  }
+}

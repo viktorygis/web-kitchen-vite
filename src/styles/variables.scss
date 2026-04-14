@@ -1,0 +1,97 @@
+@use "sass:color";
+
+// variables.scss
+// Глобальные переменные для проекта
+
+// Шрифты
+$fontFamily: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$fontFamilyAccent: 'Montserrat', 'Arial', sans-serif;
+$fontFamilyCode: 'Consolas', monospace;
+
+// Размеры
+$fontSize: 14px;
+$fontSizeAccent: 1em;
+$borderRadius: 5px;
+$borderRadiusLarge: 12px;
+$maxWidthContainer: 1200px;
+$containerPadding: 15px;
+$gap: 20px;
+
+// Цвета (основные)
+$primary: #2c3e50;
+$secondary: #7D73FF;
+$lightSecondary: #efedff;
+$dark: #212529;
+$success: #27ae60;
+$warning: #f39c12;
+$shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+$shadowSmall: 0 4px 6px rgba(0, 0, 0, .1);
+$shadowFieldset: 0 2px 12px rgba(25, 118, 210, 0.07);
+$shadowLegend: 0 2px 8px rgba(25, 118, 210, 0.07);
+$transition: all 0.3s ease;
+
+// Цвета для фона и текста
+$darkColor: #333333;
+$greyColor: #a1a1aa;
+$whiteColor: #ffffff;
+
+// Ссылки
+$linkColor: #007BFF;
+$linkColorHover: color.adjust(#007BFF, $lightness: -15%);
+
+$backgroundColor: #f8f9fa;
+$backgroundColorDark: #e4e4e7;
+
+// Палитра для компонентов и акцентов
+$lightBlueColor: #f4f7fc;
+$middleBlueColor: #4c91f7;
+$blueColor: #007BFF;
+$lightYellowColor2: #d5d4d147;
+$lightYellowColor: #FFFCF6;
+$yellowColor: #ffcc00;
+$lightGreenColor: #d4f5e1;
+$greenColor: #27ae60;
+$exampleColor: #d2e8ff;
+$lightRedColor: #fcefec;
+$redColor: #e76f51;
+$buttonColor: #007BFF;
+$buttonColorHover: #0056b3;
+
+// Формы
+$formBorderColor: #ccc;
+$formBackgroundColor: $whiteColor;
+$formFieldsetBg: #f5faff;
+$formAccentColor: #1976d2;
+$formLegendBg: $whiteColor;
+$formLabelFontWeight: bold;
+
+// Таблицы и примеры
+$accentColor: #9b59b6;
+$exampleBgColor: #fffbea;
+$captionBgColor: #ede7f6;
+$cellBgColor: #fff3e0;
+$headerBgColor: #8e44ad;
+$headerTextColor: #fff;
+$footerBgColor: #ffe082;
+$rowHoverBgColor: #f3e5f5;
+$rowHoverTextColor: #9b59b6;
+
+// Медиа-запросы
+$media-md: 991px;
+$media-sm: 768px;
+
+// Формы: Размеры
+$formInputFontSize: 16px;
+$formInputPadding: 10px;
+$formInputBorderRadius: 5px;
+$formMarginBottom: 15px;
+$formMaxWidth: 600px;
+
+// Дополнительно
+$checkboxSize: 16px;
+$radioAccentColor: $formAccentColor;
+$radioSize: 1.1em;
+$radioMarginRight: 5px;
+$numberAccentColor: $formAccentColor;
+$numberWidth: 5em;
+$numberHeight: 2em;

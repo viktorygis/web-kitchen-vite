@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Задачи: Функции", "description": "Задачи: Функции" })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <section class="section">
+                    <div class="container">
+                        <h1>1. Функции</h1>
+                        <p>В этой секции мы рассмотрим функции, которые позволяют организовать код и уменьшить его дублирование.</p>
+
+                        <h2>Задача: Проверка возраста</h2>
+                        <p>
+                            Создайте функцию
+                            <code>checkAge(age)</code>
+                            , которая будет проверять возраст пользователя и возвращать
+                            <code>true</code>
+                            , если возраст больше 18, и в противном случае запрашивать разрешение у родителей.
+                        </p>
+
+                        <pre><code>
+function checkAge(age) {
+  if (age > 18) {
+    return true; // Возраст больше 18, доступ разрешен
+  } else {
+    return confirm("Родители разрешили?"); // Запрашиваем разрешение у родителей
+  }
+}
+            </code></pre>
+
+                        <h3>Пример использования функции:</h3>
+                        <script>
+                            "use strict"; /*  function checkAge(age) {
+                                 if (age > 18) {
+                                   return true;
+                                 } else {
+                                   return confirm("Родители разрешили?");
+                                 }
+                               }
+
+                               // Пример вызова функции
+                               let userAge = prompt("Сколько вам лет?");
+                               if (checkAge(userAge)) {
+                                 alert("Доступ разрешен.");
+                               } else {
+                                 alert("Доступ запрещен.");
+                               } */
+
+                            /* 2 задача--------------------- */
+                            //Перепишите функцию, используя оператор '?' или '||'
+                            //Следующая функция возвращает true, если параметр age больше 18.
+                            //В ином случае она задаёт вопрос confirm и возвращает его результат.
+                            //Перепишите функцию, чтобы она делала то же самое, но без if, в одну строку.
+                            //Сделайте два варианта функции checkAge:
+                            //Используя оператор ?
+                            //Используя оператор ||
+
+                            /*  function checkAge(age) {
+                         age > 18 ? confirm("true") : confirm("Родители разрешили?");
+                       }
+                       let age = prompt("Сколько вам лет?");
+                       checkAge(age); */
+
+                            /*  function checkAge(age) {
+                         return age > 18 || confirm("Родители разрешили?");
+                       }
+                       let age = prompt("Сколько вам лет?");
+                       checkAge(age); */
+
+                            /* 3 задача--------------------- */
+                            //Функция min(a, b)
+                            //Напишите функцию min(a,b), которая возвращает меньшее из чисел a и b.
+                            //Пример вызовов:
+
+                            /* min(2, 5) == 2;
+                       min(3, -1) == -1;
+                       min(1, 1) == 1; */
+                            /*
+                       function calcMin(a, b) {
+                         let minNumber = a > b ? b : a;
+                         return console.log(minNumber);
+                       }
+                       calcMin(2, 5);
+                       calcMin(3, -1);
+                       calcMin(1, 1); */
+
+                            /* 4 задача--------------------- */
+                            //Функция pow(x,n)
+                            //Напишите функцию pow(x,n), которая возводит x в степень n и возвращает результат.
+                            /* pow(3, 2) = 3 * 3 = 9
+              pow(3, 3) = 3 * 3 * 3 = 27
+              pow(1, 100) = 1 * 1 * ...* 1 = 1 */
+                            //Создайте страницу, которая запрашивает x и n, а затем выводит результат pow(x,n).
+                            //P.S. В этой задаче функция обязана поддерживать только натуральные значения n, т.е. целые от 1 и выше.
+                            /*
+              let x = +prompt("Введите число больше 0");
+              let n = +prompt("Введите степень числа больше 0");
+              function pow(x, n) {
+                let numberPower = x ** n;
+                if (x > 0) {
+                  return alert(numberPower);
+                } else {
+                  return alert("x<0");
+                }
+              }
+              pow(x, n); */
+
+                            /* 5.                */
+                            function greet() {
+                                let name = "Vika";
+                                function inner() {
+                                    console.log(name);
+                                }
+                                return inner;
+                            }
+
+                            let maga = greet;
+                            maga();
+                        </script>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+    </body>
+</html>

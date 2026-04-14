@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "Условные конструкции в JavaScript", "description": " if, else, else if" })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+
+            <main class="page">
+                <!-- Локальное меню по секциям -->
+                <nav class="nav-tabs" id="page-nav">
+                    <ul>
+                        <li><a href="#intro">Введение</a></li>
+                        <li><a href="#if">if</a></li>
+                        <li><a href="#else">else</a></li>
+                        <li><a href="#else-if">else if</a></li>
+                        <li><a href="#ternary">Тернарный оператор ?:</a></li>
+                        <li><a href="#nested-ternary">Вложенные тернарные</a></li>
+                        <li><a href="#best-practices">Практики</a></li>
+                        <li><a href="#if-vs-ternary">if vs ?</a></li>
+                        <li><a href="#pitfalls">Ловушки</a></li>
+                        <li><a href="#patterns">Шаблоны</a></li>
+                        <li><a href="#practice">Тренажёр</a></li>
+                        <li><a href="#summary">Итоги</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Введение -->
+                <section class="section" id="intro" class="topic-section">
+                    <div class="container">
+                        <h1>Условные конструкции в JavaScript</h1>
+                        <p class="note">
+                            <b>Условные конструкции</b>
+                            позволяют выполнять различные блоки кода в зависимости от логического результата выражения.
+                            <br />
+                            Базовый инструмент —
+                            <code>if</code>
+                            ,
+                            <br />
+                            дополнения:
+                            <code>else</code>
+                            ,
+                            <code>else if</code>
+                            <br />
+                            и тернарный оператор
+                            <code>?:</code>
+                            .
+                        </p>
+                        <div class="example note-block">
+                            <h4>С помощью if, else if и else ты можешь:</h4>
+
+                            <ul class="list-ul">
+                                <li>Проверять условия (например, если пользователь вошёл в систему).</li>
+
+                                <li>Выполнять разные действия в зависимости от результата.</li>
+
+                                <li>Делать код более гибким и умным.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Как работают условные конструкции -->
+                <section class="section" id="how-it-works" class="topic-section">
+                    <div class="container">
+                        <h2>Как работают условные конструкции</h2>
+
+                        <p class="note">
+                            <strong>Идея проста:</strong>
+                            код выполняется только если заданное условие истинно (
+                            <code>true</code>
+                            ).
+                            <br />
+                            Если условие ложно (
+                            <code>false</code>
+                            ), можно выполнить альтернативный блок (
+                            <code>else</code>
+                            ) или проверить следующее условие через
+                            <code>else if</code>
+                            .
+                        </p>
+
+                        <div class="note-block example">
+                            <h4>Алгоритм выполнения</h4>
+                            <ol class="list-ol">
+                                <li>
+                                    <strong>if</strong>
+                                    проверяет условие. Если оно
+                                    <em>truthy</em>
+                                    &mdash; выполняется его блок, цепочка завершается.
+                                </li>
+                                <li>
+                                    Если условие ложно &mdash; переход к следующему
+                                    <code>else if</code>
+                                    (если есть) и проверка нового условия.
+                                </li>
+                                <li>
+                                    Если ни одно условие не прошло &mdash; выполняется
+                                    <code>else</code>
+                                    (если он есть).
+                                </li>
+                                <li>
+                                    Если
+                                    <code>else</code>
+                                    отсутствует &mdash; просто ничего не выполняется.
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div class="note-block">
+                            <h4>Пример с несколькими ветками</h4>
+                            <div class="grid-column-100">
+                                <pre><code>let age = 17;
+
+if (age &gt;= 18) {                       // 1) Проверяем первое условие
+  console.log("Ты совершеннолетний!");  // Выполнится если age >= 18
+} else if (age &gt;= 16) {                 // 2) Проверяем следующее
+  console.log("Ты почти взрослый!");    // Выполнится если age >= 16 и предыдущее условие не прошло
+} else {                                // 3) Иначе
+  console.log("Ты ещё молод!");
+}</code></pre>
+
+                                <div class="">
+                                    <p><strong>Вывод в консоль при age = 17:</strong></p>
+                                    <pre><code>Ты почти взрослый!</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="note-block">
+                            <h4>Почему вывелось именно это?</h4>
+                            <ul class="list-ul">
+                                <li>
+                                    <code>age &gt;= 18</code>
+                                    →
+                                    <code>false</code>
+                                    , блок пропускается.
+                                </li>
+                                <li>
+                                    <code>age &gt;= 16</code>
+                                    →
+                                    <code>true</code>
+                                    , выполняется
+                                    <em>только</em>
+                                    этот блок.
+                                </li>
+                                <li>
+                                    <code>else</code>
+                                    уже не рассматривается (цепочка остановлена).
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- if -->
+                <section class="section" id="if" class="topic-section">
+                    <div class="container">
+                        <h2>
+                            <b>if</b>
+                            — базовая проверка
+                        </h2>
+                        <p class="note">
+                            <b>if</b>
+                            — Выполняет блок кода, если условие даёт
+                            <code>true</code>
+                            после приведения к логическому типу.
+                        </p>
+                        <div class="note-block">
+                            <h4>Синтаксис:</h4>
+                            <pre><code>if (условие) {
+	  // код выполняется, если условие truthy
+	}</code></pre>
+                        </div>
+                        <div class="note-block">
+                            <h4>Пример:</h4>
+                            <pre><code>let age = 18;
+if (age &gt;= 18) {
+   console.log("Доступ открыт");
+}</code></pre>
+                        </div>
+
+                        <div class="note">
+                            <strong>Стили:</strong>
+                            Всегда используй фигурные скобки, даже если одна строка — это снижает ошибки при добавлении новых строк.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- else -->
+                <section class="section" id="else" class="topic-section">
+                    <div class="container">
+                        <h2>
+                            <b>else</b>
+                            — альтернативная ветка
+                        </h2>
+                        <p class="note">
+                            <b>else</b>
+                            — Исполняется, когда условие в
+                            <code>if</code>
+                            ложно.
+                        </p>
+                        <pre><code>if (age &gt;= 18) {
+  console.log("Взрослый");
+} else {
+  console.log("Несовершеннолетний");
+}</code></pre>
+                    </div>
+                </section>
+
+                <!-- else if -->
+                <section class="section" id="else-if" class="topic-section">
+                    <div class="container">
+                        <h2>
+                            <b>else if</b>
+                            — последовательные проверки
+                        </h2>
+                        <p class="note">
+                            <b>else if</b>
+                            — Позволяет проверить серию взаимно исключающих условий.
+                        </p>
+                        <pre><code>let year = 2025;
+
+if (year &lt; 2025) {
+  console.log("Слишком рано");
+} else if (year &gt; 2025) {
+  console.log("Слишком поздно");
+} else {
+  console.log("Точно!");
+}</code></pre>
+                        <div class="note">
+                            <h4>
+                                Когда заменить на
+                                <code>switch</code>
+                                ?
+                            </h4>
+                            <p>
+                                Если сравнивается одно и то же значение с набором констант —
+                                <code>switch</code>
+                                улучшает читаемость.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Тернарный -->
+                <section class="section" id="ternary" class="topic-section">
+                    <div class="container">
+                        <h2>
+                            Тернарный оператор
+                            <code>?:</code>
+                        </h2>
+                        <p class="note">Используется для вычисления и возврата одного из двух значений. Это выражение, а не инструкция.</p>
+                        <h4>Синтаксис:</h4>
+                        <pre><code>let result = условие ? значениеЕслиTrue : значениеЕслиFalse;</code></pre>
+                        <h4>Пример:</h4>
+                        <pre><code>let age = 20;
+let label = age &gt;= 18 ? "Взрослый" : "Младше 18";
+console.log(label);</code></pre>
+                        <div class="warning">
+                            Не используйте тернарный оператор для выполнения «побочных эффектов» (например, разных
+                            <code>console.log</code>
+                            ), если это ухудшает читаемость.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Вложенные тернарные -->
+                <section class="section" id="nested-ternary" class="topic-section">
+                    <div class="container">
+                        <h2>Вложенные тернарные операторы</h2>
+                        <p>Можно писать цепочку для множественного выбора, но легко ухудшить читаемость.</p>
+                        <pre><code>let score = 73;
+let grade =
+  score &gt;= 90 ? "A" :
+  score &gt;= 75 ? "B" :
+  score &gt;= 60 ? "C" :
+  "D";
+
+console.log(grade);</code></pre>
+                        <div class="note-block warning">
+                            <strong>Совет:</strong>
+                            Если более 2–3 уровней вложенности — лучше заменить на
+                            <code>if / else if</code>
+                            или объект-словарь.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Практики -->
+                <section class="section" id="best-practices" class="topic-section">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+                        <ul class="list-ul">
+                            <li>
+                                <strong>Ясная логика:</strong>
+                                Предпочитай простые условия и «ранний выход» вместо глубокой вложенности.
+                            </li>
+                            <li>
+                                <strong>Guard clauses:</strong>
+                                Сначала отбрасывай невалидные случаи, затем основной сценарий.
+                            </li>
+                            <li>
+                                <strong>Скобки всегда:</strong>
+                                Избегай стиля
+                                <code>if (x) doSomething()</code>
+                                .
+                            </li>
+                            <li>
+                                <strong>Не переиспользуй тернарный оператор:</strong>
+                                Он для выбора значения, а не структурного управления.
+                            </li>
+                            <li>
+                                <strong>Избегай присваивания в условиях:</strong>
+                                <code>if (x = y)</code>
+                                → почти всегда ошибка (используй линтер).
+                            </li>
+                        </ul>
+                        <h4>Пример guard-подхода:</h4>
+                        <pre><code>function process(user) {
+  if (!user) return;
+  if (!user.active) return;
+  // основной код
+  console.log("Обработка пользователя");
+}</code></pre>
+                    </div>
+                </section>
+
+                <!-- if vs ? -->
+                <section class="section" id="if-vs-ternary" class="topic-section">
+                    <div class="container">
+                        <h2>
+                            Сравнение
+                            <code>if</code>
+                            и
+                            <code>?:</code>
+                        </h2>
+                        <table class="table-note">
+                            <thead>
+                                <tr>
+                                    <th>Аспект</th>
+                                    <th>if / else</th>
+                                    <th>?: (тернарный)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Тип конструкции</td>
+                                    <td>Инструкция</td>
+                                    <td>Выражение (возвращает значение)</td>
+                                </tr>
+                                <tr>
+                                    <td>Количество ветвей</td>
+                                    <td>
+                                        До скольких угодно (
+                                        <code>else if</code>
+                                        )
+                                    </td>
+                                    <td>2 (true / false)</td>
+                                </tr>
+                                <tr>
+                                    <td>Читаемость при сложной логике</td>
+                                    <td>Хорошая</td>
+                                    <td>Падает с вложенностью</td>
+                                </tr>
+                                <tr>
+                                    <td>Лучшее применение</td>
+                                    <td>Ветвление кода</td>
+                                    <td>Присвоение значения</td>
+                                </tr>
+                                <tr>
+                                    <td>Side-effects (побочные эффекты)</td>
+                                    <td>Обычны</td>
+                                    <td>Нежелательны в обеих ветках</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Ловушки -->
+                <section class="section" id="pitfalls" class="topic-section">
+                    <div class="container">
+                        <h2>Ловушки</h2>
+                        <div class="note-block warning">
+                            <ul class="list-ul">
+                                <li>
+                                    <strong>Присваивание вместо сравнения:</strong>
+                                    <code>if (x = 5)</code>
+                                    → всегда truthy (если 5 ≠ 0). Используй
+                                    <code>===</code>
+                                    .
+                                </li>
+                                <li>
+                                    <strong>Скрытые приведения:</strong>
+                                    <code>if ("0")</code>
+                                    → true (строка не пустая).
+                                </li>
+                                <li>
+                                    <strong>Лишние тернарные:</strong>
+                                    <code>(cond ? true : false)</code>
+                                    → просто
+                                    <code>!!cond</code>
+                                    .
+                                </li>
+                                <li>
+                                    <strong>Дублирование условий:</strong>
+                                    Не повторяй одну и ту же проверку в разных ветках.
+                                </li>
+                                <li>
+                                    <strong>Неиспользуемый else:</strong>
+                                    Иногда лучше ранний return вместо «пирамиды» вложенных if.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Шаблоны -->
+                <section class="section" id="patterns" class="topic-section">
+                    <div class="container">
+                        <h2>Полезные шаблоны</h2>
+
+                        <h4>1. Словарь вместо цепочки if</h4>
+                        <pre><code>const roles = {
+  admin: "Панель администратора",
+  user: "Личный кабинет",
+  guest: "Гостевой доступ"
+};
+
+function getRoleLabel(r) {
+  return roles[r] || "Неизвестно";
+}</code></pre>
+
+                        <h4>2. Условное выполнение через && (для побочных эффектов осторожно)</h4>
+                        <pre><code>isLoggedIn &amp;&amp; showDashboard();</code></pre>
+
+                        <h4>3. Значение по умолчанию через || (для null/undefined лучше ??)</h4>
+                        <pre><code>let timeout = userTimeout ?? 3000; // если userTimeout null или undefined</code></pre>
+
+                        <h4>4. Ранний выход (guard)</h4>
+                        <pre><code>function handle(data) {
+  if (!data) return;
+  if (data.error) return;
+  // основной путь
+}</code></pre>
+                    </div>
+                </section>
+
+                <!-- Практика -->
+                <section class="section" id="practice" class="topic-section">
+                    <div class="container">
+                        <h2>Тренажёр</h2>
+                        <p>Запусти выражение и посмотри результат. Можно вводить свои.</p>
+
+                        <div class="practice-buttons">
+                            <button type="button" data-expr="(5 &gt; 3) ? 'да' : 'нет'">(5 &gt; 3) ? 'да' : 'нет'</button>
+                            <button type="button" data-expr="'0' ? 'truthy' : 'falsy'">'0' ? 'truthy' : 'falsy'</button>
+                            <button type="button" data-expr="0 ? 1 : 2">0 ? 1 : 2</button>
+                            <button type="button" data-expr="null ?? 'fallback'">null ?? 'fallback'</button>
+                            <button type="button" data-expr="let x=1; if(x){'OK'}">let x=1; if(x){'OK'}</button>
+                        </div>
+
+                        <form id="expr-form" class="expr-form" onsubmit="return false;">
+                            <label>
+                                Выражение:
+                                <input type="text" id="expr-input" value="(10 &gt; 5) ? 'больше' : 'меньше'" autocomplete="off" />
+                            </label>
+                            <button type="button" id="run-expr">Выполнить</button>
+                        </form>
+                        <pre><code id="expr-output">// Результат появится здесь</code></pre>
+                    </div>
+                </section>
+
+                <!-- Итоги -->
+                <section class="section" id="summary" class="topic-section">
+                    <div class="container">
+                        <h2>Итоги</h2>
+                        <ul class="list-ul">
+                            <li>
+                                <code>if / else if / else</code>
+                                — основа ветвления кода.
+                            </li>
+                            <li>
+                                <code>?:</code>
+                                — компактный выбор значения, не злоупотреблять вложенностью.
+                            </li>
+                            <li>Используй guard-подход для уменьшения вложенности.</li>
+                            <li>
+                                Выбирай
+                                <code>switch</code>
+                                , когда много сравнений с одной переменной.
+                            </li>
+                            <li>Избегай скрытых приведений и присваиваний в условиях.</li>
+                        </ul>
+                    </div>
+                </section>
+            </main>
+
+            @@include('../html/footer.html', {})
+        </div>
+
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+
+        <script>
+            // Плавная прокрутка
+            document.getElementById("page-nav")?.addEventListener("click", (e) => {
+                const a = e.target.closest('a[href^="#"]');
+                if (!a) return;
+                e.preventDefault();
+                const id = a.getAttribute("href").slice(1);
+                const el = document.getElementById(id);
+                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+
+            // Выполнение выражений
+            function runExpression(expr) {
+                const output = document.getElementById("expr-output");
+                try {
+                    // eslint-disable-next-line no-eval
+                    const result = eval(expr);
+                    output.textContent = `> ${expr}\n= ${String(result)} (тип: ${typeof result})`;
+                } catch (e) {
+                    output.textContent = `> ${expr}\n! Ошибка: ${e.message}`;
+                }
+            }
+
+            document.addEventListener("click", (e) => {
+                const btn = e.target.closest("[data-expr]");
+                if (!btn) return;
+                runExpression(btn.getAttribute("data-expr"));
+            });
+
+            document.getElementById("run-expr")?.addEventListener("click", () => {
+                const input = document.getElementById("expr-input");
+                runExpression(input.value);
+            });
+        </script>
+    </body>
+</html>

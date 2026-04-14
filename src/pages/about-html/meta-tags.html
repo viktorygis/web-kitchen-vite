@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "HTML: Мета-теги и SEO", "description": "Руководство по мета-тегам, SEO и служебным элементам HTML" })
+    <style>
+        .intro-code-block {
+            overflow-x: auto;
+        }
+        .tags-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .tags-list h3 {
+            padding: 0;
+            margin: 0 0 1rem 0;
+        }
+        .tags-list h4 {
+            font-size: 1.2rem;
+        }
+    </style>
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <!-- Навигация по разделам -->
+                <nav class="nav-tabs">
+                    <a class="nav-tabs__link" href="#intro">Введение</a>
+                    <a class="nav-tabs__link" href="#meta-main">Основные мета-теги</a>
+                    <a class="nav-tabs__link" href="#meta-advanced">Продвинутые мета-теги</a>
+                    <a class="nav-tabs__link" href="#tips">Советы</a>
+                    <a class="nav-tabs__link" href="#best-practices">Лучшие практики</a>
+                    <a class="nav-tabs__link" href="#examples">Примеры: CSS/JS</a>
+                </nav>
+
+                <!-- Введение -->
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>Мета-теги и SEO</h1>
+                        <p class="note">
+                            <strong>Мета-теги</strong>
+                            — служебные элементы HTML, которые предоставляют информацию для поисковых систем (метаданные) и определяют, как страницы отображаются в результатах поиска.
+                            <br />
+                            Они играют ключевую роль в SEO (оптимизации для поисковых систем) и повышении видимости сайта.
+                        </p>
+
+                        <h4>Что такое мета-теги?</h4>
+                        <p>
+                            Мета-теги располагаются в разделе
+                            <code>&lt;head&gt;</code>
+                            HTML-документа и несут полезную информацию для:
+                        </p>
+                        <ul class="list-ul">
+                            <li>Поисковых систем (индексация и ранжирование страницы);</li>
+                            <li>Социальных сетей (предпросмотр страниц, заголовок, картинка);</li>
+                            <li>Браузеров (корректное отображение контента, адаптивность, кодировка).</li>
+                        </ul>
+                        <p class="note note--info">Некоторые мета-теги видны только поисковым роботам, а другие — пользователям (например, описание страницы).</p>
+                    </div>
+                </section>
+
+                <!-- Основные мета-теги -->
+                <section class="section" id="meta-main">
+                    <div class="container">
+                        <h2>Основные мета-теги</h2>
+                        <div class="tags-list">
+                            <!-- title -->
+                            <div class="card">
+                                <h3>&lt;title&gt; — заголовок страницы</h3>
+                                <p class="note">
+                                    Мета-тег
+                                    <code>&lt;title&gt;</code>
+                                    определяет заголовок страницы, который отображается во вкладке браузера и в результатах поиска.
+                                    <br />
+                                    Он должен быть уникальным для каждой страницы и содержать ключевые слова.
+                                </p>
+                                <ul class="list-ul">
+                                    <li>Длина: до 50-60 символов.</li>
+                                    <li>Включайте ключевые слова и делайте текст привлекательным для пользователей.</li>
+                                </ul>
+                                <div class="intro-code-block">
+                                    <pre><code>&lt;title&gt;Как правильно создавать мета-теги для SEO в 2025 году&lt;/title&gt;</code></pre>
+                                </div>
+                            </div>
+
+                            <!-- description -->
+                            <div class="card">
+                                <h3>&lt;meta name="description"&gt;</h3>
+                                <p class="note">
+                                    Мета-тег
+                                    <code>&lt;meta name="description"&gt;</code>
+                                    содержит краткое описание страницы.
+                                    <br />
+                                    Это описание используется поисковыми системами для формирования сниппета и предпросмотра.
+                                </p>
+                                <ul class="list-ul">
+                                    <li>Длина: до 150-160 символов.</li>
+                                    <li>Описание должно быть уникальным и включать ключевые слова.</li>
+                                </ul>
+                                <div class="intro-code-block">
+                                    <pre><code>&lt;meta name="description"
+content="Руководство по созданию мета-тегов для SEO. Узнайте, как улучшить видимость сайта в 2025 году."&gt;</code></pre>
+                                </div>
+                            </div>
+
+                            <!-- keywords -->
+                            <div class="card">
+                                <h3>&lt;meta name="keywords"&gt;</h3>
+                                <p class="note">
+                                    Мета-тег
+                                    <code>&lt;meta name="keywords"&gt;</code>
+                                    ранее использовался для указания ключевых слов.
+                                    <br />
+                                    В современном SEO этот тег почти не влияет на ранжирование, но иногда применяется для внутренних целей.
+                                </p>
+                                <ul class="list-ul">
+                                    <li>Можно добавить несколько ключевых слов через запятую.</li>
+                                    <li>Не стоит злоупотреблять количеством ключевых слов.</li>
+                                </ul>
+                                <div class="intro-code-block">
+                                    <pre><code>&lt;meta name="keywords" content="мета-теги, SEO, оптимизация сайтов"&gt;</code></pre>
+                                </div>
+                            </div>
+
+                            <!-- robots -->
+                            <div class="card">
+                                <h3>&lt;meta name="robots"&gt;</h3>
+                                <p class="note">
+                                    Мета-тег
+                                    <code>&lt;meta name="robots"&gt;</code>
+                                    управляет индексацией страниц и правилами для поисковых систем.
+                                    <br />
+                                    Можно одновременно указать несколько директив через запятую.
+                                </p>
+                                <ul class="list-ul">
+                                    <li>
+                                        <code>index</code>
+                                        : разрешает индексацию страницы.
+                                    </li>
+                                    <li>
+                                        <code>noindex</code>
+                                        : запрещает индексацию.
+                                    </li>
+                                    <li>
+                                        <code>follow</code>
+                                        : разрешает следовать по ссылкам на странице.
+                                    </li>
+                                    <li>
+                                        <code>nofollow</code>
+                                        : запрещает следовать по ссылкам.
+                                    </li>
+                                </ul>
+                                <div class="intro-code-block">
+                                    <pre><code>&lt;meta name="robots" content="noindex, nofollow"&gt;</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Продвинутые мета-теги -->
+                <section class="section" id="meta-advanced">
+                    <div class="container">
+                        <h2>Продвинутые мета-теги</h2>
+                        <div class="tags-list">
+                            <!-- Open Graph -->
+                            <div class="card">
+                                <h3>Open Graph (OG) для соцсетей</h3>
+                                <p class="note">
+                                    Мета-теги
+                                    <b>Open Graph</b>
+                                    используются для создания привлекательных предпросмотров страниц в соцсетях (Facebook, Twitter и др.).
+                                    <br />
+                                    Они позволяют задать заголовок, описание, изображение и ссылку для предпросмотра.
+                                </p>
+                                <ul class="list-ul">
+                                    <li>
+                                        <code>og:title</code>
+                                        — заголовок предпросмотра.
+                                    </li>
+                                    <li>
+                                        <code>og:description</code>
+                                        — описание для предпросмотра.
+                                    </li>
+                                    <li>
+                                        <code>og:image</code>
+                                        — ссылка на изображение.
+                                    </li>
+                                    <li>
+                                        <code>og:url</code>
+                                        — ссылка на страницу.
+                                    </li>
+                                </ul>
+                                <div class="intro-code-block">
+                                    <pre><code>&lt;meta property="og:title" content="Как создать правильные мета-теги"&gt;
+&lt;meta property="og:description" content="Руководство по созданию мета-тегов. Улучшайте SEO и делайте ваши страницы заметнее."&gt;
+&lt;meta property="og:image" content="https://example.com/image.jpg"&gt;
+&lt;meta property="og:url" content="https://example.com/page"&gt;</code></pre>
+                                </div>
+                            </div>
+
+                            <!-- Twitter -->
+                            <div class="card">
+                                <h3>Twitter-мета-теги</h3>
+                                <p class="note">
+                                    Мета-теги
+                                    <b>Twitter</b>
+                                    позволяют создавать карточки предпросмотра при публикации ссылки на сайт в Twitter.
+                                    <br />
+                                    Настройте их для лучшего визуального представления в твитах.
+                                </p>
+                                <ul class="list-ul">
+                                    <li>
+                                        <code>twitter:card</code>
+                                        — тип карточки (
+                                        <code>summary</code>
+                                        ,
+                                        <code>summary_large_image</code>
+                                        ,
+                                        <code>player</code>
+                                        ).
+                                    </li>
+                                    <li>
+                                        <code>twitter:title</code>
+                                        — название страницы (до 70 символов).
+                                    </li>
+                                    <li>
+                                        <code>twitter:description</code>
+                                        — описание (до 200 символов).
+                                    </li>
+                                    <li>
+                                        <code>twitter:image</code>
+                                        — ссылка на изображение для предпросмотра.
+                                    </li>
+                                </ul>
+                                <div class="intro-code-block">
+                                    <pre><code>&lt;meta name="twitter:card" content="summary_large_image"&gt;
+&lt;meta name="twitter:site" content="@ваш_аккаунт"&gt;
+&lt;meta name="twitter:title" content="Название страницы для Twitter"&gt;
+&lt;meta name="twitter:description" content="Краткое описание страницы для Twitter"&gt;
+&lt;meta name="twitter:image" content="https://example.com/image.jpg"&gt;</code></pre>
+                                </div>
+                            </div>
+
+                            <!-- Viewport -->
+                            <div class="card">
+                                <h3>Viewport для адаптивности</h3>
+                                <p class="note">
+                                    Мета-тег
+                                    <code>&lt;meta name="viewport"&gt;</code>
+                                    отвечает за адаптацию страницы под размер экрана.
+                                    <br />
+                                    Обязателен для мобильных устройств и современных сайтов.
+                                </p>
+                                <ul class="list-ul">
+                                    <li>Настройте ширину и масштаб для корректного отображения на разных устройствах.</li>
+                                </ul>
+                                <div class="intro-code-block">
+                                    <pre><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></pre>
+                                </div>
+                            </div>
+
+                            <!-- Charset -->
+                            <div class="card">
+                                <h3>Charset</h3>
+                                <p class="note">
+                                    Мета-тег
+                                    <code>&lt;meta charset&gt;</code>
+                                    задаёт кодировку страницы.
+                                    <br />
+                                    Рекомендуется использовать
+                                    <code>UTF-8</code>
+                                    для поддержки всех языков и символов.
+                                </p>
+                                <ul class="list-ul">
+                                    <li>
+                                        Кодировка
+                                        <code>UTF-8</code>
+                                        — стандарт для современных сайтов.
+                                    </li>
+                                </ul>
+                                <div class="intro-code-block">
+                                    <pre><code>&lt;meta charset="UTF-8"&gt;</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Советы -->
+                <section class="section" id="tips">
+                    <div class="container">
+                        <h2>Советы по работе с мета-тегами</h2>
+                        <ul class="list-ul">
+                            <li>
+                                Создавайте уникальные
+                                <code>&lt;title&gt;</code>
+                                и
+                                <code>description</code>
+                                на каждой странице сайта.
+                            </li>
+                            <li>Используйте ключевые слова естественно, без перенасыщения текста.</li>
+                            <li>Проверяйте отображение сниппетов в поисковых системах.</li>
+                            <li>Оптимизируйте мета-теги под ваших пользователей, а не только под поисковых роботов.</li>
+                            <li>Используйте инструменты для проверки SEO, такие как Google Search Console и аналоги.</li>
+                        </ul>
+                        <p class="note note--info">Хорошо настроенные мета-теги — залог успешного SEO!</p>
+                    </div>
+                </section>
+
+                <!-- Лучшие практики -->
+                <section class="section" id="best-practices">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+                        <ul class="list-ul">
+                            <li>
+                                Проверяйте свой HTML в
+                                <a href="https://validator.w3.org/" target="_blank">валидаторе HTML</a>
+                                .
+                            </li>
+                            <li>Пишите мета-теги для людей, а не только для поисковых систем.</li>
+                            <li>Делайте код читаемым и логичным — это повысит качество сайта и его поддержку.</li>
+                            <li>Следите за актуальностью и уникальностью описаний и заголовков.</li>
+                        </ul>
+                        <p class="note note--info">
+                            Качественная структура
+                            <code>&lt;head&gt;</code>
+                            облегчает поддержку сайта, улучшает SEO и доступность для всех пользователей.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Примеры: Подключение CSS и JS -->
+                <section class="section" id="examples">
+                    <div class="container">
+                        <h2>Примеры: подключение CSS и JS</h2>
+                        <div class="tags-list">
+                            <!-- CSS -->
+                            <div class="card">
+                                <h3>Подключение CSS</h3>
+                                <p class="note">
+                                    Для подключения внешних стилей вставьте ссылку на CSS-файл в
+                                    <code>&lt;head&gt;</code>
+                                    вашего документа.
+                                </p>
+                                <ul class="list-ul">
+                                    <li>Для структуры и оформления страницы используйте отдельный файл стилей.</li>
+                                    <li>Встроенные стили подходят только для небольших проектов или быстрых прототипов.</li>
+                                </ul>
+                                <h4>Внешние стиль:</h4>
+                                <div class="intro-code-block">
+                                    <pre><code>&lt;link rel="stylesheet" href="styles.css"&gt;</code></pre>
+                                </div>
+                                <h4>Встроенный стиль:</h4>
+                                <div class="intro-code-block">
+                                    <pre><code>&lt;style&gt;
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+&lt;/style&gt;</code></pre>
+                                </div>
+                            </div>
+                            <!-- JS -->
+                            <div class="card">
+                                <h3>Подключение JavaScript</h3>
+                                <p class="note">
+                                    Для подключения JavaScript-скриптов используйте тег
+                                    <code>&lt;script&gt;</code>
+                                    .
+                                    <br />
+                                    Рекомендуется размещать скрипт перед закрывающим тегом
+                                    <code>&lt;/body&gt;</code>
+                                    или использовать атрибут
+                                    <code>defer</code>
+                                    для асинхронной загрузки.
+                                </p>
+                                <ul class="list-ul">
+                                    <li>
+                                        Внешние скрипты подключаются через
+                                        <code>src</code>
+                                        .
+                                    </li>
+                                    <li>
+                                        <code>defer</code>
+                                        позволяет загружать скрипты после загрузки HTML.
+                                    </li>
+                                </ul>
+                                <div class="intro-code-block">
+                                    <pre><code>&lt;script src="script.js"&gt;&lt;/script&gt;</code></pre>
+                                </div>
+                                <div class="intro-code-block">
+                                    <pre><code>&lt;script src="script.js" defer&gt;&lt;/script&gt;</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+    </body>
+</html>

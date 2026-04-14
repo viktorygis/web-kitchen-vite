@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../html/head.html', { "title": "React Context", "description": "Что такое React Context, как использовать для глобального состояния, примеры, лучшие практики." })
+    <body>
+        <div class="wrapper">
+            @@include('../html/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#intro">Введение</a>
+                    <a href="#basics">Основы Context</a>
+                    <a href="#provider">Provider и Consumer</a>
+                    <a href="#useContext">useContext</a>
+                    <a href="#practice">Практика</a>
+                    <a href="#tips">Советы</a>
+                    <a href="#best-practices">Лучшие практики</a>
+                    <a href="#examples">Примеры</a>
+                </nav>
+
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>React Context</h1>
+                        <p class="note">
+                            <b>React Context</b>
+                            — способ передать данные через дерево компонентов, минуя props.
+                            <br />
+                            Удобно для тем, авторизации, глобальных настроек.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section" id="basics">
+                    <div class="container">
+                        <h2>Основы Context</h2>
+                        <pre><code>
+const ThemeContext = React.createContext('light');
+                        </code></pre>
+                        <div class="note note--info">
+                            <code>createContext</code>
+                            создает объект для передачи значения.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="provider">
+                    <div class="container">
+                        <h2>Provider и Consumer</h2>
+                        <pre><code>
+&lt;ThemeContext.Provider value="dark"&gt;
+  &lt;App /&gt;
+&lt;/ThemeContext.Provider&gt;
+                        </code></pre>
+                        <div class="note note--info">
+                            <code>Provider</code>
+                            задает значение для всех дочерних компонентов.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="useContext">
+                    <div class="container">
+                        <h2>useContext — получение значения</h2>
+                        <pre><code>
+const theme = React.useContext(ThemeContext);
+                        </code></pre>
+                        <div class="note note--info">
+                            <code>useContext</code>
+                            — хук для доступа к значению контекста.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="practice">
+                    <div class="container">
+                        <h2>Практика: переключение темы</h2>
+                        <div class="interactive-demo demo-box">
+                            <div class="code-block">
+                                <pre><code>
+&lt;div id="root"&gt;&lt;/div&gt;
+&lt;script type="text/babel"&gt;
+const ThemeContext = React.createContext();
+
+function ThemeSwitcher() {
+  const theme = React.useContext(ThemeContext);
+  return &lt;div&gt;Текущая тема: {theme}&lt;/div&gt;;
+}
+
+function App() {
+  const [theme, setTheme] = React.useState('light');
+  return (
+    &lt;ThemeContext.Provider value={theme}&gt;
+      &lt;button onClick={() =&gt; setTheme(t =&gt; t === 'light' ? 'dark' : 'light')}&gt;Сменить тему&lt;/button&gt;
+      &lt;ThemeSwitcher /&gt;
+    &lt;/ThemeContext.Provider&gt;
+  );
+}
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;App /&gt;);
+&lt;/script&gt;
+                                </code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="tips">
+                    <div class="container">
+                        <h2>Советы и типичные ошибки</h2>
+                        <ul class="list-ul">
+                            <li>Не используйте Context для каждого пропа — только для глобальных данных.</li>
+                            <li>Обновление значения вызывает перерисовку всех потребителей.</li>
+                            <li>Выносите Provider как можно выше в дереве компонентов.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="best-practices">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+                        <ul class="list-ul">
+                            <li>Создавайте отдельные контексты для разных типов данных.</li>
+                            <li>Документируйте, что хранится в каждого Context.</li>
+                            <li>Используйте мемоизацию для предотвращения лишних рендеров.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="examples">
+                    <div class="container">
+                        <h2>Примеры использования Context</h2>
+                        <h4>Контекст авторизации</h4>
+                        <pre><code>
+const AuthContext = React.createContext();
+&lt;AuthContext.Provider value={user}&gt;...&lt;/AuthContext.Provider&gt;
+const user = React.useContext(AuthContext);
+                        </code></pre>
+                        <h4>Множественные контексты</h4>
+                        <pre><code>
+&lt;ThemeContext.Provider value="dark"&gt;
+  &lt;AuthContext.Provider value={user}&gt;
+    &lt;App /&gt;
+  &lt;/AuthContext.Provider&gt;
+&lt;/ThemeContext.Provider&gt;
+                        </code></pre>
+                    </div>
+                </section>
+            </main>
+            @@include('../html/footer.html', {})
+        </div>
+        @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    </body>
+</html>

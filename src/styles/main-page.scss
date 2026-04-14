@@ -1,0 +1,92 @@
+//src/scss/main-page.scss
+@use 'variables' as *;
+
+//.nav-block
+.nav-block {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+
+	//.nav-block__item
+	&__item {
+		background: $whiteColor;
+		border-radius: $borderRadiusLarge;
+		padding: 2rem;
+		box-shadow: $shadow;
+		transition: transform $transition;
+	}
+
+	//.nav-block__subtitle
+	&__subtitle {
+		margin: 0px;
+	}
+
+	//.nav-block__subnav-list
+	&__subnav-list {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2px;
+
+		@media (max-width: $media-md) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		@media (max-width: $media-sm) {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	//.nav-block__subnav-link
+	&__subnav-link {
+		transition: 0.3s;
+		cursor: pointer;
+		color: $greyColor;
+		line-height: 1.6;
+
+		&:hover {
+			color: $blueColor;
+		}
+
+		&:active {
+			color: $secondary;
+			font-weight: 500;
+		}
+	}
+
+	//.nav-block__subgroup-title
+	&__subgroup-title {
+		margin-bottom: 10px;
+		font-weight: 600;
+		color: $darkColor;
+
+	}
+
+	// Для группировки подзаголовков и списков
+	//.nav-block__subnav-list--grouped
+	&__subnav-list--grouped {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		flex-direction: column;
+
+		& ul {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 2px;
+
+
+			@media (max-width: $media-md) {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
+			@media (max-width: $media-sm) {
+				grid-template-columns: 1fr;
+			}
+		}
+	}
+
+	//.nav-block__subgroup
+	&__subgroup {
+		min-width: 220px;
+	}
+}

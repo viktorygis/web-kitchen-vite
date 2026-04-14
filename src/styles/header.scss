@@ -1,0 +1,239 @@
+// src/scss/header.scss
+@use 'variables' as *; // Импортируем переменные в текущий файл
+
+// -----------------------
+// Header контейнер
+header {
+	background: $darkColor;
+	color: $whiteColor;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	width: 100%;
+}
+
+// -----------------------
+// Mobile toggle
+.menu-toggle {
+	display: none;
+	flex-direction: column;
+	cursor: pointer;
+	padding: 10px;
+
+	.bar {
+		height: 3px;
+		width: 25px;
+		background: $whiteColor;
+		margin: 3px 0;
+	}
+}
+
+// -----------------------
+// Навигация
+.nav {
+	display: flex;
+}
+
+.nav-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+}
+
+.nav-item {
+	position: relative;
+}
+
+.nav-link {
+	text-decoration: none;
+	padding: 15px;
+	display: block;
+	font-size: 16px;
+	line-height: 140%;
+	transition: color 0.2s ease;
+	color: $yellowColor;
+	font-weight: 400;
+
+	&:hover {
+		color: #fff;
+		text-shadow: 0px 0px 8px $yellowColor;
+	}
+}
+
+// -----------------------
+// Подменю
+.subnav-list {
+	display: none;
+	position: absolute;
+	background: $darkColor;
+	top: 100%;
+	padding: 10px;
+	border-radius: 0 0 $borderRadius $borderRadius;
+	z-index: 100;
+	flex-direction: column;
+	gap: 5px;
+	width: 200px;
+
+	&.active {
+		display: block;
+	}
+}
+
+.nav-item:hover>.subnav-list {
+	display: flex;
+}
+
+.subnav-link {
+	font-size: 14px;
+	line-height: 140%;
+	transition: color 0.2s ease;
+	color: $yellowColor;
+	text-decoration: none;
+	font-weight: 400;
+	transition: 0.3s;
+
+	&:hover {
+		color: #fff;
+		text-shadow: 0px 0px 8px $yellowColor;
+	}
+}
+
+// -----------------------
+// Мобильная версия
+@media (max-width: 768px) {
+	.menu-toggle {
+		display: flex;
+	}
+
+	.nav {
+		display: none;
+		flex-direction: column;
+		width: 100%;
+
+		&.active {
+			display: flex;
+		}
+	}
+
+	.nav-list {
+		flex-direction: column;
+	}
+
+	.subnav-list {
+		display: none;
+		position: static;
+		width: 100%;
+		padding: 5px 20px;
+
+		&.active {
+			display: flex;
+		}
+	}
+
+	.nav-link {
+		padding: 10px;
+	}
+
+	.subnav-item {
+		font-size: 14px;
+		line-height: 130%;
+		padding: 5px 0;
+	}
+}
+
+// -----------------------
+// Расширенные подменю
+.nav-item:hover>.subnav-two-columns {
+	display: grid;
+}
+
+.nav-item:hover>.subnav-three-columns {
+	display: grid;
+}
+
+.subnav-two-columns {
+	grid-template-columns: repeat(2, 1fr);
+	width: 450px;
+	column-gap: 20px;
+}
+
+.subnav-three-columns {
+	grid-template-columns: repeat(3, 1fr);
+	column-gap: 10px;
+	width: 700px;
+}
+
+@media (max-width: 900px) {
+	.subnav-two-columns {
+		grid-template-columns: 1fr;
+	}
+}
+
+// -----------------------
+// Группы и заголовки подменю
+.subnav-heading {
+	font-weight: 500;
+	font-size: 14px;
+	color: #aed5ff;
+}
+
+.subnav-group:not(:last-child) {
+	margin-bottom: 20px;
+}
+
+.subnav-group ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.subnav-item {
+	margin-bottom: 8px;
+}
+
+// -----------------------
+// Header menu и поиск
+.header-menu {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.search-form {
+	display: flex;
+	align-items: center;
+	margin-left: auto;
+	border: none;
+	max-width: none;
+	padding: 20px;
+	margin: 0;
+	box-shadow: none;
+
+	input[type="search"] {
+		padding: 6px 12px;
+		border: 1px solid #ddd;
+		border-radius: 4px 0 0 4px;
+		font-size: 1rem;
+		max-width: 500px;
+		margin-bottom: 0;
+	}
+
+	button {
+		padding: 6px 10px;
+		border: 1px solid #ddd;
+		background: $blueColor;
+		color: $whiteColor;
+		border-radius: 0 4px 4px 0;
+		font-size: 1rem;
+		cursor: pointer;
+		max-width: 50px;
+		transition: background 0.2s;
+		margin-bottom: 0;
+
+		&:hover {
+			background: $middleBlueColor;
+		}
+	}
+}

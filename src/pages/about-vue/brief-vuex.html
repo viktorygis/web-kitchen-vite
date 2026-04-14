@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../html/head.html', { "title": "Pinia (VueX Next) во Vue: теория, примеры, управление состоянием, best practices", "description": "Все о хранилище состояния Pinia во Vue: установка, организация, структура, примеры, actions, getters, best practices." })
+
+<head>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://unpkg.com/pinia@2/dist/pinia.iife.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    @@include('../html/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="#intro">Введение</a>
+        <a href="#structure">Структура хранилища</a>
+        <a href="#usage">Использование</a>
+        <a href="#actions">Actions и мутации</a>
+        <a href="#getters">Getters (вычисления)</a>
+        <a href="#modules">Модули и организация</a>
+        <a href="#practice">Практика</a>
+        <a href="#bestpractices">Лучшие практики</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="intro">
+        <div class="container">
+          <h1>Pinia (новый VueX) — современное управление состоянием во Vue</h1>
+          <p class="note">
+            <strong>Pinia</strong> — переводиться как "сумка с деньгами", (ранее известная как VueX Next)
+             это официальная библиотека для глобального управления состоянием в приложениях Vue 3. Она проще, модульнее и типобезопаснее старого VueX.<br>
+            <strong>Для чего нужен Pinia?</strong><br>
+            Pinia позволяет централизовать и структурированно хранить состояние, а также организовать общение между компонентами на любом уровне вложенности.
+          </p>
+
+<pre><code class="language-html">// Пример простого стора Pinia
+import { defineStore } from 'pinia'
+export const useCounterStore = defineStore('counter', {
+  state: () => ({ count: 0 }),
+  actions: {
+    increment() { this.count++ }
+  }
+})
+
+</code></pre>
+
+
+          <h4>Достоинства Pinia:</h4>
+          <ul class="list-icon">
+            <li>🚀 Простая архитектура, максимально нативная для Vue 3 (Composition API).</li>
+            <li>🧩 Гибкая модульность: каждый store — отдельный файл, легко масштабировать.</li>
+            <li>🔌 Отличная интеграция с TypeScript.</li>
+            <li>♻️ Горячее обновление, Devtools и SSR-ready.</li>
+            <li>📝 Асинхронные действия и computed (getters) реализованы привычно для Vue-разработчика.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Структура хранилища -->
+      <section class="section" id="structure">
+        <div class="container">
+          <h2>Структура Pinia в проекте</h2>
+          <p class="note">
+            Pinia использует концепцию <b>store</b> — модульных "хранилищ" состояния. <br>
+            Обычно все сторасы размещают в папке <code>/stores</code> или <code>/pinia</code>. Каждый store — это отдельный файл с функцией <code>defineStore</code>.
+          </p>
+          <h4>Пример структуры проекта с Pinia:</h4>
+          <div class="code-block">
+            <pre><code>📂 src/
+ ├── 📂 stores/
+ │    ├── counter.js
+ │    ├── user.js
+ ├── App.vue
+ ├── main.js
+</code></pre>
+          </div>
+          <h5>Описание ключевых элементов:</h5>
+          <ul class="list-ul">
+            <li><b>stores/</b> — директория для отдельных store-модулей.</li>
+            <li><b>counter.js</b> — пример стора для счетчика.</li>
+            <li><b>user.js</b> — store для пользователя (логин, роль и т.д.).</li>
+            <li><b>main.js</b> — создание и подключение хранилища Pinia.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Использование -->
+      <section class="section" id="usage">
+        <div class="container">
+          <h2>Использование Pinia в компоненте</h2>
+          <p class="note">
+            Pinia интегрируется с приложением Vue через <code>app.use(createPinia())</code>. <br>
+            Используйте сторасы во всех компонентах с помощью функции <code>use*</code>! Данные всегда реактивны.
+          </p>
+          <h4>Установка Pinia:</h4>
+          <p>Если вы используете npm:</p>
+          <div class="code-block">
+            <pre><code>npm install pinia --save
+</code></pre>
+          </div>
+
+
+
+          <h4>Пример подключения Pinia:</h4>
+          <p>В файле <code>main.js</code>:</p>
+          <div class="code-block">
+            <pre><code>// main.js
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+import App from './App.vue'
+
+const app = createApp(App)
+app.use(createPinia())
+app.mount('#app')
+</code></pre>
+          </div>
+
+          <h4>Пример стора:</h4>
+          <p>Создание простого стора счетчика в <code>stores/counter.js</code>:</p>
+          <div class="code-block">
+            <pre><code>// stores/counter.js
+import { defineStore } from 'pinia'
+export const useCounterStore = defineStore('counter', {
+  state: () => ({
+    count: 0
+  }),
+  actions: {
+    increment() {
+      this.count++
+    }
+  }
+})
+</code></pre>
+          </div>
+          <h4>Использование стора в компоненте:</h4>
+          <p>В любом компоненте Vue:</p>
+          <div class="code-block">
+            <pre><code>&lt;script setup&gt;
+import { useCounterStore } from '@/stores/counter'
+const counter = useCounterStore()
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div&gt;
+    {{ counter.count }}
+    &lt;button @click="counter.increment"&gt;+1&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Actions и мутации -->
+      <section class="section" id="actions">
+        <div class="container">
+          <h2>Actions и мутации</h2>
+          <p class="note">
+            <strong>Actions</strong> — методы внутри стора, которые могут менять состояние или выполнять асинхронные операции (например, запросы к API). <br>
+            Pinia не требует отдельного понятия "mutations", все изменения состояния делаются через actions или напрямую (state — реактивный).
+          </p>
+          <h4>Примеры действий (actions):</h4>
+          <div class="code-block">
+            <pre><code>// stores/user.js
+import { defineStore } from 'pinia'
+export const useUserStore = defineStore('user', {
+  state: () => ({
+    name: '',
+    isLoading: false
+  }),
+  actions: {
+    async login(username) {
+      this.isLoading = true
+      // имитация запроса
+      await new Promise(r => setTimeout(r, 1000))
+      this.name = username
+      this.isLoading = false
+    }
+  }
+})
+</code></pre>
+          </div>
+          <h5>В отличие от VueX:</h5>
+          <ul class="list-ul">
+            <li>Нет отдельных mutation-файлов.</li>
+            <li>Можно изменять состояние прямо внутри action-функций.</li>
+            <li>actions могут быть как синхронными, так и асинхронными.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Getters -->
+      <section class="section" id="getters">
+        <div class="container">
+          <h2>Getters (вычисляемые значения)</h2>
+          <p class="note">
+            <strong>Getters</strong> — это вычисляемые свойства Pinia-стора, аналог <code>computed</code> в компонентах. <br>
+            С помощью getters можно удобно собирать производные данные.
+          </p>
+          <h4>Пример использования getter:</h4>
+          <div class="code-block">
+            <pre><code>// stores/counter.js
+export const useCounterStore = defineStore('counter', {
+  state: () => ({
+    count: 0
+  }),
+  getters: {
+    double: (state) => state.count * 2
+  }
+})
+</code></pre>
+          </div>
+          <h4>Использование getter в компоненте:</h4>
+          <div class="code-block">
+            <pre><code>&lt;template&gt;
+  &lt;div&gt;
+    Удвоенное значение: {{ counter.double }}
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Модули и организация -->
+      <section class="section" id="modules">
+        <div class="container">
+          <h2>Модули (store) и организация Pinia</h2>
+          <p class="note">
+            <strong>Pinia</strong> поощряет раздельную логику: один store — один файл.<br>
+            Используйте разные store для разных частей состояния (например: counter, user, cart). Модули изолированы, но могут взаимодействовать друг с другом.
+          </p>
+          <h4>Пример нескольких store:</h4>
+          <div class="code-block">
+            <pre><code>// stores/user.js
+export const useUserStore = defineStore('user', {
+  state: () => ({ name: '' })
+})
+
+// stores/counter.js
+export const useCounterStore = defineStore('counter', {
+  state: () => ({ count: 0 })
+})
+</code></pre>
+          </div>
+          <h5>Вы можете импортировать и использовать несколько store в одном компоненте:</h5>
+          <div class="code-block">
+            <pre><code>&lt;script setup&gt;
+import { useUserStore } from '@/stores/user'
+import { useCounterStore } from '@/stores/counter'
+
+const user = useUserStore()
+const counter = useCounterStore()
+&lt;/script&gt;
+</code></pre>
+          </div>
+          <p>Такой подход облегчает поддержку и масштабирование приложения.</p>
+        </div>
+      </section>
+
+      <!-- Практика -->
+      <section class="section" id="practice">
+        <div class="container">
+          <h2>Практика: счетчик на Pinia</h2>
+          <p class="note">
+            Попробуйте реализовать простой счетчик с помощью Pinia — заведите store и управляйте состоянием в компоненте.<br />
+            Ниже — полностью рабочий пример с Pinia через CDN.
+          </p>
+          <div class="practice-demo">
+            <div id="pinia-counter-demo"></div>
+          </div>
+          <div class="code-block" style="margin-top:12px">
+            <pre><code>// stores/counter.js
+import { defineStore } from 'pinia'
+export const useCounterStore = defineStore('counter', {
+  state: () => ({ count: 0 }),
+  actions: {
+    increment() { this.count++ }
+  }
+})
+// В компоненте:
+&lt;script setup&gt;
+import { useCounterStore } from '@/stores/counter'
+const counter = useCounterStore()
+&lt;/script&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    {{ counter.count }}
+    &lt;button @click="counter.increment"&gt;+1&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+            <button class="copy-btn">Скопировать</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Лучшие практики -->
+      <section class="section" id="bestpractices">
+        <div class="container">
+          <h2>Лучшие практики работы с Pinia</h2>
+          <p class="note">
+            Следуйте этим рекомендациям для чистого и масштабируемого кода в Pinia:
+          </p>
+          <ul class="list-ul">
+            <li>Используйте отдельную папку <code>stores</code> и отдельный файл для каждого стора.</li>
+            <li>Давайте сторам и getter-методам осмысленные имена.</li>
+            <li>Логику, которая относится к нескольким сторам, выносите в <b>composables</b> или сервисы.</li>
+            <li>Избегайте “гигантских” монолитных сторасов — каждый store должен быть независимым модулем.</li>
+            <li>Покрывайте бизнес-логику actions тестами.</li>
+            <li>Для сложных computed-вычислений используйте getters.</li>
+            <li>Интегрируйте Pinia Devtools для удобной отладки и анализа состояния.</li>
+            <li>Используйте TypeScript для типизации стора (особенно в крупных командах).</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+    @@include('../html/footer.html', {})
+  </div>
+  @@include('../html/popup.html', {}) @@include('../html/js.html', {})
+  <script>
+    // Демо Pinia счетчика
+    const {
+      createPinia,
+      defineStore
+    } = Pinia;
+    const useCounterStore = defineStore('counter', {
+      state: () => ({
+        count: 0
+      }),
+      actions: {
+        increment() {
+          this.count++
+        }
+      }
+    });
+    const app = Vue.createApp({
+      template: `
+        <div>
+          <div>
+            Значение: {{ counter.count }}
+            <button @click="counter.increment">+1</button>
+          </div>
+        </div>
+      `,
+      computed: {
+        counter() {
+          return useCounterStore();
+        }
+      }
+    });
+    app.use(createPinia());
+    app.mount("#pinia-counter-demo");
+  </script>
+  <style>
+    #pinia-counter-demo {
+      margin: 16px 0;
+    }
+
+    #pinia-counter-demo button {
+      background: #009779;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 7px 18px;
+      margin-left: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #pinia-counter-demo button:hover {
+      background: #00b88d;
+    }
+  </style>
+</body>
+
+</html>
