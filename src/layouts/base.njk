@@ -1,0 +1,23 @@
+{# src/layouts/base.njk #}
+<!doctype html>
+<html lang="ru">
+  <head>
+    {% include "partials/head.njk" %}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ title or "web-kitchen-vite" }}</title>
+    {% if description %}<meta name="description" content="{{ description }}">{% endif %}
+  </head>
+  <body>
+    {% include "partials/header.njk" %}
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    {% include "partials/footer.njk" %}
+
+    {# Vite entry (aliased in vite.config.js) #}
+    <script type="module" src="/@src/main.js"></script>
+  </body>
+</html>
