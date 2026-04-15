@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "Цитаты дня на Vue.js",
+"description": "Цитаты дня" })
+
+<!-- Подключаем Vue.js -->
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<!-- Подключаем Vue Router -->
+<script src="https://unpkg.com/vue-router@4"></script>
+<!-- Подключаем Vuex -->
+<script src="https://unpkg.com/vuex@4.0.0/dist/vuex.global.js"></script>
+
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+
+      <section class="section">
+        <div class="container">
+
+          <h1>Введение во Vue.js</h1>
+          <p class="note">Vue.js - это прогрессивный JavaScript-фреймворк для создания пользовательских интерфейсов. Он разработан для того, чтобы быть адаптивным и легко интегрируемым в существующие проекты. Vue.js позволяет создавать интерактивные веб-приложения с использованием декларативного подхода и компонентной архитектуры.</p>
+          <h2>Основные концепции Vue.js</h2>
+          <h3>Установка Vue.js</h3>
+          <p>Для начала работы с Vue.js, вы можете подключить его через CDN. Добавьте следующий тег <code>&lt;script&gt;</code> в ваш HTML-файл перед закрывающим тегом <code>&lt;/body&gt;</code> но перед скиптом с vue:</p>
+          <pre><code>&lt;script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"&gt;&lt;/script&gt;</code></pre>
+
+          <!--Создание простого приложения Vue.js с использованием шаблона  -->
+          <h3 style="margin-top: 50px;">Создание простого приложения Vue.js</h3>
+          <p class="note">С использованием шаблона и интерполяции данных, где шаблон это HTML-код, который определяет структуру и внешний вид вашего приложения (начинается с <code>&lt;div&gt;</code>), а интерполяция ( <code>{{ }}</code>)данных позволяет динамически отображать данные из вашего приложения в шаблоне. (Интерполяция - это способ вставки значений переменных или выражений в текстовый контент HTML.)</p>
+
+
+          <div class="interactive-demo">
+            <div id="app">
+              <h2>Привет, {{ name }}!</h2>
+            </div>
+          </div>
+          <script>
+            Vue.createApp({
+              data() {
+                return {
+                  name: "Виктория",
+                }
+              }
+            }).mount("#app");
+          </script>
+          <h4>Код приложения:</h4>
+          <div class="code-block">
+            <pre><code>&lt;div id="app"&gt;
+  &lt;h2&gt;Привет, {{ name }}!&lt;/h2&gt; //Шаблон с привязкой данных
+&lt;/div&gt;
+&lt;script&gt;
+  const {createApp} = Vue;
+  createApp({
+    data() {
+      return {
+        name: 'Мир' //Данные приложения
+      }
+    }
+  }).mount('#app');
+&lt;/script&gt;</code></pre>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Директивы  -->
+      <section class="section">
+        <div class="container">
+          <h2>Директивы</h2>
+          <p>Директивы Vue.js - это специальные атрибуты, которые начинаются с префикса <code>v-</code> и предоставляют дополнительные функциональные возможности для элементов HTML. Они позволяют вам связывать данные, обрабатывать события и управлять отображением элементов в вашем приложении.</p>
+
+          <!-- v-bind -->
+          <h3>v-bind</h3>
+          <p class="note">Директива <code>v-bind</code> используется для связывания атрибутов HTML с данными из вашего приложения Vue.js. В этом примере мы связываем атрибут <code>href</code> ссылки с переменной <code>url</code> из данных приложения.</p>
+          <div class="interactive-demo">
+            <div id="app-bind">
+              <a v-bind:href="url" target="_blank">Перейти на Vue.js</a>
+            </div>
+          </div>
+          <script>
+            Vue.createApp({
+              data() {
+                return {
+                  url: "https://vuejs.org/"
+                }
+              }
+            }).mount("#app-bind");
+          </script>
+          <h4>Код приложения:</h4>
+          <div class="code-block">
+            <pre><code>&lt;div id="app-bind"&gt;
+  &lt;a v-bind:href="url" target="_blank"&gt;Перейти на Vue.js&lt;/a&gt; //Директива v-bind для связывания атрибута href
+&lt;/div&gt;
+&lt;script&gt;
+  const {createApp} = Vue;
+  createApp({
+    data() {
+      return {
+        url: 'https://vuejs.org/' //Данные приложения
+      }
+    }
+  }).mount('#app-bind');
+&lt;/script&gt;</code></pre>
+          </div>
+          <!-- v-if  -->
+          <h3 style="margin-top: 50px;">v-if</h3>
+          <p class="note">Директива <code>v-if</code> используется для условного отображения элементов в Vue.js. В этом примере мы используем <code>v-if</code> для отображения сообщения только тогда, когда переменная <code>isVisible</code> установлена в <code>true</code>.</p>
+          <!-- Пример приложения где используется только v-if  без  v-on-->
+          <div class="interactive-demo">
+            <div id="app-if">
+              <h4 v-if="show">Этот заголовок отображается, если значение show — true.</h4>
+              <p v-if="!show">Заголовок скрыт, потому что show = false.</p>
+            </div>
+          </div>
+          <script>
+            Vue.createApp({
+              data() {
+                return {
+                  show: true // Попробуйте изменить на false для теста
+                }
+              }
+            }).mount('#app-if');
+          </script>
+
+          <h4>Код приложения:</h4>
+          <div class="code-block">
+            <pre><code>&lt;div id="app-if"&gt;
+  &lt;h4 v-if="show"&gt;Этот заголовок отображается, если значение show — true.&lt;/h4&gt; //Директива v-if для условного отображения
+  &lt;p v-if="!show"&gt;Заголовок скрыт, потому что show = false.&lt;/p&gt;
+&lt;/div&gt;
+&lt;script&gt;
+  const {createApp} = Vue;
+  createApp({
+    data() {
+      return {
+        show: true //Данные приложения
+      }
+    }
+  }).mount('#app-if');
+&lt;/script&gt;</code></pre>
+          </div>
+
+          <!-- v-show -->
+          <h3 style="margin-top: 50px;">v-show</h3>
+          <p class="note">
+            Директива <code>v-show</code> управляет видимостью элемента через CSS-свойство <code>display</code>. Элемент всегда присутствует в DOM, но скрывается, если условие <code>isVisible</code> установлено в <code>false</code>.
+          </p>
+          <div class="interactive-demo">
+            <div id="app-show">
+              <h4 v-show="isVisible">Этот заголовок видим, если isVisible — true.</h4>
+              <p v-show="!isVisible">Заголовок скрыт, потому что isVisible = false.</p>
+            </div>
+          </div>
+          <script>
+            Vue.createApp({
+              data() {
+                return {
+                  isVisible: true // Попробуйте изменить на false для теста
+                }
+              }
+            }).mount('#app-show');
+          </script>
+          <h4>Код приложения:</h4>
+          <div class="code-block">
+            <pre><code>&lt;div id="app-show"&gt;
+  &lt;h4 v-show="isVisible"&gt;Этот заголовок видим, если isVisible — true.&lt;/h4&gt;
+  &lt;p v-show="!isVisible"&gt;Заголовок скрыт, потому что isVisible = false.&lt;/p&gt;
+&lt;/div&gt;
+&lt;script&gt;
+  const {createApp} = Vue;
+  createApp({
+    data() {
+      return {
+        isVisible: true
+      }
+    }
+  }).mount('#app-show');
+&lt;/script&gt;</code></pre>
+          </div>
+
+
+          <!-- v-for -->
+          <h3 style="margin-top: 50px;">v-for</h3>
+          <p class="note">
+            Директива <code>v-for</code> используется для перебора массива и отображения списка элементов. В этом примере мы выводим список цитат.
+          </p>
+          <div class="interactive-demo">
+            <div id="app-for">
+              <ul>
+                <li v-for="(quote, index) in quotes" :key="index">
+                  {{ quote }}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <script>
+            Vue.createApp({
+              data() {
+                return {
+                  quotes: [
+                    "Лучше сделать и пожалеть, чем не сделать и пожалеть.",
+                    "Работа не волк — в лес не убежит.",
+                    "Без труда не вытащишь и рыбку из пруда."
+                  ]
+                }
+              }
+            }).mount('#app-for');
+          </script>
+          <h4>Код приложения:</h4>
+          <div class="code-block">
+            <pre><code>&lt;div id="app-for"&gt;
+  &lt;ul&gt;
+    &lt;li v-for="(quote, index) in quotes" :key="index"&gt;
+      {{ quote }}
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+&lt;script&gt;
+  const {createApp} = Vue;
+  createApp({
+    data() {
+      return {
+        quotes: [
+          "Лучше сделать и пожалеть, чем не сделать и пожалеть.",
+          "Работа не волк — в лес не убежит.",
+          "Без труда не вытащишь и рыбку из пруда."
+        ]
+      }
+    }
+  }).mount('#app-for');
+&lt;/script&gt;</code></pre>
+          </div>
+
+
+          <!-- v-model -->
+          <h3 style="margin-top: 50px;">v-model</h3>
+          <p class="note">
+            Директива <code>v-model</code> обеспечивает двухстороннюю привязку данных между элементом формы и состоянием приложения. В этом примере при изменении текста в поле ввода меняется и отображаемое приветствие.
+          </p>
+          <div class="interactive-demo">
+            <div id="app-model">
+              <input v-model="username" placeholder="Введите имя">
+              <p>Привет, {{ username }}!</p>
+            </div>
+          </div>
+          <script>
+            Vue.createApp({
+              data() {
+                return {
+                  username: ""
+                }
+              }
+            }).mount('#app-model');
+          </script>
+          <h4>Код приложения:</h4>
+          <div class="code-block">
+            <pre><code>&lt;div id="app-model"&gt;
+  &lt;input v-model="username" placeholder="Введите имя"&gt;
+  &lt;p&gt;Привет, {{ username }}!&lt;/p&gt;
+&lt;/div&gt;
+&lt;script&gt;
+  const {createApp} = Vue;
+  createApp({
+    data() {
+      return {
+        username: ""
+      }
+    }
+  }).mount('#app-model');
+&lt;/script&gt;</code></pre>
+          </div>
+
+          <!-- v-on -->
+          <h3 style="margin-top: 50px;">v-on</h3>
+          <p class="note">Директива <code>v-on</code> используется для обработки событий в Vue.js. В этом примере мы обрабатываем событие клика на кнопку и вызываем метод <code>increment</code>, который увеличивает значение счетчика.</p>
+          <div class="interactive-demo">
+            <div id="app-on">
+              <button v-on:click="increment">Кликни меня</button>
+              <p>Количество кликов: {{ count }}</p>
+            </div>
+          </div>
+          <script>
+            Vue.createApp({
+              data() {
+                return {
+                  count: 0
+                }
+              },
+              methods: {
+                increment() {
+                  this.count++;
+                }
+              }
+            }).mount("#app-on");
+          </script>
+          <h4>Код приложения:</h4>
+          <div class="code-block">
+            <pre><code>&lt;div id="app-on"&gt;
+  &lt;button v-on:click="increment"&gt;Кликни меня&lt;/button&gt; //Директива v-on для обработки события клика
+  &lt;p&gt;Количество кликов: {{ count }}&lt;/p&gt;
+&lt;/div&gt;
+&lt;script&gt;
+
+  const {createApp} = Vue;
+  createApp({
+    data() {
+      return {
+        count: 0 //Данные приложения
+      }
+    },
+    methods: {
+      increment() { //Метод для увеличения счетчика
+        this.count++;
+      }
+    }
+  }).mount('#app-on');
+&lt;/script&gt;</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Работа с данными через data()  -->
+      <section class="section">
+        <div class="container">
+          <h2>Работа с данными через data()</h2>
+          <p>В Vue.js, функция <code>data()</code> используется для определения реактивных данных вашего компонента. Она возвращает объект, содержащий все переменные и их начальные значения, которые будут использоваться в вашем приложении.</p>
+          <p class="note">Данные, определенные в функции <code>data()</code>, становятся реактивными, что означает, что любые изменения этих данных автоматически обновляют соответствующие части пользовательского интерфейса.</p>
+
+          <div class="interactive-demo">
+            <div id="app-data">
+              <h2>{{ message }}</h2>
+              <input v-model="message" placeholder="Измени меня">
+            </div>
+          </div>
+          <script>
+            Vue.createApp({
+              data() {
+                return {
+                  message: "Привет, Vue.js!"
+                }
+              }
+            }).mount("#app-data");
+          </script>
+          <h4>Код приложения:</h4>
+          <div class="code-block">
+            <pre><code>&lt;div id="app-data"&gt;
+  &lt;h2&gt;{{ message }}&lt;/h2&gt;
+  &lt;input v-model="message" placeholder="Измени меня"&gt;
+&lt;/div&gt;
+&lt;script&gt;
+  const {createApp} = Vue;
+  createApp({
+    data() {
+      return {
+        message: "Привет, Vue.js!"
+      }
+    }
+  }).mount('#app-data');
+&lt;/script&gt;</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Методы в Vue -->
+      <section class="section">
+        <div class="container">
+          <h2>Методы в Vue.js</h2>
+          <p>Методы в Vue.js - это функции, которые определены внутри объекта <code>methods</code> вашего компонента. Они используются для обработки событий, выполнения вычислений и изменения данных вашего приложения.</p>
+          <p class="note">Методы могут быть вызваны из шаблона с помощью директивы <code>v-on</code> или напрямую из других методов внутри компонента.</p>
+
+          <div class="interactive-demo">
+            <div id="app-methods">
+              <button v-on:click="greet">Поприветствовать</button>
+              <p>{{ greeting }}</p>
+            </div>
+          </div>
+          <script>
+            Vue.createApp({
+              data() {
+                return {
+                  greeting: ""
+                }
+              },
+              methods: {
+                greet() {
+                  this.greeting = "Привет от Vue.js!";
+                }
+              }
+            }).mount("#app-methods");
+          </script>
+          <h4>Код приложения:</h4>
+          <div class="code-block">
+            <pre><code>&lt;div id="app-methods"&gt;
+  &lt;button v-on:click="greet"&gt;Поприветствовать&lt;/button&gt;
+  &lt;p&gt;{{ greeting }}&lt;/p&gt;
+&lt;/div&gt;
+&lt;script&gt;
+  const {createApp} = Vue;
+  createApp({
+    //Данные приложения
+    data() {
+      return {
+        greeting: ""
+      }
+    },
+    //Методы приложения
+    methods: {
+      greet() {
+        this.greeting = "Привет от Vue.js!";
+      }
+    }
+  }).mount('#app-methods');
+&lt;/script&gt;</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Передача параметров и работа с this  -->
+      <section class="section">
+        <div class="container">
+          <h2>Передача параметров и работа с this в методах Vue.js</h2>
+          <p>В Vue.js методы могут принимать параметры, что позволяет передавать данные при вызове метода. Внутри методов, ключевое слово <code>this</code> ссылается на текущий экземпляр Vue, что позволяет получать доступ к данным и другим методам компонента.</p>
+          <p class="note">Использование параметров в методах позволяет создавать более гибкие и переиспользуемые функции внутри вашего Vue-приложения.</p>
+
+          <div class="interactive-demo">
+            <div id="app-params">
+              <input v-model="name" placeholder="Введите ваше имя">
+              <button v-on:click="greet(name)">Поприветствовать</button>
+              <p>{{ greeting }}</p>
+            </div>
+          </div>
+          <script>
+            Vue.createApp({
+              data() {
+                return {
+                  name: "",
+                  greeting: ""
+                }
+              },
+              methods: {
+                greet(name) {
+                  this.greeting = `Привет, ${name}! Добро пожаловать в Vue.js!`;
+                }
+              }
+            }).mount("#app-params");
+          </script>
+          <h4>Код приложения:</h4>
+          <div class="code-block">
+            <pre><code>&lt;div id="app-params"&gt;
+  &lt;input v-model="name" placeholder="Введите ваше имя"&gt;
+  &lt;button v-on:click="greet(name)"&gt;Поприветствовать&lt;/button&gt;
+  &lt;p&gt;{{ greeting }}&lt;/p&gt;
+&lt;/div&gt;
+&lt;script&gt;
+  const {createApp} = Vue;
+  createApp({
+    data() {
+      return {
+        name: "",
+        greeting: ""
+      }
+    },
+    methods: {
+      greet(name) {
+        this.greeting = `Привет, ${name}! Добро пожаловать в Vue.js!`;
+      }
+    }
+  }).mount('#app-params');
+&lt;/script&gt;</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- computed -->
+      <section class="section">
+        <div class="container">
+          <h2>Вычисляемые свойства (computed) в Vue.js</h2>
+          <p>Вычисляемые свойства в Vue.js - это свойства, которые зависят от других реактивных данных и автоматически обновляются при изменении этих данных. Они определяются внутри объекта <code>computed</code> вашего компонента и используются для выполнения вычислений на основе текущего состояния данных.</p>
+          <p class="note">Вычисляемые свойства полезны для оптимизации производительности, так как они кэшируются и пересчитываются только тогда, когда их зависимости изменяются.</p>
+
+          <div class="interactive-demo">
+            <div id="app-computed">
+              <input v-model="firstName" placeholder="Имя">
+              <input v-model="lastName" placeholder="Фамилия">
+              <p>Полное имя: {{ fullName }}</p>
+            </div>
+          </div>
+          <script>
+            Vue.createApp({
+              data() {
+                return {
+                  firstName: "",
+                  lastName: ""
+                }
+              },
+              computed: {
+                fullName() {
+                  return `${this.firstName} ${this.lastName}`;
+                }
+              }
+            }).mount("#app-computed");
+          </script>
+          <h4>Код приложения:</h4>
+          <div class="code-block">
+            <pre><code>&lt;div id="app-computed"&gt;
+  &lt;input v-model="firstName" placeholder="Имя"&gt;
+  &lt;input v-model="lastName" placeholder="Фамилия"&gt;
+  &lt;p&gt;Полное имя: {{ fullName }}&lt;/p&gt;
+&lt;/div&gt;
+&lt;script&gt;
+  const {createApp} = Vue;
+  createApp({
+    //Данные приложения
+    data() {
+      return {
+        firstName: "",
+        lastName: ""
+      }
+    },
+    //Вычисляемые свойства
+    computed: {
+      fullName() {
+        return `${this.firstName} ${this.lastName}`;
+      }
+    }
+  }).mount('#app-computed');
+&lt;/script&gt;</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- watch -->
+      <section class="section">
+        <div class="container">
+          <h2>Наблюдатели (watch) в Vue.js</h2>
+          <p>Наблюдатели в Vue.js - это специальные функции, которые следят за изменениями реактивных данных и выполняют определенные действия при их изменении. Они определяются внутри объекта <code>watch</code> вашего компонента и полезны для выполнения асинхронных операций или сложной логики, когда данные изменяются.</p>
+          <p class="note">Наблюдатели позволяют реагировать на изменения данных без необходимости использовать методы или вычисляемые свойства, что делает их удобными для определенных сценариев.</p>
+
+          <div class="interactive-demo">
+            <div id="app-watch">
+              <input v-model="question" placeholder="Задайте вопрос">
+              <p>Ответ: {{ answer }}</p>
+            </div>
+          </div>
+          <script>
+            Vue.createApp({
+              data() {
+                return {
+                  question: "",
+                  answer: "Пока нет вопроса."
+                }
+              },
+              watch: {
+                question(newQuestion) {
+                  this.answer = "Думаю...";
+                  setTimeout(() => {
+                    this.answer = "Это интересный вопрос!";
+                  }, 1000);
+                }
+              }
+            }).mount("#app-watch");
+          </script>
+          <h4>Код приложения:</h4>
+          <div class="code-block">
+            <pre><code>&lt;div id="app-watch"&gt;
+  &lt;input v-model="question" placeholder="Задайте вопрос"&gt;
+  &lt;p&gt;Ответ: {{ answer }}&lt;/p&gt;
+&lt;/div&gt;
+&lt;script&gt;
+  const {createApp} = Vue;
+  createApp({
+    //Данные приложения
+    data() {
+      return {
+        question: "",
+        answer: "Пока нет вопроса."
+      }
+    },
+    //Наблюдатели
+    watch: {
+      question(newQuestion) {
+        this.answer = "Думаю...";
+        setTimeout(() => {
+          this.answer = "Это интересный вопрос!";
+        }, 1000);
+      }
+    }
+  }).mount('#app-watch');
+&lt;/script&gt;</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Пример со всеми возможными свойствами -->
+      <section class="section">
+        <div class="container">
+          <h2>Пример Vue.js с использованием data, methods, computed и watch</h2>
+          <p>В этом примере мы создадим простое приложение Vue.js, которое демонстрирует использование всех основных свойств: <code>data</code>, <code>methods</code>, <code>computed</code> и <code>watch</code>. Приложение позволит пользователю вводить свое имя и фамилию, а также задавать вопрос, на который будет дан ответ.</p>
+
+          <div class="interactive-demo">
+            <div id="app-full">
+              <input v-model="firstName" placeholder="Имя">
+              <input v-model="lastName" placeholder="Фамилия">
+              <p>Полное имя: {{ fullName }}</p>
+
+              <input v-model="question" placeholder="Задайте вопрос">
+              <button v-on:click="askQuestion">Спросить</button>
+              <p>Ответ: {{ answer }}</p>
+            </div>
+          </div>
+          <script>
+            Vue.createApp({
+              data() {
+                return {
+                  firstName: "",
+                  lastName: "",
+                  question: "",
+                  answer: "Пока нет вопроса."
+                }
+              },
+              computed: {
+                fullName() {
+                  return `${this.firstName} ${this.lastName}`;
+                }
+              },
+              methods: {
+                askQuestion() {
+                  this.answer = "Думаю...";
+                  setTimeout(() => {
+                    this.answer = "Это интересный вопрос!";
+                  }, 1000);
+                }
+              },
+              watch: {
+                question(newQuestion) {
+                  this.answer = "Пока нет вопроса.";
+                }
+              }
+            }).mount("#app-full");
+          </script>
+          <h4>Код приложения:</h4>
+          <div class="code-block">
+            <pre><code>&lt;div id="app-full"&gt;
+  &lt;input v-model="firstName" placeholder="Имя"&gt;
+  &lt;input v-model="lastName" placeholder="Фамилия"&gt;
+  &lt;p&gt;Полное имя: {{ fullName }}&lt;/p&gt;
+
+  &lt;input v-model="question" placeholder="Задайте вопрос"&gt;
+  &lt;button v-on:click="askQuestion"&gt;Спросить&lt;/button&gt;
+  &lt;p&gt;Ответ: {{ answer }}&lt;/p&gt;
+&lt;/div&gt;
+&lt;script&gt;
+  const {createApp} = Vue;
+  createApp({
+    //Данные приложения
+    data() {
+      return {
+        firstName: "",
+        lastName: "",
+        question: "",
+        answer: "Пока нет вопроса."
+      }
+    },
+    //Вычисляемые свойства
+    computed: {
+      fullName() {
+        return `${this.firstName} ${this.lastName}`;
+      }
+    },
+    //Методы
+    methods: {
+      askQuestion() {
+        this.answer = "Думаю...";
+        setTimeout(() => {
+          this.answer = "Это интересный вопрос!";
+        }, 1000);
+      }
+    },
+    //Наблюдатели
+    watch: {
+      question(newQuestion) {
+        this.answer = "Пока нет вопроса.";
+      }
+    }
+  }).mount('#app-full');
+&lt;/script&gt;</code></pre>
+          </div>
+        </div>
+      </section>
+
+
+      <section class="section">
+        <div class="container">
+          <h2>Пример Vue.js с использованием большинства возможностей</h2>
+          <p>
+            Это приложение-органайзер, где задействованы практически все ключевые возможности Vue:
+            <code>data</code>, <code>methods</code>, <code>computed</code>, <code>watch</code>, директивы <code>v-model</code>, <code>v-bind</code>, <code>v-on</code>, <code>v-if</code>, <code>v-else</code>, <code>v-show</code>, <code>v-for</code>, динамические атрибуты, события и шаблоны.
+          </p>
+
+          <!-- Код приложения  -->
+          <div class="interactive">
+            <div id="app-fullest">
+              <!-- Заголовок -->
+              <h3>{{ title }}</h3>
+
+              <!-- Поле ввода задачи -->
+              <div class="interactive__input-block">
+                <input class="interactive__input" v-model="newTask" @keyup.enter="addTask" :placeholder="placeholderText">
+                <button class="interactive__button" @click="addTask" :disabled="!newTask" :style="{ background: newTask ? '#5e81f4' : '#ccc', color: '#fff', transition: '0.2s' }">Добавить</button>
+              </div>
+
+              <!-- Фильтры -->
+              <div class="interactive__filter">
+                <label>
+                  <input v-model="filter" type="radio" value="all" /> Все
+                </label>
+                <label>
+                  <input v-model="filter" type="radio" value="done" /> Выполненные
+                </label>
+                <label>
+                  <input v-model="filter" type="radio" value="active" /> Активные
+                </label>
+              </div>
+
+              <!-- Список задач -->
+              <ul class="interactive__list">
+
+                <!-- Задача -->
+                <li v-for="(task, idx) in filteredTasks" :key="task.id" :class="{ done: task.done }" :style="{ opacity: task.done ? 0.6 : 1 }">
+
+                  <!-- Статус задачи -->
+                  <span v-if="task.urgent" class="interactive__urgent" style="color:red" v-show="filter!=='done'">🔥</span>
+
+                  <!-- Номер задачи -->
+                  <span class="interactive__number">{{ idx+1 }}.</span>
+
+                  <!-- Текст задачи с возможностью переключения статуса по клику -->
+                  <span @click="toggle(idx)" class="interactive__task" style="cursor:pointer;">
+
+                    <!-- Статус задачи -->
+                    <template class="interactive__done" v-if="task.done">(✓)</template>
+
+                    <!-- Статус задачи -->
+                    <template class="interactive__active" v-else>(…)</template>
+                    {{ task.text }}
+                  </span>
+
+                  <!-- Кнопка удаления задачи -->
+                  <button class="interactive__delete" @click="deleteTask(idx)" style="margin-left:10px;">Удалить</button>
+                </li>
+              </ul>
+
+              <!-- Сообщение при отсутствии задач -->
+              <p class="interactive__no-tasks" v-if="!filteredTasks.length" style="margin-top:8px;color:#888">
+                Нет задач для отображения
+              </p>
+
+              <!-- Последнее действие -->
+              <p class="interactive__last-action" v-show="lastAction" style="font-size:13px;color:#aaa">
+                Последнее действие: {{ lastAction }}
+              </p>
+            </div>
+          </div>
+
+          <!-- Стили для интерактивного блока -->
+          <style>
+              .interactive {
+              border: 1px solid #ddd;
+              padding: 16px;
+              border-radius: 8px;
+              background: #ffffff;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .interactive__input-block {
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              margin-bottom: 12px;
+            }
+
+            .interactive__input {
+              margin: 0;
+            }
+
+            .interactive__input:focus {
+              outline: none
+            }
+
+            .interactive__filter {
+              display: flex;
+              align-items: center;
+              gap: 40px;
+              margin-bottom: 12px;
+            }
+
+            .interactive__list {
+              list-style: none;
+              background-color: #f9f9f9;
+              padding: 10px;
+            }
+
+            .interactive__list li {
+              padding: 8px;
+              border-bottom: 1px solid #eee;
+              display: flex;
+              align-items: center;
+            }
+
+            .interactive__list li:last-child {
+              border-bottom: none;
+            }
+
+            .interactive__number {
+              font-weight: bold;
+              margin-right: 8px;
+            }
+
+            .interactive__task {
+              flex-grow: 1;
+            }
+
+            .interactive__delete {
+              background: #e74c3c;
+              color: #fff;
+              border: none;
+              padding: 4px 8px;
+              border-radius: 4px;
+              cursor: pointer;
+              transition: background 0.2s;
+            }
+
+            .interactive__delete:hover {
+              background: #c0392b;
+            }
+          </style>
+
+          <!-- Код приложения -->
+          <script>
+            const {
+              createApp
+            } = Vue;
+            createApp({
+              data() {
+                return {
+                  title: 'Органайзер задач',
+                  newTask: '',
+                  placeholderText: 'Введите новую задачу',
+                  filter: 'all',
+                  lastAction: '',
+                  tasks: [{
+                      id: 1,
+                      text: 'Изучить Vue',
+                      done: false,
+                      urgent: true
+                    },
+                    {
+                      id: 2,
+                      text: 'Выполнить задание',
+                      done: true,
+                      urgent: false
+                    }
+                  ]
+                }
+              },
+              computed: {
+                filteredTasks() {
+                  if (this.filter === 'done') return this.tasks.filter(t => t.done);
+                  if (this.filter === 'active') return this.tasks.filter(t => !t.done);
+                  return this.tasks;
+                }
+              },
+              watch: {
+                newTask(newValue) {
+                  if (newValue && newValue.toLowerCase().includes('важно')) {
+                    this.lastAction = 'Ключевое слово "важно" введено!';
+                  }
+                },
+                filter(newF) {
+                  this.lastAction = 'Изменён фильтр: ' + newF;
+                }
+              },
+              methods: {
+                addTask() {
+                  if (!this.newTask.trim()) return;
+                  this.tasks.push({
+                    id: Date.now(),
+                    text: this.newTask,
+                    done: false,
+                    urgent: /важн|🔥/i.test(this.newTask)
+                  });
+                  this.lastAction = 'Добавлена задача: ' + this.newTask;
+                  this.newTask = '';
+                },
+                deleteTask(idx) {
+                  this.lastAction = 'Удалена задача: ' + this.tasks[idx].text;
+                  this.tasks.splice(idx, 1);
+                },
+                toggle(idx) {
+                  this.tasks[idx].done = !this.tasks[idx].done;
+                  this.lastAction = `Статус "${this.tasks[idx].text}" изменён`;
+                }
+              }
+            }).mount('#app-fullest');
+          </script>
+
+          <h4>Шаблон приложения:</h4>
+          <div class="code-block">
+            <pre><code>&lt;!--  Начало шаблона приложения Vue.js --&gt;
+&lt;div id="app-fullest"&gt;
+
+  &lt;!--  Заголовок приложения, где  {{ title }}  - интерполяция данных --&gt;
+  &lt;h3&gt;{{ title }}&lt;/h3&gt;
+
+  &lt;!-- Текстовое поле ввода input
+  v-model="newTask" - двухсторонняя привязка данных к переменной newTask,
+  @keyup.enter="addTask" - обработка события нажатия Enter для вызова метода addTask,
+  :placeholder="placeholderText" - динамическое связывание атрибута placeholder с переменной placeholderText --&gt;
+  &lt;input
+    v-model="newTask"
+    @keyup.enter="addTask"
+    :placeholder="placeholderText"
+  &gt;
+
+  &lt;!-- Кнопка button для добавления задачи
+  @click="addTask" - обработка события клика для вызова метода addTask,
+  :disabled="!newTask" - динамическое связывание атрибута disabled, кнопка отключена если newTask пустая,
+  :style="{...}" - динамическое связывание стилей кнопки --&gt;
+  &lt;button
+    @click="addTask"
+    :disabled="!newTask"
+    :style="{ background: newTask ? '#5e81f4' : '#ccc', color: '#fff', transition: '0.2s' }"
+  &gt;
+  Добавить
+  &lt;/button&gt;
+
+&lt;!-- Фильтры для отображения задач
+v-model="filter" - двухсторонняя привязка данных к переменной filter --&gt;
+  &lt;div&gt;
+    &lt;label&gt;&lt;input v-model="filter" type="radio" value="all"&gt; Все &lt;/label&gt;
+    &lt;label&gt;&lt;input v-model="filter" type="radio" value="done"&gt; Выполненные&lt;/label&gt;
+    &lt;label&gt;&lt;input v-model="filter" type="radio" value="active"&gt; Активные&lt;/label&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Список задач --&gt;
+  &lt;ul&gt;
+
+    &lt;!--li - элемент списка задач
+    v-for="(task, idx) in filteredTasks" - перебор массива filteredTasks с доступом к элементу task и его индексу idx,
+    :key="task.id" - уникальный ключ для каждого элемента списка, важен для производительности,
+    :class="{ done: task.done }" - динамическое присвоение класса done если задача выполнена,
+    :style="{ opacity: task.done ? 0.6 : 1 }" - динамическое присвоение стиля прозрачности в зависимости от статуса задачи --&gt;
+    &lt;li
+      v-for="(task, idx) in filteredTasks"
+      :key="task.id"
+      :class="{ done: task.done }"
+      :style="{ opacity: task.done ? 0.6 : 1 }"
+    &gt;
+
+      &lt;!-- Индикатор срочности задачи,
+      v-if="task.urgent" - условное отображение если задача срочная,
+      v-show="filter!=='done'" - скрытие индикатора если выбран фильтр 'done' --&gt;
+      &lt;span v-if="task.urgent" style="color:red" v-show="filter!=='done'"&gt;🔥&lt;/span&gt;
+
+      &lt;!--  Номер задачи, {{ idx+1 }} - интерполяция индекса задачи +1 --&gt;
+      &lt;span&gt;{{ idx+1 }}.&lt;/span&gt;
+
+      &lt;!-- Текст задачи с возможностью переключения статуса
+      @click="toggle(idx)" - обработка события клика для вызова метода toggle с передачей индекса задачи idx,
+      style="cursor:pointer;" - изменение курсора при наведении на текст задачи --&gt;
+      &lt;span @click="toggle(idx)" style="cursor:pointer;"&gt;
+
+        &lt;!-- Индикатор статуса задачи,  v-if="task.done" - условное отображение если задача выполнена --&gt;
+        &lt;template v-if="task.done"&gt;(✓)&lt;/template&gt;
+
+        &lt;!--  Индикатор статуса задачи,  v-else - отображение если задача не выполнена --&gt;
+        &lt;template v-else&gt;(…)&lt;/template&gt;
+
+        &lt;!--  Текст задачи, {{ task.text }} - интерполяция текста задачи --&gt;
+        {{ task.text }}
+      &lt;/span&gt;
+
+      &lt;!-- Кнопка удаления задачи
+      @click="deleteTask(idx)" - обработка события клика для вызова метода deleteTask с передачей индекса задачи idx,
+      style="margin-left:10px;" - отступ слева для кнопки --&gt;
+      &lt;button @click="deleteTask(idx)" style="margin-left:10px;"&gt;Удалить&lt;/button&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;!-- Сообщение если нет задач для отображения --&gt;
+  &lt;p v-if="!filteredTasks.length" style="margin-top:8px;color:#888"&gt;
+    Нет задач для отображения
+  &lt;/p&gt;
+
+  &lt;!-- Отображение последнего действия пользователя --&gt;
+  &lt;p v-show="lastAction" style="font-size:13px;color:#aaa"&gt;
+    Последнее действие: {{ lastAction }}
+  &lt;/p&gt;
+
+&lt;/div&gt;
+&lt;!--  Конец шаблона приложения Vue.js --&gt;
+</code></pre>
+          </div>
+
+          <h4> Код приложения:</h4>
+          <div class="code-block">
+            <pre><code>
+&lt;script&gt;
+  const { createApp } = Vue;
+  createApp({
+    data() {
+      return {
+        title: 'Органайзер задач',
+        newTask: '',
+        placeholderText: 'Введите новую задачу',
+        filter: 'all',
+        lastAction: '',
+        tasks: [
+          { id: 1, text: 'Изучить Vue', done: false, urgent: true },
+          { id: 2, text: 'Выполнить задание', done: true, urgent: false }
+        ]
+      }
+    },
+    computed: {
+      filteredTasks() {
+        if (this.filter === 'done') return this.tasks.filter(t => t.done);
+        if (this.filter === 'active') return this.tasks.filter(t => !t.done);
+        return this.tasks;
+      }
+    },
+    watch: {
+      newTask(newValue) {
+        if (newValue && newValue.toLowerCase().includes('важно')) {
+          this.lastAction = 'Ключевое слово "важно" введено!';
+        }
+      },
+      filter(newF) {
+        this.lastAction = 'Изменён фильтр: ' + newF;
+      }
+    },
+    methods: {
+      addTask() {
+        if (!this.newTask.trim()) return;
+        this.tasks.push({
+          id: Date.now(),
+          text: this.newTask,
+          done: false,
+          urgent: /важн|🔥/i.test(this.newTask)
+        });
+        this.lastAction = 'Добавлена задача: ' + this.newTask;
+        this.newTask = '';
+      },
+      deleteTask(idx) {
+        this.lastAction = 'Удалена задача: ' + this.tasks[idx].text;
+        this.tasks.splice(idx, 1);
+      },
+      toggle(idx) {
+        this.tasks[idx].done = !this.tasks[idx].done;
+        this.lastAction = `Статус "${this.tasks[idx].text}" изменён`;
+      }
+    }
+  }).mount('#app-fullest');
+&lt;/script&gt;
+</code></pre>
+          </div>
+
+          <h3>Пояснение:</h3>
+          <h4>Заголовок</h4>
+          <pre><code>&lt;!--  Заголовок приложения, где  {{ title }}  - интерполяция данных --&gt;
+  &lt;h3&gt;{{ title }}&lt;/h3&gt;</code></pre>
+
+
+          <ul class="list-ul">
+            <li><b> Заголовок: </b><code>{{ title }}</code> - храниться в <code>data()</code> и отображается в шаблоне.</li>
+          </ul>
+
+          <h4>Текстовое поле ввода</h4>
+          <pre><code>&lt;!-- Текстовое поле ввода input
+  v-model="newTask" - двухсторонняя привязка данных к переменной newTask,
+  @keyup.enter="addTask" - обработка события нажатия Enter для вызова метода addTask,
+  :placeholder="placeholderText" - динамическое связывание атрибута placeholder с переменной placeholderText --&gt;
+  &lt;input
+    v-model="newTask"
+    @keyup.enter="addTask"
+    :placeholder="placeholderText"
+  &gt;</code></pre>
+
+          <ul class="list-ul">
+            <li><b>input</b> - поле ввода для добавления новой задачи.</li>
+            <li><b>newTask</b> - переменная для хранения текста новой задачи, связана с полем ввода через <code>v-model</code>. <br>
+              Мы вводим текст задачи в поле ввода, и он автоматически сохраняется в <code>newTask</code> и отображается в шаблоне при нажатии кнопки "Добавить" или клавиши Enter.</li>
+            <li><b>newTask: '',</b> - инициализация переменной для хранения текста новой задачи.</li>
+            <li> <b>addTask()</b> - метод для добавления новой задачи в массив <code>tasks</code> при нажатии кнопки или Enter.</li>
+            <li> <b>@keyup.enter="addTask"</b> - обработка события нажатия клавиши Enter для вызова метода <code>addTask()</code>.</li>
+            <li><b>placeholderText</b> - переменная для динамического текста подсказки в поле ввода.</li>
+          </ul>
+
+          <h4>Кнопка для добавления задачи</h4>
+          <pre><code>&lt;!-- Кнопка button для добавления задачи
+  @click="addTask" - обработка события клика для вызова метода addTask,
+  :disabled="!newTask" - динамическое связывание атрибута disabled, кнопка отключена если newTask пустая,
+  :style="{...}" - динамическое связывание стилей кнопки --&gt;
+  &lt;button
+    @click="addTask"
+    :disabled="!newTask"
+    :style="{ background: newTask ? '#5e81f4' : '#ccc', color: '#fff', transition: '0.2s' }"
+  &gt;
+  Добавить
+  &lt;/button&gt;</code></pre>
+          <ul class="list-ul">
+            <li><b>button</b> - кнопка для добавления новой задачи, при нажатии вызывается метод <code>addTask()</code>.</li>
+            <li><b>:disabled="!newTask"</b> - кнопка отключена, если поле ввода пустое.</li>
+            <li><b>:style="{ ... }"</b> - динамическое изменение стиля кнопки в зависимости от наличия текста в поле ввода.</li>
+          </ul>
+
+          <h4>Список задач</h4>
+          <pre><code>&lt;!-- Список задач --&gt;
+  &lt;ul&gt;
+    &lt;!--li - элемент списка задач
+    v-for="(task, idx) in filteredTasks" - перебор массива filteredTasks с доступом к элементу task и его индексу idx,
+    :key="task.id" - уникальный ключ для каждого элемента списка, важен для производительности,
+    :class="{ done: task.done }" - динамическое присвоение класса done если задача выполнена,
+    :style="{ opacity: task.done ? 0.6 : 1 }" - динамическое присвоение стиля прозрачности в зависимости от статуса задачи --&gt;
+    &lt;li
+      v-for="(task, idx) in filteredTasks"
+      :key="task.id"
+      :class="{ done: task.done }"
+      :style="{ opacity: task.done ? 0.6 : 1 }"
+    &gt;
+      &lt;!-- Индикатор срочности задачи,
+      v-if="task.urgent" - условное отображение если задача срочная,
+      v-show="filter!=='done'" - скрытие индикатора если выбран фильтр 'done' --&gt;
+      &lt;span v-if="task.urgent" style="color:red" v-show="filter!=='done'"&gt;🔥&lt;/span&gt;
+      &lt;!--  Номер задачи, {{ idx+1 }} - интерполяция индекса задачи +1 --&gt;
+      &lt;span&gt;{{ idx+1 }}.&lt;/span&gt;
+      &lt;!-- Текст задачи с возможностью переключения статуса
+      @click="toggle(idx)" - обработка события клика для вызова метода toggle с передачей индекса задачи idx,
+      style="cursor:pointer;" - изменение курсора при наведении на текст задачи --&gt;
+      &lt;span @click="toggle(idx)" style="cursor:pointer;"&gt;
+        &lt;!-- Индикатор статуса задачи,  v-if="task.done" - условное отображение если задача выполнена --&gt;
+        &lt;template v-if="task.done"&gt;(✓)&lt;/template&gt;
+        &lt;!--  Индикатор статуса задачи,  v-else - отображение если задача не выполнена --&gt;
+        &lt;template v-else&gt;(…)&lt;/template&gt;
+        &lt;!--  Текст задачи, {{ task.text }} - интерполяция текста задачи --&gt;
+        {{ task.text }}
+      &lt;/span&gt;
+      &lt;!-- Кнопка удаления задачи
+      @click="deleteTask(idx)" - обработка события клика для вызова метода deleteTask с передачей индекса задачи idx,
+      style="margin-left:10px;" - отступ слева для кнопки --&gt;
+      &lt;button @click="deleteTask(idx)" style="margin-left:10px;"&gt;Удалить&lt;/button&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;</code></pre>
+          <ul class="list-ul">
+            <li><b>v-for="(task, idx) in filteredTasks"</b> - перебор массива задач <code>filteredTasks</code> для отображения каждой задачи в списке.</li>
+            <li><b>filteredTasks</b> - вычисляемое свойство, которое возвращает отфильтрованный список задач в зависимости от выбранного фильтра (все, выполненные, активные). </li>
+            <li><b>:key="task.id"</b> - уникальный ключ для каждого элемента списка, важен для производительности при обновлении списка.</li>
+            <li><b>:class="{ done: task.done }"</b> - динамическое присвоение класса <code>done</code> элементу списка, если задача выполнена.</li>
+            <li><b>:style="{ opacity: task.done ? 0.6 : 1 }"</b> - динамическое изменение прозрачности элемента списка в зависимости от статуса задачи.</li>
+            <li><b>v-if="task.urgent"</b> - условное отображение индикатора срочности задачи, если задача помечена как срочная.</li>
+            <li><b>@click="toggle(idx)"</b> - обработка события клика по тексту задачи для вызова метода <code>toggle()</code>, который переключает статус задачи между выполненной и активной.</li>
+            <li><b>@click="deleteTask(idx)"</b> - обработка события клика по кнопке "Удалить" для вызова метода <code>deleteTask()</code>, который удаляет задачу из списка.</li>
+          </ul>
+
+        </div>
+      </section>
+
+    </main>
+    @@include('../partials/footer.html', {})
+    @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', {"title": "JSON Server – быстрый фейковый API для практики и тестирования", "description": "Узнай, как развернуть фейковое API с помощью JSON Server, создать файл db.json, выполнять запросы и тестировать свои фронтенд-проекты без настоящего бэкенда!"})
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="#intro">Введение</a>
+        <a href="#how-it-works">Как работает JSON Server?</a>
+        <a href="#install-setup">Установка и настройка JSON Server</a>
+        <a href="#example">Пример работы с db.json и запуском</a>
+        <a href="#get-request">Основной GET-запрос</a>
+
+      </nav>
+
+      <!-- Введение -->
+      <section id="intro" class="section">
+        <div class="container">
+          <h1>🛠 JSON Server – быстрый фейковый API для практики и тестирования</h1>
+          <p class="note"><strong>JSON Server</strong> — это <b>npm-пакет</b>, который позволяет быстро создать фейковое REST API на основе JSON-файла. Это отличный инструмент для фронтенд-разработчиков, которые хотят тестировать и отлаживать свои приложения без необходимости разворачивать полноценный бэкенд.
+
+            <br> <b>REST API</b> - это способ взаимодействия между клиентом и сервером через стандартные HTTP-запросы (GET, POST, PUT, DELETE и т.д.). <br><b>JSON-файл</b> - это текстовый файл, в котором данные хранятся в формате JSON (JavaScript Object Notation) — удобном для обмена данными между клиентом и сервером.
+            <br><b>npm-пакет</b> - это библиотека или инструмент, который можно установить через менеджер пакетов npm (Node Package Manager) для использования в своих проектах на JavaScript.
+          </p>
+
+          <h4>Что JSON Server представляет собой и зачем он нужен?</h4>
+          <ul class="list-ul">
+            <li>Это инструмент для быстрого создания фейкового REST API на основе JSON-файла.</li>
+            <li>Позволяет фронтенд-разработчикам тестировать и отлаживать приложения без необходимости разворачивать полноценный бэкенд.</li>
+            <li>Поддерживает стандартные HTTP-методы: GET, POST, PUT, DELETE и другие.</li>
+            <li>Идеален для прототипирования, обучения и разработки фронтенд-приложений.</li>
+          </ul>
+
+
+          <!-- Вывод: -->
+          <p class="note note--info">🚀 <strong>
+              С JSON Server ты сможешь быстро настроить тестовую среду для своих фронтенд-проектов и сосредоточиться на разработке без лишних сложностей!</strong>
+          </p>
+
+        </div>
+      </section>
+
+
+
+      <!-- Как работает JSON Server? -->
+      <section id="how-it-works" class="section">
+        <div class="container">
+          <h2>⚡ Как работает JSON Server?</h2>
+
+          <p class="note">
+            <strong>Принцип работы JSON Server очень прост:</strong> ты создаёшь JSON-файл с данными, запускаешь сервер, и он автоматически предоставляет REST API для этих данных.
+          </p>
+
+          <h4>Основные шаги работы с JSON Server:</h4>
+          <ul class="list-ul">
+            <li><b>Создание JSON-файла:</b> Ты создаёшь файл <code>db.json</code>, в котором определяешь свои данные в формате JSON. Например, можно создать коллекции пользователей, постов и комментариев.</li>
+            <li><b>Запуск сервера:</b> С помощью команды <code>json-server --watch db.json</code> ты запускаешь сервер, который начинает слушать HTTP-запросы на определённом порту (по умолчанию это <code>http://localhost:3000</code>).</li>
+            <li><b>Взаимодействие с API:</b> Теперь ты можешь отправлять HTTP-запросы (GET, POST, PUT, DELETE и т.д.) к серверу, чтобы получать, добавлять, обновлять или удалять данные из твоего JSON-файла.</li>
+          </ul>
+          <h4>Пример:</h4>
+          <p>Если в твоём <code>db.json</code> есть коллекция пользователей, ты можешь получить список всех пользователей с помощью GET-запроса к <code>http://localhost:3000/users</code>.</p>
+
+
+
+          <p class="note note--info">
+            🔥 <strong>JSON Server автоматически обрабатывает запросы и обновляет твой JSON-файл, что делает его идеальным инструментом для быстрого прототипирования и тестирования фронтенд-приложений!</strong>
+          </p>
+
+        </div>
+      </section>
+
+
+      <!-- Установка и настройка JSON Server -->
+      <section id="install-setup" class="section">
+        <div class="container">
+          <h2>📌 Как установить и настроить JSON Server?</h2>
+          <p>Чтобы начать использовать JSON Server, следуй этим простым шагам:</p>
+
+
+          <h4>1. Установи JSON Server глобально через npm:</h4>
+          <p>Открой терминал и выполни команду:</p>
+          <div class="code-block">
+            <pre><code class="language-bash">npm install -g json-server</code></pre>
+          </div>
+
+          <h4>2. Создай файл <code>db.json</code> с нужными данными:</h4>
+          <p>Вот пример простого <code>db.json</code>:</p>
+          <div class="code-block">
+            <pre><code class="language-json">{
+  "posts": [
+    { "id": 1, "title": "Hello World", "author": "John" }
+  ],
+  "users": [
+    { "id": 1, "name": "Alice" }
+  ]
+}</code></pre>
+          </div>
+
+          <h4>3. Запусти JSON Server с помощью команды:</h4>
+          <p>В терминале, в той же папке, где находится <code>db.json</code>, выполни:</p>
+          <div class="code-block">
+            <pre><code class="language-bash">json-server --watch db.json</code></pre>
+          </div>
+
+          <h4>4. Сервер по умолчанию работает на <code>http://localhost:3000</code>.</h4>
+          <p>Теперь ты можешь отправлять HTTP-запросы к своему фейковому API!</p>
+
+        </div>
+      </section>
+
+      <!-- Пример работы с db.json и запуском -->
+      <section id="example" class="section">
+        <div class="container">
+          <h2>📝 Пример db.json и запуск сервера</h2>
+          <p class="note">
+            Давай рассмотрим простой пример создания файла <code>db.json</code> и запуска JSON Server.
+          </p>
+
+
+          <h4>Создай файл <code>db.json</code> с таким содержимым:</h4>
+          <div class="code-block">
+            <pre><code>{
+  "users": [
+    { "id": 1, "name": "Alice", "age": 25 },
+    { "id": 2, "name": "Bob", "age": 30 }
+  ]
+}</code></pre>
+          </div>
+
+          <h4>Запусти JSON Server с помощью следующей команды:</h4>
+          <div class="code-block">
+            <pre><code>npx json-server --watch db.json --port 5000</code></pre>
+          </div>
+          <p class="note">Теперь твой сервер работает по адресу <code>http://localhost:5000</code>!</p>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>В файле <code>db.json</code> мы создали коллекцию <code>users</code> с двумя пользователями, каждый из которых имеет <code>id</code>, <code>name</code> и <code>age</code>.</li>
+            <li>Команда <code>npx json-server --watch db.json --port 5000</code> запускает JSON Server, который следит за изменениями в файле <code>db.json</code> и обслуживает запросы на порту 5000.</li>
+          </ul>
+
+
+        </div>
+      </section>
+
+      <!-- Основной GET-запрос -->
+      <section id="get-request" class="section">
+        <div class="container">
+          <h2>🔥 GET-запрос: получение данных от JSON Server</h2>
+          <p class="note"><strong>Получение данных от JSON Server</strong> — для этого мы используем метод <code>fetch</code> в JavaScript и отправляем GET-запрос к нужному эндпоинту (например, <code>/users</code>).</p>
+          <h4>Пример GET-запроса:</h4>
+          <p>Проверим работу сервера простым <b>GET-запросом</b>. Запросим список пользователей:</p>
+
+          <div class="code-block">
+            <pre><code class="language-js">fetch('http://localhost:5000/users', {
+  method: "GET"
+})
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Ошибка:', error));
+</code></pre>
+          </div>
+          <p>db.json:</p>
+          <div class="code-block">
+            <pre><code>{
+  "users": [
+    { "id": 1, "name": "Alice", "age": 25 },
+    { "id": 2, "name": "Bob", "age": 30 }
+  ]
+}</code></pre>
+          </div>
+
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>С помощью <code>fetch</code> отправляем запрос к <code>/users</code> (смотри на адрес!)</li>
+            <li>Первый <code>then</code> переводит ответ из JSON-строки в объект</li>
+            <li>Второй <code>then</code> выводит результат в консоль</li>
+            <li><code>catch</code> ловит и выводит ошибку, если что-то пошло не так</li>
+          </ul>
+          <!-- Вывод: -->
+          <p class="note note--info">🚀<strong>Можно так же обращаться к <code>/posts</code> или любым другим коллекциям, что указаны в <code>db.json</code>.</strong></p>
+        </div>
+      </section>
+
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
+</html>

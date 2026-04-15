@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "Vuex-модули: структурное хранение данных и работа с разделённым store", "description": "Изучаем, зачем нужны Vuex-модули, как их создавать и подключать, получать/обновлять данные из разных частей хранилища. Улучшаем архитектуру крупного приложения Vue!" })
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="#intro">Введение</a>
+        <a href="#structure">Структура store</a>
+        <a href="#module-create">Создание модуля</a>
+        <a href="#module-import">Импорт и подключение</a>
+        <a href="#access-data">Доступ к данным модулей</a>
+        <a href="#mutations-actions">Mutations и Actions в модулях</a>
+        <a href="#comparison">Сравнение</a>
+        <a href="#faq">Вопросы/Ошибки</a>
+      </nav>
+
+      <!-- Введение -->
+      <section id="intro" class="section">
+        <div class="container">
+          <h1>Vuex-модули: структура, использование и преимущества</h1>
+          <p class="note">
+            <b>Vuex-модули</b> — это способ структурировать хранилище состояния в крупном приложении Vue, разбивая store на независимые секции: <b>user</b>, <b>cart</b>, <b>settings</b> и др. Так ты избегашь хаоса и обеспечиваешь лёгкую поддержку кода!
+          </p>
+          <h4>Что мы изучим?</h4>
+          <ul class="list-ul">
+            <li>Как разделять <b>state</b>, <b>getters</b>, <b>mutations</b> и <b>actions</b> по модулям</li>
+            <li>Как импортировать и подключать модули в <b>store.js</b></li>
+            <li>Как правильно получать и обновлять данные из разных модулей в компонентах</li>
+          </ul>
+          <p>✅ Модули — ключ к устранению беспорядка в store!</p>
+        </div>
+      </section>
+
+      <!-- Структура store -->
+      <section id="structure" class="section">
+        <div class="container">
+          <h2>📦 Проблема большого store и решение через модули</h2>
+          <p>Когда <b>всё лежит в одном store.js</b>, появляются сложности в поддержке и развитии приложения.</p>
+          <p>❌ Всё в одном месте (данные пользователя, корзина покупок, настройки темы.) → хаос и ошибки!</p>
+          <p>Например:</p>
+          <pre><code >const store = createStore({
+  state: {
+    user: { name: "Алексей", isAdmin: true },
+    cart: [{ id: 1, name: "Ноутбук", price: 1000 }],
+    theme: "dark"
+  },
+  mutations: {
+    setUser(state, user) { state.user = user; },
+    addToCart(state, item) { state.cart.push(item); },
+    changeTheme(state, theme) { state.theme = theme; }
+  }
+});
+</code></pre>
+
+          <p>✅ <b>Решение:</b> разбиваем store на модули.</p>
+          <pre><code class="language-text">📂 store
+ ├── 📂 modules
+ │    ├── user.js
+ │    ├── cart.js
+ │    ├── settings.js
+ ├── store.js
+</code></pre>
+          <p>Теперь каждый раздел — отдельный модуль!</p>
+        </div>
+      </section>
+
+      <!-- Создание модуля -->
+      <section id="module-create" class="section">
+        <div class="container">
+          <h2>🚀 Как создать модуль Vuex?</h2>
+
+          <p class="note">Чтобы создать модуль, нужно определить его <code>state</code>, <code>mutations</code> и <code>actions</code> в отдельном файле. Создаем файл <code>store/modules/user.js</code>:</p>
+
+          <p>Пример: <b>user.js</b>.</p>
+          <pre><code >// store/modules/user.js
+export default {
+  state: { user: { name: "Алексей" } },
+  mutations: {
+    setUserName(state, newName) {
+      state.user.name = newName;
+    }
+  },
+  actions: {
+    asyncChangeUserName({ commit }, newName) {
+      setTimeout(() => { commit("setUserName", newName); }, 2000);
+    }
+  }
+}
+</code></pre>
+          <h4>Пояснение: </h4>
+          <ul class="list-ul">
+            <li><b>state:</b> хранит данные пользователя.</li>
+            <li><b>mutations:</b> синхронно изменяют имя пользователя.</li>
+            <li><b>actions:</b> асинхронно меняют имя с задержкой.</li>
+          </ul>
+
+
+        </div>
+      </section>
+
+      <!-- Импорт и подключение -->
+      <section id="module-import" class="section">
+        <div class="container">
+          <h2>📥 Как импортировать и подключить модуль в store.js?</h2>
+          <ol>
+            <li>Импортируем модуль:
+              <pre><code >import userModule from "./modules/user";</code></pre>
+            </li>
+            <li>Добавляем его в объект <code>modules</code>:
+              <pre><code >const store = createStore({
+  modules: {
+    user: userModule // Теперь доступен как store.state.user
+  }
+});
+</code></pre>
+            </li>
+          </ol>
+          <p>Теперь 👤-данные доступны через <code>store.state.user</code>.</p>
+        </div>
+      </section>
+
+      <!-- Получение данных из модулей -->
+      <section id="access-data" class="section">
+        <div class="container">
+          <h2>🔎 Получение данных из модулей в компонентах</h2>
+          <p>
+            <b>В обычном store:</b>
+          </p>
+          <pre><code >computed: {
+  count() {
+    return this.$store.state.count;
+  }
+}</code></pre>
+          <p>
+            <b>В модульном store:</b>
+          </p>
+          <pre><code >computed: {
+  userName() {
+    return this.$store.state.user.user.name; // 📦 теперь данные из модуля
+  }
+}</code></pre>
+          <ul class="list-ul">
+            <li>В <b>state</b> модулей обращаемся через <b>название модуля</b> (<code>user</code>, <code>cart</code>)</li>
+            <li>Для хелперов типа <b>mapState</b> первым параметром передаём строку — имя модуля:
+              <pre><code >import { mapState } from "vuex";
+computed: {
+  ...mapState("cart", ["items"])
+}</code></pre>
+            </li>
+            <li>Без указания модуля данные ищутся в основном state!</li>
+          </ul>
+          <p><b>Пример:</b></p>
+          <pre><code >// Получить массив товаров из модуля cart
+this.$store.state.cart.items
+</code></pre>
+        </div>
+      </section>
+
+      <!-- Mutations и Actions -->
+      <section id="mutations-actions" class="section">
+        <div class="container">
+          <h2>🔄 Обновление данных: Mutations и Actions в модулях</h2>
+          <h4>✏️ Mutations (синхронно)</h4>
+          <ul>
+            <li>Меняют <b>state</b> мгновенно</li>
+            <li>Вызываются <code>commit()</code></li>
+          </ul>
+          <pre><code >const userModule = {
+  state: { user: { name: "Алексей" } },
+  mutations: {
+    setUserName(state, newName) {
+      state.user.name = newName;
+    }
+  }
+}
+// В компоненте:
+this.$store.commit("setUserName", "Иван")
+</code></pre>
+          <h4>⏳ Actions (асинхронные задачи)</h4>
+          <ul>
+            <li>Для задержек, API-запросов и пр.</li>
+            <li>Вызываются <code>dispatch()</code> и в итоге <code>commit()</code></li>
+          </ul>
+          <pre><code >const userModule = {
+  state: { user: { name: "Алексей" } },
+  mutations: {
+    setUserName(state, newName) {
+      state.user.name = newName;
+    }
+  },
+  actions: {
+    asyncChangeUserName({ commit }, newName) {
+      setTimeout(() => {
+        commit("setUserName", newName);
+      }, 2000);
+    }
+  }
+}
+// В компоненте:
+this.$store.dispatch("asyncChangeUserName", "Иван")
+</code></pre>
+        </div>
+      </section>
+
+      <!-- Сравнительная таблица -->
+      <section id="comparison" class="section">
+        <div class="container">
+          <h2>Сравнение mutations и actions</h2>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Способ</th>
+                <th>Как вызываем?</th>
+                <th>Когда использовать?</th>
+                <th>Меняет state?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>mutations (Мгновенно)</td>
+                <td>commit("mutationName")</td>
+                <td>При моментальном изменении</td>
+                <td>Да, сразу</td>
+              </tr>
+              <tr>
+                <td>actions (C задержками)</td>
+                <td>dispatch("actionName")</td>
+                <td>Ожидания, запросы, таймеры</td>
+                <td>Нет, только через mutations</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- FAQ/Ошибки -->
+      <section id="faq" class="section">
+        <div class="container">
+          <h2>FAQ / Ошибки</h2>
+          <ul>
+            <li>
+              <b>В: Где обычно размещать модули?</b><br>
+              О: В папке <code>store/modules/</code>.
+            </li>
+            <li>
+              <b>В: Как получить данные из модуля?</b><br>
+              О: Через <code>this.$store.state.moduleName.property</code>.
+            </li>
+            <li>
+              <b>В: Как вызвать mutation из модуля?</b><br>
+              О: <code>this.$store.commit("mutationName", payload)</code>
+            </li>
+            <li>
+              <b>В: Как вызвать action из модуля?</b><br>
+              О: <code>this.$store.dispatch("actionName", payload)</code>
+            </li>
+            <li>
+              <b>В: Когда использовать actions, а когда mutations?</b><br>
+              О: Actions — для задержек, запросов; mutations — для быстрой смены состояния.
+            </li>
+          </ul>
+          <h4>Упражнение</h4>
+          <p>📌 Если нужно сразу изменить <b>state</b>, вызываем <b>commit()</b>, <br>
+            а если требуется задержка или запрос к серверу — используем <b>dispatch()</b> и затем <b>commit()</b>.<br>
+            <i>Заполни аналогично остальные модули в твоём приложении!</i>
+          </p>
+        </div>
+      </section>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
+</html>

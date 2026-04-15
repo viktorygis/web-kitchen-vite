@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../partials/head.html', { "title": "Стрелочные функции в JavaScript", "description": "Краткий синтаксис, основы стрелочных функций" })
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+
+            <main class="page">
+                <!-- Локальное меню -->
+                <nav class="nav-tabs" id="page-nav" style="max-width: max-content">
+                    <ul>
+                        <li><a href="#intro">Введение</a></li>
+                        <li><a href="#basic">Основы</a></li>
+                        <li><a href="#single-arg">Один аргумент</a></li>
+                        <li><a href="#no-args">Без аргументов</a></li>
+                        <li><a href="#dynamic">Динамическое создание</a></li>
+                        <li><a href="#multiline">Многострочные стрелочные функции</a></li>
+                        <li><a href="#practice">Практика</a></li>
+                        <li><a href="#summary">Итого</a></li>
+                    </ul>
+                </nav>
+
+                <section class="section" id="intro" class="topic-section">
+                    <div class="container">
+                        <h1>Стрелочные функции, основы</h1>
+                        <p class="note">
+                            Стрелочные функции — компактный современный синтаксис для создания функций.
+                            <br />
+                            Они особенно удобны для коротких действий и колбэков.
+                        </p>
+                        <div class="note-block">
+                            <ul class="list-ul">
+                                <li>
+                                    Стрелочная функция:
+                                    <code>(аргументы) =&gt; выражение</code>
+                                </li>
+                                <li>
+                                    Является сокращением для
+                                    <code>function</code>
+                                    -выражения
+                                </li>
+                                <li>Часто используется для простых однострочных функций</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            @@include('../partials/footer.html', {})
+        </div>
+
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+
+        <script>
+            "use strict";
+            /*    function ask(question, yes, no) {
+                if (confirm(question)) yes();
+                else no();
+            }
+
+            ask(
+                "Вы согласны?",
+                function () {
+                    alert("Вы согласились.");
+                },
+                function () {
+                    alert("Вы отменили выполнение.");
+                }
+            ); */
+
+            let ask = (question, yes, no) => {
+                if (confirm(question)) yes();
+                else no();
+            };
+            ask(
+                "Вы согласны?",
+                () => {
+                    alert("Вы согласились.");
+                },
+                () => {
+                    alert("Вы отменили выполнение.");
+                }
+            );
+        </script>
+    </body>
+</html>

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../partials/head.html', { "title": "Компоненты React", "description": "Понятие компонент в React, виды, создание, лучшие практики и примеры компонентов." })
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#intro">Введение</a>
+                    <a href="#types">Виды компонентов</a>
+                    <a href="#create">Создание компонента</a>
+                    <a href="#composing">Композиция</a>
+                    <a href="#practice">Практика</a>
+                    <a href="#tips">Советы</a>
+                    <a href="#best-practices">Лучшие практики</a>
+                    <a href="#examples">Примеры</a>
+                </nav>
+
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>Компоненты в React</h1>
+                        <p class="note">
+                            <b>Компонент</b>
+                            — основная строительная единица React.
+                            <br />
+                            Это функция (или класс), возвращающая JSX.
+                            <br />
+                            Всё приложение состоит из компонентов!
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section" id="types">
+                    <div class="container">
+                        <h2>Виды компонентов</h2>
+                        <h3>Компоненты делятся на 2 группы по синтаксису</h3>
+                        <ul class="list-ul">
+                            <li>
+                                <b>Функциональный компонент</b>
+                                — обычная функция JS.
+                                <span style="color: #5cb85c">(Рекомендуется)</span>
+                            </li>
+                            <li>
+                                <b>Классовый компонент</b>
+                                — class extends React.Component
+                                <span style="color: #d9534f">(Устарело)</span>
+                            </li>
+                        </ul>
+                        <div>
+                            <h4>Пример: Функциональный компонент</h4>
+                            <div class="demo-box" id="hello-func-demo"></div>
+                            <pre><code>
+function HelloFunc() {
+  return &lt;h1&gt;Привет! (Функция)&lt;/h1&gt;;
+}
+</code></pre>
+                        </div>
+                        <div>
+                            <h4>Пример: Классовый компонент</h4>
+                            <div class="demo-box" id="hello-class-demo"></div>
+                            <pre><code>
+class HelloClass extends React.Component {
+  render() {
+    return &lt;h1&gt;Привет! (Класс)&lt;/h1&gt;;
+  }
+}
+</code></pre>
+                        </div>
+
+                        <h3>По роли в приложении</h3>
+                        <ul class="list-ul">
+                            <li>
+                                <b>Контейнеры (умные, Smart/Container Components)</b>
+                                — отвечают за логику, работу с данными, состояние, могут подключаться к API или store.
+                                <br />
+                                <i>Пример: компонент, который делает fetch данных и передает их вниз.</i>
+                            </li>
+                            <li>
+                                <b>Презентационные (глупые, Dumb/Presentational Components)</b>
+                                — отвечают только за отображение, получают данные через props.
+                                <br />
+                                <i>Пример: компонент Button, который просто отображает кнопку.</i>
+                            </li>
+                        </ul>
+                        <div>
+                            <h4>Контейнер:</h4>
+                            <div class="demo-box" id="users-container-demo"></div>
+                            <pre><code>
+function UsersContainer() {
+  const [users, setUsers] = React.useState([]);
+  React.useEffect(() =&gt; {
+    fetch("https://reqres.in/api/users?per_page=2")
+      .then(r =&gt; r.json())
+      .then(json =&gt; setUsers(json.data));
+  }, []);
+  return &lt;UserList users={users} /&gt;;
+}
+function UserList({ users }) {
+  return &lt;ul&gt;{users.map(u =&gt; &lt;li key={u.id}&gt;{u.first_name}&lt;/li&gt;)}&lt;/ul&gt;;
+}
+</code></pre>
+                        </div>
+                        <div>
+                            <h4>Презентационный:</h4>
+                            <div class="demo-box" id="button-demo"></div>
+                            <pre><code>
+function Button({children, onClick}) {
+  return &lt;button onClick={onClick}&gt;{children}&lt;/button&gt;;
+}
+</code></pre>
+                        </div>
+
+                        <h3>По уровню абстракции</h3>
+                        <ul class="list-ul">
+                            <li>
+                                <b>Высокоуровневые</b>
+                                — крупные блоки (Layout, Page, App, Form).
+                            </li>
+                            <li>
+                                <b>Низкоуровневые</b>
+                                — маленькие переиспользуемые кирпичики (Button, Input, Icon).
+                            </li>
+                        </ul>
+                        <div>
+                            <h4>Высокоуровневый:</h4>
+                            <div class="demo-box" id="page-demo"></div>
+                            <pre><code>
+function Page() {
+  return (
+    &lt;div&gt;
+      &lt;Header /&gt;
+      &lt;Main /&gt;
+      &lt;Footer /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+                        </div>
+                        <div>
+                            <h4>Низкоуровневый:</h4>
+                            <div class="demo-box" id="icon-demo"></div>
+                            <pre><code>
+function Icon() {
+  return &lt;span role="img" aria-label="star"&gt;⭐&lt;/span&gt;;
+}
+</code></pre>
+                        </div>
+
+                        <h3>По переиспользованию</h3>
+                        <ul class="list-ul">
+                            <li>
+                                <b>Переиспользуемые</b>
+                                — универсальные элементы (Modal, Dropdown, Card, Loader).
+                            </li>
+                            <li>
+                                <b>Специализированные</b>
+                                — используются только в одном месте (например, форма регистрации).
+                            </li>
+                        </ul>
+                        <div>
+                            <h4>Переиспользуемый:</h4>
+                            <div class="demo-box" id="modal-demo"></div>
+                            <pre><code>
+function Modal({ open, children }) {
+  if (!open) return null;
+  return &lt;div className="modal"&gt;{children}&lt;/div&gt;;
+}
+</code></pre>
+                        </div>
+                        <div>
+                            <h4>Специализированный:</h4>
+                            <div class="demo-box" id="register-form-demo"></div>
+                            <pre><code>
+function RegisterForm() {
+  // ... только для регистрации
+  return &lt;form&gt;...&lt;/form&gt;;
+}
+</code></pre>
+                        </div>
+
+                        <h3>По способу управления состоянием</h3>
+                        <ul class="list-ul">
+                            <li>
+                                <b>Контролируемые (Controlled)</b>
+                                — состояние передается через props, обычно для form-элементов.
+                            </li>
+                            <li>
+                                <b>Неконтролируемые (Uncontrolled)</b>
+                                — состояние внутри DOM (через ref).
+                            </li>
+                        </ul>
+                        <div>
+                            <h4>Контролируемый:</h4>
+                            <div class="demo-box" id="controlled-input-demo"></div>
+                            <pre><code>
+function ControlledInput() {
+  const [val, setVal] = React.useState("");
+  return &lt;input value={val} onChange={e =&gt; setVal(e.target.value)} /&gt;;
+}
+</code></pre>
+                        </div>
+                        <div>
+                            <h4>Неконтролируемый:</h4>
+                            <div class="demo-box" id="uncontrolled-input-demo"></div>
+                            <pre><code>
+function UncontrolledInput() {
+  const ref = React.useRef();
+  return (
+    &lt;React.Fragment&gt;
+      &lt;input ref={ref} /&gt;
+      &lt;button onClick={() =&gt; alert(ref.current.value)}&gt;Показать значение&lt;/button&gt;
+    &lt;/React.Fragment&gt;
+  );
+}
+</code></pre>
+                        </div>
+                        <h3>Другие классификации</h3>
+                        <ul class="list-ul">
+                            <li>
+                                <b>Pure Components</b>
+                                — оптимизированы, не рендерятся без необходимости (React.memo, PureComponent).
+                            </li>
+                            <li>
+                                <b>HOC (Higher-Order Components)</b>
+                                — функции, которые принимают компонент и возвращают новый (например, withRouter).
+                            </li>
+                            <li>
+                                <b>Render Props</b>
+                                — компоненты, принимающие функцию как child (например,
+                                <code>&lt;Mouse&gt;{fn}</code>
+                                ).
+                            </li>
+                            <li>
+                                <b>Hooks-based</b>
+                                — используют хуки (почти все современные функциональные компоненты).
+                            </li>
+                        </ul>
+                        <div class="note note--info">
+                            Любой компонент может относиться сразу к нескольким категориям!
+                            <br />
+                            <b>Функциональный презентационный контролируемый компонент</b>
+                            — обычная практика.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="create">
+                    <div class="container">
+                        <h2>Создание компонента</h2>
+                        <div>
+                            <div class="demo-box" id="welcome-demo"></div>
+                            <pre><code>
+function Welcome(props) {
+  return &lt;h2&gt;Добро пожаловать, {props.name}!&lt;/h2&gt;;
+}
+</code></pre>
+                        </div>
+                        <div class="note note--info">Имя компонента — всегда с большой буквы!</div>
+                    </div>
+                </section>
+
+                <section class="section" id="composing">
+                    <div class="container">
+                        <h2>Композиция компонентов</h2>
+                        <div>
+                            <div class="demo-box" id="composition-demo"></div>
+                            <pre><code>
+function App() {
+  return (
+    &lt;div&gt;
+      &lt;Header /&gt;
+      &lt;Content /&gt;
+      &lt;Footer /&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+                        </div>
+                        <div class="note note--info">Можно вкладывать компоненты друг в друга — это и есть композиция.</div>
+                    </div>
+                </section>
+
+                <section class="section" id="practice">
+                    <div class="container">
+                        <h2>Практика: свой компонент</h2>
+                        <div>
+                            <div class="demo-box" id="card-demo"></div>
+                            <pre><code>
+function Card(props) {
+  return &lt;div style={{border:"1px solid #ccc", padding:10}}&gt;
+    &lt;h3&gt;{props.title}&lt;/h3&gt;
+    &lt;div&gt;{props.children}&lt;/div&gt;
+  &lt;/div&gt;;
+}
+function App() {
+  return &lt;Card title="Заголовок"&gt;Контент внутри карточки!&lt;/Card&gt;;
+}
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="tips">
+                    <div class="container">
+                        <h2>Советы и типичные ошибки</h2>
+                        <ul class="list-ul">
+                            <li>Всегда называйте компоненты с большой буквы.</li>
+                            <li>Один компонент — одна задача.</li>
+                            <li>Используйте props для передачи данных.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="best-practices">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+                        <ul class="list-ul">
+                            <li>Делите приложение на маленькие переиспользуемые компоненты.</li>
+                            <li>Не пишите логику вне компонента, если она зависит от props/state.</li>
+                            <li>Документируйте интерфейс компонента.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="examples">
+                    <div class="container">
+                        <h2>Примеры компонентов</h2>
+                        <h4>Счетчик как компонент</h4>
+                        <div>
+                            <div class="demo-box" id="counter-demo"></div>
+                            <pre><code>
+function Counter() {
+  const [n, setN] = React.useState(0);
+  return &lt;button onClick={() =&gt; setN(n+1)}&gt;{n}&lt;/button&gt;;
+}
+</code></pre>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            @@include('../partials/footer.html', {})
+        </div>
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+        <script type="text/babel">
+            // Функциональный компонент Hello
+            function HelloFunc() {
+                return <h1>Привет! (Функция)</h1>;
+            }
+            if (document.getElementById("hello-func-demo")) {
+                ReactDOM.createRoot(document.getElementById("hello-func-demo")).render(<HelloFunc />);
+            }
+
+            // Классовый компонент Hello (устарел)
+            class HelloClass extends React.Component {
+                render() {
+                    return <h1>Привет! (Класс)</h1>;
+                }
+            }
+            if (document.getElementById("hello-class-demo")) {
+                ReactDOM.createRoot(document.getElementById("hello-class-demo")).render(<HelloClass />);
+            }
+
+            // Контейнерный компонент (умный) + презентационный
+            function UsersContainer() {
+                const [users, setUsers] = React.useState([]);
+                React.useEffect(() => {
+                    fetch("https://reqres.in/api/users?per_page=2")
+                        .then((r) => r.json())
+                        .then((json) => setUsers(json.data || []));
+                }, []);
+                return <UserList users={users} />;
+            }
+            function UserList({ users }) {
+                return (
+                    <ul>
+                        {users.map((u) => (
+                            <li key={u.id}>{u.first_name}</li>
+                        ))}
+                    </ul>
+                );
+            }
+            if (document.getElementById("users-container-demo")) {
+                ReactDOM.createRoot(document.getElementById("users-container-demo")).render(<UsersContainer />);
+            }
+
+            // Презентационный компонент Button
+            function Button({ children, onClick }) {
+                return <button onClick={onClick}>{children}</button>;
+            }
+            if (document.getElementById("button-demo")) {
+                ReactDOM.createRoot(document.getElementById("button-demo")).render(<Button onClick={() => alert("Клик!")}>Кнопка</Button>);
+            }
+
+            // Высокоуровневый Page
+            function Header() {
+                return <header style={{ background: "#eee", padding: "3px 8px" }}>Header</header>;
+            }
+            function Main() {
+                return <main style={{ padding: "4px" }}>Main content</main>;
+            }
+            function Footer() {
+                return <footer style={{ background: "#eee", padding: "3px 8px" }}>Footer</footer>;
+            }
+            function Page() {
+                return (
+                    <div>
+                        <Header />
+                        <Main />
+                        <Footer />
+                    </div>
+                );
+            }
+            if (document.getElementById("page-demo")) {
+                ReactDOM.createRoot(document.getElementById("page-demo")).render(<Page />);
+            }
+
+            // Низкоуровневый компонент Icon
+            function Icon() {
+                return (
+                    <span role="img" aria-label="star">
+                        ⭐
+                    </span>
+                );
+            }
+            if (document.getElementById("icon-demo")) {
+                ReactDOM.createRoot(document.getElementById("icon-demo")).render(<Icon />);
+            }
+
+            // Переиспользуемый компонент Modal
+            function Modal({ open, children }) {
+                if (!open) return null;
+                return <div style={{ background: "rgba(0,0,0,0.05)", padding: 16, borderRadius: 5, margin: "8px 0" }}>{children}</div>;
+            }
+            if (document.getElementById("modal-demo")) {
+                ReactDOM.createRoot(document.getElementById("modal-demo")).render(<Modal open={true}>Содержимое модального окна</Modal>);
+            }
+
+            // Специализированный компонент RegisterForm
+            function RegisterForm() {
+                return (
+                    <form>
+                        <input placeholder="Email" style={{ marginBottom: 4 }} />
+                        <br />
+                        <input placeholder="Пароль" type="password" style={{ marginBottom: 4 }} />
+                        <br />
+                        <button>Зарегистрироваться</button>
+                    </form>
+                );
+            }
+            if (document.getElementById("register-form-demo")) {
+                ReactDOM.createRoot(document.getElementById("register-form-demo")).render(<RegisterForm />);
+            }
+
+            // Контролируемый компонент input
+            function ControlledInput() {
+                const [val, setVal] = React.useState("");
+                return <input value={val} onChange={(e) => setVal(e.target.value)} placeholder="Контролируемый" />;
+            }
+            if (document.getElementById("controlled-input-demo")) {
+                ReactDOM.createRoot(document.getElementById("controlled-input-demo")).render(<ControlledInput />);
+            }
+            // Неконтролируемый компонент input
+            function UncontrolledInput() {
+                const ref = React.useRef();
+                return (
+                    <React.Fragment>
+                        <input ref={ref} placeholder="Неконтролируемый" />
+                        <button onClick={() => alert(ref.current.value)} style={{ marginLeft: 6 }}>
+                            Показать значение
+                        </button>
+                    </React.Fragment>
+                );
+            }
+            if (document.getElementById("uncontrolled-input-demo")) {
+                ReactDOM.createRoot(document.getElementById("uncontrolled-input-demo")).render(<UncontrolledInput />);
+            }
+
+            // Welcome компонент с props
+            function Welcome(props) {
+                return <h2>Добро пожаловать, {props.name}!</h2>;
+            }
+            if (document.getElementById("welcome-demo")) {
+                ReactDOM.createRoot(document.getElementById("welcome-demo")).render(<Welcome name="Аня" />);
+            }
+
+            // Композиция компонентов для секции "Композиция"
+            function Content() {
+                return <main style={{ padding: 5 }}>Content</main>;
+            }
+            function CompositionApp() {
+                return (
+                    <div>
+                        <Header />
+                        <Content />
+                        <Footer />
+                    </div>
+                );
+            }
+            if (document.getElementById("composition-demo")) {
+                ReactDOM.createRoot(document.getElementById("composition-demo")).render(<CompositionApp />);
+            }
+
+            // Практика: свой компонент Card и его использование внутри App
+            function Card(props) {
+                return (
+                    <div style={{ border: "1px solid #ccc", padding: 10, borderRadius: 6, marginBottom: 12 }}>
+                        <h3>{props.title}</h3>
+                        <div>{props.children}</div>
+                    </div>
+                );
+            }
+            function PracticeApp() {
+                return <Card title="Заголовок">Контент внутри карточки!</Card>;
+            }
+            if (document.getElementById("card-demo")) {
+                ReactDOM.createRoot(document.getElementById("card-demo")).render(<PracticeApp />);
+            }
+
+            // Пример: счетчик
+            function Counter() {
+                const [n, setN] = React.useState(0);
+                return <button onClick={() => setN(n + 1)}>{n}</button>;
+            }
+            if (document.getElementById("counter-demo")) {
+                ReactDOM.createRoot(document.getElementById("counter-demo")).render(<Counter />);
+            }
+        </script>
+    </body>
+</html>

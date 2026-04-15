@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../partials/head.html', { "title": "Введение в React Router", "description": "Основы маршрутизации в React, установка, примеры, лучшие практики для React Router." })
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#intro">Введение</a>
+                    <a href="#install">Установка</a>
+                    <a href="#basics">Основы маршрутизации</a>
+                    <a href="#routes">Маршруты</a>
+                    <a href="#practice">Практика</a>
+                    <a href="#tips">Советы</a>
+                    <a href="#best-practices">Лучшие практики</a>
+                    <a href="#examples">Примеры</a>
+                </nav>
+
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>Введение в React Router</h1>
+                        <p class="note">
+                            <b>React Router</b>
+                            — стандартная библиотека для организации навигации в React-приложениях.
+                            <br />
+                            Позволяет строить SPA, где разные URL отображают разные компоненты.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section" id="install">
+                    <div class="container">
+                        <h2>Установка React Router</h2>
+                        <pre><code>
+npm install react-router-dom
+                        </code></pre>
+                        <div class="note note--info">
+                            Используйте
+                            <code>react-router-dom</code>
+                            для браузерных приложений.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="basics">
+                    <div class="container">
+                        <h2>Основы маршрутизации</h2>
+                        <pre><code>
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+
+function App() {
+  return (
+    &lt;BrowserRouter&gt;
+      &lt;nav&gt;
+        &lt;Link to="/"&gt;Главная&lt;/Link&gt;
+        &lt;Link to="/about"&gt;О сайте&lt;/Link&gt;
+      &lt;/nav&gt;
+      &lt;Routes&gt;
+        &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+        &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+      &lt;/Routes&gt;
+    &lt;/BrowserRouter&gt;
+  );
+}
+                        </code></pre>
+                        <div class="note note--info">
+                            <code>BrowserRouter</code>
+                            — корневой компонент для работы с URL.
+                            <br />
+                            <code>Routes</code>
+                            — контейнер маршрутов.
+                            <br />
+                            <code>Route</code>
+                            — отдельный маршрут.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="routes">
+                    <div class="container">
+                        <h2>Маршруты и ссылки</h2>
+                        <pre><code>
+&lt;Link to="/profile"&gt;Профиль&lt;/Link&gt;
+&lt;Route path="/profile" element={&lt;Profile /&gt;} /&gt;
+                        </code></pre>
+                        <div class="note note--info">
+                            <code>Link</code>
+                            — компонент для перехода по маршрутам без перезагрузки страницы!
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="practice">
+                    <div class="container">
+                        <h2>Практика: простая навигация</h2>
+                        <div class="interactive-demo demo-box">
+                            <div class="code-block">
+                                <pre><code>
+/* App.js */
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+
+function Home() { return &lt;h2&gt;Главная&lt;/h2&gt;; }
+function About() { return &lt;h2&gt;О сайте&lt;/h2&gt;; }
+
+function App() {
+  return (
+    &lt;BrowserRouter&gt;
+      &lt;nav&gt;
+        &lt;Link to="/"&gt;Главная&lt;/Link&gt;
+        &lt;Link to="/about"&gt;О сайте&lt;/Link&gt;
+      &lt;/nav&gt;
+      &lt;Routes&gt;
+        &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+        &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+      &lt;/Routes&gt;
+    &lt;/BrowserRouter&gt;
+  );
+}
+                                </code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="tips">
+                    <div class="container">
+                        <h2>Советы и типичные ошибки</h2>
+                        <ul class="list-ul">
+                            <li>
+                                Все маршруты размещайте внутри
+                                <code>BrowserRouter</code>
+                                .
+                            </li>
+                            <li>
+                                Используйте только
+                                <code>Link</code>
+                                для перехода между страницами.
+                            </li>
+                            <li>Проверяйте, что путь маршрута не перекрывает другие страницы.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="best-practices">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+                        <ul class="list-ul">
+                            <li>Группируйте маршруты по разделам.</li>
+                            <li>Используйте отдельные компоненты для каждой страницы.</li>
+                            <li>Документируйте структуру маршрутов для команды.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="examples">
+                    <div class="container">
+                        <h2>Примеры маршрутизации</h2>
+                        <h4>404 страница</h4>
+                        <pre><code>
+&lt;Route path="*" element={&lt;NotFound /&gt;} /&gt;
+                        </code></pre>
+                        <h4>Маршруты с параметрами</h4>
+                        <pre><code>
+&lt;Route path="/user/:id" element={&lt;User /&gt;} /&gt;
+                        </code></pre>
+                    </div>
+                </section>
+            </main>
+            @@include('../partials/footer.html', {})
+        </div>
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+    </body>
+</html>

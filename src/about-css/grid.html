@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        @@include('../partials/head.html', { "title": "Руководство по Grid в CSS", "description": "Полное руководство по CSS Grid" })
+    </head>
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#grid-intro" class="active">Введение</a>
+                    <a href="#grid-template">Определение сетки</a>
+                    <a href="#grid-gap">Gap - Отступы</a>
+                    <a href="#grid-auto-placement">Автоматическое размещение</a>
+                    <a href="#grid-placement">Явное размещение</a>
+                    <a href="#grid-autot">Гибкое авторазмещение</a>
+                    <a href="#grid-align">Выравнивание</a>
+                    <a href="#grid-align-values">Примеры выравнивания</a>
+                    <a href="#grid-examples">Примеры</a>
+                </nav>
+
+                <!-- Введение -->
+                <section class="section" id="grid-intro">
+                    <div class="container">
+                        <h1>Руководство по CSS Grid</h1>
+                        <p class="note">
+                            <b>Grid</b>
+                            — это мощный способ создания двухмерных макетов.
+                            <br />
+                            В отличие от Flexbox, который работает в одном направлении (строка или столбец), Grid работает по двум осям одновременно.
+                        </p>
+
+                        <!-- Основные понятия CSS Grid -->
+                        <h2>Что такое CSS Grid?</h2>
+                        <p>
+                            CSS Grid — это система сеток, которая позволяет размещать элементы на странице по строкам и столбцам.
+                            <br />
+                            С её помощью легко создавать сложные и адаптивные макеты без лишнего кода.
+                        </p>
+                        <ul class="list-ul">
+                            <li>
+                                <b>Grid-контейнер</b>
+                                — элемент, внутри которого создаётся сетка (например,
+                                <code>&lt;div class="grid-container"&gt;</code>
+                                ).
+                            </li>
+                            <li>
+                                <b>Grid-элементы</b>
+                                — дочерние элементы контейнера, которые размещаются внутри сетки (
+                                <code>&lt;div class="item"&gt;</code>
+                                ).
+                            </li>
+                        </ul>
+
+                        <!-- Пример HTML и CSS -->
+                        <h4>Пример: базовая сетка</h4>
+                        <div class="grid-column-50">
+                            <pre><code>
+&lt;div class="grid-container"&gt;
+  &lt;div class="item"&gt;1&lt;/div&gt;
+  &lt;div class="item"&gt;2&lt;/div&gt;
+  &lt;div class="item"&gt;3&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+.grid-container {
+  display: grid; /* Включаем Grid */
+}
+&lt;/style&gt;
+      </code></pre>
+                            <div class="example">
+                                <div class="grid-container" style="display: grid; gap: 8px">
+                                    <div class="item" style="background: #e3f2fd; padding: 10px; border-radius: 5px">1</div>
+                                    <div class="item" style="background: #bbdefb; padding: 10px; border-radius: 5px">2</div>
+                                    <div class="item" style="background: #90caf9; padding: 10px; border-radius: 5px">3</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="note">
+                            Как только ты задаёшь
+                            <code>display: grid</code>
+                            для родительского элемента, он становится
+                            <b>grid-контейнером</b>
+                            ,
+                            <br />
+                            а его дочерние элементы превращаются в
+                            <b>ячейки сетки</b>
+                            .
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Определение сетки -->
+                <section class="section" id="grid-template">
+                    <div class="container">
+                        <h2>Определение сетки</h2>
+                        <p class="note">
+                            Свойства
+                            <code>grid-template-columns</code>
+                            и
+                            <code>grid-template-rows</code>
+                            определяют структуру сетки.
+                            <br />
+                            С их помощью можно задать количество и размеры столбцов и строк.
+                        </p>
+
+                        <h4>Пример 1: равные столбцы</h4>
+                        <pre><code>
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+    </code></pre>
+                        <div class="grid-container" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px">
+                            <div class="grid-item" style="background: #e3f2fd; padding: 10px; border-radius: 5px">1</div>
+                            <div class="grid-item" style="background: #bbdefb; padding: 10px; border-radius: 5px">2</div>
+                            <div class="grid-item" style="background: #90caf9; padding: 10px; border-radius: 5px">3</div>
+                        </div>
+
+                        <h4>Пример 2: разные размеры столбцов</h4>
+                        <pre><code>
+.grid-container {
+  display: grid;
+  grid-template-columns: 100px 1fr 200px;
+}
+    </code></pre>
+                        <div class="grid-container" style="display: grid; grid-template-columns: 100px 1fr 200px; gap: 8px">
+                            <div class="grid-item" style="background: #e3f2fd; padding: 10px; border-radius: 5px">1</div>
+                            <div class="grid-item" style="background: #bbdefb; padding: 10px; border-radius: 5px">2</div>
+                            <div class="grid-item" style="background: #90caf9; padding: 10px; border-radius: 5px">3</div>
+                        </div>
+
+                        <h4>Пример 3: столбцы и строки с фиксированным размером</h4>
+                        <pre><code>
+.grid-container {
+  display: grid;
+  grid-template-columns: 100px 100px 100px; /* Три столбца по 100px */
+  grid-template-rows: 50px 50px;           /* Две строки по 50px */
+}
+    </code></pre>
+                        <div class="grid-container" style="display: grid; grid-template-columns: 100px 100px 100px; grid-template-rows: 50px 50px; gap: 8px">
+                            <div class="grid-item" style="background: #e3f2fd; padding: 10px; border-radius: 5px">1</div>
+                            <div class="grid-item" style="background: #bbdefb; padding: 10px; border-radius: 5px">2</div>
+                            <div class="grid-item" style="background: #90caf9; padding: 10px; border-radius: 5px">3</div>
+                        </div>
+
+                        <p class="note">
+                            Создаётся сетка с 3 столбцами шириной по 100px и 2 строками высотой по 50px.
+                            <br />
+                            Элементы автоматически размещаются в ячейках по порядку.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Gap -->
+                <section class="section" id="grid-gap">
+                    <div class="container">
+                        <h2>Gap - Отступы между элементами</h2>
+                        <p class="note">
+                            Для управления расстоянием между строками и столбцами используется свойство
+                            <code><b>gap</b></code>
+                            .
+                            <br />
+                            Оно удобно тем, что не требует писать дополнительные margin для каждого элемента.
+                        </p>
+
+                        <h3>
+                            Как работает
+                            <code>gap</code>
+                        </h3>
+                        <ul class="list-ul">
+                            <li>
+                                <b>gap</b>
+                                — задаёт одинаковое расстояние между всеми строками и столбцами.
+                            </li>
+                            <li>
+                                <b>row-gap</b>
+                                — только между строками.
+                            </li>
+                            <li>
+                                <b>column-gap</b>
+                                — только между столбцами.
+                            </li>
+                            <li>
+                                Можно использовать любые единицы (
+                                <code>px</code>
+                                ,
+                                <code>em</code>
+                                ,
+                                <code>%</code>
+                                ).
+                            </li>
+                        </ul>
+
+                        <h4>Пример: одинаковый gap между всеми ячейками</h4>
+                        <pre><code>
+.grid-container {
+  display: grid;
+  grid-template-columns: 100px 100px 100px; /* Три столбца */
+  gap: 20px; /* Расстояние между ячейками */
+}
+
+.item {
+  background-color: coral;
+  text-align: center;
+  padding: 10px;
+}
+    </code></pre>
+                        <div class="grid-container" style="display: grid; grid-template-columns: 100px 100px 100px; gap: 20px">
+                            <div class="item" style="background-color: coral; text-align: center; padding: 10px">1</div>
+                            <div class="item" style="background-color: coral; text-align: center; padding: 10px">2</div>
+                            <div class="item" style="background-color: coral; text-align: center; padding: 10px">3</div>
+                        </div>
+                        <p class="note">
+                            Ячейки будут разделены расстоянием в
+                            <b>20px</b>
+                            .
+                        </p>
+
+                        <h4>Пример: разные отступы между строками и столбцами</h4>
+                        <pre><code>
+.grid-container {
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  row-gap: 30px;     /* Между строками */
+  column-gap: 10px;  /* Между столбцами */
+}
+    </code></pre>
+                        <div class="grid-container" style="display: grid; grid-template-columns: 100px 100px 100px; row-gap: 30px; column-gap: 10px">
+                            <div class="item" style="background-color: coral; text-align: center; padding: 10px">1</div>
+                            <div class="item" style="background-color: coral; text-align: center; padding: 10px">2</div>
+                            <div class="item" style="background-color: coral; text-align: center; padding: 10px">3</div>
+                            <div class="item" style="background-color: coral; text-align: center; padding: 10px">4</div>
+                            <div class="item" style="background-color: coral; text-align: center; padding: 10px">5</div>
+                            <div class="item" style="background-color: coral; text-align: center; padding: 10px">6</div>
+                        </div>
+                        <p class="note">
+                            В этом примере между строками —
+                            <b>30px</b>
+                            , между столбцами —
+                            <b>10px</b>
+                            .
+                        </p>
+
+                        <h4>Пример: gap с другими единицами</h4>
+                        <pre><code>
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2em;
+}
+    </code></pre>
+                        <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2em">
+                            <div class="item" style="background-color: coral; text-align: center; padding: 10px">A</div>
+                            <div class="item" style="background-color: coral; text-align: center; padding: 10px">B</div>
+                            <div class="item" style="background-color: coral; text-align: center; padding: 10px">C</div>
+                        </div>
+                        <p>
+                            Можно использовать разные единицы измерения для gap — например,
+                            <code>em</code>
+                            или
+                            <code>%</code>
+                            , чтобы отступы были адаптивными.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Автоматическое размещение элементов в CSS Grid -->
+                <section class="section" id="grid-auto-placement">
+                    <div class="container">
+                        <h2>Автоматическое размещение элементов</h2>
+                        <p>
+                            Когда ты создаёшь сетку с помощью CSS Grid, необязательно вручную размещать каждый элемент.
+                            <br />
+                            <b>Grid</b>
+                            автоматически распределяет элементы по порядку в доступных ячейках — сверху вниз, слева направо.
+                        </p>
+
+                        <h4>Пример: авторазмещение элементов</h4>
+                        <div class="grid-column-50">
+                            <pre><code>
+&lt;div class="grid-container"&gt;
+  &lt;div class="item"&gt;1&lt;/div&gt;
+  &lt;div class="item"&gt;2&lt;/div&gt;
+  &lt;div class="item"&gt;3&lt;/div&gt;
+  &lt;div class="item"&gt;4&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+.grid-container {
+  display: grid;
+  grid-template-columns: 100px 100px; /* Два столбца */
+  grid-template-rows: auto auto;      /* Строки автоматически по содержимому */
+}
+.item {
+  background-color: lightcoral;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid black;
+}
+&lt;/style&gt;
+      </code></pre>
+                            <div class="example">
+                                <div class="grid-container" style="display: grid; grid-template-columns: 100px 100px; grid-template-rows: auto auto">
+                                    <div class="item" style="background-color: lightcoral; padding: 10px; text-align: center; border: 1px solid black">1</div>
+                                    <div class="item" style="background-color: lightcoral; padding: 10px; text-align: center; border: 1px solid black">2</div>
+                                    <div class="item" style="background-color: lightcoral; padding: 10px; text-align: center; border: 1px solid black">3</div>
+                                    <div class="item" style="background-color: lightcoral; padding: 10px; text-align: center; border: 1px solid black">4</div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="list-ul">
+                            <li>
+                                <b>.grid-container</b>
+                                — создаёт сетку с 2 столбцами шириной по 100px.
+                                <br />
+                                <code>grid-template-rows: auto auto</code>
+                                — высота строк определяется автоматически, в зависимости от содержимого.
+                            </li>
+                            <li>
+                                <b>.item</b>
+                                — элементы автоматически размещаются в ячейках сверху вниз, слева направо.
+                                <br />
+                                Grid не даст элементам выйти за пределы контейнера: создаст новые строки, если потребуется.
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Явное размещение элементов и растяжение -->
+                <section class="section" id="grid-placement">
+                    <div class="container">
+                        <h2>Явное размещение и растяжение элементов</h2>
+                        <p class="note">
+                            Свойства
+                            <code>grid-column</code>
+                            и
+                            <code>grid-row</code>
+                            позволяют позиционировать элементы в сетке вручную и растягивать их на несколько строк или столбцов.
+                        </p>
+                        <h4>Пример размещения и растяжения</h4>
+                        <pre><code>
+.grid-item {
+  grid-column: 1 / 3; /* Элемент занимает столбцы 1 и 2 */
+  grid-row: 1 / 2;    /* Элемент занимает первую строку */
+}
+    </code></pre>
+                        <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px">
+                            <div class="grid-item" style="grid-column: 1 / 3; background: #ffe082; padding: 10px">
+                                <code>grid-column: 1 / 3</code>
+                                <br />
+                                1 (растягивается на 2 колонки)
+                            </div>
+                            <div class="grid-item" style="background: #e1bee7; padding: 10px">2</div>
+                            <div class="grid-item" style="background: #e1bee7; padding: 10px">3</div>
+                            <div class="grid-item" style="background: #e1bee7; padding: 10px">4</div>
+                        </div>
+                        <ul class="list-ul">
+                            <li>
+                                <b>grid-column</b>
+                                — управляет положением и шириной элемента по столбцам.
+                            </li>
+                            <li>
+                                <b>grid-row</b>
+                                — управляет положением и высотой элемента по строкам.
+                            </li>
+                            <li>Можно "растягивать" элементы на несколько строк или столбцов.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Гибкое авторазмещение: auto-fill и minmax -->
+                <section class="section" id="grid-auto">
+                    <div class="container">
+                        <h2>
+                            Гибкое авторазмещение:
+                            <code>auto-fill</code>
+                            и
+                            <code>minmax()</code>
+                        </h2>
+                        <p class="note">
+                            <code>auto-fill</code>
+                            и
+                            <code>minmax()</code>
+                            позволяют сделать сетку адаптивной и гибкой: столбцы автоматически добавляются, если хватает места, а их ширина ограничивается минимальным и максимальным значениями.
+                        </p>
+                        <h4>Пример гибкой сетки</h4>
+                        <pre><code>
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+    </code></pre>
+                        <div class="grid-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px">
+                            <div class="grid-item" style="background: #b2dfdb; padding: 10px">1</div>
+                            <div class="grid-item" style="background: #b2dfdb; padding: 10px">2</div>
+                            <div class="grid-item" style="background: #b2dfdb; padding: 10px">3</div>
+                            <div class="grid-item" style="background: #b2dfdb; padding: 10px">4</div>
+                            <div class="grid-item" style="background: #b2dfdb; padding: 10px">5</div>
+                        </div>
+                        <ul class="list-ul">
+                            <li>
+                                <b>auto-fill</b>
+                                — автоматически создаёт столько столбцов, сколько помещается в контейнере.
+                            </li>
+                            <li>
+                                <b>minmax(150px, 1fr)</b>
+                                — ширина столбца: минимум 150px, максимум — занимает доступное пространство.
+                            </li>
+                            <li>Сетка становится адаптивной: при изменении размера окна количество столбцов меняется автоматически.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Выравнивание -->
+                <section class="section" id="grid-align">
+                    <div class="container">
+                        <h2>Выравнивание элементов в Grid</h2>
+                        <p class="note">
+                            Свойства
+                            <code>justify-items</code>
+                            и
+                            <code>align-items</code>
+                            управляют выравниванием содержимого внутри каждой ячейки.
+                            <br />
+                            <b>justify-items</b>
+                            — горизонтальное выравнивание.
+                            <br />
+                            <b>align-items</b>
+                            — вертикальное выравнивание.
+                        </p>
+                        <h4>Пример: центрирование содержимого ячеек</h4>
+                        <pre><code>
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;     /* Горизонтальное выравнивание */
+  align-items: center;       /* Вертикальное выравнивание */
+  height: 200px;
+}
+    </code></pre>
+                        <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); justify-items: center; align-items: center; height: 200px; gap: 10px">
+                            <div class="grid-item" style="background: #e3f2fd; padding: 10px; border-radius: 5px">1</div>
+                            <div class="grid-item" style="background: #bbdefb; padding: 10px; border-radius: 5px">2</div>
+                            <div class="grid-item" style="background: #90caf9; padding: 10px; border-radius: 5px">3</div>
+                        </div>
+                        <p class="note">Все элементы расположены по центру каждой ячейки — как по горизонтали, так и по вертикали.</p>
+                        <ul>
+                            <li>
+                                <b>justify-items</b>
+                                принимает значения:
+                                <code>start</code>
+                                ,
+                                <code>end</code>
+                                ,
+                                <code>center</code>
+                                ,
+                                <code>stretch</code>
+                                .
+                            </li>
+                            <li>
+                                <b>align-items</b>
+                                принимает значения:
+                                <code>start</code>
+                                ,
+                                <code>end</code>
+                                ,
+                                <code>center</code>
+                                ,
+                                <code>stretch</code>
+                                .
+                            </li>
+                            <li>
+                                Можно использовать
+                                <code>justify-self</code>
+                                и
+                                <code>align-self</code>
+                                для выравнивания отдельных элементов.
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Выравнивание: примеры всех значений justify-items и align-items -->
+                <section class="section" id="grid-align-values">
+                    <div class="container">
+                        <h2>Примеры выравнивания в CSS Grid</h2>
+                        <p>
+                            Свойства
+                            <code>justify-items</code>
+                            и
+                            <code>align-items</code>
+                            управляют положением содержимого внутри ячейки.
+                            <br />
+                            Рассмотрим все возможные значения этих свойств:
+                        </p>
+                        <h3>
+                            Горизонтальное выравнивание —
+                            <code>justify-items</code>
+                        </h3>
+
+                        <h4>justify-items: start</h4>
+                        <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); justify-items: start; align-items: center; height: 80px; gap: 10px; margin-bottom: 12px">
+                            <div class="grid-item" style="background: #ffe082; padding: 10px; border-radius: 5px">1</div>
+                            <div class="grid-item" style="background: #ffe082; padding: 10px; border-radius: 5px">2</div>
+                            <div class="grid-item" style="background: #ffe082; padding: 10px; border-radius: 5px">3</div>
+                        </div>
+
+                        <h4>justify-items: end</h4>
+                        <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); justify-items: end; align-items: center; height: 80px; gap: 10px; margin-bottom: 12px">
+                            <div class="grid-item" style="background: #b2dfdb; padding: 10px; border-radius: 5px">1</div>
+                            <div class="grid-item" style="background: #b2dfdb; padding: 10px; border-radius: 5px">2</div>
+                            <div class="grid-item" style="background: #b2dfdb; padding: 10px; border-radius: 5px">3</div>
+                        </div>
+
+                        <h4>justify-items: center</h4>
+                        <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); justify-items: center; align-items: center; height: 80px; gap: 10px; margin-bottom: 12px">
+                            <div class="grid-item" style="background: #f8bbd0; padding: 10px; border-radius: 5px">1</div>
+                            <div class="grid-item" style="background: #f8bbd0; padding: 10px; border-radius: 5px">2</div>
+                            <div class="grid-item" style="background: #f8bbd0; padding: 10px; border-radius: 5px">3</div>
+                        </div>
+
+                        <h4>justify-items: stretch (по умолчанию)</h4>
+                        <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); justify-items: stretch; align-items: center; height: 80px; gap: 10px; margin-bottom: 12px">
+                            <div class="grid-item" style="background: #c5e1a5; padding: 10px; border-radius: 5px">1</div>
+                            <div class="grid-item" style="background: #c5e1a5; padding: 10px; border-radius: 5px">2</div>
+                            <div class="grid-item" style="background: #c5e1a5; padding: 10px; border-radius: 5px">3</div>
+                        </div>
+
+                        <h3>
+                            Вертикальное выравнивание —
+                            <code>align-items</code>
+                        </h3>
+                        <div style="height: 140px; position: relative">
+                            <h4>align-items: start</h4>
+                            <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); align-items: start; justify-items: center; height: 80px; gap: 10px; margin-bottom: 12px">
+                                <div class="grid-item" style="background: #ce93d8; padding: 10px; border-radius: 5px">1</div>
+                                <div class="grid-item" style="background: #ce93d8; padding: 10px; border-radius: 5px">2</div>
+                                <div class="grid-item" style="background: #ce93d8; padding: 10px; border-radius: 5px">3</div>
+                            </div>
+                        </div>
+                        <div style="height: 140px; position: relative">
+                            <h4>align-items: end</h4>
+                            <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); align-items: end; justify-items: center; height: 80px; gap: 10px; margin-bottom: 12px">
+                                <div class="grid-item" style="background: #ffab91; padding: 10px; border-radius: 5px">1</div>
+                                <div class="grid-item" style="background: #ffab91; padding: 10px; border-radius: 5px">2</div>
+                                <div class="grid-item" style="background: #ffab91; padding: 10px; border-radius: 5px">3</div>
+                            </div>
+                        </div>
+                        <div style="height: 140px; position: relative">
+                            <h4>align-items: center</h4>
+                            <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; justify-items: center; height: 80px; gap: 10px; margin-bottom: 12px">
+                                <div class="grid-item" style="background: #e3f2fd; padding: 10px; border-radius: 5px">1</div>
+                                <div class="grid-item" style="background: #e3f2fd; padding: 10px; border-radius: 5px">2</div>
+                                <div class="grid-item" style="background: #e3f2fd; padding: 10px; border-radius: 5px">3</div>
+                            </div>
+                        </div>
+                        <div style="height: 140px; position: relative">
+                            <h4>align-items: stretch (по умолчанию)</h4>
+                            <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); align-items: stretch; justify-items: center; height: 80px; gap: 10px; margin-bottom: 12px">
+                                <div class="grid-item" style="background: #bbdefb; padding: 10px; border-radius: 5px; height: auto">1</div>
+                                <div class="grid-item" style="background: #bbdefb; padding: 10px; border-radius: 5px; height: auto">2</div>
+                                <div class="grid-item" style="background: #bbdefb; padding: 10px; border-radius: 5px; height: auto">3</div>
+                            </div>
+                        </div>
+
+                        <h3>
+                            Индивидуальное выравнивание:
+                            <code>justify-self</code>
+                            и
+                            <code>align-self</code>
+                        </h3>
+                        <pre><code>
+.grid-item {
+  justify-self: end;
+  align-self: start;
+}
+    </code></pre>
+                        <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); height: 80px; gap: 10px">
+                            <div class="grid-item" style="background: #90caf9; padding: 10px; border-radius: 5px; justify-self: end; align-self: start">1</div>
+                            <div class="grid-item" style="background: #90caf9; padding: 10px; border-radius: 5px">2</div>
+                            <div class="grid-item" style="background: #90caf9; padding: 10px; border-radius: 5px">3</div>
+                        </div>
+                        <p class="note">
+                            <code>justify-self</code>
+                            и
+                            <code>align-self</code>
+                            позволяют настроить выравнивание для отдельного элемента внутри сетки.
+                        </p>
+                    </div>
+                </section>
+                <!-- Примеры -->
+                <section class="section" id="grid-examples">
+                    <div class="container">
+                        <h2>Популярные примеры использования CSS Grid</h2>
+                        <p>CSS Grid универсален и отлично подходит для построения разнообразных макетов. Вот пять самых распространённых вариантов:</p>
+                        <div style="display: grid; grid-template-columns: 1fr; gap: 24px">
+                            <!-- Галерея изображений -->
+                            <div>
+                                <h3>Галерея изображений</h3>
+                                <p class="note">Адаптивная фотогалерея легко строится на Grid, элементы равномерно распределяются по строкам и столбцам.</p>
+
+                                <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px">
+                                    <img src="https://via.placeholder.com/80x60?text=img1" alt="img1" style="width: 100%; border-radius: 6px" />
+                                    <img src="https://via.placeholder.com/80x60?text=img2" alt="img2" style="width: 100%; border-radius: 6px" />
+                                    <img src="https://via.placeholder.com/80x60?text=img3" alt="img3" style="width: 100%; border-radius: 6px" />
+                                    <img src="https://via.placeholder.com/80x60?text=img4" alt="img4" style="width: 100%; border-radius: 6px" />
+                                    <img src="https://via.placeholder.com/80x60?text=img5" alt="img5" style="width: 100%; border-radius: 6px" />
+                                </div>
+                            </div>
+                            <!-- Карточки товаров -->
+                            <div>
+                                <h3>Карточки товаров</h3>
+                                <p class="note">Карточки товаров или услуг удобно располагать в сетке – макет легко адаптируется под экран.</p>
+
+                                <div class="grid-container" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px">
+                                    <div class="grid-item" style="background: #e1bee7; border-radius: 6px; padding: 12px">
+                                        <b>Товар 1</b>
+                                        <br />
+                                        Описание
+                                        <br />
+                                        <span style="color: #388e3c">₽990</span>
+                                    </div>
+                                    <div class="grid-item" style="background: #ffe082; border-radius: 6px; padding: 12px">
+                                        <b>Товар 2</b>
+                                        <br />
+                                        Описание
+                                        <br />
+                                        <span style="color: #388e3c">₽1290</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Гибкий макет страницы -->
+                            <div>
+                                <h3>Гибкий макет (лендинг)</h3>
+                                <p class="note">Grid позволяет легко создавать сложные макеты: хедер, контент, сайдбар, футер.</p>
+
+                                <div class="grid-container" style="display: grid; grid-template-columns: 1fr 3fr; grid-template-rows: 50px 1fr 40px; gap: 6px">
+                                    <div style="grid-column: 1/3; background: #90caf9; border-radius: 6px; text-align: center; padding: 8px">Header</div>
+                                    <div style="background: #c5e1a5; border-radius: 6px; text-align: center; padding: 8px">Sidebar</div>
+                                    <div style="background: #f8bbd0; border-radius: 6px; text-align: center; padding: 8px">Main Content</div>
+                                    <div style="grid-column: 1/3; background: #b2dfdb; border-radius: 6px; text-align: center; padding: 8px">Footer</div>
+                                </div>
+                            </div>
+                            <!-- Таблица/расписание -->
+                            <div>
+                                <h3>Таблица или расписание</h3>
+                                <p class="note">Сетка легко превращается в таблицу или расписание – строки и столбцы удобно позиционируются.</p>
+
+                                <div class="grid-container" style="display: grid; grid-template-columns: 80px 120px 120px; gap: 4px">
+                                    <div class="grid-item" style="background: #bbdefb; border-radius: 4px; padding: 6px">Пн</div>
+                                    <div class="grid-item" style="background: #bbdefb; border-radius: 4px; padding: 6px">9:00-11:00</div>
+                                    <div class="grid-item" style="background: #bbdefb; border-radius: 4px; padding: 6px">Математика</div>
+                                    <div class="grid-item" style="background: #bbdefb; border-radius: 4px; padding: 6px">Вт</div>
+                                    <div class="grid-item" style="background: #bbdefb; border-radius: 4px; padding: 6px">11:00-13:00</div>
+                                    <div class="grid-item" style="background: #bbdefb; border-radius: 4px; padding: 6px">Физика</div>
+                                </div>
+                            </div>
+                            <!-- Дашборд/панели -->
+                            <div>
+                                <h3>Дашборд/панели управления</h3>
+                                <p class="note">Grid часто используют для дашбордов: блоки информации удобно размещать в разных ячейках.</p>
+
+                                <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px">
+                                    <div class="grid-item" style="background: #ffab91; border-radius: 6px; padding: 10px">Статистика</div>
+                                    <div class="grid-item" style="background: #ce93d8; border-radius: 6px; padding: 10px">График</div>
+                                    <div class="grid-item" style="background: #c5e1a5; border-radius: 6px; padding: 10px">Пользователи</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            @@include('../partials/footer.html', {})
+        </div>
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+    </body>
+</html>

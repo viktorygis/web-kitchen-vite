@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "Vuex-хелперы: mapState, mapGetters, mapMutations, mapActions", "description": "Погружаемся в Vuex-хелперы: сокращаем и ускоряем работу с хранилищем через mapState, mapGetters, mapMutations и mapActions. Упрощаем код компонентов и экономим время!" })
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="#intro">Введение</a>
+        <a href="#mapstate">mapState</a>
+        <a href="#mapgetters">mapGetters</a>
+        <a href="#mapmutations">mapMutations</a>
+        <a href="#mapactions">mapActions</a>
+        <a href="#comparison">Сравнение</a>
+        <a href="#faq">Вопросы/Ошибки</a>
+      </nav>
+
+      <!-- Введение -->
+      <section id="intro" class="section">
+        <div class="container">
+          <h1>Vuex-хелперы: mapState, mapGetters, mapMutations, mapActions</h1>
+          <p class="note">
+            <b>Vuex-хелперы</b> — это специальные функции (helpers) для сокращения кода в компонентах Vue при работе с хранилищем состояния (<b>Vuex</b>). Они помогают автоматически подключать и использовать <b>state</b>, <b>getters</b>, <b>mutations</b> и <b>actions</b> без многократного обращения к <code>this.$store</code>.
+          </p>
+
+          <h3>Без хелперов Vuex:</h3>
+          <pre><code >computed: {
+  count() { return this.$store.state.count; },
+  username() { return this.$store.state.user.name; }
+}</code></pre>
+          <p>❌ Многословно и неудобно!</p>
+
+          <h3>С Vuex-хелперами:</h3>
+          <pre><code >import { mapState } from "vuex";
+export default {
+  computed: {
+    ...mapState(["count"]),
+    ...mapState({ username: state => state.user.name })
+  }
+}</code></pre>
+          <p>✅ Очень коротко и наглядно!</p>
+
+          <h4>Что мы изучим?</h4>
+          <ul class="list-ul">
+            <li><b>mapState</b> — лёгкий доступ к state 💾</li>
+            <li><b>mapGetters</b> — подключение обработанных вычислений (getters) 🎯</li>
+            <li><b>mapMutations</b> — компактный вызов mutations ✏️</li>
+            <li><b>mapActions</b> — лаконичные вызовы actions 🔄</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- mapState -->
+      <section id="mapstate" class="section">
+        <div class="container">
+          <h2>💾 mapState</h2>
+          <p class="note">
+            <b>mapState</b> — хелпер, который позволяет автоматически связывать свойства state с <code>computed</code> вашего компонента. Используется только внутри <code>computed</code>!</p>
+          <h4>Для чего нужен mapState?</h4>
+          <ul class="list-ul">
+            <li>Упрощает доступ к состоянию Vuex</li>
+            <li>Сокращает количество кода в компонентах</li>
+            <li>Позволяет легко переименовывать свойства state при подключении</li>
+          </ul>
+          <h4>Пример использования mapState:</h4>
+
+
+
+
+
+          <b>Было так:</b>
+          <pre><code >computed: {
+  count() { return this.$store.state.count; },
+  username() { return this.$store.state.user.name; }
+}</code></pre>
+          <b>Становится так:</b>
+          <pre><code >import { mapState } from "vuex";
+export default {
+  computed: {
+    ...mapState(["count"]),
+    ...mapState({ username: state => state.user.name })
+  }
+}</code></pre>
+
+          <h4>Что здесь происходит?</h4>
+          <ul class="list-ul">
+            <li>Импортируем хелпер <code>mapState</code> из Vuex</li>
+            <li>Внутри <code>computed</code> используем оператор spread <code>...</code>, чтобы "развернуть" результат работы <code>mapState</code></li>
+            <li><code>mapState(['count'])</code> - подключает свойство <code>count</code> из state напрямую</li>
+            <li><code>mapState({ username: state => state.user.name })</code> - подключает свойство <code>user.name</code> из state и переименовывает его в <code>username</code></li>
+            <li>Теперь в шаблоне можно использовать <code>{{ count }}</code> и <code>{{ username }}</code> без обращения к <code>this.$store</code></li>
+          </ul>
+
+
+          <h4>Что нужно знать:</h4>
+          <ul class="list-ul">
+            <li>Можно использовать как массив строк, так и объект для переименования</li>
+            <li>Можно комбинировать несколько вызовов <code>mapState</code> внутри одного <code>computed</code></li>
+            <li>Можно использовать функции для более сложной логики подключения state</li>
+          </ul>
+
+        </div>
+      </section>
+
+
+      <!-- mapGetters -->
+      <section id="mapgetters" class="section">
+        <div class="container">
+          <h2>🎯 mapGetters</h2>
+          <p class="note">
+            <b>mapGetters</b> — хелпер для быстрого подключения геттеров из Vuex-store в computed вашего компонента. Используется только внутри computed!
+          </p>
+
+          <h4>Для чего нужен mapGetters?</h4>
+
+          <ul class="list-ul">
+            <li>Упрощает доступ к геттерам Vuex</li>
+            <li>Сокращает количество кода в компонентах</li>
+            <li>Позволяет легко переименовывать геттеры при подключении</li>
+          </ul>
+
+
+
+          <h4>Пример:</h4>
+          <b>До:</b>
+          <pre><code >computed: {
+  doubleCount() {
+    return this.$store.getters.doubleCount;
+  }
+}</code></pre>
+          <b>После:</b>
+          <pre><code >import { mapGetters } from "vuex";
+export default {
+  computed: {
+    ...mapGetters(["doubleCount"])
+  }
+}</code></pre>
+        <h4>Что здесь происходит?</h4>
+          <ul class="list-ul">
+            <li>Импортируем хелпер <code>mapGetters</code> из Vuex</li>
+            <li>Внутри <code>computed</code> используем оператор spread <code>...</code>, чтобы "развернуть" результат работы <code>mapGetters</code></li>
+            <li><code>mapGetters(['doubleCount'])</code> - подключает геттер <code>doubleCount</code> из Vuex-store напрямую</li>
+            <li>Теперь в шаблоне можно использовать <code>{{ doubleCount }}</code> без обращения к <code>this.$store.getters</code></li>
+          </ul>
+
+
+          <h4>Что нужно знать:</h4>
+          <ul class="list-ul">
+            <li>Можно использовать как массив строк, так и объект для переименования</li>
+            <li>Можно комбинировать несколько вызовов <code>mapGetters</code> внутри одного <code>computed</code></li>
+            <li>Геттеры должны быть заранее определены в вашем Vuex-store</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- mapMutations -->
+      <section id="mapmutations" class="section">
+        <div class="container">
+          <h2>✏️ mapMutations</h2>
+          <p class="note"><b>mapMutations</b> — хелпер для быстрого связывания методов компонента с мутациями Vuex. Используется только внутри methods!</p>
+          <h4>Зачем нужен mapMutations?</h4>
+          <ul class="list-ul">
+            <li>Упрощает вызов мутаций Vuex</li>
+            <li>Сокращает количество кода в компонентах</li>
+            <li>Позволяет легко переименовывать методы при подключении</li>
+          </ul>
+          <h4>Пример использования mapMutations:</h4>
+
+          <b>До (без mapMutations):</b>
+          <pre><code >methods: {
+  increment() {
+    this.$store.commit("increment");
+  }
+}</code></pre>
+          <b>После (с mapMutations):</b>
+          <pre><code >import { mapMutations } from "vuex";
+export default {
+  methods: {
+    ...mapMutations(["increment"])
+  }
+}</code></pre>
+          <h4>Что здесь происходит?</h4>
+          <ul class="list-ul">
+            <li>Импортируем хелпер <code>mapMutations</code> из Vuex</li>
+            <li>Внутри <code>methods</code> используем оператор spread <code>...</code>, чтобы "развернуть" результат работы <code>mapMutations</code></li>
+            <li><code>mapMutations(['increment'])</code> - подключает метод <code>increment</code>, который вызывает мутацию Vuex с тем же именем</li>
+            <li>Теперь в шаблоне можно вызывать метод <code>increment</code> напрямую через <code>@click="increment"</code></li>
+          </ul>
+          <h4>Что нужно знать:</h4>
+          <ul class="list-ul">
+            <li>Можно использовать как массив строк, так и объект для переименования</li>
+            <li>Можно комбинировать несколько вызовов <code>mapMutations</code> внутри одного <code>methods</code></li>
+            <li>Мутации должны быть заранее определены в вашем Vuex-store</li>
+          </ul>
+
+
+        </div>
+      </section>
+
+      <!-- mapActions -->
+      <section id="mapactions" class="section">
+        <div class="container">
+          <h2>🔄 mapActions</h2>
+          <p class="note"><b>mapActions</b> — хелпер для быстрого связывания методов компонента с действиями (actions) Vuex. Используется только внутри methods!</p>
+          <h4>Зачем нужен mapActions?</h4>
+          <ul class="list-ul">
+            <li>Упрощает вызов действий Vuex</li>
+            <li>Сокращает количество кода в компонентах</li>
+            <li>Позволяет легко переименовывать методы при подключении</li>
+          </ul>
+          <h4>Пример использования mapActions:</h4>
+          <b>Без mapActions:</b>
+          <pre><code >methods: {
+  fetchData() {
+    this.$store.dispatch("fetchData");
+  },
+  sendData() {
+    this.$store.dispatch("sendData");
+  },
+  updateUser() {
+    this.$store.dispatch("updateUser");
+  }
+}</code></pre>
+          <b>С mapActions:</b>
+          <pre><code >import { mapActions } from "vuex";
+export default {
+  methods: {
+    ...mapActions(["fetchData", "sendData", "updateUser"])
+  }
+}</code></pre>
+          <h4>Что здесь происходит?</h4>
+          <ul class="list-ul">
+            <li>Импортируем хелпер <code>mapActions</code> из Vuex</li>
+            <li>Внутри <code>methods</code> используем оператор spread <code>...</code>, чтобы "развернуть" результат работы <code>mapActions</code></li>
+            <li><code>mapActions(['fetchData', 'sendData', 'updateUser'])</code> - подключает методы, которые вызывают соответствующие действия Vuex</li>
+            <li>Теперь в шаблоне можно вызывать методы напрямую через <code>@click="fetchData"</code>, <code>@click="sendData"</code> и т.д.</li>
+          </ul>
+          <h4>Что нужно знать:</h4>
+          <ul class="list-ul">
+            <li>Можно использовать как массив строк, так и объект для переименования</li>
+            <li>Можно комбинировать несколько вызовов <code>mapActions</code> внутри одного <code>methods</code></li>
+            <li>Действия должны быть заранее определены в вашем Vuex-store</li>
+          </ul>
+
+        </div>
+      </section>
+
+      <!-- Сравнительная таблица -->
+      <section id="comparison" class="section">
+        <div class="container">
+          <h2>Таблица сравнения Vuex-хелперов</h2>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Хелпер</th>
+                <th>Для чего</th>
+                <th>Где использовать</th>
+                <th>Что подключает</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>mapState</b></td>
+                <td>Удобное подключение state</td>
+                <td>computed</td>
+                <td>Переменные из state</td>
+              </tr>
+              <tr>
+                <td><b>mapGetters</b></td>
+                <td>Удобное подключение getters</td>
+                <td>computed</td>
+                <td>Геттеры из store</td>
+              </tr>
+              <tr>
+                <td><b>mapMutations</b></td>
+                <td>Связка методов с mutations</td>
+                <td>methods</td>
+                <td>Mutation-функции</td>
+              </tr>
+              <tr>
+                <td><b>mapActions</b></td>
+                <td>Связка методов с actions</td>
+                <td>methods</td>
+                <td>Action-функции</td>
+              </tr>
+            </tbody>
+          </table>
+
+
+
+          <p><b>computed</b> - для вычисляемых свойств, <br> <b>methods</b> - для методов  </p>
+        </div>
+      </section>
+
+      <!-- FAQ/Ошибки -->
+      <section id="faq" class="section">
+        <div class="container">
+          <h2>FAQ / Ошибки</h2>
+          <ul>
+            <li>
+              <b>В: Где можно использовать mapState и mapGetters?</b><br>
+              О: Только внутри computed.
+            </li>
+            <li>
+              <b>В: А mapMutations и mapActions?</b><br>
+              О: Только внутри methods.
+            </li>
+            <li>
+              <b>В: Можно ли объединять несколько хелперов?</b><br>
+              О: Да, используйте ... (spread) для каждого.
+            </li>
+            <li>
+              <b>В: Можно ли переименовывать?</b><br>
+              О: Да, передавайте объект (<code>{ myVal: 'getterName' }</code>)
+            </li>
+            <li>
+              <b>В: Можно комбинировать свои методы и хелперы?</b><br>
+              О: Конечно, хоть вместе, хоть по отдельности!
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
+</html>

@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        @@include('../partials/head.html', { "title": "Полное руководство по шрифтам и стилям в CSS", "description": "Полное руководство по шрифтам и стилям в CSS" })
+
+        <style>
+            .element-01 {
+                border: 2px solid #3949ab;
+                border-radius: 12px;
+                padding: 20px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                text-align: center;
+                justify-content: center;
+                background-color: #fff;
+                max-width: 400px;
+                margin: 10px 0 0 0;
+            }
+
+            .element-01:hover {
+                border-color: #ff5722;
+                box-shadow: 0 6px 16px rgba(255, 87, 34, 0.2);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+            <main class="page">
+                <div class="nav-tabs">
+                    <a href="#border" class="active">border</a>
+                    <a href="#border-radius">border-radius</a>
+                    <a href="#box-shadow">box-shadow</a>
+                    <a href="#outline">outline</a>
+                    <a href="#border-image">border-image</a>
+                    <a href="#button-styles">Стили кнопок</a>
+                    <a href="#card-styles">Стили карточек</a>
+                    <a href="#best-practices">Лучшие практики</a>
+                    <a href="#creative-effects">Креативные эффекты</a>
+                </div>
+                <!-- Введение -->
+                <section class="section">
+                    <div class="container">
+                        <h1>Полное руководство по границам и теням в CSS</h1>
+                        <p class="note">
+                            <b>Границы и тени</b>
+                            - мощные инструменты визуального оформления, которые добавляют глубину, структуру и акценты элементам интерфейса.
+                            <br />
+                            В этом руководстве мы рассмотрим все аспекты работы с границами, скруглениями и тенями.
+                        </p>
+                        <div class="grid-column-50">
+                            <pre><code>
+	/* Пример комплексного стиля границ */
+	.element {
+	  border: 2px solid #3949ab;
+	  border-radius: 12px;
+	  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+	  transition: all 0.3s ease;
+	}
+
+	.element:hover {
+	  border-color: #ff5722;
+	  box-shadow: 0 6px 16px rgba(255,87,34,0.2);
+	}
+	    </code></pre>
+
+                            <div class="element-01">
+                                border: 2px solid #3949ab;
+                                <br />
+                                border-radius: 12px;
+                                <br />
+                                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                                <br />
+                                <br />
+                                <b>Наведи на меня</b>
+                            </div>
+                        </div>
+
+                        <div class="note">
+                            <strong>Совет:</strong>
+                            Всегда используйте
+                            <code>transition</code>
+                            для плавных изменений границ и теней при hover-эффектах.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Свойство border -->
+                <section class="section" id="border">
+                    <div class="container">
+                        <h2>
+                            Свойство
+                            <code>border</code>
+                        </h2>
+                        <div class="note">
+                            <p>
+                                <strong>border</strong>
+                                — это свойство, которое добавляет рамку вокруг элемента.
+                                <br />
+                                Ты можешь управлять её:
+                            </p>
+                            <ul>
+                                <li>
+                                    <b>Шириной</b>
+                                    (например,
+                                    <code>2px</code>
+                                    )
+                                </li>
+                                <li>
+                                    <b>Стилем</b>
+                                    (например,
+                                    <code>solid</code>
+                                    ,
+                                    <code>dashed</code>
+                                    ,
+                                    <code>dotted</code>
+                                    ,
+                                    <code>double</code>
+                                    ,
+                                    <code>groove</code>
+                                    ,
+                                    <code>ridge</code>
+                                    ,
+                                    <code>inset</code>
+                                    ,
+                                    <code>outset</code>
+                                    )
+                                </li>
+                                <li>
+                                    <b>Цветом</b>
+                                    (например,
+                                    <code>red</code>
+                                    ,
+                                    <code>#000000</code>
+                                    ,
+                                    <code>rgb(255, 255, 255)</code>
+                                    )
+                                </li>
+                            </ul>
+                            <p>
+                                <b>Быстрая запись:</b>
+                                <code>border: [толщина] [стиль] [цвет];</code>
+                            </p>
+                        </div>
+
+                        <h4>Пример базовой рамки</h4>
+                        <p>Рамка чёрного цвета, сплошная, толщиной 2px</p>
+                        <div class="grid-column-50">
+                            <pre><code>&lt;p&gt;Текст с рамкой&lt;/p&gt;
+
+p {
+   border: 2px solid black;
+}</code></pre>
+
+                            <div class="example">
+                                <p style="border: 2px solid black; padding: 8px; border-radius: 4px; display: inline-block">Текст с рамкой</p>
+                            </div>
+                        </div>
+
+                        <h3>Только одна сторона границы</h3>
+                        <ul class="list-ul">
+                            <li>
+                                <code><b>border-top</b></code>
+                                — верхняя граница
+                            </li>
+                            <li>
+                                <code><b>border-right</b></code>
+                                — правая граница
+                            </li>
+                            <li>
+                                <code><b>border-bottom</b></code>
+                                — нижняя граница
+                            </li>
+                            <li>
+                                <code><b>border-left</b></code>
+                                — левая граница
+                            </li>
+                        </ul>
+
+                        <div class="grid-column-50">
+                            <pre><code>&lt;p&gt;БУ! Не бойся.&lt;/p&gt;
+
+p {
+  border-top: 3px solid red;     /* Верхняя граница */
+  border-bottom: 5px dashed blue; /* Нижняя граница */
+}</code></pre>
+                            <div class="example">
+                                <p style="border-top: 3px solid red; border-bottom: 5px dashed blue; padding: 8px; border-radius: 4px; display: inline-block; width: 300px; height: 60px">БУ! Не бойся.</p>
+                            </div>
+                        </div>
+
+                        <h3>Свойство border — шорткат</h3>
+                        <div>
+                            <strong>border</strong>
+                            — это сокращённая запись для трёх свойств:
+                            <ul>
+                                <li>
+                                    <code>border-width</code>
+                                    — толщина границы
+                                </li>
+                                <li>
+                                    <code>border-style</code>
+                                    — стиль границы
+                                </li>
+                                <li>
+                                    <code>border-color</code>
+                                    — цвет границы
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="grid-column-50">
+                            <pre><code>
+/* Основные варианты */
+.solid {
+  border: 2px solid #333; /* Полная запись: */
+  /* border-width: 2px;
+     border-style: solid;
+     border-color: green; */
+}
+
+/* Разные стороны */
+.mixed-borders {
+  border-top: 3px double red;
+  border-right: 5px dotted green;
+  border-bottom: 2px dashed blue;
+  border-left: 2px solid purple;
+}
+</code></pre>
+                            <style>
+                                /* Основные варианты */
+                                .solid {
+                                    border: 2px solid green;
+                                    height: 100px;
+                                    margin: 0px 0px 20px 0px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                }
+
+                                /* Разные стороны */
+                                .mixed-borders {
+                                    border-top: 3px double red;
+                                    border-right: 5px dotted green;
+                                    border-bottom: 2px dashed blue;
+                                    border-left: 2px solid purple;
+                                    padding: 20px;
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 5px;
+                                    align-items: center;
+                                    justify-content: center;
+                                }
+                            </style>
+                            <div class="example">
+                                <div class="solid"><code>border: 2px solid green;</code></div>
+                                <div class="mixed-borders">
+                                    <code>border-top: 3px double red;</code>
+                                    <code>border-right: 5px dotted green;</code>
+                                    <code>border-bottom: 2px dashed blue;</code>
+                                    <code>border-left: 2px solid purple;</code>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Таблица стилей границы</h3>
+                        <table class="vertical-table">
+                            <thead>
+                                <tr>
+                                    <th>Стиль</th>
+                                    <th>Пример CSS</th>
+                                    <th>Визуальный пример</th>
+                                    <th>Применение</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>solid</td>
+                                    <td><code>border: 1px solid #000;</code></td>
+                                    <td><div style="border: 1px solid #000; height: 50px; margin: 10px"></div></td>
+                                    <td>Основные границы, рамки</td>
+                                </tr>
+                                <tr>
+                                    <td>dashed</td>
+                                    <td><code>border: 2px dashed #000dff;</code></td>
+                                    <td><div style="border: 2px dashed #000dff; background: #fff; height: 50px; margin: 10px"></div></td>
+                                    <td>Декоративные элементы</td>
+                                </tr>
+                                <tr>
+                                    <td>dotted</td>
+                                    <td><code>border: 2px dotted #4CAF50;</code></td>
+                                    <td><div style="border: 2px dotted #4caf50; background: #f5f5f5; height: 50px; margin: 10px"></div></td>
+                                    <td>Декоративные элементы (фон виден через точки)</td>
+                                </tr>
+                                <tr>
+                                    <td>double</td>
+                                    <td><code>border: 3px double #FF5722;</code></td>
+                                    <td><div style="border: 3px double #ff5722; height: 50px; margin: 10px"></div></td>
+                                    <td>Винтажный стиль</td>
+                                </tr>
+                                <tr>
+                                    <td>groove</td>
+                                    <td><code>border: 4px groove #3f51b5;</code></td>
+                                    <td><div style="border: 4px groove #3f51b5; height: 50px; margin: 10px"></div></td>
+                                    <td>Имитация выдавленной рамки</td>
+                                </tr>
+                                <tr>
+                                    <td>ridge</td>
+                                    <td><code>border: 4px ridge #f39c12;</code></td>
+                                    <td><div style="border: 4px ridge #f39c12; height: 50px; margin: 10px"></div></td>
+                                    <td>Имитация выступающей рамки</td>
+                                </tr>
+                                <tr>
+                                    <td>inset</td>
+                                    <td><code>border: 4px inset #009688;</code></td>
+                                    <td><div style="border: 4px inset #009688; height: 50px; margin: 10px"></div></td>
+                                    <td>Визуально придавливает элемент внутрь</td>
+                                </tr>
+                                <tr>
+                                    <td>outset</td>
+                                    <td><code>border: 4px outset #e91e63;</code></td>
+                                    <td><div style="border: 4px outset #e91e63; height: 50px; margin: 10px"></div></td>
+                                    <td>Визуально выступает наружу</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <style>
+                            .flex-grid {
+                                display: flex;
+                                background-color: #e3f2fd;
+                                gap: 20px;
+                                padding: 20px;
+                            }
+                            .card {
+                                width: 33%;
+                                background-color: #fff;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                text-align: center;
+                            }
+                        </style>
+                        <h3>Практические примеры</h3>
+                        <div class="flex-grid">
+                            <div class="card" style="border: 1px solid #535353; padding: 16px">
+                                <div>Карточка с рамкой</div>
+                            </div>
+                            <div class="card" style="border-left: 4px solid #3949ab; padding: 16px">
+                                <div>Акцентная граница</div>
+                            </div>
+                            <div class="card" style="border-bottom: 2px dashed #e53935; padding: 16px; background: #f9f9f9">
+                                <div>Подчеркивание (фон виден через штрихи)</div>
+                            </div>
+                        </div>
+
+                        <div class="note warning">
+                            <strong>Особенности:</strong>
+                            <ul>
+                                <li>
+                                    При несплошных границах (
+                                    <code>dotted</code>
+                                    ,
+                                    <code>dashed</code>
+                                    ) фон элемента просвечивает
+                                </li>
+                                <li>
+                                    Используйте
+                                    <code>background-clip: padding-box</code>
+                                    чтобы ограничить фон областью внутри границы
+                                </li>
+                                <li>
+                                    Можно задать радиус скругления с помощью
+                                    <code>border-radius</code>
+                                    для закругленных углов
+                                </li>
+                                <li>
+                                    Толщина и стиль можно задавать по отдельности для каждой стороны:
+                                    <code>border-top-width</code>
+                                    ,
+                                    <code>border-left-style</code>
+                                    , и т.д.
+                                </li>
+                                <li>Цвета поддерживают любые форматы: ключевые слова, HEX, RGB, HSL</li>
+                            </ul>
+                        </div>
+
+                        <h3>Создание фигур с помощью border</h3>
+                        <div class="flex-grid">
+                            <div class="card">
+                                <div style="width: 0; height: 0; border-left: 50px solid transparent; border-right: 50px solid transparent; border-bottom: 100px solid #3949ab"></div>
+                                <p>Треугольник</p>
+                            </div>
+                            <div class="card">
+                                <div style="width: 0; height: 0; border: 60px solid; border-color: #ff5722 transparent transparent transparent"></div>
+                                <p>Стрелка вверх</p>
+                            </div>
+                        </div>
+                        <pre><code>
+/* Треугольник */
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-bottom: 100px solid #3949ab;
+}
+
+/* Стрелка */
+.arrow-up {
+  width: 0;
+  height: 0;
+  border: 60px solid;
+  border-color: #ff5722 transparent transparent transparent;
+}
+</code></pre>
+
+                        <div class="note info">
+                            <strong>Важно:</strong>
+                            <ul>
+                                <li>Если элемент не имеет явно заданных размеров, border может повлиять на его итоговую ширину и высоту.</li>
+                                <li>
+                                    Для адаптивности удобно комбинировать border с
+                                    <code>box-sizing: border-box</code>
+                                    и относительными единицами (
+                                    <code>%</code>
+                                    ,
+                                    <code>em</code>
+                                    ,
+                                    <code>rem</code>
+                                    ).
+                                </li>
+                                <li>Границы влияют на визуальное отделение и читаемость контента, используйте их для акцентов и структурирования.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Свойство border-radius -->
+                <section class="section" id="border-radius">
+                    <div class="container">
+                        <h2>border-radius</h2>
+                        <p class="note">
+                            <b>border-radius</b>
+                            - Создает скругленные углы.
+                            <br />
+                            Может принимать от одного до восьми значений для сложных форм.
+                            <br />
+                            Поддерживает проценты для создания эллиптических углов.
+                        </p>
+                        <pre><code>
+/* Варианты скругления */
+.rounded {
+  border-radius: 8px; /* Равномерное */
+}
+.circle {
+  border-radius: 50%; /* Круг */
+}
+.custom {
+  border-radius: 15px 0 15px 0; /* Разные углы */
+}
+</code></pre>
+
+                        <div class="flex-grid">
+                            <div class="card" style="border-radius: 4px; border: 2px solid #535353; padding: 16px">
+                                <div><code>border-radius: 4px;</code></div>
+                            </div>
+                            <div class="card" style="border-radius: 8px; border: 2px solid #535353; padding: 16px">
+                                <div><code>border-radius: 8px;</code></div>
+                            </div>
+                            <div class="card" style="border-radius: 16px; border: 2px solid #535353; padding: 16px">
+                                <div><code>border-radius: 16px;</code></div>
+                            </div>
+                            <div class="card" style="border-radius: 50%; width: auto; border: 2px solid #535353; padding: 16px">
+                                <div><code>border-radius: 50%;</code></div>
+                            </div>
+                            <div class="card" style="border-radius: 15px 0 15px 0; border: 2px solid #535353; padding: 16px">
+                                <div><code>border-radius: 15px 0 15px 0;</code></div>
+                            </div>
+                        </div>
+
+                        <h4>Комбинированные примеры</h4>
+                        <div class="flex-grid">
+                            <div style="border-radius: 15px 0 15px 0; background: #ff5722; color: white; padding: 16px; margin: 8px">Скошенные углы</div>
+                            <div style="border-radius: 50px 50px 0 0; background: #4caf50; color: white; padding: 16px; margin: 8px">Полукруглый верх</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Свойство box-shadow -->
+                <section class="section" id="box-shadow">
+                    <div class="container">
+                        <h2>box-shadow</h2>
+                        <div class="note">
+                            <p>
+                                <b>box-shadow</b>
+                                - Добавляет тени к элементам.
+                                <br />
+                                Синтаксис:
+                                <br />
+                                <code><b>box-shadow: [x] [y] [blur] [spread] [color] [inset]</b></code>
+                                .
+                                <br />
+                                Поддерживает множественные тени, разделённые запятыми.
+                            </p>
+                            <strong>Параметры:</strong>
+                            <ul>
+                                <li>
+                                    <code>x</code>
+                                    — смещение тени по горизонтали. Положительное значение — вправо, отрицательное — влево.
+                                </li>
+                                <li>
+                                    <code>y</code>
+                                    — смещение по вертикали. Положительное значение — вниз, отрицательное — вверх.
+                                </li>
+                                <li>
+                                    <code>blur</code>
+                                    (необязательно) — радиус размытия. Чем больше значение, тем более размытая тень.
+                                </li>
+                                <li>
+                                    <code>spread</code>
+                                    (необязательно) — радиус распространения тени. Положительное значение увеличивает размер тени, отрицательное — уменьшает.
+                                </li>
+                                <li>
+                                    <code>color</code>
+                                    (необязательно) — цвет тени. Можно использовать любые CSS-форматы цвета (например,
+                                    <code>rgba</code>
+                                    ,
+                                    <code>#hex</code>
+                                    ,
+                                    <code>named colors</code>
+                                    ).
+                                </li>
+                                <li>
+                                    <code>inset</code>
+                                    (необязательно) — делает тень внутренней (внутри элемента), а не внешней.
+                                </li>
+                            </ul>
+                        </div>
+
+                        <strong>Примеры:</strong>
+                        <pre><code>
+box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+/* Внешняя тень со смещением 5px по x и y, размытием 10px */
+
+box-shadow: inset 0 0 5px 2px rgba(0, 0, 0, 0.2);
+/* Внутренняя тень с мягкими краями */
+
+box-shadow: 2px 2px 5px red, -2px -2px 5px blue;
+/* Две тени: красная снизу-справа, синяя сверху-слева */
+  </code></pre>
+
+                        <div class="shadow-showcase" style="display: grid; gap: 20px; grid-template-columns: repeat(2, 1fr); text-align: center; background-color: #fff; padding: 40px">
+                            <div style="box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); padding: 24px; background: white">
+                                <b>Маленькая тень</b>
+                                <br />
+                                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                            </div>
+                            <div style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); padding: 24px; background: white">
+                                <b>Средняя тень</b>
+                                <br />
+                                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+                            </div>
+                            <div style="box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); padding: 24px; background: white">
+                                <b>Большая тень</b>
+                                <br />
+                                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+                            </div>
+                            <div style="box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); padding: 24px; background: #f5f5f5">
+                                <b>Внутренняя тень</b>
+                                <br />
+                                box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+                            </div>
+                        </div>
+
+                        <h3>Креативные тени</h3>
+                        <div class="flex-grid">
+                            <div style="box-shadow: 4px 4px 0 #3949ab; padding: 16px; margin: 16px; background: white; border: 1px solid #ddd">Графическая тень</div>
+                            <div style="box-shadow: 0 0 0 4px #ff5722, 0 0 0 8px #ffc107; padding: 16px; margin: 16px; background: white">Множественные границы</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Свойство outline -->
+                <section class="section" id="outline">
+                    <div class="container">
+                        <h2>outline</h2>
+                        <p class="note">
+                            Свойство
+                            <code>outline</code>
+                            добавляет внешнюю обводку к элементу. В отличие от
+                            <code>border</code>
+                            , она не влияет на размер и расположение элемента в макете. Чаще всего используется для отображения фокуса у интерактивных элементов, таких как кнопки или ссылки, особенно при управлении с клавиатуры.
+                            <br />
+                            <br />
+                            <strong>Важно для доступности:</strong>
+                            позволяет пользователю видеть, какой элемент в данный момент активен (в фокусе). Не удаляйте
+                            <code>outline</code>
+                            без замены его другим видимым индикатором.
+                        </p>
+
+                        <pre><code>
+/* Базовые примеры использования */
+.focus-style {
+  outline: 2px solid #3949ab; /* Чёткая синяя обводка */
+}
+.offset-style {
+  outline: 2px dashed #ff5722;
+  outline-offset: 4px; /* Смещает обводку от края элемента */
+}
+.no-outline {
+  outline: none; /* Только если фокус обозначен другим способом! */
+}
+    </code></pre>
+                        <div class="flex-grid">
+                            <div class="card" style="border-radius: 4px; outline: 2px solid #3949ab; padding: 16px">
+                                <div><code>outline: 2px solid #3949ab;</code></div>
+                            </div>
+                            <div class="card" style="border-radius: 4px; outline: 2px dashed #ff5722; padding: 16px">
+                                <div><code>outline: 2px dashed #ff5722;</code></div>
+                            </div>
+                            <div class="card" style="border-radius: 4px; outline: none; padding: 16px">
+                                <div><code>outline: none;</code></div>
+                            </div>
+                        </div>
+                        <table class="vertical-table">
+                            <thead>
+                                <tr>
+                                    <th>Значение</th>
+                                    <th>Пример</th>
+                                    <th>Результат</th>
+                                    <th>Рекомендации</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>solid</td>
+                                    <td><code>outline: 2px solid #333;</code></td>
+                                    <td><button style="outline: 2px solid #333">Кнопка</button></td>
+                                    <td>Стандартный и читаемый стиль фокуса</td>
+                                </tr>
+                                <tr>
+                                    <td>dashed + offset</td>
+                                    <td>
+                                        <code>
+                                            outline: 2px dashed #ff5722;
+                                            <br />
+                                            outline-offset: 4px;
+                                        </code>
+                                    </td>
+                                    <td><button style="outline: 2px dashed #ff5722; outline-offset: 4px">Кнопка</button></td>
+                                    <td>Хорошо видимая обводка, не перекрывает содержимое</td>
+                                </tr>
+                                <tr>
+                                    <td>none</td>
+                                    <td><code>outline: none;</code></td>
+                                    <td><button style="outline: none">Кнопка</button></td>
+                                    <td>
+                                        <strong>Только</strong>
+                                        если есть замена (например,
+                                        <code>:focus-visible</code>
+                                        с box-shadow)
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="note warning">
+                            <strong>Важно:</strong>
+                            Никогда не убирайте
+                            <code>outline</code>
+                            без предоставления другого визуального индикатора фокуса — это нарушает принципы доступности (accessibility). Обязательно обеспечьте, чтобы пользователи клавиатуры могли легко ориентироваться в интерфейсе.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Стили кнопок -->
+                <section class="section" id="button-styles">
+                    <div class="container">
+                        <h2>Стили кнопок</h2>
+                        <p class="note">
+                            Ниже представлены стили, сочетающие различные CSS-свойства —
+                            <code>box-shadow</code>
+                            ,
+                            <code>outline</code>
+                            ,
+                            <code>border-radius</code>
+                            ,
+                            <code>backdrop-filter</code>
+                            и анимации — для создания доступных и выразительных кнопок. Все примеры поддерживают интерактивность через
+                            <code>:hover</code>
+                            и
+                            <code>:focus</code>
+                            .
+                        </p>
+
+                        <style>
+                            .btn {
+                                font-size: 16px;
+                                cursor: pointer;
+                                outline: none;
+                                transition: all 0.3s ease;
+                                margin: 20px 0;
+                                max-width: 400px;
+                                padding: 12px 24px;
+                            }
+
+                            /* Градиентная кнопка */
+                            .btn-gradient {
+                                background: linear-gradient(45deg, #ff5722, #ffc107);
+                                border: none;
+                                border-radius: 50px;
+                                color: white;
+
+                                box-shadow: 0 4px 15px rgba(255, 87, 34, 0.4);
+                            }
+
+                            .btn-gradient:hover {
+                                box-shadow: 0 6px 20px rgba(255, 87, 34, 0.6);
+                                transform: translateY(-2px);
+                            }
+
+                            /* Неоновая кнопка */
+                            .btn-neon {
+                                background: transparent;
+                                color: #00f3ff;
+                                border: 2px solid #00f3ff;
+                                border-radius: 4px;
+                                text-shadow: 0 0 8px rgba(0, 243, 255, 0.8);
+                                box-shadow: 0 0 20px rgba(0, 243, 255, 0.5), inset 0 0 20px rgba(0, 243, 255, 0.2);
+                            }
+
+                            .btn-neon:hover {
+                                box-shadow: 0 0 25px rgba(0, 243, 255, 0.8), inset 0 0 30px rgba(0, 243, 255, 0.3);
+                                background-color: rgba(0, 243, 255, 0.05);
+                            }
+
+                            /* Кнопка со стеклянным эффектом */
+                            .btn-glass {
+                                background: rgba(255, 255, 255, 0.1);
+                                backdrop-filter: blur(10px);
+                                border: 1px solid rgba(255, 255, 255, 0.2);
+                                border-radius: 8px;
+                                color: rgb(0, 0, 0);
+                                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                            }
+
+                            .btn-glass:hover {
+                                background: rgba(255, 255, 255, 0.15);
+                            }
+
+                            /* Кнопка с анимированной границей */
+                            .btn-border-anim {
+                                position: relative;
+                                background: transparent;
+                                color: #4caf50;
+                                border: 2px solid #4caf50;
+                                overflow: hidden;
+                                z-index: 0;
+                            }
+
+                            .btn-border-anim::before {
+                                content: "";
+                                position: absolute;
+                                top: 0;
+                                left: -100%;
+                                width: 100%;
+                                height: 100%;
+                                background: #4caf50;
+                                transition: left 0.3s ease;
+                                z-index: -1;
+                            }
+
+                            .btn-border-anim:hover::before {
+                                left: 0;
+                            }
+
+                            .btn-border-anim:hover {
+                                color: white;
+                            }
+                        </style>
+
+                        <h4>Градиент</h4>
+                        <div class="grid-column-50">
+                            <pre><code>
+/* Градиентная кнопка */
+.btn-gradient {
+  background: linear-gradient(45deg, #FF5722, #FFC107);
+  border: none;
+  border-radius: 50px;
+  color: white;
+  padding: 12px 24px;
+  box-shadow: 0 4px 15px rgba(255, 87, 34, 0.4);
+  transition: all 0.3s ease;
+}
+ </code></pre>
+                            <button class="btn btn-gradient">Градиент</button>
+                        </div>
+
+                        <h4>Неон</h4>
+                        <div class="grid-column-50">
+                            <pre><code>
+/* Неоновая кнопка */
+.btn-neon {
+  background: transparent;
+  color: #00f3ff;
+  border: 2px solid #00f3ff;
+  border-radius: 4px;
+  text-shadow: 0 0 8px rgba(0, 243, 255, 0.8);
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.5),
+  inset 0 0 20px rgba(0, 243, 255, 0.2);
+}
+ </code></pre>
+                            <button class="btn btn-neon">Неон</button>
+                        </div>
+
+                        <h4>Стекло</h4>
+                        <div class="grid-column-50">
+                            <pre><code>
+/* Эффект стекла */
+.btn-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+} </code></pre>
+                            <button class="btn btn-glass">Стекло</button>
+                        </div>
+
+                        <h4>Анимированная граница</h4>
+                        <div class="grid-column-50">
+                            <pre><code>
+/* Анимированная граница */
+.btn-border-anim {
+  position: relative;
+  padding: 12px 24px;
+  background: transparent;
+  color: #4caf50;
+  border: 2px solid #4caf50;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.btn-border-anim::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: #4caf50;
+  transition: left 0.3s ease;
+  z-index: -1;
+}
+
+.btn-border-anim:hover::before {
+  left: 0;
+}
+
+.btn-border-anim:hover {
+  color: white;
+}
+    </code></pre>
+                            <button class="btn btn-border-anim">Анимированная граница</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Свойство border-image -->
+                <section class="section" id="border-image">
+                    <div class="container">
+                        <h2>border-image</h2>
+                        <p class="note">Позволяет использовать изображение или градиент в качестве границы элемента. Состоит из трех частей: источника, срезов и правила повторения.</p>
+                        <div class="grid-column-50">
+                            <pre><code>
+/* Полный синтаксис */
+.element {
+  border: 10px solid transparent; /* Обязательно */
+  border-image-source: url('border.png'); /* Изображение */
+  border-image-slice: 30; /* Размер срезов */
+  border-image-repeat: round; /* Повторение */
+  border-image-outset: 0; /* Отступ */
+  border-image-width: 1; /* Ширина */
+}
+
+/* Сокращенная запись */
+.fancy-border {
+  border: 10px solid transparent;
+  border-image: url('border.png') 30 / 10px / 0 round;
+}
+
+/* Градиентная граница */
+.gradient-border {
+  border: 4px solid transparent;
+  border-image: linear-gradient(45deg, #ff5722, #3949ab) 1;
+}
+</code></pre>
+
+                            <div>
+                                <div class="element"></div>
+                            </div>
+                        </div>
+                        <style>
+                            .element {
+                                /* Размеры и содержимое */
+                                width: 100px;
+                                height: 100px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                background-color: #f0f0f0;
+                                color: #333;
+                                font-family: Arial, sans-serif;
+
+                                /* Стили границы */
+                                border: 10px solid transparent;
+                                border-image-source: url(../img/border/border-image.png);
+                                /*   border-image-source: url(/img/border/border-image.png);
+                border-image-source: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="none" stroke="%23ff5722" stroke-width="10"/></svg>'); */
+                                border-image-slice: 30;
+                                border-image-repeat: round;
+                                border-image-outset: 0;
+                                border-image-width: 10px; /* соответствует border-width */
+                            }
+                            /* Сокращенная запись */
+                            .fancy-border {
+                                border: 10px solid transparent;
+                                border-image: url("border.png") 30 / 10px / 0 round;
+                            }
+
+                            /* Градиентная граница */
+                            .gradient-border {
+                                border: 4px solid transparent;
+                                border-image: linear-gradient(45deg, #ff5722, #3949ab) 1;
+                            }
+                            .example-01 {
+                                width: 200px;
+                                height: 100px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                border: 20px solid transparent;
+                                border-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"><rect width="50" height="50" fill="none" stroke="%233949ab" stroke-width="10" stroke-dasharray="5%2C5"/></svg>') 30% round;
+                                margin: 0;
+                                background-color: #f5f5f5;
+                            }
+                            .example-02 {
+                                width: 200px;
+                                height: 100px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                border: 4px solid transparent;
+                                border-image: linear-gradient(45deg, #ff5722, #ffc107, #4caf50, #3949ab) 1;
+                                margin: 0;
+                                background-color: #f5f5f5;
+                            }
+                            .example-03 {
+                                width: 200px;
+                                height: 100px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                /* Обязательные свойства: */
+                                border: 15px solid transparent; /* Толщина должна соответствовать border-image-width */
+                                border-image-source: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="5" fill="%23ff5722"/></svg>');
+                                border-image-slice: 20; /* Ключевое значение! Без единиц */
+                                border-image-repeat: stretch; /* Или round, space */
+                                border-image-width: 1; /* Относительная ширина границы */
+                                margin: 10px;
+                                background-color: #f5f5f5;
+                                font-family: Arial, sans-serif;
+                            }
+
+                            .example-01,
+                            .example-02,
+                            .example-03 {
+                                margin: 20px 0;
+                            }
+                        </style>
+
+                        <div style="display: flex; flex-direction: column; gap: 20px">
+                            <!-- Пример 1: SVG граница -->
+                            <div class="grid-column-50">
+                                <pre><code>.example-01 {
+  width: 200px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 20px solid transparent;
+  border-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"><rect width="50" height="50" fill="none" stroke="%233949ab" stroke-width="10" stroke-dasharray="5%2C5"/></svg>')
+    30% round;
+  margin: 0;
+  background-color: #f5f5f5;
+}</code></pre>
+                                <div class="example-01">SVG Pattern</div>
+                            </div>
+
+                            <!-- Пример 2: Градиентная граница -->
+                            <div class="grid-column-50">
+                                <pre><code>.example-02 {
+  width: 200px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid transparent;
+  border-image: linear-gradient(45deg, #ff5722, #ffc107, #4caf50, #3949ab) 1;
+  margin: 0;
+  background-color: #f5f5f5;
+}</code></pre>
+                                <div class="example-02">Gradient Border</div>
+                            </div>
+
+                            <!-- Пример 3: Изображение с повторением -->
+                            <div class="grid-column-50">
+                                <pre><code>.example-03 {
+  width: 200px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Основные свойства границы */
+  border: 15px solid transparent;
+
+  /* SVG для границы (оранжевые точки) */
+  border-image-source: url('data:image/svg+xml;utf8,&lt;svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"&gt;&lt;circle cx="10" cy="10" r="8" fill="%23ff5722"/&gt;&lt;/svg&gt;');
+
+  /* Параметры отображения границы */
+  border-image-slice: 25;
+  border-image-repeat: round;
+  border-image-width: 1;
+
+  /* Дополнительные стили */
+  margin: 10px;
+  background-color: #f5f5f5;
+  font-family: Arial, sans-serif;
+  color: #333;
+}</code></pre>
+                                <div class="example-03">Dotted Pattern</div>
+                            </div>
+                        </div>
+
+                        <div class="note warning">
+                            <strong>Важно:</strong>
+                            Всегда задавайте
+                            <code>border-style</code>
+                            и
+                            <code>border-width</code>
+                            перед
+                            <code>border-image</code>
+                            . Для прозрачной границы используйте
+                            <code>transparent</code>
+                            .
+                        </div>
+
+                        <div class="note tip">
+                            <strong>Совет:</strong>
+                            Для сложных границ:
+                            <ul>
+                                <li>Используйте SVG для создания повторяемых узоров</li>
+                                <li>
+                                    Значение
+                                    <code>slice</code>
+                                    можно задавать в процентах или числами
+                                </li>
+                                <li>
+                                    <code>border-image-width</code>
+                                    контролирует толщину границы
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Стили карточек -->
+                <section class="section" id="card-styles">
+                    <div class="container">
+                        <h2>Стили карточек</h2>
+                        <p class="note">
+                            Современные варианты оформления карточек с использованием
+                            <code>border</code>
+                            ,
+                            <code>box-shadow</code>
+                            ,
+                            <code>border-radius</code>
+                            и
+                            <code>backdrop-filter</code>
+                            . Подходят для карточек товаров, профилей и контента.
+                        </p>
+
+                        <div class="card-showcase" style="display: flex; flex-wrap: wrap; gap: 40px; background-color: #aeaeae; padding: 40px">
+                            <div class="card card-floating">
+                                <h5>Floating Card</h5>
+                                <p>Карточка с мягкой тенью и скруглёнными углами</p>
+                            </div>
+
+                            <div class="card card-border-accent">
+                                <h5>Акцентная граница</h5>
+                                <p>Карточка с цветным акцентом сверху</p>
+                            </div>
+
+                            <div class="card card-glass">
+                                <h5>Стеклянный эффект</h5>
+                                <p>Полупрозрачная карточка с размытием</p>
+                            </div>
+                        </div>
+
+                        <style>
+                            /* Общий стиль для всех карточек */
+                            .card {
+                                background: #fff;
+                                padding: 20px;
+                                flex: 1 1 250px;
+                                min-width: 240px;
+                                color: #333;
+                                transition: all 0.3s ease;
+                            }
+                            .card p {
+                                padding: 0;
+                                margin: 0;
+                            }
+                            .card h5 {
+                                color: #3949ab;
+                                font-weight: 600;
+                                font-size: 20px;
+                            }
+
+                            /* Карточка с плавающей тенью */
+                            .card-floating {
+                                border-radius: 12px;
+                                border: 1px solid #eee;
+                                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                            }
+
+                            .card-floating:hover {
+                                transform: translateY(-4px);
+                                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+                            }
+
+                            /* Карточка с акцентной границей */
+                            .card-border-accent {
+                                border-radius: 8px;
+                                border-top: 4px solid #3949ab;
+                                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                            }
+
+                            .card-border-accent:hover {
+                                box-shadow: 0 4px 16px rgba(57, 73, 171, 0.15);
+                            }
+
+                            /* Стеклянная карточка */
+                            .card-glass {
+                                background: rgba(255, 255, 255, 0.1);
+                                backdrop-filter: blur(12px);
+                                border: 1px solid rgba(255, 255, 255, 0.2);
+                                border-radius: 16px;
+                                color: white;
+                                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                            }
+
+                            .card-glass:hover {
+                                background: rgba(255, 255, 255, 0.15);
+                            }
+                        </style>
+
+                        <pre><code>
+/* Общий стиль для карточек */
+.card {
+  background: #fff;
+  padding: 20px;
+  flex: 1 1 250px;
+  min-width: 240px;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+/* Плавающая карточка */
+.card-floating {
+  border-radius: 12px;
+  border: 1px solid #eee;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.card-floating:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+/* С акцентной границей */
+.card-border-accent {
+  border-radius: 8px;
+  border-top: 4px solid #3949ab;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.card-border-accent:hover {
+  box-shadow: 0 4px 16px rgba(57,73,171,0.15);
+}
+
+/* Стеклянная карточка */
+.card-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.card-glass:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+    </code></pre>
+                    </div>
+                </section>
+
+                <!-- Лучшие практики -->
+                <section class="section" id="best-practices">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+
+                        <div class="practices-grid">
+                            <div class="practice-item">
+                                <h3>Доступность фокуса</h3>
+                                <p>Всегда обеспечивайте видимый индикатор фокуса для интерактивных элементов:</p>
+                                <pre><code>a:focus, button:focus {
+  outline: 2px solid #3949ab;
+  outline-offset: 2px;
+}</code></pre>
+                            </div>
+
+                            <div class="practice-item">
+                                <h3>Согласованность</h3>
+                                <p>Используйте единые радиусы скругления и толщины границ во всем интерфейсе:</p>
+                                <pre><code>:root {
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-width: 1px;
+}</code></pre>
+                            </div>
+
+                            <div class="practice-item">
+                                <h3>Производительность</h3>
+                                <p>Избегайте слишком больших теней и сложных градиентных границ на подвижных элементах.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            @@include('../partials/footer.html', {})
+        </div>
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+    </body>
+</html>

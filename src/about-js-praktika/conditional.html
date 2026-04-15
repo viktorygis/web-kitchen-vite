@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../partials/head.html', { "title": "Задачи: Условные конструкции", "description": "Задачи: Условные конструкции" })
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+            <main class="page">
+                <section class="section">
+                    <div class="container">
+                        <h1>1. Условные конструкции</h1>
+                    </div>
+                </section>
+            </main>
+            @@include('../partials/footer.html', {})
+        </div>
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+        <script>
+            "use strict";
+            //------------------------------------------------------------------------------------------
+            //Условные конструкции
+            //-----------------------------
+
+            //
+            /*           let a = 100;
+            let b = 40;
+            if (b > a) {
+              console.log(`b>a: ${b > a}`);
+            }
+
+            //-----------------------------
+
+            if (b > a) {
+              console.log(`b>a: ${b > a}`);
+            } else {
+              console.log(`b>a: ${b > a}`);
+            }
+            //-----------------------------
+
+            let age = 16;
+            if (age >= 18) {
+              console.log("Ты совершеннолетний!");
+            } else {
+              console.log("Ты ещё молод!"); // Этот код выполнится
+            }
+
+            //-----------------------------
+
+            if (age >= 18) {
+              // Если возраст больше или равен 18
+              console.log("Ты совершеннолетний!");
+            } else if (age >= 16) {
+              // Иначе если возраст больше или равен 16
+              console.log("Ты почти взрослый!"); // Этот код выполнится
+            } else {
+              // Иначе
+              console.log("Ты ещё молод!");
+            } */
+            //Счёт от 0 до 4
+            /*      let i = 0;
+      let text = "";
+      while (i < 5) {
+        text = text + i + " ";
+        i = i + 1;
+        console.log(text);
+      } */
+
+            let i = 1;
+            let sum = 0;
+            while (i <= 5) {
+                sum = sum + i;
+                console.log("После добавления", i, "сумма =", sum);
+                i = i + 1;
+            }
+            sum; // итоговая сумма
+        </script>
+    </body>
+</html>

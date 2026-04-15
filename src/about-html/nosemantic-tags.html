@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../partials/head.html', { "title": "HTML: Несемантические теги div и span", "description": "Руководство по использованию несемантических тегов div и span в HTML" })
+    <style>
+        .tags-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .tags-list h3 {
+            padding: 0;
+            margin: 0 0 1rem 0;
+        }
+        .tags-list h4 {
+            font-size: 1.2rem;
+        }
+        .intro-code-block {
+            border-radius: 8px;
+            padding: 16px;
+            margin: 24px 0;
+            font-size: 1rem;
+            overflow-x: auto;
+        }
+
+        .demo-block {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background: #fafbfc;
+            padding: 16px;
+            margin-top: 8px;
+        }
+    </style>
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a class="nav-tabs__link" href="#intro">Введение</a>
+                    <a class="nav-tabs__link" href="#div">div</a>
+                    <a class="nav-tabs__link" href="#span">span</a>
+                    <a class="nav-tabs__link" href="#examples">Примеры</a>
+                    <a class="nav-tabs__link" href="#tips">Советы</a>
+                    <a class="nav-tabs__link" href="#best-practices">Лучшие практики</a>
+                </nav>
+
+                <!-- Введение -->
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>
+                            HTML: Несемантические теги
+                            <b>&lt;div&gt;</b>
+                            и
+                            <b>&lt;span&gt;</b>
+                        </h1>
+                        <p class="note">
+                            <strong>Несемантические теги</strong>
+                            <code>&lt;div&gt;</code>
+                            и
+                            <code>&lt;span&gt;</code>
+                            применяются для группировки, стилизации и работы с контентом, когда нет подходящего смыслового (семантического) тега.
+                            <br />
+                            Они не несут смысловой нагрузки для браузеров и поисковых систем, но широко используются для верстки и работы с CSS/JS.
+                        </p>
+                        <h4>Плюсы использования</h4>
+                        <ul class="list-ul">
+                            <li>
+                                <b>Универсальность</b>
+                                : подходят для любых случаев, когда нет семантического аналога.
+                            </li>
+                            <li>
+                                <b>Гибкость</b>
+                                : легко стилизуются и управляются с помощью CSS и JavaScript.
+                            </li>
+                            <li>
+                                <b>Простота</b>
+                                : позволяют быстро создавать макеты и структуры без излишней сложности.
+                            </li>
+                        </ul>
+
+                        <h4>Минусы использования</h4>
+                        <ul class="list-ul">
+                            <li>
+                                <b>Отсутствие семантики</b>
+                                : не помогают поисковым системам и вспомогательным технологиям понять структуру контента.
+                            </li>
+                            <li>
+                                <b>Потенциальная путаница</b>
+                                : чрезмерное использование может привести к "дивовому аду" — сложной и запутанной структуре.
+                            </li>
+                            <li>
+                                <b>Проблемы с доступностью</b>
+                                : не обеспечивают контекст для пользователей с ограниченными возможностями.
+                            </li>
+                        </ul>
+
+                        <p class="note note--info">
+                            Используйте
+                            <code>div</code>
+                            и
+                            <code>span</code>
+                            только тогда, когда нет подходящего семантического аналога (
+                            <code>&lt;section&gt;</code>
+                            ,
+                            <code>&lt;article&gt;</code>
+                            ,
+                            <code>&lt;nav&gt;</code>
+                            и др.).
+                        </p>
+                    </div>
+                </section>
+
+                <!-- DIV -->
+                <section class="section" id="div">
+                    <div class="container">
+                        <h2>
+                            <b>&lt;div&gt;</b>
+                            — блочный контейнер
+                        </h2>
+                        <p class="note">
+                            <code>&lt;div&gt;</code>
+                            — универсальный блочный элемент.
+                            <br />
+                            Занимает всю ширину родителя, переносится на новую строку.
+                            <br />
+                            Используется для группировки других блочных элементов, построения макета, карточек, секций.
+                        </p>
+                        <ul class="list-ul">
+                            <li>Группировка блоков, секций, частей страницы.</li>
+                            <li>Применение CSS-классов для оформления и позиционирования.</li>
+                            <li>Работа с JavaScript для динамических изменений.</li>
+                        </ul>
+                        <p class="note note--info">
+                            Не используйте
+                            <code>&lt;div&gt;</code>
+                            для обозначения смысловых областей, если можно применить семантический тег.
+                        </p>
+                        <h4>Пример:</h4>
+                        <div class="demo-block">
+                            <div style="border: 1px solid #3699f6; border-radius: 4px; padding: 10px">
+                                <h3>Заголовок блока</h3>
+                                <p>
+                                    Текст внутри
+                                    <code>&lt;div&gt;</code>
+                                    .
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SPAN -->
+                <section class="section" id="span">
+                    <div class="container">
+                        <h2>
+                            <b>&lt;span&gt;</b>
+                            — строчный контейнер
+                        </h2>
+                        <p class="note">
+                            <code>&lt;span&gt;</code>
+                            — универсальный строчный элемент.
+                            <br />
+                            Применяется для стилизации части текста, выделения отдельных символов, работы с JS.
+                        </p>
+                        <ul class="list-ul">
+                            <li>Выделение части строки или отдельного слова (например, цвет, жирность, фон).</li>
+                            <li>Работа с отдельными символами, элементами внутри абзаца.</li>
+                            <li>Применение CSS/JS к небольшим участкам текста.</li>
+                        </ul>
+                        <p class="note note--info">
+                            <code>&lt;span&gt;</code>
+                            не создаёт разрывов строк и не влияет на структуру документа.
+                        </p>
+                        <h4>Пример:</h4>
+                        <div class="demo-block">
+                            <p>
+                                Это текст с
+                                <span style="color: red; font-weight: bold">выделением</span>
+                                внутри строки.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Примеры -->
+                <section class="section" id="examples">
+                    <div class="container">
+                        <h2>Примеры использования</h2>
+
+                        <!-- DIV пример -->
+                        <h4>
+                            Пример
+                            <code>&lt;div&gt;</code>
+                        </h4>
+                        <div class="grid-column-100">
+                            <div class="demo-block">
+                                <div style="border: 1px solid #3699f6; border-radius: 4px; padding: 10px">
+                                    <h3>Заголовок блока</h3>
+                                    <p>
+                                        Текст внутри
+                                        <code>&lt;div&gt;</code>
+                                        .
+                                    </p>
+                                </div>
+                            </div>
+                            <pre class="intro-code-block"><code>&lt;div class="content"&gt;
+  &lt;h3&gt;Заголовок блока&lt;/h3&gt;
+  &lt;p&gt;Текст внутри &lt;div&gt;.&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+                        </div>
+
+                        <!-- SPAN пример -->
+                        <h4>
+                            Пример
+                            <code>&lt;span&gt;</code>
+                        </h4>
+                        <div class="grid-column-100">
+                            <div class="demo-block">
+                                <p>
+                                    Это текст с
+                                    <span style="color: red; font-weight: bold">выделением</span>
+                                    внутри строки.
+                                </p>
+                            </div>
+                            <pre class="intro-code-block"><code>&lt;p&gt;
+  Это текст с &lt;span style="color: red;"&gt;выделением&lt;/span&gt; внутри строки.
+&lt;/p&gt;
+</code></pre>
+                        </div>
+
+                        <h4>Пример из реального проекта</h4>
+                        <div class="grid-column-50">
+                            <div>
+                                <h5>Вид:</h5>
+                                <div class="demo-block card" style="border: 1px solid #ddd; padding: 1em">
+                                    <h3 style="margin-top: 0">Карточка</h3>
+                                    <p>
+                                        Описание с
+                                        <span style="text-decoration: underline">выделенным моментом</span>
+                                        .
+                                    </p>
+                                    <button>Подробнее</button>
+                                </div>
+                            </div>
+                            <div>
+                                <h5>HTML-код:</h5>
+                                <pre class="intro-code-block"><code>&lt;div class="card"&gt;
+  &lt;h3&gt;Карточка&lt;/h3&gt;
+  &lt;p&gt;Описание с &lt;span&gt;выделенным моментом&lt;/span&gt;.&lt;/p&gt;
+  &lt;button&gt;Подробнее&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Советы -->
+                <section class="section" id="tips">
+                    <div class="container">
+                        <h2>Советы</h2>
+                        <ul class="list-ul">
+                            <li>
+                                Используйте
+                                <code>&lt;div&gt;</code>
+                                для блочной группировки,
+                                <code>&lt;span&gt;</code>
+                                — для строчных элементов.
+                            </li>
+                            <li>Назначайте CSS-классы для удобной стилизации и управления.</li>
+                            <li>
+                                Старайтесь не создавать "дивовый ад" — не используйте слишком много вложенных
+                                <code>&lt;div&gt;</code>
+                                без необходимости.
+                            </li>
+                            <li>Группируйте элементы по смыслу, даже если используете несемантические теги.</li>
+                        </ul>
+                        <p class="note note--info">Семантические теги всегда предпочтительнее, если они подходят по смыслу!</p>
+                    </div>
+                </section>
+
+                <!-- Лучшие практики -->
+                <section class="section" id="best-practices">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+                        <ul class="list-ul">
+                            <li>
+                                Проверяйте свой HTML в
+                                <a href="https://validator.w3.org/" target="_blank">валидаторе HTML</a>
+                                .
+                            </li>
+                            <li>
+                                Используйте семантические теги для разметки смысловых областей,
+                                <code>div</code>
+                                и
+                                <code>span</code>
+                                — только для оформления.
+                            </li>
+                            <li>Делайте код читаемым для людей и машин — не усложняйте структуру без необходимости.</li>
+                            <li>
+                                Не используйте
+                                <code>&lt;div&gt;</code>
+                                и
+                                <code>&lt;span&gt;</code>
+                                ради привычки, думайте о структуре контента.
+                            </li>
+                        </ul>
+                        <p class="note note--info">Качественная структура HTML облегчает поддержку сайта, улучшает SEO и доступность для всех пользователей.</p>
+                    </div>
+                </section>
+            </main>
+            @@include('../partials/footer.html', {})
+        </div>
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+    </body>
+</html>

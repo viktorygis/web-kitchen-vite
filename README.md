@@ -1,6 +1,6 @@
-# web-kitchen-vite — Vite + Nunjucks (MPA) + SCSS + JS + отдельный PHP API
+# web-kitchen-vite — Vite MPA + SCSS + JS
 
-Многостраничный сайт (MPA) на **Vite** с шаблонами **Nunjucks**.
+Многостраничный сайт (MPA) на **Vite** с HTML-шаблонами через `@@include()`.
 Стили пишутся на **SCSS**, скрипты — модульные (**ESM**).
 Отправка писем (если нужна) делается через **PHP API**, который деплоится **отдельно от `dist/`**.
 
@@ -13,15 +13,12 @@
 - [Запуск в разработке](#запуск-в-разработке)
 - [Сборка (production)](#сборка-production)
 - [Просмотр сборки локально](#просмотр-сборки-локально)
-- [Структура проекта (подробно)](#структура-проекта-подробно)
-- [Шаблоны Nunjucks](#шаблоны-nunjucks)
+- [Структура проекта](#структура-проекта)
+- [HTML-шаблоны и партиалы](#html-шаблоны-и-партиалы)
 - [Стили (SCSS)](#стили-scss)
 - [JavaScript](#javascript)
 - [Деплой](#деплой)
-  - [Frontend (dist)](#frontend-dist)
-  - [Backend (PHP API — отдельно)](#backend-php-api--отдельно)
 - [Частые проблемы](#частые-проблемы)
-- [Команды](#команды)
 
 ---
 
@@ -42,18 +39,11 @@ npm install
 
 ## Запуск в разработке
 
-Команда запускает:
-
-1. рендер Nunjucks → HTML (`src/pages/**/*.njk` → `src/site/**/*.html`)
-2. Vite dev server (отдаёт HTML из `src/site`)
-
 ```bash
 npm run dev
-
 ```
 
-После запуска сайт доступен по адресу, который покажет Vite
-(обычно `http://localhost:5173/`).
+После запуска сайт доступен по адресу `http://localhost:5173/`.
 
 ---
 
@@ -75,245 +65,141 @@ npm run preview
 
 ---
 
-## Структура проекта (подробно)
-
-> `dist/` генерируется автоматически и обычно не хранится в Git.
-> `src/site/` — сгенерированные HTML-страницы (результат рендера Nunjucks), их тоже обычно не правят руками.
+## Структура проекта
 
 ```text
 project-root/
-  # -----------------------------
-  # Root (конфигурация и команды)
-  # -----------------------------
-  .gitignore                        # исключения для Git (обычно включает dist/ и src/site/)
-  package-lock.json                 # блокировка версий npm (не редактировать вручную)
-  package.json                      # зависимости и скрипты
-  README.md                         # документация (этот файл)
-  vite.config.js                    # конфигурация Vite (root: src/site)
+  .gitignore
+  package.json                          # зависимости и скрипты
+  vite.config.js                        # конфигурация Vite (root: src)
 
-  # -----------------------------------------
-  # Скрипты автоматизации (Node scripts)
-  # -----------------------------------------
   scripts/
-    render-njk.mjs                  # рендер Nunjucks -> HTML перед dev/build
+    vite-plugin-html-include.js         # Vite-плагин для @@include()
 
-  # -----------------------------
-  # Исходники (то, что редактируем)
-  # -----------------------------
-  src/
-    # 1) Шаблоны страниц (Nunjucks)
-    pages/
-      index.njk
-
-      # примеры разделов
-      about-css/
-        animation.njk
-        flex.njk
-        grid.njk
-        ...
-      about-html/
-        tags.njk
-        forms.njk
-        ...
-      about-js-teoria/
-        scope.njk
-        promises.njk
-        ...
-      about-js-praktika/
-        tasks-01.njk
-        ...
-      about-react/
-        intro.njk
-        ...
-      about-scss/
-        variables.njk
-        mixins.njk
-        ...
-      about-vue/
-        intro.njk
-        ...
-
-      # дополнительные страницы
-      catalog.njk
-      mentors.njk
-      services.njk
-      login.njk
-      registration.njk
-      vscode.njk
-      404.njk
-
-    # 2) Layouts (каркас страниц)
-    layouts/
-      base.njk                      # общий layout (head/header/footer + content + script)
-      plain.njk                     # (опц.) layout без header/footer
-      error.njk                     # (опц.) layout для 404/ошибок
-
-    # 3) Partials (переиспользуемые блоки)
-    partials/
-      head.njk                      # <head>: meta/og/title/favicon и т.д.
-      header.njk                    # меню/шапка
-      footer.njk                    # футер
-      popup.njk                     # попапы/модалки
-      sidebar.njk                   # (опц.) боковая навигация
-      breadcrumbs.njk               # (опц.)
-      pagination.njk                # (опц.)
-
-    # 4) Vite entry
-    main.js                         # импортирует SCSS и основной JS
-
-    # 5) SCSS стили
-    styles/
-      main.scss                     # главный SCSS entry
-      variables.scss                # переменные проекта (цвета, размеры, шрифты)
-      mixins.scss                   # (опционально)
-      functions.scss                # (опционально)
-      base/
-        reset.scss                  # reset/normalize
-        typography.scss             # базовая типографика
-        helpers.scss                # утилитарные классы
-      components/
-        header.scss
-        footer.scss
-        buttons.scss
-        forms.scss
-        popup.scss
-        table.scss
-        note.scss
-        ...
-      pages/
-        index.scss                  # (опционально) стили конкретных страниц
-        about-css.scss
-        about-html.scss
-        ...
-
-    # 6) JavaScript
-    scripts/
-      app.js                        # основной JS (инициализация)
-      modules/
-        menu.js
-        popup.js
-        tabs.js
-        accordion.js
-        validators.js
-        api.js                      # (опц.) обертки для fetch
-        form-send.js                # (опц.) отправка форм на /api/mail/send.php
-        storage.js                  # (опц.) localStorage helpers
-        ...
-      pages/
-        index.js                    # (опц.) JS только для конкретной страницы
-        catalog.js
-        ...
-
-    # 7) Сгенерированные HTML (выход рендера Nunjucks)
-    #    НЕ редактировать вручную — генерируется `npm run render`
-    site/
-      index.html
-      about-css/
-        animation.html
-        flex.html
-        grid.html
-        ...
-      about-html/
-        tags.html
-        forms.html
-        ...
-      ...                           # 1:1 соответствует структуре src/pages
-
-  # -----------------------------------------
-  # Статика без обработки (копируется в dist)
-  # -----------------------------------------
-  public/
-    img/
-      ...
+  public/                               # статические ресурсы (шрифты, img)
     fonts/
-      ...
-    favicon.ico
-    robots.txt
-    sitemap.xml
-    .well-known/                    # (опц.)
+    img/
 
-  # -----------------------------
-  # Результат сборки (production)
-  # -----------------------------
-  dist/
-    index.html
+  src/                                  # корень Vite (root: "src")
+    index.html                          # главная страница
+
+    # Страницы (по разделам)
+    about-html/
+      start-html.html
+      tags-html.html
+      ...
     about-css/
+      start-css.html
       animation.html
       ...
-    assets/
-      *.css                         # итоговый CSS из SCSS
-      *.js                          # итоговый JS из main.js + импортов
-    img/                            # из public/img
-    fonts/                          # из public/fonts
-    favicon.ico
-    robots.txt
-    sitemap.xml
+    about-scss/
+      start-scss.html
+      ...
+    about-js-teoria/
+      ...
+    about-js-praktika/
+      ...
+    about-design/
+      ...
+    about-vue/
+      ...
+    about-react/
+      ...
+    vscode.html
+
+    # Общие части (партиалы) — не являются отдельными страницами
+    partials/
+      head.html       # <meta>, <title>, CDN-стили/скрипты
+      header.html     # навигация
+      footer.html     # подвал
+      popup.html      # всплывающее окно (если есть)
+      js.html         # основной <script type="module">
+
+    # JavaScript
+    main.js
+    scripts/
+      app.js
+      modules/
+
+    # Стили
+    styles/
+      main.scss
+      ...
 ```
 
 ---
 
-## Шаблоны Nunjucks
+## HTML-шаблоны и партиалы
 
-### Рендер страниц
+Вместо Nunjucks используется легковесный Vite-плагин (`scripts/vite-plugin-html-include.js`),
+который обрабатывает директивы `@@include()` прямо в HTML-файлах.
 
-- Исходники: `src/pages/**/*.njk`
-- Результат рендера: `src/site/**/*.html`
-- Скрипт рендера: `scripts/render-njk.mjs`
+### Синтаксис
 
-Рендер выполняется перед `dev` и `build`.
-
-### Подключение общих частей (partials)
-
-```njk
-{% include "partials/head.njk" %}
-{% include "partials/header.njk" %}
-
-<main>...</main>
-
-{% include "partials/footer.njk" %}
+```html
+@@include('partials/head.html', {"title": "Заголовок страницы", "description": "Описание"})
+@@include('../partials/header.html', {})
+@@include('../partials/footer.html', {})
 ```
+
+- Путь указывается **относительно текущего файла**.
+- Переменные из второго аргумента (`{...}`) замещают плейсхолдеры `@@key` внутри партиала.
+
+### Пример новой страницы
+
+```html
+<!DOCTYPE html>
+<html lang="ru">
+  @@include('../partials/head.html', {"title": "Моя страница", "description": "Описание"})
+  <body>
+    <div class="wrapper">
+      @@include('../partials/header.html', {})
+      <main class="page">
+        <section class="section">
+          <div class="container">
+            <h1>Заголовок</h1>
+          </div>
+        </section>
+      </main>
+      @@include('../partials/footer.html', {})
+    </div>
+    @@include('../partials/popup.html', {})
+    @@include('../partials/js.html', {})
+  </body>
+</html>
+```
+
+> Для корневых страниц (`src/index.html`) путь начинается с `'partials/...'`,
+> для вложенных (`src/about-html/start-html.html`) — с `'../partials/...'`.
 
 ---
 
 ## Стили (SCSS)
 
-Главный файл:
+Точка входа: `src/styles/main.scss`
 
-- `src/styles/main.scss`
-
-Подключается через Vite entry `src/main.js`:
+Подключается через `src/main.js`:
 
 ```js
-import "./styles/main.scss";
+import "./styles/style.scss";
+import "./scripts/app.js";
 ```
 
-> Не нужно подключать CSS вручную через `<link>` (например `style.min.css`) — Vite сам соберёт и подключит итоговый CSS.
+Vite компилирует SCSS автоматически при запуске `dev` или `build`.
 
 ---
 
 ## JavaScript
 
-Основной вход (Vite entry):
+Основной вход: `src/main.js`
 
-- `src/main.js`
-
-Пример:
-
-```js
-import "./styles/main.scss";
-import "./scripts/app.js";
-```
-
-### Подключение на страницах
-
-Так как `vite.config.js` использует `root: "src/site"`, а `main.js` лежит в `src/`,
-скрипт подключается через алиас:
+Подключается на всех страницах через партиал `src/partials/js.html`:
 
 ```html
-<script type="module" src="/@src/main.js"></script>
+<script type="module" src="/main.js"></script>
 ```
 
-> Алиас `/@src` настроен в `vite.config.js`.
+При сборке Vite собирает и хеширует JS-бандл в `dist/assets/`.
 
 ---
 
@@ -321,77 +207,30 @@ import "./scripts/app.js";
 
 ### Frontend (dist)
 
-1. Собрать проект:
+После `npm run build` папка `dist/` содержит весь статический сайт.
+Просто скопируйте её содержимое на хостинг.
 
-```bash
-npm run build
-```
-
-2. Загрузить содержимое `dist/` в корень сайта (DocumentRoot), например:
-
-- `public_html/` (на большинстве хостингов)
-- или `/var/www/site/public/` (на VPS)
-
----
+Страницы доступны по URL вида:
+- `/` (index.html)
+- `/about-html/start-html.html`
+- `/about-css/animation.html`
+- и т.д.
 
 ### Backend (PHP API — отдельно)
 
-> PHP не кладём в `dist/`, деплоим отдельно.
-
-Рекомендуемая структура на сервере:
-
-```text
-server-root/
-  public_html/                     # сюда загружается dist/*
-    index.html
-    assets/                        # итоговые CSS/JS
-    img/
-    fonts/
-    ...
-
-  api/                             # php-эндпоинты (деплой отдельно)
-    mail/send.php
-    config/
-      secrets.php                  # НЕ хранить в репозитории
-```
-
-Фронтенд может отправлять формы на:
-
-- `POST /api/mail/send.php`
+PHP-файлы **не** входят в `dist/`. Деплоятся отдельно.
 
 ---
 
 ## Частые проблемы
 
-### 1) Стили/JS не применяются
+### Партиал не найден
 
-Проверь:
+Убедитесь, что путь в `@@include('...')` правильно указывает на `src/partials/`:
+- Из `src/index.html`: `@@include('partials/head.html', {...})`
+- Из `src/about-html/start-html.html`: `@@include('../partials/head.html', {...})`
 
-- что на страницах подключён скрипт:
-  - `<script type="module" src="/@src/main.js"></script>`
-- что в `src/main.js` есть импорты:
-  - `import "./styles/main.scss";`
-  - `import "./scripts/app.js";`
+### Страница не находится
 
-### 2) В `dist/` появляется лишняя папка `css`
-
-Причина обычно в том, что в `public/` есть папка `css/`.
-Vite копирует содержимое `public/` в `dist/` без обработки.
-
-Если стили собираются из `src/styles/main.scss`, папка `public/css` не нужна.
-
-### 3) Предупреждения Sass про `darken()`
-
-Нужно заменить `darken()` на `sass:color`, например:
-
-- `@use "sass:color";`
-- `color.adjust($c, $lightness: -15%)`
-
----
-
-## Команды
-
-- `npm run dev` — разработка (render + vite)
-- `npm run build` — production сборка в `dist/`
-- `npm run preview` — локальный просмотр `dist/`
-- `npm run render` — только рендер Nunjucks → HTML (`src/site`)
+Убедитесь, что HTML-файл лежит в `src/` (или поддиректории) и НЕ в директории `partials/`.
+Vite автоматически обнаруживает все HTML-страницы в `src/`, исключая `src/partials/`.

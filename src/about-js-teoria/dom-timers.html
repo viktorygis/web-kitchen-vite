@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../partials/head.html', { "title": "JavaScript: Таймеры setTimeout и setInterval", "description": "Подробное руководство по таймерам в JS с примерами и интерактивом" })
+
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#timers-intro" class="active">Введение</a>
+                    <a href="#settimeout">setTimeout</a>
+                    <a href="#setinterval">setInterval</a>
+                    <a href="#clearinterval">Остановка таймера</a>
+                </nav>
+
+                <!-- Введение -->
+                <section class="section" id="timers-intro">
+                    <div class="container">
+                        <h1>
+                            Таймеры в JavaScript:
+                            <b>setTimeout</b>
+                            и
+                            <b>setInterval</b>
+                        </h1>
+                        <p class="note">
+                            <strong>Таймеры</strong>
+                            — это способ запускать действия через заданное время или с определённой периодичностью.
+                            <br />
+                            С их помощью сайты становятся динамичнее, появляются анимации, уведомления, автосохранения и многое другое!
+                        </p>
+                        <h3>Что можно делать с таймерами:</h3>
+                        <div class="cards cards--4">
+                            <article class="card">
+                                <h4 class="card__title">Отложить действие</h4>
+                                <p class="card__desc">
+                                    <code>setTimeout()</code>
+                                    позволяет выполнить код через заданное время.
+                                    <br />
+                                    Например: показать сообщение через 3 секунды.
+                                </p>
+                            </article>
+                            <article class="card">
+                                <h4 class="card__title">Запускать действие периодически</h4>
+                                <p class="card__desc">
+                                    <code>setInterval()</code>
+                                    повторяет действие через равные промежутки времени.
+                                    <br />
+                                    Например: выводить "Тик!" каждую секунду.
+                                </p>
+                            </article>
+                            <article class="card">
+                                <h4 class="card__title">Остановить таймер</h4>
+                                <p class="card__desc">
+                                    <code>clearInterval()</code>
+                                    и
+                                    <code>clearTimeout()</code>
+                                    — остановка таймера.
+                                    <br />
+                                    Например: остановить счетчик через 5 секунд.
+                                </p>
+                            </article>
+                            <article class="card">
+                                <h4 class="card__title">Динамика и UX</h4>
+                                <p class="card__desc">Таймеры — основа для лоадеров, автосохранения, слайдеров, всплывающих подсказок и других интерактивных фишек!</p>
+                            </article>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- setTimeout -->
+                <section class="section" id="settimeout">
+                    <div class="container">
+                        <h2>
+                            <strong>setTimeout</strong>
+                            — запуск действия через время
+                        </h2>
+                        <div class="note-block">
+                            <p class="note note--info">
+                                <strong>setTimeout</strong>
+                                — функция для однократного отложенного действия.
+                                <br />
+                                <code>setTimeout(fn, ms)</code>
+                                — выполнит
+                                <code>fn</code>
+                                через
+                                <code>ms</code>
+                                миллисекунд.
+                            </p>
+                        </div>
+                        <h3>Пример: показать сообщение через 3 секунды</h3>
+                        <div class="code-block">
+                            <pre><code>setTimeout(() => {
+  console.log("Привет, я появился через 3 секунды!");
+}, 3000);</code></pre>
+                            <button class="copy-btn">Скопировать</button>
+                        </div>
+                        <h3>Подробно о setTimeout:</h3>
+                        <ul class="list-ul">
+                            <li>
+                                <strong>setTimeout</strong>
+                                — задаёт таймер для выполнения кода.
+                            </li>
+                            <li>В скобках () — передаётся функция, которую нужно выполнить.</li>
+                            <li>Внутри стрелочной функции — весь нужный код, который должен сработать через указанное время.</li>
+                            <li>
+                                Время указывается в
+                                <b>миллисекундах</b>
+                                (1000 мс = 1 секунда).
+                            </li>
+                        </ul>
+                        <div class="interactive-demo">
+                            <h4>Практика: setTimeout</h4>
+                            <div class="demo-container" id="timeout-demo">
+                                <button class="demo-btn" id="show-message-btn">Показать сообщение через 2 секунды</button>
+                            </div>
+                            <div class="demo-result" id="timeout-result"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- setInterval -->
+                <section class="section" id="setinterval">
+                    <div class="container">
+                        <h2>
+                            <strong>setInterval</strong>
+                            — повторять действие через равные интервалы
+                        </h2>
+                        <div class="note-block">
+                            <p class="note note--info">
+                                <strong>setInterval</strong>
+                                — функция для повторного запуска действия.
+                                <br />
+                                <code>setInterval(fn, ms)</code>
+                                — будет выполнять
+                                <code>fn</code>
+                                каждое
+                                <code>ms</code>
+                                миллисекунд.
+                            </p>
+                        </div>
+                        <h3>Пример: выводить сообщение каждую секунду</h3>
+                        <div class="code-block">
+                            <pre><code>setInterval(() => {
+  console.log("Привет каждую секунду!");
+}, 1000);</code></pre>
+                            <button class="copy-btn">Скопировать</button>
+                        </div>
+                        <ul class="list-ul">
+                            <li>
+                                <strong>Первый аргумент</strong>
+                                — функция для выполнения.
+                            </li>
+                            <li>
+                                <strong>Второй аргумент</strong>
+                                — интервал в миллисекундах.
+                            </li>
+                            <li>Функция будет запускаться снова и снова, пока её не остановить!</li>
+                        </ul>
+                        <div class="interactive-demo">
+                            <h4>Практика: setInterval</h4>
+                            <div class="demo-container" id="interval-demo">
+                                <button class="demo-btn" id="start-interval-btn">Запустить счётчик</button>
+                                <button class="demo-btn" id="stop-interval-btn">Остановить счётчик</button>
+                            </div>
+                            <div class="demo-result" id="interval-result"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- clearInterval -->
+                <section class="section" id="clearinterval">
+                    <div class="container">
+                        <h2>
+                            Остановка таймера:
+                            <b>clearInterval</b>
+                            и
+                            <b>clearTimeout</b>
+                        </h2>
+                        <div class="note-block">
+                            <p class="note note--info">
+                                <strong>setInterval</strong>
+                                и
+                                <strong>setTimeout</strong>
+                                возвращают ID таймера.
+                                <br />
+                                Чтобы остановить таймер, используется
+                                <code>clearInterval(id)</code>
+                                или
+                                <code>clearTimeout(id)</code>
+                                .
+                            </p>
+                        </div>
+                        <h3>Пример: остановить счётчик через 5 секунд</h3>
+                        <div class="code-block">
+                            <pre><code>const intervalId = setInterval(() => {
+  console.log("Тик!");
+}, 1000);
+
+setTimeout(() => {
+  clearInterval(intervalId);
+  console.log("Счётчик остановлен.");
+}, 5000);</code></pre>
+                            <button class="copy-btn">Скопировать</button>
+                        </div>
+                        <ul class="list-ul">
+                            <li>
+                                clearInterval требует
+                                <b>ID таймера</b>
+                                , который возвращает setInterval.
+                            </li>
+                            <li>Так можно автоматически остановить любые циклические действия!</li>
+                        </ul>
+                        <div class="interactive-demo">
+                            <h4>Практика: Остановка таймера</h4>
+                            <div class="demo-container" id="clear-demo">
+                                <button class="demo-btn" id="start-auto-stop-btn">Запустить и остановить через 5 сек</button>
+                            </div>
+                            <div class="demo-result" id="clear-result"></div>
+                        </div>
+                        <div class="note note--info">
+                            <strong>В жизни:</strong>
+                            <br />
+                            Таймеры используются для автосохранения, отображения рекламы по времени, автозакрытия попапов и многого другого!
+                        </div>
+                    </div>
+                </section>
+            </main>
+            @@include('../partials/footer.html', {})
+        </div>
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+
+        <script>
+            // setTimeout demo
+            document.getElementById("show-message-btn").addEventListener("click", function () {
+                const result = document.getElementById("timeout-result");
+                result.textContent = "Ожидаем...";
+                setTimeout(() => {
+                    result.textContent = "Сообщение появилось через 2 секунды!";
+                }, 2000);
+            });
+
+            // setInterval demo
+            let intervalId = null;
+            let tickCount = 0;
+            document.getElementById("start-interval-btn").addEventListener("click", function () {
+                const result = document.getElementById("interval-result");
+                if (intervalId !== null) {
+                    result.textContent = "Счётчик уже запущен!";
+                    return;
+                }
+                tickCount = 0;
+                intervalId = setInterval(() => {
+                    tickCount++;
+                    result.textContent = "Тик: " + tickCount;
+                }, 1000);
+            });
+            document.getElementById("stop-interval-btn").addEventListener("click", function () {
+                const result = document.getElementById("interval-result");
+                if (intervalId !== null) {
+                    clearInterval(intervalId);
+                    intervalId = null;
+                    result.textContent = "Счётчик остановлен!";
+                } else {
+                    result.textContent = "Счётчик не запущен!";
+                }
+            });
+
+            // clearInterval demo (автоостановка)
+            document.getElementById("start-auto-stop-btn").addEventListener("click", function () {
+                const result = document.getElementById("clear-result");
+                let localTick = 0;
+                result.textContent = "Счётчик запущен...";
+                const autoInterval = setInterval(() => {
+                    localTick++;
+                    result.textContent = `Тик: ${localTick}`;
+                }, 1000);
+                setTimeout(() => {
+                    clearInterval(autoInterval);
+                    result.textContent = "Счётчик остановлен автоматически!";
+                }, 5000);
+            });
+        </script>
+    </body>
+</html>

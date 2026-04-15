@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../partials/head.html', { "title": "JavaScript: Основы DOM", "description": "Полное руководство по DOM API с примерами" })
+    <style>
+        .interactive-demo {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+
+        .demo-container {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .demo-box {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            flex: 1;
+        }
+
+        .demo-result {
+            padding: 1rem;
+            background: #e3f2fd;
+            border-radius: 4px;
+        }
+        /* Сетка: 4 карточки в ряд на десктопе, адаптивные колонки на меньших экранах */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        @media (max-width: 1200px) {
+            .cards {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+        @media (max-width: 900px) {
+            .cards {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        @media (max-width: 560px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Карточка */
+        .card {
+            background: #ffffff;
+            border: 1px solid #e6e8eb;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .card:hover {
+            border-color: #c7cdd4;
+            box-shadow: 0 6px 20px rgba(16, 24, 40, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .card:focus-within {
+            outline: 2px solid #4f46e5; /* фокус */
+            outline-offset: 2px;
+        }
+
+        /* Заголовок и описание */
+        .card__title {
+            margin: 0 0 8px;
+            font-size: 16px;
+            line-height: 1.3;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .card__desc {
+            margin: 0;
+            color: #4b5563;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Встроенный код */
+        .card__desc code {
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 0 0.35em;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 12.5px;
+            color: #111827;
+        }
+
+        /* Темная тема (опционально, если используете data-theme="dark") */
+        @media (prefers-color-scheme: dark) {
+            .card {
+                background: #0f172a;
+                border-color: #263142;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+            }
+            .card:hover {
+                border-color: #3a4a61;
+                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+            }
+            .card__title {
+                color: #e5e7eb;
+            }
+            .card__desc {
+                color: #cbd5e1;
+            }
+            .card__desc code {
+                background: #0b1220;
+                border-color: #1e2a3b;
+                color: #e5e7eb;
+            }
+        }
+    </style>
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#dom-intro" class="active">Введение</a>
+                    <a href="#dom-text-html">Изменять текст и HTML</a>
+                    <a href="#dom-create-remove">Создавать и удалять элементы</a>
+                    <a href="#dom-multiple">Динамическое создание множества элементов</a>
+                </nav>
+
+                <!-- Введение -->
+                <section class="section" id="dom-intro">
+                    <div class="container">
+                        <h1>Манипуляция с элементами DOM</h1>
+                        <p>Манипуляция DOM — основа для создания интерактивных сайтов. С помощью JavaScript ты можешь добавлять уведомления, товары, комментарии и многое другое прямо на страницу!</p>
+                        <h3>Что можно делать:</h3>
+                        <div class="cards cards--4">
+                            <article class="card">
+                                <h4 class="card__title">Изменять текст и HTML</h4>
+                                <p class="card__desc">
+                                    Меняйте содержимое элемента:
+                                    <code>element.textContent</code>
+                                    — для текста,
+                                    <br />
+                                    <code>element.innerHTML</code>
+                                    — для HTML-разметки.
+                                </p>
+                            </article>
+
+                            <article class="card">
+                                <h4 class="card__title">Менять стили</h4>
+                                <p class="card__desc">
+                                    Управляйте инлайн-стилями элемента, например:
+                                    <code>element.style.color = 'blue'</code>
+                                    .
+                                </p>
+                            </article>
+
+                            <article class="card">
+                                <h4 class="card__title">Работать с классами</h4>
+                                <p class="card__desc">
+                                    Добавляйте, удаляйте и переключайте классы через
+                                    <code>element.classList.add()</code>
+                                    ,
+                                    <br />
+                                    <code>.remove()</code>
+                                    ,
+                                    <br />
+                                    <code>.toggle()</code>
+                                    .
+                                </p>
+                            </article>
+
+                            <article class="card">
+                                <h4 class="card__title">Создавать и удалять элементы</h4>
+                                <p class="card__desc">
+                                    Создавайте узлы и вставляйте в DOM:
+                                    <code>document.createElement()</code>
+                                    ,
+                                    <br />
+                                    удаляйте через
+                                    <code>element.remove()</code>
+                                </p>
+                            </article>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. Изменять текст и HTML -->
+                <section class="section" id="dom-text-html">
+                    <div class="container">
+                        <h2>Изменять текст и HTML</h2>
+                        <div class="note-block">
+                            <p class="note note--info">
+                                У элементов есть два базовых способа работы с содержимым:
+                                <code>textContent</code>
+                                и
+                                <code>innerHTML</code>
+                                .
+                            </p>
+                        </div>
+
+                        <!-- textContent -->
+                        <h3>textContent</h3>
+                        <p class="note">
+                            <strong><code>textContent</code></strong>
+                            — устанавливает или возвращает чистый текст.
+                            <br />
+                            Любые теги будут отображены как текст. Это безопаснее и обычно быстрее.
+                        </p>
+                        <h4>Примеры:</h4>
+
+                        <div class="grid-column-100">
+                            <div>
+                                <p><b>Пример: заменить текст (textContent)</b></p>
+                                <div class="code-block">
+                                    <pre><code>// HTML:
+		// &lt;h1 id="greeting"&gt;Привет, мир!&lt;/h1&gt;
+
+		const greeting = document.getElementById('greeting');
+		greeting.textContent = 'Добро пожаловать!';
+		console.log(greeting.textContent); // "Добро пожаловать!"</code></pre>
+                                    <button class="copy-btn">Скопировать</button>
+                                </div>
+                            </div>
+                            <div>
+                                <p><b>Получить текущее содержимое (textContent)</b></p>
+                                <div class="code-block">
+                                    <pre><code>// HTML:
+	// &lt;p id="text"&gt;Это текст&lt;/p&gt;
+
+	const textElement = document.getElementById('text');
+	console.log(textElement.textContent); // "Это текст"</code></pre>
+                                    <button class="copy-btn">Скопировать</button>
+                                </div>
+                            </div>
+
+                            <div>
+                                <p><b>Пример: очистить содержимое (textContent)</b></p>
+                                <div class="code-block">
+                                    <pre><code>// HTML:
+	// &lt;div id="content"&gt;Привет, это содержимое!&lt;/div&gt;
+
+	const content = document.getElementById('content');
+	content.textContent = ''; // безопасно для любого содержимого</code></pre>
+                                    <button class="copy-btn">Скопировать</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- innerHTML -->
+                        <h3>innerHTML</h3>
+                        <p class="note">
+                            <strong><code>innerHTML</code></strong>
+                            — устанавливает или возвращает HTML-разметку.
+                            <br />
+                            Строка парсится как HTML, теги превращаются в элементы.
+                        </p>
+                        <h4>Примеры:</h4>
+                        <div class="grid-column-100">
+                            <div>
+                                <p><b>вставить HTML (innerHTML)</b></p>
+                                <div class="code-block">
+                                    <pre><code>// HTML:
+		// &lt;div id="container"&gt;Здесь что-то важное&lt;/div&gt;
+
+		const container = document.getElementById('container');
+		container.innerHTML = '&lt;b&gt;Важный текст!&lt;/b&gt;';
+		console.log(container.innerHTML); // "&lt;b&gt;Важный текст&lt;/b&gt;"</code></pre>
+                                    <button class="copy-btn">Скопировать</button>
+                                </div>
+                            </div>
+
+                            <div>
+                                <p><b>Получить текущее содержимое (innerHTML)</b></p>
+                                <div class="code-block">
+                                    <pre><code>// HTML:
+		// &lt;p&gt;&lt;b&gt;Жирный текст&lt;/b&gt;&lt;/p&gt;
+		const textElement = document.getElementById('text');
+		console.log(textElement.innerHTML); // "&lt;b&gt;Жирный текст&lt;/b&gt;"
+		console.log(textElement.textContent); // "Жирный текст"</code></pre>
+                                    <button class="copy-btn">Скопировать</button>
+                                </div>
+                            </div>
+
+                            <div>
+                                <p><b>Очистить содержимое (innerHTML)</b></p>
+                                <div class="code-block">
+                                    <pre><code>// HTML:
+		// &lt;div id="content"&gt;Привет, это содержимое!&lt;/div&gt;
+
+		const content = document.getElementById('content');
+		content.innerHTML = '';   // удалит всю разметку внутри</code></pre>
+                                    <button class="copy-btn">Скопировать</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Когда что использовать?</h3>
+                        <div class="example">
+                            <ul class="list-ul">
+                                <li>
+                                    Если нужно просто поменять текст — используй
+                                    <code>textContent</code>
+                                    (быстрее и безопаснее).
+                                </li>
+                                <li>
+                                    Если нужно добавить разметку — используй
+                                    <code>innerHTML</code>
+                                    или создавай узлы через
+                                    <code>createElement</code>
+                                    и
+                                    <code>append</code>
+                                    .
+                                </li>
+                            </ul>
+                        </div>
+
+                        <h3>Безопасность</h3>
+                        <div class="example">
+                            <ul class="list-ul">
+                                <li>
+                                    Никогда не передавай в
+                                    <code>innerHTML</code>
+                                    непроверенные данные пользователей — это риск XSS.
+                                </li>
+                                <li>
+                                    Если данные приходят извне, используй
+                                    <code>textContent</code>
+                                    , специальные санитайзеры, либо создавай элементы вручную:
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="code-block" style="margin-top: 0.5rem">
+                            <pre><code>const msg = document.createElement('b');
+msg.textContent = userInput; // безопасно — теги экранируются
+container.replaceChildren(msg);</code></pre>
+                            <button class="copy-btn">Скопировать</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. Создавать и удалять элементы -->
+                <section class="section" id="dom-create-remove">
+                    <div class="container">
+                        <h2>Создавать и удалять элементы</h2>
+
+                        <div class="note-block">
+                            <p class="note note--info">
+                                В работе с DOM есть два ключевых процесса:
+                                <strong>создание</strong>
+                                новых элементов и
+                                <strong>удаление</strong>
+                                уже существующих.
+                                <br />
+                                Оба действия делаются через специальные методы объекта
+                                <code>document</code>
+                                и самих элементов.
+                            </p>
+                        </div>
+
+                        <!-- Создание элементов -->
+                        <h3>Создать элемент</h3>
+                        <p class="note">
+                            <strong><code>createElement</code></strong>
+                            — создает новый DOM-узел (но НЕ вставляет его в страницу).
+                        </p>
+                        <h4>Примеры:</h4>
+                        <div class="grid-column-100">
+                            <div>
+                                <p><b>Пример: создать и добавить новый элемент</b></p>
+                                <div class="code-block">
+                                    <pre><code>// Создать элемент:
+const newElement = document.createElement('p');
+// Наполнить содержимым:
+newElement.textContent = 'Привет, я новый элемент!';
+// Вставить в DOM:
+const container = document.getElementById('container');
+container.appendChild(newElement);</code></pre>
+                                    <button class="copy-btn">Скопировать</button>
+                                </div>
+                            </div>
+                            <div>
+                                <p><b>Современный способ: append</b></p>
+                                <div class="code-block">
+                                    <pre><code>// Можно добавить сразу текст или элементы:
+container.append('Привет, я текст!');
+container.append(newElement);</code></pre>
+                                    <button class="copy-btn">Скопировать</button>
+                                </div>
+                            </div>
+                            <div>
+                                <p><b>Перемещение элемента</b></p>
+                                <div class="code-block">
+                                    <pre><code>// Если элемент уже есть в DOM, он будет перемещён:
+document.body.appendChild(newElement); // newElement переедет в body</code></pre>
+                                    <button class="copy-btn">Скопировать</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Удалять элементы</h3>
+                        <p class="note">
+                            <strong><code>removeChild</code></strong>
+                            — удаляет дочерний элемент через родителя.
+                            <br />
+                            <strong><code>remove</code></strong>
+                            — удаляет элемент напрямую.
+                        </p>
+                        <h4>Примеры:</h4>
+                        <div class="grid-column-100">
+                            <div>
+                                <p><b>Удалить через родителя (removeChild)</b></p>
+                                <div class="code-block">
+                                    <pre><code>const container = document.getElementById('container');
+const text = document.getElementById('text');
+container.removeChild(text);</code></pre>
+                                    <button class="copy-btn">Скопировать</button>
+                                </div>
+                            </div>
+                            <div>
+                                <p><b>Современный способ: remove</b></p>
+                                <div class="code-block">
+                                    <pre><code>const text = document.getElementById('text');
+text.remove();</code></pre>
+                                    <button class="copy-btn">Скопировать</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Когда что использовать?</h3>
+                        <div class="example">
+                            <ul class="list-ul">
+                                <li>
+                                    Чтобы добавить новый элемент —
+                                    <code>createElement</code>
+                                    +
+                                    <code>appendChild</code>
+                                    /
+                                    <code>append</code>
+                                    .
+                                </li>
+                                <li>
+                                    Чтобы удалить —
+                                    <code>remove</code>
+                                    (проще и быстрее), либо
+                                    <code>removeChild</code>
+                                    , если нужен контроль через родителя.
+                                </li>
+                                <li>Если элемент добавляется повторно — он перемещается, а не клонируется.</li>
+                            </ul>
+                        </div>
+
+                        <h3>Безопасность</h3>
+                        <div class="example">
+                            <ul class="list-ul">
+                                <li>
+                                    Никогда не вставляй в DOM элементы с несанитизированным
+                                    <code>innerHTML</code>
+                                    .
+                                </li>
+                                <li>
+                                    Для динамического создания — всегда используй
+                                    <code>createElement</code>
+                                    и
+                                    <code>textContent</code>
+                                    , чтобы избежать XSS.
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="code-block" style="margin-top: 0.5rem">
+                            <pre><code>const msg = document.createElement('b');
+msg.textContent = userInput; // безопасно, даже если userInput содержит теги!
+container.replaceChildren(msg);</code></pre>
+                            <button class="copy-btn">Скопировать</button>
+                        </div>
+
+                        <div class="interactive-demo">
+                            <h4>Практика: Манипуляция элементами</h4>
+                            <div class="demo-container" id="manipulation-demo">
+                                <div class="demo-box" id="box-to-change">
+                                    <h4>Измени меня</h4>
+                                    <p>Нажмите кнопки ниже</p>
+                                </div>
+                            </div>
+                            <div class="demo-buttons">
+                                <button class="demo-btn" id="create-element">Создать элемент</button>
+                                <button class="demo-btn" id="remove-element">Удалить элемент</button>
+                                <button class="demo-btn" id="change-text">Изменить текст (textContent)</button>
+                                <button class="demo-btn" id="set-html">Вставить HTML (innerHTML)</button>
+                                <button class="demo-btn" id="clear-content">Очистить содержимое</button>
+                                <button class="demo-btn" id="reset-manipulation">Сбросить</button>
+                            </div>
+                            <div class="demo-result" id="manipulation-result"></div>
+                        </div>
+
+                        <div class="note note--info">
+                            <strong>Пример из жизни:</strong>
+                            <br />
+                            JavaScript на сайте новостей создает новые элементы для каждой свежей статьи, а старые удаляет — так страница всегда актуальна.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. Динамическое создание множества элементов -->
+                <section class="section" id="dom-multiple">
+                    <div class="container">
+                        <h2>Динамическое создание множества элементов</h2>
+
+                        <div class="note-block">
+                            <p class="note note--info">
+                                Для динамического добавления сразу нескольких элементов (например, пунктов списка, карточек, блоков) — используй
+                                <strong>циклы</strong>
+                                и
+                                <code>createElement</code>
+                                .
+                                <br />
+                                Это универсальный способ для работы с массивами данных и шаблонами.
+                            </p>
+                        </div>
+
+                        <!-- Создание элементов в цикле -->
+                        <h3>Добавить сразу несколько элементов</h3>
+                        <p class="note">
+                            <strong><code>createElement</code></strong>
+                            — создает новый элемент;
+                            <strong><code>appendChild</code></strong>
+                            (или
+                            <code>append</code>
+                            ) — вставляет в DOM.
+                            <br />
+                            Всё повторяется в цикле!
+                        </p>
+                        <h4>Примеры:</h4>
+                        <div class="grid-column-100">
+                            <div>
+                                <p><b>Пример: добавить 3 пункта списка</b></p>
+                                <div class="code-block">
+                                    <pre><code>// HTML:
+&lt;ul id="my-list"&gt;&lt;/ul&gt;
+
+// JS:
+const list = document.getElementById("my-list");
+for (let i = 1; i &lt;= 3; i++) {
+  const listItem = document.createElement("li");
+  listItem.textContent = `Пункт ${i}`;
+  list.appendChild(listItem);
+}</code></pre>
+                                    <button class="copy-btn">Скопировать</button>
+                                </div>
+                            </div>
+                            <div>
+                                <p><b>Добавление карточек из массива</b></p>
+                                <div class="code-block">
+                                    <pre><code>const users = ["Иван", "Ольга", "Сергей"];
+const box = document.getElementById("cards");
+users.forEach(name =&gt; {
+  const card = document.createElement("div");
+  card.className = "user-card";
+  card.textContent = name;
+  box.appendChild(card);
+});</code></pre>
+                                    <button class="copy-btn">Скопировать</button>
+                                </div>
+                            </div>
+                            <div>
+                                <p><b>Оптимизация: вставка одним действием</b></p>
+                                <div class="code-block">
+                                    <pre><code>// Сначала в память, потом в DOM:
+const frag = document.createDocumentFragment();
+for (let i = 1; i &lt;= 5; i++) {
+  const li = document.createElement("li");
+  li.textContent = `Пункт ${i}`;
+  frag.appendChild(li);
+}
+list.appendChild(frag);</code></pre>
+                                    <button class="copy-btn">Скопировать</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Удалять сразу несколько элементов</h3>
+                        <p class="note">
+                            <strong><code>removeChild</code></strong>
+                            — удаляет по одному;
+                            <strong><code>replaceChildren([])</code></strong>
+                            — современный способ очистить контейнер.
+                            <br />
+                            Всё делается в цикле или разом!
+                        </p>
+                        <h4>Примеры:</h4>
+                        <div class="grid-column-100">
+                            <div>
+                                <p><b>Удалить все элементы списка вручную</b></p>
+                                <div class="code-block">
+                                    <pre><code>const list = document.getElementById("my-list");
+while (list.firstChild) {
+  list.removeChild(list.firstChild);
+}</code></pre>
+                                    <button class="copy-btn">Скопировать</button>
+                                </div>
+                            </div>
+                            <div>
+                                <p><b>Современный способ: replaceChildren</b></p>
+                                <div class="code-block">
+                                    <pre><code>list.replaceChildren(); // Мгновенно удаляет все дочерние элементы</code></pre>
+                                    <button class="copy-btn">Скопировать</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Когда что использовать?</h3>
+                        <div class="example">
+                            <ul class="list-ul">
+                                <li>
+                                    Для генерации большого количества элементов — всегда используйте
+                                    <code>createElement</code>
+                                    в цикле.
+                                </li>
+                                <li>
+                                    Для очистки контейнера — используйте
+                                    <code>replaceChildren</code>
+                                    или удаляйте по одному в цикле.
+                                </li>
+                                <li>
+                                    Для ускорения — используйте
+                                    <code>DocumentFragment</code>
+                                    и вставку одним действием.
+                                </li>
+                            </ul>
+                        </div>
+
+                        <h3>Безопасность</h3>
+                        <div class="example">
+                            <ul class="list-ul">
+                                <li>
+                                    В цикле всегда используйте
+                                    <code>textContent</code>
+                                    для добавления текста.
+                                </li>
+                                <li>
+                                    Не вставляйте массивы данных через
+                                    <code>innerHTML</code>
+                                    — это опасно для XSS!
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="code-block" style="margin-top: 0.5rem">
+                            <pre><code>const li = document.createElement('li');
+li.textContent = userInput; // безопасно, даже если userInput содержит теги!
+list.appendChild(li);</code></pre>
+                            <button class="copy-btn">Скопировать</button>
+                        </div>
+
+                        <div class="interactive-demo">
+                            <h4>Практика: Множественное создание и удаление</h4>
+                            <div class="demo-container" id="multiple-demo">
+                                <ul id="my-list"></ul>
+                            </div>
+                            <div class="demo-buttons">
+                                <button class="demo-btn" id="add-items">Добавить пункты</button>
+                                <button class="demo-btn" id="clear-list">Очистить список</button>
+                            </div>
+                            <div class="demo-result" id="multiple-result"></div>
+                        </div>
+                        <div class="note note--info">
+                            <strong>Пример из жизни:</strong>
+                            <br />
+                            В интернет-магазине при смене категории — все карточки товаров пересоздаются и старые удаляются.
+                        </div>
+                    </div>
+                </section>
+            </main>
+            @@include('../partials/footer.html', {})
+        </div>
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+
+        <script>
+            // Демо: Получение элементов
+            function setupSelectionDemo() {
+                document.getElementById("select-by-id").addEventListener("click", () => {
+                    const element = document.getElementById("demo-box1");
+                    showResult("selection-result", `Найден элемент с ID "demo-box1": ${element.outerHTML}`);
+                });
+                document.getElementById("select-by-class").addEventListener("click", () => {
+                    const elements = document.getElementsByClassName("demo-item");
+                    showResult("selection-result", `Найдено элементов: ${elements.length}`);
+                });
+                document.getElementById("select-by-tag").addEventListener("click", () => {
+                    const elements = document.getElementsByTagName("div");
+                    showResult("selection-result", `Найдено div элементов: ${elements.length}`);
+                });
+                document.getElementById("select-by-query").addEventListener("click", () => {
+                    const element = document.querySelector(".demo-special");
+                    showResult("selection-result", `Найден специальный элемент: ${element.outerHTML}`);
+                });
+            }
+
+            // Демо: Манипуляция элементами
+            function setupManipulationDemo() {
+                // Получаем контейнер для демо
+                const demoContainer = document.getElementById("manipulation-demo");
+
+                // 1. Создать элемент
+                document.getElementById("create-element").addEventListener("click", () => {
+                    const newElement = document.createElement("div");
+                    newElement.className = "demo-box";
+                    newElement.innerHTML = "<h4>Новый элемент</h4><p>Создан динамически</p>";
+                    demoContainer.appendChild(newElement);
+                    showResult("manipulation-result", "Создан новый элемент");
+                });
+                // 2. Удалить элемент (удаляет последний demo-box, включая основной, если он остался один)
+                document.getElementById("remove-element").addEventListener("click", () => {
+                    const boxes = demoContainer.querySelectorAll(".demo-box");
+                    if (boxes.length > 0) {
+                        const lastBox = boxes[boxes.length - 1];
+                        demoContainer.removeChild(lastBox);
+                        showResult("manipulation-result", "Удалён последний элемент");
+                    } else {
+                        showResult("manipulation-result", "Нет элементов для удаления");
+                    }
+                });
+
+                // 3. Изменить текст (textContent) для всех demo-box
+                document.getElementById("change-text").addEventListener("click", () => {
+                    const boxes = demoContainer.querySelectorAll(".demo-box");
+                    let changed = 0;
+                    boxes.forEach((box) => {
+                        const h4 = box.querySelector("h4");
+                        const p = box.querySelector("p");
+                        if (h4) h4.textContent = "Текст изменен!";
+                        if (p) p.textContent = "Мы изменили текст этого элемента";
+                        changed++;
+                    });
+                    showResult("manipulation-result", changed > 0 ? "Текст всех элементов изменен" : "Нет элементов для изменения");
+                });
+
+                // 4. Вставить HTML (innerHTML) для всех demo-box
+                document.getElementById("set-html").addEventListener("click", () => {
+                    const boxes = demoContainer.querySelectorAll(".demo-box");
+                    let changed = 0;
+                    boxes.forEach((box) => {
+                        box.innerHTML = "<h4>HTML добавлен!</h4><p><i>Вставили HTML-разметку</i></p>";
+                        changed++;
+                    });
+                    showResult("manipulation-result", changed > 0 ? "Содержимое всех элементов изменено через innerHTML" : "Нет элементов для изменения");
+                });
+
+                // 5. Очистить содержимое для всех demo-box
+                document.getElementById("clear-content").addEventListener("click", () => {
+                    const boxes = demoContainer.querySelectorAll(".demo-box");
+                    let cleared = 0;
+                    boxes.forEach((box) => {
+                        box.textContent = "";
+                        cleared++;
+                    });
+                    showResult("manipulation-result", cleared > 0 ? "Содержимое всех элементов очищено" : "Нет элементов для очистки");
+                });
+
+                // 6. Сбросить (восстановить изначальное состояние)
+                document.getElementById("reset-manipulation").addEventListener("click", () => {
+                    // Восстанавливаем основной элемент, если был удален
+                    let box = document.getElementById("box-to-change");
+                    if (!box) {
+                        box = document.createElement("div");
+                        box.className = "demo-box";
+                        box.id = "box-to-change";
+                        box.innerHTML = "<h4>Измени меня</h4><p>Нажмите кнопки ниже</p>";
+                        demoContainer.insertBefore(box, demoContainer.firstChild);
+                    } else {
+                        box.innerHTML = "<h4>Измени меня</h4><p>Нажмите кнопки ниже</p>";
+                        box.className = "demo-box";
+                        box.style = "";
+                    }
+                    // Удаляем все demo-box кроме основного
+                    Array.from(demoContainer.querySelectorAll(".demo-box")).forEach((child) => {
+                        if (child !== box) demoContainer.removeChild(child);
+                    });
+                    const result = document.getElementById("manipulation-result");
+                    if (result) result.style.display = "none";
+                });
+            }
+
+            // Демо: События
+            function setupEventDemo() {
+                function eventHandler() {
+                    console.log("Обработчик события выполнен!");
+                    showResult("event-result", "Обработчик события выполнен! Проверьте консоль браузера.");
+                }
+                document.getElementById("add-event").addEventListener("click", () => {
+                    document.getElementById("event-box").addEventListener("mouseover", eventHandler);
+                    showResult("event-result", "Обработчик события mouseover добавлен");
+                });
+                document.getElementById("remove-event").addEventListener("click", () => {
+                    document.getElementById("event-box").removeEventListener("mouseover", eventHandler);
+                    showResult("event-result", "Обработчик события mouseover удален");
+                });
+            }
+
+            // Демо: Делегирование событий
+            function setupDelegationDemo() {
+                document.getElementById("event-delegation-demo").addEventListener("click", (e) => {
+                    if (e.target.matches(".demo-item")) {
+                        const id = e.target.getAttribute("data-id");
+                        showResult("delegation-result", `Клик по элементу с ID: ${id}`);
+                    }
+                    if (e.target.matches('[data-action="add"]')) {
+                        const container = document.getElementById("items-container");
+                        const itemCount = container.children.length + 1;
+                        const newItem = document.createElement("div");
+                        newItem.className = "demo-item";
+                        newItem.setAttribute("data-id", itemCount);
+                        newItem.textContent = `Элемент ${itemCount} (новый)`;
+                        container.appendChild(newItem);
+                        showResult("delegation-result", `Добавлен новый элемент с ID: ${itemCount}`);
+                    }
+                });
+            }
+
+            // Вспомогательная функция для вывода результата
+            function showResult(id, text) {
+                const result = document.getElementById(id);
+                if (result) {
+                    result.textContent = text;
+                    result.style.display = "block";
+                }
+            }
+
+            // Демо: Множественное создание и удаление элементов
+            function setupMultipleDemo() {
+                const list = document.getElementById("my-list");
+                const result = document.getElementById("multiple-result");
+
+                // Добавить пункты
+                document.getElementById("add-items").addEventListener("click", () => {
+                    // Создаём элементы через DocumentFragment для оптимизации
+                    const frag = document.createDocumentFragment();
+                    for (let i = 1; i <= 5; i++) {
+                        const li = document.createElement("li");
+                        li.textContent = `Пункт ${i}`;
+                        frag.appendChild(li);
+                    }
+                    list.appendChild(frag);
+                    result.textContent = "Добавлены 5 пунктов";
+                    result.style.display = "block";
+                });
+
+                // Очистить список
+                document.getElementById("clear-list").addEventListener("click", () => {
+                    list.replaceChildren();
+                    result.textContent = "Список очищен";
+                    result.style.display = "block";
+                });
+            }
+
+            // Инициализация всех демо функций
+            function initDomDemo() {
+                setupCopyButtons();
+                setupSmoothScroll();
+                setupSelectionDemo();
+                setupManipulationDemo();
+                setupEventDemo();
+                setupDelegationDemo();
+                setupMultipleDemo();
+            }
+            // Вызвать инициализацию после загрузки DOM
+            document.addEventListener("DOMContentLoaded", initDomDemo);
+        </script>
+    </body>
+</html>

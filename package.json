@@ -1,13 +1,11 @@
 {
   "devDependencies": {
-    "nunjucks": "^3.2.4",
     "sass": "^1.97.3",
     "vite": "^7.3.1"
   },
   "scripts": {
-    "render": "node scripts/render-njk.mjs",
-    "dev": "npm run render && vite",
-    "build": "npm run render && vite build",
+    "dev": "vite",
+    "build": "vite build",
     "preview": "vite preview"
   }
 }

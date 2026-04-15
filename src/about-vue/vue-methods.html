@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "Методы, computed и watch во Vue", "description": "Как создавать методы, вычисляемые свойства и наблюдатели во Vue. Практика и примеры." })
+
+<head>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="#intro">Введение</a>
+        <a href="#methods">Методы</a>
+        <a href="#parameters">Параметры и this</a>
+        <a href="#computed">computed</a>
+        <a href="#watch">watch</a>
+        <a href="#practice">Практика</a>
+        <a href="#examples">Примеры</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="intro">
+        <div class="container">
+          <h1>methods, computed и watch во Vue</h1>
+          <p class="note">
+            <strong>methods</strong>
+            — обычные функции для обработки событий.
+            <br />
+            <strong>computed</strong>
+            — вычисляемые свойства, зависящие от данных и кешируемые.
+            <br />
+            <strong>watch</strong>
+            — наблюдатели за изменением данных для выполнения побочных эффектов.
+            <br />
+            Все три используются внутри Vue-компонентов для управления логикой приложения.
+          </p>
+
+          <div class="cards cards--3" style="margin: 20px 0">
+            <!-- methods -->
+            <div class="card">
+              <div class="card__title">methods</div>
+              <p>
+                Определяются в объекте
+                <code>methods</code>
+                . Обычно используются для обработки событий (например,
+                <code>@click</code>
+                ). Не кешируются.
+              </p>
+
+              <div class="card__desc">
+                <ul>
+                  <li>Обычные функции</li>
+                  <li>Используются для обработки событий</li>
+                  <li>Не кешируются</li>
+                </ul>
+              </div>
+              <!-- синтаксис -->
+              <pre><code>methods: {
+   myMethod() {
+      // код метода
+   }
+}</code></pre>
+            </div>
+            <!-- computed -->
+            <div class="card">
+              <div class="card__title">computed</div>
+              <p>
+                Определяются в объекте
+                <code>computed</code>
+                . Пересчитываются только при изменении зависимостей (например,
+                <code>data()</code>
+                ) и кешируются.
+              </p>
+
+              <div class="card__desc">
+                <ul>
+                  <li>Геттеры (и сеттеры)</li>
+                  <li>Используются для вычислений на основе данных</li>
+                  <li>Кешируются</li>
+                </ul>
+              </div>
+              <!-- синтаксис -->
+              <pre><code>computed: {
+ myComputed() {
+  // код вычисляемого свойства
+ }
+}
+</code></pre>
+            </div>
+
+            <!-- watch -->
+            <div class="card">
+              <div class="card__title">watch</div>
+              <p>
+                Определяются в объекте
+                <code>watch</code>
+                . Следят за изменением переменной и запускают функцию, например, при изменении
+                <code>data()</code>
+                .
+              </p>
+
+              <div class="card__desc">
+                <ul>
+                  <li>Функции-обработчики</li>
+                  <li>Используются для асинхронных действий и побочных эффектов</li>
+                  <li>Не кешируются</li>
+                </ul>
+              </div>
+              <!-- синтаксис -->
+
+              <pre><code>watch: {
+ myVar(newValue, oldValue) {
+  // код обработчика
+ }
+}
+</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Методы -->
+      <section class="section" id="methods">
+        <div class="container">
+          <h2>Методы в Vue</h2>
+          <p class="note">
+            <strong>methods</strong> — это функции, определённые внутри объекта
+            <code>methods</code>
+            в компоненте Vue. Они обычно используются для обработки событий, таких как клики по кнопкам, изменения ввода и другие взаимодействия пользователя.
+          </p>
+          <h4>Где используются методы:</h4>
+          <ul class="list-ul">
+            <li>Обработчики событий (например, <code>@click</code>, <code>@input</code>)</li>
+            <li>Логика, связанная с действиями пользователя</li>
+            <li>Манипуляции с данными компонента</li>
+          </ul>
+
+          <h4>Как использовать методы:</h4>
+          <p>
+            Методы определяются в объекте <code>methods</code> компонента Vue. Они могут быть вызваны из шаблона с помощью директивы <code>@click</code>, <code>@input</code> и других.
+          </p>
+
+
+          <h4>Пример 1:</h4>
+          <p class="note note--info">
+            Создадим простой счётчик с кнопкой для увеличения значения.
+          </p>
+          <div class="interactive-demo">
+            <div id="counter-demo">
+              <p>Счётчик: {{ count }}</p>
+              <button @click="increaseCount">Увеличить</button>
+            </div>
+          </div>
+          <div class="code-block">
+            <pre><code>&lt;div id="counter-demo"&gt;
+  &lt;p&gt;Счётчик: {{ count }}&lt;/p&gt;
+  &lt;button @click="increaseCount"&gt;Увеличить&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return { count: 0 }
+  },
+  methods: {
+    increaseCount() {
+      this.count++;
+    }
+  }
+}).mount("#counter-demo");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>data()</code> возвращает объект с переменной <code>count</code>, инициализированной нулём.</li>
+            <li>В объекте <code>methods</code> определён метод <code>increaseCount</code>, который увеличивает значение <code>count</code> на 1.</li>
+            <li>В шаблоне кнопка привязана к методу через директиву <code>@click</code>.</li>
+          </ul>
+          <h4>Пример 2: </h4>
+          <p class="note note--info">
+            Расширенный счётчик с увеличением, уменьшением и сбросом значения.
+          </p>
+
+          <div class="interactive-demo">
+            <div id="counter-full">
+              <p>Счётчик: {{ count }}</p>
+              <div class="demo-container">
+                <button @click="increase">+</button>
+                <button @click="decrease">-</button>
+                <button @click="reset">Сброс</button>
+              </div>
+            </div>
+          </div>
+          <div class="code-block">
+            <pre><code>&lt;div id="counter-full"&gt;
+  &lt;p&gt;Счётчик: {{ count }}&lt;/p&gt;
+  &lt;button @click="increase"&gt;+&lt;/button&gt;
+  &lt;button @click="decrease"&gt;-&lt;/button&gt;
+  &lt;button @click="reset"&gt;Сброс&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() { return { count: 0 } },
+  methods: {
+    increase() { this.count++; },
+    decrease() { this.count--; },
+    reset() { this.count = 0; }
+  }
+}).mount("#counter-full");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Метод <code>increase</code> увеличивает счётчик на 1.</li>
+            <li>Метод <code>decrease</code> уменьшает счётчик на 1.</li>
+            <li>Метод <code>reset</code> сбрасывает счётчик в 0.</li>
+          </ul>
+
+
+
+
+
+        </div>
+      </section>
+
+      <!-- Параметры и this -->
+      <section class="section" id="parameters">
+        <div class="container">
+          <h2>Передача параметров и работа с this</h2>
+          <p class="note">
+            Методы могут принимать <strong>параметры</strong>, которые передаются при вызове из шаблона. Внутри методов
+            <code>this</code>
+            ссылается на экземпляр Vue-компонента, позволяя получать доступ к данным и другим методам.
+          </p>
+          <h4>Пример 1:</h4>
+          <p class="note note--info">Создадим счётчик с кнопками, увеличивающими значение на разное количество.</p>
+          <div class="interactive-demo">
+            <div id="counter-step">
+              <p>Счётчик: {{ count }}</p>
+              <div class="demo-container">
+                <button @click="increase(1)">+1</button>
+                <button @click="increase(5)">+5</button>
+                <button @click="increase(10)">+10</button>
+              </div>
+            </div>
+          </div>
+          <div class="code-block">
+            <pre><code>&lt;div id="counter-step"&gt;
+  &lt;p&gt;Счётчик: {{ count }}&lt;/p&gt;
+  &lt;button @click="increase(1)"&gt;+1&lt;/button&gt;
+  &lt;button @click="increase(5)"&gt;+5&lt;/button&gt;
+  &lt;button @click="increase(10)"&gt;+10&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() { return { count: 0 } },
+  methods: {
+    increase(value) { this.count += value }
+  }
+}).mount("#counter-step");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Метод <code>increase</code> принимает параметр <code>value</code>, который указывает, на сколько увеличить счётчик.</li>
+            <li>В шаблоне кнопки вызывают метод с разными аргументами: 1, 5 и 10.</li>
+            <li>Внутри метода используется <code>this.count</code> для доступа к переменной счётчика и её обновления.</li>
+          </ul>
+
+
+
+          <h4>Пример 2:</h4>
+          <p class="note note--info">Создадим метод для форматирования имени с заглавной буквы. </p>
+
+          <div class="interactive-demo">
+            <div id="name-demo">
+              <input v-model="name" placeholder="Введите имя" />
+              <p>Имя: {{ formatName(name) }}</p>
+            </div>
+          </div>
+
+          <div class="code-block">
+            <pre><code>&lt;div id="name-demo"&gt;
+  &lt;input v-model="name" placeholder="Введите имя"&gt;
+  &lt;p&gt;Имя: {{ formatName(name) }}&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() { return { name: "алиса" } },
+  methods: {
+    formatName(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+  }
+}).mount("#name-demo");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Метод <code>formatName</code> принимает строку <code>str</code> и возвращает её с заглавной первой буквой.</li>
+            <li>В шаблоне метод вызывается с текущим значением из поля ввода <code>name</code>.</li>
+          </ul>
+
+
+          <h4>Пример 3:</h4>
+          <p class="note note--info">Создадим метод для преобразования текста в нижний регистр.</p>
+          <div class="interactive-demo">
+            <div id="lowercase-demo">
+              <input v-model="text" placeholder="Введите текст" />
+              <p>Результат: {{ toLowerCase(text) }}</p>
+            </div>
+          </div>
+
+          <div class="code-block">
+            <pre><code>&lt;div id="lowercase-demo"&gt;
+  &lt;input v-model="text" placeholder="Введите текст"&gt;
+  &lt;p&gt;Результат: {{ toLowerCase(text) }}&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() { return { text: "" } },
+  methods: {
+    toLowerCase(str) { return str.toLowerCase(); }
+  }
+}).mount("#lowercase-demo");
+&lt;/script&gt;</code></pre>
+          </div>
+
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Метод <code>toLowerCase</code> принимает строку <code>str</code> и возвращает её в нижнем регистре с помощью встроенного метода JavaScript <code>toLowerCase()</code>.</li>
+            <li>В шаблоне метод вызывается с текущим значением из поля ввода <code>text</code>.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- computed -->
+      <section class="section" id="computed">
+        <div class="container">
+          <h2>computed: вычисляемые свойства</h2>
+          <p class="note"><strong>computed</strong> определяются в объекте <code>computed</code>. Пересчитываются только при изменении зависимостей (например, <code>data()</code>) и кешируются.</p>
+          <h4>Что нужно знать о computed:</h4>
+          <ul class="list-ul">
+            <li>Используются для вычислений на основе данных компонента.</li>
+            <li>Пересчитываются только при изменении зависимостей.</li>
+            <li>Кешируются для оптимизации производительности.</li>
+          </ul>
+          <p class="note note--info">В отличие от методов, которые выполняются при каждом вызове, вычисляемые свойства кешируются до тех пор, пока не изменятся их зависимости. Это делает их идеальными для сложных вычислений, которые не нужно выполнять каждый раз при рендеринге.</p>
+
+
+          <h4>Пример:</h4>
+          <p>Создадим вычисляемое свойство, которое возвращает удвоенное значение счётчика.</p>
+
+          <div class="interactive-demo">
+            <div id="computed-demo">
+              <h4>Исходное значение: {{ computedCount }}</h4>
+              <h4>Удвоенное (computed): {{ doubleCount }}</h4>
+              <button @click="computedCount++">Увеличить</button>
+            </div>
+          </div>
+
+          <div class="code-block">
+            <pre><code>&lt;div id="computed-demo"&gt;
+  &lt;h4&gt;Исходное значение: {{ computedCount }}&lt;/h4&gt;
+  &lt;h4&gt;Удвоенное (computed): {{ doubleCount }}&lt;/h4&gt;
+  &lt;button @click="computedCount++"&gt;Увеличить&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() { return { computedCount: 5 } },
+  computed: {
+    doubleCount() { return this.computedCount * 2 }
+  }
+}).mount("#computed-demo");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>В объекте <code>data()</code> определена переменная <code>computedCount</code>, инициализированная значением 5.</li>
+            <li>В объекте <code>computed</code> определено вычисляемое свойство <code>doubleCount</code>, которое возвращает удвоенное значение <code>computedCount</code>.</li>
+            <li>В шаблоне отображаются оба значения, и кнопка увеличивает <code>computedCount</code> на 1 при каждом клике.</li>
+          </ul>
+          <p class="note note--info">
+            🚀
+            <strong>computed</strong> идеально подходят для производительных вычислений, которые зависят от реактивных данных.
+          </p>
+
+        </div>
+      </section>
+
+      <!-- watch -->
+      <section class="section" id="watch">
+        <div class="container">
+          <h2>watch: наблюдатель</h2>
+          <p class="note"><strong>watch</strong> определяются в объекте <code>watch</code>. Следят за изменением переменной и запускают функцию, например, при изменении <code>data()</code>.</p>
+          <h4>Что нужно знать о watch:</h4>
+          <ul class="list-ul">
+            <li>Используются для асинхронных действий и побочных эффектов.</li>
+            <li>Следят за изменением реактивных данных.</li>
+            <li>Не кешируются.</li>
+          </ul>
+          <p class="note note--info">
+            В отличие от
+            <code>computed</code>
+            , которые предназначены для вычислений на основе данных, наблюдатели
+            <code>watch</code>
+            используются для выполнения действий в ответ на изменения данных, таких как запросы к API или обновление других частей состояния.
+          </p>
+
+          <h4>Пример:</h4>
+          <p>Создадим наблюдатель, который будет логировать изменения счётчика в консоль.</p>
+          <div class="interactive-demo">
+            <div id="watch-demo">
+              <h4>Счётчик: {{ scoring }}</h4>
+              <button @click="scoring++">Увеличить</button>
+            </div>
+          </div>
+          <div class="code-block">
+            <pre><code>&lt;div id="watch-demo"&gt;
+  &lt;h4&gt;Счётчик: {{ scoring }}&lt;/h4&gt;
+  &lt;button @click="scoring++"&gt;Увеличить&lt;/button&gt;
+&lt;/div&gt;
+&lt;script&gt;
+Vue.createApp({
+  data() { return { scoring: 0 } },
+  watch: {
+    scoring(newValue, oldValue) {
+      console.log(`Счётчик изменился с ${oldValue} на ${newValue}`);
+    }
+  }
+}).mount("#watch-demo");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>В объекте <code>data()</code> определена переменная <code>scoring</code>, инициализированная значением 0.</li>
+            <li>В объекте <code>watch</code> определён наблюдатель для переменной <code>scoring</code>, который логирует в консоль старое и новое значение при каждом изменении.</li>
+            <li>В шаблоне отображается текущее значение счётчика, и кнопка увеличивает его на 1 при каждом клике.</li>
+          </ul>
+          <p class="note note--info">
+            🚀
+            <strong>watch</strong>
+            подходит для асинхронных действий и побочных эффектов.
+            <br />
+            Например, запрос к API при изменении значения.
+          </p>
+
+
+        </div>
+      </section>
+
+      <!-- Практика -->
+      <section class="section" id="practice">
+        <div class="container">
+          <h2>Практика</h2>
+          <h3>Создание простого калькулятора с computed и watch</h3>
+          <p class="note">
+            Создадим простой калькулятор, который будет использовать
+            <code>computed</code>
+            для вычисления удвоенного, утроенного значения и квадратного корня из введённого числа. Также добавим
+            <code>watch</code>
+            , чтобы сбрасывать значение, если оно становится отрицательным.
+          </p>
+
+          <div class="interactive-demo">
+            <div id="calc-demo">
+              <input v-model.number="num" type="number" placeholder="Введите число" />
+              <div>
+                <p>Удвоенное: <b>{{ double }}</b></p>
+                <p>Утроенное: <b>{{ triple }}</b></p>
+                <p>Квадратный корень: <b>{{ sqrt }}</b></p>
+                <p v-if="num < 0"><b>Число отрицательное!</b></p>
+              </div>
+            </div>
+
+          </div>
+
+          <pre><code>&lt;div id="calc-demo"&gt;
+  &lt;input v-model.number="num" type="number" placeholder="Введите число"&gt;
+  &lt;p&gt;Удвоенное: {{ double }}&lt;/p&gt;
+  &lt;p&gt;Утроенное: {{ triple }}&lt;/p&gt;
+  &lt;p&gt;Квадратный корень: {{ sqrt }}&lt;/p&gt;
+  &lt;p v-if="num &lt; 0"&gt;Число отрицательное!&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() { return { num: 0 } },
+  computed: {
+    double() { return this.num * 2 },
+    triple() { return this.num * 3 },
+    sqrt() { return Math.sqrt(Math.abs(this.num)) }
+  },
+  watch: {
+    num(newVal) {
+      if (newVal < 0) {
+        this.num = 0;
+      }
+    }
+  }
+}).mount("#calc-demo");
+&lt;/script&gt;</code></pre>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>В объекте <code>data()</code> определена переменная <code>num</code>, инициализированная значением 0.</li>
+            <li>В объекте <code>computed</code> определены три вычисляемых свойства: <code>double</code>, <code>triple</code> и <code>sqrt</code>, которые возвращают удвоенное, утроенное значение и квадратный корень из абсолютного значения <code>num</code> соответственно.</li>
+            <li>В объекте <code>watch</code> определён наблюдатель для переменной <code>num</code>, который сбрасывает значение на 0, если оно становится отрицательным.</li>
+            <li>В шаблоне отображаются результаты вычислений, а также предупреждение, если введённое число отрицательное.</li>
+          </ul>
+
+
+        </div>
+      </section>
+
+      <!-- Примеры -->
+      <section class="section" id="examples">
+        <div class="container">
+          <h2>Реальные примеры</h2>
+          <p> Реальные примеры использования методов, computed и watch во Vue для решения различных задач.</p>
+
+          <!-- Пример 1 -->
+          <h3>Пример 1. Список с обработкой строк</h3>
+          <p class="note note--info">
+            Создадим метод для форматирования строк в списке. Здесь импользуется метод для преобразования первой буквы каждого элемента списка в заглавную.
+          </p>
+
+          <div class="interactive-demo">
+            <div id="str-demo">
+              <ul>
+                <li v-for="item in items" :key="item">{{ capitalize(item) }}</li>
+              </ul>
+            </div>
+          </div>
+          <div class="code-block">
+            <pre><code>&lt;ul&gt;
+  &lt;li v-for="item in items" :key="item"&gt;{{ capitalize(item) }}&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return {
+      items: ["яблоко", "банан", "вишня"]
+    };
+  },
+  methods: {
+    capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+  }
+}).mount("#str-demo");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Метод <code>capitalize</code> принимает строку и возвращает её с заглавной первой буквой.</li>
+            <li>В шаблоне метод вызывается для каждого элемента списка <code>items</code>, форматируя его перед отображением.</li>
+          </ul>
+
+
+
+
+
+          <!-- Пример 2 -->
+          <h3>Пример 2. Фильтр с computed</h3>
+          <p class="note note--info">
+            Создадим вычисляемое свойство для фильтрации списка на основе поискового запроса.
+          </p>
+
+          <div class="interactive-demo">
+            <div id="filter-demo">
+              <input v-model="search" placeholder="Поиск" />
+              <ul>
+                <li v-for="item in filtered" :key="item">{{ item }}</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="code-block">
+            <pre><code>&lt;div id="filter-demo"&gt;
+  &lt;input v-model="search" placeholder="Поиск"&gt;
+  &lt;ul&gt;
+    &lt;li v-for="item in filtered" :key="item"&gt;{{ item }}&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return {
+      search: "",
+      items: ["яблоко", "банан", "вишня", "апельсин", "груша"]
+    };
+  },
+  computed: {
+    filtered() {
+      return this.items.filter(item =>
+        item.toLowerCase().includes(this.search.toLowerCase())
+      );
+    }
+  }
+}).mount("#filter-demo");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Вычисляемое свойство <code>filtered</code> возвращает отфильтрованный список элементов, содержащих строку из переменной <code>search</code>.</li>
+            <li>В шаблоне отображается только те элементы, которые соответствуют поисковому запросу.</li>
+          </ul>
+
+          <!-- Пример 3 -->
+          <h3>Пример 3. Watch для контроля состояния</h3>
+          <p class="note note--info">
+            Создадим наблюдатель, который будет сбрасывать значение баллов, если оно становится отрицательным.
+          </p>
+
+          <div class="interactive-demo">
+            <div id="watch-example">
+              <input v-model.number="score" type="number" placeholder="Баллы" />
+              <p>Баллы: {{ score }}</p>
+            </div>
+          </div>
+
+          <div class="code-block">
+            <pre><code>
+&lt;div id="watch-example"&gt;
+  &lt;input v-model.number="score" type="number" placeholder="Баллы"&gt;
+  &lt;p&gt;Баллы: {{ score }}&lt;/p&gt;
+&lt;/div&gt;
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return {
+      score: 0
+    };
+  },
+  watch: {
+    score(newVal) {
+      if (newVal < 0) {
+        this.score = 0;
+      }
+    }
+  }
+}).mount("#watch-example");
+&lt;/script&gt;</code></pre>
+
+            <h5>Объяснение кода:</h5>
+            <ul class="list-ul">
+              <li>Наблюдатель для переменной <code>score</code> сбрасывает её значение на 0, если оно становится отрицательным.</li>
+              <li>В шаблоне отображается текущее значение баллов, и пользователь может вводить число через поле ввода.</li>
+            </ul>
+
+          </div>
+      </section>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+  <script>
+    // Первый простой счетчик
+    Vue.createApp({
+      data() {
+        return {
+          count: 0
+        };
+      },
+      methods: {
+        increaseCount() {
+          this.count++;
+        },
+      },
+    }).mount("#counter-demo");
+
+    // Расширенный счетчик
+    Vue.createApp({
+      data() {
+        return {
+          count: 0
+        };
+      },
+      methods: {
+        increase() {
+          this.count++;
+        },
+        decrease() {
+          this.count--;
+        },
+        reset() {
+          this.count = 0;
+        },
+      },
+    }).mount("#counter-full");
+
+    // Передача параметра
+    Vue.createApp({
+      data() {
+        return {
+          count: 0
+        };
+      },
+      methods: {
+        increase(value) {
+          this.count += value;
+        },
+      },
+    }).mount("#counter-step");
+
+    // Форматирование имени
+    Vue.createApp({
+      data() {
+        return {
+          name: "алиса"
+        };
+      },
+      methods: {
+        formatName(str) {
+          return str.charAt(0).toUpperCase() + str.slice(1);
+        },
+      },
+    }).mount("#name-demo");
+
+    // Преобразование в нижний регистр
+    Vue.createApp({
+      data() {
+        return {
+          text: ""
+        };
+      },
+      methods: {
+        toLowerCase(str) {
+          return str.toLowerCase();
+        },
+      },
+    }).mount("#lowercase-demo");
+
+    // computed demo
+    Vue.createApp({
+      data() {
+        return {
+          computedCount: 5
+        };
+      },
+      computed: {
+        doubleCount() {
+          return this.computedCount * 2;
+        },
+      },
+    }).mount("#computed-demo");
+
+    // watch demo
+    Vue.createApp({
+      data() {
+        return {
+          scoring: 0
+        };
+      },
+      watch: {
+        scoring(newValue, oldValue) {
+          console.log(`Счётчик изменился с ${oldValue} на ${newValue}`);
+        },
+      },
+    }).mount("#watch-demo");
+
+    // Практика: калькулятор
+    Vue.createApp({
+      data() {
+        return {
+          num: 0
+        }
+      },
+      computed: {
+        double() {
+          return this.num * 2
+        },
+        triple() {
+          return this.num * 3
+        },
+        sqrt() {
+          return Math.sqrt(Math.abs(this.num))
+        }
+      },
+      watch: {
+        num(newVal) {
+          if (newVal < 0) {
+            this.num = 0;
+          }
+        }
+      }
+    }).mount("#calc-demo");
+
+    // Пример 1: список с обработкой строк
+    Vue.createApp({
+      data() {
+        return {
+          items: ["яблоко", "банан", "вишня"]
+        };
+      },
+      methods: {
+        capitalize(str) {
+          return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+      }
+    }).mount("#str-demo");
+
+    // Пример 2: фильтр с computed
+    Vue.createApp({
+      data() {
+        return {
+          search: "",
+          items: ["яблоко", "банан", "вишня", "апельсин", "груша"]
+        };
+      },
+      computed: {
+        filtered() {
+          return this.items.filter(item =>
+            item.toLowerCase().includes(this.search.toLowerCase())
+          );
+        }
+      }
+    }).mount("#filter-demo");
+
+    // Пример 3: watch для контроля состояния
+    Vue.createApp({
+      data() {
+        return {
+          score: 0
+        };
+      },
+      watch: {
+        score(newVal) {
+          if (newVal < 0) {
+            this.score = 0;
+          }
+        }
+      }
+    }).mount("#watch-example");
+  </script>
+</body>
+
+</html>

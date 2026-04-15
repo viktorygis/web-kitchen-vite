@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "Цитаты дня на Vue.js",
+"description": "Цитаты дня" })
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+
+      <section class="section">
+        <div class="container">
+          <!-- Приложение Vue.js для цитат дня -->
+          <div id="app" class="app">
+            <h1>Цитаты дня</h1>
+
+            <!-- Вступительное сообщение, показывается до первого клика -->
+            <p class="intro-message" v-if="!hasClicked">Чего ты ждешь? Жми скорее, чтобы получить цитату 👇</p>
+
+            <!-- Текущая цитата или сообщение об ошибке, показываются после первого клика -->
+            <p class="quote" v-if="hasClicked">{{ currentQuote }}</p>
+
+            <!-- Кнопка для получения новой цитаты -->
+            <button @click="fetchQuote">Получить цитату</button>
+
+            <!-- Сообщение о загрузке -->
+            <div v-if="loading" class="loading">Загружаем новую цитату...</div>
+          </div>
+
+
+
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2>Описание проекта</h2>
+          <p>Это простое веб-приложение на Vue.js, которое позволяет пользователям получать случайные цитаты дня. При нажатии на кнопку "Получить цитату" приложение отправляет запрос к публичному API, получает случайную цитату и отображает её на странице. Если возникает ошибка при запросе, пользователю показывается сообщение об ошибке.</p>
+          <p>Проект демонстрирует использование Vue.js для создания интерактивного пользовательского интерфейса, а также работу с Vuex для управления состоянием приложения. Это отличный пример того, как можно быстро создать полезное приложение с минимальными усилиями.</p>
+
+          <h3>Код HTML</h3>
+          <pre><code>&lt;div id="app" class="app"&gt;
+  &lt;!-- Заголовок приложения --&gt;
+  &lt;h1&gt;Цитаты дня&lt;/h1&gt;
+
+  &lt;!-- Вступительное сообщение, показывается до первого клика --&gt;
+  &lt;p class="intro-message" v-if="!hasClicked"&gt;Чего ты ждешь? Жми скорее, чтобы получить цитату 👇&lt;/p&gt;
+
+  &lt;!-- Текущая цитата или сообщение об ошибке, показываются после первого клика --&gt;
+  &lt;p class="quote" v-if="hasClicked"&gt;{{ currentQuote }}&lt;/p&gt;
+
+  &lt;!-- Кнопка для получения новой цитаты --&gt;
+  &lt;button @click="fetchQuote"&gt;Получить цитату&lt;/button&gt;
+
+  &lt;!-- Сообщение о загрузке --&gt;
+  &lt;div v-if="loading" class="loading"&gt;Загружаем новую цитату...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+          <h4>Описание кода html</h4>
+          <p>
+            Этот HTML-код представляет собой структуру веб-приложения на Vue.js для отображения цитат дня. Вот описание основных частей кода:</p>
+          <ul class="list-ul">
+            <li><strong>Корневой элемент:</strong>
+              <pre><code>&lt;div id="app" class="app"&gt;</code></pre> - это корневой элемент приложения Vue.js, который связывается с экземпляром Vue и содержит все элементы интерфейса.</li>
+            <li><strong>Заголовок:</strong>
+              <pre><code>&lt;h1&gt;Цитаты дня&lt;/h1&gt;</code></pre> - заголовок приложения, который информирует пользователя о его назначении.</li>
+
+            <!-- Вступительное сообщение -->
+            <li><strong>Вступительное сообщение:</strong>
+              <pre><code>&lt;p class="intro-message" v-if="!hasClicked"&gt;
+  Чего ты ждешь? Жми скорее, чтобы получить цитату 👇
+&lt;/p&gt;</code></pre>
+              - параграф, который отображается только до тех пор, пока пользователь не нажмет кнопку для получения цитаты. Он побуждает пользователя к действию. <br>
+              Где <code>v-if="!hasClicked"</code> - условие, которое проверяет, был ли клик по кнопке.</li>
+
+            <!-- Текущая цитата или сообщение об ошибке -->
+            <li><strong>Текущая цитата или сообщение об ошибке:</strong> <pre><code>&lt;p class="quote" v-if="hasClicked"&gt;{{ currentQuote }}&lt;/p&gt;</code></pre> - параграф, который отображает цитату или сообщение об ошибке после первого клика.
+              <br>
+              Где <code>v-if="hasClicked"</code> - условие, которое проверяет, был ли клик по кнопке, а <code>{{ currentQuote }}</code> - это привязка данных Vue.js, которая отображает текущее значение цитаты из состояния приложения.
+            </li>
+
+            <!-- Кнопка для получения новой цитаты -->
+            <li><strong>Кнопка для получения новой цитаты:</strong> <pre><code>&lt;button @click="fetchQuote"&gt;Получить цитату&lt;/button&gt;</code></pre> - кнопка, при нажатии на которую вызывается метод <code>fetchQuote</code>, который инициирует процесс получения новой цитаты.  <br> <code> @click=""&gt;</code> - событие клика по кнопке, которое вызывает метод <code>fetchQuote</code>.</li>
+
+            <!-- Сообщение о загрузке -->
+            <li><strong>Сообщение о загрузке:</strong> <pre><code>&lt;div v-if="loading" class="loading"&gt;Загружаем новую цитату...&lt;/div&gt;</code></pre> - блок, который отображается, когда приложение находится в состоянии загрузки новой цитаты, информируя пользователя о процессе.</li>
+
+
+
+
+
+          </ul>
+          <h3>Код JavaScript</h3>
+          <pre><code>//Инициализация Vuex хранилища
+const store = Vuex.createStore({
+  //Состояние приложения
+  state() {
+    return {
+      //currentQuote - текущая цитата, loading - состояние загрузки
+      currentQuote: "",
+      loading: false,
+    };
+  },
+  //Мутации для изменения состояния
+  mutations: {
+    setQuote(state, quote) {
+      state.currentQuote = quote;
+    },
+    setLoading(state, status) {
+      state.loading = status;
+    },
+  },
+  //Асинхронные действия
+  actions: {
+    async fetchQuote({ commit }) {
+      commit("setLoading", true);
+      try {
+        const response = await fetch("https://dummyjson.com/quotes");
+        if (!response.ok) throw new Error("Ошибка API");
+        const data = await response.json();
+        const randomQuote = data.quotes[Math.floor(Math.random() * data.quotes.length)];
+        commit("setQuote", randomQuote.quote);
+      } catch (error) {
+        console.error("Ошибка запроса:", error.message);
+        commit("setQuote", "Сетевая ошибка! Проверьте подключение и попробуйте снова.");
+      } finally {
+        commit("setLoading", false);
+      }
+    },
+  },
+});
+
+//Создание экземпляра Vue.js
+const app = Vue.createApp({
+  //Данные компонента
+  data() {
+    //Возвращаемое значение
+    return {
+      //hasClicked отслеживает, был ли клик по кнопке
+      hasClicked: false,
+    };
+  },
+  //Вычисляемые свойства
+  computed: {
+    //Подключение состояния из Vuex хранилища
+    //currentQuote - текущая цитата, loading - состояние загрузки
+    ...Vuex.mapState(["currentQuote", "loading"]),
+  },
+
+  //Методы компонента
+  methods: {
+    //Метод для получения новой цитаты
+    fetchQuote() {
+      this.$store.dispatch("fetchQuote");
+      this.hasClicked = true;
+    },
+  },
+});
+
+app.use(store);
+app.mount("#app");</code></pre>
+
+
+
+          <h4>Описание кода script</h4>
+          <p>
+            Этот JavaScript-код создает веб-приложение на Vue.js с использованием Vuex для управления состоянием. Вот описание основных частей кода:</p>
+          <ul class="list-ul">
+            <li><strong>Инициализация Vuex хранилища:</strong>
+              <pre><code>const store = Vuex.createStore({ ... });</code></pre>
+              - создается хранилище Vuex, которое управляет состоянием приложения.</li>
+            <li><strong>Состояние приложения:</strong>
+              <pre><code>state() { return { currentQuote: "", loading: false, }; }</code></pre>
+              - определяет начальное состояние приложения с двумя свойствами: <code>currentQuote</code> для хранения текущей цитаты и <code>loading</code> для отслеживания состояния загрузки.</li>
+            <li><strong>Мутации для изменения состояния:</strong>
+              <pre><code>mutations: { setQuote(state, quote) { ... }, setLoading(state, status) { ... }, }</code></pre>
+              - определяет методы для изменения состояния хранилища. <code>setQuote</code> обновляет текущую цитату, а <code>setLoading</code> изменяет состояние загрузки.</li>
+            <li><strong>Асинхронные действия:</strong>
+              <pre><code>actions: { async fetchQuote({ commit }) { ... }, }</code></pre>
+              - определяет асинхронное действие <code>fetchQuote</code>, которое отправляет запрос к API для получения случайной цитаты. В случае успеха цитата сохраняется в состоянии, а в случае ошибки отображается сообщение об ошибке.</li>
+            <li><strong>Создание экземпляра Vue.js:</strong>
+              <pre><code>const app = Vue.createApp({ ... });</code></pre>
+              - создает экземпляр Vue.js, который управляет пользовательским интерфейсом приложения.</li>
+            <li><strong>Данные компонента:</strong>
+              <pre><code>data() { return { hasClicked: false, }; }</code></pre>
+              - определяет локальное состояние компонента с переменной <code>hasClicked</code>, которая отслеживает, был ли клик по кнопке для получения цитаты.</li>
+            <li><strong>Вычисляемые свойства:</strong>
+              <pre><code>computed: { ...Vuex.mapState(["currentQuote", "loading"]), }</code></pre>
+              - подключает состояние из Vuex хранилища к компоненту, позволяя использовать <code>currentQuote</code> и <code>loading</code> в шаблоне.</li>
+            <li><strong>Методы компонента:</strong>
+              <pre><code>methods: { fetchQuote() { ... }, }</code></pre>
+              - определяет метод <code>fetchQuote</code>, который вызывает действие Vuex для получения новой цитаты и устанавливает <code>hasClicked</code> в <code>true</code> после первого клика.</li>
+          </ul>
+
+
+
+
+
+
+
+        </div>
+      </section>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+
+  <!-- Подключаем Vue.js -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <!-- Подключаем Vue Router -->
+  <script src="https://unpkg.com/vue-router@4"></script>
+  <!-- Подключаем Vuex -->
+  <script src="https://unpkg.com/vuex@4.0.0/dist/vuex.global.js"></script>
+
+
+  <style>
+    .page {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      padding: 20px;
+    }
+
+
+
+    .app {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .quote {
+      font-size: 1.5rem;
+      font-style: italic;
+      color: #f1f1f1;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 15px 25px;
+      background-color: #ff5722;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #e64a19;
+    }
+
+    .loading {
+      margin-top: 20px;
+      font-size: 1rem;
+      color: #ffeb3b;
+    }
+
+    .intro-message {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      color: #ffeb3b;
+    }
+  </style>
+
+  <script>
+    const store = Vuex.createStore({
+      state() {
+        return {
+          currentQuote: '',
+          loading: false,
+        };
+      },
+      mutations: {
+        setQuote(state, quote) {
+          state.currentQuote = quote;
+        },
+        setLoading(state, status) {
+          state.loading = status;
+        },
+      },
+      actions: {
+        async fetchQuote({
+          commit
+        }) {
+          commit('setLoading', true);
+          try {
+            const response = await fetch('https://dummyjson.com/quotes');
+            if (!response.ok) throw new Error('Ошибка API');
+            const data = await response.json();
+            const randomQuote = data.quotes[Math.floor(Math.random() * data.quotes.length)];
+            commit('setQuote', randomQuote.quote);
+          } catch (error) {
+            console.error('Ошибка запроса:', error.message);
+            commit('setQuote', 'Сетевая ошибка! Проверьте подключение и попробуйте снова.');
+          } finally {
+            commit('setLoading', false);
+          }
+        },
+      },
+    });
+
+    const app = Vue.createApp({
+      data() {
+        return {
+          hasClicked: false
+        };
+      },
+      computed: {
+        ...Vuex.mapState(['currentQuote', 'loading']),
+      },
+      methods: {
+        fetchQuote() {
+          this.$store.dispatch('fetchQuote');
+          this.hasClicked = true;
+        },
+      },
+    });
+
+    app.use(store);
+    app.mount('#app');
+  </script>
+
+</body>
+
+</html>

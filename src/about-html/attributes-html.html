@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../partials/head.html', { "title": "Атрибуты HTML", "description": "Что такое атрибуты HTML, их виды и примеры использования." })
+    <style>
+        .tags-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .tags-list h3 {
+            padding: 0;
+            margin: 0 0 1rem 0;
+        }
+        .tags-list h4 {
+            font-size: 1.2rem;
+        }
+        .intro-code-block {
+            background: #f8f8f8;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 24px 0;
+            font-size: 1rem;
+            overflow-x: auto;
+        }
+    </style>
+    <body class="page">
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+
+            <main class="page__main">
+                <nav class="nav-tabs">
+                    <a href="#html-attributes-intro" class="nav-tabs__link active">Введение</a>
+                    <a href="#html-attributes-types" class="nav-tabs__link">Типы и примеры атрибутов</a>
+                    <a href="#html-attributes-table" class="nav-tabs__link">Сводная таблица</a>
+                </nav>
+                <!--  Введение-->
+                <section class="section" id="html-attributes-intro">
+                    <div class="container">
+                        <h1 class="page__title">Атрибуты HTML</h1>
+                        <p class="note">
+                            <strong>Атрибуты HTML</strong>
+                            — это специальные параметры, которые задаются внутри тега и позволяют дополнительно настраивать его работу, внешний вид или поведение.
+                        </p>
+                        <ul>
+                            <li>
+                                Атрибуты всегда указываются внутри открывающего тега:
+                                <code>&lt;тег атрибут="значение"&gt;</code>
+                                .
+                            </li>
+                            <li>С помощью атрибутов можно задать идентификатор, класс, стили, ссылки, параметры для изображений, форм, списков и других элементов.</li>
+                            <li>Некоторые атрибуты универсальны для большинства тегов, другие — специфичны для определённых элементов.</li>
+                        </ul>
+                        <div class="intro-code-block">
+                            <pre><code>&lt;a href="https://example.com" target="_blank"&gt;Ссылка&lt;/a&gt;
+&lt;img src="photo.jpg" alt="Фото"&gt;
+&lt;input type="text" placeholder="Введите текст"&gt;
+&lt;div class="container" id="main"&gt;...&lt;/div&gt;</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Типы и примеры атрибутов -->
+                <section class="section" id="html-attributes-types">
+                    <div class="container">
+                        <h2 class="section__title">Типы и примеры атрибутов</h2>
+                        <ul class="tags-list">
+                            <!-- class -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name"><code>class</code></h3>
+                                    <p class="note">
+                                        <b>class</b>
+                                        — назначает CSS-класс для стилизации элемента.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <ul class="list-ul">
+                                            <li>Может использоваться для группировки элементов с одинаковым стилем.</li>
+                                            <li>Допустимо указывать несколько классов через пробел.</li>
+                                        </ul>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;div class="box highlight"&gt;Текст&lt;/div&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- id -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name"><code>id</code></h3>
+                                    <p class="note">
+                                        <b>id</b>
+                                        — уникальный идентификатор элемента на странице.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <ul class="list-ul">
+                                            <li>Используется для обращения к элементу через CSS или JavaScript.</li>
+                                            <li>
+                                                На странице не должно быть двух элементов с одинаковым
+                                                <code>id</code>
+                                                .
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;h2 id="intro"&gt;Введение&lt;/h2&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- style -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name"><code>style</code></h3>
+                                    <p class="note">
+                                        <b>style</b>
+                                        — позволяет задать встроенные CSS-стили прямо в элементе.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <ul class="list-ul">
+                                            <li>Удобно для быстрого изменения оформления, но для сложных стилей лучше использовать CSS-файл.</li>
+                                        </ul>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;p style="color: red; font-weight: bold;"&gt;Красный текст&lt;/p&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- title -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name"><code>title</code></h3>
+                                    <p class="note">
+                                        <b>title</b>
+                                        — текстовая подсказка, отображается при наведении курсора на элемент.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <ul class="list-ul">
+                                            <li>Работает для большинства тегов, улучшает доступность.</li>
+                                        </ul>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;span title="Подробнее"&gt;?</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- data-* -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name"><code>data-*</code></h3>
+                                    <p class="note">
+                                        <b>data-*</b>
+                                        — пользовательские атрибуты для хранения дополнительных данных.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <ul class="list-ul">
+                                            <li>Позволяет хранить любые значения для работы скриптов или стилей.</li>
+                                            <li>
+                                                Пример:
+                                                <code>data-user="123"</code>
+                                                ,
+                                                <code>data-theme="dark"</code>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;div data-user="123" data-theme="dark"&gt;...</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- src / href / alt / target -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">
+                                        <code>src</code>
+                                        ,
+                                        <code>href</code>
+                                        ,
+                                        <code>alt</code>
+                                        ,
+                                        <code>target</code>
+                                    </h3>
+                                    <p class="note">
+                                        <b>src</b>
+                                        — путь к файлу (например, изображение, видео, скрипт).
+                                        <br />
+                                        <b>href</b>
+                                        — адрес ссылки.
+                                        <br />
+                                        <b>alt</b>
+                                        — альтернативный текст для изображения.
+                                        <br />
+                                        <b>target</b>
+                                        — способ открытия ссылки:
+                                        <code>_blank</code>
+                                        (в новой вкладке),
+                                        <code>_self</code>
+                                        (в той же).
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <ul class="list-ul">
+                                            <li>Часто используются для работы с мультимедиа и навигацией.</li>
+                                        </ul>
+                                    </div>
+                                    <h4>Примеры:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;img src="cat.jpg" alt="Кот"&gt;
+&lt;a href="https://example.com" target="_blank"&gt;Ссылка&lt;/a&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- disabled / checked / selected / readonly -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">
+                                        <code>disabled</code>
+                                        ,
+                                        <code>checked</code>
+                                        ,
+                                        <code>selected</code>
+                                        ,
+                                        <code>readonly</code>
+                                    </h3>
+                                    <p class="note">
+                                        <b>disabled</b>
+                                        — делает элемент неактивным.
+                                        <br />
+                                        <b>checked</b>
+                                        — отмечает чекбокс или радиокнопку.
+                                        <br />
+                                        <b>selected</b>
+                                        — выбирает элемент списка.
+                                        <br />
+                                        <b>readonly</b>
+                                        — запрещает редактирование поля.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <ul class="list-ul">
+                                            <li>Используются в формах и интерактивных элементах.</li>
+                                        </ul>
+                                    </div>
+                                    <h4>Примеры:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;input type="checkbox" checked&gt;
+&lt;input type="text" disabled&gt;
+&lt;select&gt;
+  &lt;option selected&gt;Первый&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- placeholder / value / name -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">
+                                        <code>placeholder</code>
+                                        ,
+                                        <code>value</code>
+                                        ,
+                                        <code>name</code>
+                                    </h3>
+                                    <p class="note">
+                                        <b>placeholder</b>
+                                        — текст-подсказка внутри поля ввода.
+                                        <br />
+                                        <b>value</b>
+                                        — текущее значение элемента.
+                                        <br />
+                                        <b>name</b>
+                                        — имя поля для передачи данных формы.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <ul class="list-ul">
+                                            <li>Важны при создании форм для ввода и отправки информации.</li>
+                                        </ul>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;input type="text" name="user" value="Вася" placeholder="Введите имя"&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Сводная таблица популярных атрибутов -->
+                <section class="section" id="html-attributes-table">
+                    <div class="container">
+                        <h2 class="section__title">Сводная таблица популярных атрибутов</h2>
+                        <div class="table-responsive">
+                            <table class="table-note">
+                                <thead>
+                                    <tr>
+                                        <th>Атрибут</th>
+                                        <th>Назначение</th>
+                                        <th>Пример</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>class</code></td>
+                                        <td>CSS-класс для стилизации элемента</td>
+                                        <td><code>&lt;div class="box"&gt;</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>id</code></td>
+                                        <td>Уникальный идентификатор элемента</td>
+                                        <td><code>&lt;h2 id="intro"&gt;</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>style</code></td>
+                                        <td>Встроенные CSS-стили</td>
+                                        <td><code>&lt;p style="color:red;"&gt;</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>title</code></td>
+                                        <td>Всплывающая подсказка при наведении</td>
+                                        <td><code>&lt;span title="Подробнее"&gt;</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>data-*</code></td>
+                                        <td>Пользовательские данные для скриптов</td>
+                                        <td><code>&lt;div data-user="123"&gt;</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>src</code></td>
+                                        <td>Путь к файлу (изображение, видео)</td>
+                                        <td><code>&lt;img src="cat.jpg"&gt;</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>href</code></td>
+                                        <td>Адрес ссылки</td>
+                                        <td><code>&lt;a href="https://..."&gt;</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>alt</code></td>
+                                        <td>Альтернативный текст для изображения</td>
+                                        <td><code>&lt;img alt="Кот"&gt;</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>target</code></td>
+                                        <td>
+                                            Открытие ссылки (например,
+                                            <code>_blank</code>
+                                            )
+                                        </td>
+                                        <td><code>&lt;a target="_blank"&gt;</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>disabled</code></td>
+                                        <td>Отключает элемент формы</td>
+                                        <td><code>&lt;input disabled&gt;</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>checked</code></td>
+                                        <td>Отмечает чекбокс или радио</td>
+                                        <td><code>&lt;input checked&gt;</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>selected</code></td>
+                                        <td>Выбирает элемент списка</td>
+                                        <td><code>&lt;option selected&gt;</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>readonly</code></td>
+                                        <td>Запрещает редактирование поля</td>
+                                        <td><code>&lt;input readonly&gt;</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>placeholder</code></td>
+                                        <td>Текст-подсказка в поле ввода</td>
+                                        <td><code>&lt;input placeholder="..."&gt;</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>value</code></td>
+                                        <td>Значение элемента</td>
+                                        <td><code>&lt;input value="..."&gt;</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>name</code></td>
+                                        <td>Имя поля для формы</td>
+                                        <td><code>&lt;input name="user"&gt;</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="note note--info">
+                            На практике в HTML используются десятки атрибутов. Полный список и детали можно найти в
+                            <a href="https://developer.mozilla.org/ru/docs/Web/HTML/Attributes" target="_blank"><strong>документации</strong></a>
+                            .
+                        </p>
+                    </div>
+                </section>
+            </main>
+            @@include('../partials/footer.html', {})
+        </div>
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+    </body>
+</html>

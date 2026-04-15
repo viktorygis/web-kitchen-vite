@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        @@include('../partials/head.html', { "title": "Flex и Grid: Совместное использование", "description": " Совместное использование CSS Flexbox и Grid" })
+        <style>
+            /* Пример современных карточек товаров */
+            .modern-products-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 24px;
+                margin-top: 32px;
+            }
+            .modern-product-card {
+                background: #fff;
+                border-radius: 16px;
+                box-shadow: 0 4px 16px rgba(40, 60, 100, 0.1), 0 1.5px 3px rgba(40, 60, 100, 0.08);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 24px 18px 18px 18px;
+                transition: box-shadow 0.5s;
+                position: relative;
+                overflow: hidden;
+            }
+            .modern-product-card:hover {
+                box-shadow: 0 8px 28px rgba(40, 60, 100, 0.16), 0 3px 8px rgba(40, 60, 100, 0.1);
+                z-index: 1;
+            }
+            .modern-product-img {
+                width: 100px;
+                height: 100px;
+                background: linear-gradient(120deg, #f8bbd0 40%, #bbdefb 100%);
+                border-radius: 12px;
+                margin-bottom: 18px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 36px;
+                color: #fff;
+            }
+            .modern-product-title {
+                font-weight: 600;
+                font-size: 1.09em;
+                margin-bottom: 8px;
+                text-align: center;
+            }
+            .modern-product-desc {
+                font-size: 0.98em;
+                color: #7a7a7a;
+                margin-bottom: 14px;
+                text-align: center;
+                height: 45px;
+                overflow: hidden; /* чтобы текст не выбивался за пределы */
+            }
+            .modern-product-price {
+                font-weight: 700;
+                font-size: 1.15em;
+                color: #1976d2;
+                margin-bottom: 10px;
+            }
+            .modern-product-btn {
+                background: linear-gradient(90deg, #ff80ab, #448aff);
+                color: #fff;
+                border: none;
+                border-radius: 8px;
+                padding: 10px 24px;
+                font-weight: 600;
+                font-size: 1em;
+                cursor: pointer;
+                box-shadow: 0 2px 8px rgba(68, 138, 255, 0.1);
+                transition: background 0.18s, transform 0.15s;
+            }
+            .modern-product-btn:hover {
+                background: linear-gradient(90deg, #f50057, #1976d2);
+                transform: translateY(-2px) scale(1.03);
+            }
+            .modern-product-badge {
+                position: absolute;
+                top: 18px;
+                left: 18px;
+                background: linear-gradient(90deg, #ff80ab, #ffd740);
+                color: #fff;
+                font-size: 0.85em;
+                font-weight: 700;
+                border-radius: 7px;
+                padding: 4px 10px;
+                box-shadow: 0 1px 5px rgba(255, 128, 171, 0.07);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#flexgrid-intro" class="active">Введение</a>
+                    <a href="#flexgrid-diff">Flex vs Grid</a>
+                    <a href="#flexgrid-together">Совместное использование</a>
+                    <a href="#flexgrid-examples">Примеры</a>
+                    <a href="#flexgrid-tips">Советы</a>
+                </nav>
+
+                <!-- Введение -->
+                <section class="section" id="flexgrid-intro">
+                    <div class="container">
+                        <h1>Flex и Grid: Совместное использование</h1>
+                        <p class="note">
+                            <b>Flexbox</b>
+                            и
+                            <b>Grid</b>
+                            — это два современных инструмента для создания макетов в CSS.
+                            <br />
+                            Вместе они позволяют строить гибкие, адаптивные и сложные структуры страниц.
+                        </p>
+
+                        <p>
+                            <b>Grid</b>
+                            отлично подходит для построения основной структуры: например, деления страницы на колонки и строки.
+                        </p>
+                        <p>
+                            <b>Flexbox</b>
+                            — идеален для точного выравнивания элементов внутри каждой ячейки или карточки.
+                        </p>
+
+                        <p><span style="color: #3498db">Комбинируя их, ты получаешь максимальную гибкость и чистоту вёрстки!</span></p>
+                    </div>
+                </section>
+
+                <!-- Flex vs Grid -->
+                <section class="section" id="flexgrid-diff">
+                    <div class="container">
+                        <h2>В чем разница?</h2>
+                        <p>
+                            <b>Flexbox</b>
+                            —
+                            <span style="color: #2ecc71">одномерная модель</span>
+                            (строка
+                            <i>или</i>
+                            столбец). Отлично подходит для расположения элементов в линию, выравнивания и распределения пространства между ними.
+                        </p>
+                        <p>
+                            <b>Grid</b>
+                            —
+                            <span style="color: #e67e22">двумерная модель</span>
+                            (строки
+                            <i>и</i>
+                            столбцы одновременно). Применяется для построения сеток и сложных макетов.
+                        </p>
+
+                        <div class="note">
+                            <b>Grid</b>
+                            — для больших областей и структуры всей страницы.
+                            <br />
+                            <b>Flexbox</b>
+                            — для элементов внутри ячеек, карточек, кнопок и небольших групп.
+                            <br />
+                        </div>
+                        <p>
+                            <b>Современный подход:</b>
+                            <br />
+                        </p>
+                        <p>1️⃣ Сначала создаёшь основную сетку с помощью Grid.</p>
+                        <p>2️⃣ Затем внутри каждой ячейки используешь Flexbox для выравнивания и адаптации контента.</p>
+                    </div>
+                </section>
+
+                <!-- Совместное использование -->
+                <section class="section" id="flexgrid-together">
+                    <div class="container">
+                        <h2>Объединение Flex и Grid</h2>
+                        <p class="note">
+                            Часто Grid используют для основной структуры, а Flex — внутри отдельных ячеек сетки.
+                            <br />
+                            Такой подход делает код чище, а макет — гибче.
+                        </p>
+
+                        <p><b>Примеры современных сценариев:</b></p>
+                        <ul class="list-ul">
+                            <li>
+                                <b>Grid для основного макета, Flexbox для деталей.</b>
+                                <br />
+                                Например, карточки товаров с кнопками и текстом внутри.
+                            </li>
+                            <li>
+                                <b>Grid для позиционирования крупных блоков, Flexbox для адаптации.</b>
+                                <br />
+                                Например, при адаптивном дизайне меняется порядок и размер элементов внутри Grid-ячейки с помощью Flexbox.
+                            </li>
+                        </ul>
+
+                        <h4>Пример 1: Grid + Flex для списка</h4>
+                        <pre><code>
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+}
+.flex-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+    </code></pre>
+                        <div class="grid-container" style="display: grid; grid-template-columns: 1fr 2fr; gap: 30px">
+                            <div class="flex-list" style="display: flex; flex-direction: column; gap: 10px; background: #f4f4f4; padding: 10px">
+                                <div>Пункт 1</div>
+                                <div>Пункт 2</div>
+                                <div>Пункт 3</div>
+                            </div>
+                            <div style="background: #e8f5e9; padding: 10px">Контент справа</div>
+                        </div>
+
+                        <h4>Пример 2: Flex-контейнер с кнопками внутри Grid-ячейки</h4>
+                        <pre><code>
+&lt;div class="grid-container"&gt;
+  &lt;div&gt;Ячейка 1&lt;/div&gt;
+  &lt;div class="flex-row"&gt;
+    &lt;button&gt;Кнопка 1&lt;/button&gt;
+    &lt;button&gt;Кнопка 2&lt;/button&gt;
+    &lt;button&gt;Кнопка 3&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+.flex-row {
+  display: flex;
+  gap: 10px;
+}
+    </code></pre>
+                        <div class="grid-container" style="display: grid; grid-template-columns: 1fr 2fr; gap: 20px; margin-top: 10px">
+                            <div>Ячейка 1</div>
+                            <div class="flex-row" style="display: flex; gap: 10px">
+                                <button style="padding: 10px 15px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer">Кнопка 1</button>
+                                <button style="padding: 10px 15px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer">Кнопка 2</button>
+                                <button style="padding: 10px 15px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer">Кнопка 3</button>
+                            </div>
+                        </div>
+
+                        <h4>Пример 3: Совмещение для макета карточек и адаптивности</h4>
+                        <pre><code>
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Три равные колонки */
+  gap: 20px;
+}
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+    </code></pre>
+                        <div class="grid-container" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 10px">
+                            <div class="grid-item">
+                                <div class="flex-container" style="display: flex; justify-content: space-between; align-items: center">
+                                    <p style="padding-right: 10px; font-weight: 600">Контент</p>
+                                    <button style="padding: 10px 15px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer">Кнопка</button>
+                                </div>
+                            </div>
+                            <div class="grid-item">
+                                <div class="flex-container" style="display: flex; justify-content: space-between; align-items: center">
+                                    <p style="padding-right: 10px; font-weight: 600">Ещё контент</p>
+                                    <button style="padding: 10px 15px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer">Кнопка</button>
+                                </div>
+                            </div>
+                            <div class="grid-item">
+                                <div class="flex-container" style="display: flex; justify-content: space-between; align-items: center">
+                                    <p style="padding-right: 10px; font-weight: 600">Третий блок</p>
+                                    <button style="padding: 10px 15px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer">Кнопка</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="note" style="margin-top: 24px">
+                            <strong>Итог:</strong>
+                            <br />
+                            <b>Grid</b>
+                            отвечает за общую структуру макета (расположение колонок),
+                            <br />
+                            <b>Flexbox</b>
+                            — за выравнивание и организацию элементов внутри каждой ячейки.
+                            <br />
+                            <i>Такой подход делает макет гибким, аккуратным и легко читаемым.</i>
+                            🎨
+                        </div>
+                        <style>
+                            .grid-container {
+                                margin-bottom: 24px;
+                            }
+                            .flex-list,
+                            .flex-row,
+                            .flex-container {
+                                font-family: inherit;
+                            }
+                            button {
+                                font-family: inherit;
+                            }
+                        </style>
+                    </div>
+                </section>
+
+                <!-- Примеры -->
+                <section class="section" id="flexgrid-examples">
+                    <div class="container">
+                        <h2>Примеры макетов с Flex и Grid</h2>
+
+                        <!-- Галерея с заголовком -->
+                        <h4>Галерея с заголовком</h4>
+                        <p class="note">
+                            В этом примере используется
+                            <b>Grid</b>
+                            для организации структуры галереи (заголовок + список).
+                            <br />
+                            Внутри
+                            <b>Grid-ячейки</b>
+                            применяется
+                            <b>Flexbox</b>
+                            для горизонтального скролла и отступов между элементами галереи.
+                        </p>
+                        <div class="grid-column-100">
+                            <pre><code>
+	.grid-gallery {
+	  display: grid;
+	  grid-template-rows: auto 1fr;
+	  height: 250px;
+	}
+	.gallery-header {
+	  background: #90caf9;
+	  padding: 10px;
+	}
+	.gallery-list {
+	  display: flex;
+	  gap: 8px;
+	  overflow-x: auto;
+	  background: #e3f2fd;
+	  padding: 10px;
+	}
+	    </code></pre>
+
+                            <div class="example">
+                                <div class="grid-gallery" style="display: grid; grid-template-rows: auto 1fr; height: 250px; margin-bottom: 32px; padding: 10px; border: 2px dotted #a42727">
+                                    <div class="gallery-header" style="background: #90caf9; padding: 10px; font-weight: 600; font-size: 1.1em; border: 2px dotted #5327a4">Заголовок галереи</div>
+                                    <div class="gallery-list" style="display: flex; gap: 8px; overflow-x: auto; background: #e3f2fd; padding: 10px; border: 2px dotted #71ff12">
+                                        <div style="width: 80px; height: 80px; background: #b3e5fc; border-radius: 6px"></div>
+                                        <div style="width: 80px; height: 80px; background: #b3e5fc; border-radius: 6px"></div>
+                                        <div style="width: 80px; height: 80px; background: #b3e5fc; border-radius: 6px"></div>
+                                        <div style="width: 80px; height: 80px; background: #b3e5fc; border-radius: 6px"></div>
+                                        <div style="width: 80px; height: 80px; background: #b3e5fc; border-radius: 6px"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Карточки товаров -->
+                        <h4>Карточки товаров</h4>
+                        <p class="note">
+                            <b>Grid</b>
+                            используется для адаптивной сетки товаров,
+                            <br />
+                            а внутри каждой карточки применяется
+                            <b>Flexbox</b>
+                            для вертикального выравнивания содержимого:
+                            <br />
+                            <b><i>изображения, названия и кнопки.</i></b>
+                        </p>
+                        <div class="grid-column-100">
+                            <pre><code>
+	.products-grid {
+	  display: grid;
+	  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	  gap: 16px;
+	}
+	.product-card {
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	  padding: 14px;
+	  background: #fce4ec;
+	  border-radius: 8px;
+	}
+	    </code></pre>
+                            <div class="example">
+                                <div class="products-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 32px">
+                                    <div class="product-card" style="display: flex; flex-direction: column; align-items: center; padding: 14px; background: #fce4ec; border-radius: 8px">
+                                        <div style="width: 80px; height: 80px; background: #f8bbd0; border-radius: 6px"></div>
+                                        <span style="margin: 10px 0 6px 0; font-weight: 500">Товар 1</span>
+                                        <button style="background: #f06292; color: #fff; border: none; border-radius: 6px; padding: 7px 18px; cursor: pointer">Купить</button>
+                                    </div>
+                                    <div class="product-card" style="display: flex; flex-direction: column; align-items: center; padding: 14px; background: #fce4ec; border-radius: 8px">
+                                        <div style="width: 80px; height: 80px; background: #f8bbd0; border-radius: 6px"></div>
+                                        <span style="margin: 10px 0 6px 0; font-weight: 500">Товар 2</span>
+                                        <button style="background: #f06292; color: #fff; border: none; border-radius: 6px; padding: 7px 18px; cursor: pointer">Купить</button>
+                                    </div>
+                                    <div class="product-card" style="display: flex; flex-direction: column; align-items: center; padding: 14px; background: #fce4ec; border-radius: 8px">
+                                        <div style="width: 80px; height: 80px; background: #f8bbd0; border-radius: 6px"></div>
+                                        <span style="margin: 10px 0 6px 0; font-weight: 500">Товар 3</span>
+                                        <button style="background: #f06292; color: #fff; border: none; border-radius: 6px; padding: 7px 18px; cursor: pointer">Купить</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Современные карточки товаров -->
+                        <h4>Современные карточки товаров</h4>
+                        <p class="note">
+                            В этом примере используется
+                            <b>Grid</b>
+                            для размещения карточек,
+                            <br />
+                            а
+                            <b>Flexbox</b>
+                            внутри каждой карточки — для аккуратного выравнивания
+                            <i>текста, изображений и кнопок</i>
+                            .
+                            <br />
+                            Карточки имеют стили для подсветки при наведении и дополнительные бейджи.
+                        </p>
+                        <div class="grid-column-100">
+                            <pre><code>
+	.modern-products-grid {
+	  display: grid;
+	  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	  gap: 24px;
+	}
+	.modern-product-card {
+	  background: #fff;
+	  border-radius: 16px;
+	  box-shadow: 0 4px 16px rgba(40,60,100,0.10), 0 1.5px 3px rgba(40,60,100,0.08);
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	  padding: 24px 18px 18px 18px;
+	  transition: box-shadow 0.2s;
+	  position: relative;
+	}
+	.modern-product-card:hover {
+	  box-shadow: 0 8px 28px rgba(40,60,100,0.16), 0 3px 8px rgba(40,60,100,0.10);
+	}
+	.modern-product-img {
+	  width: 100px;
+	  height: 100px;
+	  background: linear-gradient(120deg, #f8bbd0 40%, #bbdefb 100%);
+	  border-radius: 12px;
+	  margin-bottom: 18px;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  font-size: 36px;
+	  color: #fff;
+	}
+	.modern-product-title {
+	  font-weight: 600;
+	  font-size: 1.09em;
+	  margin-bottom: 8px;
+	  text-align: center;
+	}
+	.modern-product-desc {
+	  font-size: 0.98em;
+	  color: #7a7a7a;
+	  margin-bottom: 14px;
+	  text-align: center;
+	}
+	.modern-product-price {
+	  font-weight: 700;
+	  font-size: 1.15em;
+	  color: #1976d2;
+	  margin-bottom: 10px;
+	}
+	.modern-product-btn {
+	  background: linear-gradient(90deg, #ff80ab, #448aff);
+	  color: #fff;
+	  border: none;
+	  border-radius: 8px;
+	  padding: 10px 24px;
+	  font-weight: 600;
+	  font-size: 1em;
+	  cursor: pointer;
+	  box-shadow: 0 2px 8px rgba(68, 138, 255, 0.10);
+	  transition: background 0.18s, transform 0.15s;
+	}
+	.modern-product-btn:hover {
+	  background: linear-gradient(90deg, #f50057, #1976d2);
+	  transform: translateY(-2px) scale(1.03);
+	}
+	.modern-product-badge {
+	  position: absolute;
+	  top: 18px;
+	  left: 18px;
+	  background: linear-gradient(90deg, #ff80ab, #ffd740);
+	  color: #fff;
+	  font-size: 0.85em;
+	  font-weight: 700;
+	  border-radius: 7px;
+	  padding: 4px 10px;
+	  box-shadow: 0 1px 5px rgba(255,128,171,0.07);
+	}
+	    </code></pre>
+                            <div class="example">
+                                <div class="modern-products-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px">
+                                    <div class="modern-product-card">
+                                        <span class="modern-product-badge">New</span>
+                                        <div class="modern-product-img">🎧</div>
+                                        <div class="modern-product-title">Беспроводные наушники</div>
+                                        <div class="modern-product-desc">До 30 ч работы, быстрый заряд, Bluetooth 5.3</div>
+                                        <div class="modern-product-price">5 990 ₽</div>
+                                        <button class="modern-product-btn">В корзину</button>
+                                    </div>
+                                    <div class="modern-product-card">
+                                        <div class="modern-product-img">⌚</div>
+                                        <div class="modern-product-title">Умные часы</div>
+                                        <div class="modern-product-desc">Влагозащита, мониторинг здоровья, NFC</div>
+                                        <div class="modern-product-price">11 490 ₽</div>
+                                        <button class="modern-product-btn">В корзину</button>
+                                    </div>
+                                    <div class="modern-product-card">
+                                        <span class="modern-product-badge">-20%</span>
+                                        <div class="modern-product-img">📱</div>
+                                        <div class="modern-product-title">Смартфон</div>
+                                        <div class="modern-product-desc">6.5" дисплей, 128 ГБ, тройная камера</div>
+                                        <div class="modern-product-price">17 990 ₽</div>
+                                        <button class="modern-product-btn">В корзину</button>
+                                    </div>
+                                    <div class="modern-product-card">
+                                        <div class="modern-product-img">💻</div>
+                                        <div class="modern-product-title">Ультрабук</div>
+                                        <div class="modern-product-desc">8 ГБ RAM, SSD 512 ГБ, вес 1.2 кг</div>
+                                        <div class="modern-product-price">49 990 ₽</div>
+                                        <button class="modern-product-btn">В корзину</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <style>
+                            .gallery-header {
+                                font-family: inherit;
+                            }
+                            .gallery-list::-webkit-scrollbar {
+                                height: 6px;
+                                background: #e3f2fd;
+                            }
+                            .gallery-list::-webkit-scrollbar-thumb {
+                                background: #b3e5fc;
+                                border-radius: 3px;
+                            }
+                            .product-card button {
+                                font-family: inherit;
+                                margin-top: 8px;
+                                transition: background 0.18s;
+                            }
+                            .product-card button:hover {
+                                background: #ce3776;
+                            }
+                            .modern-product-card {
+                                font-family: inherit;
+                            }
+                        </style>
+                    </div>
+                </section>
+
+                <!-- Советы -->
+                <section class="section" id="flexgrid-tips">
+                    <div class="container">
+                        <h2>Советы по использованию Flex и Grid вместе</h2>
+                        <ul class="list-ul">
+                            <li>
+                                Используйте
+                                <b>Grid</b>
+                                для основной структуры страницы и размещения крупных блоков.
+                            </li>
+                            <li>
+                                Применяйте
+                                <b>Flexbox</b>
+                                для выравнивания, распределения и построения содержимого внутри Grid-ячейки.
+                            </li>
+                            <li>Не бойтесь комбинировать: например, Grid внутри Flex или наоборот.</li>
+                            <li>Для простых одноосевых задач — Flex, для сложных сеток — Grid.</li>
+                            <li>Проверяйте адаптивность: оба инструмента отлично подходят для responsive-дизайна.</li>
+                        </ul>
+                        <div class="note">
+                            <strong>Совет:</strong>
+                            Такой подход помогает поддерживать код чистым и масштабируемым!
+                        </div>
+                    </div>
+                </section>
+            </main>
+            @@include('../partials/footer.html', {})
+        </div>
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+    </body>
+</html>

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../partials/head.html', { "title": "Логические операторы в JavaScript", "description": "Подробный разбор логических операторов в JavaScript: ||, ||=, &&, &&=, !, двойное !!, порядок выполнения, практические шаблоны и ловушки." })
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+
+            <main class="page">
+                <!-- Локальное меню по секциям страницы -->
+                <nav class="nav-tabs" id="page-nav">
+                    <ul>
+                        <li><a href="#intro">Введение</a></li>
+                        <li><a href="#or">|| (ИЛИ)</a></li>
+                        <li><a href="#or-assignment">||= (присваивание ИЛИ)</a></li>
+                        <li><a href="#and">&amp;&amp; (И)</a></li>
+                        <li><a href="#and-assignment">&amp;&amp;= (присваивание И)</a></li>
+                        <li><a href="#not">! (НЕ)</a></li>
+                        <li><a href="#double-not">!! (двойное НЕ)</a></li>
+                        <li><a href="#precedence">Приоритет</a></li>
+                        <li><a href="#summary-table">Сводная таблица</a></li>
+                        <li><a href="#patterns">Практика использования</a></li>
+                        <li><a href="#pitfalls">Ловушки</a></li>
+                        <li><a href="#practice">Тренажёр</a></li>
+                    </ul>
+                </nav>
+
+                <!-- ВВЕДЕНИЕ -->
+                <section class="section" id="intro" class="topic-section">
+                    <div class="container">
+                        <h1>Логические операторы в JavaScript</h1>
+                        <p class="note">
+                            Логические операторы позволяют комбинировать условия, возвращать значения выражений и управлять потоком исполнения. В JavaScript операторы
+                            <code>||</code>
+                            и
+                            <code>&amp;&amp;</code>
+                            возвращают один из операндов (а не просто
+                            <code>true/false</code>
+                            ) и используют механизм «сокращённого вычисления».
+                        </p>
+                        <div class="note-block">
+                            <h4>Основные логические операторы:</h4>
+                            <ul class="list-ul">
+                                <li>
+                                    <code>||</code>
+                                    — логическое ИЛИ
+                                </li>
+                                <li>
+                                    <code>&amp;&amp;</code>
+                                    — логическое И
+                                </li>
+                                <li>
+                                    <code>!</code>
+                                    — логическое НЕ
+                                </li>
+                                <li>
+                                    <code>||=</code>
+                                    ,
+                                    <code>&amp;&amp;=</code>
+                                    — логические операторы присваивания
+                                </li>
+                                <li>
+                                    <code>!!</code>
+                                    — идиома приведения к булевому типу
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="note-block warning">
+                            <strong>Отдельно:</strong>
+                            оператор нулевого слияния
+                            <code>??</code>
+                            и логическое присваивание
+                            <code>??=</code>
+                            разбираются на другой странице.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- || -->
+                <section class="section" id="or" class="topic-section">
+                    <div class="container">
+                        <h2>
+                            <code>||</code>
+                            — логическое ИЛИ
+                        </h2>
+                        <p class="note">
+                            Возвращает первый «истинный» (truthy) операнд или последний, если все оказались «ложными» (falsy). Истинность определяется приведением к логическому типу:
+                            <code>Boolean(операнд)</code>
+                            .
+                        </p>
+                        <div class="note-block">
+                            <h4>Алгоритм:</h4>
+                            <ol class="list-ol">
+                                <li>Читает операнды слева направо</li>
+                                <li>Преобразует текущий операнд к логическому значению</li>
+                                <li>Если он truthy — немедленно возвращает исходное значение</li>
+                                <li>Если все falsy — возвращает последний операнд</li>
+                            </ol>
+                        </div>
+                        <h4>Простые примеры:</h4>
+                        <pre><code>console.log(true  || true);   // true
+console.log(false || true);   // true
+console.log(false || false);  // false
+
+console.log(1 || 0);          // 1 (первый truthy)
+console.log(null || 0 || "A"); // "A"
+console.log(null || undefined || 0); // 0 (все falsy)</code></pre>
+
+                        <div class="note-block">
+                            <h4>Поиск первого содержательного значения:</h4>
+                            <pre><code>const firstName = "";
+const lastName  = "";
+const nickName  = "Суперкодер";
+
+const userLabel = firstName || lastName || nickName || "Аноним";
+console.log(userLabel); // "Суперкодер"</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ||= -->
+                <section class="section" id="or-assignment" class="topic-section">
+                    <div class="container">
+                        <h2>
+                            <code>||=</code>
+                            — логическое присваивание ИЛИ
+                        </h2>
+                        <p class="note">
+                            Сокращённая запись:
+                            <code>a ||= b</code>
+                            эквивалентна
+                            <code>if (!a) a = b;</code>
+                            (но с тонкостью: проверяется truthy/falsy).
+                        </p>
+                        <div class="note-block">
+                            <h4>Примеры:</h4>
+                            <pre><code>let configTitle = "";
+configTitle ||= "Заголовок по умолчанию";
+console.log(configTitle); // "Заголовок по умолчанию"
+
+let port = 0;
+port ||= 3000;
+console.log(port); // 3000 (потому что 0 - falsy)</code></pre>
+                        </div>
+                        <div class="warning">
+                            <strong>Осторожно:</strong>
+                            Значение
+                            <code>0</code>
+                            или пустая строка
+                            <code>""</code>
+                            могут быть значимыми. Оператор
+                            <code>||=</code>
+                            их перезапишет. Для «только null/undefined» используйте
+                            <code>??=</code>
+                            .
+                        </div>
+                    </div>
+                </section>
+
+                <!-- && -->
+                <section class="section" id="and" class="topic-section">
+                    <div class="container">
+                        <h2>
+                            <code>&amp;&amp;</code>
+                            — логическое И
+                        </h2>
+                        <p class="note">Возвращает первый «ложный» (falsy) операнд или последний, если все были truthy. Используется для условного выполнения/доступа.</p>
+                        <div class="note-block">
+                            <h4>Алгоритм:</h4>
+                            <ol class="list-ol">
+                                <li>Идёт слева направо</li>
+                                <li>Преобразует операнд к логическому</li>
+                                <li>Если операнд falsy — возвращает его исходное значение</li>
+                                <li>Если все truthy — возвращает последний</li>
+                            </ol>
+                        </div>
+                        <h4>Примеры:</h4>
+                        <pre><code>console.log(true  && true);   // true
+console.log(false && true);   // false
+console.log(1 && 0);          // 0 (первый falsy)
+console.log(1 && 2 && 3);     // 3 (все truthy)
+console.log(null && "текст"); // null</code></pre>
+
+                        <div class="note-block">
+                            <h4>Условное выполнение:</h4>
+                            <pre><code>isLoggedIn && showDashboard();
+// Аналогично:
+if (isLoggedIn) showDashboard();</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- &&= -->
+                <section class="section" id="and-assignment" class="topic-section">
+                    <div class="container">
+                        <h2>
+                            <code>&amp;&amp;=</code>
+                            — логическое присваивание И
+                        </h2>
+                        <p class="note">
+                            <code>a &amp;&amp;= b</code>
+                            эквивалентно
+                            <code>if (a) a = b;</code>
+                            (проверяется truthy).
+                        </p>
+                        <div class="note-block">
+                            <h4>Пример:</h4>
+                            <pre><code>let message = "Привет";
+message &&= message + ", пользователь!";
+console.log(message); // "Привет, пользователь!"
+
+let counter = 0;
+counter &&= 10;
+console.log(counter); // 0 (не изменился, т.к. 0 falsy)</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ! -->
+                <section class="section" id="not" class="topic-section">
+                    <div class="container">
+                        <h2>
+                            <code>!</code>
+                            — логическое НЕ
+                        </h2>
+                        <p class="note">Инвертирует булево значение. Сначала приводит операнд к логическому, затем возвращает противоположное.</p>
+                        <h4>Примеры:</h4>
+                        <pre><code>console.log(!true);     // false
+console.log(!0);        // true
+console.log(!"");       // true
+console.log(!"abc");    // false
+console.log(!null);     // true</code></pre>
+                        <div class="warning">
+                            <strong>Приоритет:</strong>
+                            У оператора
+                            <code>!</code>
+                            приоритет выше, чем у
+                            <code>&amp;&amp;</code>
+                            и
+                            <code>||</code>
+                            , поэтому он выполняется раньше.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- !! -->
+                <section class="section" id="double-not" class="topic-section">
+                    <div class="container">
+                        <h2>
+                            <code>!!</code>
+                            — двойное НЕ (приведение к Boolean)
+                        </h2>
+                        <p class="note">
+                            Идиома для явного получения булева значения:
+                            <code>!!value</code>
+                            равнозначно
+                            <code>Boolean(value)</code>
+                            .
+                        </p>
+                        <h4>Примеры:</h4>
+                        <pre><code>console.log(!!"текст");  // true
+console.log(!!"");       // false
+console.log(!!0);        // false
+console.log(!!1);        // true
+console.log(!!null);     // false
+console.log(Boolean("текст")); // true</code></pre>
+                    </div>
+                </section>
+
+                <!-- PRIORITY -->
+                <section class="section" id="precedence" class="topic-section">
+                    <div class="container">
+                        <h2>Приоритет и порядок вычисления</h2>
+                        <p class="note">
+                            Приоритет (от более высокого к низкому):
+                            <code>!</code>
+                            →
+                            <code>&amp;&amp;</code>
+                            →
+                            <code>||</code>
+                            . Скобки всегда можно (и нужно для читаемости) использовать для явного порядка.
+                        </p>
+                        <div class="note-block">
+                            <h4>Пример:</h4>
+                            <pre><code>console.log(!true || false); // false, т.к. !true -> false, false || false -> false
+console.log(true && false || true); // (true && false) -> false; false || true -> true
+console.log(true && (false || true)); // (false || true) -> true; true && true -> true</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SUMMARY TABLE -->
+                <section class="section" id="summary-table" class="topic-section">
+                    <div class="container">
+                        <h2>Сводная таблица</h2>
+                        <table class="table-note">
+                            <thead>
+                                <tr>
+                                    <th>Оператор</th>
+                                    <th>Название</th>
+                                    <th>Синтаксис</th>
+                                    <th>Возвращает</th>
+                                    <th>Комментарий</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>||</code></td>
+                                    <td>ИЛИ</td>
+                                    <td><code>a || b</code></td>
+                                    <td>Первый truthy или последний</td>
+                                    <td>Используется для подстановки значения по умолчанию</td>
+                                </tr>
+                                <tr>
+                                    <td><code>||=</code></td>
+                                    <td>Присв. ИЛИ</td>
+                                    <td><code>a ||= b</code></td>
+                                    <td>
+                                        Новое значение
+                                        <code>a</code>
+                                    </td>
+                                    <td>
+                                        Присваивает, если
+                                        <code>a</code>
+                                        falsy
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>&amp;&amp;</code></td>
+                                    <td>И</td>
+                                    <td><code>a && b</code></td>
+                                    <td>Первый falsy или последний</td>
+                                    <td>Условное выполнение</td>
+                                </tr>
+                                <tr>
+                                    <td><code>&amp;&amp;=</code></td>
+                                    <td>Присв. И</td>
+                                    <td><code>a &&= b</code></td>
+                                    <td>
+                                        Новое значение
+                                        <code>a</code>
+                                    </td>
+                                    <td>
+                                        Присваивает, если
+                                        <code>a</code>
+                                        truthy
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>!</code></td>
+                                    <td>НЕ</td>
+                                    <td><code>!a</code></td>
+                                    <td>
+                                        <code>true</code>
+                                        /
+                                        <code>false</code>
+                                    </td>
+                                    <td>Инвертирует логическое значение</td>
+                                </tr>
+                                <tr>
+                                    <td><code>!!</code></td>
+                                    <td>Двойное НЕ</td>
+                                    <td><code>!!a</code></td>
+                                    <td>
+                                        <code>true</code>
+                                        /
+                                        <code>false</code>
+                                    </td>
+                                    <td>Приведение к Boolean</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- PATTERNS -->
+                <section class="section" id="patterns" class="topic-section">
+                    <div class="container">
+                        <h2>Практические шаблоны использования</h2>
+
+                        <div class="note-block">
+                            <h4>1. Значение по умолчанию</h4>
+                            <pre><code>function greet(name) {
+  name = name || "Гость"; // Если name falsy
+  console.log("Привет,", name);
+}</code></pre>
+                        </div>
+
+                        <div class="note-block">
+                            <h4>2. Безопасный доступ (до появления optional chaining)</h4>
+                            <pre><code>user && user.profile && user.profile.avatar && show(user.profile.avatar);</code></pre>
+                        </div>
+
+                        <div class="note-block">
+                            <h4>3. Короткое выполнение вместо if</h4>
+                            <pre><code>isAdmin && grantAccess(); // if (isAdmin) grantAccess();</code></pre>
+                        </div>
+
+                        <div class="note-block">
+                            <h4>4. Условное логирование</h4>
+                            <pre><code>DEBUG && console.log("STATE =", state);</code></pre>
+                        </div>
+
+                        <div class="note-block">
+                            <h4>5. Инициализация (но аккуратно с 0 и "")</h4>
+                            <pre><code>let timeout = passedTimeout || 500; // 0 потеряется</code></pre>
+                        </div>
+
+                        <div class="warning">
+                            Для «только null/undefined» используйте
+                            <code>??</code>
+                            и
+                            <code>??=</code>
+                            , чтобы не терять допустимые значения
+                            <code>0</code>
+                            ,
+                            <code>""</code>
+                            .
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PITFALLS -->
+                <section class="section" id="pitfalls" class="topic-section">
+                    <div class="container">
+                        <h2>Ловушки и рекомендации</h2>
+                        <div class="note-block warning">
+                            <ul class="list-ul">
+                                <li>
+                                    <strong>Falsy значения:</strong>
+                                    <code>0</code>
+                                    ,
+                                    <code>""</code>
+                                    ,
+                                    <code>null</code>
+                                    ,
+                                    <code>undefined</code>
+                                    ,
+                                    <code>NaN</code>
+                                    ,
+                                    <code>false</code>
+                                    .
+                                </li>
+                                <li>
+                                    <code>a ||= b</code>
+                                    перезапишет
+                                    <code>0</code>
+                                    и
+                                    <code>""</code>
+                                    , даже если это желаемые значения.
+                                </li>
+                                <li>
+                                    Смешивать побочные эффекты в условиях (
+                                    <code>a() &amp;&amp; b()</code>
+                                    ) — снижает читаемость.
+                                </li>
+                                <li>
+                                    Скобки повышают ясность: не бойтесь писать
+                                    <code>(cond1 &amp;&amp; cond2) || fallback</code>
+                                    .
+                                </li>
+                                <li>
+                                    Для доступа к свойствам лучше использовать
+                                    <code>?.</code>
+                                    (optional chaining), чем длинные цепочки
+                                    <code>&amp;&amp;</code>
+                                    .
+                                </li>
+                                <li>
+                                    Двойное отрицание
+                                    <code>!!</code>
+                                    — идиома, но не злоупотребляйте; иногда
+                                    <code>Boolean(value)</code>
+                                    читабельнее.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PRACTICE -->
+                <section class="section" id="practice" class="topic-section">
+                    <div class="container">
+                        <h2>Тренажёр</h2>
+                        <p>Нажмите на кнопку или введите собственное выражение для вычисления.</p>
+
+                        <div class="practice-buttons">
+                            <button type="button" data-expr="1 || 0">1 || 0</button>
+                            <button type="button" data-expr="0 || 'fallback'">0 || 'fallback'</button>
+                            <button type="button" data-expr="'A' && 'B'">'A' && 'B'</button>
+                            <button type="button" data-expr="null && 5">null && 5</button>
+                            <button type="button" data-expr="!!'abc'">!!'abc'</button>
+                            <button type="button" data-expr="0 && 10">0 && 10</button>
+                            <button type="button" data-expr="0 || 10">0 || 10</button>
+                            <button type="button" data-expr="false || 0 || '' || 'X'">false || 0 || '' || 'X'</button>
+                        </div>
+
+                        <form id="expr-form" class="expr-form" onsubmit="return false;">
+                            <label>
+                                Выражение:
+                                <input type="text" id="expr-input" value="1 || 0" autocomplete="off" />
+                            </label>
+                            <button type="button" id="run-expr">Выполнить</button>
+                        </form>
+                        <pre><code id="expr-output">// Результат появится здесь</code></pre>
+                    </div>
+                </section>
+            </main>
+
+            @@include('../partials/footer.html', {})
+        </div>
+
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {}) @@include('../partials/js.html', {})
+
+        <script>
+            // Подсветка активной секции при скролле
+            (function initSectionHighlight() {
+                const nav = document.getElementById("page-nav");
+                if (!nav) return;
+                const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
+                const map = new Map(links.map((a) => [a.getAttribute("href").slice(1), a]));
+                const observer = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                links.forEach((l) => l.classList.remove("active"));
+                                const link = map.get(entry.target.id);
+                                if (link) link.classList.add("active");
+                            }
+                        });
+                    },
+                    { root: null, rootMargin: "0px 0px -65% 0px", threshold: 0 }
+                );
+                document.querySelectorAll(".topic-section").forEach((sec) => observer.observe(sec));
+            })();
+
+            // Плавная прокрутка
+            document.getElementById("page-nav")?.addEventListener("click", (e) => {
+                const a = e.target.closest('a[href^="#"]');
+                if (!a) return;
+                e.preventDefault();
+                const id = a.getAttribute("href").slice(1);
+                const target = document.getElementById(id);
+                if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+
+            // Выполнение выражений из тренажёра
+            function runExpression(expr) {
+                const output = document.getElementById("expr-output");
+                try {
+                    // eslint-disable-next-line no-eval
+                    const result = eval(expr);
+                    output.textContent = `> ${expr}\n= ${String(result)} (тип: ${typeof result})`;
+                } catch (e) {
+                    output.textContent = `> ${expr}\n! Ошибка: ${e.message}`;
+                }
+            }
+
+            document.addEventListener("click", (e) => {
+                const btn = e.target.closest("[data-expr]");
+                if (!btn) return;
+                runExpression(btn.getAttribute("data-expr"));
+            });
+
+            document.getElementById("run-expr")?.addEventListener("click", () => {
+                const input = document.getElementById("expr-input");
+                runExpression(input.value);
+            });
+        </script>
+    </body>
+</html>

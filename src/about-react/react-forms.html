@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../partials/head.html', { "title": "Формы в React", "description": "Работа с формами, управляемые компоненты, обработка событий, примеры, лучшие практики." })
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#intro">Введение</a>
+                    <a href="#controlled">Управляемые компоненты</a>
+                    <a href="#events">Обработка событий</a>
+                    <a href="#multiple">Множественные элементы формы</a>
+                    <a href="#practice">Практика</a>
+                    <a href="#tips">Советы</a>
+                    <a href="#best-practices">Лучшие практики</a>
+                    <a href="#examples">Примеры</a>
+                </nav>
+
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>Формы в React</h1>
+                        <p class="note">
+                            <b>Формы</b>
+                            — способ получать данные от пользователя.
+                            <br />
+                            В React формы обычно реализуются как управляемые компоненты.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section" id="controlled">
+                    <div class="container">
+                        <h2>Управляемые компоненты</h2>
+                        <pre><code>
+function App() {
+  const [value, setValue] = React.useState("");
+  return (
+    &lt;input value={value} onChange={e =&gt; setValue(e.target.value)} /&gt;
+  );
+}
+                        </code></pre>
+                        <div class="note note--info">Управляемый компонент — значение хранится в state, меняется через onChange.</div>
+                    </div>
+                </section>
+
+                <section class="section" id="events">
+                    <div class="container">
+                        <h2>Обработка событий формы</h2>
+                        <pre><code>
+function App() {
+  const [value, setValue] = React.useState("");
+  function handleSubmit(e) {
+    e.preventDefault();
+    alert("Отправлено: " + value);
+  }
+  return (
+    &lt;form onSubmit={handleSubmit}&gt;
+      &lt;input value={value} onChange={e =&gt; setValue(e.target.value)} /&gt;
+      &lt;button&gt;OK&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}
+                        </code></pre>
+                        <div class="note note--info">
+                            <code>onSubmit</code>
+                            — обработчик отправки формы.
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="multiple">
+                    <div class="container">
+                        <h2>Множественные элементы формы</h2>
+                        <pre><code>
+function App() {
+  const [form, setForm] = React.useState({name:"", email:""});
+  function handleChange(e) {
+    setForm(f =&gt; ({...f, [e.target.name]: e.target.value}));
+  }
+  return (
+    &lt;form&gt;
+      &lt;input name="name" value={form.name} onChange={handleChange} /&gt;
+      &lt;input name="email" value={form.email} onChange={handleChange} /&gt;
+    &lt;/form&gt;
+  );
+}
+                        </code></pre>
+                        <div class="note note--info">Для сложных форм удобно хранить все значения в одном объекте.</div>
+                    </div>
+                </section>
+
+                <section class="section" id="practice">
+                    <div class="container">
+                        <h2>Практика: форма обратной связи</h2>
+                        <div class="interactive-demo demo-box">
+                            <div class="code-block">
+                                <pre><code>
+&lt;div id="root"&gt;&lt;/div&gt;
+&lt;script type="text/babel"&gt;
+function App() {
+  const [form, setForm] = React.useState({name:"", feedback:""});
+  function handleChange(e) {
+    setForm(f =&gt; ({...f, [e.target.name]: e.target.value}));
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    alert(`Спасибо, ${form.name}! Ваш отзыв: ${form.feedback}`);
+    setForm({name:"", feedback:""});
+  }
+  return (
+    &lt;form onSubmit={handleSubmit}&gt;
+      &lt;input name="name" value={form.name} onChange={handleChange} placeholder="Имя" /&gt;
+      &lt;input name="feedback" value={form.feedback} onChange={handleChange} placeholder="Отзыв" /&gt;
+      &lt;button&gt;Отправить&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;App /&gt;);
+&lt;/script&gt;
+                                </code></pre>
+                                <button class="copy-btn">Скопировать</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="tips">
+                    <div class="container">
+                        <h2>Советы и типичные ошибки</h2>
+                        <ul class="list-ul">
+                            <li>Держите значения формы в state.</li>
+                            <li>Очищайте форму после отправки.</li>
+                            <li>Проверяйте данные до отправки (валидация).</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="best-practices">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+                        <ul class="list-ul">
+                            <li>Выносите логику формы в отдельные компоненты и хуки.</li>
+                            <li>Документируйте структуру формы для команды.</li>
+                            <li>Для сложных форм используйте useReducer.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="examples">
+                    <div class="container">
+                        <h2>Примеры форм</h2>
+                        <h4>Чекбоксы и радиокнопки</h4>
+                        <pre><code>
+&lt;input type="checkbox" checked={checked} onChange={e =&gt; setChecked(e.target.checked)} /&gt;
+&lt;input type="radio" checked={selected} onChange={e =&gt; setSelected(e.target.checked)} /&gt;
+                        </code></pre>
+                        <h4>Селект</h4>
+                        <pre><code>
+&lt;select value={value} onChange={e =&gt; setValue(e.target.value)}&gt;
+  &lt;option value="1"&gt;Один&lt;/option&gt;
+&lt;/select&gt;
+                        </code></pre>
+                    </div>
+                </section>
+            </main>
+            @@include('../partials/footer.html', {})
+        </div>
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../partials/head.html', { "title": "Основные теги HTML", "description": "Основные теги HTML" })
+    <style>
+        .tags-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .tags-list h3 {
+            padding: 0;
+            margin: 0 0 1rem 0;
+        }
+        .tags-list h4 {
+            font-size: 1.2rem;
+        }
+
+        .tags-list--semantic .tags-list__item {
+            border: 1px solid #878787;
+            border-radius: 20px;
+            padding: 20px;
+        }
+    </style>
+    <body class="page">
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+            <main class="page__main">
+                <nav class="nav-tabs">
+                    <a href="#html-intro" class="nav-tabs__link active">Введение</a>
+                    <a href="#html-basic" class="nav-tabs__link">Базовые</a>
+                </nav>
+                <!-- введение -->
+                <section class="section" id="html-intro">
+                    <div class="container">
+                        <h1 class="page__title">Базовые теги HTML</h1>
+                        <p class="note">
+                            <strong>Базовые теги HTML</strong>
+                            — это основные строительные блоки веб-страниц, которые определяют структуру и содержание документа. Они позволяют браузеру правильно отображать текст, изображения, ссылки и другие элементы.
+                        </p>
+                        <p>Знание базовых тегов HTML необходимо для создания и редактирования веб-страниц. Эти теги помогают организовать контент, сделать его доступным и понятным для пользователей и поисковых систем.</p>
+
+                        <h4>Пример базовых тегов HTML:</h4>
+                        <div class="code-block">
+                            <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ru"&gt;
+&lt;head&gt;
+   &lt;meta charset="UTF-8"&gt;
+   &lt;title&gt;Пример страницы&lt;/title&gt;
+   &lt;link rel="stylesheet" href="styles.css"&gt;
+   &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+   &lt;h1&gt;Заголовок страницы&lt;/h1&gt;
+   &lt;p&gt;Это пример параграфа текста.&lt;/p&gt;
+   &lt;a href="https://example.com"&gt;Ссылка на сайт&lt;/a&gt;
+   &lt;img src="image.jpg" alt="Описание изображения"&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                            <button class="copy-btn">Скопировать</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!--Основные теги HTML  -->
+                <section class="section" id="html-basic">
+                    <div class="container">
+                        <h2 class="section__title">Виды базовых тегов HTML</h2>
+                        <ul class="tags-list">
+                            <!-- html -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;html&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;html&gt;</b>
+                                        — Корневой элемент любого HTML-документа, который служит контейнером для всего содержимого страницы (включая &lt;head&gt; и &lt;body&gt;).
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>
+                                                Атрибут
+                                                <code>lang</code>
+                                            </b>
+                                            — указывает основной язык содержимого страницы (например,
+                                            <code>lang="ru"</code>
+                                            для русского). Это важно для доступности, озвучивания текста скринридерами и для поисковых систем.
+                                        </p>
+                                        <p>
+                                            <b>
+                                                Атрибут
+                                                <code>xmlns</code>
+                                            </b>
+                                            (XML namespace) — применяется редко, обычно автоматически добавляется браузером или редакторами. Для обычных HTML-страниц указывать не обязательно.
+                                        </p>
+                                        <p>
+                                            <b>
+                                                Тег
+                                                <code>&lt;html&gt;</code>
+                                            </b>
+                                            всегда единственный и самый верхний в документе. Он не может быть вложен в другие элементы и обязательно содержит внутри себя блоки
+                                            <code>&lt;head&gt;</code>
+                                            и
+                                            <code>&lt;body&gt;</code>
+                                            .
+                                        </p>
+                                        <hr />
+                                        <h4>
+                                            <b>
+                                                Другие полезные атрибуты
+                                                <code>&lt;html&gt;</code>
+                                                :
+                                            </b>
+                                        </h4>
+                                        <ul class="list-ul">
+                                            <li>
+                                                <b><code>dir</code></b>
+                                                — направление текста на странице (
+                                                <code>ltr</code>
+                                                — слева направо,
+                                                <code>rtl</code>
+                                                — справа налево). Например:
+                                                <code>&lt;html dir="rtl"&gt;</code>
+                                            </li>
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации всей страницы. Обычно используется редко на корневом элементе:
+                                                <code>&lt;html class="main-html"&gt;</code>
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор, редко применяется к тегу
+                                                <code>&lt;html&gt;</code>
+                                                , но может быть полезен для скриптов или ссылок:
+                                                <code>&lt;html id="top"&gt;</code>
+                                            </li>
+                                            <li>
+                                                <b><code>manifest</code></b>
+                                                — путь к файлу-оболочке для офлайн-приложений (устаревший, почти не используется).
+                                            </li>
+                                            <li>
+                                                <b><code>data-*</code></b>
+                                                — пользовательские атрибуты для хранения дополнительных данных, например:
+                                                <code>&lt;html data-theme="dark"&gt;</code>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="note">
+                                        <b>Примечание:</b>
+                                        Тег
+                                        <b>&lt;html&gt;</b>
+                                        должен быть первым элементом в документе и не может быть вложен в другие теги.
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;html lang="ru"&gt;
+  &lt;head&gt;...&lt;/head&gt;
+  &lt;body&gt;...&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- head -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;head&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;head&gt;</b>
+                                        — Элемент, содержащий метаданные о документе: заголовок страницы, кодировку, подключаемые стили, скрипты и другую служебную информацию.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <b>
+                                                Содержимое
+                                                <code>&lt;head&gt;</code>
+                                            </b>
+                                            не отображается напрямую на странице, но влияет на работу браузера, SEO и внешний вид сайта.
+                                        </p>
+                                        <p>
+                                            <b>
+                                                Основные теги внутри
+                                                <code>&lt;head&gt;</code>
+                                                :
+                                            </b>
+                                        </p>
+                                        <ul class="list-ul">
+                                            <li>
+                                                <b><code>&lt;title&gt;</code></b>
+                                                — задаёт заголовок страницы, который отображается во вкладке браузера и в поисковых системах.
+                                            </li>
+                                            <li>
+                                                <b><code>&lt;meta&gt;</code></b>
+                                                — метаданные: например,
+                                                <code>&lt;meta charset="UTF-8"&gt;</code>
+                                                указывает кодировку,
+                                                <code>&lt;meta name="description" content="..."&gt;</code>
+                                                — описание для SEO.
+                                            </li>
+                                            <li>
+                                                <b><code>&lt;link&gt;</code></b>
+                                                — подключает внешние ресурсы: CSS-файлы, фавиконки, шрифты.
+                                            </li>
+                                            <li>
+                                                <b><code>&lt;style&gt;</code></b>
+                                                — внутренние CSS-стили для страницы.
+                                            </li>
+                                            <li>
+                                                <b><code>&lt;script&gt;</code></b>
+                                                — подключение или размещение JavaScript-кода.
+                                            </li>
+                                            <li>
+                                                <b><code>&lt;base&gt;</code></b>
+                                                — устанавливает базовый путь для относительных ссылок.
+                                            </li>
+                                        </ul>
+                                        <hr />
+                                        <b>
+                                            Атрибуты
+                                            <code>&lt;head&gt;</code>
+                                            :
+                                        </b>
+                                        <ul class="list-ul">
+                                            <li>
+                                                <b><code>profile</code></b>
+                                                — (устарел) мог определять ссылку на профиль метаданных.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор, редко используется на этом элементе.
+                                            </li>
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс, обычно не применяется, но допустим.
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="note">
+                                        <b>Примечание:</b>
+                                        Тег
+                                        <b>&lt;head&gt;</b>
+                                        всегда размещается после
+                                        <code>&lt;html&gt;</code>
+                                        и до
+                                        <code>&lt;body&gt;</code>
+                                        . Внутри
+                                        <code>&lt;head&gt;</code>
+                                        нельзя размещать элементы, предназначенные для отображения на странице.
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;head&gt;
+  &lt;title&gt;Документ&lt;/title&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- title -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;title&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;title&gt;</b>
+                                        — Тег, который задаёт заголовок страницы. Этот заголовок отображается на вкладке браузера, в поисковых системах и когда добавляете страницу в закладки.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            <code>&lt;title&gt;</code>
+                                            размещается только внутри
+                                            <code>&lt;head&gt;</code>
+                                            и должен быть уникальным для каждой страницы.
+                                        </p>
+                                        <p>Заголовок помогает пользователю понять, о чём страница, и влияет на SEO.</p>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Можно использовать любые символы, но не стоит делать заголовок слишком длинным.
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;title&gt;Моя первая страница&lt;/title&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- body -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;body&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;body&gt;</b>
+                                        — Основной контейнер для всего видимого содержимого страницы: текста, картинок, ссылок, списков, форм и других элементов.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            Внутри
+                                            <code>&lt;body&gt;</code>
+                                            размещаются все элементы, которые пользователь видит и с которыми взаимодействует.
+                                        </p>
+                                        <p>
+                                            <b>
+                                                Атрибуты
+                                                <code>&lt;body&gt;</code>
+                                                :
+                                            </b>
+                                        </p>
+                                        <ul class="list-ul">
+                                            <li>
+                                                <b><code>onload</code></b>
+                                                — запускает JavaScript при загрузке страницы.
+                                            </li>
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                            <li>
+                                                <b><code>style</code></b>
+                                                — встроенные CSS-стили.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            В документе всегда должен быть только один
+                                            <code>&lt;body&gt;</code>
+                                            .
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;body&gt;
+  &lt;h2&gt;Заголовок&lt;/h2&gt;
+  &lt;p&gt;Текст параграфа.&lt;/p&gt;
+&lt;/body&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- h1-h6 -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;h1&gt; - &lt;h6&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;h1&gt; - &lt;h6&gt;</b>
+                                        — Теги для заголовков различных уровней.
+                                        <code>&lt;h1&gt;</code>
+                                        — главный заголовок страницы,
+                                        <code>&lt;h2&gt;</code>
+                                        — подзаголовок и так далее до
+                                        <code>&lt;h6&gt;</code>
+                                        .
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            Используйте
+                                            <code>&lt;h1&gt;</code>
+                                            только один раз на странице — это важно для SEO. Остальные заголовки структурируют текст и помогают сделать контент удобным для восприятия.
+                                        </p>
+                                        <ul class="list-ul">
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор, например для якорных ссылок.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Не пропускайте уровни:
+                                            <code>&lt;h2&gt;</code>
+                                            должен идти после
+                                            <code>&lt;h1&gt;</code>
+                                            и так далее.
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;h1&gt;Заголовок 1 уровня&lt;/h1&gt;
+&lt;h2&gt;Заголовок 2 уровня&lt;/h2&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- p -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;p&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;p&gt;</b>
+                                        — Тег для создания параграфа текста. Каждый
+                                        <code>&lt;p&gt;</code>
+                                        автоматически отделяется от соседних параграфов отступом.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>Используйте для обычного текста, описаний, пояснений.</p>
+                                        <ul class="list-ul">
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                            <li>
+                                                <b><code>style</code></b>
+                                                — встроенные CSS-стили.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Внутри
+                                            <code>&lt;p&gt;</code>
+                                            нельзя размещать блочные элементы, только строчные (например,
+                                            <code>&lt;a&gt;</code>
+                                            ,
+                                            <code>&lt;span&gt;</code>
+                                            ).
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;p&gt;Это пример параграфа.&lt;/p&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- ol/ul -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;ol&gt; и &lt;ul&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;ol&gt;</b>
+                                        — нумерованный список,
+                                        <b>&lt;ul&gt;</b>
+                                        — маркированный (ненумерованный) список.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            Каждый элемент списка помещается в тег
+                                            <code>&lt;li&gt;</code>
+                                            . Списки можно вкладывать друг в друга.
+                                        </p>
+                                        <ul class="list-ul">
+                                            <li>
+                                                <b><code>type</code></b>
+                                                — тип маркера (например,
+                                                <code>type="A"</code>
+                                                для
+                                                <code>&lt;ol&gt;</code>
+                                                ).
+                                            </li>
+                                            <li>
+                                                <b><code>start</code></b>
+                                                — начальный номер для
+                                                <code>&lt;ol&gt;</code>
+                                                .
+                                            </li>
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Для логической структуры используйте списки, а не просто переносы строк.
+                                        </p>
+                                    </div>
+                                    <h4>Примеры:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;ol&gt;
+  &lt;li&gt;Первый элемент&lt;/li&gt;
+  &lt;li&gt;Второй элемент&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Элемент списка&lt;/li&gt;
+  &lt;li&gt;Еще один элемент списка&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- a -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;a&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;a&gt;</b>
+                                        — Тег для создания гиперссылок (перехода по адресу или якорю).
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            Главный атрибут —
+                                            <code>href</code>
+                                            (адрес или якорь). Можно добавить
+                                            <code>target="_blank"</code>
+                                            для открытия ссылки в новой вкладке.
+                                        </p>
+                                        <ul class="list-ul">
+                                            <li>
+                                                <b><code>href</code></b>
+                                                — адрес назначения.
+                                            </li>
+                                            <li>
+                                                <b><code>target</code></b>
+                                                — как открыть ссылку (
+                                                <code>_blank</code>
+                                                ,
+                                                <code>_self</code>
+                                                ).
+                                            </li>
+                                            <li>
+                                                <b><code>rel</code></b>
+                                                — отношения и безопасность (например,
+                                                <code>rel="noopener"</code>
+                                                ).
+                                            </li>
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Можно использовать для ссылок на внешние, внутренние или якорные адреса.
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;a href="https://example.com"&gt;Перейти на пример&lt;/a&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- img -->
+                            <li class="tags-list__item">
+                                <div class="card">
+                                    <h3 class="tags-list__name">&lt;img&gt;</h3>
+                                    <p class="note">
+                                        <b>&lt;img&gt;</b>
+                                        — Тег для вставки изображений на страницу.
+                                    </p>
+                                    <div class="tags-list__details card__desc">
+                                        <p>
+                                            Обязательный атрибут —
+                                            <code>src</code>
+                                            (путь к файлу изображения).
+                                        </p>
+                                        <ul class="list-ul">
+                                            <li>
+                                                <b><code>src</code></b>
+                                                — путь к изображению.
+                                            </li>
+                                            <li>
+                                                <b><code>alt</code></b>
+                                                — текст для описания картинки (важен для доступности).
+                                            </li>
+                                            <li>
+                                                <b><code>width</code></b>
+                                                и
+                                                <b><code>height</code></b>
+                                                — размеры картинки.
+                                            </li>
+                                            <li>
+                                                <b><code>title</code></b>
+                                                — всплывающая подсказка при наведении.
+                                            </li>
+                                            <li>
+                                                <b><code>class</code></b>
+                                                — CSS-класс для стилизации.
+                                            </li>
+                                            <li>
+                                                <b><code>id</code></b>
+                                                — уникальный идентификатор.
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            <b>Примечание:</b>
+                                            Тег
+                                            <code>&lt;img&gt;</code>
+                                            — одиночный (нет закрывающего тега). Всегда указывайте
+                                            <code>alt</code>
+                                            для доступности!
+                                        </p>
+                                    </div>
+                                    <h4>Пример:</h4>
+                                    <div class="code-block">
+                                        <pre><code>&lt;img src="image.jpg" alt="Описание изображения"&gt;</code></pre>
+                                        <button class="copy-btn">Скопировать</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </main>
+            @@include('../partials/footer.html', {})
+        </div>
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+    </body>
+</html>
