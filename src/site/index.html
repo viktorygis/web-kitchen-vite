@@ -1,0 +1,475 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  
+<!--   <link rel="stylesheet" href="/css/style.min.css" /> -->
+
+  <title>Главная</title>
+  <meta name="description" content="..." />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic" rel="stylesheet" />
+
+  <!-- Подключение Highlight.js для подсветки синтаксиса -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+  <script>
+    hljs.highlightAll();
+  </script>
+</head>
+
+<body>
+  <!-- Шапка сайта -->
+  <header>
+  <div class="container">
+    <div class="menu-toggle" id="mobile-menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+
+    <div class="header-menu">
+      <!-- Меню -->
+      <nav class="nav">
+        <ul class="nav-list">
+          <!-- Главная -->
+          <li class="nav-item">
+            <a class="nav-link active" href="/index.html">Главная</a>
+          </li>
+
+          <!-- html -->
+          <li class="nav-item">
+            <a class="nav-link submenu-toggle " href="/#">HTML</a>
+
+            <div class="subnav-list subnav-two-columns">
+              <div class="subnav-column">
+                <!-- Основы HTML -->
+                <div class="subnav-group">
+                  <div class="subnav-heading">Основы HTML</div>
+                  <ul>
+                    <li><a class="subnav-link" href="/about-html/start-html.html">Введение в HTML</a></li>
+                    <li><a class="subnav-link" href="/about-html/tags-html.html">Теги HTML</a></li>
+                    <li><a class="subnav-link" href="/about-html/basic-tags.html">- Теги базовые</a></li>
+                    <li><a class="subnav-link" href="/about-html/formatting-tags.html">- Теги форматирования</a></li>
+                    <li><a class="subnav-link" href="/about-html/style-tags.html">- Теги стилей</a></li>
+                    <li><a class="subnav-link" href="/about-html/attributes-html.html">Атрибуты</a></li>
+                    <li><a class="subnav-link" href="/about-html/simbol-html.html">Символы и сущности</a></li>
+                  </ul>
+                </div>
+
+                <!-- Семантика и структура -->
+                <div class="subnav-group">
+                  <div class="subnav-heading">Семантика и структура</div>
+                  <ul>
+                    <li><a class="subnav-link" href="/about-html/semantic-tags-html.html">✔ Семантические теги</a></li>
+                    <li><a class="subnav-link" href="/about-html/nosemantic-tags.html">Теги &lt;div&gt; и &lt;span&gt;</a></li>
+                    <li><a class="subnav-link" href="/about-html/meta-tags.html">✔ Метаданные и SEO</a></li>
+                  </ul>
+                </div>
+
+                <!-- Формы и взаимодействие -->
+                <div class="subnav-group">
+                  <div class="subnav-heading">Формы и ввод данных</div>
+                  <ul>
+                    <li><a class="subnav-link" href="/about-html/form-html.html">✔ Формы</a></li>
+                    <li><a class="subnav-link" href="/about-html/input-html.html">Элементы ввода</a></li>
+                    <li><a class="subnav-link" href="/about-html/validation-html.html">Валидация форм</a></li>
+                  </ul>
+                </div>
+
+                <!-- Списки и таблицы -->
+                <div class="subnav-group">
+                  <div class="subnav-heading">Списки и таблицы</div>
+                  <ul>
+                    <li><a class="subnav-link" href="/about-html/list-html.html">Списки</a></li>
+                    <li><a class="subnav-link" href="/about-html/table-html.html">✔ Таблицы</a></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="subnav-column">
+                <!-- Мультимедиа и графика -->
+                <div class="subnav-group">
+                  <div class="subnav-heading">Мультимедиа и графика</div>
+                  <ul>
+                    <li><a class="subnav-link" href="/about-html/media-html.html">✔ Мультимедиа</a></li>
+                    <li><a class="subnav-link" href="/about-html/image-html.html">Изображения</a></li>
+                    <li><a class="subnav-link" href="/about-html/svg-html.html">SVG и Canvas</a></li>
+                  </ul>
+                </div>
+
+                <!-- Навигация и ссылки -->
+                <div class="subnav-group">
+                  <div class="subnav-heading">Навигация и ссылки</div>
+                  <ul>
+                    <li><a class="subnav-link" href="/about-html/link-html.html">Ссылки</a></li>
+                    <li><a class="subnav-link" href="/about-html/menu-html.html">Меню и навигация</a></li>
+                    <li><a class="subnav-link" href="/about-html/anchor-html.html">Якоря и переходы</a></li>
+                  </ul>
+                </div>
+
+                <!-- Форматирование текста -->
+                <div class="subnav-group">
+                  <div class="subnav-heading">Форматирование текста</div>
+                  <ul>
+                    <li><a class="subnav-link" href="/about-html/text-html.html">Текст и заголовки</a></li>
+                    <li><a class="subnav-link" href="/about-html/formatting-html.html">✔ Теги форматирования</a></li>
+                  </ul>
+                </div>
+
+                <!-- Примеры и шаблоны -->
+                <div class="subnav-group">
+                  <div class="subnav-heading">Примеры и шаблоны</div>
+                  <ul>
+                    <li><a class="subnav-link" href="/about-html/lending-html.html">lending</a></li>
+                    <li><a class="subnav-link" href="/about-html/template-html.html">Шаблоны HTML</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- css -->
+          <li class="nav-item">
+            <a class="nav-link submenu-toggle " href="/#">CSS</a>
+            <div class="subnav-list subnav-two-columns">
+              <div class="subnav-column">
+                <div class="subnav-group">
+                  <div class="subnav-heading">Основы CSS</div>
+                  <ul>
+                    <li><a class="subnav-link" href="/about-css/start-css.html">Основы CSS</a></li>
+                    <li><a class="subnav-link" href="/about-css/cascading-css.html">Каскадность</a></li>
+                    <li><a class="subnav-link" href="/about-css/selector-css.html">Селекторы</a></li>
+                    <li><a class="subnav-link" href="/about-css/pseudo-classes.html">Псевдоклассы</a></li>
+                    <li><a class="subnav-link" href="/about-css/pseudo-elements.html">Псевдоэлементы</a></li>
+                    <li><a class="subnav-link" href="/about-css/colors.html">Цвета</a></li>
+                    <li><a class="subnav-link" href="/about-css/text-align.html">Выравнивание текста</a></li>
+                  </ul>
+                </div>
+
+                <div class="subnav-group">
+                  <div class="subnav-heading">Работа со шрифтом</div>
+                  <ul>
+                    <li><a class="subnav-link" href="/about-css/font-size.html">Размер шрифта</a></li>
+                    <li><a class="subnav-link" href="/about-css/font-style.html">Шрифты</a></li>
+                  </ul>
+                </div>
+
+                <div class="subnav-group">
+                  <div class="subnav-heading">Размеры и единицы</div>
+                  <ul>
+                    <li><a class="subnav-link" href="/about-css/units-css.html">Единицы измерения</a></li>
+                    <li><a class="subnav-link" href="/about-css/dimensions.html">Размеры</a></li>
+                    <li><a class="subnav-link" href="/about-css/border.html">Border</a></li>
+                    <li><a class="subnav-link" href="/about-css/spacing.html">Отступы</a></li>
+                    <li><a class="subnav-link" href="/about-css/overflow.html">Overflow</a></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="subnav-column">
+                <div class="subnav-group">
+                  <div class="subnav-heading">Макеты и сетки</div>
+                  <ul>
+                    <li><a class="subnav-link" href="/about-css/layout.html">Макеты</a></li>
+                    <li><a class="subnav-link" href="/about-css/flexbox.html">Flexbox</a></li>
+                    <li><a class="subnav-link" href="/about-css/grid.html">Grid</a></li>
+                    <li><a class="subnav-link" href="/about-css/flex-grid.html">Flex-grid</a></li>
+                    <li><a class="subnav-link" href="/about-css/position.html">Position</a></li>
+                  </ul>
+                </div>
+
+                <div class="subnav-group">
+                  <div class="subnav-heading">Фон, медиа и эффекты</div>
+                  <ul>
+                    <li><a class="subnav-link" href="/about-css/background.html">Background</a></li>
+                    <li><a class="subnav-link" href="/about-css/media.html">Media</a></li>
+                    <li><a class="subnav-link" href="/about-css/animation.html">Animation</a></li>
+                    <li><a class="subnav-link" href="/about-css/movie-site.html">Movie-site</a></li>
+                  </ul>
+                </div>
+
+                <div class="subnav-group">
+                  <div class="subnav-heading">Элементы</div>
+                  <ul>
+                    <li><a class="subnav-link" href="/about-css/button.html">Кнопки</a></li>
+                  </ul>
+                </div>
+
+                <div class="subnav-group">
+                  <div class="subnav-heading">Таблицы</div>
+                  <ul>
+                    <li><a class="subnav-link" href="/about-css/table-css.html">Таблицы</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- scss -->
+          <li class="nav-item">
+            <a class="nav-link submenu-toggle " href="/#">SCSS</a>
+            <ul class="subnav-list">
+              <li><a class="subnav-link" href="/about-scss/start-scss.html">Основы scss</a></li>
+              <li><a class="subnav-link" href="/about-scss/variables-scss.html">Переменные</a></li>
+            </ul>
+          </li>
+
+          <!-- Теория JS -->
+          <li class="nav-item">
+            <a class="nav-link submenu-toggle " href="/#">Теория JS</a>
+            <div class="subnav-list subnav-three-columns">
+              <!-- ...весь твой текущий HTML ниже без изменений... -->
+            </div>
+          </li>
+
+          <!-- Практика JS -->
+          <li class="nav-item">
+            <a class="nav-link submenu-toggle " href="/#">Практика JS</a>
+            <ul class="subnav-list">
+              <!-- ... -->
+            </ul>
+          </li>
+
+          <!-- Дизайн -->
+          <li class="nav-item">
+            <a class="nav-link submenu-toggle " href="/#">Дизайн</a>
+            <div class="subnav-list subnav-three-columns">
+              <!-- ... -->
+            </div>
+          </li>
+
+          <!-- vscode -->
+          <li class="nav-item">
+            <a class="nav-link " href="/vscode.html">vscode</a>
+          </li>
+
+          <!-- Vue js -->
+          <li class="nav-item">
+            <a class="nav-link submenu-toggle " href="/#">Vue js</a>
+            <div class="subnav-list subnav-three-columns">
+              <!-- ... -->
+            </div>
+          </li>
+
+          <!-- React js -->
+          <li class="nav-item">
+            <a class="nav-link submenu-toggle " href="/#">React js</a>
+            <div class="subnav-list subnav-three-columns">
+              <!-- ... -->
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+  <!-- Основной контент -->
+  <main class="page">
+    <section class="section-main">
+      <div class="container">
+        <div class="nav-block">
+          <!-- HTML -->
+          <div class="nav-block__item">
+            <h3 class="nav-block__subtitle">HTML</h3>
+            <div class="nav-block__subnav-list nav-block__subnav-list--grouped">
+              <!-- Основы HTML -->
+              <div class="nav-block__subgroup">
+                <h5 class="nav-block__subgroup-title">Основы HTML</h5>
+                <ul>
+                  <li><a class="nav-block__subnav-link" href="/about-html/start-html.html">Введение в HTML</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-html/tags-html.html">Теги HTML</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-html/basic-tags.html">Теги базовые</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-html/formatting-tags.html">Теги форматирования</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-html/style-tags.html">Теги стилей</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-html/attributes-html.html">Атрибуты</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-html/simbol-html.html">Символы и сущности</a></li>
+                </ul>
+              </div>
+
+              <!-- Семантика и структура -->
+              <div class="nav-block__subgroup">
+                <h5 class="nav-block__subgroup-title">Семантика и структура</h5>
+                <ul>
+                  <li><a class="nav-block__subnav-link" href="/about-html/semantic-tags-html.html">Семантические теги</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-html/nosemantic-tags.html">Теги &lt;div&gt; и &lt;span&gt;</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-html/meta-tags.html">Метаданные и SEO</a></li>
+                </ul>
+              </div>
+
+              <!-- Формы и взаимодействие -->
+              <div class="nav-block__subgroup">
+                <h5 class="nav-block__subgroup-title">Формы и ввод данных</h5>
+                <ul>
+                  <li><a class="nav-block__subnav-link" href="/about-html/form-html.html">Формы</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-html/input-html.html">Элементы ввода</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-html/validation-html.html">Валидация форм</a></li>
+                </ul>
+              </div>
+
+              <!-- Списки и таблицы -->
+              <div class="nav-block__subgroup">
+                <h5 class="nav-block__subgroup-title">Списки и таблицы</h5>
+                <ul>
+                  <li><a class="nav-block__subnav-link" href="/about-html/list-html.html">Списки</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-html/table-html.html">Таблицы</a></li>
+                </ul>
+              </div>
+
+              <!-- Мультимедиа и графика -->
+              <div class="nav-block__subgroup">
+                <h5 class="nav-block__subgroup-title">Мультимедиа и графика</h5>
+                <ul>
+                  <li><a class="nav-block__subnav-link" href="/about-html/media-html.html">Мультимедиа</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-html/image-html.html">Изображения</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-html/svg-html.html">SVG и Canvas</a></li>
+                </ul>
+              </div>
+
+              <!-- Навигация и ссылки -->
+              <div class="nav-block__subgroup">
+                <h5 class="nav-block__subgroup-title">Навигация и ссылки</h5>
+                <ul>
+                  <li><a class="nav-block__subnav-link" href="/about-html/link-html.html">Ссылки</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-html/menu-html.html">Меню и навигация</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-html/anchor-html.html">Якоря и переходы</a></li>
+                </ul>
+              </div>
+
+              <!-- Форматирование текста -->
+              <div class="nav-block__subgroup">
+                <h5 class="nav-block__subgroup-title">Форматирование текста</h5>
+                <ul>
+                  <li><a class="nav-block__subnav-link" href="/about-html/text-html.html">Текст и заголовки</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-html/formatting-html.html">Теги форматирования</a></li>
+                </ul>
+              </div>
+
+              <!-- Примеры и шаблоны -->
+              <div class="nav-block__subgroup">
+                <h5 class="nav-block__subgroup-title">Примеры и шаблоны</h5>
+                <ul>
+                  <li><a class="nav-block__subnav-link" href="/about-html/lending-html.html">Lending</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-html/template-html.html">Шаблоны HTML</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- CSS -->
+          <div class="nav-block__item">
+            <h3 class="nav-block__subtitle">CSS</h3>
+            <div class="nav-block__subnav-list nav-block__subnav-list--grouped">
+              <div class="nav-block__subgroup">
+                <h5 class="nav-block__subgroup-title">Основы CSS</h5>
+                <ul>
+                  <li><a class="nav-block__subnav-link" href="/about-css/start-css.html">Основы CSS</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-css/cascading-css.html">Каскадность</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-css/selector-css.html">Селекторы</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-css/pseudo-classes.html">Псевдоклассы</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-css/pseudo-elements.html">Псевдоэлементы</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-css/colors.html">Цвета</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-css/text-align.html">Выравнивание текста</a></li>
+                </ul>
+              </div>
+
+              <div class="nav-block__subgroup">
+                <h5 class="nav-block__subgroup-title">Работа со шрифтом</h5>
+                <ul>
+                  <li><a class="nav-block__subnav-link" href="/about-css/font-size.html">Размер шрифта</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-css/font-style.html">Шрифты</a></li>
+                </ul>
+              </div>
+
+              <div class="nav-block__subgroup">
+                <h5 class="nav-block__subgroup-title">Размеры и единицы</h5>
+                <ul>
+                  <li><a class="nav-block__subnav-link" href="/about-css/units-css.html">Единицы измерения</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-css/dimensions.html">Размеры</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-css/border.html">Border</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-css/spacing.html">Отступы</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-css/overflow.html">Overflow</a></li>
+                </ul>
+              </div>
+
+              <div class="nav-block__subgroup">
+                <h5 class="nav-block__subgroup-title">Макеты и сетки</h5>
+                <ul>
+                  <li><a class="nav-block__subnav-link" href="/about-css/layout.html">Макеты</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-css/flexbox.html">Flexbox</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-css/grid.html">Grid</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-css/flex-grid.html">Flex-grid</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-css/position.html">Position</a></li>
+                </ul>
+              </div>
+
+              <div class="nav-block__subgroup">
+                <h5 class="nav-block__subgroup-title">Фон, медиа и эффекты</h5>
+                <ul>
+                  <li><a class="nav-block__subnav-link" href="/about-css/background.html">Background</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-css/media.html">Media</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-css/animation.html">Animation</a></li>
+                  <li><a class="nav-block__subnav-link" href="/about-css/movie-site.html">Movie-site</a></li>
+                </ul>
+              </div>
+
+              <div class="nav-block__subgroup">
+                <h5 class="nav-block__subgroup-title">Элементы</h5>
+                <ul>
+                  <li><a class="nav-block__subnav-link" href="/about-css/button.html">Кнопки</a></li>
+                </ul>
+              </div>
+
+              <div class="nav-block__subgroup">
+                <h5 class="nav-block__subgroup-title">Таблицы</h5>
+                <ul>
+                  <li><a class="nav-block__subnav-link" href="/about-css/table-css.html">Таблицы</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- SCSS -->
+          <div class="nav-block__item">
+            <h3 class="nav-block__subtitle">SCSS</h3>
+            <ul class="nav-block__subnav-list">
+              <li><a class="nav-block__subnav-link" href="/about-scss/start-scss.html">Основы SCSS</a></li>
+              <li><a class="nav-block__subnav-link" href="/about-scss/variables-scss.html">Переменные</a></li>
+            </ul>
+          </div>
+
+          <!-- Теория JS -->
+          <div class="nav-block__item">
+            <h3 class="nav-block__subtitle">Теория JS</h3>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Подвал сайта -->
+  <footer>
+  <a href="#" class="back-to-top">Наверх ↑</a>
+</footer>
+
+</body>
+</html>
+
+  
+<script type="module" src="/@src/main.js"></script>
+
+</body>
+</html>
