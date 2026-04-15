@@ -1,0 +1,84 @@
+{#
+  components/macros.njk
+  Переиспользуемые Nunjucks-макросы для повторяющихся блоков.
+
+  Использование:
+    {% from "components/macros.njk" import note, warning, codeBlock, tabs, section %}
+
+  1) note(content, modifier='')
+     Параметры:
+       content  — HTML-содержимое заметки (строка)
+       modifier — дополнительный CSS-класс (например 'note--info', 'tip')
+     Пример:
+       {{ note('<strong>Важно:</strong> что-то важное.') }}
+       {{ note('Информационная заметка.', 'note--info') }}
+
+  2) warning(content)
+     Параметры:
+       content — HTML-содержимое предупреждения
+     Пример:
+       {{ warning('Не используйте это в продакшне.') }}
+
+  3) codeBlock(content, language='')
+     Параметры:
+       content  — текст кода (будет обёрнут в <pre><code>)
+       language — опциональный класс языка для highlight.js (например 'css', 'js')
+     Пример:
+       {{ codeBlock('.box { color: red; }', 'css') }}
+
+  4) tabs(items)
+     Параметры:
+       items — массив объектов { href, label, active }
+     Пример:
+       {{ tabs([
+         { href: '#intro', label: 'Введение', active: true },
+         { href: '#details', label: 'Подробнее' }
+       ]) }}
+
+  5) section(id, content, first=false)
+     Параметры:
+       id      — значение атрибута id для секции
+       content — HTML-содержимое внутри .container
+       first   — если true, добавляет стиль первой секции (padding-top большой)
+     Пример:
+       {% call section('intro') %}
+         <h1>Заголовок</h1>
+         <p>Текст</p>
+       {% endcall %}
+#}
+
+{# ===== note ===== #}
+{% macro note(content, modifier='') %}
+<div class="note{% if modifier %} {{ modifier }}{% endif %}">{{ content | safe }}</div>
+{% endmacro %}
+
+{# ===== warning ===== #}
+{% macro warning(content) %}
+<div class="warning">{{ content | safe }}</div>
+{% endmacro %}
+
+{# ===== codeBlock ===== #}
+{% macro codeBlock(content, language='') %}
+<div class="code-block">
+  <pre><code{% if language %} class="language-{{ language }}"{% endif %}>{{ content }}</code></pre>
+  <button class="copy-btn" type="button">Скопировать</button>
+</div>
+{% endmacro %}
+
+{# ===== tabs ===== #}
+{% macro tabs(items) %}
+<nav class="nav-tabs">
+  {% for item in items %}
+    <a href="{{ item.href }}" class="nav-tabs__link{% if item.active %} active{% endif %}">{{ item.label }}</a>
+  {% endfor %}
+</nav>
+{% endmacro %}
+
+{# ===== section (call-block macro) ===== #}
+{% macro section(id, first=false) %}
+<section class="section" id="{{ id }}">
+  <div class="container">
+    {{ caller() }}
+  </div>
+</section>
+{% endmacro %}

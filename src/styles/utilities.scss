@@ -1,0 +1,37 @@
+// src/styles/utilities.scss
+// Утилитарные классы для замены inline-стилей
+
+@use 'variables' as *;
+
+// =================== Текстовые утилиты ===================
+
+// Приглушённый/серый текст (замена style="color: #888")
+.text-muted {
+  color: $greyColor;
+}
+
+// =================== Токены подсветки синтаксиса ===================
+// Используются для цветных span внутри примеров кода (шпаргалки)
+// Заменяют inline style="color: ..."
+
+.token-purple  { color: #7e57c2; }
+.token-blue    { color: #1976d2; }
+.token-green   { color: #43a047; }
+.token-amber   { color: #ffb74d; }
+.token-red     { color: #ef5350; }
+.token-pink    { color: #f50057; }
+.token-grey    { color: #bdbdbd; }
+.token-orange  { color: #ffa726; }
+
+// =================== Утилиты отступов ===================
+
+.mt-0  { margin-top: 0; }
+.mt-1  { margin-top: 0.5rem; }
+.mt-2  { margin-top: 1rem; }
+.mt-3  { margin-top: 1.5rem; }
+.mb-0  { margin-bottom: 0; }
+.mb-1  { margin-bottom: 0.5rem; }
+.mb-2  { margin-bottom: 1rem; }
+.mb-3  { margin-bottom: 1.5rem; }
+.my-2  { margin-top: 1rem; margin-bottom: 1rem; }
+.my-3  { margin-top: 1.5rem; margin-bottom: 1.5rem; }
