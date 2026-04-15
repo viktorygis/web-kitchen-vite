@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../partials/head.html', { "title": "Vue Компоненты 🎨", "description": "Vue Компоненты 🎨" })
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+            <main class="page">
+                <!-- Базовые компоненты -->
+                <section class="section" id="base">
+                    <div class="container">
+                        <div id="app">
+                            <h1>📦 Работа с компонентами в Vue</h1>
+
+                            <!-- Родительский компонент тут -->
+                            <parent-component></parent-component>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            @@include('../partials/footer.html', {})
+        </div>
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+        <script>
+            //Создаём Vue-приложение
+            const app = Vue.createApp({});
+
+            // 1️⃣ Регистрируем родительский компонент
+            app.component("parent-component", {
+                //тут чего-то не хватает
+                // и тут тоже
+                template: ` <div>
+                        <h3>Родительский компонент</h3>
+                        <child-component :info="parentMessage" @child-event="updateMessage"></child-component>
+                        <p>📩 Сообщение от ребенка: {{ message }}</p>
+                    </div>
+                `,
+                //2️⃣ Добавляем данные
+                data() {
+                    return {
+                        message: "",
+                        parentMessage: "Привет от родителя! 👋",
+                    };
+                },
+                methods: {
+                    updateMessage(data) {
+                        this.message = data; // Обновляем сообщение из дочернего компонента
+                    },
+                },
+            });
+
+            // Регистрируем дочерний компонент
+            app.component("child-component", {
+                template: `
+                    <div class="child-box">
+                        <h4>👶 Дочерний компонент</h4>
+                        <p>Получено из props: {{ info }}</p>
+                        <button @click="sendMessage">Отправить сообщение родителю</button>
+                    </div>
+                `,
+                props: ["info"],
+                methods: {
+                    sendMessage() {
+                        this.$emit("child-event", "Сообщение от ребенка! 🎉");
+                    },
+                },
+            });
+
+            // 3️⃣  Монтируем Vue в #app
+            app.mount("#app");
+        </script>
+        <style>
+            button {
+                padding: 8px 16px;
+                font-size: 16px;
+                cursor: pointer;
+                border: none;
+                background-color: #007bff;
+                color: white;
+                border-radius: 5px;
+                margin-top: 10px;
+            }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+
+            .child-box {
+                border: 2px solid #007bff;
+                padding: 10px;
+                margin: 10px 0;
+                border-radius: 5px;
+                text-align: center;
+            }
+        </style>
+    </body>
+</html>

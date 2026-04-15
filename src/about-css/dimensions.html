@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../partials/head.html', { "title": "Каскадность и Наследование в CSS", "description": "Обзор каскадности и наследования в CSS" })
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+        }
+        .value-display {
+            padding: 20px 0 0 0;
+            text-align: center;
+            margin: 0;
+            font-weight: 600;
+        }
+        .example-box {
+            background-color: var(--light-color);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .interactive-demo {
+            background-color: #f0f7ff;
+            border: 1px solid #c2e0ff;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 1.5rem 0;
+        }
+
+        .demo-element {
+            padding: 1rem;
+            margin: 1rem 0;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .color-box {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            border: 1px solid #ddd;
+            vertical-align: middle;
+        }
+
+        .inheritance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .inheritance-card {
+            background-color: white;
+            border: 1px solid #eee;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .inheritance-card h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .inheritance-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+            <main class="page">
+                <div class="nav-tabs">
+                    <a href="#box-model-intro" class="active">Блочная модель</a>
+                    <a href="#box-sizing-compare">Сравнение box-sizing</a>
+                    <a href="#border-box-tip">Рекомендация border-box</a>
+                    <a href="#sizes-properties">Управление размерами</a>
+                </div>
+
+                <!-- Введение: Блочная модель и box-sizing -->
+                <section class="section" id="box-model-intro">
+                    <div class="container">
+                        <h1>Блочная модель и box-sizing</h1>
+                        <p class="note">
+                            <b>Блочная модель CSS</b>
+                            — это схема, по которой рассчитываются размеры любого элемента. В неё входят:
+                            <br />
+                            <b>контент</b>
+                            (content),
+                            <b>внутренние отступы</b>
+                            (padding),
+                            <b>границы</b>
+                            (border) и
+                            <b>внешние отступы</b>
+                            (margin).
+                            <br />
+                            <code>box-sizing</code>
+                            — свойство, определяющее, как браузер вычисляет ширину и высоту элемента: учитывает ли только контент или также padding и border.
+                        </p>
+                        <div class="box-model-demo">
+                            <div class="box">
+                                <span class="box-label content-label">Контент</span>
+                                <span class="box-label padding-label">Padding</span>
+                                <span class="box-label border-label">Border</span>
+                                <span class="box-label margin-label">Margin</span>
+                            </div>
+                        </div>
+                        <table class="table-note">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%">Значение</th>
+                                    <th style="width: 40%">Описание</th>
+                                    <th style="width: 30%">Формула расчета ширины</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>content-box</code></td>
+                                    <td>
+                                        По умолчанию.
+                                        <br />
+                                        width и height включают только контент, padding и border добавляются сверху.
+                                    </td>
+                                    <td>Общая ширина = width + padding + border</td>
+                                </tr>
+                                <tr>
+                                    <td><code>border-box</code></td>
+                                    <td>width и height включают контент, padding и border.</td>
+                                    <td>Общая ширина = width (всё внутри)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Сравнение box-sizing -->
+                <section class="section" id="box-sizing-compare">
+                    <div class="container">
+                        <h2>
+                            Сравнение
+                            <code>content-box</code>
+                            и
+                            <code>border-box</code>
+                        </h2>
+                        <div>
+                            <h4>content-box (по умолчанию)</h4>
+                            <div class="grid-column-50">
+                                <pre><code>div {
+  width: 500px;
+  padding: 20px;
+  border: 5px solid black;
+}</code></pre>
+                                <div class="example">
+                                    <p style="width: 500px; padding: 20px; border: 5px solid black; background: #fff197; text-align: center; box-sizing: content-box">
+                                        Общая ширина = 500px (content) + 20px × 2 (padding) + 5px × 2 (border) =
+                                        <b>550px</b>
+                                        <br />
+                                        <b>box-sizing: content-box;</b>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <h4>border-box</h4>
+
+                            <div class="grid-column-50">
+                                <pre><code>div {
+  width: 500px;
+  padding: 20px;
+  border: 5px solid black;
+  box-sizing: border-box;
+}</code></pre>
+                                <div class="example">
+                                    <p style="width: 500px; padding: 20px; border: 5px solid black; box-sizing: border-box; background: #d2f8e3; text-align: center">
+                                        Общая ширина =
+                                        <b>500px</b>
+                                        (content + padding + border)
+                                        <br />
+                                        <b>box-sizing: border-box;</b>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h4>Интерактивная демонстрация box-sizing:</h4>
+                        <div class="interactive-demo">
+                            <div class="controls">
+                                <div class="control-group">
+                                    <label for="box-sizing">box-sizing:</label>
+                                    <select id="box-sizing" onchange="updateBoxModel()">
+                                        <option value="content-box">content-box</option>
+                                        <option value="border-box" selected>border-box</option>
+                                    </select>
+                                </div>
+                                <div class="control-group">
+                                    <label for="width">
+                                        Ширина:
+                                        <span id="width-value">200</span>
+                                        px
+                                    </label>
+                                    <input type="range" id="width" min="100" max="300" value="200" oninput="updateBoxModel()" />
+                                </div>
+                                <div class="control-group">
+                                    <label for="padding">
+                                        Padding:
+                                        <span id="padding-value">20</span>
+                                        px
+                                    </label>
+                                    <input type="range" id="padding" min="0" max="50" value="20" oninput="updateBoxModel()" />
+                                </div>
+                                <div class="control-group">
+                                    <label for="border">
+                                        Border:
+                                        <span id="border-value">15</span>
+                                        px
+                                    </label>
+                                    <input type="range" id="border" min="0" max="30" value="15" oninput="updateBoxModel()" />
+                                </div>
+                            </div>
+                            <div class="box-model-demo">
+                                <div id="box-model-demo" style="width: 200px; padding: 20px; border: 15px solid #3498db; background-color: #2ecc71; color: white; text-align: center; margin: 0 auto; box-sizing: border-box; transition: width 0.2s, padding 0.2s, border 0.2s">
+                                    Фактическая ширина:
+                                    <span id="actual-width">200</span>
+                                    px
+                                </div>
+                                <p class="value-display">
+                                    width:
+                                    <span id="formula-width">200</span>
+                                    px + padding:
+                                    <span id="formula-padding">40</span>
+                                    px (20px × 2) + border:
+                                    <span id="formula-border">30</span>
+                                    px (15px × 2) =
+                                    <span id="total-width">270</span>
+                                    px
+                                </p>
+                            </div>
+                        </div>
+                        <script>
+                            function updateBoxModel() {
+                                // Получаем значения
+                                const width = parseInt(document.getElementById("width").value, 10);
+                                const padding = parseInt(document.getElementById("padding").value, 10);
+                                const border = parseInt(document.getElementById("border").value, 10);
+                                const boxSizing = document.getElementById("box-sizing").value;
+
+                                // Обновляем отображение значений
+                                document.getElementById("width-value").textContent = width;
+                                document.getElementById("padding-value").textContent = padding;
+                                document.getElementById("border-value").textContent = border;
+
+                                // Формула для расчета полной ширины
+                                let totalWidth;
+                                let actualWidth;
+                                let formulaPadding = padding * 2;
+                                let formulaBorder = border * 2;
+
+                                if (boxSizing === "content-box") {
+                                    totalWidth = width + formulaPadding + formulaBorder;
+                                    actualWidth = width;
+                                } else {
+                                    totalWidth = width;
+                                    actualWidth = width;
+                                }
+
+                                // Обновляем стили блока
+                                const boxDemo = document.getElementById("box-model-demo");
+                                boxDemo.style.width = width + "px";
+                                boxDemo.style.padding = padding + "px";
+                                boxDemo.style.border = border + "px solid #3498db";
+                                boxDemo.style.boxSizing = boxSizing;
+
+                                // Обновляем текст
+                                document.getElementById("actual-width").textContent = actualWidth;
+                                document.getElementById("formula-width").textContent = width;
+                                document.getElementById("formula-padding").textContent = formulaPadding;
+                                document.getElementById("formula-border").textContent = formulaBorder;
+                                document.getElementById("total-width").textContent = totalWidth;
+
+                                // Меняем формулу отображения в зависимости от box-sizing
+                                if (boxSizing === "content-box") {
+                                    document.querySelector(".value-display").innerHTML =
+                                        'width: <span id="formula-width">' +
+                                        width +
+                                        '</span>px + padding: <span id="formula-padding">' +
+                                        formulaPadding +
+                                        "</span>px (" +
+                                        padding +
+                                        'px × 2) + border: <span id="formula-border">' +
+                                        formulaBorder +
+                                        "</span>px (" +
+                                        border +
+                                        'px × 2) = <span id="total-width">' +
+                                        totalWidth +
+                                        "</span>px";
+                                } else {
+                                    document.querySelector(".value-display").innerHTML = 'Общая ширина = <span id="total-width">' + totalWidth + "</span>px (width + padding + border внутри)";
+                                }
+                            }
+
+                            // Инициализация при загрузке
+                            document.addEventListener("DOMContentLoaded", function () {
+                                updateBoxModel();
+                            });
+                        </script>
+                    </div>
+                </section>
+
+                <!-- Рекомендация: Используйте border-box -->
+                <section class="section" id="border-box-tip">
+                    <div class="container">
+                        <h2>
+                            Совет: всегда используйте
+                            <code>box-sizing: border-box</code>
+                        </h2>
+                        <p class="note">
+                            Для современной верстки практически всегда лучше использовать
+                            <code>box-sizing: border-box</code>
+                            для всех элементов.
+                            <br />
+                            Это избавит вас от неожиданных переполнений, сложных расчетов и проблем с адаптивностью.
+                        </p>
+                        <pre><code>*, *::before, *::after {
+  box-sizing: border-box;
+}</code></pre>
+                        <ul class="list-ul">
+                            <li>Блоки легко размещать и делать адаптивными</li>
+                            <li>Размеры элементов всегда предсказуемы</li>
+                            <li>Верстка становится проще и стабильнее</li>
+                        </ul>
+
+                        <div class="note">
+                            💡 Важно помнить:
+
+                            <ul class="list-ul">
+                                <li>
+                                    <b>content-box</b>
+                                    — считает только содержимое, но добавляет отступы и границы сверху.
+                                </li>
+                                <li>
+                                    <b>border-box</b>
+                                    — включает в ширину и высоту всё: содержимое, отступы и границы.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="sizes-properties">
+                    <div class="container">
+                        <h2>Управление размерами элементов в CSS</h2>
+                        <p class="note">В CSS ты можешь гибко управлять размерами с помощью различных свойств:</p>
+                        <ul class="list-ul">
+                            <li>
+                                <b>width</b>
+                                и
+                                <b>height</b>
+                                — задают ширину и высоту содержимого.
+                                <br />
+                                Если используется
+                                <code>box-sizing: border-box</code>
+                                , ширина и высота включают padding и border.
+                            </li>
+                            <li>
+                                <b>max-width</b>
+                                и
+                                <b>max-height</b>
+                                — ограничивают максимальную ширину и высоту элемента.
+                                <br />
+                                Элемент никогда не будет больше этого значения, даже если родитель больше.
+                            </li>
+                            <li>
+                                <b>min-width</b>
+                                и
+                                <b>min-height</b>
+                                — задают минимальные размеры.
+                                <br />
+                                Элемент не уменьшится меньше указанного значения.
+                            </li>
+                        </ul>
+                        <h4>Пример</h4>
+                        <pre><code>div {
+  width: 50%;        /* Половина ширины родителя */
+  max-width: 300px;  /* Не больше 300px */
+  min-width: 100px;  /* Не меньше 100px */
+}</code></pre>
+                        <div class="example">
+                            <div style="width: 50%; max-width: 300px; min-width: 100px; background: #d6eaff; padding: 16px; border-radius: 5px; text-align: center; margin: 0 auto">
+                                Этот блок всегда будет от 100px до 300px шириной и займёт 50% ширины родителя, если позволяет пространство.
+                                <br />
+                                Попробуй изменить размер окна браузера!
+                            </div>
+                        </div>
+
+                        <!-- Таблица сравнения свойств для одного и того же элемента -->
+                        <h4>Таблица свойств для одного элемента</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Свойство</th>
+                                    <th>CSS</th>
+                                    <th>Визуальный пример</th>
+                                    <th>Комментарий</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>width</code></td>
+                                    <td><code>width: 200px;</code></td>
+                                    <td>
+                                        <div class="example">
+                                            <div style="width: 200px; background: #e1f0fa; padding: 8px; border-radius: 3px; text-align: center; margin: 0 auto">width: 200px</div>
+                                        </div>
+                                    </td>
+                                    <td>Фиксированная ширина: всегда 200px</td>
+                                </tr>
+                                <tr>
+                                    <td><code>height</code></td>
+                                    <td><code>height: 60px;</code></td>
+                                    <td>
+                                        <div class="example">
+                                            <div style="width: 180px; height: 60px; background: #fff197; padding: 8px; border-radius: 3px; text-align: center; margin: 0 auto">height: 60px</div>
+                                        </div>
+                                    </td>
+                                    <td>Фиксированная высота: всегда 60px</td>
+                                </tr>
+                                <tr>
+                                    <td><code>max-width</code></td>
+                                    <td><code>max-width: 120px;</code></td>
+                                    <td>
+                                        <div class="example">
+                                            <div style="width: 90%; max-width: 120px; background: #d2f8e3; padding: 8px; border-radius: 3px; text-align: center; margin: 0 auto">max-width: 120px</div>
+                                        </div>
+                                    </td>
+                                    <td>Ширина не превысит 120px</td>
+                                </tr>
+                                <tr>
+                                    <td><code>min-width</code></td>
+                                    <td><code>min-width: 80px;</code></td>
+                                    <td>
+                                        <div class="example">
+                                            <div style="width: 30px; min-width: 80px; background: #ffe1e1; padding: 8px; border-radius: 3px; text-align: center; margin: 0 auto">min-width: 80px</div>
+                                        </div>
+                                    </td>
+                                    <td>Ширина не станет меньше 80px</td>
+                                </tr>
+                                <tr>
+                                    <td><code>max-height</code></td>
+                                    <td><code>max-height: 40px;</code></td>
+                                    <td>
+                                        <div class="example">
+                                            <div style="height: 80px; max-height: 40px; background: #e1ffe8; padding: 8px; border-radius: 3px; text-align: center; margin: 0 auto">max-height: 40px</div>
+                                        </div>
+                                    </td>
+                                    <td>Высота не превысит 40px</td>
+                                </tr>
+                                <tr>
+                                    <td><code>min-height</code></td>
+                                    <td><code>min-height: 50px;</code></td>
+                                    <td>
+                                        <div class="example">
+                                            <div style="height: 20px; min-height: 50px; background: #f9e1ff; padding: 8px; border-radius: 3px; text-align: center; margin: 0 auto">min-height: 50px</div>
+                                        </div>
+                                    </td>
+                                    <td>Высота не станет меньше 50px</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+
+            @@include('../partials/footer.html', {})
+        </div>
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+    </body>
+</html>

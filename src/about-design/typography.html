@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../partials/head.html', { "title": "Типографика", "description":
+    "Руководство по типографике: выбор шрифтов, основные термины и ошибки" })
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #8e44ad;
+            --accent: #e74c3c;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --muted: #6c757d;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        .intro {
+            background: rgba(142, 68, 173, 0.08);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2.5rem;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .intro p {
+            font-size: 1.2rem;
+            margin-bottom: 0;
+        }
+
+        .card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .font-demo {
+            font-size: 1.8rem;
+            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: 8px;
+            background: #fafafa;
+            text-align: center;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #eee;
+        }
+
+        .font-demo.serif {
+            font-family: Georgia, "Times New Roman", Times, serif;
+        }
+
+        .font-demo.sans-serif {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .font-demo.monospace {
+            font-family: "Courier New", Courier, monospace;
+        }
+
+        .font-demo.script {
+            font-family: "Brush Script MT", cursive;
+        }
+
+        .font-demo.display {
+            font-family: Impact, Haettenschweiler, "Arial Narrow Bold",
+                sans-serif;
+        }
+
+        .term-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+        }
+
+        .term-card h4 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .term-card .term-definition {
+            margin-bottom: 1rem;
+        }
+
+        .term-card .term-example {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: monospace;
+            margin-top: 1rem;
+            border-left: 3px solid var(--secondary);
+        }
+
+        .pair-example {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin: 2rem 0;
+        }
+
+        .pair-heading {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .pair-subheading {
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--muted);
+        }
+
+        .pair-body {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .pair-footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-style: italic;
+            color: var(--muted);
+        }
+
+        .error-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .error-card .error-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .error-card .error-description {
+            margin-bottom: 1rem;
+        }
+
+        .error-examples {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .error-bad,
+        .error-good {
+            flex: 1;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .error-bad {
+            background: rgba(231, 76, 60, 0.05);
+            border: 1px dashed var(--accent);
+        }
+
+        .error-good {
+            background: rgba(39, 174, 96, 0.05);
+            border: 1px dashed var(--success);
+        }
+
+        .error-bad h5,
+        .error-good h5 {
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .pro-tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .tip-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .tip-card h4 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .tool-list {
+            margin-top: 2rem;
+        }
+
+        .tool-list li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .tool-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .interactive-demo {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .demo-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .demo-control {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .demo-control label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .demo-control select,
+        .demo-control input {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+        }
+
+        .demo-result {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .demo-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .error-examples {
+                flex-direction: column;
+            }
+        }
+    </style>
+
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#font-character">Характер шрифта</a>
+                    <a href="#basic-terms">Базовые термины</a>
+                    <a href="#font-classification">Классификация шрифтов</a>
+                    <a href="#font-combination">Сочетание шрифтов</a>
+                    <a href="#common-errors">Типичные ошибки</a>
+                    <a href="#typography-pro">Типографика PRO</a>
+                </nav>
+
+                <!-- Характер шрифта -->
+                <section class="section" id="font-character">
+                    <div class="container">
+                        <h1>Характер шрифта: выбор и применение</h1>
+
+                        <div class="intro">
+                            <p>
+                                Правильный выбор шрифта помогает передать нужный
+                                тон и стиль вашего контента. Шрифт - это голос
+                                вашего дизайна, который может усиливать
+                                сообщение или противоречить ему.
+                            </p>
+                        </div>
+
+                        <div class="grid-column-50">
+                            <div class="card">
+                                <h3>Читаемость</h3>
+                                <p>
+                                    Основа любого текста - возможность его
+                                    прочитать. Шрифты с хорошей читаемостью
+                                    имеют:
+                                </p>
+                                <ul class="list-ul">
+                                    <li>Открытые формы букв</li>
+                                    <li>Достаточный контраст между штрихами</li>
+                                    <li>
+                                        Четкие различия между похожими символами
+                                        (I, l, 1)
+                                    </li>
+                                    <li>
+                                        Оптимальное расстояние между символами
+                                    </li>
+                                </ul>
+                                <div class="font-demo sans-serif">
+                                    Пример текста с хорошей читаемостью
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <h3>Стиль и эмоции</h3>
+                                <p>
+                                    Каждый шрифт вызывает определенные
+                                    ассоциации:
+                                </p>
+                                <ul class="list-ul">
+                                    <li>
+                                        Серифные шрифты - традиция, надежность
+                                    </li>
+                                    <li>
+                                        Санс-сериф - современность, простота
+                                    </li>
+                                    <li>
+                                        Рукописные - индивидуальность,
+                                        творчество
+                                    </li>
+                                    <li>Моноширинные - техничность, код</li>
+                                </ul>
+                                <div class="font-demo script">
+                                    Пример эмоционального текста
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="interactive-demo">
+                            <h2>Эксперимент: Сила первого впечатления</h2>
+                            <p>
+                                Прочитайте одно и то же сообщение в разных
+                                шрифтах и обратите внимание на возникающие
+                                эмоции:
+                            </p>
+
+                            <div class="demo-controls">
+                                <div class="demo-control">
+                                    <label for="font-select">
+                                        Выберите шрифт:
+                                    </label>
+                                    <select id="font-select">
+                                        <option
+                                            value="'Times New Roman', serif">
+                                            Times New Roman (Serif)
+                                        </option>
+                                        <option value="'Arial', sans-serif">
+                                            Arial (Sans-serif)
+                                        </option>
+                                        <option
+                                            value="'Courier New', monospace">
+                                            Courier New (Monospace)
+                                        </option>
+                                        <option
+                                            value="'Brush Script MT', cursive">
+                                            Brush Script (Handwriting)
+                                        </option>
+                                        <option value="'Impact', sans-serif">
+                                            Impact (Display)
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="demo-control">
+                                    <label for="text-input">
+                                        Введите текст:
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="text-input"
+                                        value="Добро пожаловать на нашу презентацию" />
+                                </div>
+                            </div>
+
+                            <div class="demo-result">
+                                <div class="demo-text" id="demo-text">
+                                    Добро пожаловать на нашу презентацию
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Базовые термины -->
+                <section class="section" id="basic-terms">
+                    <div class="container">
+                        <h2>Базовые термины в типографике</h2>
+                        <p>
+                            Понимание основных терминов поможет вам эффективно
+                            работать с текстом.
+                        </p>
+
+                        <div class="term-card">
+                            <h4>Шрифт (Font)</h4>
+                            <div class="term-definition">
+                                <p>
+                                    Набор символов определенного стиля, размера
+                                    и начертания. Шрифт - это конкретная
+                                    реализация гарнитуры.
+                                </p>
+                            </div>
+                            <div class="term-example">
+                                Times New Roman Regular 12pt
+                            </div>
+                        </div>
+
+                        <div class="term-card">
+                            <h4>Гарнитура (Typeface)</h4>
+                            <div class="term-definition">
+                                <p>
+                                    Семейство шрифтов, объединенных общим
+                                    стилем. Может включать различные начертания:
+                                    regular, bold, italic и др.
+                                </p>
+                            </div>
+                            <div class="term-example">
+                                Helvetica (включает Helvetica Regular, Helvetica
+                                Bold, Helvetica Light и т.д.)
+                            </div>
+                        </div>
+
+                        <div class="term-card">
+                            <h4>Кернинг (Kerning)</h4>
+                            <div class="term-definition">
+                                <p>
+                                    Процесс регулировки расстояния между
+                                    конкретными парами символов для улучшения
+                                    визуального восприятия.
+                                </p>
+                            </div>
+                            <div class="term-example">
+                                <div
+                                    style="
+                                        font-size: 2rem;
+                                        letter-spacing: normal;
+                                    ">
+                                    AVATAR (без кернинга)
+                                </div>
+                                <div
+                                    style="
+                                        font-size: 2rem;
+                                        letter-spacing: -2px;
+                                    ">
+                                    AVATAR (с кернингом)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="term-card">
+                            <h4>Трекинг (Tracking)</h4>
+                            <div class="term-definition">
+                                <p>
+                                    Равномерное изменение расстояния между всеми
+                                    символами в тексте. Также называется
+                                    межбуквенным интервалом.
+                                </p>
+                            </div>
+                            <div class="term-example">
+                                <div
+                                    style="
+                                        font-size: 1.5rem;
+                                        letter-spacing: normal;
+                                    ">
+                                    Плотный трекинг
+                                </div>
+                                <div
+                                    style="
+                                        font-size: 1.5rem;
+                                        letter-spacing: 5px;
+                                    ">
+                                    Разреженный трекинг
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="term-card">
+                            <h4>Интерлиньяж (Leading)</h4>
+                            <div class="term-definition">
+                                <p>
+                                    Расстояние между базовыми линиями соседних
+                                    строк текста. Правильный интерлиньяж
+                                    улучшает читаемость.
+                                </p>
+                            </div>
+                            <div class="term-example">
+                                <div
+                                    style="
+                                        line-height: 1.2;
+                                        margin-bottom: 1rem;
+                                    ">
+                                    Маленький интерлиньяж затрудняет чтение
+                                </div>
+                                <div style="line-height: 1.8">
+                                    Оптимальный интерлиньяж повышает
+                                    удобочитаемость
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Классификация шрифтов -->
+                <section class="section" id="font-classification">
+                    <div class="container">
+                        <h2>Классификация шрифтов</h2>
+                        <p>
+                            Понимание категорий шрифтов поможет вам делать
+                            осознанный выбор для различных проектов.
+                        </p>
+
+                        <div class="grid-column-50">
+                            <div class="card">
+                                <h3>Антиква (Serif)</h3>
+                                <p>
+                                    Шрифты с засечками на концах штрихов.
+                                    Идеальны для длинных текстов в печатных
+                                    изданиях.
+                                </p>
+                                <ul class="list-ul">
+                                    <li>Times New Roman</li>
+                                    <li>Georgia</li>
+                                    <li>Garamond</li>
+                                </ul>
+                                <div class="font-demo serif">
+                                    Пример текста с засечками
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <h3>Гротеск (Sans-serif)</h3>
+                                <p>
+                                    Шрифты без засечек. Чистые и современные,
+                                    хорошо работают в цифровой среде.
+                                </p>
+                                <ul class="list-ul">
+                                    <li>Helvetica</li>
+                                    <li>Arial</li>
+                                    <li>Roboto</li>
+                                </ul>
+                                <div class="font-demo sans-serif">
+                                    Пример текста без засечек
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <h3>Рукописные (Script)</h3>
+                                <p>
+                                    Шрифты, имитирующие рукописный текст.
+                                    Используйте их экономно для акцентов.
+                                </p>
+                                <ul class="list-ul">
+                                    <li>Brush Script</li>
+                                    <li>Lobster</li>
+                                    <li>Pacifico</li>
+                                </ul>
+                                <div class="font-demo script">
+                                    Пример рукописного текста
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <h3>Моноширинные (Monospace)</h3>
+                                <p>
+                                    Все символы имеют одинаковую ширину.
+                                    Идеальны для отображения кода и табличных
+                                    данных.
+                                </p>
+                                <ul class="list-ul">
+                                    <li>Courier New</li>
+                                    <li>Consolas</li>
+                                    <li>Roboto Mono</li>
+                                </ul>
+                                <div class="font-demo monospace">
+                                    Пример моноширинного текста
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Основы сочетания шрифтов -->
+                <section class="section" id="font-combination">
+                    <div class="container">
+                        <h2>Основы сочетания шрифтов</h2>
+                        <p>
+                            Гармоничное сочетание шрифтов создает визуальную
+                            иерархию и улучшает восприятие контента.
+                        </p>
+
+                        <div class="pair-example" id="pair-example">
+                            <div class="pair-heading">Заголовок проекта</div>
+                            <div class="pair-subheading">
+                                Подзаголовок или вводный текст
+                            </div>
+                            <div class="pair-body">
+                                <p>
+                                    Основной текст должен быть легко читаемым и
+                                    не привлекать излишнего внимания.
+                                    Используйте шрифты с хорошей читаемостью для
+                                    длинных абзацев.
+                                </p>
+                                <p>
+                                    Сочетание шрифтов должно создавать контраст,
+                                    но не конфликт. Например, декоративный шрифт
+                                    для заголовка и простой санс-сериф для
+                                    основного текста.
+                                </p>
+                            </div>
+                            <div class="pair-footer">
+                                Дополнительная информация или источник
+                            </div>
+                        </div>
+
+                        <div class="interactive-demo">
+                            <h2>Эксперимент с сочетаниями</h2>
+                            <p>
+                                Попробуйте различные комбинации шрифтов для
+                                заголовка и основного текста:
+                            </p>
+
+                            <div class="demo-controls">
+                                <div class="demo-control">
+                                    <label for="heading-font">
+                                        Шрифт заголовка:
+                                    </label>
+                                    <select id="heading-font">
+                                        <option
+                                            value="'Playfair Display', serif">
+                                            Playfair Display (Serif)
+                                        </option>
+                                        <option
+                                            value="'Montserrat', sans-serif">
+                                            Montserrat (Sans-serif)
+                                        </option>
+                                        <option value="'Lobster', cursive">
+                                            Lobster (Script)
+                                        </option>
+                                        <option value="'Oswald', sans-serif">
+                                            Oswald (Display)
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="demo-control">
+                                    <label for="body-font">
+                                        Шрифт основного текста:
+                                    </label>
+                                    <select id="body-font">
+                                        <option value="'Lora', serif">
+                                            Lora (Serif)
+                                        </option>
+                                        <option value="'Open Sans', sans-serif">
+                                            Open Sans (Sans-serif)
+                                        </option>
+                                        <option value="'Roboto', sans-serif">
+                                            Roboto (Sans-serif)
+                                        </option>
+                                        <option value="'Merriweather', serif">
+                                            Merriweather (Serif)
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="demo-result">
+                                <div class="demo-text" id="combination-demo">
+                                    <h3 style="margin-top: 0">
+                                        Пример заголовка
+                                    </h3>
+                                    <p>
+                                        Это пример основного текста с выбранным
+                                        сочетанием шрифтов. Обратите внимание,
+                                        как гармонично (или негармонично)
+                                        сочетаются выбранные шрифты.
+                                    </p>
+                                    <p>
+                                        Хорошее сочетание создает визуальную
+                                        иерархию и облегчает восприятие
+                                        информации.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3>Правила эффективного сочетания</h3>
+                            <ul class="list-ul">
+                                <li>
+                                    <strong>Контраст, а не конфликт:</strong>
+                                    Выбирайте шрифты, которые отличаются, но
+                                    дополняют друг друга
+                                </li>
+                                <li>
+                                    <strong>Ограничьте количество:</strong>
+                                    Используйте не более 2-3 шрифтов в одном
+                                    проекте
+                                </li>
+                                <li>
+                                    <strong>Размер имеет значение:</strong>
+                                    Создавайте четкую иерархию с помощью размера
+                                    шрифта
+                                </li>
+                                <li>
+                                    <strong>Проверяйте читаемость:</strong>
+                                    Убедитесь, что основной текст легко читается
+                                </li>
+                                <li>
+                                    <strong>Учитывайте контекст:</strong>
+                                    Формальный документ требует других шрифтов,
+                                    чем детский сайт
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Типичные ошибки в работе с текстом -->
+                <section class="section" id="common-errors">
+                    <div class="container">
+                        <h2>Типичные ошибки в работе с текстом</h2>
+                        <p>
+                            Избегайте этих распространенных ошибок, чтобы ваша
+                            типографика выглядела профессионально.
+                        </p>
+
+                        <div class="error-card">
+                            <div class="error-title">Слишком много шрифтов</div>
+                            <div class="error-description">
+                                <p>
+                                    Использование более трех шрифтов в одном
+                                    проекте создает визуальный шум и снижает
+                                    читаемость.
+                                </p>
+                            </div>
+                            <div class="error-examples">
+                                <div class="error-bad">
+                                    <h5>Неправильно</h5>
+                                    <div
+                                        style="
+                                            font-family: 'Arial';
+                                            font-size: 1.2rem;
+                                        ">
+                                        Заголовок (Arial)
+                                    </div>
+                                    <div style="font-family: 'Times New Roman'">
+                                        Подзаголовок (Times New Roman)
+                                    </div>
+                                    <div style="font-family: 'Courier New'">
+                                        Основной текст (Courier New)
+                                    </div>
+                                    <div style="font-family: 'Comic Sans MS'">
+                                        Примечание (Comic Sans)
+                                    </div>
+                                </div>
+                                <div class="error-good">
+                                    <h5>Правильно</h5>
+                                    <div
+                                        style="
+                                            font-family: 'Montserrat';
+                                            font-size: 1.2rem;
+                                            font-weight: bold;
+                                        ">
+                                        Заголовок (Montserrat Bold)
+                                    </div>
+                                    <div style="font-family: 'Montserrat'">
+                                        Подзаголовок (Montserrat Regular)
+                                    </div>
+                                    <div style="font-family: 'Open Sans'">
+                                        Основной текст (Open Sans)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="error-card">
+                            <div class="error-title">Плохая читаемость</div>
+                            <div class="error-description">
+                                <p>
+                                    Низкий контраст, маленький размер шрифта,
+                                    недостаточный интерлиньяж - все это ухудшает
+                                    читаемость.
+                                </p>
+                            </div>
+                            <div class="error-examples">
+                                <div class="error-bad">
+                                    <h5>Неправильно</h5>
+                                    <div
+                                        style="
+                                            background: #333;
+                                            color: #444;
+                                            padding: 1rem;
+                                            line-height: 1.2;
+                                            font-size: 0.9rem;
+                                        ">
+                                        Текст с низким контрастом и маленьким
+                                        размером шрифта, который трудно читать
+                                        из-за недостаточного интерлиньяжа и
+                                        неправильного сочетания цветов.
+                                    </div>
+                                </div>
+                                <div class="error-good">
+                                    <h5>Правильно</h5>
+                                    <div
+                                        style="
+                                            background: white;
+                                            color: #333;
+                                            padding: 1rem;
+                                            line-height: 1.6;
+                                            font-size: 1.1rem;
+                                        ">
+                                        Текст с хорошим контрастом, оптимальным
+                                        размером шрифта и достаточным
+                                        интерлиньяжем для комфортного чтения.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="error-card">
+                            <div class="error-title">
+                                Игнорирование иерархии
+                            </div>
+                            <div class="error-description">
+                                <p>
+                                    Отсутствие четкой визуальной иерархии
+                                    затрудняет восприятие информации.
+                                </p>
+                            </div>
+                            <div class="error-examples">
+                                <div class="error-bad">
+                                    <h5>Неправильно</h5>
+                                    <div
+                                        style="
+                                            font-size: 1rem;
+                                            font-weight: bold;
+                                        ">
+                                        Важный раздел
+                                    </div>
+                                    <div style="font-size: 1.2rem">
+                                        Обычный текст
+                                    </div>
+                                    <div style="font-size: 1rem">
+                                        Дополнительная информация
+                                    </div>
+                                </div>
+                                <div class="error-good">
+                                    <h5>Правильно</h5>
+                                    <div
+                                        style="
+                                            font-size: 1.8rem;
+                                            font-weight: bold;
+                                        ">
+                                        Заголовок
+                                    </div>
+                                    <div style="font-size: 1.4rem; color: #555">
+                                        Подзаголовок
+                                    </div>
+                                    <div style="font-size: 1.1rem">
+                                        Основной текст
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Типографика PRO -->
+                <section class="section" id="typography-pro">
+                    <div class="container">
+                        <h2>Типографика PRO: углублённые советы</h2>
+                        <p>
+                            Для профессионалов, которые хотят вывести свою
+                            типографику на новый уровень.
+                        </p>
+
+                        <div class="pro-tips">
+                            <div class="tip-card">
+                                <h4>Вертикальный ритм</h4>
+                                <p>
+                                    Создайте последовательный вертикальный ритм,
+                                    используя базовую линию сетки. Все элементы
+                                    должны выравниваться по невидимой сетке.
+                                </p>
+                                <p>
+                                    Используйте кратность для размеров шрифта,
+                                    отступов и интерлиньяжа (например, 8px,
+                                    16px, 24px).
+                                </p>
+                            </div>
+
+                            <div class="tip-card">
+                                <h4>Микротипографика</h4>
+                                <p>Обращайте внимание на детали:</p>
+                                <ul class="list-ul">
+                                    <li>
+                                        Используйте правильные кавычки (« »
+                                        вместо " ")
+                                    </li>
+                                    <li>Длинное тире (—) вместо дефиса (-)</li>
+                                    <li>
+                                        Неразрывные пробелы перед короткими
+                                        словами
+                                    </li>
+                                    <li>
+                                        Правильные символы для градусов, валют и
+                                        др.
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="tip-card">
+                                <h4>Адаптивная типографика</h4>
+                                <p>
+                                    Оптимизируйте типографику для разных
+                                    устройств:
+                                </p>
+                                <ul class="list-ul">
+                                    <li>
+                                        Увеличивайте интерлиньяж на мобильных
+                                        устройствах
+                                    </li>
+                                    <li>
+                                        Используйте относительные единицы (rem,
+                                        em)
+                                    </li>
+                                    <li>
+                                        Адаптируйте размер шрифта к ширине
+                                        экрана
+                                    </li>
+                                    <li>
+                                        Тестируйте читаемость на разных
+                                        устройствах
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3>Профессиональные инструменты</h3>
+                            <ul class="tool-list">
+                                <li>
+                                    <strong>Adobe Fonts:</strong>
+                                    Обширная библиотека профессиональных шрифтов
+                                </li>
+                                <li>
+                                    <strong>Google Fonts:</strong>
+                                    Бесплатные шрифты с открытой лицензией
+                                </li>
+                                <li>
+                                    <strong>FontPair:</strong>
+                                    Подбор гармоничных сочетаний шрифтов
+                                </li>
+                                <li>
+                                    <strong>TypeScale:</strong>
+                                    Генератор гармоничных типографических шкал
+                                </li>
+                                <li>
+                                    <strong>FontForge:</strong>
+                                    Редактор шрифтов с открытым исходным кодом
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="card">
+                            <h3>Книги для углубленного изучения</h3>
+                            <ul class="list-ul">
+                                <li>
+                                    <strong>"Типографика"</strong>
+                                    Эмиль Рудер
+                                </li>
+                                <li>
+                                    <strong>"О шрифте"</strong>
+                                    Эрик Шпикерман
+                                </li>
+                                <li>
+                                    <strong>
+                                        "Элементы типографского стиля"
+                                    </strong>
+                                    Роберт Брингхерст
+                                </li>
+                                <li>
+                                    <strong>
+                                        "Типографика в цифровой среде"
+                                    </strong>
+                                    Эллен Луптон
+                                </li>
+                                <li>
+                                    <strong>"Шрифт и дизайн"</strong>
+                                    Джеймс Крейг
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            @@include('../partials/footer.html', {})
+        </div>
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+        <script>
+            // Инициализация страницы
+            document.addEventListener("DOMContentLoaded", function () {
+                // Обновление демо текста при изменении шрифта
+                const fontSelect = document.getElementById("font-select");
+                const textInput = document.getElementById("text-input");
+                const demoText = document.getElementById("demo-text");
+
+                function updateDemoText() {
+                    demoText.style.fontFamily = fontSelect.value;
+                    demoText.textContent = textInput.value;
+                }
+
+                fontSelect.addEventListener("change", updateDemoText);
+                textInput.addEventListener("input", updateDemoText);
+
+                // Обновление сочетания шрифтов
+                const headingFont = document.getElementById("heading-font");
+                const bodyFont = document.getElementById("body-font");
+                const combinationDemo =
+                    document.getElementById("combination-demo");
+
+                function updateCombination() {
+                    combinationDemo.style.fontFamily = bodyFont.value;
+                    combinationDemo.querySelector("h3").style.fontFamily =
+                        headingFont.value;
+                }
+
+                headingFont.addEventListener("change", updateCombination);
+                bodyFont.addEventListener("change", updateCombination);
+
+                // Инициализация
+                updateDemoText();
+                updateCombination();
+            });
+        </script>
+    </body>
+</html>

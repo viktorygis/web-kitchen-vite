@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        @@include('../partials/head.html', { "title": "Фундамент дизайна: Типографика и цвет", "description": "Гид по типографике, цвету и базовым принципам дизайна с интерактивными примерами" })
+        <style>
+            :root {
+                --primary: #2c3e50;
+                --secondary: #8e44ad;
+                --accent: #e74c3c;
+                --light: #f8f9fa;
+                --dark: #212529;
+                --success: #27ae60;
+                --warning: #f39c12;
+                --muted: #6c757d;
+                --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+                --transition: all 0.3s ease;
+
+                /* Демонстрационные палитры */
+                --theme-bg: #ffffff;
+                --theme-text: #1f2937;
+                --theme-accent: #2563eb;
+                --theme-accent-2: #f59e0b;
+            }
+
+            body {
+                background: var(--theme-bg);
+                color: var(--theme-text);
+            }
+
+            .interactive-demo {
+                background: var(--light);
+                padding: 1.8rem;
+                border-radius: 10px;
+                margin: 2rem 0;
+                border: 1px solid #eee;
+            }
+
+            .demo-container {
+                display: flex;
+                gap: 1.5rem;
+                flex-wrap: wrap;
+                margin: 1.5rem 0;
+            }
+
+            .demo-box {
+                background: white;
+                border: 1px solid #eee;
+                border-radius: 8px;
+                padding: 1.5rem;
+                min-width: 200px;
+                text-align: center;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                transition: var(--transition);
+            }
+
+            .demo-box:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .demo-btn {
+                background: var(--secondary);
+                color: white;
+                border: none;
+                padding: 0.8rem 1.5rem;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: var(--transition);
+                font-family: "Raleway", sans-serif;
+                font-weight: 500;
+                font-size: 1rem;
+                margin: 0.5rem;
+            }
+
+            .demo-btn:hover {
+                background: #7d3c98;
+                transform: translateY(-2px);
+            }
+
+            .demo-result {
+                margin-top: 1.5rem;
+                padding: 1.5rem;
+                background: white;
+                border-left: 4px solid var(--success);
+                display: none;
+                border-radius: 0 8px 8px 0;
+            }
+
+            .font-card {
+                padding: 1.5rem;
+                border-radius: 8px;
+                margin: 1rem 0;
+                background: white;
+                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            }
+
+            .font-card h4 {
+                margin-top: 0;
+                font-size: 1.4rem;
+            }
+
+            .font-example {
+                font-size: 1.8rem;
+                margin: 1rem 0;
+                min-height: 80px;
+            }
+
+            .font-controls {
+                display: flex;
+                gap: 1rem;
+                flex-wrap: wrap;
+                margin: 1rem 0;
+                align-items: center;
+            }
+
+            .font-controls select,
+            .font-controls input,
+            .font-controls button,
+            .font-controls textarea {
+                padding: 0.6rem;
+                border: 1px solid #ddd;
+                border-radius: 6px;
+                font-family: inherit;
+                background: #fff;
+            }
+
+            .font-pair {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 1.5rem;
+                background: white;
+                border-radius: 8px;
+                margin: 1.5rem 0;
+                box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+            }
+
+            .pair-header {
+                font-size: 2.2rem;
+                text-align: center;
+                margin-bottom: 0.25rem;
+            }
+
+            .pair-subtitle {
+                font-size: 1.4rem;
+                text-align: center;
+                margin-bottom: 1.5rem;
+                color: var(--muted);
+            }
+
+            .pair-body {
+                font-size: 1.1rem;
+                line-height: 1.8;
+            }
+
+            .pair-footer {
+                text-align: center;
+                margin-top: 1.5rem;
+                font-style: italic;
+                color: #666;
+            }
+
+            .subnav {
+                display: flex;
+                gap: 0.5rem;
+                flex-wrap: wrap;
+                margin: 0.75rem 0 1rem;
+            }
+            .subnav a {
+                background: #fff;
+                border: 1px solid #eee;
+                border-radius: 999px;
+                padding: 0.35rem 0.75rem;
+                font-size: 0.9rem;
+                color: var(--primary);
+                text-decoration: none;
+            }
+            .subnav a:hover {
+                background: var(--light);
+            }
+
+            .section-intro {
+                margin-bottom: 1rem;
+                color: var(--muted);
+            }
+
+            .card-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: 1rem;
+            }
+            .card {
+                background: #fff;
+                border: 1px solid #eee;
+                border-radius: 10px;
+                padding: 1rem;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            }
+            .card h4 {
+                margin: 0 0 0.5rem;
+            }
+            .card small {
+                color: var(--muted);
+            }
+
+            .pill {
+                display: inline-block;
+                padding: 0.2rem 0.6rem;
+                border-radius: 999px;
+                background: var(--light);
+                color: var(--primary);
+                font-size: 0.8rem;
+                border: 1px solid #eee;
+            }
+
+            .color-tools {
+                display: grid;
+                grid-template-columns: 1fr 2fr;
+                gap: 1rem;
+            }
+            @media (max-width: 920px) {
+                .color-tools {
+                    grid-template-columns: 1fr;
+                }
+            }
+            .color-sample {
+                height: 120px;
+                border-radius: 10px;
+                border: 1px solid #eee;
+            }
+            .palette {
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                gap: 0.5rem;
+            }
+            .swatch {
+                height: 56px;
+                border-radius: 8px;
+                border: 1px solid #eee;
+                position: relative;
+                overflow: hidden;
+            }
+            .swatch span {
+                position: absolute;
+                bottom: 6px;
+                left: 6px;
+                right: 6px;
+                font-size: 0.75rem;
+                background: rgba(255, 255, 255, 0.85);
+                border-radius: 4px;
+                padding: 0.1rem 0.3rem;
+                text-align: center;
+            }
+
+            .moodboard-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                gap: 0.75rem;
+            }
+            .mood-item {
+                position: relative;
+                border-radius: 10px;
+                overflow: hidden;
+                border: 1px solid #eee;
+                background: #fafafa;
+                min-height: 120px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .mood-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+            .mood-remove {
+                position: absolute;
+                top: 6px;
+                right: 6px;
+                background: rgba(0, 0, 0, 0.6);
+                color: #fff;
+                border: none;
+                border-radius: 999px;
+                width: 28px;
+                height: 28px;
+                cursor: pointer;
+            }
+
+            details {
+                background: #fff;
+                border: 1px solid #eee;
+                border-radius: 10px;
+                padding: 0.75rem 1rem;
+            }
+            details + details {
+                margin-top: 0.75rem;
+            }
+            summary {
+                cursor: pointer;
+                font-weight: 600;
+                color: var(--primary);
+            }
+            summary::marker {
+                color: var(--muted);
+            }
+
+            .notice {
+                border-left: 4px solid var(--warning);
+                background: #fff8e6;
+                padding: 0.75rem 1rem;
+                border-radius: 6px;
+                color: #7a5600;
+            }
+
+            .divider {
+                height: 1px;
+                background: #eee;
+                margin: 1.25rem 0;
+            }
+
+            /* PRO демо */
+            .pro-demo {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .pro-controls {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                gap: 0.75rem;
+            }
+            .pro-sample {
+                padding: 1rem;
+                border: 1px solid #eee;
+                border-radius: 10px;
+                background: #fff;
+            }
+
+            .theme-preview {
+                border: 1px dashed #ddd;
+                border-radius: 10px;
+                padding: 1rem;
+                background: #fff;
+            }
+            .theme-header {
+                font-size: 1.6rem;
+                color: var(--theme-accent);
+            }
+            .theme-sub {
+                color: var(--theme-accent-2);
+            }
+
+            /* Utility */
+            .mt-0 {
+                margin-top: 0;
+            }
+            .mb-0 {
+                margin-bottom: 0;
+            }
+            .mb-1 {
+                margin-bottom: 0.25rem;
+            }
+            .mb-2 {
+                margin-bottom: 0.5rem;
+            }
+            .mb-3 {
+                margin-bottom: 1rem;
+            }
+            .center {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#intro" class="active">Введение</a>
+                    <a href="#foundation">Фундамент</a>
+                    <a href="#typography">Типографика</a>
+                    <a href="#color">Цвет</a>
+                    <a href="#extra">Дополнительно</a>
+                    <a href="#typography-pro">Типографика PRO</a>
+                </nav>
+                <!-- Введение -->
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>Фундамент дизайна: Типографика</h1>
+
+                        <p class="note">
+                            <strong>Типографика</strong>
+                            — это искусство и техника оформления текста, играющая ключевую роль в визуальной коммуникации. Выбор шрифта определяет не только читаемость, но и эмоциональное восприятие контента.
+                        </p>
+
+                        <div class="grid-column-50">
+                            <div>
+                                <h3>Почему шрифты важны:</h3>
+                                <ul class="list-ul">
+                                    <li>Передают эмоции и настроение</li>
+                                    <li>Формируют первое впечатление</li>
+                                    <li>Улучшают читаемость контента</li>
+                                    <li>Создают визуальную иерархию</li>
+                                    <li>Укрепляют брендинг</li>
+                                </ul>
+                            </div>
+                            <div id="basic-terms">
+                                <h3>Базовые термины:</h3>
+                                <ul class="list-ul">
+                                    <li>
+                                        <strong>Гарнитура</strong>
+                                        — семейство шрифтов (например, Roboto, Georgia)
+                                    </li>
+                                    <li>
+                                        <strong>Кегль</strong>
+                                        — размер шрифта
+                                    </li>
+                                    <li>
+                                        <strong>Интерлиньяж</strong>
+                                        — межстрочный интервал (line-height)
+                                    </li>
+                                    <li>
+                                        <strong>Кернинг</strong>
+                                        — расстояние между отдельными парами букв
+                                    </li>
+                                    <li>
+                                        <strong>Трекинг</strong>
+                                        — равномерное расстояние между всеми символами
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="interactive-demo">
+                            <h3>Эксперимент: Сила первого впечатления</h3>
+                            <p>Прочитайте одно и то же сообщение в разных шрифтах и обратите внимание на возникающие эмоции:</p>
+
+                            <div class="demo-container">
+                                <div class="demo-box" style="font-family: 'Times New Roman', serif">
+                                    <h4>Классический</h4>
+                                    <p class="font-example">Добро пожаловать!</p>
+                                    <p>Традиционность, надежность</p>
+                                </div>
+
+                                <div class="demo-box" style="font-family: 'Arial', sans-serif">
+                                    <h4>Современный</h4>
+                                    <p class="font-example">Добро пожаловать!</p>
+                                    <p>Чистота, нейтральность</p>
+                                </div>
+
+                                <div class="demo-box" style="font-family: 'Brush Script MT', cursive">
+                                    <h4>Рукописный</h4>
+                                    <p class="font-example">Добро пожаловать!</p>
+                                    <p>Творчество, индивидуальность</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Фундамент дизайна -->
+                <section class="section" id="foundation">
+                    <div class="container">
+                        <h2>Тема: Фундамент дизайна</h2>
+                        <p class="section-intro">Три столпа, с которых удобно начать: характер шрифта, базовые принципы и цветовой круг.</p>
+
+                        <div class="subnav">
+                            <a href="#character">Характер шрифта</a>
+                            <a href="#design-basics">Базовые принципы дизайна</a>
+                            <a href="#color-wheel">Цветовой круг</a>
+                        </div>
+
+                        <div id="design-basics" class="interactive-demo">
+                            <h3>Базовые принципы дизайна</h3>
+                            <p>Простая мнемоника — CRAP: Contrast, Repetition, Alignment, Proximity (контраст, повторение, выравнивание, близость).</p>
+                            <div class="card-grid">
+                                <div class="card">
+                                    <h4>Контраст</h4>
+                                    <p>Используйте отличие размеров, цвета, насыщенности, гарнитуры для построения иерархии.</p>
+                                    <div class="divider"></div>
+                                    <small class="pill">Размер • Насыщенность • Цвет</small>
+                                </div>
+                                <div class="card">
+                                    <h4>Повторение</h4>
+                                    <p>Повторяйте стили и элементы, чтобы создать единство и узнаваемость.</p>
+                                    <div class="divider"></div>
+                                    <small class="pill">Сетка • Отступы • Компоненты</small>
+                                </div>
+                                <div class="card">
+                                    <h4>Выравнивание</h4>
+                                    <p>Выровняйте элементы по сетке и опорным линиям — хаос сразу уменьшится.</p>
+                                    <div class="divider"></div>
+                                    <small class="pill">Сетка • Ритм • Базовая линия</small>
+                                </div>
+                                <div class="card">
+                                    <h4>Близость</h4>
+                                    <p>Группируйте связанные элементы, отделяйте несвязанные — так строится смысл.</p>
+                                    <div class="divider"></div>
+                                    <small class="pill">Группы • Отступы • Визуальные блоки</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="color-wheel" class="interactive-demo">
+                            <h3>Цветовой круг</h3>
+                            <p>Поиграйте с оттенком, и мы предложим гармоничные сочетания (монохром, комплементарные, аналоговые).</p>
+
+                            <div class="color-tools">
+                                <div>
+                                    <label for="hue-range">
+                                        Оттенок (H):
+                                        <span id="hue-value">210</span>
+                                        °
+                                    </label>
+                                    <input type="range" id="hue-range" min="0" max="359" value="210" />
+                                    <div class="divider"></div>
+                                    <div class="color-sample" id="color-sample" title="Базовый цвет"></div>
+                                </div>
+                                <div>
+                                    <div class="font-controls">
+                                        <select id="harmony-select" aria-label="Схема гармонии">
+                                            <option value="mono">Монохром</option>
+                                            <option value="analogous">Аналоговые</option>
+                                            <option value="complementary">Комплементарные</option>
+                                            <option value="split">Раздельно-комплементарные</option>
+                                            <option value="triad">Триада</option>
+                                        </select>
+                                        <button class="demo-btn" id="copy-palette">Скопировать HEX</button>
+                                    </div>
+                                    <div class="palette" id="palette"></div>
+                                </div>
+                            </div>
+                            <p class="notice mb-0">Подсказка: контраст по яркости и насыщенности так же важен, как и по цвету.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Классификация (сохранено из исходника) -->
+                <section class="section" id="classification">
+                    <div class="container">
+                        <h2>Классификация шрифтов</h2>
+
+                        <div class="grid-column-50">
+                            <div>
+                                <h3>Антиква (Serif)</h3>
+                                <p>Шрифты с засечками, традиционные и формальные:</p>
+                                <div class="font-card">
+                                    <div class="font-example" style="font-family: 'Georgia', serif; font-size: 2.2rem">Georgia Pro</div>
+                                    <p>Идеально подходит для длинных текстов в печатных изданиях.</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3>Гротеск (Sans-serif)</h3>
+                                <p>Шрифты без засечек, современные и минималистичные:</p>
+                                <div class="font-card">
+                                    <div class="font-example" style="font-family: 'Helvetica', sans-serif; font-size: 2.2rem">Helvetica Neue</div>
+                                    <p>Король интерфейсов и веб-дизайна.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid-column-50">
+                            <div>
+                                <h3>Рукописные (Script)</h3>
+                                <p>Имитация ручного письма, элегантные и выразительные:</p>
+                                <div class="font-card">
+                                    <div class="font-example" style="font-family: 'Brush Script MT', cursive; font-size: 2.2rem">Brush Script</div>
+                                    <p>Используется для приглашений и креативных проектов.</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3>Моноширинные (Monospace)</h3>
+                                <p>Все символы одинаковой ширины, технические:</p>
+                                <div class="font-card">
+                                    <div class="font-example" style="font-family: 'Courier New', monospace; font-size: 2.2rem">Courier Prime</div>
+                                    <p>Идеален для отображения кода и технической документации.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="interactive-demo">
+                            <h3>Практика: Исследуйте классификации</h3>
+                            <div id="font-explorer">
+                                <div class="font-controls">
+                                    <select id="font-category">
+                                        <option value="serif">Антиква (Serif)</option>
+                                        <option value="sans-serif">Гротеск (Sans-serif)</option>
+                                        <option value="script">Рукописные (Script)</option>
+                                        <option value="monospace">Моноширинные (Monospace)</option>
+                                    </select>
+
+                                    <select id="font-family">
+                                        <option value="'Times New Roman', serif">Times New Roman</option>
+                                        <option value="'Georgia', serif">Georgia</option>
+                                        <option value="'Arial', sans-serif">Arial</option>
+                                        <option value="'Verdana', sans-serif">Verdana</option>
+                                    </select>
+
+                                    <input type="range" id="font-size" min="16" max="60" value="24" />
+                                </div>
+
+                                <div class="font-card">
+                                    <div id="font-display" style="font-family: 'Times New Roman', serif; font-size: 24px; min-height: 120px">Типографика — это визуальное воплощение языка.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Характер шрифтов (сохранено из исходника) -->
+                <section class="section" id="character">
+                    <div class="container">
+                        <h2>Характер шрифтов</h2>
+
+                        <p>Каждый шрифт обладает своим характером и вызывает определенные ассоциации:</p>
+
+                        <div class="grid-column-50">
+                            <div>
+                                <h3>Традиционные шрифты</h3>
+                                <p>Вызывают ассоциации с надежностью, стабильностью и профессионализмом.</p>
+                                <div class="font-card">
+                                    <div class="font-example" style="font-family: 'Times New Roman', serif; font-size: 2.2rem">Times New Roman</div>
+                                    <p>Используется: Юридические документы, газеты, академические издания</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3>Современные шрифты</h3>
+                                <p>Передают прогрессивность, инновации и минимализм.</p>
+                                <div class="font-card">
+                                    <div class="font-example" style="font-family: 'Futura', sans-serif; font-size: 2.2rem">Futura</div>
+                                    <p>Используется: Технологические компании, современные бренды</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid-column-50">
+                            <div>
+                                <h3>Дружелюбные шрифты</h3>
+                                <p>Создают ощущение открытости, доступности и неформальности.</p>
+                                <div class="font-card">
+                                    <div class="font-example" style="font-family: 'Comic Sans MS', cursive; font-size: 2.2rem">Comic Sans</div>
+                                    <p>Используется: Детские проекты, неформальные коммуникации</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3>Элегантные шрифты</h3>
+                                <p>Ассоциируются с роскошью, изысканностью и премиальностью.</p>
+                                <div class="font-card">
+                                    <div class="font-example" style="font-family: 'Bodoni', serif; font-size: 2.2rem">Bodoni</div>
+                                    <p>Используется: Модные бренды, ювелирные изделия, премиальные продукты</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="interactive-demo">
+                            <h3>Определите характер шрифта</h3>
+                            <p>Выберите шрифт и опишите эмоции, которые он у вас вызывает:</p>
+
+                            <div class="font-controls">
+                                <select id="character-font">
+                                    <option value="'Times New Roman', serif">Times New Roman</option>
+                                    <option value="'Arial', sans-serif">Arial</option>
+                                    <option value="'Courier New', monospace">Courier New</option>
+                                    <option value="'Brush Script MT', cursive">Brush Script</option>
+                                    <option value="'Impact', sans-serif">Impact</option>
+                                </select>
+                            </div>
+
+                            <div class="font-card">
+                                <div id="character-display" style="font-family: 'Times New Roman', serif; font-size: 2rem; min-height: 100px">Этот шрифт вызывает у меня чувство...</div>
+                            </div>
+
+                            <textarea id="character-description" placeholder="Опишите эмоции и ассоциации..." style="width: 100%; padding: 15px; margin-top: 20px; min-height: 100px; border-radius: 8px; border: 1px solid #ddd; font-family: inherit"></textarea>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Сочетание шрифтов (сохранено из исходника) -->
+                <section class="section" id="pairing">
+                    <div class="container">
+                        <h2>Сочетание шрифтов</h2>
+
+                        <p>Правильное сочетание шрифтов — ключ к гармоничной типографике:</p>
+
+                        <div class="grid-column-100">
+                            <h3>Основные принципы сочетания:</h3>
+                            <ul class="list-ul">
+                                <li>
+                                    <strong>Контраст</strong>
+                                    — сочетайте шрифты с разными характеристиками
+                                </li>
+                                <li>
+                                    <strong>Гармония</strong>
+                                    — шрифты должны дополнять друг друга
+                                </li>
+                                <li>
+                                    <strong>Ограничение</strong>
+                                    — используйте не более 2–3 шрифтов
+                                </li>
+                                <li>
+                                    <strong>Иерархия</strong>
+                                    — четко определяйте роли каждого шрифта
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="interactive-demo">
+                            <h3>Практика: Создайте сочетание</h3>
+
+                            <div class="font-controls">
+                                <label>Заголовок:</label>
+                                <select id="heading-font">
+                                    <option value="'Playfair Display', serif">Playfair Display</option>
+                                    <option value="'Montserrat', sans-serif">Montserrat</option>
+                                    <option value="'Lora', serif">Lora</option>
+                                    <option value="'Oswald', sans-serif">Oswald</option>
+                                </select>
+
+                                <label>Основной текст:</label>
+                                <select id="body-font">
+                                    <option value="'Roboto', sans-serif">Roboto</option>
+                                    <option value="'Lora', serif">Lora</option>
+                                    <option value="'Open Sans', sans-serif">Open Sans</option>
+                                    <option value="'Merriweather', serif">Merriweather</option>
+                                </select>
+                            </div>
+
+                            <div class="font-pair" id="font-pair-demo">
+                                <div class="pair-header" id="pair-heading">Идеальное сочетание</div>
+                                <div class="pair-subtitle" id="pair-subtitle">Как создать гармонию в типографике</div>
+                                <div class="pair-body" id="pair-body">
+                                    <p>
+                                        Правильное сочетание шрифтов — это искусство, основанное на контрасте и гармонии. Выбирая шрифты для проекта, учитывайте их характер, историю и назначение. Классическое правило — сочетать шрифт с засечками для заголовков и без засечек для основного текста, но
+                                        современный дизайн часто нарушает эту традицию.
+                                    </p>
+                                    <p>Экспериментируйте, но помните о читаемости. Шрифты должны не бороться за внимание, а дополнять друг друга, создавая единую визуальную композицию.</p>
+                                </div>
+                                <div class="pair-footer" id="pair-footer">Типографика — музыка для глаз</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Принципы типографики (сохранено из исходника) -->
+                <section class="section" id="principles">
+                    <div class="container">
+                        <h2>Принципы типографики</h2>
+
+                        <div class="grid-column-50">
+                            <div>
+                                <h3>Основные правила:</h3>
+                                <ul class="list-ul">
+                                    <li>Используйте адекватный размер шрифта (16px+ для веба)</li>
+                                    <li>Оптимальная длина строки — 50–75 символов</li>
+                                    <li>Межстрочный интервал — 120–150% от размера шрифта</li>
+                                    <li>Контраст текста и фона должен быть достаточным</li>
+                                    <li>Избегайте выравнивания по ширине в вебе</li>
+                                    <li>Ограничьте использование CAPS LOCK</li>
+                                </ul>
+                            </div>
+
+                            <div id="typo-errors">
+                                <h3>Типографические грехи:</h3>
+                                <ul class="list-ul">
+                                    <li>Слишком много шрифтов в одном проекте</li>
+                                    <li>Недостаточный контраст</li>
+                                    <li>Чрезмерное выделение текста</li>
+                                    <li>Неоправданные переносы строк</li>
+                                    <li>Игнорирование иерархии</li>
+                                    <li>Использование декоративных шрифтов для основного текста</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="interactive-demo">
+                            <h3>Проверка читаемости</h3>
+                            <p>Отрегулируйте параметры и оцените удобочитаемость текста:</p>
+
+                            <div class="font-controls">
+                                <label>
+                                    Размер шрифта:
+                                    <span id="size-value">18</span>
+                                    px
+                                </label>
+                                <input type="range" id="readability-size" min="12" max="30" value="18" />
+
+                                <label>
+                                    Межстрочный интервал:
+                                    <span id="line-height-value">1.5</span>
+                                </label>
+                                <input type="range" id="readability-lh" min="1" max="2.5" step="0.1" value="1.5" />
+
+                                <label>
+                                    Ширина колонки:
+                                    <span id="width-value">600</span>
+                                    px
+                                </label>
+                                <input type="range" id="readability-width" min="300" max="900" value="600" />
+                            </div>
+
+                            <div class="font-card" id="readability-demo" style="font-size: 18px; line-height: 1.5; max-width: 600px; margin: 0 auto">
+                                <h4>Пример текста для проверки читаемости</h4>
+                                <p>Типографика — это не просто выбор красивых шрифтов. Это искусство организации текста таким образом, чтобы он был максимально удобочитаемым и доступным, сохраняя при этом эстетическую привлекательность.</p>
+                                <p>Хорошая типографика направляет читателя через текст, создает визуальную иерархию, устанавливает баланс и задает тон всему дизайну. Она незаметна, когда сделана правильно, и раздражает, когда выполнена плохо.</p>
+                                <p>Помните: если люди замечают вашу типографику, скорее всего, с ней что-то не так. Идеальная типографика остается незамеченной, позволяя содержанию говорить само за себя.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Типографика (подразделы из ТЗ) -->
+                <section class="section" id="typography">
+                    <div class="container">
+                        <h2>Заголовок: Типографика</h2>
+                        <div class="subnav">
+                            <a href="#basic-terms">Базовые термины</a>
+                            <a href="#serif-display">Антиква и акцидентные</a>
+                            <a href="#sans-script">Гротеск и рукописные</a>
+                            <a href="#typo-errors">Ошибки при работе с текстом</a>
+                            <a href="#typo-more-errors">Ошибки, мы ещё не закончили!</a>
+                        </div>
+
+                        <div id="serif-display" class="card-grid">
+                            <div class="card">
+                                <h4>Антиква (Serif)</h4>
+                                <p>С засечками: классика, традиция, удобочитаемость в длинных текстах.</p>
+                                <small class="pill">Georgia • Garamond • Times</small>
+                            </div>
+                            <div class="card">
+                                <h4>Акцидентные (Display)</h4>
+                                <p>Для крупных размеров: заголовки, плакаты, айдентика. Не для длинного текста.</p>
+                                <small class="pill">Bodoni • Didot • Impact</small>
+                            </div>
+                        </div>
+
+                        <div id="sans-script" class="card-grid" style="margin-top: 1rem">
+                            <div class="card">
+                                <h4>Гротеск (Sans-serif)</h4>
+                                <p>Без засечек: нейтральность, современность, интерфейсы и веб.</p>
+                                <small class="pill">Helvetica • Inter • Roboto • Montserrat</small>
+                            </div>
+                            <div class="card">
+                                <h4>Рукописные (Script)</h4>
+                                <p>Выразительность и характер. Дозированно и для коротких акцентов.</p>
+                                <small class="pill">Brush Script • Pacifico • Dancing Script</small>
+                            </div>
+                        </div>
+
+                        <div id="typo-more-errors" class="interactive-demo">
+                            <h3>Ошибки, мы ещё не закончили!</h3>
+                            <ul class="list-ul">
+                                <li>Смешение слишком похожих шрифтов без явной роли</li>
+                                <li>Отрицательный трекинг на мелком кегле (ухудшает читаемость)</li>
+                                <li>Перегрузка курсивом, малые капители вместо капса</li>
+                                <li>Слабый контраст заголовка и текста (масса, размер, цвет)</li>
+                                <li>Выравнивание по ширине без переносов: «реки» в тексте</li>
+                                <li>Нарушение вертикального ритма и сетки базовой линии</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Цвет -->
+                <section class="section" id="color">
+                    <div class="container">
+                        <h2>Заголовок: Цвет</h2>
+                        <div class="subnav">
+                            <a href="#color-psych">Психология цвета</a>
+                            <a href="#moodboard">Мудборд</a>
+                            <a href="#color-basics">Основные понятия</a>
+                            <a href="#color-mood">Цвет-настроение</a>
+                        </div>
+
+                        <div id="color-psych" class="card-grid">
+                            <div class="card">
+                                <h4>Красный</h4>
+                                <p>Энергия, страсть, внимание. Хорош для акцентов.</p>
+                            </div>
+                            <div class="card">
+                                <h4>Синий</h4>
+                                <p>Доверие, стабильность, технологии. Базы интерфейсов.</p>
+                            </div>
+                            <div class="card">
+                                <h4>Зелёный</h4>
+                                <p>Рост, спокойствие, экология. Баланс и свежесть.</p>
+                            </div>
+                            <div class="card">
+                                <h4>Жёлтый</h4>
+                                <p>Оптимизм, тепло, внимание. Используйте дозировано.</p>
+                            </div>
+                        </div>
+
+                        <div id="moodboard" class="interactive-demo">
+                            <h3>Мудборд</h3>
+                            <p>Добавьте изображения по URL и соберите атмосферу проекта.</p>
+                            <div class="font-controls">
+                                <input type="url" id="moodboard-url" placeholder="Вставьте URL изображения" style="flex: 1" />
+                                <button class="demo-btn" id="add-mood">Добавить</button>
+                                <button class="demo-btn" id="clear-mood" style="background: #ef4444">Очистить</button>
+                            </div>
+                            <div class="moodboard-grid" id="moodboard-grid" aria-live="polite"></div>
+                        </div>
+
+                        <div id="color-basics" class="card-grid">
+                            <div class="card">
+                                <h4>Оттенок (Hue)</h4>
+                                <p>Цвет на круге: красный, синий, зелёный…</p>
+                            </div>
+                            <div class="card">
+                                <h4>Насыщенность (Saturation)</h4>
+                                <p>Интенсивность цвета: серый → чистый.</p>
+                            </div>
+                            <div class="card">
+                                <h4>Яркость/Светлота (Lightness)</h4>
+                                <p>Светлый ↔ тёмный вариант цвета.</p>
+                            </div>
+                            <div class="card">
+                                <h4>Температура</h4>
+                                <p>Тёплые и холодные оттенки, баланс настроения.</p>
+                            </div>
+                        </div>
+
+                        <div id="color-mood" class="interactive-demo">
+                            <h3>Цвет-настроение</h3>
+                            <div class="font-controls">
+                                <select id="mood-select">
+                                    <option value="calm">Спокойствие</option>
+                                    <option value="energy">Энергия</option>
+                                    <option value="elegant">Элегантность</option>
+                                    <option value="nature">Природа</option>
+                                </select>
+                            </div>
+                            <div class="palette" id="mood-palette"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Дополнительное -->
+                <section class="section" id="extra">
+                    <div class="container">
+                        <h2>Заголовок: Дополнительное</h2>
+                        <div class="subnav">
+                            <a href="#styles-1">Стили в граф. дизайне ч.1</a>
+                            <a href="#fixes">Работа над ошибками</a>
+                            <a href="#graphics">Работа с графикой</a>
+                            <a href="#oops">Что-то пошло не так…</a>
+                            <a href="#styles-2">Стили в граф. дизайне ч.2</a>
+                            <a href="#jargon">Поговорим на дизайнерском?</a>
+                        </div>
+
+                        <div id="styles-1" class="card-grid">
+                            <div class="card">
+                                <h4>Минимализм</h4>
+                                <p>Чистота формы, минимум отвлекающих деталей, сильная сетка.</p>
+                            </div>
+                            <div class="card">
+                                <h4>Брутализм</h4>
+                                <p>Грубые формы, контраст, «сырой» стиль, смелые решения.</p>
+                            </div>
+                            <div class="card">
+                                <h4>Неоморфизм</h4>
+                                <p>Мягкие тени, пластичность, тактильность элементов.</p>
+                            </div>
+                            <div class="card">
+                                <h4>Глассморфизм</h4>
+                                <p>Полупрозрачные панели, размытие, глубина слоёв.</p>
+                            </div>
+                        </div>
+
+                        <div id="fixes" class="interactive-demo">
+                            <h3>Работа над ошибками</h3>
+                            <details open>
+                                <summary>Мало контраста</summary>
+                                <p>Увеличьте размер заголовка, насыщенность, цветовой контраст. Проверьте контраст WCAG.</p>
+                            </details>
+                            <details>
+                                <summary>Шрифтов слишком много</summary>
+                                <p>Оставьте 2–3 гарнитуры максимум: заголовок, текст и акцент.</p>
+                            </details>
+                            <details>
+                                <summary>Плохая сетка</summary>
+                                <p>Используйте модульную сетку, базовую линию и кратные отступы.</p>
+                            </details>
+                        </div>
+
+                        <div id="graphics" class="card-grid">
+                            <div class="card">
+                                <h4>Растр vs Вектор</h4>
+                                <p>Фото — растр (PNG/JPG/WebP), логотипы/иконки — вектор (SVG).</p>
+                            </div>
+                            <div class="card">
+                                <h4>DPI и размеры</h4>
+                                <p>Экран: 1х/2х, экспорт под ретину. Печать: 300 DPI.</p>
+                            </div>
+                            <div class="card">
+                                <h4>Сжатие</h4>
+                                <p>Оптимизируйте изображения для скорости без потери качества.</p>
+                            </div>
+                            <div class="card">
+                                <h4>Цветовые профили</h4>
+                                <p>Экран — sRGB, печать — CMYK (профиль типографии).</p>
+                            </div>
+                        </div>
+
+                        <div id="oops" class="interactive-demo">
+                            <h3>Что-то пошло не так…</h3>
+                            <p class="mb-2">Чек-лист быстрого аудита:</p>
+                            <ul class="list-ul">
+                                <li>Есть ли у страницы явный фокус и иерархия?</li>
+                                <li>Достаточен ли контраст и интерлиньяж?</li>
+                                <li>Уместны ли выбранные шрифты и их роли?</li>
+                                <li>Согласованы ли отступы, сетка и выравнивание?</li>
+                                <li>Цвета поддерживают смысл, а не отвлекают?</li>
+                            </ul>
+                        </div>
+
+                        <div id="styles-2" class="card-grid">
+                            <div class="card">
+                                <h4>Швейцарская школа</h4>
+                                <p>Сетка, гротески, строгая типографика, функционализм.</p>
+                            </div>
+                            <div class="card">
+                                <h4>Постмодерн</h4>
+                                <p>Ирония, деконструкция, смешение стилей и правил.</p>
+                            </div>
+                            <div class="card">
+                                <h4>Ретро/Винтаж</h4>
+                                <p>Ностальгические формы, текстуры, акцидентные гарнитуры.</p>
+                            </div>
+                            <div class="card">
+                                <h4>Футуризм</h4>
+                                <p>Высокий контраст, неон, технологичные формы.</p>
+                            </div>
+                        </div>
+
+                        <div id="jargon" class="interactive-demo">
+                            <h3>Поговорим на дизайнерском?</h3>
+                            <details>
+                                <summary>Кегль</summary>
+                                <p>Размер шрифта. На вебе — в px/rem.</p>
+                            </details>
+                            <details>
+                                <summary>Выключка</summary>
+                                <p>Способ выравнивания текста: влево, вправо, по центру, по ширине.</p>
+                            </details>
+                            <details>
+                                <summary>Базовая линия</summary>
+                                <p>Воображаемая линия, по которой «сидят» буквы строки.</p>
+                            </details>
+                            <details>
+                                <summary>Раг (rag)</summary>
+                                <p>Неровный край текста при выключке влево/вправо.</p>
+                            </details>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Типографика PRO -->
+                <section class="section" id="typography-pro">
+                    <div class="container">
+                        <h2>Заголовок: Типографика PRO (бонус)</h2>
+                        <div class="subnav">
+                            <a href="#pairing">Основы сочетания шрифтов</a>
+                            <a href="#taboo-fonts">Шрифты-табу</a>
+                            <a href="#typo-contrast">Контраст в типографике</a>
+                            <a href="#alignment">Выключка</a>
+                            <a href="#typo-color">Типографика и цвет</a>
+                        </div>
+
+                        <div id="taboo-fonts" class="card-grid">
+                            <div class="card">
+                                <h4>Шрифты-табу?</h4>
+                                <p>Запрещённых шрифтов нет, есть неуместное использование. Избегайте банальности и клише.</p>
+                                <small class="pill">Comic Sans • Papyrus • Impact — осторожно, контекст!</small>
+                            </div>
+                            <div class="card">
+                                <h4>Что делать</h4>
+                                <p>Понимайте характер гарнитуры, проверяйте лицензии, тестируйте в реальных размерах и на разных устройствах.</p>
+                            </div>
+                        </div>
+
+                        <div id="typo-contrast" class="interactive-demo">
+                            <h3>Контраст в типографике</h3>
+                            <div class="pro-controls">
+                                <label>
+                                    Размер заголовка:
+                                    <span id="pro-h-size-val">28</span>
+                                    px
+                                    <input type="range" id="pro-h-size" min="20" max="56" value="28" />
+                                </label>
+                                <label>
+                                    Насыщенность заголовка:
+                                    <span id="pro-h-weight-val">600</span>
+                                    <input type="range" id="pro-h-weight" min="300" max="900" step="100" value="600" />
+                                </label>
+                                <label>
+                                    Размер текста:
+                                    <span id="pro-b-size-val">16</span>
+                                    px
+                                    <input type="range" id="pro-b-size" min="14" max="22" value="16" />
+                                </label>
+                                <label>
+                                    Трекинг заголовка:
+                                    <span id="pro-h-track-val">0</span>
+                                    px
+                                    <input type="range" id="pro-h-track" min="-1" max="3" step="0.1" value="0" />
+                                </label>
+                            </div>
+                            <div class="pro-sample" id="pro-sample">
+                                <h4 id="pro-title" style="margin: 0 0 0.25rem">Контраст задаёт иерархию</h4>
+                                <p id="pro-text" class="mb-0">Когда заголовок и основной текст различаются по размеру, насыщенности и трекингу, взгляд легко находит точку входа и ритм чтения.</p>
+                            </div>
+                        </div>
+
+                        <div id="alignment" class="interactive-demo">
+                            <h3>Выключка</h3>
+                            <div class="font-controls">
+                                <label>
+                                    <input type="radio" name="align" value="left" checked />
+                                    Влево
+                                </label>
+                                <label>
+                                    <input type="radio" name="align" value="center" />
+                                    По центру
+                                </label>
+                                <label>
+                                    <input type="radio" name="align" value="right" />
+                                    Вправо
+                                </label>
+                                <label>
+                                    <input type="radio" name="align" value="justify" />
+                                    По ширине
+                                </label>
+                            </div>
+                            <div class="font-card" id="align-sample">
+                                <p>Выключка влияет на «рэг» и комфорт чтения. В вебе выключка по ширине без корректных переносов создаёт «реки» — избегайте или используйте автоматические переносы (hyphens).</p>
+                            </div>
+                        </div>
+
+                        <div id="typo-color" class="interactive-demo">
+                            <h3>Типографика и цвет</h3>
+                            <div class="font-controls">
+                                <label>
+                                    Тема:
+                                    <select id="typo-color-theme">
+                                        <option value="classic">Классика</option>
+                                        <option value="cool">Холодная</option>
+                                        <option value="warm">Тёплая</option>
+                                        <option value="high-contrast">Высокий контраст</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="theme-preview" id="theme-preview">
+                                <div class="theme-header">Заголовок говорит первым</div>
+                                <div class="theme-sub">Подзаголовок помогает смыслу</div>
+                                <p class="mb-0">Цвет поддерживает иерархию, а не спорит с ней. Контраст и роль — важнее самого оттенка.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            @@include('../partials/footer.html', {})
+        </div>
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+        <script>
+            // Обновление предпросмотра шрифтов
+            document.getElementById("font-category").addEventListener("change", function () {
+                const category = this.value;
+                const fontSelect = document.getElementById("font-family");
+
+                // Очищаем предыдущие опции
+                fontSelect.innerHTML = "";
+
+                // Добавляем новые опции в зависимости от категории
+                if (category === "serif") {
+                    addOption(fontSelect, "'Times New Roman', serif", "Times New Roman");
+                    addOption(fontSelect, "'Georgia', serif", "Georgia");
+                    addOption(fontSelect, "'Garamond', serif", "Garamond");
+                } else if (category === "sans-serif") {
+                    addOption(fontSelect, "'Arial', sans-serif", "Arial");
+                    addOption(fontSelect, "'Verdana', sans-serif", "Verdana");
+                    addOption(fontSelect, "'Helvetica', sans-serif", "Helvetica");
+                } else if (category === "script") {
+                    addOption(fontSelect, "'Brush Script MT', cursive", "Brush Script");
+                    addOption(fontSelect, "'Lucida Handwriting', cursive", "Lucida Handwriting");
+                } else if (category === "monospace") {
+                    addOption(fontSelect, "'Courier New', monospace", "Courier New");
+                    addOption(fontSelect, "'Lucida Console', monospace", "Lucida Console");
+                }
+
+                // Обновляем отображение
+                updateFontDisplay();
+            });
+
+            function addOption(select, value, text) {
+                const option = document.createElement("option");
+                option.value = value;
+                option.textContent = text;
+                select.appendChild(option);
+            }
+
+            // Обновление отображения шрифта
+            function updateFontDisplay() {
+                const fontFamily = document.getElementById("font-family").value;
+                const fontSize = document.getElementById("font-size").value + "px";
+                const display = document.getElementById("font-display");
+
+                display.style.fontFamily = fontFamily;
+                display.style.fontSize = fontSize;
+            }
+
+            // Обновление при изменении параметров
+            document.getElementById("font-family").addEventListener("change", updateFontDisplay);
+            document.getElementById("font-size").addEventListener("input", function () {
+                document.getElementById("font-display").style.fontSize = this.value + "px";
+            });
+
+            // Обновление характера шрифта
+            document.getElementById("character-font").addEventListener("change", function () {
+                document.getElementById("character-display").style.fontFamily = this.value;
+            });
+
+            // Обновление сочетания шрифтов
+            function updateFontPair() {
+                const headingFont = document.getElementById("heading-font").value;
+                const bodyFont = document.getElementById("body-font").value;
+
+                document.getElementById("pair-heading").style.fontFamily = headingFont;
+                document.getElementById("pair-subtitle").style.fontFamily = headingFont;
+                document.getElementById("pair-body").style.fontFamily = bodyFont;
+                document.getElementById("pair-footer").style.fontFamily = bodyFont;
+            }
+
+            document.getElementById("heading-font").addEventListener("change", updateFontPair);
+            document.getElementById("body-font").addEventListener("change", updateFontPair);
+
+            // Обновление читаемости
+            function updateReadability() {
+                const size = document.getElementById("readability-size").value;
+                const lineHeight = document.getElementById("readability-lh").value;
+                const width = document.getElementById("readability-width").value;
+
+                const demo = document.getElementById("readability-demo");
+                demo.style.fontSize = size + "px";
+                demo.style.lineHeight = lineHeight;
+                demo.style.maxWidth = width + "px";
+
+                document.getElementById("size-value").textContent = size;
+                document.getElementById("line-height-value").textContent = lineHeight;
+                document.getElementById("width-value").textContent = width;
+            }
+
+            document.getElementById("readability-size").addEventListener("input", updateReadability);
+            document.getElementById("readability-lh").addEventListener("input", updateReadability);
+            document.getElementById("readability-width").addEventListener("input", updateReadability);
+
+            // ============================
+            // Цветовой круг / палитры
+            // ============================
+            const hueRange = document.getElementById("hue-range");
+            const hueValue = document.getElementById("hue-value");
+            const colorSample = document.getElementById("color-sample");
+            const harmonySelect = document.getElementById("harmony-select");
+            const palette = document.getElementById("palette");
+            const copyPaletteBtn = document.getElementById("copy-palette");
+
+            function hsl(h, s, l) {
+                return `hsl(${h} ${s}% ${l}%)`;
+            }
+            function clampHue(h) {
+                h = h % 360;
+                return h < 0 ? h + 360 : h;
+            }
+            function hslToHex(h, s, l) {
+                s /= 100;
+                l /= 100;
+                const k = (n) => (n + h / 30) % 12;
+                const a = s * Math.min(l, 1 - l);
+                const f = (n) => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+                const toHex = (x) =>
+                    Math.round(x * 255)
+                        .toString(16)
+                        .padStart(2, "0");
+                return `#${toHex(f(0))}${toHex(f(8))}${toHex(f(4))}`.toUpperCase();
+            }
+
+            function buildPalette() {
+                const h = parseInt(hueRange.value, 10);
+                hueValue.textContent = h;
+                colorSample.style.background = hsl(h, 70, 50);
+
+                let hues = [];
+                const mode = harmonySelect.value;
+                if (mode === "mono") {
+                    hues = [h, h, h, h, h];
+                } else if (mode === "analogous") {
+                    hues = [clampHue(h - 30), clampHue(h - 15), h, clampHue(h + 15), clampHue(h + 30)];
+                } else if (mode === "complementary") {
+                    hues = [h, clampHue(h + 180), h, clampHue(h + 180), h];
+                } else if (mode === "split") {
+                    hues = [h, clampHue(h + 150), clampHue(h + 210), h, clampHue(h + 150)];
+                } else if (mode === "triad") {
+                    hues = [h, clampHue(h + 120), clampHue(h + 240), h, clampHue(h + 120)];
+                }
+
+                const sats = [70, 65, 60, 55, 50];
+                const lights = [50, 45, 55, 60, 40];
+
+                palette.innerHTML = "";
+                hues.forEach((hh, i) => {
+                    const s = sats[i],
+                        l = lights[i];
+                    const col = hsl(hh, s, l);
+                    const hex = hslToHex(hh, s, l);
+                    const sw = document.createElement("div");
+                    sw.className = "swatch";
+                    sw.style.background = col;
+                    const tag = document.createElement("span");
+                    tag.textContent = hex;
+                    sw.appendChild(tag);
+                    palette.appendChild(sw);
+                });
+            }
+
+            hueRange.addEventListener("input", buildPalette);
+            harmonySelect.addEventListener("change", buildPalette);
+            copyPaletteBtn.addEventListener("click", async () => {
+                const hexes = [...palette.querySelectorAll(".swatch span")].map((s) => s.textContent).join(", ");
+                try {
+                    await navigator.clipboard.writeText(hexes);
+                    copyPaletteBtn.textContent = "Скопировано!";
+                    setTimeout(() => (copyPaletteBtn.textContent = "Скопировать HEX"), 1200);
+                } catch {
+                    alert("Не удалось скопировать палитру");
+                }
+            });
+            buildPalette();
+
+            // ============================
+            // Цвет-настроение
+            // ============================
+            const moodSelect = document.getElementById("mood-select");
+            const moodPalette = document.getElementById("mood-palette");
+            const MOODS = {
+                calm: ["#E0F2FE", "#BFDBFE", "#93C5FD", "#60A5FA", "#3B82F6"],
+                energy: ["#FEF3C7", "#FDE68A", "#F59E0B", "#EF4444", "#DC2626"],
+                elegant: ["#F5F3FF", "#EDE9FE", "#C4B5FD", "#7C3AED", "#111827"],
+                nature: ["#ECFDF5", "#D1FAE5", "#6EE7B7", "#34D399", "#065F46"],
+            };
+            function renderMood() {
+                const set = MOODS[moodSelect.value] || MOODS.calm;
+                moodPalette.innerHTML = "";
+                set.forEach((hex) => {
+                    const sw = document.createElement("div");
+                    sw.className = "swatch";
+                    sw.style.background = hex;
+                    const tag = document.createElement("span");
+                    tag.textContent = hex.toUpperCase();
+                    sw.appendChild(tag);
+                    moodPalette.appendChild(sw);
+                });
+            }
+            moodSelect.addEventListener("change", renderMood);
+            renderMood();
+
+            // ============================
+            // Мудборд
+            // ============================
+            const moodUrl = document.getElementById("moodboard-url");
+            const moodGrid = document.getElementById("moodboard-grid");
+            document.getElementById("add-mood").addEventListener("click", () => {
+                const url = moodUrl.value.trim();
+                if (!url) return;
+                const wrap = document.createElement("div");
+                wrap.className = "mood-item";
+                const img = document.createElement("img");
+                img.src = url;
+                img.alt = "Mood image";
+                img.onerror = () => {
+                    wrap.textContent = "Не удалось загрузить изображение";
+                };
+                const btn = document.createElement("button");
+                btn.className = "mood-remove";
+                btn.type = "button";
+                btn.innerHTML = "×";
+                btn.title = "Удалить";
+                btn.addEventListener("click", () => wrap.remove());
+                wrap.appendChild(img);
+                wrap.appendChild(btn);
+                moodGrid.appendChild(wrap);
+                moodUrl.value = "";
+            });
+            document.getElementById("clear-mood").addEventListener("click", () => {
+                moodGrid.innerHTML = "";
+            });
+
+            // ============================
+            // PRO: Контраст
+            // ============================
+            const proHSize = document.getElementById("pro-h-size");
+            const proHWeight = document.getElementById("pro-h-weight");
+            const proBSize = document.getElementById("pro-b-size");
+            const proHTrack = document.getElementById("pro-h-track");
+            const proTitle = document.getElementById("pro-title");
+            const proText = document.getElementById("pro-text");
+
+            function renderPro() {
+                document.getElementById("pro-h-size-val").textContent = proHSize.value;
+                document.getElementById("pro-h-weight-val").textContent = proHWeight.value;
+                document.getElementById("pro-b-size-val").textContent = proBSize.value;
+                document.getElementById("pro-h-track-val").textContent = proHTrack.value;
+
+                proTitle.style.fontSize = proHSize.value + "px";
+                proTitle.style.fontWeight = proHWeight.value;
+                proTitle.style.letterSpacing = proHTrack.value + "px";
+                proText.style.fontSize = proBSize.value + "px";
+            }
+            [proHSize, proHWeight, proBSize, proHTrack].forEach((el) => el.addEventListener("input", renderPro));
+            renderPro();
+
+            // ============================
+            // PRO: Выключка
+            // ============================
+            const alignSample = document.getElementById("align-sample");
+            document.querySelectorAll('input[name="align"]').forEach((r) => {
+                r.addEventListener("change", () => {
+                    alignSample.style.textAlign = r.value === "justify" ? "justify" : r.value;
+                    alignSample.style.hyphens = r.value === "justify" ? "auto" : "none";
+                });
+            });
+
+            // ============================
+            // PRO: Типографика и цвет (темы)
+            // ============================
+            const themeSelect = document.getElementById("typo-color-theme");
+            const themePreview = document.getElementById("theme-preview");
+            function applyTheme(theme) {
+                const root = document.documentElement.style;
+                if (theme === "classic") {
+                    root.setProperty("--theme-bg", "#ffffff");
+                    root.setProperty("--theme-text", "#1f2937");
+                    root.setProperty("--theme-accent", "#111827");
+                    root.setProperty("--theme-accent-2", "#6b7280");
+                } else if (theme === "cool") {
+                    root.setProperty("--theme-bg", "#F0F9FF");
+                    root.setProperty("--theme-text", "#0f172a");
+                    root.setProperty("--theme-accent", "#2563EB");
+                    root.setProperty("--theme-accent-2", "#0891B2");
+                } else if (theme === "warm") {
+                    root.setProperty("--theme-bg", "#FFFBEB");
+                    root.setProperty("--theme-text", "#1f2937");
+                    root.setProperty("--theme-accent", "#D97706");
+                    root.setProperty("--theme-accent-2", "#DC2626");
+                } else if (theme === "high-contrast") {
+                    root.setProperty("--theme-bg", "#ffffff");
+                    root.setProperty("--theme-text", "#0b0b0b");
+                    root.setProperty("--theme-accent", "#000000");
+                    root.setProperty("--theme-accent-2", "#E11D48");
+                }
+                // Обновим локально примеры цветов
+                themePreview.querySelector(".theme-header").style.color = getComputedStyle(document.documentElement).getPropertyValue("--theme-accent");
+                themePreview.querySelector(".theme-sub").style.color = getComputedStyle(document.documentElement).getPropertyValue("--theme-accent-2");
+                document.body.style.background = getComputedStyle(document.documentElement).getPropertyValue("--theme-bg");
+                document.body.style.color = getComputedStyle(document.documentElement).getPropertyValue("--theme-text");
+            }
+            themeSelect.addEventListener("change", (e) => applyTheme(e.target.value));
+            applyTheme(themeSelect.value);
+
+            // ============================
+        </script>
+    </body>
+</html>

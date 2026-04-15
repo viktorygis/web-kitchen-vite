@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "Реактивность, computed и watch во Vue", "description": "Как использовать computed и watch для реактивности во Vue, когда их применять, примеры кода и интерактивные демонстрации." })
+
+<head>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="#reactivity-intro">Введение</a>
+        <a href="#reactivity-computed">Вычисляемые свойства (computed)</a>
+        <a href="#reactivity-watch">Наблюдатели (watch)</a>
+        <a href="#reactivity-comparison">Сравнение: computed vs watch</a>
+        <a href="#reactivity-async">Асинхронные задачи с watch</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="reactivity-intro">
+        <div class="container">
+          <h1>Реактивность в компонентах Vue</h1>
+          <p class="note"><strong>Реактивность в компонентах Vue</strong> - это способность автоматически обновлять интерфейс при изменении данных. Vue предоставляет два основных инструмента для работы с реактивностью: <code>computed</code> и <code>watch</code>.
+          </p>
+
+          <h4>Основные понятия:</h4>
+          <ul class="list-ul">
+            <li>
+              <strong>computed</strong>
+              — свойства, которые зависят от других данных и автоматически обновляются при их изменении. Идеальны для вычислений и форматирования.
+            </li>
+            <li>
+              <strong>watch</strong>
+              — позволяет выполнять код при изменении значения переменной. Полезно для асинхронных задач, валидаций и API-запросов.
+            </li>
+            <li>
+              Оба инструмента помогают создавать динамичные и отзывчивые интерфейсы, улучшая пользовательский опыт.
+          </ul>
+
+        </div>
+      </section>
+
+      <!-- Вычисляемые свойства (computed) -->
+      <section class="section" id="reactivity-computed">
+        <div class="container">
+          <h2>
+            Вычисляемые свойства
+            <code>computed</code>
+          </h2>
+          <div class="note"><strong>computed</strong> - это свойства, которые автоматически пересчитываются при изменении зависимых данных.</div>
+          <h4>Как использовать computed:</h4>
+          <ul class="list-ul">
+            <li>Определяются в объекте <code>computed</code> внутри компонента Vue</li>
+            <li><b>имяСвойства()</b> — функция, возвращающая вычисленное значение</li>
+            <li><b>return значение;</b> — возвращаемое значение свойства</li>
+          </ul>
+
+          <div class="code-block">
+            <pre><code>computed: {
+  имяСвойства() {
+    return значение;
+  }
+}</code></pre>
+          </div>
+
+
+          <h4>Пример использования:</h4>
+          <p>В этом примере мы создаём вычисляемое свойство <code>greeting</code>, которое зависит от переменной <code>name</code>. Когда пользователь вводит имя, приветствие автоматически обновляется.</p>
+
+          <div class="code-block">
+            <pre><code>
+&lt;div id="computed-demo"&gt;
+  &lt;input v-model="name" placeholder="Введите имя"&gt;
+  &lt;p&gt;👋 Привет, {{ greeting }}!&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return { name: "" }
+  },
+  computed: {
+    greeting() {
+      return this.name ? `друг ${this.name}` : "незнакомец";
+    }
+  }
+}).mount("#computed-demo");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Переменная <code>name</code> хранит введённое пользователем имя.</li>
+            <li>Вычисляемое свойство <code>greeting</code> возвращает строку приветствия на основе значения <code>name</code>.</li>
+            <li>Когда пользователь вводит имя, Vue автоматически обновляет отображаемое приветствие.</li>
+          </ul>
+
+
+          <div class="interactive-demo">
+            <div id="computed-demo"></div>
+          </div>
+
+          <div class="note note--info">
+            <b>Особенности:</b>
+            <ul>
+              <li>Если зависимые данные не изменились, значение берётся из кэша</li>
+              <li>
+                Используйте
+                <b>computed</b>
+                , когда результат зависит от других данных и должен обновляться автоматически
+              </li>
+            </ul>
+          </div>
+          <div class="mini-exercise">
+            <h4>Упражнение: Сделайте computed, возвращающее текст в верхнем регистре</h4>
+            <pre><code>
+&lt;div id="computed-uppercase-demo"&gt;
+  &lt;input v-model="text" placeholder="Введите текст"&gt;
+  &lt;p&gt;🔠 В верхнем регистре: {{ upperText }}&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return { text: "" }
+  },
+  computed: {
+    upperText() {
+      return this.text.toUpperCase();
+    }
+  }
+}).mount("#computed-uppercase-demo");
+&lt;/script&gt;
+                            </code></pre>
+            <div class="example">
+              <div id="computed-uppercase-demo"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Watch -->
+      <section class="section" id="reactivity-watch">
+        <div class="container">
+          <h2>
+            Наблюдатели
+            <code>watch</code>
+          </h2>
+          <div class="note">
+            <strong>watch</strong>
+            — это способ выполнить код при изменении значения переменной.
+          </div>
+          <div class="grid-column-100">
+            <pre><code>
+watch: {
+  имя_переменной(новоеЗначение, староеЗначение) {
+    // Код при изменении
+  }
+}
+                            </code></pre>
+            <pre><code>
+&lt;div id="watch-demo"&gt;
+  &lt;input v-model="name" placeholder="Введите имя"&gt;
+  &lt;p&gt;🕵️ Проверка: {{ message }}&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return {
+      name: "",
+      message: "Ожидаю ввода..."
+    }
+  },
+  watch: {
+    name(newVal) {
+      if (newVal.length < 3) {
+        this.message = "Слишком короткое имя! ❌";
+      } else {
+        this.message = "Отлично! ✅";
+      }
+    }
+  }
+}).mount("#watch-demo");
+&lt;/script&gt;
+                            </code></pre>
+            <div class="example">
+              <div id="watch-demo"></div>
+            </div>
+          </div>
+          <div class="note note--info">
+            <b>Особенности:</b>
+            <ul>
+              <li>watch всегда выполняет код при изменении значения</li>
+              <li>Идеально для асинхронных задач, валидаций, API-запросов</li>
+            </ul>
+          </div>
+          <div class="mini-exercise">
+            <h4>Упражнение: watch для чётности числа</h4>
+            <pre><code>
+&lt;div id="watch-even-demo"&gt;
+  &lt;p&gt;🔢 Число: {{ count }}&lt;/p&gt;
+  &lt;button @click="count++"&gt;+1&lt;/button&gt;
+  &lt;p&gt;🧐 {{ message }}&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return {
+      count: 0,
+      message: "Начнём считать! ⏳"
+    }
+  },
+  watch: {
+    count(newValue) {
+      newValue % 2 === 0
+        ? this.message = "Число чётное! ✅"
+        : this.message = "Число нечётное! 🔴";
+    }
+  }
+}).mount("#watch-even-demo");
+&lt;/script&gt;
+                            </code></pre>
+            <div class="example">
+              <div id="watch-even-demo"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Сравнение computed и watch -->
+      <section class="section" id="reactivity-comparison">
+        <div class="container">
+          <h2>
+            Сравнение
+            <code>computed</code>
+            и
+            <code>watch</code>
+          </h2>
+          <div class="note">
+            <b>Когда что использовать?</b>
+          </div>
+          <ul class="list-ul">
+            <li>
+              <b>computed</b>
+              — когда нужно вычислить новое значение на основе других данных, результат можно кэшировать
+            </li>
+            <li>
+              <b>watch</b>
+              — когда нужно выполнить код при изменении (например, асинхронный запрос или валидацию)
+            </li>
+          </ul>
+          <div class="grid-column-100">
+            <pre><code>
+&lt;div id="comparison-demo"&gt;
+  &lt;input v-model="name" placeholder="Введите имя"&gt;
+  &lt;p&gt;📝 Приветствие (computed): {{ greeting }}&lt;/p&gt;
+  &lt;p&gt;🕵️ Проверка (watch): {{ message }}&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return {
+      name: "",
+      message: "Ожидаю ввода..."
+    }
+  },
+  computed: {
+    greeting() {
+      return this.name ? `Привет, ${this.name}!` : "Привет, незнакомец!";
+    }
+  },
+  watch: {
+    name(newValue) {
+      if (newValue.length < 3) {
+        this.message = "Имя слишком короткое ❌";
+      } else {
+        this.message = "Имя подходит! ✅";
+      }
+    }
+  }
+}).mount("#comparison-demo");
+&lt;/script&gt;
+                            </code></pre>
+            <div class="example">
+              <div id="comparison-demo"></div>
+            </div>
+          </div>
+          <div class="note note--info">
+            <b>Кратко:</b>
+            <ul>
+              <li>
+                <b>computed</b>
+                — просто вычислить значение (приветствие, форматирование, суммы и т.д.)
+              </li>
+              <li>
+                <b>watch</b>
+                — запустить код при изменении (валидация, API-запрос, асинхронщина)
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Асинхронные задачи с watch -->
+      <section class="section" id="reactivity-async">
+        <div class="container">
+          <h2>
+            Асинхронные задачи: отложенный поиск с
+            <code>watch</code>
+          </h2>
+          <div class="note">
+            <strong>watch</strong>
+            отлично подходит для асинхронных и отложенных действий.
+          </div>
+          <div class="grid-column-100">
+            <pre><code>
+&lt;div id="async-demo"&gt;
+  &lt;input v-model="query" placeholder="🔍 Введите запрос"&gt;
+  &lt;p&gt;📊 Результат: {{ result }}&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return {
+      query: "",
+      result: "Нет данных..."
+    }
+  },
+  watch: {
+    query(newValue) {
+      this.result = "⏳ Ищем...";
+      setTimeout(() => {
+        this.result = `🔍 Найдено: ${newValue}`;
+      }, 1000);
+    }
+  }
+}).mount("#async-demo");
+&lt;/script&gt;
+                            </code></pre>
+            <div class="example">
+              <div id="async-demo"></div>
+            </div>
+          </div>
+          <div class="note note--info">
+            <b>Где пригодится?</b>
+            <ul>
+              <li>Отложенный поиск (debounce)</li>
+              <li>Автоматическая загрузка данных</li>
+              <li>Фильтрация и обновление списков</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+
+  <script>
+    (function () {
+      // computed demo
+      Vue.createApp({
+        data() {
+          return {
+            name: ""
+          };
+        },
+        computed: {
+          greeting() {
+            return this.name ? `друг ${this.name}` : "незнакомец";
+          },
+        },
+        template: `
+      <div>
+        <input v-model="name" placeholder="Введите имя">
+        <p>👋 Привет, {{ greeting }}!</p>
+      </div>
+    `,
+      }).mount("#computed-demo");
+
+      // computed uppercase demo
+      Vue.createApp({
+        data() {
+          return {
+            text: ""
+          };
+        },
+        computed: {
+          upperText() {
+            return this.text.toUpperCase();
+          },
+        },
+        template: `
+      <div>
+        <input v-model="text" placeholder="Введите текст">
+        <p>🔠 В верхнем регистре: {{ upperText }}</p>
+      </div>
+    `,
+      }).mount("#computed-uppercase-demo");
+
+      // watch demo
+      Vue.createApp({
+        data() {
+          return {
+            name: "",
+            message: "Ожидаю ввода...",
+          };
+        },
+        watch: {
+          name(newVal) {
+            if (newVal.length < 3) {
+              this.message = "Слишком короткое имя! ❌";
+            } else {
+              this.message = "Отлично! ✅";
+            }
+          },
+        },
+        template: `
+      <div>
+        <input v-model="name" placeholder="Введите имя">
+        <p>🕵️ Проверка: {{ message }}</p>
+      </div>
+    `,
+      }).mount("#watch-demo");
+
+      // watch even demo
+      Vue.createApp({
+        data() {
+          return {
+            count: 0,
+            message: "Начнём считать! ⏳",
+          };
+        },
+        watch: {
+          count(newValue) {
+            this.message = newValue % 2 === 0 ? "Число чётное! ✅" : "Число нечётное! 🔴";
+          },
+        },
+        template: `
+      <div>
+        <p>🔢 Число: {{ count }}</p>
+        <button @click="count++">+1</button>
+        <p>🧐 {{ message }}</p>
+      </div>
+    `,
+      }).mount("#watch-even-demo");
+
+      // comparison demo
+      Vue.createApp({
+        data() {
+          return {
+            name: "",
+            message: "Ожидаю ввода...",
+          };
+        },
+        computed: {
+          greeting() {
+            return this.name ? `Привет, ${this.name}!` : "Привет, незнакомец!";
+          },
+        },
+        watch: {
+          name(newValue) {
+            if (newValue.length < 3) {
+              this.message = "Имя слишком короткое ❌";
+            } else {
+              this.message = "Имя подходит! ✅";
+            }
+          },
+        },
+        template: `
+      <div>
+        <input v-model="name" placeholder="Введите имя">
+        <p>📝 Приветствие (computed): {{ greeting }}</p>
+        <p>🕵️ Проверка (watch): {{ message }}</p>
+      </div>
+    `,
+      }).mount("#comparison-demo");
+
+      // async demo
+      Vue.createApp({
+        data() {
+          return {
+            query: "",
+            result: "Нет данных...",
+          };
+        },
+        watch: {
+          query(newValue) {
+            this.result = "⏳ Ищем...";
+            setTimeout(() => {
+              this.result = `🔍 Найдено: ${newValue}`;
+            }, 1000);
+          },
+        },
+        template: `
+      <div>
+        <input v-model="query" placeholder="🔍 Введите запрос">
+        <p>📊 Результат: {{ result }}</p>
+      </div>
+    `,
+      }).mount("#async-demo");
+    })();
+  </script>
+</body>
+
+</html>

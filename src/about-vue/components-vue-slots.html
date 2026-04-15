@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "Слоты во Vue", "description": "Как использовать базовые, именованные слоты и fallback-содержимое во Vue. Практические примеры с пояснениями." })
+
+<head>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="#slots-intro">Введение в слоты</a>
+        <a href="#slots-basic">Базовые слоты</a>
+        <a href="#slots-named">Именованные слоты</a>
+        <a href="#slots-fallback">Резервное содержимое</a>
+        <a href="#slots-multiple">Множественные слоты</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="slots-intro">
+        <div class="container">
+          <h1>Слоты во Vue</h1>
+          <p class="note">
+            <strong>Slots</strong> - это мощный механизм во Vue, позволяющий создавать гибкие и переиспользуемые компоненты.
+            С помощью слотов вы можете передавать контент из родительского компонента в дочерний, делая компоненты более универсальными.
+          </p>
+          <h4>Виды слотов:</h4>
+          <ul class="list-ul">
+            <li><strong>Базовые слоты</strong> - для передачи простого контента.</li>
+            <li><strong>Именованные слоты</strong> - для передачи контента в определённые "кармашки".</li>
+            <li><strong>Резервное содержимое (Fallback Content)</strong> - для отображения контента по умолчанию, если родитель ничего не передал.</li>
+          </ul>
+          <p class="note note--info"> 🚀 Слоты делают ваши компоненты более гибкими и позволяют легко изменять их содержимое без необходимости модифицировать сам компонент.</p>
+
+        </div>
+      </section>
+
+      <!-- Базовые слоты -->
+      <section class="section" id="slots-basic">
+        <div class="container">
+          <h2>Базовые слоты</h2>
+          <div class="note">
+            <strong>Базовые слоты</strong> - это простой способ передать контент из родительского компонента в дочерний.
+            Они позволяют вставлять произвольный HTML или другие компоненты внутрь компонента-обёртки.
+          </div>
+
+          <h4>Как использовать базовые слоты:</h4>
+          <ul class="list-ul">
+            <li>В дочернем компоненте используйте тег <code>&lt;slot&gt;&lt;/slot&gt;</code> в том месте, где хотите вставить контент из родителя.</li>
+            <li>В родительском компоненте просто поместите нужный контент между тегами дочернего компонента.</li>
+          </ul>
+
+          <h4>Пример базового слота:</h4>
+          <div class="code-block">
+            <pre><code>&lt;!-- Родительский компонент --&gt;
+&lt;div id="app"&gt;
+  &lt;container-component&gt;
+    &lt;p&gt;Содержимое, которое можно менять без проблем! 😊&lt;/p&gt;
+  &lt;/container-component&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({})
+  .component("container-component", {
+    template: `
+      &lt;div style="border:2px dashed #42b983;padding:10px;"&gt;
+        &lt;slot&gt;&lt;/slot&gt;
+      &lt;/div&gt;
+    `
+  })
+  .mount("#app");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><b>&lt;container-component&gt;</b> - это дочерний компонент, который будет содержать слот.</li>
+            <li>Внутри <b>&lt;container-component&gt;</b> в шаблоне используется тег <code>&lt;slot&gt;&lt;/slot&gt;</code>, который обозначает место для вставки контента из родителя.</li>
+            <li>В родительском компоненте между тегами <b>&lt;container-component&gt;</b> и <b>&lt;/container-component&gt;</b> помещается параграф с текстом. Этот текст будет вставлен в место слота внутри дочернего компонента.</li>
+
+
+          </ul>
+
+          <div class="interactive-demo">
+            <div id="slots-basic-demo"></div>
+          </div>
+
+          <!-- Вывод: -->
+          <p class="note note--info">
+            🚀
+            <strong>Базовые слоты</strong> позволяют легко вставлять динамический контент в компоненты, делая их более гибкими и переиспользуемыми!
+          </p>
+        </div>
+      </section>
+
+      <!-- Именованные слоты -->
+      <section class="section" id="slots-named">
+        <div class="container">
+          <h2>Именованные слоты</h2>
+          <div class="note">
+            <strong>Именованные слоты</strong> - это расширение базовых слотов, позволяющее создавать несколько слотов внутри одного компонента.
+            Каждый слот имеет своё имя, что позволяет передавать контент в определённые "кармашки" компонента.
+          </div>
+
+
+          <h4>Как использовать именованные слоты:</h4>
+          <ul class="list-ul">
+            <li>В дочернем компоненте используйте тег <code>&lt;slot name="имя_слота"&gt;&lt;/slot&gt;</code> для каждого именованного слота.</li>
+            <li>В родительском компоненте используйте тег <code>&lt;template #имя_слота&gt;...&lt;/template&gt;</code> для передачи контента в соответствующий слот.</li>
+          </ul>
+          <h4>Виды именованных слотов:</h4>
+          <ul class="list-ul">
+            <li><strong>Обычные именованные слоты</strong> - позволяют передавать контент в определённые зоны компонента.</li>
+            <li><strong>Дефолтный слот</strong> - используется для контента, не попавшего ни в один именованный слот.</li>
+          </ul>
+
+
+
+          <h4>Пример именованных слотов:</h4>
+
+          <div class="code-block">
+            <pre><code>&lt;!-- multi-slot-card - Родительский компонент --&gt;
+&lt;multi-slot-card&gt;
+  &lt;!-- Передача контента в именованные слоты --&gt;
+  &lt;!-- #header - слот для заголовка --&gt;
+  &lt;template #header&gt;
+    &lt;h2&gt;Заголовок 🌟&lt;/h2&gt;
+  &lt;/template&gt;
+
+  &lt;!-- #footer - слот для футера --&gt;
+  &lt;template #footer&gt;
+    &lt;small&gt;Футер&lt;/small&gt;
+  &lt;/template&gt;
+
+  &lt;p&gt;Основной текст карточки.&lt;/p&gt;
+&lt;/multi-slot-card&gt;
+
+&lt;!-- multi-slot-card.vue - Дочерний компонент --&gt;
+&lt;template&gt;
+  &lt;!-- Компонент с несколькими именованными слотами --&gt;
+  &lt;div class="card"&gt;
+  &lt;!-- Именованный слот для заголовка --&gt;
+    &lt;slot name="header"&gt;&lt;/slot&gt;
+    &lt;!-- Дефолтный слот --&gt;
+    &lt;slot&gt;По умолчанию, если ничего не пришло&lt;/slot&gt;
+    &lt;!-- Именованный слот для футера --&gt;
+    &lt;slot name="footer"&gt;&lt;/slot&gt;
+  &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><b>&lt;multi-slot-card&gt;</b> - это дочерний компонент с несколькими именованными слотами.</li>
+            <li>В шаблоне дочернего компонента используются три слота: <code>&lt;slot name="header"&gt;</code>, <code>&lt;slot&gt;</code> (дефолтный слот) и <code>&lt;slot name="footer"&gt;</code>.</li>
+            <li>В родительском компоненте используются теги <code>&lt;template #header&gt;</code> и <code>&lt;template #footer&gt;</code> для передачи контента в соответствующие слоты.</li>
+            <li>Контент, не попавший ни в один именованный слот, будет вставлен в дефолтный слот.</li>
+          </ul>
+
+          <div class="interactive-demo">
+            <div id="slots-named-demo"></div>
+          </div>
+
+          <p class="note note--info">
+            🚀
+            <strong>Именованные слоты</strong> позволяют создавать сложные и гибкие компоненты с несколькими зонами для динамического контента!
+          </p>
+        </div>
+      </section>
+
+      <!-- Резервное содержимое -->
+      <section class="section" id="slots-fallback">
+        <div class="container">
+          <h2>Резервное содержимое </h2>
+          <div class="note">
+            <strong>Резервное содержимое</strong> - (Fallback Content - перевод "запасной контент") это контент, который отображается внутри слота, если родительский компонент не передал никакого контента.
+            Это полезно для обеспечения базового отображения компонента, когда нет данных от родителя.
+          </div>
+          <h4>Как использовать резервное содержимое:</h4>
+          <ul class="list-ul">
+            <li>В дочернем компоненте внутри тега <code>&lt;slot&gt;&lt;/slot&gt;</code> добавьте HTML-контент, который должен отображаться по умолчанию.</li>
+            <li>Если родительский компонент не передаст контент, будет отображено резервное содержимое.</li>
+          </ul>
+          <h4>Пример резервного содержимого:</h4>
+
+
+          <div class="code-block">
+            <pre><code>&lt;!-- Родительский компонент --&gt;
+&lt;div id="app"&gt;
+  &lt;!-- Нет переданного контента --&gt;
+  &lt;container-component&gt;&lt;/container-component&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({})
+  .component("container-component", {
+    template: `
+      &lt;div style="border:2px dashed #42b983; padding:10px;"&gt;
+       &lt;!-- Резервное содержимое слота --&gt;
+        &lt;slot&gt;Тут пока пусто 👀&lt;/slot&gt;
+      &lt;/div&gt;
+    `
+  })
+  .mount("#app");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>В дочернем компоненте <b>&lt;container-component&gt;</b> внутри тега <code>&lt;slot&gt;&lt;/slot&gt;</code> добавлено резервное содержимое: <code>Тут пока пусто 👀</code>.</li>
+          </ul>
+
+          <div class="interactive-demo">
+            <div id="slots-fallback-demo"></div>
+          </div>
+
+          <p class="note note--info">
+            🚀
+            <strong>Резервное содержимое</strong> обеспечивает базовое отображение компонента, когда родитель не передал контент, улучшая пользовательский опыт!
+          </p>
+        </div>
+      </section>
+
+      <!-- Множественные слоты -->
+      <section class="section" id="slots-multiple">
+        <div class="container">
+          <h2>Множественные слоты: комплексные компоненты</h2>
+          <div class="note"><strong>Множественные слоты</strong> - это использование нескольких слотов внутри одного компонента для создания более сложных и гибких интерфейсов.
+            Это особенно полезно для компонентов, которые требуют различных областей контента, таких как карточки, модальные окна и панели. </div>
+          <h4>Как использовать множественные слоты:</h4>
+          <ul class="list-ul">
+            <li>В дочернем компоненте определите несколько слотов с разными именами с помощью тега <code>&lt;slot name="имя_слота"&gt;&lt;/slot&gt;</code>.</li>
+            <li>В родительском компоненте используйте теги <code>&lt;template #имя_слота&gt;...&lt;/template&gt;</code> для передачи контента в соответствующие слоты.</li>
+          </ul>
+          <h4>Пример множественных слотов:</h4>
+
+
+          <div class="code-block">
+            <pre><code>&lt;multi-slot-card&gt;
+  &lt;template #header&gt;
+    &lt;h2&gt;Заголовок 🌟&lt;/h2&gt;
+  &lt;/template&gt;
+  &lt;p&gt;Основной текст карточки.&lt;/p&gt;
+  &lt;template #footer&gt;
+    &lt;small&gt;Футер&lt;/small&gt;
+  &lt;/template&gt;
+&lt;/multi-slot-card&gt;
+
+&lt;!-- multi-slot-card.vue --&gt;
+&lt;template&gt;
+  &lt;div class="card"&gt;
+    &lt;slot name="header"&gt;&lt;/slot&gt;
+    &lt;slot&gt;По умолчанию, если ничего не пришло&lt;/slot&gt;
+    &lt;slot name="footer"&gt;&lt;/slot&gt;
+  &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>В дочернем компоненте <b>&lt;multi-slot-card&gt;</b> определены три слота: <code>&lt;slot name="header"&gt;</code>, <code>&lt;slot&gt;</code> (дефолтный слот) и <code>&lt;slot name="footer"&gt;</code>.</li>
+            <li>В родительском компоненте используются теги <code>&lt;template #header&gt;</code> и <code>&lt;template #footer&gt;</code> для передачи контента в соответствующие слоты.</li>
+            <li>Контент, не попавший ни в один именованный слот, будет вставлен в дефолтный слот.</li>
+          </ul>
+
+
+
+          <div class="interactive-demo">
+            <div id="slots-multiple-demo"></div>
+          </div>
+
+          <div class="note note--info">
+            🚀
+            <strong>Множественные слоты</strong> позволяют создавать сложные и гибкие компоненты с несколькими зонами для динамического контента, улучшая структуру и переиспользуемость кода!
+          </div>
+
+        </div>
+      </section>
+
+
+
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+  <script>
+    // Базовый слот
+    Vue.createApp({
+        template: `
+                  <container-component>
+                    <p>Содержимое, которое можно менять без проблем! 😊</p>
+                  </container-component>
+                `,
+      })
+      .component("container-component", {
+        template: `
+                  <div style="border:2px dashed #42b983; padding:10px;">
+                    <slot></slot>
+                  </div>
+                `,
+      })
+      .mount("#slots-basic-demo");
+
+    // Именованный слот
+    Vue.createApp({
+        template: `
+                  <multi-slot-card>
+                    <template #header>
+                      <h2>Заголовок 🌟</h2>
+                    </template>
+                    <template #footer>
+                      <small>Футер</small>
+                    </template>
+                    <p>Основной текст карточки.</p>
+                  </multi-slot-card>
+                `,
+      })
+      .component("multi-slot-card", {
+        template: `
+                  <div class="card">
+                    <slot name="header"></slot>
+                    <slot>По умолчанию, если ничего не пришло</slot>
+                    <slot name="footer"></slot>
+                  </div>
+                `,
+      })
+      .mount("#slots-named-demo");
+
+    // Fallback содержимое
+    Vue.createApp({
+        template: `<container-component></container-component>`,
+      })
+      .component("container-component", {
+        template: `
+                  <div style="border:2px dashed #42b983; padding:10px;">
+                    <slot>Тут пока пусто 👀</slot>
+                  </div>
+                `,
+      })
+      .mount("#slots-fallback-demo");
+
+    // Множественные слоты (ещё раз)
+    Vue.createApp({
+        template: `
+                  <multi-slot-card>
+                    <template #header>
+                      <h2>Заголовок 🌟</h2>
+                    </template>
+                    <p>Основной текст карточки.</p>
+                    <template #footer>
+                      <small>Футер</small>
+                    </template>
+                  </multi-slot-card>
+                `,
+      })
+      .component("multi-slot-card", {
+        template: `
+                  <div class="card">
+                    <slot name="header"></slot>
+                    <slot>По умолчанию, если ничего не пришло</slot>
+                    <slot name="footer"></slot>
+                  </div>
+                `,
+      })
+      .mount("#slots-multiple-demo");
+  </script>
+</body>
+
+</html>

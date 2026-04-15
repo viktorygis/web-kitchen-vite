@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "Список покупок 🛒",
+"description": "Список покупок 🛒" })
+
+
+<body>
+
+
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+
+      <section class="section">
+        <div class="container">
+          <div id="app" class="app">
+            <h2>🛍 Мой список покупок</h2>
+            <input type="text" v-model="newItem" placeholder="Введите товар..." @keyup.enter="addItem" />
+            <button @click="addItem">Добавить</button>
+
+            <ul>
+              <li v-for="(item, index) in items" :key="index">
+                {{ item }}
+                <button @click="removeItem(index)">Удалить</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="container">
+          <h2>Описание проекта</h2>
+          <p>
+            <b>Список покупок</b> — это простое веб-приложение на <b>Vue.js</b> для создания и управления списком товаров. Пользователь может быстро вносить покупки, удалять их из списка, а интерфейс мгновенно реагирует на все изменения. Код легко расширять и модифицировать под свои задачи.
+          </p>
+          <ul class="list-ul">
+            <li>Добавление товаров через поле ввода и кнопку "Добавить" (или клавишу Enter);</li>
+            <li>Удаление товаров из списка при помощи кнопки "Удалить" рядом с каждым пунктом;</li>
+            <li>Мгновенное обновление интерфейса — <b>реактивность</b> реализована благодаря возможностям Vue 3.</li>
+          </ul>
+
+          <h3>Пример кода HTML</h3>
+          <pre><code>&lt;div id="app"&gt;
+
+&lt;!-- Заголовок --&gt;
+    &lt;h2&gt;🛍 Мой список покупок&lt;/h2&gt;
+
+&lt;!-- Поле ввода и кнопка добавления --&gt;
+    &lt;input type="text" v-model="newItem" placeholder="Введите товар..." @keyup.enter="addItem" /&gt;
+
+    &lt;!-- Кнопка добавления --&gt;
+    &lt;button @click="addItem"&gt;Добавить&lt;/button&gt;
+
+&lt;!-- Список покупок --&gt;
+    &lt;ul&gt;
+    &lt;!-- Динамический вывод списка с возможностью удаления --&gt;
+        &lt;li v-for="(item, index) in items" :key="index"&gt;
+            {{ item }}
+            &lt;button @click="removeItem(index)"&gt;Удалить&lt;/button&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+
+          <h4>Описание кода</h4>
+          <ul class="list-ul">
+            <li><b>v-model="newItem"</b> — двусторонняя привязка для поля ввода нового товара;</li>
+            <li><b>@keyup.enter="addItem"</b> — добавление товара по нажатию Enter;</li>
+            <li><b>@click="addItem"</b> — добавление товара по клику на кнопку;</li>
+            <li><b>v-for="(item, index) in items"</b> — динамический вывод списка покупок;</li>
+            <li><b>@click="removeItem(index)"</b> — удаление товара по индексу при клике на кнопку "Удалить".</li>
+          </ul>
+
+          <h3>Пример кода JavaScript</h3>
+          <pre><code>const app = Vue.createApp({
+    data() {
+        return {
+            newItem: "",
+            items: [],
+        };
+    },
+    methods: {
+        addItem() {
+            if (this.newItem.trim() !== "") {
+                this.items.push(this.newItem.trim());
+                this.newItem = "";
+            }
+        },
+        removeItem(index) {
+            this.items.splice(index, 1);
+        },
+    },
+});
+app.mount("#app");</code></pre>
+          <h4>Описание кода</h4>
+          <ul class="list-ul">
+            <li><b>data()</b> — состояние приложения: введённый текст (<code>newItem</code>) и массив товаров (<code>items</code>);</li>
+            <li><b>addItem()</b> — добавляет новый товар (если поле не пустое);</li>
+            <li><b>removeItem(index)</b> — удаляет товар по индексу, вызывается кнопкой "Удалить" напротив товара;</li>
+            <li><b>@keyup.enter="addItem"</b> и <b>@click="addItem"</b> — обратчики событий для быстрого добавления товаров;</li>
+            <li><b>v-model="newItem"</b> — двусторонняя привязка с полем ввода;</li>
+            <li><b>v-for="(item, index) in items"</b> — динамический вывод списка покупок в реальном времени.</li>
+          </ul>
+          <h3>Преимущества</h3>
+          <ul>
+            <li>Проект прост для понимания, но демонстрирует самые ключевые концепции Vue;</li>
+            <li>Легко доработать: добавить сохранение списка, стили, отметки купленного и так далее;</li>
+            <li>Подходит как для самостоятельной тренировки, так и для использования на практике.</li>
+          </ul>
+
+
+        </div>
+      </section>
+    </main>
+    @@include('../partials/footer.html', {})
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Подключаем стили -->
+    <style>
+      .app body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 50px;
+      }
+
+      .app input,
+      .app button {
+        padding: 10px;
+        font-size: 16px;
+        margin: 5px;
+      }
+
+      .app button {
+        cursor: pointer;
+        border: none;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+      }
+
+      .app button:hover {
+        background-color: #0056b3;
+      }
+
+      .app ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .app li {
+        background: #f3f3f3;
+        padding: 10px;
+        margin: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .app li button {
+        background-color: red;
+      }
+
+      .app li button:hover {
+        background-color: darkred;
+      }
+
+
+    </style>
+    <script>
+      // 1️⃣ Создаём Vue-приложение
+      const app = Vue.createApp({
+        data() {
+          return {
+            newItem: "", // Поле ввода товара
+            items: [], // Массив, куда будут добавляться товары
+          };
+        },
+        methods: {
+          // 2️⃣ Метод для добавления товара
+          addItem() {
+            if (this.newItem.trim() !== "") {
+              // Проверяем, что поле не пустое
+              this.items.push(this.newItem.trim()); // Добавляем товар в список
+              this.newItem = ""; // Очищаем поле ввода
+            }
+          },
+          // Метод для удаления товара
+          removeItem(index) {
+            this.items.splice(index, 1); // Удаляем товар по индексу
+          },
+        },
+      });
+      // 3️⃣ Монтируем Vue в #app
+      app.mount("#app");
+    </script>
+</body>
+
+</html>

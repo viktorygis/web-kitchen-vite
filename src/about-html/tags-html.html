@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../partials/head.html', { "title": "Основные теги HTML", "description": "Основные теги HTML" })
+    <style>
+        .tags-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .tags-list h3 {
+            padding: 0;
+            margin: 0 0 1rem 0;
+        }
+        .tags-list h4 {
+            font-size: 1.2rem;
+        }
+
+        .tags-list--semantic .tags-list__item {
+            border: 1px solid #878787;
+            border-radius: 20px;
+            padding: 20px;
+        }
+    </style>
+    <body class="page">
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+            <main class="page__main">
+                <nav class="nav-tabs">
+                    <a href="#html-intro" class="nav-tabs__link active">Введение</a>
+                    <a href="#html-basic" class="nav-tabs__link">Базовые</a>
+                    <a href="#html-semantic" class="nav-tabs__link">Семантические</a>
+                    <a href="#html-style" class="nav-tabs__link">Стили</a>
+                    <a href="#html-formatting" class="nav-tabs__link">Форматирование</a>
+                    <a href="#html-media" class="nav-tabs__link">Мультимедия</a>
+                    <a href="#html-table" class="nav-tabs__link">Таблицы</a>
+                </nav>
+                <!-- введение -->
+                <section class="section" id="html-intro">
+                    <div class="container">
+                        <h1 class="page__title">Теги HTML</h1>
+                        <p class="note">
+                            <strong>Теги HTML</strong>
+                            — это элементы, используемые для разметки содержимого веб-страницы.
+                        </p>
+                        <ul class="list-ul">
+                            <li>
+                                Теги HTML представляют собой команды, заключенные в угловые скобки, которые сообщают браузеру, как отображать содержимое.
+                                <br />
+                                Например, тег
+                                <code>&lt;p&gt;</code>
+                                используется для создания параграфов текста.
+                            </li>
+                            <li>
+                                Теги могут быть одиночными, как
+                                <code>&lt;br&gt;</code>
+                                (перенос строки), или парными, как
+                                <code>&lt;div&gt;&lt;/div&gt;</code>
+                                (блоковый элемент).
+                            </li>
+                        </ul>
+
+                        <div class="note note--info">
+                            <strong>Теги HTML могут быть разделены на несколько категорий:</strong>
+                            <br />
+                            <b>
+                                - базовые теги,
+                                <br />
+                                - семантические теги,
+                                <br />
+                                - теги стилей
+                                <br />
+                                - теги форматирования текста.
+                            </b>
+                            <br />
+                            Каждая категория имеет свои особенности и предназначение.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Основные теги HTML -->
+                <section class="section" id="html-basic">
+                    <div class="container">
+                        <h2 class="section__title">Базовые теги HTML</h2>
+                        <p class="note">
+                            <strong>Базовые теги HTML</strong>
+                            — это строительные блоки веб-страницы.
+                        </p>
+                        <p>Виды базовых тегов:</p>
+                        <ul class="list-ul">
+                            <li>
+                                Структурные теги:
+                                <code>&lt;html&gt;</code>
+                                ,
+                                <code>&lt;head&gt;</code>
+                                ,
+                                <code>&lt;body&gt;</code>
+                            </li>
+                            <li>
+                                Теги для текста:
+                                <code>&lt;p&gt;</code>
+                                ,
+                                <code>&lt;h1&gt;–&lt;h6&gt;</code>
+                                ,
+                                <code>&lt;blockquote&gt;</code>
+                            </li>
+                            <li>
+                                Теги для списков:
+                                <code>&lt;ul&gt;</code>
+                                ,
+                                <code>&lt;ol&gt;</code>
+                                ,
+                                <code>&lt;li&gt;</code>
+                            </li>
+                            <li>
+                                Теги для ссылок и медиа:
+                                <code>&lt;a&gt;</code>
+                                ,
+                                <code>&lt;img&gt;</code>
+                                ,
+                                <code>&lt;video&gt;</code>
+                            </li>
+                        </ul>
+                        <h4>Пример базового HTML-документа:</h4>
+                        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ru"&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+        &lt;title&gt;Пример документа&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Заголовок первого уровня&lt;/h1&gt;
+        &lt;p&gt;Параграф текста.&lt;/p&gt;
+        &lt;ul&gt;
+            &lt;li&gt;Элемент списка&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                    </div>
+                </section>
+
+                <!-- Семантические теги -->
+                <section class="section" id="html-semantic">
+                    <div class="container">
+                        <h2 class="section__subtitle">Семантические теги</h2>
+                        <p class="section__desc">Главные теги для структуры HTML-документа.</p>
+                        <p class="note">
+                            <strong>Семантические теги HTML</strong>
+                            — это теги, которые имеют четкое значение и предназначение.
+                        </p>
+                        <p>Виды семантических тегов:</p>
+                        <ul class="list-ul">
+                            <li>
+                                <code>&lt;header&gt;</code>
+                                — шапка страницы или раздела.
+                            </li>
+                            <li>
+                                <code>&lt;nav&gt;</code>
+                                — навигация сайта.
+                            </li>
+                            <li>
+                                <code>&lt;main&gt;</code>
+                                — основной контент (один на странице).
+                            </li>
+                            <li>
+                                <code>&lt;section&gt;</code>
+                                — логический раздел, обычно с заголовком.
+                            </li>
+                            <li>
+                                <code>&lt;article&gt;</code>
+                                — самостоятельная публикация.
+                            </li>
+                            <li>
+                                <code>&lt;footer&gt;</code>
+                                — подвал страницы или раздела.
+                            </li>
+                        </ul>
+                        <h4>Пример семантических HTML-документа:</h4>
+
+                        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ru"&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+        &lt;title&gt;Пример семантического документа&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;header&gt;
+            &lt;h1&gt;Заголовок первого уровня&lt;/h1&gt;
+        &lt;/header&gt;
+        &lt;nav&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="#html-basics"&gt;Основы HTML&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#html-semantic"&gt;Семантические теги&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#html-style"&gt;Теги стилей&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+        &lt;main&gt;
+            &lt;section id="html-basics"&gt;
+                &lt;h2&gt;Основы HTML&lt;/h2&gt;
+                &lt;p&gt;Введение в HTML и его структуру.&lt;/p&gt;
+            &lt;/section&gt;
+            &lt;section id="html-semantic"&gt;
+                &lt;h2&gt;Семантические теги&lt;/h2&gt;
+                &lt;p&gt;Описание семантических тегов и их использование.&lt;/p&gt;
+            &lt;/section&gt;
+            &lt;section id="html-style"&gt;
+                &lt;h2&gt;Теги стилей&lt;/h2&gt;
+                &lt;p&gt;Как подключать CSS-стили к HTML-документу.&lt;/p&gt;
+            &lt;/section&gt;
+        &lt;/main&gt;
+        &lt;footer&gt;
+            &lt;p&gt;© 2023 Пример документа&lt;/p&gt;
+        &lt;/footer&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                    </div>
+                </section>
+
+                <!-- Теги стилей -->
+                <section class="section" id="html-style">
+                    <div class="container">
+                        <h2 class="section__subtitle">Теги стилей</h2>
+                        <p class="note">
+                            <strong>Теги стилей HTML</strong>
+                            — это теги, которые используются для определения стилей и оформления элементов на веб-странице.
+                        </p>
+                        <p>Виды тегов стилей:</p>
+                        <ul class="list-ul">
+                            <li class="list-ul__item">
+                                <code>&lt;style&gt;</code>
+                                — встроенные стили в HTML.
+                            </li>
+                            <li class="list-ul__item">
+                                <code>&lt;link&gt;</code>
+                                — подключение внешних CSS-файлов.
+                            </li>
+                        </ul>
+                        <h4>Пример тегов стилей- подключение внешних CSS-файлов:</h4>
+                        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ru"&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+        &lt;title&gt;Пример семантического документа&lt;/title&gt;
+        &lt;link rel="stylesheet" href="styles.css"&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                        <h4>Пример тегов стилей- встроенные стили в HTML:</h4>
+                        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ru"&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+        &lt;title&gt;Пример семантического документа&lt;/title&gt;
+        &lt;style&gt;
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+            }
+            h1 {
+                color: #333;
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                    </div>
+                </section>
+
+                <!-- Теги форматирования текста -->
+                <section class="section" id="html-formatting">
+                    <div class="container">
+                        <h2 class="section__subtitle">Теги форматирования</h2>
+                        <p class="note">
+                            <strong>Теги форматирования HTML</strong>
+                            — это теги, которые используются для изменения внешнего вида текста на веб-странице.
+                        </p>
+                        <h4>Виды тегов форматирования:</h4>
+                        <table class="table-note">
+                            <thead>
+                                <tr>
+                                    <th>Тег</th>
+                                    <th>Описание</th>
+                                    <th>Код</th>
+                                    <th>Пример</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><b>&lt;b&gt;</b></td>
+                                    <td>жирный текст</td>
+                                    <td>&lt;b&gt;Этот текст жирный&lt;/b&gt;</td>
+                                    <td><b>Этот текст жирный</b></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;strong&gt;</b></td>
+                                    <td>важный текст</td>
+                                    <td>&lt;strong&gt;Важный текст&lt;/strong&gt;</td>
+                                    <td><strong>Важный текст</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;i&gt;</b></td>
+                                    <td>курсив</td>
+                                    <td>&lt;i&gt;Текст курсивом&lt;/i&gt;</td>
+                                    <td><i>Текст курсивом</i></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;em&gt;</b></td>
+                                    <td>смысловой акцент</td>
+                                    <td>&lt;em&gt;Акцентированный текст&lt;/em&gt;</td>
+                                    <td><em>Акцентированный текст</em></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;small&gt;</b></td>
+                                    <td>мелкий текст</td>
+                                    <td>&lt;small&gt;Мелкий текст&lt;/small&gt;</td>
+                                    <td><small>Мелкий текст</small></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;mark&gt;</b></td>
+                                    <td>выделенный текст</td>
+                                    <td>&lt;mark&gt;Выделенный текст&lt;/mark&gt;</td>
+                                    <td><mark>Выделенный текст</mark></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;del&gt;</b></td>
+                                    <td>удалённый текст</td>
+                                    <td>&lt;del&gt;Удалённый текст&lt;/del&gt;</td>
+                                    <td><del>Удалённый текст</del></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;ins&gt;</b></td>
+                                    <td>вставленный текст</td>
+                                    <td>&lt;ins&gt;Вставленный текст&lt;/ins&gt;</td>
+                                    <td><ins>Вставленный текст</ins></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;sub&gt;</b></td>
+                                    <td>нижний индекс</td>
+                                    <td>H&lt;sub&gt;2&lt;/sub&gt;O</td>
+                                    <td>
+                                        H
+                                        <sub>2</sub>
+                                        O
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;sup&gt;</b></td>
+                                    <td>верхний индекс</td>
+                                    <td>X&lt;sup&gt;2&lt;/sup&gt;</td>
+                                    <td>
+                                        X
+                                        <sup>2</sup>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;u&gt;</b></td>
+                                    <td>подчёркнутый текст</td>
+                                    <td>&lt;u&gt;Подчёркнутый текст&lt;/u&gt;</td>
+                                    <td><u>Подчёркнутый текст</u></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;br&gt;</b></td>
+                                    <td>перенос строки</td>
+                                    <td>Текст&lt;br&gt;с новой строки</td>
+                                    <td>
+                                        Текст
+                                        <br />
+                                        с новой строки
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;code&gt;</b></td>
+                                    <td>код/команда</td>
+                                    <td>&lt;code&gt;print('Hello, world!')&lt;/code&gt;</td>
+                                    <td><code>print('Hello, world!')</code></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;pre&gt;</b></td>
+                                    <td>предварительно форматированный текст</td>
+                                    <td>
+                                        &lt;pre&gt;Это текст
+                                        <br />
+                                        с пробелами и
+                                        <br />
+                                        переносами строк.&lt;/pre&gt;
+                                    </td>
+                                    <td>
+                                        <pre>
+Это   текст
+с пробелами и
+переносами строк.</pre
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;blockquote&gt;</b></td>
+                                    <td>цитата</td>
+                                    <td>&lt;blockquote&gt;Это цитата&lt;/blockquote&gt;</td>
+                                    <td><blockquote>Это цитата</blockquote></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;abbr&gt;</b></td>
+                                    <td>аббревиатура с пояснением</td>
+                                    <td>&lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt;</td>
+                                    <td><abbr title="HyperText Markup Language">HTML</abbr></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;cite&gt;</b></td>
+                                    <td>ссылка на источник</td>
+                                    <td>&lt;cite&gt;Война и мир&lt;/cite&gt;</td>
+                                    <td><cite>Война и мир</cite></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;q&gt;</b></td>
+                                    <td>короткая цитата</td>
+                                    <td>&lt;q&gt;Короткая цитата&lt;/q&gt;</td>
+                                    <td><q>Короткая цитата</q></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;s&gt;</b></td>
+                                    <td>зачёркнутый текст (устаревший)</td>
+                                    <td>&lt;s&gt;Устаревший текст&lt;/s&gt;</td>
+                                    <td><s>Устаревший текст</s></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;dfn&gt;</b></td>
+                                    <td>определение термина</td>
+                                    <td>&lt;dfn&gt;Термин&lt;/dfn&gt;</td>
+                                    <td><dfn>Термин</dfn></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;kbd&gt;</b></td>
+                                    <td>ввод с клавиатуры</td>
+                                    <td>&lt;kbd&gt;Ctrl + C&lt;/kbd&gt;</td>
+                                    <td><kbd>Ctrl + C</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;samp&gt;</b></td>
+                                    <td>вывод программы</td>
+                                    <td>&lt;samp&gt;Ошибка: файл не найден&lt;/samp&gt;</td>
+                                    <td><samp>Ошибка: файл не найден</samp></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;var&gt;</b></td>
+                                    <td>переменная в коде</td>
+                                    <td>&lt;var&gt;x&lt;/var&gt;</td>
+                                    <td><var>x</var></td>
+                                </tr>
+                                <tr>
+                                    <td><b>&lt;bdo&gt;</b></td>
+                                    <td>направление текста</td>
+                                    <td>&lt;bdo dir="rtl"&gt;Текст справа налево&lt;/bdo&gt;</td>
+                                    <td><bdo dir="rtl">Текст справа налево</bdo></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Мультимедийные теги -->
+                <section class="section" id="html-media">
+                    <div class="container">
+                        <h2 class="section__subtitle">Мультимедийные теги</h2>
+                        <p class="note">
+                            <strong>Теги мультимедийные HTML</strong>
+                            — это теги, которые используются для добавления медиа-контента на веб-страницу.
+                        </p>
+                        <h4>Виды мультимедийных тегов:</h4>
+                        <ul class="list-ul">
+                            <li>
+                                <code>&lt;video&gt;</code>
+                                — для вставки видео.
+                            </li>
+                            <li>
+                                <code>&lt;audio&gt;</code>
+                                — для вставки аудио.
+                            </li>
+                            <li>
+                                <code>&lt;img&gt;</code>
+                                — для вставки изображений.
+                            </li>
+                            <li>
+                                <code>&lt;iframe&gt;</code>
+                                — для встраивания других веб-страниц.
+                            </li>
+                            <li>
+                                <code>&lt;object&gt;</code>
+                                — для вставки объектов, таких как Flash или PDF.
+                            </li>
+                            <li>
+                                <code>&lt;embed&gt;</code>
+                                — для встраивания медиа-контента.
+                            </li>
+                            <li>
+                                <code>&lt;canvas&gt;</code>
+                                — для рисования графики с помощью JavaScript.
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Сводная таблица тегов -->
+                <section class="section" id="html-table">
+                    <div class="container">
+                        <h2 class="section__subtitle">Сводная таблица тегов</h2>
+                        <table class="table-note table-note--all">
+                            <thead>
+                                <tr>
+                                    <th colspan="5" style="background: #7d7d7d; text-align: center">Базовые теги</th>
+                                </tr>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Категория</th>
+                                    <th>Код</th>
+                                    <th>Пример</th>
+                                    <th>Происхождение</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>&lt;html&gt;</td>
+                                    <td>Корневой</td>
+                                    <td>&lt;html lang="ru"&gt;&lt;/html&gt;</td>
+                                    <td>—</td>
+                                    <td>—</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;head&gt;</td>
+                                    <td>Метаданные</td>
+                                    <td>&lt;head&gt;...&lt;/head&gt;</td>
+                                    <td>—</td>
+                                    <td>—</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;meta&gt;</td>
+                                    <td>Метаданные</td>
+                                    <td>&lt;meta charset="UTF-8"&gt;</td>
+                                    <td>—</td>
+                                    <td>—</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;link&gt;</td>
+                                    <td>Ресурсы</td>
+                                    <td>&lt;link rel="stylesheet" href="styles.css"&gt;</td>
+                                    <td>—</td>
+                                    <td>—</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;title&gt;</td>
+                                    <td>Метаданные</td>
+                                    <td>&lt;title&gt;Текст заголовка&lt;/title&gt;</td>
+                                    <td>—</td>
+                                    <td>—</td>
+                                </tr>
+                            </tbody>
+                            <thead>
+                                <tr>
+                                    <th colspan="5" style="background: #7d7d7d; text-align: center">Семантические теги</th>
+                                </tr>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Категория</th>
+                                    <th>Код</th>
+                                    <th>Пример</th>
+                                    <th>Происхождение</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>&lt;header&gt;</td>
+                                    <td>Семантика</td>
+                                    <td>&lt;header&gt;&lt;/header&gt;</td>
+                                    <td>—</td>
+                                    <td>—</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;nav&gt;</td>
+                                    <td>Семантика</td>
+                                    <td>&lt;nav&gt;&lt;/nav&gt;</td>
+                                    <td>—</td>
+                                    <td>—</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;main&gt;</td>
+                                    <td>Семантика</td>
+                                    <td>&lt;main&gt;&lt;/main&gt;</td>
+                                    <td>—</td>
+                                    <td>—</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;footer&gt;</td>
+                                    <td>Семантика</td>
+                                    <td>&lt;footer&gt;&lt;/footer&gt;</td>
+                                    <td>—</td>
+                                    <td>—</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;article&gt;</td>
+                                    <td>Семантика</td>
+                                    <td>&lt;article&gt;&lt;/article&gt;</td>
+                                    <td>—</td>
+                                    <td>—</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;section&gt;</td>
+                                    <td>Семантика</td>
+                                    <td>&lt;section&gt;&lt;/section&gt;</td>
+                                    <td>—</td>
+                                    <td>—</td>
+                                </tr>
+                            </tbody>
+                            <thead>
+                                <tr>
+                                    <th colspan="5" style="background: #7d7d7d; text-align: center">Теги стилей</th>
+                                </tr>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Категория</th>
+                                    <th>Код</th>
+                                    <th>Пример</th>
+                                    <th>Происхождение</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>&lt;b&gt;</td>
+                                    <td>Стиль</td>
+                                    <td>&lt;b&gt;Этот текст жирный&lt;/b&gt;</td>
+                                    <td><b>Этот текст жирный</b></td>
+                                    <td>—</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;i&gt;</td>
+                                    <td>Стиль</td>
+                                    <td>&lt;i&gt;Этот текст курсивный&lt;/i&gt;</td>
+                                    <td><i>Этот текст курсивный</i></td>
+                                    <td>—</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;small&gt;</td>
+                                    <td>Стиль</td>
+                                    <td>&lt;small&gt;Этот текст меньше обычного&lt;/small&gt;</td>
+                                    <td><small>Этот текст меньше обычного</small></td>
+                                    <td>—</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;sub&gt;</td>
+                                    <td>Стиль</td>
+                                    <td>H&lt;sub&gt;2&lt;/sub&gt;O</td>
+                                    <td>
+                                        H
+                                        <sub>2</sub>
+                                        O
+                                    </td>
+                                    <td>от слова "subscript"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;sup&gt;</td>
+                                    <td>Стиль</td>
+                                    <td>x&lt;sup&gt;2&lt;/sup&gt;</td>
+                                    <td>
+                                        x
+                                        <sup>2</sup>
+                                    </td>
+                                    <td>от слова "superscript"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;del&gt;</td>
+                                    <td>Стиль</td>
+                                    <td>&lt;del&gt;Этот текст удалённый&lt;/del&gt;</td>
+                                    <td><del>Этот текст удалённый</del></td>
+                                    <td>от слова "delete"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;ins&gt;</td>
+                                    <td>Стиль</td>
+                                    <td>&lt;ins&gt;Этот текст вставленный&lt;/ins&gt;</td>
+                                    <td><ins>Этот текст вставленный</ins></td>
+                                    <td>от слова "insert"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;mark&gt;</td>
+                                    <td>Стиль</td>
+                                    <td>&lt;mark&gt;Этот текст выделенный&lt;/mark&gt;</td>
+                                    <td><mark>Этот текст выделенный</mark></td>
+                                    <td>от слова "highlight"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;u&gt;</td>
+                                    <td>Стиль</td>
+                                    <td>&lt;u&gt;Этот текст подчеркнутый&lt;/u&gt;</td>
+                                    <td><u>Этот текст подчеркнутый</u></td>
+                                    <td>от слова "underline"</td>
+                                </tr>
+                            </tbody>
+                            <thead>
+                                <tr>
+                                    <th colspan="5" style="background: #7d7d7d; text-align: center">Теги форматирования</th>
+                                </tr>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Категория</th>
+                                    <th>Код</th>
+                                    <th>Пример</th>
+                                    <th>Происхождение</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>&lt;strong&gt;</td>
+                                    <td>Семантический стиль</td>
+                                    <td>&lt;strong&gt;Этот текст важный&lt;/strong&gt;</td>
+                                    <td><strong>Этот текст важный</strong></td>
+                                    <td>от слова "strong"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;em&gt;</td>
+                                    <td>Семантический стиль</td>
+                                    <td>&lt;em&gt;Этот текст акцентируемый&lt;/em&gt;</td>
+                                    <td><em>Этот текст акцентируемый</em></td>
+                                    <td>от слова "emphasis"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;br&gt;</td>
+                                    <td>Структурный</td>
+                                    <td>&lt;br&gt;</td>
+                                    <td>
+                                        Первая строка.
+                                        <br />
+                                        Вторая строка.
+                                    </td>
+                                    <td>—</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;pre&gt;</td>
+                                    <td>Форматирование</td>
+                                    <td>
+                                        &lt;pre&gt;Многострочный
+                                        <br />
+                                        текст&lt;/pre&gt;
+                                    </td>
+                                    <td>
+                                        <pre>
+Многострочный
+текст</pre
+                                        >
+                                    </td>
+                                    <td>от слова "preformatted"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;code&gt;</td>
+                                    <td>Форматирование</td>
+                                    <td>&lt;code&gt;print('Hello')&lt;/code&gt;</td>
+                                    <td><code>print('Hello')</code></td>
+                                    <td>от слова "code"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;blockquote&gt;</td>
+                                    <td>Форматирование</td>
+                                    <td>&lt;blockquote&gt;Цитата&lt;/blockquote&gt;</td>
+                                    <td><blockquote>Цитата</blockquote></td>
+                                    <td>от слова "block quote"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;q&gt;</td>
+                                    <td>Форматирование</td>
+                                    <td>&lt;q&gt;Короткая цитата&lt;/q&gt;</td>
+                                    <td><q>Короткая цитата</q></td>
+                                    <td>от слова "quote"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;abbr&gt;</td>
+                                    <td>Форматирование</td>
+                                    <td>&lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt;</td>
+                                    <td><abbr title="HyperText Markup Language">HTML</abbr></td>
+                                    <td>от слова "abbreviation"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;cite&gt;</td>
+                                    <td>Форматирование</td>
+                                    <td>&lt;cite&gt;Война и мир&lt;/cite&gt;</td>
+                                    <td><cite>Война и мир</cite></td>
+                                    <td>от слова "citation"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;s&gt;</td>
+                                    <td>Форматирование</td>
+                                    <td>&lt;s&gt;Устаревший текст&lt;/s&gt;</td>
+                                    <td><s>Устаревший текст</s></td>
+                                    <td>от слова "strike"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;dfn&gt;</td>
+                                    <td>Форматирование</td>
+                                    <td>&lt;dfn&gt;Термин&lt;/dfn&gt;</td>
+                                    <td><dfn>Термин</dfn></td>
+                                    <td>от слова "definition"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;kbd&gt;</td>
+                                    <td>Форматирование</td>
+                                    <td>&lt;kbd&gt;Ctrl + C&lt;/kbd&gt;</td>
+                                    <td><kbd>Ctrl + C</kbd></td>
+                                    <td>от слова "keyboard"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;samp&gt;</td>
+                                    <td>Форматирование</td>
+                                    <td>&lt;samp&gt;Ошибка: файл не найден&lt;/samp&gt;</td>
+                                    <td><samp>Ошибка: файл не найден</samp></td>
+                                    <td>от слова "sample"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;var&gt;</td>
+                                    <td>Форматирование</td>
+                                    <td>&lt;var&gt;x&lt;/var&gt;</td>
+                                    <td><var>x</var></td>
+                                    <td>от слова "variable"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;bdo&gt;</td>
+                                    <td>Форматирование</td>
+                                    <td>&lt;bdo dir="rtl"&gt;Текст справа налево&lt;/bdo&gt;</td>
+                                    <td><bdo dir="rtl">Текст справа налево</bdo></td>
+                                    <td>от слова "bidirectional override"</td>
+                                </tr>
+                            </tbody>
+                            <thead>
+                                <tr>
+                                    <th colspan="5" style="background: #7d7d7d; text-align: center">Мультимедийные теги</th>
+                                </tr>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Категория</th>
+                                    <th>Код</th>
+                                    <th>Пример</th>
+                                    <th>Происхождение</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>&lt;video&gt;</td>
+                                    <td>Медиа</td>
+                                    <td>&lt;video src="movie.mp4" controls&gt;&lt;/video&gt;</td>
+                                    <td>—</td>
+                                    <td>—</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;audio&gt;</td>
+                                    <td>Медиа</td>
+                                    <td>&lt;audio src="sound.mp3" controls&gt;&lt;/audio&gt;</td>
+                                    <td>—</td>
+                                    <td>—</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;img&gt;</td>
+                                    <td>Медиа</td>
+                                    <td>&lt;img src="image.jpg" alt="Описание"&gt;</td>
+                                    <td>—</td>
+                                    <td>от слова "image"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;picture&gt;</td>
+                                    <td>Медиа</td>
+                                    <td>&lt;picture&gt;&lt;img src="image.jpg" alt="Описание"&gt;&lt;/picture&gt;</td>
+                                    <td>—</td>
+                                    <td>от слова "picture"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;source&gt;</td>
+                                    <td>Медиа</td>
+                                    <td>&lt;source src="image.webp" type="image/webp"&gt;</td>
+                                    <td>—</td>
+                                    <td>от слова "source"</td>
+                                </tr>
+                                <tr>
+                                    <td>&lt;iframe&gt;</td>
+                                    <td>Медиа</td>
+                                    <td>&lt;iframe src="site.html"&gt;&lt;/iframe&gt;</td>
+                                    <td>—</td>
+                                    <td>от слова "inline frame"</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+            @@include('../partials/footer.html', {})
+        </div>
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+    </body>
+</html>

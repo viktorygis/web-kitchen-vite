@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "Маршрутизация во Vue: теория, примеры, обработка 404 и редиректы", "description": "Полное руководство по роутингу во Vue. Структура, навигация, редиректы, обработка ошибок, best practices." })
+
+<head>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://unpkg.com/vue-router@4/dist/vue-router.global.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="#intro">Введение</a>
+        <a href="#structure">Структура роутера</a>
+        <a href="#navigation">Навигация</a>
+        <a href="#redirects">Редиректы и 404</a>
+        <a href="#routerlink-features">Сценарии переходов</a>
+        <a href="#bestpractices">Лучшие практики</a>
+        <a href="#example">Пример</a>
+        <a href="#practice">Практика</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="intro">
+        <div class="container">
+          <h1>Маршрутизация во Vue</h1>
+          <p class="note">
+            <strong>Маршрутизация во Vue.js</strong>
+            — это процесс управления навигацией между различными страницами или компонентами в приложении на Vue.js с использованием библиотеки Vue Router.
+            <br>
+            <strong>Vue Router</strong>
+            — стандартный инструмент для создания одностраничных и многостраничных приложений без перезагрузки.
+          </p>
+          <h4>Зачем нужен Vue Router?</h4>
+          <ul class="list-ul">
+            <li>Создание SPA (Single Page Application).</li>
+            <li>Управление переходами между страницами без перезагрузки.</li>
+            <li>Гибкая настройка маршрутов, редиректов и обработки ошибок.</li>
+            <li>Работа с динамическими маршрутами и параметрами.</li>
+            <li>Поддержка вложенных маршрутов для сложных интерфейсов.</li>
+            <li>Интеграция с Vuex и другими библиотеками для управления состоянием.</li>
+            <li>Обеспечение плавного пользовательского опыта с помощью переходов и анимаций.</li>
+          </ul>
+          <h4>Основные возможности Vue Router:</h4>
+          <ul class="list-ul">
+            <li>Определение маршрутов и их компонентов.</li>
+            <li>Навигация с помощью &lt;router-link&gt; и программно через $router.</li>
+            <li>Динамические маршруты с параметрами.</li>
+            <li>Вложенные маршруты для создания сложных интерфейсов.</li>
+            <li>Редиректы и обработка 404 ошибок.</li>
+            <li>Навигационные охранники (guards) для контроля доступа к маршрутам.</li>
+            <li>Поддержка истории браузера и хеш-маршрутизации.</li>
+          </ul>
+
+        </div>
+      </section>
+
+      <!-- Структура роутера -->
+      <section class="section" id="structure">
+        <div class="container">
+          <h2>Структура роутера в проекте</h2>
+          <p class="note">
+            <strong>Структура роутера</strong>
+            в проекте на Vue.js с использованием Vue Router обычно включает в себя несколько ключевых файлов и папок, которые организуют маршруты и компоненты приложения.
+          </p>
+          <ul class="list-ul">
+            <li>
+              <b>
+                Маршруты выносите в отдельный файл
+                <code>src/router.js</code>
+              </b>
+            </li>
+            <li>
+              <b>
+                Страницы размещайте в
+                <code>views/</code>
+              </b>
+              — каждый маршрут связан с отдельным компонентом.
+            </li>
+            <li>
+              <b>Используйте осмысленные и человекочитаемые пути:</b>
+              <code>/about</code>
+              ,
+              <code>/profile</code>
+              ,
+              <code>/contacts</code>
+              и т.д.
+            </li>
+          </ul>
+
+          <h4>Пример структуры проекта:</h4>
+          <div class="code-block">
+            <pre><code>📂 src/
+ ├── 📂 components/
+ ├── 📂 views/
+ │    ├── Home.vue
+ │    ├── About.vue
+ │    ├── Contacts.vue
+ │    ├── NotFound.vue
+ │    ├── Dashboard.vue
+ ├── router.js
+ ├── App.vue
+ ├── main.js
+</code></pre>
+          </div>
+          <h5>Основные файлы роутера:</h5>
+          <p>
+            <b>router.js</b>
+            — здесь описываются все маршруты и их компоненты.
+            <br />
+            <b>views/</b>
+            — содержат компоненты-страницы для переходов.
+          </p>
+        </div>
+      </section>
+
+      <!-- Навигация -->
+      <section class="section" id="navigation">
+        <div class="container">
+          <h2>Навигация между страницами</h2>
+          <p class="note">
+            <strong>Навигация между страницами</strong> - ключевая функция Vue Router, позволяющая пользователям перемещаться по различным частям вашего приложения без перезагрузки страницы. Это обеспечивает плавный и быстрый пользовательский опыт.
+            <br>
+            Навигация осуществляется с помощью компонента <code>&lt;router-link&gt;</code> и программно через методы роутера.</p>
+
+          <h4>Пример: использование &lt;router-link&gt; для навигации</h4>
+          <div class="code-block">
+            <pre><code>&lt;router-link to="/"&gt;Главная&lt;/router-link&gt;
+&lt;router-link to="/about"&gt;О нас&lt;/router-link&gt;
+&lt;router-link to="/contacts"&gt;Контакты&lt;/router-link&gt;
+</code></pre>
+            <button class="copy-btn">Скопировать</button>
+          </div>
+          <h5>Что происходит в коде:</h5>
+          <p>
+            Каждый
+            <code>&lt;router-link&gt;</code>
+            создаёт ссылку на указанный маршрут. При клике на ссылку Vue Router обновляет URL и отображает соответствующий компонент в
+            <code>&lt;router-view&gt;</code>
+            без перезагрузки страницы.
+
+          </p>
+
+
+          <p class="note note--info">
+            <strong>&lt;router-view&gt;</strong>
+            — это контейнер, в котором отображается компонент, соответствующий текущему маршруту.
+            <br>
+            <strong>&lt;router-link&gt;</strong>
+            — это компонент для создания ссылок на маршруты.
+
+          </p>
+          <h4>Пример использования в App.vue:</h4>
+          <div class="code-block">
+            <pre><code>&lt;template&gt;
+  &lt;div&gt;
+    &lt;nav&gt;
+      &lt;router-link to="/"&gt;Главная&lt;/router-link&gt;
+      &lt;router-link to="/about"&gt;О нас&lt;/router-link&gt;
+      &lt;router-link to="/contacts"&gt;Контакты&lt;/router-link&gt;
+    &lt;/nav&gt;
+    &lt;router-view&gt;&lt;/router-view&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+            <button class="copy-btn">Скопировать</button>
+          </div>
+
+          <h5>Что происходит в коде:</h5>
+          <p>
+            В этом примере
+            <code>&lt;router-link&gt;</code>
+            создаёт навигационные ссылки, а
+            <code>&lt;router-view&gt;</code>
+            отображает соответствующий компонент в зависимости от текущего маршрута.
+          </p>
+          <p class="note note--info">
+            Использование
+            <code>&lt;router-link&gt;</code>
+            и
+            <code>&lt;router-view&gt;</code>
+            обеспечивает плавную навигацию в вашем приложении Vue.js без перезагрузки страницы.
+          </p>
+        </div>
+      </section>
+
+      <!-- Редиректы и 404 -->
+      <section class="section" id="redirects">
+        <div class="container">
+          <h2>Редиректы и обработка 404</h2>
+
+          <p class="note">
+            <strong>Редиректы и обработка
+              несуществующих маршрутов </strong>— важные аспекты навигации в веб-приложениях. Они помогают направлять пользователей к нужному контенту и обеспечивают хороший пользовательский опыт.
+          </p>
+          <h4>Для чего нужно:</h4>
+          <ul class="list-ul">
+            <li>Перенаправление с устаревших URL на новые.</li>
+            <li>Обработка ошибок при вводе неправильного адреса.</li>
+            <li>Улучшение навигации и пользовательского опыта.</li>
+          </ul>
+
+          <h3>Редиректы:</h3>
+          <p class="note note--info">
+            <strong>Редирект</strong>
+            автоматически перенаправляет пользователя с одного URL на другой. Это полезно, если вы хотите изменить структуру URL или направить пользователей на главную страницу.
+          </p>
+          <h4>Виды редиректов:</h4>
+          <ul class="list-ul">
+            <li>
+              <b>Прямой редирект:</b>
+              перенаправляет с одного пути на другой.
+              <br />
+              <code>{ path: '/', redirect: '/dashboard' }</code>
+            </li>
+            <li>
+              <b>Редирект с параметрами:</b>
+              сохраняет параметры при перенаправлении.
+              <br />
+              <code>{ path: '/user/:id', redirect: to =&gt; `/profile/${to.params.id}` }</code>
+            </li>
+          </ul>
+          <h3>Обработка 404:</h3>
+          <p class="note note--info">
+            <strong>Обработка 404</strong>
+            позволяет показывать пользователю специальную страницу, если он пытается перейти на несуществующий маршрут. Это улучшает пользовательский опыт и помогает избежать путаницы.
+          </p>
+          <h4>Как настроить:</h4>
+          <p>Добавьте маршрут с path, который ловит все неизвестные адреса:</p>
+          <pre><code>{ path: '/:pathMatch(.*)*', component: NotFound }</code></pre>
+          <p>
+            Здесь
+            <code>NotFound</code>
+            — это компонент, отображающий сообщение об ошибке 404.
+          </p>
+          <h3>Пример настройки редиректов и 404:</h3>
+
+          <div class="code-block">
+            <pre><code>//NotFound — компонент для страницы 404
+import NotFound from '@/views/NotFound.vue';
+
+const routes = [
+  //Dashboard, About, Contacts — ваши компоненты-страницы
+  { path: '/', redirect: '/dashboard' },
+  { path: '/dashboard', component: Dashboard },
+  { path: '/about', component: About },
+  { path: '/contacts', component: Contacts },
+
+  //Обработка 404 — ловит все неизвестные пути
+  { path: '/:pathMatch(.*)*', component: NotFound }
+];</code></pre>
+          </div>
+          <h5>Что происходит в коде:</h5>
+
+          <ul class="list-ul">
+            <li>Редирект с главной страницы на <b>/dashboard</b>.</li>
+            <li>Определены маршруты для <b>Dashboard</b>, <b>About</b> и <b></b>Contacts</b>.</li>
+            <li>Добавлен маршрут для обработки <b>404</b>, который отображает компонент <b>NotFound</b> для всех неизвестных путей.</li>
+          </ul>
+
+
+
+
+          <p class="note note--info">
+            <b>Важно:</b>
+            Всегда ставьте маршрут 404 в конец списка маршрутов, чтобы он не перехватывал другие пути.
+          </p>
+        </div>
+      </section>
+
+      <!-- Переходы между страницами: основные сценарии с <router-link> -->
+      <section class="section" id="routerlink-features">
+        <div class="container">
+          <h2>Переходы между страницами: основные сценарии с &lt;router-link&gt;</h2>
+          <p class="note">
+            <strong>Основные сценарии навигации</strong>
+            — это ключевые способы использования компонента &lt;router-link&gt; для навигации в приложениях на Vue.js с Vue Router. Они охватывают различные ситуации, с которыми могут столкнуться разработчики при создании маршрутов и ссылок в своих приложениях.
+          </p>
+          <h3>Основные сценарии навигации:</h3>
+          <ul class="list-ul">
+            <li>Создавать навигацию с &lt;router-link&gt;</li>
+            <li>Работать с динамическими ссылками</li>
+            <li>Открывать страницы в новой вкладке</li>
+            <li>Превращать кнопки в навигационные элементы</li>
+          </ul>
+
+          <div class="example">
+            <h3>Создавать навигацию с &lt;router-link&gt;</h3>
+
+            <p class="note">
+              Используйте компонент
+              <code>&lt;router-link&gt;</code>
+              для создания ссылок на маршруты в вашем приложении Vue. Это позволяет пользователям переходить между страницами без перезагрузки.
+            </p>
+            <div class="code-block">
+              <pre><code>&lt;router-link to="/"&gt;Главная&lt;/router-link&gt;
+&lt;router-link to="/about"&gt;О нас&lt;/router-link&gt;
+&lt;router-link to="/contacts"&gt;Контакты&lt;/router-link&gt;	</code></pre>
+            </div>
+            <p class="note note--info">
+              <code>&lt;router-link&gt;</code>
+              автоматически обрабатывает навигацию и обновляет URL без перезагрузки страницы. Это обеспечивает плавный пользовательский опыт в одностраничных приложениях (SPA).
+            </p>
+          </div>
+
+          <div class="example">
+            <h3>Работать с динамическими ссылками</h3>
+            <p class="note">Иногда необходимо передавать параметры в маршруты. Например, для отображения профиля пользователя по его ID:</p>
+
+            <div class="code-block">
+              <pre><code>&lt;router-link :to="profilePath"&gt;Профиль&lt;/router-link&gt;
+...
+&lt;script&gt;
+export default {
+  data() {
+    return {
+      profilePath: "/profile"
+    }
+  }
+}
+&lt;/script&gt;
+</code></pre>
+            </div>
+            <p class="note note--info">
+              Используйте
+              <code>:to</code>
+              с переменной или вычисляемым свойством. Ссылка будет автоматически обновляться, если
+              <code>profilePath</code>
+              изменится.
+              <br />
+
+              Это удобно для ссылок с параметрами, например
+              <code>"/user/" + userId</code>
+              .
+            </p>
+          </div>
+
+          <!-- Открывать страницы в новой вкладке -->
+          <div class="example">
+            <h3>Открывать страницы в новой вкладке</h3>
+            <p class="note">
+              Чтобы открыть ссылку в новой вкладке, используйте атрибуты
+              <code>target="_blank"</code>
+              и
+              <code>rel="noopener"</code>
+              .
+            </p>
+            <div class="code-block">
+              <pre><code>&lt;router-link to="/about" target="_blank" rel="noopener"&gt;О нас&lt;/router-link&gt;</code></pre>
+            </div>
+            <p class="note note--info">
+              <code>target="_blank"</code>
+              открывает ссылку в новой вкладке, а
+              <code>rel="noopener"</code>
+              предотвращает потенциальные уязвимости безопасности, связанные с открытием новых вкладок.
+            </p>
+          </div>
+          <!-- Превращать кнопки в навигационные элементы -->
+          <div class="example">
+            <h3>Превращать кнопки в навигационные элементы</h3>
+            <p class="note">Иногда нужно использовать кнопки для навигации. Вместо &lt;router-link&gt; можно использовать метод $router.push() внутри обработчика событий.</p>
+            <div class="code-block">
+              <pre><code>&lt;button @click="goToContacts"&gt;Контакты&lt;/button&gt;
+...&lt;script&gt;
+export default {
+  methods: {
+    goToContacts() {
+      this.$router.push('/contacts');
+    }
+  }
+}
+&lt;/script&gt;
+
+</code></pre>
+            </div>
+            <p class="note note--info">
+              В методе
+              <code>goToContacts</code>
+              используется
+              <code>this.$router.push('/contacts')</code>
+              для навигации к маршруту
+              <code>/contacts</code>
+              без перезагрузки страницы.
+            </p>
+          </div>
+
+          <!-- Стилизация в навигации router-link-active -->
+          <div class="example">
+            <h3>Стилизация в навигации router-link-active</h3>
+            <p class="note">
+              Vue Router автоматически добавляет класс
+              <code>router-link-active</code>
+              к активной ссылке. Это позволяет легко стилизовать текущий маршрут.
+            </p>
+            <div class="code-block">
+              <pre><code>&lt;style&gt;
+.router-link-active {
+    font-weight: bold;
+    color: #42b983;
+    text-decoration: underline;
+}
+&lt;/style&gt;
+&lt;nav&gt;
+    &lt;router-link to="/"&gt;Главная&lt;/router-link&gt;
+    &lt;router-link to="/about"&gt;О нас&lt;/router-link&gt;
+    &lt;router-link to="/contacts"&gt;Контакты&lt;/router-link&gt;
+&lt;/nav&gt;
+</code></pre>
+            </div>
+            <p class="note note--info">Теперь активная ссылка будет выделяться жирным шрифтом, зелёным цветом и подчёркиванием.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Лучшие практики -->
+      <section class="section" id="bestpractices">
+        <div class="container">
+          <h2>Лучшие практики роутинга</h2>
+          <p class="note">
+            <strong>Чистый и понятный роутинг</strong>
+            улучшает поддержку и масштабируемость вашего приложения. Следуйте этим рекомендациям, чтобы создать удобную навигацию для пользователей и разработчиков.
+          </p>
+
+          <ul class="list-ul">
+            <li>
+              Используйте осмысленные и человекочитаемые пути (например,
+              <code>/about</code>
+              ,
+              <code>/profile</code>
+              ,
+              <code>/contacts</code>
+              ).
+            </li>
+            <li>Группируйте маршруты по функциональности (например, все маршруты для админки в отдельном блоке).</li>
+            <li>Используйте вложенные маршруты для сложных страниц с несколькими уровнями навигации.</li>
+            <li>Всегда добавляйте обработку 404 для несуществующих маршрутов.</li>
+            <li>Используйте редиректы для устаревших URL или главной страницы.</li>
+            <li>Документируйте структуру маршрутов в проекте для удобства команды.</li>
+            <li>Избегайте слишком длинных и сложных путей, чтобы не запутать пользователей.</li>
+            <li>Регулярно пересматривайте и оптимизируйте маршруты по мере роста приложения.</li>
+          </ul>
+          <div class="note note--info"><strong>Чистый роутинг — залог понятного и поддерживаемого проекта!</strong></div>
+        </div>
+      </section>
+
+      <!-- Пример: полный router.js -->
+      <section class="section" id="example">
+        <div class="container">
+          <h2>Пример: рабочий router.js с 404 и редиректом</h2>
+          <h4>router.js</h4>
+          <div class="code-block">
+            <pre><code>import { createRouter, createWebHistory } from 'vue-router';
+import Home from '@/views/Home.vue';
+import About from '@/views/About.vue';
+import Contacts from '@/views/Contacts.vue';
+import Dashboard from '@/views/Dashboard.vue';
+import NotFound from '@/views/NotFound.vue';
+
+const routes = [
+  { path: '/', redirect: '/dashboard' }, // Главная ведёт на Dashboard
+  { path: '/dashboard', component: Dashboard },
+  { path: '/about', component: About },
+  { path: '/contacts', component: Contacts },
+  //Обработка 404 — ловит все неизвестные пути
+  { path: '/:pathMatch(.*)*', component: NotFound } // Все неизвестные URL — страница 404
+];
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes
+});
+
+export default router;</code></pre>
+          </div>
+          <p class="note note--info">
+            <strong>router.js</strong>
+            - основной файл маршрутизации, где определяются все маршруты приложения. Здесь происходит настройка роутера и его маршрутов.
+          </p>
+          <h4>App.js</h4>
+          <div class="code-block">
+            <pre><code>&lt;template&gt;
+  &lt;router-view&gt;&lt;/router-view&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  name: 'App'
+};
+&lt;/script&gt;</code></pre>
+          </div>
+          <p class="note note--info">
+            <strong>App.js</strong>
+            - основной файл приложения, где происходит настройка корневого компонента и его маршрутов.
+          </p>
+          <h4>main.js</h4>
+          <div class="code-block">
+            <pre><code>import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router';
+
+createApp(App)
+  .use(router)
+  .mount('#app');</code></pre>
+          </div>
+          <p class="note note--info">
+            <strong>main.js</strong>
+            - точка входа в приложение, где создаётся экземпляр Vue и подключается роутер.
+          </p>
+          <h4>Пример компонента страницы (Home.vue)</h4>
+          <div class="code-block">
+            <pre><code>&lt;template&gt;
+  &lt;div&gt;
+    &lt;h2&gt;Главная страница&lt;/h2&gt;
+    &lt;p&gt;Добро пожаловать!&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+export default {
+  name: 'Home'
+};
+&lt;/script&gt;
+</code></pre>
+          </div>
+          <p class="note note--info">
+            <strong>Home.vue</strong>
+            - компонент главной страницы, отображает приветственное сообщение.
+          </p>
+
+          <h4>Пример компонента страницы (Dashboard.vue)</h4>
+          <div class="code-block">
+            <pre><code>&lt;template&gt;
+  &lt;div&gt;
+    &lt;h2&gt;404 - Страница не найдена&lt;/h2&gt;
+    &lt;p&gt;Извините, такой страницы не существует.&lt;/p&gt;
+    &lt;router-link to="/dashboard"&gt;Вернуться на главную&lt;/router-link&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+export default {
+  name: 'NotFound'
+};
+&lt;/script&gt;</code></pre>
+          </div>
+          <p class="note note--info">
+            <strong>Dashboard.vue</strong>
+            - компонент страницы 404, информирует пользователя о несуществующем маршруте и предлагает вернуться на главную страницу.
+          </p>
+
+          <p class="note">Этот пример можно использовать как шаблон для настройки роутинга в вашем проекте.</p>
+          <ul class="list-ul">
+            <li>
+              Создайте файл
+              <code>src/router.js</code>
+              и добавьте туда код из примера.
+            </li>
+            <li>
+              Создайте компоненты-страницы в папке
+              <code>src/views/</code>
+              :
+              <code>Home.vue</code>
+              ,
+              <code>About.vue</code>
+              ,
+              <code>Contacts.vue</code>
+              ,
+              <code>Dashboard.vue</code>
+              ,
+              <code>NotFound.vue</code>
+              .
+            </li>
+            <li>
+              Импортируйте и используйте роутер в вашем основном файле приложения (обычно
+              <code>main.js</code>
+              или
+              <code>main.ts</code>
+              ):
+            </li>
+          </ul>
+          <h4>Что происходит в коде подробно:</h4>
+          <ul class="list-ul">
+            <li>
+              Импортируются необходимые функции из
+              <code>vue-router</code>
+              и компоненты-страницы.
+            </li>
+            <li>Определяется массив маршрутов с путями, компонентами, редиректами и обработкой 404.</li>
+            <li>
+              Создаётся экземпляр роутера с использованием
+              <code>createRouter</code>
+              и
+              <code>createWebHistory</code>
+              для истории браузера.
+            </li>
+            <li>Экспортируется роутер для использования в основном файле приложения.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Практика -->
+      <section class="section" id="practice">
+        <div class="container">
+          <h2>Практика: настройте свои маршруты</h2>
+          <p>Создайте свои страницы и настройте переходы, 404 и редирект.</p>
+          <h4>Минимальный пример — две страницы и роутинг</h4>
+          <div class="practice-demo example">
+            <div id="vue-router-demo"></div>
+          </div>
+          <div class="code-block" style="margin-top: 12px">
+            <pre><code>&lt;!-- router.js --&gt;
+import { createRouter, createWebHistory } from "vue-router";
+import Home from "./views/Home.vue";
+import About from "./views/About.vue";
+const routes = [
+  { path: "/", component: Home },
+  { path: "/about", component: About }
+];
+const router = createRouter({
+  history: createWebHistory(),
+  routes
+});
+export default router;
+
+&lt;!-- -------------------------------- --&gt;
+&lt;!-- Home.vue --&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;h2&gt;Главная страница&lt;/h2&gt;
+    &lt;p&gt;Добро пожаловать!&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+export default {
+  name: "Home"
+};
+&lt;/script&gt;
+
+&lt;!-- -------------------------------- --&gt;
+&lt;!-- About.vue --&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;h2&gt;О нас&lt;/h2&gt;
+    &lt;p&gt;Мы изучаем Vue Router!&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+export default {
+  name: "About"
+};
+&lt;/script&gt;
+
+&lt;!-- -------------------------------- --&gt;
+&lt;!-- App.vue --&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;router-link to="/"&gt;Главная&lt;/router-link&gt;
+    &lt;router-link to="/about"&gt;О нас&lt;/router-link&gt;
+    &lt;router-view&gt;&lt;/router-view&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+          </div>
+          <h4>Задание для самостоятельной работы:</h4>
+          <ul>
+            <li>
+              Добавьте страницу
+              <code>Contacts.vue</code>
+              и маршрут
+              <code>/contacts</code>
+            </li>
+            <li>
+              Добавьте обработку 404 через
+              <code>NotFound.vue</code>
+              и маршрут
+              <code>/:pathMatch(.*)*</code>
+            </li>
+            <li>
+              Сделайте редирект с
+              <code>/</code>
+              на
+              <code>/dashboard</code>
+            </li>
+            <li>
+              Добавьте вложенные маршруты для
+              <code>/dashboard</code>
+              (опционально)
+            </li>
+          </ul>
+          <div class="note note--info">Практика — ключ к пониманию роутинга!</div>
+        </div>
+      </section>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+  <script>
+    // Демо роутинга
+    const Home = {
+      template: `<div><h2>Главная страница</h2><p>Добро пожаловать!</p></div>`,
+    };
+    const About = {
+      template: `<div><h2>О нас</h2><p>Мы изучаем Vue Router!</p></div>`,
+    };
+    const routes = [{
+        path: "/",
+        component: Home
+      },
+      {
+        path: "/about",
+        component: About
+      },
+    ];
+    const router = VueRouter.createRouter({
+      history: VueRouter.createWebHistory(),
+      routes,
+    });
+    Vue.createApp({
+        template: `
+                    <div>
+                        <nav>
+                            <router-link to="/">Главная</router-link>
+                            <router-link to="/about">О нас</router-link>
+                        </nav>
+                        <router-view></router-view>
+                    </div>
+                `,
+      })
+      .use(router)
+      .mount("#vue-router-demo");
+  </script>
+  <style>
+    #vue-router-demo {
+      margin: 16px 0;
+    }
+
+    #vue-router-demo nav {
+      margin-bottom: 12px;
+    }
+
+    #vue-router-demo a {
+      margin-right: 14px;
+      color: #3366d4;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    #vue-router-demo a.router-link-exact-active {
+      color: #fff;
+      background: #3366d4;
+      border-radius: 5px;
+      padding: 5px 14px;
+    }
+  </style>
+</body>
+
+</html>

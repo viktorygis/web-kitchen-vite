@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ru">
+  @@include('../partials/head.html', {"title": "Анимация в CSS: transition и animation", "description": "Плавные переходы и сложные анимации средствами CSS"})
+  <body>
+    <div class="wrapper">
+      @@include('../partials/header.html', {})
+      <main class="page">
+<section class="section" id="animation-intro">
+    <div class="container">
+        <aside>
+            <nav class="nav-tabs">
+    <a href="#animation-intro" class="nav-tabs__link active">Введение</a>
+    <a href="#animation-transition" class="nav-tabs__link">transition</a>
+    <a href="#animation-animation" class="nav-tabs__link">animation</a>
+    <a href="#animation-examples" class="nav-tabs__link">Примеры</a>
+    <a href="#animation-tips" class="nav-tabs__link">Советы</a>
+</nav>
+        </aside>
+
+        <h1>
+            Анимация в CSS:
+            <code>transition</code>
+            и
+            <code>animation</code>
+        </h1>
+
+        <div class="note"><b>CSS-анимация</b> позволяет создавать плавные переходы, эффекты наведения, а также сложные движения и циклические эффекты без JS.<br>Основные инструменты: <code>transition</code> для простых изменений и <code>animation</code> для сложных, многошаговых сценариев.</div>
+    </div>
+</section>
+
+<section class="section" id="animation-transition">
+    <div class="container">
+        <h2>
+            Свойство
+            <code>transition</code>
+        </h2>
+
+        <ul class="list-ul">
+            <li>
+                Позволяет плавно анимировать изменение CSS-свойств
+                (например, <b>цвет</b>, <b>размер</b>, <b>тень</b>, <b>позицию</b>).
+            </li>
+            <li>Работает при смене состояния (hover, focus, active, через JS).</li>
+            <li>
+                Базовый синтаксис:
+                <code>transition: свойство продолжительность функция-затухания задержка;</code>
+            </li>
+        </ul>
+
+        <div class="note tip">Чем конкретнее указано свойство (<code>transition: background 0.4s</code>), тем проще контролировать эффекты.<br>Не используйте <code>transition: all</code> без необходимости.</div>
+
+        <div class="code-block">
+  <pre><code class="language-css">.box {
+  transition: background 0.4s, transform 0.3s;
+}
+
+.box:hover {
+  background: #1976d2;
+  transform: scale(1.15);
+}</code></pre>
+  <button class="copy-btn" type="button">Скопировать</button>
+</div>
+    </div>
+</section>
+
+<section class="section" id="animation-animation">
+    <div class="container">
+        <h2>
+            Свойство
+            <code>animation</code>,
+            <code>@keyframes</code>
+            и параметры
+        </h2>
+
+        <ul class="list-ul">
+            <li>
+                Позволяет описать сложную, многошаговую анимацию с помощью
+                <b>@keyframes</b>.
+            </li>
+            <li>
+                Управляет длительностью, задержкой, количеством повторов, направлением,
+                заполнением, запуском/паузой и даже временной шкалой.
+            </li>
+            <li>Анимация может запускаться автоматически или по событию, без использования JS.</li>
+        </ul>
+
+        <div class="note tip">Используйте <b>animation</b> для повторяющихся, циклических и сложных движений (например, индикаторы загрузки, bounce, fade-in).</div>
+
+        <div class="note"><b>Сокращённая запись:</b><br><code>animation: <span class="token-purple">bounce</span> <span class="token-blue">0.8s</span> <span class="token-green">ease</span> <span class="token-amber">0.3s</span> <span class="token-red">3</span> <span class="token-pink">alternate</span> <span class="token-grey">none</span> <span class="token-orange">running</span>;</code></div>
+
+        <h3>Основные свойства animation:</h3>
+        <ul class="list-ul">
+            <li><b>animation-name</b> — имя анимации (соответствует <code>@keyframes</code>).</li>
+            <li><b>animation-duration</b> — длительность одного цикла анимации (например, <code>1s</code>, <code>500ms</code>).</li>
+            <li><b>animation-timing-function</b> — функция изменения скорости (например, <code>linear</code>, <code>ease</code>, <code>ease-in</code>, <code>cubic-bezier</code>).</li>
+            <li><b>animation-delay</b> — задержка перед стартом анимации.</li>
+            <li><b>animation-iteration-count</b> — сколько раз повторить анимацию (<code>1</code>, <code>infinite</code>, <code>3</code> и т.д.).</li>
+            <li><b>animation-direction</b> — направление проигрывания (<code>normal</code>, <code>reverse</code>, <code>alternate</code>, <code>alternate-reverse</code>).</li>
+            <li><b>animation-fill-mode</b> — поведение до/после анимации (<code>none</code>, <code>forwards</code>, <code>backwards</code>, <code>both</code>).</li>
+            <li><b>animation-play-state</b> — запуск/пауза (<code>running</code>, <code>paused</code>).</li>
+            <li><b>animation-timeline</b> — позволяет запускать анимацию по времени, скроллу и т.д. <span class="text-muted">(поддержка ограничена)</span>.</li>
+            <li><b>animation-range-start</b> / <b>animation-range-end</b> — задаёт диапазон времени или скролла для анимации <span class="text-muted">(экспериментально)</span>.</li>
+        </ul>
+
+        <h3>Пример использования свойств:</h3>
+        <div class="code-block">
+  <pre><code class="language-css">@keyframes bounce {
+  0%   { transform: translateY(0); }
+  40%  { transform: translateY(-24px); }
+  100% { transform: translateY(0); }
+}
+
+.loader {
+  animation-name: bounce;
+  animation-duration: 0.8s;
+  animation-timing-function: ease;
+  animation-delay: 0.3s;
+  animation-iteration-count: 3;
+  animation-direction: alternate;
+  animation-fill-mode: none;
+  animation-play-state: running;
+  animation-timeline: auto;
+  animation-range-start: normal;
+}</code></pre>
+  <button class="copy-btn" type="button">Скопировать</button>
+</div>
+
+        <div class="note tip"><b>Совет:</b> Для большинства задач достаточно указать <code>animation-name</code>, <code>animation-duration</code> и <code>animation-iteration-count</code>. Остальные параметры — для сложных сценариев.</div>
+    </div>
+</section>
+
+<section class="section" id="animation-examples">
+    <div class="container">
+        <h2>Примеры transition и animation</h2>
+
+        <div class="animation-examples-grid">
+            <div class="animation-example-card">
+                <span class="animation-example-badge">transition</span>
+                <div class="animation-example-title">Плавное наведение</div>
+                <div class="animation-example-desc">Изменение цвета и масштаба с помощью transition.</div>
+                <div class="animation-demo-box" tabindex="0">Hover</div>
+
+                <div class="code-block">
+  <pre><code class="language-css">.box {
+  color: #1565c0;
+  transition: all 0.6s cubic-bezier(.48,.3,.55,1.15);
+}
+
+.box:hover {
+  background: #1976d2;
+  transform: scale(1.17) rotate(-5deg);
+  color: #fff;
+}</code></pre>
+  <button class="copy-btn" type="button">Скопировать</button>
+</div>
+            </div>
+
+            <div class="animation-example-card">
+                <span class="animation-example-badge">animation</span>
+                <div class="animation-example-title">Bounce (keyframes)</div>
+                <div class="animation-example-desc">Многошаговая анимация с помощью @keyframes и animation.</div>
+                <div class="animation-demo-anim">Bounce</div>
+
+                <div class="code-block">
+  <pre><code class="language-css">@keyframes bounce {
+  0%   { transform: translateY(0); }
+  40%  { transform: translateY(-22px); }
+  60%  { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
+}
+
+.demo {
+  animation: bounce 1.3s infinite;
+}</code></pre>
+  <button class="copy-btn" type="button">Скопировать</button>
+</div>
+            </div>
+
+            <div class="animation-example-card">
+                <span class="animation-example-badge">iteration/delay</span>
+                <div class="animation-example-title">Повтор и задержка</div>
+                <div class="animation-example-desc">
+                    Анимация может стартовать с задержкой и выполняться определённое число раз.
+                </div>
+                <div class="animation-demo-anim animation-demo-anim--delayed">Bounce</div>
+
+                <div class="code-block">
+  <pre><code class="language-css">.loader {
+  animation: bounce 0.8s 0.3s 3 alternate;
+}
+
+/* Значения:
+   bounce — имя keyframes
+   0.8s — длительность
+   0.3s — задержка перед стартом
+   3 — количество повторов
+   alternate — меняет направление на каждом цикле
+*/</code></pre>
+  <button class="copy-btn" type="button">Скопировать</button>
+</div>
+            </div>
+
+            <div class="animation-example-card">
+                <span class="animation-example-badge">fill-mode</span>
+                <div class="animation-example-title">animation-fill-mode</div>
+                <div class="animation-example-desc">Управляет тем, как элемент выглядит до/после анимации.</div>
+                <div class="animation-demo-box animation-demo-box--fade">Fade-in</div>
+
+                <div class="code-block">
+  <pre><code class="language-css">.loader {
+  animation: fade-in 1s forwards;
+}
+
+/* forwards — сохраняет конечное состояние после анимации */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}</code></pre>
+  <button class="copy-btn" type="button">Скопировать</button>
+</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="animation-tips">
+    <div class="container">
+        <h2>Советы по анимации в CSS</h2>
+
+        <ul class="list-ul">
+            <li>Старайтесь анимировать только <b>transform</b> и <b>opacity</b> — это быстрее и плавнее всего.</li>
+            <li>Избегайте анимации размеров (<b>width</b>, <b>height</b>), тени и фона на больших блоках — это может замедлять интерфейс.</li>
+            <li>Для последовательных анимаций используйте <b>animation-delay</b> и <b>animation-fill-mode</b>.</li>
+            <li>Проверяйте, чтобы анимации не мешали восприятию контента и не вызывали дискомфорта.</li>
+            <li>Тестируйте на разных устройствах и браузерах.</li>
+            <li>
+                Используйте
+                <b>prefers-reduced-motion</b>
+                для отключения анимаций по желанию пользователя:
+            </li>
+        </ul>
+
+        <div class="code-block">
+  <pre><code class="language-css">@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}</code></pre>
+  <button class="copy-btn" type="button">Скопировать</button>
+</div>
+
+        <div class="note tip"><strong>Совет:</strong> Краткие и плавные анимации делают интерфейс современным и "живым", но не перебарщивайте.</div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const sections = document.querySelectorAll("section[id]");
+        const navLinks = document.querySelectorAll(".nav-tabs a");
+
+        function onScroll() {
+            let scrollPos = window.scrollY + 100;
+            let currentId = "";
+
+            sections.forEach((section) => {
+                if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
+                    currentId = section.id;
+                }
+            });
+
+            navLinks.forEach((link) => {
+                link.classList.remove("active");
+                if (link.getAttribute("href") === `#${currentId}`) {
+                    link.classList.add("active");
+                }
+            });
+        }
+
+        window.addEventListener("scroll", onScroll);
+        onScroll();
+    });
+</script>
+      </main>
+      @@include('../partials/footer.html', {})
+    </div>
+    @@include('../partials/popup.html', {})
+    @@include('../partials/js.html', {})
+  </body>
+</html>

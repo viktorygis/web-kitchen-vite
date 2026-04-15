@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../partials/head.html', { "title": "Vue Компоненты 🎨",
+    "description": "Vue Компоненты 🎨" })
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+            <main class="page">
+                <!-- Базовые компоненты -->
+                <section class="section" id="base">
+                    <div class="container">
+                        <div id="app">
+                            <nav class="navigation">
+                                <!-- 🚀 Добавь ссылки для перехода между страницами -->
+                                <router-link to="/">Главная</router-link>
+                                <router-link to="/portfolio">
+                                    Портфолио
+                                </router-link>
+                                <router-link to="/about">Обо мне</router-link>
+                            </nav>
+
+                            <div class="content">
+                                <!-- 🖥 Здесь будет переключаться контент -->
+                                <router-view></router-view>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            @@include('../partials/footer.html', {})
+        </div>
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+        <!-- Подключаем Vue.js -->
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <!-- Подключаем Vue Router -->
+        <script src="https://unpkg.com/vue-router@4"></script>
+
+        <style>
+            #app * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: "Arial", sans-serif;
+            }
+
+            #app {
+                background: #121212;
+                color: #fff;
+                text-align: center;
+                padding: 30px;
+            }
+
+            #app .content {
+                max-width: 600px;
+                margin: auto;
+                background: #1e1e1e;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.5);
+                transition: 0.3s;
+            }
+
+            #app .content:hover {
+                box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.7);
+            }
+
+            #app h1 {
+                font-size: 26px;
+            }
+
+            .navigation {
+                margin-bottom: 20px;
+            }
+
+            .navigation a {
+                color: #ffcc00;
+                text-decoration: none;
+                font-size: 18px;
+                margin: 10px;
+                font-weight: bold;
+                transition: 0.3s;
+            }
+
+            #app nav a:hover {
+                color: #fff;
+                text-shadow: 0px 0px 8px #ffcc00;
+            }
+
+            #app .btn {
+                background: #ffcc00;
+                color: #121212;
+                padding: 10px 15px;
+                border: none;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+                margin-top: 10px;
+                transition: 0.3s;
+            }
+
+            #app .btn:hover {
+                background: #fff;
+                color: #121212;
+                box-shadow: 0px 0px 10px #ffcc00;
+            }
+        </style>
+        <script>
+            // Главная страница
+            const Home = {
+                template: `
+    <div>
+      <h1>👋 Привет, я будущий фронтендер!</h1>
+      <p>Добро пожаловать на мой сайт-портфолио!</p>
+    </div>
+  `,
+            };
+
+            // Страница портфолио
+            const Portfolio = {
+                template: `
+    <div>
+      <h1>🚀 Мои проекты</h1>
+      <ul>
+        <li>💡 Калькулятор на Vue</li>
+        <li>📋 Список дел</li>
+        <li>🎨 Мини-игра на JS</li>
+      </ul>
+    </div>
+  `,
+            };
+
+            // Страница "Обо мне"
+            const About = {
+                template: `
+    <div>
+      <h1>🤔 Немного обо мне</h1>
+      <p>Я изучаю Vue.js и создаю крутые проекты. Пока в процессе, но скоро я стану настоящим Vue-ниндзя! 🥷</p>
+    </div>
+  `,
+            };
+
+            // 🛠 Настроим маршруты
+            const routes = [
+                // 1️⃣ маршрут для главной страницы
+                { path: "/", component: Home }, // Главная
+
+                // 2️⃣ маршрут для портфолио
+                { path: "/portfolio", component: Portfolio }, // Портфолио, не забудь про компонент
+
+                // 3️⃣ маршрут для страницы "Обо мне", так же не заубдь про компонент
+                { path: "/about", component: About },
+            ];
+
+            // Создаём роутер
+            const router = VueRouter.createRouter({
+                // режим истории
+                history: VueRouter.createWebHashHistory(), // Используем хэш-историю для простоты
+
+                routes, // Маршруты
+            });
+
+            // Создаём приложение Vue
+            const app = Vue.createApp({});
+
+            // 📌 Добавления маршрутизатора в приложение Vue
+            app.use(router);
+            app.mount("#app");
+        </script>
+    </body>
+</html>

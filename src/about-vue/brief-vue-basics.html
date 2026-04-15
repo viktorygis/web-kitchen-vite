@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "Основы Vue: установка, шаблоны, реактивность, события, v-model, методы", "description": "Пошаговое руководство по основам Vue.js: установка, шаблоны, data, директивы, события, v-model, методы, списки и условия" })
+
+<head>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="#intro">Введение</a>
+        <a href="#install">Установка Vue</a>
+        <a href="#templates">Шаблоны Vue</a>
+        <a href="#interpolation">Интерполяция</a>
+        <a href="#directives">Директивы Vue</a>
+        <a href="#data">Работа с данными (data())</a>
+        <a href="#events">События во Vue</a>
+        <a href="#v-model">Двусторонняя привязка v-model</a>
+        <a href="#methods">Методы во Vue</a>
+        <a href="#params-this">Параметры и this</a>
+        <a href="#computed">Вычисляемые свойства (computed)</a>
+        <a href="#watch">Наблюдатели (watch)</a>
+
+
+
+        <a href="#cycles-conditions">Циклы и условия</a>
+        <a href="#practice">Практика</a>
+        <a href="#tips">Советы</a>
+        <a href="#best-practices">Лучшие практики</a>
+        <a href="#links">Другие темы</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="intro">
+        <div class="container">
+          <h1>Введение во Vue JS</h1>
+          <p class="note">
+            <strong>Vue.js</strong>
+            — прогрессивный JavaScript-фреймворк для создания пользовательских интерфейсов. Он прост в освоении, гибок и мощен.
+            <br /> Vue позволяет создавать реактивные веб-приложения с минимальными усилиями.
+
+          </p>
+
+          <h4>История фреймворка</h4>
+          <p>
+            Vue был создан Эваном Ю в 2014 году как легковесная альтернатива более крупным фреймворкам, таким как Angular и React. С тех пор Vue быстро набрал популярность благодаря своей простоте и эффективности.
+          </p>
+          <h4>Что нужно знать о Vue</h4>
+          <p>Vue ориентирован на декларативное программирование и компонентный подход. Это позволяет разработчикам создавать сложные интерфейсы, разбивая их на небольшие, переиспользуемые части.</p>
+
+          <p class="note note--info">
+            <strong>Vue</strong> сочетает в себе лучшие идеи из других фреймворков, предлагая декларативный подход к созданию интерфейсов и мощную систему компонентов.
+            <br />
+            Сегодня Vue используется во множестве проектов, от небольших сайтов до крупных корпоративных приложений.
+          </p>
+        </div>
+      </section>
+
+      <!-- Установка Vue -->
+      <section class="section" id="install">
+        <div class="container">
+          <h2>Установка Vue</h2>
+          <p class="note"><strong>Установка Vue</strong> проста и может быть выполнена несколькими способами в зависимости от ваших потребностей. <br>
+            Вот два основных метода:</p>
+
+
+
+          <h3>Быстрый старт через CDN</h3>
+          <p class="note note--info">Самый простой способ начать использовать Vue — подключить его через CDN (Content Delivery Network).</p>
+          <div class="code-block">
+            <pre><code>&lt;script src="https://unpkg.com/vue@3/dist/vue.global.js"&gt;&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Этот скрипт подключает последнюю версию Vue 3 к вашему проекту.</li>
+            <li>Подходит для небольших проектов и быстрого прототипирования.</li>
+          </ul>
+
+
+          <h3>Профессиональная разработка через CLI</h3>
+          <p class="note note--info">Для более сложных проектов рекомендуется использовать Vue CLI (Command Line Interface) для создания и управления проектами Vue.</p>
+          <div class="code-block">
+            <pre><code>npm install -g @vue/cli
+vue create my-vue-app</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Первая команда устанавливает Vue CLI глобально на вашем компьютере.</li>
+            <li>Вторая команда создаёт новый проект Vue с именем <code>my-vue-app</code>.</li>
+            <li>Этот метод подходит для профессиональной разработки с использованием современных инструментов сборки и управления зависимостями.</li>
+          </ul>
+          <!-- Вывод: -->
+          <p class="note note--info">
+            🚀
+            <strong>Теперь вы готовы начать работу с Vue!</strong>
+            <br />Выберите подходящий способ установки и приступайте к созданию своих первых Vue-приложений.
+          </p>
+
+        </div>
+      </section>
+
+
+      <!-- Шаблоны -->
+      <section class="section" id="templates">
+        <div class="container">
+          <h2>Шаблоны Vue</h2>
+          <p class="note">
+            <strong>Шаблоны Vue</strong>
+            — это HTML-разметка, которая может содержать <b>динамические данные</b> и <b>директивы Vue</b> для управления поведением элементов.
+          </p>
+          <h4>Основные элементы шаблона Vue</h4>
+          <ul class="list-ul">
+            <li>
+              Шаблоны должны быть обернуты в один корневой элемент (например, <code>&lt;div&gt;</code>).
+            </li>
+            <li>
+              Используйте двойные фигурные скобки <code>{{ }}</code> для интерполяции данных.
+            </li>
+            <li>
+              Директивы Vue начинаются с префикса <code>v-</code> и управляют поведением элементов.
+            </li>
+            <li>
+              Шаблоны могут содержать <b>условные конструкции</b> и <b>циклы</b> с помощью директив.
+            </li>
+          </ul>
+
+          <h4>Пример шаблона Vue</h4>
+          <div class="code-block">
+            <pre><code>&lt;div id="app"&gt;
+  &lt;h1&gt;Привет, {{ name }}!&lt;/h1&gt;
+  &lt;a v-bind:href="website"&gt;Мой сайт&lt;/a&gt;
+  &lt;ul&gt;
+    &lt;li v-for="user in users" :key="user"&gt;{{ user }}&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+&lt;script&gt;
+  Vue.createApp({
+    data() {
+      return {
+        name: "Алексей",
+        website: "https://example.com",
+        users: ["Аня", "Макс", "Иван"]
+      }
+    }
+  }).mount("#app");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>{{ name }}</code> — подставляет значение переменной <code>name</code> из <code>data()</code>.</li>
+            <li><code>v-bind:href="website"</code> — — дт связывает-с атрибут <code>href</code> с переменной <code>website</code>.</li>
+            <li><code>v-for="user in users" :key="user"</code> — перебирает массив <code>users</code> и создаёт элемент для каждого значения.</li>
+          </ul>
+      </section>
+
+      <!-- Интерполяция -->
+      <section class="section" id="interpolation">
+        <div class="container">
+          <h2>Интерполяция</h2>
+          <p class="note">
+            <strong>Интерполяция</strong> - это способ внедрения динамических данных в HTML-шаблоны Vue с помощью двойных фигурных скобок <code>{{ }}</code>. <br> Позволяет отображать значения переменных и выражений прямо в разметке.
+          </p>
+
+          <h4>Пример интерполяции:</h4>
+          <p>В этом примере заголовок отображает значение переменной <code>name</code> из <code>data()</code>.</p>
+          <div class="code-block">
+            <pre><code>&lt;h1&gt;Имя: {{ name }}&lt;/h1&gt;</code></pre>
+          </div>
+          <h5>Объяснение:</h5>
+          <ul class="list-ul">
+            <li>
+              <code>{{ name }}</code> — синтаксис интерполяции для вывода значения переменной <code>name</code>.
+            </li>
+            <li>При изменении значения <code>name</code> в <code>data()</code>, заголовок автоматически обновится на странице.</li>
+          </ul>
+
+          <h4>Пример полного приложения с интерполяцией:</h4>
+          <div class="code-block">
+            <pre><code>&lt;div id="app"&gt;
+  &lt;h1&gt;Привет, {{ name }}!&lt;/h1&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  Vue.createApp({
+    data() {
+      return {
+        name: "Алексей"
+      }
+    }
+  }).mount("#app");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Шаблон содержит заголовок с интерполяцией <code>{{ name }}</code>.</li>
+            <li>В <code>data()</code> определена переменная <code>name</code> со значением "Алексей".</li>
+            <li>При запуске приложения Vue автоматически подставит значение <code>name</code> в заголовок.</li>
+          </ul>
+          <p class="note note--info">🚀 <strong>Интерполяция</strong> — простой и мощный способ отображения динамических данных в шаблонах Vue, обеспечивающий реактивность и удобство разработки.</p>
+        </div>
+      </section>
+
+
+      <!-- Директивы -->
+      <section class="section" id="directives">
+        <div class="container">
+          <h2>Директивы Vue</h2>
+          <p class="note">
+            <strong>Директивы Vue</strong> — специальные атрибуты в шаблоне, начинающиеся с префикса <code>v-</code>, которые указывают Vue, как обрабатывать элементы.<br />
+            Они позволяют добавлять динамическое поведение, условный рендеринг, циклы и многое другое.
+          </p>
+          <h4>Основные директивы Vue:</h4>
+          <ul class="list-ul">
+            <li><code>v-bind</code> — связывает атрибуты HTML с данными из <code>data()</code>.</li>
+            <li><code>v-if</code> — условно рендерит элемент в DOM.</li>
+            <li><code>v-show</code> — управляет видимостью элемента через CSS.</li>
+            <li><code>v-for</code> — перебирает массив и отображает список элементов.</li>
+            <li><code>v-model</code> — двустороннее связывание данных с элементами формы(текстовое поле, чекбокс, радио-кнопки, выпадающее меню). Она автоматически обновляет значение переменной в <i>data()</i>, когда пользователь изменяет данные в поле ввода.</li>
+          </ul>
+          <h4>Для чего нужны:</h4>
+          <ul class="list-ul">
+            <li>Управление отображением элементов (например, условный вывод с помощью <code>v-if</code>).</li>
+            <li>Перебор массивов и создание списков с помощью <code>v-for</code>.</li>
+            <li>Связывание атрибутов HTML с данными из <code>data()</code> с помощью <code>v-bind</code>.</li>
+            <li>Двустороннее связывание данных с элементами формы через <code>v-model</code>.</li>
+          </ul>
+          <h4>Альтернативы:</h4>
+          <ul class="list-ul">
+            <li>Использование JavaScript для манипуляции DOM напрямую (менее эффективно и реактивно).</li>
+            <li>Другие фреймворки, такие как React или Angular, которые имеют свои собственные подходы к управлению состоянием и рендерингом.</li>
+          </ul>
+          <!-- Вывод -->
+          <p class="note note--info">🚀 <strong>Директивы</strong> — мощный инструмент для управления поведением элементов в шаблонах Vue, обеспечивающий реактивность и удобство разработки. <br>
+            ✅ Без директив работает vue? Нет, директивы являются неотъемлемой частью Vue.js и обеспечивают его реактивность и динамическое поведение.</p>
+          </p>
+        </div>
+      </section>
+
+      <!-- Работа с данными -->
+      <section class="section" id="data">
+        <div class="container">
+          <h2>Работа с данными через <b>data()</b></h2>
+          <p class="note">
+            В Vue все реактивные данные приложения объявляются внутри функции <strong><code>data()</code></strong>, которая возвращает объект с переменными.
+            <br />Эти переменные автоматически становятся реактивными и могут быть использованы в шаблоне.</p>
+          <h4>Для чего нужна data():</h4>
+          <ul class="list-icon">
+            <li> 🗄️ Хранить данные приложения</li>
+            <li> 🎛️ Управлять интерфейсом</li>
+            <li> ⚙️ Делать страницу динамической</li>
+          </ul>
+
+          <h3>Объявление переменных в data():</h3>
+          <p class="note note--info">
+            <strong>Объявление переменных в data()</strong> - это создание свойств объекта, которые Vue будет <b>отслеживать</b> и <b>обновлять</b> в шаблоне при изменении. <br>
+            Это делается внутри функции <code>data()</code>, которая возвращает объект с нужными переменными.</p>
+          <div class="code-block">
+            <pre><code>&lt;script&gt;
+Vue.createApp({
+  data() {
+    return {
+      message: "Привет, Vue!",
+      count: 0
+    }
+  }
+});
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Функция <code>data()</code> возвращает объект с переменными <code>message</code> и <code>count</code>.</li>
+            <li>Эти переменные становятся реактивными и могут быть использованы в шаблоне.</li>
+          </ul>
+
+          <h3>Использование переменных в шаблоне:</h3>
+          <p class="note note--info"> <strong>
+              Использование переменных в шаблоне</strong> - это процесс внедрения реактивных данных, объявленных в <code>data()</code>, в HTML-разметку Vue с помощью интерполяции или директив. <br>
+            Это позволяет динамически отображать и обновлять содержимое страницы на основе состояния приложения.</p>
+          <div class="code-block">
+            <pre><code>&lt;div id="app"&gt;
+  &lt;h1&gt;{{ message }}&lt;/h1&gt;
+  &lt;p&gt;Счётчик: {{ count }}&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>В шаблоне используется интерполяция <code>{{ message }}</code> для отображения значения переменной <code>message</code>.</li>
+            <li>Переменная <code>count</code> также отображается в параграфе с помощью интерполяции.</li>
+            <li>При изменении значений в <code>data()</code>, шаблон автоматически обновится.</li>
+          </ul>
+
+          <h3>Динамическое изменение данных</h3>
+          <p class="note note--info">
+            <strong>Динамическое изменение данных в Vue</strong> происходит через методы, которые вызываются при событиях или других условиях. Эти изменения автоматически обновляют шаблон, благодаря реактивности Vue.
+          </p>
+          <div class="code-block">
+            <pre><code>&lt;div id="app"&gt;
+  &lt;button @click="count++"&gt;+1&lt;/button&gt;
+  &lt;p&gt;Счётчик: {{ count }}&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>При клике на кнопку значение переменной <code>count</code> увеличивается на 1.</li>
+            <li>Шаблон автоматически обновляет отображение счётчика благодаря реактивности Vue.</li>
+          </ul>
+
+          <!-- Итоги кратко -->
+          <div class="note">
+            <p>🚀 <strong>data()</strong> — основа для хранения и управления реактивными данными в Vue.</p>
+            <p> ✅ <b>Объявление переменных</b> в <code>data()</code> делает их доступными для использования в шаблоне и обеспечивает автоматическое обновление интерфейса при изменении данных.</p>
+            <p> ✅ <b>Использование переменных</b> в шаблоне позволяет создавать динамические и интерактивные веб-приложения с минимальными усилиями.</p>
+            <p>✅ <b>Динамическое изменение данных</b> через методы обеспечивает реактивность и удобство взаимодействия с пользователем.</p>
+          </div>
+
+
+        </div>
+      </section>
+
+      <!-- События -->
+      <section class="section" id="events">
+        <div class="container">
+          <h2>События во Vue</h2>
+          <p class="note">
+            <strong>События в Vue</strong> — это способ реагировать на действия пользователя: 👆 клики, 👆 наведение мыши, ⌨️ нажатия клавиш и 🖱️ другие взаимодействия.
+            <br />
+            С помощью событий можно создавать 🖥️интерактивные интерфейсы, улучшать 🌟пользовательский опыт и ⚙️делать приложения более динамичными.
+          </p>
+          <h3>Обработка событий в Vue</h3>
+          <p class="note">
+            <strong>v-on</strong> — директива <b>Vue</b> для обработки событий. <br>
+            Она позволяет привязывать <b>события</b> к <b>элементам</b> и вызывать <b>методы</b> при их срабатывании.<br>
+            Существует короткая запись для <b>v-on:</b> — символ <b>@</b>.
+          </p>
+          <h4>Пример использования:</h4>
+          <p>В этом примере кнопка увеличивает счётчик при каждом клике.</p>
+          <div class="interactive-demo">
+            <div id="demo-events"></div>
+          </div>
+          <div class="code-block">
+            <pre><code>&lt;div id="demo-events"&gt;
+  &lt;button @click="count++"&gt;+1&lt;/button&gt;
+  &lt;p&gt;Счётчик: {{ count }}&lt;/p&gt;
+&lt;/div&gt;
+&lt;script&gt;
+Vue.createApp({
+  data() { return { count: 0 } }
+}).mount("#demo-events");
+&lt;/script&gt;</code></pre>
+          </div>
+
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>@click</code> — это сокращённая запись для <code>v-on:click</code>, которая привязывает событие клика к кнопке.</li>
+            <li><code>count++</code> — это выражение, которое увеличивает значение переменной <code>count</code> на 1 при каждом клике.</li>
+            <li><code>@click="count++"</code> — это присваение обработчика события клика, который изменяет значение <code>count</code>.</li>
+            <li><code>{{ count }}</code> — интерполяция, которая отображает текущее значение переменной <code>count</code> в параграфе.</li>
+            <li> <code>{ count: 0 }</code> — инициализация (инициализация это установка начального значения) переменной <code>count</code> в <code>data()</code> с начальным значением 0.</li>
+          </ul>
+
+          <h3>Модификаторы событий во Vue</h3>
+          <p class="note">
+            <strong>Модификаторы событий во Vue</strong> — специальные суффиксы, добавляемые к директиве <code>v-on</code> (или её сокращённой форме <code>@</code>), которые изменяют поведение обработчиков событий. <br>
+            Они позволяют легко управлять распространением событий, предотвращать действия по умолчанию и выполнять другие полезные операции без необходимости писать дополнительный код.
+          </p>
+          <h4>Основные модификаторы событий:</h4>
+          <ul class="list-ul">
+            <li><code>.stop</code> — останавливает распространение события (event propagation).</li>
+            <li><code>.prevent</code> — предотвращает действие по умолчанию (например, отправку формы).</li>
+            <li><code>.capture</code> — использует фазу захвата для события.</li>
+            <li><code>.self</code> — срабатывает только если событие произошло на самом элементе, а не на его потомках.</li>
+            <li><code>.once</code> — обработчик сработает только один раз и затем будет удалён.</li>
+          </ul>
+          <h4>Пример использования модификаторов:</h4>
+          <p>В этом примере кнопка показывает сообщение при клике, но останавливает распространение события. Без модификатора событие распространялось бы дальше по DOM дереву, что может привести к нежелательным последствиям, таким как повторное срабатывание обработчиков событий на родительских элементах.</p>
+          <div class="code-block">
+            <pre><code>&lt;div id="app"&gt;
+  &lt;button @click.stop="handleClick"&gt;Кликни меня&lt;/button&gt;
+&lt;/div&gt;
+&lt;script&gt;
+Vue.createApp({
+  methods: {
+    handleClick() {
+      alert("Кнопка нажата!");
+    }
+  }
+}).mount("#app");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>@click.stop="handleClick"</code> — привязывает событие клика к кнопке с модификатором <code>.stop</code>, который останавливает распространение события.</li>
+            <li>Метод <code>handleClick</code> вызывается при клике на кнопку и отображает сообщение.</li>
+          </ul>
+
+          <h3 style="margin-top: 50px">Основные события во Vue</h3>
+
+          <p class="note">В Vue.js есть множество <b>событий</b>, которые можно использовать для взаимодействия с пользователем. Вот основные события:</p>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Событие</th>
+                <th>Описание</th>
+                <th>Пример</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- События мыши -->
+              <tr>
+                <td colspan="3" style="font-weight: bold; text-align: center;">События мыши</td>
+              </tr>
+              <tr>
+                <td><code>@click</code></td>
+                <td>Клик мышью по элементу</td>
+                <td><code>&lt;button @click="method"&gt;Кнопка&lt;/button&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>@dblclick</code></td>
+                <td>Двойной клик мыши</td>
+                <td><code>&lt;div @dblclick="doIt"&gt;&lt;/div&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>@mousedown</code></td>
+                <td>Нажатие кнопки мыши</td>
+                <td><code>&lt;div @mousedown="press"&gt;&lt;/div&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>@mouseup</code></td>
+                <td>Отпускание кнопки мыши</td>
+                <td><code>&lt;div @mouseup="release"&gt;&lt;/div&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>@mouseover</code></td>
+                <td>Наведение курсора на элемент (срабатывает при переходе на потомки элемента)</td>
+                <td><code>&lt;div @mouseover="hover"&gt;&lt;/div&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>@mouseout</code></td>
+                <td>Увод курсора с элемента (срабатывает при выходе с потомков элемента)</td>
+                <td><code>&lt;div @mouseout="leave"&gt;&lt;/div&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>@mouseenter</code></td>
+                <td>Курсор навёлся на элемент (только сам элемент, не потомки; аналог <code>mouseover</code>, но без всплытия)</td>
+                <td><code>&lt;div @mouseenter="hover"&gt;&lt;/div&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>@mouseleave</code></td>
+                <td>Курсор ушёл с элемента (только сам элемент, не потомки; аналог <code>mouseout</code>, но без всплытия)</td>
+                <td><code>&lt;div @mouseleave="leave"&gt;&lt;/div&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>@contextmenu</code></td>
+                <td>Клик правой кнопкой мыши (контекстное меню)</td>
+                <td><code>&lt;div @contextmenu="openMenu"&gt;&lt;/div&gt;</code></td>
+              </tr>
+
+              <!-- События клавиатуры -->
+              <tr>
+                <td colspan="3" style="font-weight: bold; text-align: center;">События клавиатуры</td>
+              </tr>
+              <tr>
+                <td><code>@keydown</code></td>
+                <td>Нажатие клавиши на клавиатуре</td>
+                <td><code>&lt;input @keydown="onKey"&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>@keyup</code></td>
+                <td>Отпускание клавиши</td>
+                <td>
+                  <code>&lt;input @keyup.enter="onEnter"&gt;</code><br>
+                  (модификатор <code>.enter</code> — только при нажатии Enter)
+                </td>
+              </tr>
+              <tr>
+                <td><code>@keypress</code></td>
+                <td>Нажатие и удержание клавиши <b>(устаревшее событие, используйте <code>keydown</code>/<code>keyup</code>)</b></td>
+                <td><code>&lt;input @keypress="onPress"&gt;</code></td>
+              </tr>
+
+              <!-- События форм и полей ввода -->
+              <tr>
+                <td colspan="3" style="font-weight: bold; text-align: center;">События форм и ввода</td>
+              </tr>
+              <tr>
+                <td><code>@input</code></td>
+                <td>Изменение значения поля ввода (в процессе ввода)</td>
+                <td><code>&lt;input @input="onInput"&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>@change</code></td>
+                <td>Изменение значения <b>после</b> потери фокуса для input</td>
+                <td><code>&lt;input @change="onChange"&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>@focus</code></td>
+                <td>Фокус на элементе (например, при переходе с помощью Tab или клике)</td>
+                <td><code>&lt;input @focus="onFocus"&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>@blur</code></td>
+                <td>Потеря фокуса элементом</td>
+                <td><code>&lt;input @blur="onBlur"&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>@submit</code></td>
+                <td>Отправка формы (<code>.prevent</code> для предотвращения перезагрузки страницы)</td>
+                <td>
+                  <code>&lt;form @submit.prevent="onSubmit"&gt;</code><br>
+                  (<code>.prevent</code> — отменяет стандартную отправку)
+                </td>
+              </tr>
+
+              <!-- События документа, окна и прочие -->
+              <tr>
+                <td colspan="3" style="font-weight: bold; text-align: center;">События документа, окна и прочие</td>
+              </tr>
+              <tr>
+                <td><code>@scroll</code></td>
+                <td>Прокрутка элемента или страницы</td>
+                <td><code>&lt;div @scroll="onScroll"&gt;</code><br>или на window через JS</td>
+              </tr>
+              <tr>
+                <td><code>@resize</code></td>
+                <td>Изменение размера окна (используется глобально через addEventListener или Vue-on mounted)</td>
+                <td><code>&lt;!-- window.addEventListener('resize', fn) --&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>@load</code></td>
+                <td>Загрузка страницы или изображения</td>
+                <td><code>&lt;img @load="onLoad"&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>@drag</code>, <code>@drop</code></td>
+                <td>События drag and drop (перетаскивание)</td>
+                <td>
+                  <code>&lt;div @drag="onDrag" @drop="onDrop"&gt;&lt;/div&gt;</code>
+                </td>
+              </tr>
+              <tr>
+                <td><code>@custom-event</code></td>
+                <td>
+                  Пользовательские события между компонентами Vue.<br>
+                  Используются с <code>$emit</code> в дочернем компоненте.
+                </td>
+                <td>
+                  Родитель: <code>&lt;child-component @custom-event="handler"&gt;&lt;/child-component&gt;</code><br>
+                  Дочерний: <code>this.$emit('custom-event')</code>
+                </td>
+              </tr>
+
+              <!-- Vue-модификаторы событий -->
+              <tr>
+                <td colspan="3" style="background:#e0e7ef;">
+                  <b>Vue-модификаторы событий:</b>
+                  <code>.stop</code>, <code>.prevent</code>, <code>.capture</code>, <code>.once</code>, <code>.self</code>, <code>.passive</code><br>
+                  Позволяют гибко управлять обработкой событий.<br>
+                  Пример: <code>@click.stop.prevent="doSmth"</code>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="note note--info" style="margin-top: 1em">
+            Это лишь часть событий — Vue поддерживает все стандартные DOM-события и позволяет создавать свои!
+            <br />
+            Модификаторы (
+            <code>.prevent</code>
+            ,
+            <code>.stop</code>
+            ,
+            <code>.once</code>
+            ,
+            <code>.enter</code>
+            и др.) делают обработку ещё удобнее.
+          </div>
+        </div>
+      </section>
+
+      <!-- V-model -->
+      <section class="section" id="v-model">
+        <div class="container">
+          <h2>v-model</h2>
+          <p class="note">
+            <strong>v-model</strong> - директива Vue для <b>двустороннего связывания данных</b> между элементами формы и переменными в <code>data()</code>. <br>
+            Позволяет автоматически обновлять значение переменной при изменении ввода пользователя и наоборот.
+          </p>
+          <h4>Для чего используется:</h4>
+          <ul class="list-ul">
+            <li>Автоматическое обновление переменных при вводе в <b>текстовые поля</b>, то есть <code>&lt;input type="text"&gt;</code></li>
+            <li>Связывание состояния <b>чекбоксов</b> то есть <code>&lt;input type="checkbox"&gt;</code></li>
+            <li>Привязка выбранной опции в группе <b>радио-кнопок</b> то есть <code>&lt;input type="radio"&gt;</code></li>
+            <li>Привязка выбранных значаний в выпадающих списках к данным <b>select</b> то есть <code>&lt;select&gt;</code></li>
+          </ul>
+
+          <h4>Пример использования v-model:</h4>
+          <div class="interactive-demo">
+            <div id="demo-vmodel"></div>
+          </div>
+          <div class="code-block">
+            <pre><code>&lt;div id="demo-vmodel"&gt;
+  &lt;input v-model="message" placeholder="Введите сообщение"&gt;
+  &lt;p&gt;Вы ввели: {{ message }}&lt;/p&gt;
+&lt;/div&gt;
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return { message: "" }
+  }
+}).mount("#demo-vmodel");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>v-model="message"</code> связывает значение текстового поля с переменной <code>message</code> в <code>data()</code>.</li>
+            <li>При вводе текста в поле, значение <code>message</code> автоматически обновляется.</li>
+            <li>Интерполяция <code>{{ message }}</code> отображает текущее значение переменной на странице.</li>
+          </ul>
+
+          <div class="note note--info">
+            🚀 <strong>v-model</strong> — мощный инструмент для создания интерактивных форм и управления состоянием ввода пользователя в Vue.js. <br>
+            ✅ Обеспечивает двустороннее связывание данных между элементами формы и переменными, упрощая разработку динамических интерфейсов.
+          </div>
+        </div>
+      </section>
+
+      <!-- Методы -->
+      <section class="section" id="methods">
+        <div class="container">
+          <h2>Методы в Vue</h2>
+          <p class="note">
+            <strong>methods</strong> — это функции, определённые внутри объекта
+            <code>methods</code>
+            в компоненте Vue. Они обычно используются для обработки событий, таких как клики по кнопкам, изменения ввода и другие взаимодействия пользователя.
+          </p>
+          <h4>Где используются методы:</h4>
+          <ul class="list-ul">
+            <li>Обработчики событий (например, <code>@click</code>, <code>@input</code>)</li>
+            <li>Логика, связанная с действиями пользователя</li>
+            <li>Манипуляции с данными компонента</li>
+          </ul>
+
+          <h4>Как использовать методы:</h4>
+          <p>
+            Методы определяются в объекте <code>methods</code> компонента Vue. Они могут быть вызваны из шаблона с помощью директивы <code>@click</code>, <code>@input</code> и других.
+          </p>
+
+
+          <h4>Пример 1:</h4>
+          <p class="note note--info">
+            Создадим простой счётчик с кнопкой для увеличения значения.
+          </p>
+          <div class="interactive-demo">
+            <div id="counter-demo">
+              <p>Счётчик: {{ count }}</p>
+              <button @click="increaseCount">Увеличить</button>
+            </div>
+          </div>
+          <div class="code-block">
+            <pre><code>&lt;div id="counter-demo"&gt;
+  &lt;p&gt;Счётчик: {{ count }}&lt;/p&gt;
+  &lt;button @click="increaseCount"&gt;Увеличить&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return { count: 0 }
+  },
+  methods: {
+    increaseCount() {
+      this.count++;
+    }
+  }
+}).mount("#counter-demo");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li><code>data()</code> возвращает объект с переменной <code>count</code>, инициализированной нулём.</li>
+            <li>В объекте <code>methods</code> определён метод <code>increaseCount</code>, который увеличивает значение <code>count</code> на 1.</li>
+            <li>В шаблоне кнопка привязана к методу через директиву <code>@click</code>.</li>
+          </ul>
+          <h4>Пример 2: </h4>
+          <p class="note note--info">
+            Расширенный счётчик с увеличением, уменьшением и сбросом значения.
+          </p>
+
+          <div class="interactive-demo">
+            <div id="counter-full">
+              <p>Счётчик: {{ count }}</p>
+              <div class="demo-container">
+                <button @click="increase">+</button>
+                <button @click="decrease">-</button>
+                <button @click="reset">Сброс</button>
+              </div>
+            </div>
+          </div>
+          <div class="code-block">
+            <pre><code>&lt;div id="counter-full"&gt;
+  &lt;p&gt;Счётчик: {{ count }}&lt;/p&gt;
+  &lt;button @click="increase"&gt;+&lt;/button&gt;
+  &lt;button @click="decrease"&gt;-&lt;/button&gt;
+  &lt;button @click="reset"&gt;Сброс&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() { return { count: 0 } },
+  methods: {
+    increase() { this.count++; },
+    decrease() { this.count--; },
+    reset() { this.count = 0; }
+  }
+}).mount("#counter-full");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Метод <code>increase</code> увеличивает счётчик на 1.</li>
+            <li>Метод <code>decrease</code> уменьшает счётчик на 1.</li>
+            <li>Метод <code>reset</code> сбрасывает счётчик в 0.</li>
+          </ul>
+
+
+
+
+
+        </div>
+      </section>
+
+      <!-- Параметры и this -->
+      <section class="section" id="parameters">
+        <div class="container">
+          <h2>Передача параметров и работа с this</h2>
+          <p class="note">
+            Методы могут принимать <strong>параметры</strong>, которые передаются при вызове из шаблона. Внутри методов
+            <code>this</code>
+            ссылается на экземпляр Vue-компонента, позволяя получать доступ к данным и другим методам.
+          </p>
+          <h4>Пример 1:</h4>
+          <p class="note note--info">Создадим счётчик с кнопками, увеличивающими значение на разное количество.</p>
+          <div class="interactive-demo">
+            <div id="counter-step">
+              <p>Счётчик: {{ count }}</p>
+              <div class="demo-container">
+                <button @click="increase(1)">+1</button>
+                <button @click="increase(5)">+5</button>
+                <button @click="increase(10)">+10</button>
+              </div>
+            </div>
+          </div>
+          <div class="code-block">
+            <pre><code>&lt;div id="counter-step"&gt;
+  &lt;p&gt;Счётчик: {{ count }}&lt;/p&gt;
+  &lt;button @click="increase(1)"&gt;+1&lt;/button&gt;
+  &lt;button @click="increase(5)"&gt;+5&lt;/button&gt;
+  &lt;button @click="increase(10)"&gt;+10&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() { return { count: 0 } },
+  methods: {
+    increase(value) { this.count += value }
+  }
+}).mount("#counter-step");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Метод <code>increase</code> принимает параметр <code>value</code>, который указывает, на сколько увеличить счётчик.</li>
+            <li>В шаблоне кнопки вызывают метод с разными аргументами: 1, 5 и 10.</li>
+            <li>Внутри метода используется <code>this.count</code> для доступа к переменной счётчика и её обновления.</li>
+          </ul>
+
+
+
+          <h4>Пример 2:</h4>
+          <p class="note note--info">Создадим метод для форматирования имени с заглавной буквы. </p>
+
+          <div class="interactive-demo">
+            <div id="name-demo">
+              <input v-model="name" placeholder="Введите имя" />
+              <p>Имя: {{ formatName(name) }}</p>
+            </div>
+          </div>
+
+          <div class="code-block">
+            <pre><code>&lt;div id="name-demo"&gt;
+  &lt;input v-model="name" placeholder="Введите имя"&gt;
+  &lt;p&gt;Имя: {{ formatName(name) }}&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() { return { name: "алиса" } },
+  methods: {
+    formatName(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+  }
+}).mount("#name-demo");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Метод <code>formatName</code> принимает строку <code>str</code> и возвращает её с заглавной первой буквой.</li>
+            <li>В шаблоне метод вызывается с текущим значением из поля ввода <code>name</code>.</li>
+          </ul>
+
+
+          <h4>Пример 3:</h4>
+          <p class="note note--info">Создадим метод для преобразования текста в нижний регистр.</p>
+          <div class="interactive-demo">
+            <div id="lowercase-demo">
+              <input v-model="text" placeholder="Введите текст" />
+              <p>Результат: {{ toLowerCase(text) }}</p>
+            </div>
+          </div>
+
+          <div class="code-block">
+            <pre><code>&lt;div id="lowercase-demo"&gt;
+  &lt;input v-model="text" placeholder="Введите текст"&gt;
+  &lt;p&gt;Результат: {{ toLowerCase(text) }}&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() { return { text: "" } },
+  methods: {
+    toLowerCase(str) { return str.toLowerCase(); }
+  }
+}).mount("#lowercase-demo");
+&lt;/script&gt;</code></pre>
+          </div>
+
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Метод <code>toLowerCase</code> принимает строку <code>str</code> и возвращает её в нижнем регистре с помощью встроенного метода JavaScript <code>toLowerCase()</code>.</li>
+            <li>В шаблоне метод вызывается с текущим значением из поля ввода <code>text</code>.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- computed -->
+      <section class="section" id="computed">
+        <div class="container">
+          <h2>computed: вычисляемые свойства</h2>
+          <p class="note"><strong>computed</strong> определяются в объекте <code>computed</code>. Пересчитываются только при изменении зависимостей (например, <code>data()</code>) и кешируются.</p>
+          <h4>Что нужно знать о computed:</h4>
+          <ul class="list-ul">
+            <li>Используются для вычислений на основе данных компонента.</li>
+            <li>Пересчитываются только при изменении зависимостей.</li>
+            <li>Кешируются для оптимизации производительности.</li>
+          </ul>
+          <p class="note note--info">В отличие от методов, которые выполняются при каждом вызове, вычисляемые свойства кешируются до тех пор, пока не изменятся их зависимости. Это делает их идеальными для сложных вычислений, которые не нужно выполнять каждый раз при рендеринге.</p>
+
+
+          <h4>Пример:</h4>
+          <p>Создадим вычисляемое свойство, которое возвращает удвоенное значение счётчика.</p>
+
+          <div class="interactive-demo">
+            <div id="computed-demo">
+              <h4>Исходное значение: {{ computedCount }}</h4>
+              <h4>Удвоенное (computed): {{ doubleCount }}</h4>
+              <button @click="computedCount++">Увеличить</button>
+            </div>
+          </div>
+
+          <div class="code-block">
+            <pre><code>&lt;div id="computed-demo"&gt;
+  &lt;h4&gt;Исходное значение: {{ computedCount }}&lt;/h4&gt;
+  &lt;h4&gt;Удвоенное (computed): {{ doubleCount }}&lt;/h4&gt;
+  &lt;button @click="computedCount++"&gt;Увеличить&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() { return { computedCount: 5 } },
+  computed: {
+    doubleCount() { return this.computedCount * 2 }
+  }
+}).mount("#computed-demo");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>В объекте <code>data()</code> определена переменная <code>computedCount</code>, инициализированная значением 5.</li>
+            <li>В объекте <code>computed</code> определено вычисляемое свойство <code>doubleCount</code>, которое возвращает удвоенное значение <code>computedCount</code>.</li>
+            <li>В шаблоне отображаются оба значения, и кнопка увеличивает <code>computedCount</code> на 1 при каждом клике.</li>
+          </ul>
+          <p class="note note--info">
+            🚀
+            <strong>computed</strong> идеально подходят для производительных вычислений, которые зависят от реактивных данных.
+          </p>
+
+        </div>
+      </section>
+
+      <!-- watch -->
+      <section class="section" id="watch">
+        <div class="container">
+          <h2>watch: наблюдатель</h2>
+          <p class="note"><strong>watch</strong> определяются в объекте <code>watch</code>. Следят за изменением переменной и запускают функцию, например, при изменении <code>data()</code>.</p>
+          <h4>Что нужно знать о watch:</h4>
+          <ul class="list-ul">
+            <li>Используются для асинхронных действий и побочных эффектов.</li>
+            <li>Следят за изменением реактивных данных.</li>
+            <li>Не кешируются.</li>
+          </ul>
+          <p class="note note--info">
+            В отличие от
+            <code>computed</code>
+            , которые предназначены для вычислений на основе данных, наблюдатели
+            <code>watch</code>
+            используются для выполнения действий в ответ на изменения данных, таких как запросы к API или обновление других частей состояния.
+          </p>
+
+          <h4>Пример:</h4>
+          <p>Создадим наблюдатель, который будет логировать изменения счётчика в консоль.</p>
+          <div class="interactive-demo">
+            <div id="watch-demo">
+              <h4>Счётчик: {{ scoring }}</h4>
+              <button @click="scoring++">Увеличить</button>
+            </div>
+          </div>
+          <div class="code-block">
+            <pre><code>&lt;div id="watch-demo"&gt;
+  &lt;h4&gt;Счётчик: {{ scoring }}&lt;/h4&gt;
+  &lt;button @click="scoring++"&gt;Увеличить&lt;/button&gt;
+&lt;/div&gt;
+&lt;script&gt;
+Vue.createApp({
+  data() { return { scoring: 0 } },
+  watch: {
+    scoring(newValue, oldValue) {
+      console.log(`Счётчик изменился с ${oldValue} на ${newValue}`);
+    }
+  }
+}).mount("#watch-demo");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>В объекте <code>data()</code> определена переменная <code>scoring</code>, инициализированная значением 0.</li>
+            <li>В объекте <code>watch</code> определён наблюдатель для переменной <code>scoring</code>, который логирует в консоль старое и новое значение при каждом изменении.</li>
+            <li>В шаблоне отображается текущее значение счётчика, и кнопка увеличивает его на 1 при каждом клике.</li>
+          </ul>
+          <p class="note note--info">
+            🚀
+            <strong>watch</strong>
+            подходит для асинхронных действий и побочных эффектов.
+            <br />
+            Например, запрос к API при изменении значения.
+          </p>
+
+
+        </div>
+      </section>
+
+      <!-- Циклы и условия -->
+      <section class="section" id="cycles-conditions">
+        <div class="container">
+          <h2>Циклы и условия во Vue</h2>
+          <p class="note">
+            <strong>Циклы и условные конструкции во Vue</strong>
+            — ключевые инструменты для динамического отображения данных и управления видимостью элементов на странице.
+
+          </p>
+          <h4>Циклы и условные конструкции нужны для:</h4>
+          <ul class="list-ul">
+            <li>Динамического создания списков и элементов на основе данных</li>
+            <li>Управления видимостью контента в зависимости от состояния приложения</li>
+            <li>Создания интерактивных интерфейсов с адаптивным отображением информации</li>
+          </ul>
+
+          <h4>Основные директивы:</h4>
+          <h4></h4>
+          <ul class="list-ul">
+            <li><strong>v-for</strong> — директива для перебора массивов и отображения элементов списка. Она позволяет динамически создавать элементы на основе данных, что делает интерфейсы более гибкими и интерактивными.</li>
+            <li><strong>v-if</strong> — директива для условного отображения элементов на основе логических выражений. Если условие истинно, элемент отображается; если ложно — скрывается.</li>
+            <li><strong>v-else</strong> — директива для отображения альтернативного контента, если условие v-if не выполнено. Используется вместе с v-if для создания ветвлений в отображении.</li>
+            <li><strong>v-else-if</strong> — директива для добавления дополнительных условий к цепочке v-if/v-else. Позволяет проверять несколько условий последовательно. Используется вместе с v-if и v-else.</li>
+            <li><strong>v-show</strong> — директива для условного отображения элементов с помощью CSS-свойства display. Элемент остаётся в DOM, но его видимость управляется стилями.</li>
+          </ul>
+
+          <h4>Пример использования циклов и условий:</h4>
+          <p>Создадим список пользователей с условием отображения сообщения, если список пуст.</p>
+          <div class="interactive-demo">
+            <div id="demo-cycles"></div>
+          </div>
+
+          <div class="code-block">
+            <pre><code>&lt;div id="demo-cycles"&gt;
+  &lt;ul&gt;
+    &lt;li v-for="user in users" :key="user"&gt;{{ user }}&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;p v-if="users.length === 0"&gt;Нет пользователей&lt;/p&gt;
+&lt;/div&gt;
+&lt;script&gt;
+Vue.createApp({
+  data() { return { users: ["Аня", "Макс", "Иван"] } }
+}).mount("#demo-cycles");
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Директива <code>v-for="user in users"</code> перебирает массив <code>users</code> и создаёт элемент списка для каждого пользователя.</li>
+            <li>Атрибут <code>:key="user"</code> помогает Vue эффективно отслеживать элементы при обновлении списка.</li>
+            <li>Директива <code>v-if="users.length === 0"</code> отображает сообщение "Нет пользователей", если массив пуст.</li>
+          </ul>
+          <div class="note note--info">
+            🚀
+            Циклы и условия во Vue позволяют создавать динамические и интерактивные интерфейсы, адаптирующиеся к состоянию данных.
+            <br> Чаще всего используется вместе директива <code>v-for</code> и условные конструкции <code>v-if</code>, <code>v-else</code>.
+            <br> Реже используется <code>v-show</code> для управления видимостью через CSS.
+          </div>
+        </div>
+      </section>
+
+      <!-- Практика -->
+      <section class="section" id="practice">
+        <div class="container">
+          <h2>Практика: мини-приложение на Vue</h2>
+          <p class="note">
+            Давайте создадим простое мини-приложение на Vue, которое позволяет добавлять пользователей в список и отображать приветствие.
+          </p>
+          <div class="note note--info">
+            В этом примере мы используем
+            <code>v-model</code>
+            для двустороннего связывания данных, <code>v-for</code> для отображения списка пользователей, <code>v-if</code> для условного отображения приветствия и методы Vue для добавления пользователей и переключения видимости приветствия.
+          </div>
+
+          <div class="interactive-demo">
+            <div id="vue-demo"></div>
+          </div>
+          <h4>Код мини-приложения:</h4>
+          <div class="code-block">
+            <pre><code>&lt;div id="vue-demo"&gt;
+  &lt;input v-model="newUser" placeholder="Добавить пользователя"&gt;
+  &lt;button @click="addUser"&gt;Добавить&lt;/button&gt;
+  &lt;ul&gt;
+    &lt;li v-for="user in users" :key="user"&gt;{{ user }}&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;button @click="toggleHello"&gt;Показать/скрыть приветствие&lt;/button&gt;
+  &lt;p v-if="showHello"&gt;Привет, {{ users[0] || 'гость' }}!&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+Vue.createApp({
+  data() {
+    return {
+      users: ["Аня", "Макс", "Иван"],
+      newUser: "",
+      showHello: true
+    }
+  },
+  methods: {
+    addUser() {
+      if (this.newUser) {
+        this.users.push(this.newUser);
+        this.newUser = "";
+      }
+    },
+    toggleHello() {
+      this.showHello = !this.showHello;
+    }
+  }
+}).mount('#vue-demo');
+&lt;/script&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Поле ввода с <code>v-model="newUser"</code> связывает значение с переменной <code>newUser</code>.</li>
+            <li>Кнопка "Добавить" вызывает метод <code>addUser</code>, который добавляет нового пользователя в массив <code>users</code>.</li>
+            <li>Список пользователей отображается с помощью <code>v-for</code>, перебирая массив <code>users</code>.</li>
+            <li>Кнопка "Показать/скрыть приветствие" вызывает метод <code>toggleHello</code>, который переключает значение <code>showHello</code>.</li>
+            <li>Приветствие отображается условно с помощью <code>v-if="showHello"</code>, показывая имя первого пользователя или "гость", если список пуст.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Советы -->
+      <section class="section" id="tips">
+        <div class="container">
+          <h2>Советы и частые ошибки</h2>
+          <p>Вот несколько советов, которые помогут вам эффективно использовать Vue и избежать распространённых ошибок:</p>
+          <ul class="list-ul">
+            <li>Всегда используйте директивы Vue (<code>v-if</code>, <code>v-for</code>, <code>v-model</code>) для управления отображением и взаимодействием с данными.</li>
+            <li>Не изменяйте напрямую свойства объекта или массива в <code>data()</code>; используйте методы Vue для реактивности.</li>
+            <li>Используйте уникальные ключи с директивой <code>v-for</code> для оптимальной производительности при рендеринге списков.</li>
+            <li>Избегайте сложной логики в шаблонах; лучше выносите её в методы или вычисляемые свойства.</li>
+            <li>Проверяйте консоль браузера на наличие ошибок Vue, которые могут помочь в отладке.</li>
+          </ul>
+          <div class="note note--info">
+            Следуя этим советам, вы сможете создавать более надёжные и эффективные приложения на Vue!
+          </div>
+        </div>
+      </section>
+
+      <!-- Лучшие практики -->
+      <section class="section" id="best-practices">
+        <div class="container">
+          <h2>Лучшие практики</h2>
+          <p>Вот несколько лучших практик для работы с Vue, которые помогут вам создавать чистый и поддерживаемый код:</p>
+          <ul class="list-ul">
+            <li>Разделяйте логику и представление, используя методы и вычисляемые свойства вместо сложных выражений в шаблонах.</li>
+            <li>Используйте компоненты для повторно используемых частей интерфейса, чтобы улучшить структуру и читаемость кода.</li>
+            <li>Следуйте соглашениям по именованию для компонентов, методов и переменных, чтобы обеспечить консистентность в проекте.</li>
+            <li>Регулярно обновляйте зависимости Vue и связанные библиотеки для использования последних функций и исправлений безопасности.</li>
+            <li>Пишите тесты для ваших компонентов и логики, чтобы обеспечить стабильность приложения при внесении изменений.</li>
+          </ul>
+          <div class="note note--info">
+            Применение этих лучших практик поможет вам создавать качественные приложения на Vue, которые легко поддерживать и расширять.
+          </div>
+        </div>
+      </section>
+
+      <!-- Дополнительные темы -->
+      <section class="section" id="links">
+        <div class="container">
+          <h2>Ещё по теме Vue</h2>
+          <ul class="list-ul">
+            <li><a href="https://vuejs.org/v2/guide/" target="_blank" rel="noopener">Официальная документация Vue.js</a></li>
+            <li><a href="https://vuejs.org/v2/guide/components.html" target="_blank" rel="noopener">Компоненты во Vue.js</a></li>
+            <li><a href="https://vuejs.org/v2/guide/state-management.html" target="_blank" rel="noopener">Управление состоянием с Vuex</a></li>
+            <li><a href="https://router.vuejs.org/" target="_blank" rel="noopener">Vue Router для маршрутизации</a></li>
+            <li><a href="https://vuejs.org/v2/guide/single-file-components.html" target="_blank" rel="noopener">Однофайловые компоненты Vue</a></li>
+          </ul>
+        </div>
+      </section>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+  <script>
+    // Интерполяция демо
+    Vue.createApp({
+      data() {
+        return {
+          name: "Алексей"
+        };
+      },
+      template: `<h1>Привет, {{ name }}!</h1>`,
+    }).mount("#demo-interpolation");
+
+    // События демо (исправлено: добавлен template для работы события)
+    Vue.createApp({
+      data() {
+        return {
+          count: 0
+        };
+      },
+      template: `
+            <button @click="count++">+1</button>
+            <p>Счётчик: {{ count }}</p>
+        `,
+    }).mount("#demo-events");
+
+    // v-model демо
+    Vue.createApp({
+      data() {
+        return {
+          username: ""
+        };
+      },
+      template: `
+            <input v-model="username" placeholder="Ваше имя" />
+            <p>Привет, {{ username }}!</p>
+        `,
+    }).mount("#demo-vmodel");
+
+    // Методы демо
+    Vue.createApp({
+      methods: {
+        sayHello() {
+          alert("Привет!");
+        },
+      },
+      template: `
+            <button @click="sayHello">Поздороваться</button>
+        `,
+    }).mount("#demo-methods");
+
+    // Циклы и условия демо
+    Vue.createApp({
+      data() {
+        return {
+          users: ["Аня", "Макс", "Иван"]
+        };
+      },
+      template: `
+            <ul>
+                <li v-for="user in users" :key="user">{{ user }}</li>
+            </ul>
+            <p v-if="users.length === 0">Нет пользователей</p>
+        `,
+    }).mount("#demo-cycles");
+
+    // Основное демо для практики
+    Vue.createApp({
+      data() {
+        return {
+          users: ["Аня", "Макс", "Иван"],
+          newUser: "",
+          showHello: true,
+        };
+      },
+      methods: {
+        addUser() {
+          if (this.newUser) {
+            this.users.push(this.newUser);
+            this.newUser = "";
+          }
+        },
+        toggleHello() {
+          this.showHello = !this.showHello;
+        },
+      },
+      template: `
+            <div>
+                <input v-model="newUser" placeholder="Добавить пользователя">
+                <button @click="addUser">Добавить</button>
+                <ul>
+                    <li v-for="user in users" :key="user">{{ user }}</li>
+                </ul>
+                <button @click="toggleHello">Показать/скрыть приветствие</button>
+                <p v-if="showHello">Привет, {{ users[0] || 'гость' }}!</p>
+            </div>
+        `,
+    }).mount("#vue-demo");
+
+
+    // Первый простой счетчик
+    Vue.createApp({
+      data() {
+        return {
+          count: 0
+        };
+      },
+      methods: {
+        increaseCount() {
+          this.count++;
+        },
+      },
+    }).mount("#counter-demo");
+
+    // Расширенный счетчик
+    Vue.createApp({
+      data() {
+        return {
+          count: 0
+        };
+      },
+      methods: {
+        increase() {
+          this.count++;
+        },
+        decrease() {
+          this.count--;
+        },
+        reset() {
+          this.count = 0;
+        },
+      },
+    }).mount("#counter-full");
+
+    // Передача параметра
+    Vue.createApp({
+      data() {
+        return {
+          count: 0
+        };
+      },
+      methods: {
+        increase(value) {
+          this.count += value;
+        },
+      },
+    }).mount("#counter-step");
+
+    // Форматирование имени
+    Vue.createApp({
+      data() {
+        return {
+          name: "алиса"
+        };
+      },
+      methods: {
+        formatName(str) {
+          return str.charAt(0).toUpperCase() + str.slice(1);
+        },
+      },
+    }).mount("#name-demo");
+
+    // Преобразование в нижний регистр
+    Vue.createApp({
+      data() {
+        return {
+          text: ""
+        };
+      },
+      methods: {
+        toLowerCase(str) {
+          return str.toLowerCase();
+        },
+      },
+    }).mount("#lowercase-demo");
+
+    // computed demo
+    Vue.createApp({
+      data() {
+        return {
+          computedCount: 5
+        };
+      },
+      computed: {
+        doubleCount() {
+          return this.computedCount * 2;
+        },
+      },
+    }).mount("#computed-demo");
+
+    // watch demo
+    Vue.createApp({
+      data() {
+        return {
+          scoring: 0
+        };
+      },
+      watch: {
+        scoring(newValue, oldValue) {
+          console.log(`Счётчик изменился с ${oldValue} на ${newValue}`);
+        },
+      },
+    }).mount("#watch-demo");
+  </script>
+</body>
+</html>

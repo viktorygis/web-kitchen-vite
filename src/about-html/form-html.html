@@ -1,0 +1,2203 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        @@include('../partials/head.html', { "title": "HTML: Формы и элементы ввода", "description": "Руководство по созданию HTML-форм и использованию элементов ввода" })
+    </head>
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+            <main class="page">
+                <nav class="nav-tabs">
+                    <a href="#forms-intro" class="active">Введение</a>
+                    <a href="#forms-structure">Структура</a>
+                    <a href="#forms-input">input</a>
+                    <a href="#forms-textarea">textarea</a>
+                    <a href="#forms-select">select</a>
+                    <a href="#forms-fieldset">fieldset/legend</a>
+                    <a href="#forms-date">Дата/время</a>
+                    <a href="#forms-validation">Валидация</a>
+                    <a href="#forms-tips">Советы</a>
+                    <a href="#forms-button">button</a>
+                    <a href="#forms-button-modern-styles">Стили button</a>
+                </nav>
+                <aside></aside>
+
+                <!-- Введение -->
+                <section class="section" id="forms-intro">
+                    <div class="container">
+                        <h1>HTML: Формы и элементы ввода</h1>
+                        <p class="note">
+                            Формы являются основным способом взаимодействия пользователя с веб-сайтом.
+                            <br />
+                            Они позволяют собирать данные, отправлять их на сервер или использовать для различных операций, таких как поиск, регистрация или авторизация.
+                        </p>
+                        <p>
+                            На этой странице обсуждаются основные элементы HTML-форм, такие как
+                            <code>&lt;input&gt;</code>
+                            ,
+                            <code>&lt;textarea&gt;</code>
+                            ,
+                            <code>&lt;select&gt;</code>
+                            и другие.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- 1. Базовая структура формы -->
+                <section class="section" id="forms-structure">
+                    <div class="container">
+                        <h2>Базовая структура формы</h2>
+                        <p>
+                            Каждая HTML-форма начинается с тега
+                            <code>&lt;form&gt;</code>
+                            . Основные атрибуты:
+                        </p>
+                        <ul class="list-ul">
+                            <li>
+                                <code>action</code>
+                                : URL-адрес, на который отправляются данные формы
+                            </li>
+                            <li>
+                                <code>method</code>
+                                : метод отправки данных (
+                                <code>GET</code>
+                                или
+                                <code>POST</code>
+                                )
+                            </li>
+                        </ul>
+                        <div class="note tip">
+                            <b>action</b>
+                            — адрес, куда отправляются данные после нажатия на кнопку.
+                            <br />
+                            <b>method</b>
+                            :
+                            <b>GET</b>
+                            — данные видны в адресной строке, подходит для поиска.
+                            <b>POST</b>
+                            — данные скрыты, лучше для регистрации/логина.
+                        </div>
+
+                        <!-- Пример -->
+                        <div class="grid-column-50">
+                            <pre><code>
+&lt;form action="submit.php" method="POST"&gt;
+  &lt;!-- Элементы формы --&gt;
+  &lt;input type="text" placeholder="Ваше имя"&gt;
+  &lt;button&gt;Отправить&lt;/button&gt;
+&lt;/form&gt;
+              </code></pre>
+                            <div>
+                                <form action="submit.php" method="post">
+                                    <input type="text" placeholder="Ваше имя" />
+                                    <button>Отправить</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. Тег input -->
+                <section class="section" id="forms-input">
+                    <div class="container">
+                        <h2>Тег &lt;input&gt;</h2>
+                        <p class="note">
+                            <code>&lt;input&gt;</code>
+                            — универсальный элемент для ввода данных. Тип ввода указывается с помощью атрибута
+                            <code>type</code>
+                            .
+                        </p>
+
+                        <!-- text -->
+                        <div>
+                            <h3>Текстовые поля - text</h3>
+                            <p>
+                                Это самый базовый тип
+                                <b>&lt;input&gt;</b>
+                                <br />
+
+                                Они создаются с помощью
+                                <b>type="text"</b>
+                                и позволяют пользователю вводить любой текст, например, имя, комментарий или адрес.
+                            </p>
+
+                            <pre><code>&lt;input type="text" placeholder="Ваше имя"&gt; </code></pre>
+                            <p>Что происходит в коде?</p>
+                            <ul class="list-ul">
+                                <li>
+                                    <b>&lt;input&gt;</b>
+                                    — создаёт поле ввода.
+                                </li>
+
+                                <li>
+                                    <b>type="text"</b>
+                                    — делает это поле текстовым, куда можно вводить любые буквы или цифры.
+                                </li>
+
+                                <li>
+                                    <b>placeholder="Ваше имя"</b>
+                                    — добавляет подсказку внутри поля, которая исчезнет, когда пользователь начнёт вводить текст.
+                                </li>
+                            </ul>
+                            <p class="note">⚠️ Важно: input — одиночный тег, он не требует закрывающего, а также без атрибута type поле не будет работать корректно.</p>
+                            <p>⚡ Текстовые поля — это база. Ты будешь использовать их почти на каждой странице!</p>
+
+                            <!-- Пример -->
+                            <h4>Пример</h4>
+                            <div class="grid-column-50">
+                                <pre><code>&lt;input type="text" placeholder="Ваше имя"&gt;</code></pre>
+                                <div style="align-self: center">
+                                    <input type="text" placeholder="Ваше имя" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- email -->
+                        <div>
+                            <h3>Текстовые поля - email</h3>
+                            <p>
+                                Поля с
+                                <b>type="email"</b>
+                                позволяют вводить электронную почту.
+                            </p>
+
+                            <pre><code>&lt;input type="email" placeholder="Ваш email"&gt; </code></pre>
+
+                            <p class="note">
+                                ⚠️ Важно: Поля email автоматически проверяют, введён ли адрес правильно (например, есть ли символ @).
+                                <br />
+
+                                Это облегчает жизнь пользователям и уменьшает количество ошибок.
+                            </p>
+
+                            <!-- Пример -->
+                            <h4>Пример</h4>
+                            <div class="grid-column-50">
+                                <pre><code>&lt;input type="email" placeholder="Ваш email"&gt;</code></pre>
+                                <div style="align-self: center">
+                                    <input type="email" placeholder="Ваш email" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- password -->
+                        <div>
+                            <h3>Текстовые поля - password</h3>
+                            <p>
+                                Поля с
+                                <b>type="password"</b>
+                                поле для ввода пароля (символы скрыты).
+                            </p>
+
+                            <pre><code>&lt;input type="password" placeholder="Введите пароль"&gt; </code></pre>
+
+                            <p class="note">
+                                ⚠️ Важно: Всё, что пользователь вводит, превращается в звёздочки или точки. ✨
+                                <br />
+                                Это делает поле безопасным для ввода пароля (но сервер тоже должен быть защищён, не забывай об этом!).
+                            </p>
+
+                            <!-- Пример -->
+                            <h4>Пример</h4>
+                            <div class="grid-column-50">
+                                <pre><code>
+&lt;input type="password" placeholder="Введите пароль"&gt;
+	              </code></pre>
+                                <div style="align-self: center">
+                                    <input type="password" placeholder="Введите пароль" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- checkbox -->
+                        <div>
+                            <h3>Текстовые поля - checkbox</h3>
+                            <p>
+                                Поля с
+                                <b>type="checkbox"</b>
+                                флажок, позволяют выбирать один или несколько вариантов.
+                                <br />
+                                Это как маленькая коробочка 📦, в которую можно поставить галочку.
+                            </p>
+
+                            <div class="grid-column-50">
+                                <pre><code>
+&lt;input type="checkbox" id="fly"&gt;
+&lt;label for="fly"&gt;Полёты&lt;/label&gt;
+
+&lt;input type="checkbox" id="invisibility"&gt;
+&lt;label for="invisibility"&gt;Невидимость&lt;/label&gt;
+  </code></pre>
+                                <form>
+                                    <div style="align-self: center">
+                                        <div style="display: flex; align-items: center; gap: 10px">
+                                            <input type="checkbox" id="fly" />
+                                            <label for="fly">Полёты</label>
+                                        </div>
+                                        <br />
+                                        <div style="display: flex; align-items: center; gap: 10px">
+                                            <input type="checkbox" id="invisibility" />
+                                            <label for="invisibility">Невидимость</label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <p>Что происходит в коде?</p>
+                            <ul class="list-ul">
+                                <li>
+                                    <b>&lt;input type="checkbox"&gt;</b>
+                                    — это сам чекбокс, маленький квадрат, который можно отметить.
+                                </li>
+                                <li>
+                                    <b>&lt;label&gt;</b>
+                                    — это подпись для чекбокса. Она объясняет пользователю, что он выбирает.
+                                </li>
+                                <li>
+                                    <b>for</b>
+                                    в теге
+                                    <b>&lt;label&gt;</b>
+                                    связывает текст с конкретным чекбоксом через его
+                                    <b>id</b>
+                                    .
+                                </li>
+                                <li>
+                                    Когда пользователь кликает по тексту внутри
+                                    <b>&lt;label&gt;</b>
+                                    , связанный чекбокс автоматически отмечается.
+                                </li>
+                            </ul>
+                            <p class="note">
+                                ⚠️ Важно: всегда используйте атрибут
+                                <b>for</b>
+                                в
+                                <code>&lt;label&gt;</code>
+                                и соответствующий
+                                <b>id</b>
+                                в
+                                <code>&lt;input&gt;</code>
+                                — это сделает форму удобнее и доступнее.
+                            </p>
+                            <p>☑️ Чекбоксы отлично подходят для выбора нескольких вариантов из списка!</p>
+                            <!-- Пример -->
+                            <h4>Пример</h4>
+                            <div class="grid-column-50">
+                                <pre><code>
+&lt;input type="checkbox" id="news"&gt;
+&lt;label for="news"&gt;Получать новости&lt;/label&gt;
+
+&lt;input type="checkbox" id="offers"&gt;
+&lt;label for="offers"&gt;Специальные предложения&lt;/label&gt;
+
+&lt;input type="checkbox" id="events"&gt;
+&lt;label for="events"&gt;Уведомления о событиях&lt;/label&gt;
+  </code></pre>
+                                <div style="align-self: center">
+                                    <div style="display: flex; align-items: center; gap: 10px">
+                                        <input type="checkbox" id="news" />
+                                        <label for="news">Получать новости</label>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 10px">
+                                        <input type="checkbox" id="offers" />
+                                        <label for="offers">Специальные предложения</label>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 10px">
+                                        <input type="checkbox" id="events" />
+                                        <label for="events">Уведомления о событиях</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- radio -->
+                        <div>
+                            <h3>Переключатели — radio</h3>
+                            <p>
+                                Поля с
+                                <b>type="radio"</b>
+                                позволяют выбрать только
+                                <b>один</b>
+                                вариант из группы.
+                                <br />
+                                Это как круглый переключатель ⭕, куда можно поставить только одну точку.
+                            </p>
+
+                            <div class="grid-column-50">
+                                <pre><code>
+&lt;input type="radio" id="male" name="gender" value="male"&gt;
+&lt;label for="male"&gt;Мужской&lt;/label&gt;
+
+&lt;input type="radio" id="female" name="gender" value="female"&gt;
+&lt;label for="female"&gt;Женский&lt;/label&gt;
+
+&lt;input type="radio" id="other" name="gender" value="other"&gt;
+&lt;label for="other"&gt;Другое&lt;/label&gt;
+  </code></pre>
+                                <form style="align-self: center">
+                                    <div>
+                                        <div style="display: flex; align-items: center; gap: 10px">
+                                            <input type="radio" id="male" name="gender" value="male" />
+                                            <label for="male">Мужской</label>
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 10px">
+                                            <input type="radio" id="female" name="gender" value="female" />
+                                            <label for="female">Женский</label>
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 10px">
+                                            <input type="radio" id="other" name="gender" value="other" />
+                                            <label for="other">Другое</label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <p>Что происходит в коде?</p>
+                            <ul class="list-ul">
+                                <li>
+                                    <b>&lt;input type="radio"&gt;</b>
+                                    — это сам радиобаттон (переключатель), круглый элемент, который можно выбрать.
+                                </li>
+                                <li>
+                                    <b>name</b>
+                                    — одинаковое значение у всех радио в группе. Благодаря этому можно выбрать только один вариант из нескольких.
+                                </li>
+                                <li>
+                                    <b>value</b>
+                                    — значение, которое отправится на сервер при выборе этого варианта.
+                                </li>
+                                <li>
+                                    <b>&lt;label&gt;</b>
+                                    — подпись для переключателя, объясняет, что выбирает пользователь.
+                                </li>
+                                <li>
+                                    <b>for</b>
+                                    в теге
+                                    <b>&lt;label&gt;</b>
+                                    связывает текст с конкретным переключателем через его
+                                    <b>id</b>
+                                    .
+                                </li>
+                                <li>
+                                    Когда пользователь кликает по тексту
+                                    <b>&lt;label&gt;</b>
+                                    , соответствующий переключатель выбирается.
+                                </li>
+                                <li>Если не выбран ни один radio-кнопка, никакое значение из этой группы не отправится на сервер.</li>
+                                <li>
+                                    Можно задать один из radio как выбранный по умолчанию с помощью атрибута
+                                    <b>checked</b>
+                                    .
+                                </li>
+                            </ul>
+                            <p class="note">
+                                ⚠️ Важно: все радио-кнопки, относящиеся к одной группе выбора, должны иметь одинаковое
+                                <b>name</b>
+                                .
+                                <br />
+                                Это обеспечивает корректную работу выбора только одного варианта.
+                            </p>
+                            <p>🔘 Радио-переключатели используют для случаев, когда из вариантов можно выбрать только один!</p>
+                            <!-- Пример -->
+                            <h4>Пример</h4>
+                            <div class="grid-column-50">
+                                <pre><code>
+&lt;input type="radio" id="visa" name="payment"&gt;
+&lt;label for="visa"&gt;Visa&lt;/label&gt;
+
+&lt;input type="radio" id="mastercard" name="payment"&gt;
+&lt;label for="mastercard"&gt;MasterCard&lt;/label&gt;
+
+&lt;input type="radio" id="mir" name="payment"&gt;
+&lt;label for="mir"&gt;МИР&lt;/label&gt;
+    </code></pre>
+                                <form style="align-self: center">
+                                    <div style="display: flex; align-items: center; gap: 10px">
+                                        <input type="radio" id="visa" name="payment" />
+                                        <label for="visa">Visa</label>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 10px">
+                                        <input type="radio" id="mastercard" name="payment" />
+                                        <label for="mastercard">MasterCard</label>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 10px">
+                                        <input type="radio" id="mir" name="payment" />
+                                        <label for="mir">МИР</label>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- number -->
+                        <div>
+                            <h3>Числовые поля — number</h3>
+                            <p>
+                                Поля с
+                                <b>type="number"</b>
+                                позволяют вводить только числа.
+                                <br />
+                                Это удобно для возраста, количества, цены и других числовых значений.
+                            </p>
+
+                            <div class="grid-column-50">
+                                <pre><code>
+&lt;input type="number" id="age" name="age" min="0" max="120"&gt;
+&lt;label for="age"&gt;Возраст&lt;/label&gt;
+
+&lt;input type="number" id="quantity" name="quantity"  <br>
+min="1" max="10" value="1"&gt;
+&lt;label for="quantity"&gt;Количество&lt;/label&gt;
+</code></pre>
+                                <form style="align-self: center">
+                                    <div>
+                                        <div style="display: flex; align-items: center; gap: 10px">
+                                            <input type="number" id="age" name="age" min="0" max="120" />
+                                            <label for="age">Возраст</label>
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 10px">
+                                            <input type="number" id="quantity" name="quantity" min="1" max="10" value="1" />
+                                            <label for="quantity">Количество</label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <p>Что происходит в коде?</p>
+                            <ul class="list-ul">
+                                <li>
+                                    <b>&lt;input type="number"&gt;</b>
+                                    — это поле для ввода только числовых значений.
+                                </li>
+                                <li>
+                                    <b>min</b>
+                                    и
+                                    <b>max</b>
+                                    — задают минимальное и максимальное допустимое значение.
+                                </li>
+                                <li>
+                                    <b>value</b>
+                                    — устанавливает начальное значение по умолчанию.
+                                </li>
+                                <li>
+                                    <b>step</b>
+                                    — определяет шаг изменения значения (например,
+                                    <b>step="0.01"</b>
+                                    для цены с копейками).
+                                </li>
+                                <li>Пользователь может вводить число с клавиатуры или менять значение стрелками вверх/вниз.</li>
+                                <li>При попытке ввести не-число (буквы) браузер не позволит отправить форму.</li>
+                                <li>
+                                    <b>&lt;label&gt;</b>
+                                    — подпись для поля, объясняет что нужно ввести.
+                                </li>
+                                <li>Для удобства на мобильных устройствах автоматически появляется цифровая клавиатура.</li>
+                            </ul>
+                            <p class="note">
+                                ⚠️ Важно: используйте
+                                <b>min</b>
+                                и
+                                <b>max</b>
+                                для ограничения диапазона значений, а
+                                <b>step</b>
+                                — для дробных чисел.
+                                <br />
+                                Проверьте ввод и на стороне сервера!
+                            </p>
+                            <p>🔢 Числовые поля подходят для возраста, количества, суммы заказа и других числовых данных!</p>
+                            <!-- Пример -->
+                            <h4>Пример</h4>
+                            <div class="grid-column-50">
+                                <pre><code>
+&lt;input type="number" id="price" name="price" min="0" step="0.01" value="0.00"&gt;
+&lt;label for="price"&gt;Стоимость (₽)&lt;/label&gt;
+
+&lt;input type="number" id="year" name="year" min="1900" max="2100" value="2025"&gt;
+&lt;label for="year"&gt;Год&lt;/label&gt;
+    </code></pre>
+                                <form style="align-self: center">
+                                    <div style="display: flex; align-items: center; gap: 10px">
+                                        <input type="number" id="price" name="price" min="0" step="0.01" value="0.00" />
+                                        <label for="price">Стоимость (₽)</label>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 10px">
+                                        <input type="number" id="year" name="year" min="1900" max="2100" value="2025" />
+                                        <label for="year">Год</label>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <h4>Пример</h4>
+
+                        Этот пример использует все основные типы &lt;input&gt; (text, email, password, number, checkbox, radio, date), а также &lt;select&gt; и &lt;textarea&gt;.
+
+                        <div class="grid-column-50">
+                            <div>
+                                <pre><code>
+&lt;form action="/submit" method="post"&gt;
+  &lt;label for="name"&gt;Имя:&lt;/label&gt;
+  &lt;input type="text" id="name" name="name" required&gt;
+
+  &lt;label for="email"&gt;Email:&lt;/label&gt;
+  &lt;input type="email" id="email" name="email" required&gt;
+
+  &lt;label for="form-password"&gt;Пароль:&lt;/label&gt;
+  &lt;input type="password" id="form-password" name="form-password" required&gt;
+
+  &lt;label for="form-age"&gt;Возраст:&lt;/label&gt;
+  &lt;input type="number" id="form-age" name="form-age" min="1" max="120"&gt;
+
+  &lt;label&gt;&lt;input type="checkbox" name="subscribe"&gt; Подписаться на новости&lt;/label&gt;
+
+  &lt;label&gt;Пол:&lt;/label&gt;
+  &lt;input type="radio" id="male" name="gender" value="male"&gt;
+  &lt;label for="male"&gt;Мужской&lt;/label&gt;
+  &lt;input type="radio" id="female" name="gender" value="female"&gt;
+  &lt;label for="female"&gt;Женский&lt;/label&gt;
+  &lt;input type="radio" id="other" name="gender" value="other"&gt;
+  &lt;label for="other"&gt;Другое&lt;/label&gt;
+
+  &lt;label for="country"&gt;Страна:&lt;/label&gt;
+  &lt;select id="country" name="country"&gt;
+    &lt;option value="ru"&gt;Россия&lt;/option&gt;
+    &lt;option value="us"&gt;США&lt;/option&gt;
+    &lt;option value="de"&gt;Германия&lt;/option&gt;
+  &lt;/select&gt;
+
+  &lt;label for="birthday"&gt;Дата рождения:&lt;/label&gt;
+  &lt;input type="date" id="birthday" name="birthday"&gt;
+
+  &lt;label for="message"&gt;Комментарий:&lt;/label&gt;
+  &lt;textarea id="message" name="message" rows="3"&gt;&lt;/textarea&gt;
+
+  &lt;button type="submit"&gt;Отправить&lt;/button&gt;
+&lt;/form&gt;
+    </code></pre>
+                            </div>
+                            <form action="#" method="post">
+                                <label for="form-name">Имя:</label>
+                                <input type="text" id="form-name" name="form-name" required />
+
+                                <label for="form-email">Email:</label>
+                                <input type="email" id="form-email" name="form-email" required />
+
+                                <label for="form-password">Пароль:</label>
+                                <input type="password" id="form-password" name="form-password" required />
+
+                                <label for="form-age">Возраст:</label>
+                                <input type="number" id="form-age" name="form-age" min="1" max="120" />
+
+                                <label>
+                                    <input type="checkbox" name="subscribe" />
+                                    Подписаться на новости
+                                </label>
+
+                                <label>Пол:</label>
+                                <div style="display: flex; gap: 8px; align-items: center">
+                                    <input type="radio" id="form-male" name="form-gender" value="form-male" />
+                                    <label for="form-male" style="margin-bottom: 0">Мужской</label>
+
+                                    <input type="radio" id="form-female" name="form-gender" value="form-female" />
+                                    <label for="form-female" style="margin-bottom: 0">Женский</label>
+
+                                    <input type="radio" id="form-other" name="form-gender" value="form-other" />
+                                    <label for="form-other" style="margin-bottom: 0">Другое</label>
+                                </div>
+
+                                <label for="country">Страна:</label>
+                                <select id="country" name="country">
+                                    <option value="ru">Россия</option>
+                                    <option value="us">США</option>
+                                    <option value="de">Германия</option>
+                                </select>
+
+                                <label for="birthday">Дата рождения:</label>
+                                <input type="date" id="birthday" name="birthday" />
+
+                                <label for="message">Комментарий:</label>
+                                <textarea id="message" name="message" rows="3"></textarea>
+
+                                <button type="submit">Отправить</button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. Тег textarea -->
+                <section class="section" id="forms-textarea">
+                    <div class="container">
+                        <h2>Тег &lt;textarea&gt;</h2>
+                        <p class="note">
+                            <code>&lt;textarea&gt;</code>
+                            — элемент формы для ввода многострочного текста, в отличие от обычного
+                            <code>&lt;input&gt;</code>
+                            .
+                            <br />
+                            Используется для комментариев, отзывов, сообщений и других случаев, когда пользователю нужно ввести длинный текст.
+                        </p>
+
+                        <p>
+                            Где применяют
+                            <b>&lt;textarea&gt;</b>
+                            ?
+                        </p>
+                        <ul class="list-ul">
+                            <li>Комментарии 💬</li>
+                            <li>Отзывы 📝</li>
+                            <li>Сообщения</li>
+                            <li>Описание профиля</li>
+                            <li>Любой длинный текст</li>
+                        </ul>
+
+                        <div class="grid-column-50" style="align-items: center">
+                            <pre><code>
+&lt;textarea placeholder="Напишите ваш комментарий"&gt;&lt;/textarea&gt;
+      </code></pre>
+                            <form action="#" method="post">
+                                <textarea placeholder="Напишите ваш комментарий"></textarea>
+                            </form>
+                        </div>
+
+                        <h3>rows и cols</h3>
+                        <p class="note">
+                            🖋️
+                            <b>&lt;textarea&gt;</b>
+                            можно настроить по размеру с помощью атрибутов
+                            <b>rows</b>
+                            (высота в строках) и
+                            <b>cols</b>
+                            (ширина в символах).
+                        </p>
+                        <ul class="list-ul">
+                            <li>
+                                <b>rows</b>
+                                — количество видимых строк (по высоте).
+                            </li>
+                            <li>
+                                <b>cols</b>
+                                — примерная ширина поля (в символах, не в пикселях).
+                            </li>
+                        </ul>
+                        <p>
+                            Также можно управлять шириной через CSS (например,
+                            <code>width: 100%;</code>
+                            ), тогда
+                            <code>cols</code>
+                            не обязателен.
+                        </p>
+
+                        <h4>textarea rows="5" cols="30"</h4>
+                        <div class="grid-column-50">
+                            <pre><code>
+&lt;textarea rows="5" cols="30" placeholder="Напишите ваш отзыв"&gt;
+&lt;/textarea&gt;
+      </code></pre>
+                            <form action="#" method="post">
+                                <textarea style="width: auto" rows="5" cols="30" placeholder="Напишите ваш отзыв"></textarea>
+                            </form>
+                        </div>
+
+                        <h4>textarea rows="2" cols="10"</h4>
+                        <div class="grid-column-50">
+                            <pre><code>
+&lt;textarea rows="2" cols="10" placeholder="Короткое сообщение"&gt;
+&lt;/textarea&gt;
+      </code></pre>
+                            <form action="#" method="post">
+                                <textarea style="width: auto" rows="2" cols="10" placeholder="Короткое сообщение"></textarea>
+                            </form>
+                        </div>
+
+                        <h3>Текст по умолчанию</h3>
+                        <p class="note">
+                            Можно добавить текст между открывающим и закрывающим тегом
+                            <code>&lt;textarea&gt;</code>
+                            . Он сразу появится внутри поля как начальный текст.
+                        </p>
+                        <div class="grid-column-50">
+                            <pre><code>
+&lt;textarea rows="5" cols="30"&gt;
+Ваш текст по умолчанию
+&lt;/textarea&gt;
+      </code></pre>
+                            <form action="#" method="post">
+                                <textarea rows="5" cols="30">Ваш текст по умолчанию</textarea>
+                            </form>
+                        </div>
+
+                        <h3>maxlength</h3>
+                        <p>
+                            Если нужно ограничить количество символов, используйте атрибут
+                            <code>maxlength</code>
+                            .
+                            <br />
+                            Например, чтобы оставить отзыв длиной не более 200 символов:
+                        </p>
+                        <div class="grid-column-50">
+                            <pre><code>
+&lt;textarea maxlength="200"
+placeholder="Ваш отзыв (до 200 символов)"&gt;
+&lt;/textarea&gt;
+      </code></pre>
+                            <form action="#" method="post">
+                                <textarea maxlength="200" placeholder="Ваш отзыв (до 200 символов)"></textarea>
+                            </form>
+                        </div>
+
+                        <h3>id и name</h3>
+                        <ul class="list-ul">
+                            <li>
+                                <b>id</b>
+                                — нужен для связи с
+                                <code>&lt;label&gt;</code>
+                                , чтобы при клике по подписи курсор попадал в поле.
+                            </li>
+                            <li>
+                                <b>name</b>
+                                — обязательно для отправки значения на сервер. Без
+                                <code>name</code>
+                                данные не отправятся!
+                            </li>
+                            <li>Пример разметки c подписью и кнопкой отправки:</li>
+                        </ul>
+
+                        <div class="grid-column-50">
+                            <pre><code>
+&lt;form action="/submit" method="post"&gt;
+  &lt;label for="message"&gt;Сообщение:&lt;/label&gt;
+  &lt;textarea id="message" name="message" rows="4" cols="50"&gt;
+  &lt;/textarea&gt;
+
+  &lt;button type="submit"&gt;Отправить&lt;/button&gt;
+&lt;/form&gt;
+      </code></pre>
+                            <form action="#" method="post">
+                                <label for="message">Сообщение:</label>
+                                <textarea id="message" name="message" rows="4" cols="50"></textarea>
+                                <button type="submit">Отправить</button>
+                            </form>
+                        </div>
+
+                        <h3>Дополнительные советы</h3>
+                        <ul class="list-ul">
+                            <li>
+                                Пользователь может растягивать
+                                <b>&lt;textarea&gt;</b>
+                                за уголок (если не отключать resize в CSS).
+                            </li>
+                            <li>
+                                Для обязательных полей добавьте атрибут
+                                <b>required</b>
+                                .
+                            </li>
+                            <li>
+                                Можно использовать
+                                <code>placeholder</code>
+                                для подсказки внутри поля.
+                            </li>
+                            <li>
+                                Сделайте подписи
+                                <code>&lt;label&gt;</code>
+                                кликабельными — это удобно и для пользователей, и для доступности.
+                            </li>
+                        </ul>
+                        <p class="note">
+                            📝
+                            <b>Итого:</b>
+                            &lt;textarea&gt; — универсальный элемент для ввода длинных сообщений, отзывов, комментариев и любых других текстов!
+                        </p>
+                    </div>
+                </section>
+
+                <!-- 4. Тег select -->
+                <section class="section" id="forms-select">
+                    <div class="container">
+                        <div>
+                            <h2>Тег &lt;select&gt; — выпадающий список</h2>
+                            <p>
+                                Тег
+                                <code>&lt;select&gt;</code>
+                                используется для создания выпадающего списка, из которого пользователь может выбрать один или несколько вариантов.
+                            </p>
+
+                            <h3>Базовый пример</h3>
+                            <div class="grid-column-50">
+                                <pre><code>
+  &lt;form action="/submit" method="post"&gt;
+    &lt;label for="country"&gt;Выберите страну:&lt;/label&gt;
+    &lt;select id="country" name="country"&gt;
+      &lt;option value="ru"&gt;Россия&lt;/option&gt;
+      &lt;option value="us"&gt;США&lt;/option&gt;
+      &lt;option value="de"&gt;Германия&lt;/option&gt;
+    &lt;/select&gt;
+
+    &lt;button type="submit"&gt;Отправить&lt;/button&gt;
+  &lt;/form&gt;
+      </code></pre>
+                                <form action="#" method="post">
+                                    <label for="country">Выберите страну:</label>
+                                    <select id="country" name="country">
+                                        <option value="ru">Россия</option>
+                                        <option value="us">США</option>
+                                        <option value="de">Германия</option>
+                                    </select>
+                                    <button type="submit">Отправить</button>
+                                </form>
+                            </div>
+
+                            <h3>Что важно знать о &lt;select&gt;?</h3>
+                            <ul class="list-ul">
+                                <li>
+                                    Каждый вариант определяется тегом
+                                    <code>&lt;option&gt;</code>
+                                    .
+                                </li>
+                                <li>
+                                    Атрибут
+                                    <b>value</b>
+                                    в
+                                    <code>&lt;option&gt;</code>
+                                    — это значение, которое отправляется на сервер при выборе этого пункта.
+                                </li>
+                                <li>
+                                    Можно задать вариант по умолчанию, добавив атрибут
+                                    <b>selected</b>
+                                    к нужной опции.
+                                </li>
+                                <li>
+                                    <code>&lt;label&gt;</code>
+                                    с
+                                    <code>for</code>
+                                    и
+                                    <code>id</code>
+                                    делает список более доступным.
+                                </li>
+                                <li>
+                                    При отсутствии
+                                    <b>value</b>
+                                    отправляется текст опции.
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- size -->
+                        <div>
+                            <h3>
+                                Атрибут
+                                <code>size</code>
+                                — высота списка
+                            </h3>
+                            <p>
+                                Атрибут
+                                <b>size</b>
+                                позволяет задать количество одновременно видимых пунктов в списке.
+                                <br />
+                                Если
+                                <b>size="1"</b>
+                                (по умолчанию), список выглядит как выпадающий. Если указать большее значение, список станет "раскрытым" и покажет сразу несколько вариантов.
+                            </p>
+                            <div class="grid-column-50">
+                                <pre><code>
+&lt;select name="language" size="3"&gt;
+  &lt;option&gt;Английский&lt;/option&gt;
+  &lt;option&gt;Русский&lt;/option&gt;
+  &lt;option&gt;Китайский&lt;/option&gt;
+  &lt;option&gt;Немецкий&lt;/option&gt;
+  &lt;option&gt;Французский&lt;/option&gt;
+&lt;/select&gt;
+        </code></pre>
+                                <form>
+                                    <select name="language" size="3">
+                                        <option>Английский</option>
+                                        <option>Русский</option>
+                                        <option>Китайский</option>
+                                        <option>Немецкий</option>
+                                        <option>Французский</option>
+                                    </select>
+                                </form>
+                            </div>
+                            <p>
+                                <b>Примечание:</b>
+                                Если используется
+                                <code>multiple</code>
+                                , рекомендуется явно указывать
+                                <code>size</code>
+                                для удобства выбора.
+                            </p>
+                        </div>
+
+                        <!-- selected -->
+                        <div>
+                            <h3>
+                                <b>selected</b>
+                                - Пример с выбранным вариантом по умолчанию
+                            </h3>
+                            <p>
+                                Можно задать вариант по умолчанию, добавив атрибут
+                                <b>selected</b>
+                                к нужной опции.
+                            </p>
+                            <div class="grid-column-50">
+                                <pre><code>
+  &lt;select name="city" id="city"&gt;
+    &lt;option value="msk"&gt;Москва&lt;/option&gt;
+    &lt;option value="spb" selected&gt;Санкт-Петербург&lt;/option&gt;
+    &lt;option value="ekb"&gt;Екатеринбург&lt;/option&gt;
+  &lt;/select&gt;
+      </code></pre>
+                                <form>
+                                    <select name="city" id="city">
+                                        <option value="msk">Москва</option>
+                                        <option value="spb" selected>Санкт-Петербург</option>
+                                        <option value="ekb">Екатеринбург</option>
+                                    </select>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- disabled -->
+                        <div>
+                            <h3>disabled - Отключённые варианты</h3>
+                            <p>
+                                Можно сделать отдельные пункты недоступными для выбора с помощью
+                                <b>disabled</b>
+                                .
+                            </p>
+                            <div class="grid-column-50">
+                                <pre><code>
+  &lt;select&gt;
+    &lt;option&gt;Основной вариант&lt;/option&gt;
+    &lt;option disabled&gt;Недоступный вариант&lt;/option&gt;
+    &lt;option&gt;Другой вариант&lt;/option&gt;
+  &lt;/select&gt;
+      </code></pre>
+                                <form>
+                                    <select>
+                                        <option>Основной вариант</option>
+                                        <option disabled>Недоступный вариант</option>
+                                        <option>Другой вариант</option>
+                                    </select>
+                                </form>
+                            </div>
+                            <p class="note">💡 Совет: Используй disabled, чтобы временно отключить варианты или показать, что опция недоступна. Это гораздо лучше, чем просто удалять пункт — пользователь хотя бы узнает, что он существовал. 😉</p>
+                        </div>
+
+                        <!-- multiple -->
+                        <div>
+                            <h3>Множественный выбор — multiple</h3>
+                            <p>
+                                Можно разрешить выбирать сразу несколько вариантов с помощью атрибута
+                                <code>multiple</code>
+                                .
+                                <br />
+                                Для удобства такой список часто делают выше, с помощью атрибута
+                                <b>size</b>
+                                .
+                            </p>
+                            <p>Теперь пользователь сможет выделить сразу несколько опций (например, зажав клавишу Ctrl или Command). 🎯</p>
+                            <div class="grid-column-50">
+                                <pre><code>
+  &lt;select name="hobbies" multiple size="4"&gt;
+    &lt;option&gt;Чтение&lt;/option&gt;
+    &lt;option&gt;Спорт&lt;/option&gt;
+    &lt;option&gt;Музыка&lt;/option&gt;
+    &lt;option&gt;Путешествия&lt;/option&gt;
+  &lt;/select&gt;
+      </code></pre>
+                                <form>
+                                    <select name="hobbies" multiple size="4">
+                                        <option>Чтение</option>
+                                        <option>Спорт</option>
+                                        <option>Музыка</option>
+                                        <option>Путешествия</option>
+                                    </select>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- optgroup -->
+                        <div>
+                            <h3>Группировка вариантов — &lt;optgroup&gt;</h3>
+                            <p>
+                                Для организации длинных списков можно использовать тег
+                                <code>&lt;optgroup&gt;</code>
+                                с подписью.
+                            </p>
+                            <div class="grid-column-50">
+                                <pre><code>
+  &lt;select name="fruit"&gt;
+    &lt;optgroup label="Ягоды"&gt;
+      &lt;option&gt;Клубника&lt;/option&gt;
+      &lt;option&gt;Черника&lt;/option&gt;
+    &lt;/optgroup&gt;
+    &lt;optgroup label="Цитрусовые"&gt;
+      &lt;option&gt;Апельсин&lt;/option&gt;
+      &lt;option&gt;Лимон&lt;/option&gt;
+    &lt;/optgroup&gt;
+  &lt;/select&gt;
+      </code></pre>
+                                <form>
+                                    <select name="fruit">
+                                        <optgroup label="Ягоды">
+                                            <option>Клубника</option>
+                                            <option>Черника</option>
+                                        </optgroup>
+                                        <optgroup label="Цитрусовые">
+                                            <option>Апельсин</option>
+                                            <option>Лимон</option>
+                                        </optgroup>
+                                    </select>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- стилизация -->
+                        <div>
+                            <h3>Стилизация выпадающих списков</h3>
+                            <p>
+                                По умолчанию
+                                <code>&lt;select&gt;</code>
+                                и
+                                <code>&lt;option&gt;</code>
+                                выглядят просто и зависят от браузера и операционной системы. Но с помощью CSS их можно сделать современнее.
+                                <br />
+                                Вот примеры базовой стилизации:
+                            </p>
+                            <div class="grid-column-50">
+                                <pre><code>
+&lt;style&gt;
+.styled-select {
+  width: 220px;
+  padding: 8px 36px 8px 12px;
+  border: 2px solid #1976d2;
+  border-radius: 8px;
+  background: #f5faff url('data:image/svg+xml;utf8,<svg fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20"><path d="M5 8l5 5 5-5" stroke="%231976d2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat right 12px center/20px;
+  color: #1976d2;
+  font-size: 1em;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  transition: border 0.2s;
+}
+.styled-select:focus {
+  border-color: #0d3880;
+  outline: none;
+  background-color: #e3ecfa;
+}
+&lt;/style&gt;
+
+&lt;select class="styled-select"&gt;
+  &lt;option&gt;Выберите вариант…&lt;/option&gt;
+  &lt;option&gt;Первый&lt;/option&gt;
+  &lt;option&gt;Второй&lt;/option&gt;
+  &lt;option&gt;Третий&lt;/option&gt;
+&lt;/select&gt;
+        </code></pre>
+                                <form>
+                                    <style>
+                                        .styled-select {
+                                            width: 220px;
+                                            padding: 8px 36px 8px 12px;
+                                            border: 2px solid #1976d2;
+                                            border-radius: 8px;
+                                            background: #f5faff url('data:image/svg+xml;utf8,<svg fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20"><path d="M5 8l5 5 5-5" stroke="%231976d2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat right
+                                                12px center/20px;
+                                            color: #1976d2;
+                                            font-size: 1em;
+                                            appearance: none;
+                                            -webkit-appearance: none;
+                                            -moz-appearance: none;
+                                            cursor: pointer;
+                                            transition: border 0.2s;
+                                        }
+                                        .styled-select:focus {
+                                            border-color: #0d3880;
+                                            outline: none;
+                                            background-color: #e3ecfa;
+                                        }
+                                    </style>
+                                    <select class="styled-select">
+                                        <option>Выберите вариант…</option>
+                                        <option>Первый</option>
+                                        <option>Второй</option>
+                                        <option>Третий</option>
+                                    </select>
+                                </form>
+                            </div>
+                            <ul class="list-ul">
+                                <li>
+                                    С помощью
+                                    <b>appearance: none</b>
+                                    скрывается стандартная стрелка браузера, чтобы использовать свою SVG-иконку.
+                                </li>
+                                <li>Можно менять цвета, отступы, радиус скругления и фон.</li>
+                                <li>
+                                    Для кроссбраузерной стилизации используйте все варианты
+                                    <b>appearance</b>
+                                    .
+                                </li>
+                                <li>Можно добавить эффект наведения и фокуса для лучшего UX.</li>
+                            </ul>
+                            <p class="note">💡 Для сложной стилизации и поиска часто используют готовые решения на JavaScript (например, Select2, Choices.js или библиотеку компонентов вашего фреймворка).</p>
+                        </div>
+
+                        <p class="note">
+                            💡
+                            <b>Совет:</b>
+                            Используйте
+                            <b>&lt;select&gt;</b>
+                            для выбора из ограниченного набора вариантов. Для длинных списков комбинируйте с поиском на JavaScript.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- 5. Теги fieldset и legend -->
+                <section class="section" id="forms-fieldset">
+                    <div class="container">
+                        <h2>Теги &lt;fieldset&gt; и &lt;legend&gt;</h2>
+                        <p>
+                            Тег
+                            <code><b>&lt;fieldset&gt;</b></code>
+                            используется для группировки элементов формы.
+                            <br />
+                            Он визуально выделяет группу, обрамляя её рамкой.
+                            <br />
+                            Для описания группы можно использовать тег
+                            <code><b>&lt;legend&gt;</b></code>
+                            , который добавляет заголовок внутри рамки.
+                        </p>
+                        <ul class="list-ul">
+                            <li>
+                                <b>&lt;fieldset&gt;</b>
+                                помогает:
+                                <ul>
+                                    <li>Группировать элементы формы, чтобы было понятно, какие из них связаны.</li>
+                                    <li>Добавлять порядок и структуру в твой код (и в жизнь тоже 😅).</li>
+                                    <li>Делать формы более удобными для пользователей.</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <b>&lt;legend&gt;</b>
+                                — это название группы
+                                <b>&lt;fieldset&gt;</b>
+                                . Оно помогает пользователю понять, что за данные собраны в этом разделе. Представь, что
+                                <b>&lt;legend&gt;</b>
+                                — это как ярлык на коробке 📦 с надписью "Личные данные".
+                            </li>
+                        </ul>
+
+                        <div class="grid-column-50">
+                            <pre><code>
+&lt;form&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;Вход на сайт&lt;/legend&gt;
+    &lt;label for="username"&gt;Имя пользователя:&lt;/label&gt;
+    &lt;input type="text" id="username" name="username" required&gt;
+
+    &lt;label for="password"&gt;Пароль:&lt;/label&gt;
+    &lt;input type="password" id="password" name="password" required&gt;
+
+    &lt;button type="submit"&gt;Войти&lt;/button&gt;
+  &lt;/fieldset&gt;
+&lt;/form&gt;
+      </code></pre>
+                            <form>
+                                <fieldset class="styled-fieldset">
+                                    <legend class="styled-legend">Вход на сайт</legend>
+                                    <label for="username">Имя пользователя:</label>
+                                    <input type="text" id="username" name="username" required />
+
+                                    <label for="password">Пароль:</label>
+                                    <input type="password" id="password" name="password" required />
+
+                                    <button type="submit">Войти</button>
+                                </fieldset>
+                            </form>
+                        </div>
+
+                        <h3>Стилизация fieldset и legend</h3>
+                        <div class="grid-column-50">
+                            <pre><code>
+&lt;style&gt;
+.styled-fieldset {
+  border: 2px solid #1976d2;
+  border-radius: 12px;
+  padding: 24px 24px 16px 24px;
+  background: #f5faff;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 12px rgba(25, 118, 210, 0.07);
+}
+.styled-legend {
+  font-weight: bold;
+  color: #1976d2;
+  background: #fff;
+  padding: 0 14px;
+  border-radius: 8px;
+  font-size: 1.1em;
+  box-shadow: 0 2px 8px rgba(25,118,210,0.07);
+  /* чтобы legend не "врезалась" в border */
+}
+&lt;/style&gt;
+      </code></pre>
+                            <form>
+                                <style>
+                                    .styled-fieldset {
+                                        border: 2px solid #1976d2;
+                                        border-radius: 12px;
+                                        padding: 24px 24px 16px 24px;
+                                        background: #f5faff;
+                                        margin-bottom: 20px;
+                                        box-shadow: 0 2px 12px rgba(25, 118, 210, 0.07);
+                                    }
+                                    .styled-legend {
+                                        font-weight: bold;
+                                        color: #1976d2;
+                                        background: #fff;
+                                        padding: 0 14px;
+                                        border-radius: 8px;
+                                        font-size: 1.1em;
+                                        box-shadow: 0 2px 8px rgba(25, 118, 210, 0.07);
+                                    }
+                                </style>
+                                <fieldset class="styled-fieldset">
+                                    <legend class="styled-legend">Личные данные</legend>
+                                    <label for="fullname">ФИО:</label>
+                                    <input type="text" id="fullname" name="fullname" required />
+
+                                    <label for="age">Возраст:</label>
+                                    <input type="number" id="age" name="age" />
+
+                                    <button type="submit" style="margin-top: 20px">Сохранить</button>
+                                </fieldset>
+                            </form>
+                        </div>
+                        <p class="note">
+                            💡
+                            <b>Совет:</b>
+                            Не забывай использовать
+                            <b>&lt;fieldset&gt;</b>
+                            и
+                            <b>&lt;legend&gt;</b>
+                            для больших форм — так они станут понятнее, аккуратнее и доступнее!
+                        </p>
+
+                        <!-- Пример с двумя группами fieldset -->
+                        <h4>Пример с двумя группами fieldset</h4>
+                        <form>
+                            <fieldset class="styled-fieldset">
+                                <legend class="styled-legend">Личные данные</legend>
+                                <label for="fullname">ФИО:</label>
+                                <input type="text" id="fullname" name="fullname" required />
+
+                                <label for="age">Возраст:</label>
+                                <input type="number" id="age" name="age" />
+                            </fieldset>
+
+                            <fieldset class="styled-fieldset">
+                                <legend class="styled-legend">Контактная информация</legend>
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="email" required />
+
+                                <label for="phone">Телефон:</label>
+                                <input type="tel" id="phone" name="phone" />
+                            </fieldset>
+
+                            <button type="submit">Отправить</button>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- 6. Элементы даты и времени -->
+                <section class="section" id="forms-date">
+                    <div class="container">
+                        <h2>Элементы даты и времени</h2>
+                        <p>
+                            HTML поддерживает специализированные типы ввода для даты и времени, которые делают ввод данных удобным и стандартизированным.
+                            <br />
+                            Такие поля автоматически показывают пользователю календарь или часы, адаптированные под его устройство и язык.
+                            <br />
+                            Это упрощает заполнение форм и снижает вероятность ошибок.
+                        </p>
+                        <ul class="list-ul">
+                            <li>
+                                <code>date</code>
+                                : выбор конкретной даты (например, 2025-07-30)
+                            </li>
+                            <li>
+                                <code>time</code>
+                                : выбор времени (например, 14:30)
+                            </li>
+                            <li>
+                                <code>datetime-local</code>
+                                : выбор даты и времени без часового пояса (например, 2025-07-30T14:30)
+                            </li>
+                            <li>
+                                <code>month</code>
+                                : выбор месяца и года (например, 2025-07)
+                            </li>
+                            <li>
+                                <code>week</code>
+                                : выбор недели в году (например, 2025-W31)
+                            </li>
+                        </ul>
+
+                        <h3>Базовый пример</h3>
+                        <div class="grid-column-50">
+                            <pre><code>
+&lt;form&gt;
+  &lt;label for="appointment-date"&gt;Дата записи:&lt;/label&gt;
+  &lt;input type="date" id="appointment-date" name="date"&gt;
+
+  &lt;label for="appointment-time"&gt;Время записи:&lt;/label&gt;
+  &lt;input type="time" id="appointment-time" name="time"&gt;
+
+  &lt;label for="appointment-datetime"&gt;Дата и время записи:&lt;/label&gt;
+  &lt;input type="datetime-local" id="appointment-datetime" name="datetime"&gt;
+
+  &lt;button type="submit"&gt;Забронировать&lt;/button&gt;
+&lt;/form&gt;
+      </code></pre>
+                            <form>
+                                <label for="appointment-date">Дата записи:</label>
+                                <input type="date" id="appointment-date" name="date" />
+
+                                <label for="appointment-time">Время записи:</label>
+                                <input type="time" id="appointment-time" name="time" />
+
+                                <label for="appointment-datetime">Дата и время записи:</label>
+                                <input type="datetime-local" id="appointment-datetime" name="datetime" />
+
+                                <button type="submit">Забронировать</button>
+                            </form>
+                        </div>
+
+                        <h3>Пример: выбор месяца и недели</h3>
+                        <div class="grid-column-50">
+                            <pre><code>
+&lt;form&gt;
+  &lt;label for="report-month"&gt;Отчетный месяц:&lt;/label&gt;
+  &lt;input type="month" id="report-month" name="report-month"&gt;
+
+  &lt;label for="work-week"&gt;Рабочая неделя:&lt;/label&gt;
+  &lt;input type="week" id="work-week" name="work-week"&gt;
+&lt;/form&gt;
+      </code></pre>
+                            <form>
+                                <label for="report-month">Отчетный месяц:</label>
+                                <input type="month" id="report-month" name="report-month" />
+
+                                <label for="work-week">Рабочая неделя:</label>
+                                <input type="week" id="work-week" name="work-week" />
+                            </form>
+                        </div>
+
+                        <h3>Ограничения и значения по умолчанию</h3>
+                        <p>
+                            Для всех элементов можно задать минимальные и максимальные значения через
+                            <code>min</code>
+                            и
+                            <code>max</code>
+                            , а также значение по умолчанию через
+                            <code>value</code>
+                            .
+                            <br />
+                            Например:
+                        </p>
+                        <div class="grid-column-50">
+                            <pre><code>
+&lt;input type="date" min="2025-08-01" max="2025-12-31" value="2025-09-01"&gt;
+&lt;input type="time" min="09:00" max="18:00" value="10:00"&gt;
+      </code></pre>
+                            <form>
+                                <input type="date" min="2025-08-01" max="2025-12-31" value="2025-09-01" />
+                                <input type="time" min="09:00" max="18:00" value="10:00" />
+                            </form>
+                        </div>
+
+                        <h3>Пояснения и советы</h3>
+                        <ul class="list-ul">
+                            <li>Такие поля отлично работают на мобильных устройствах: появляется удобный нативный календарь или часы.</li>
+                            <li>Значения всегда отправляются в стандартизированном формате, удобном для обработки на сервере.</li>
+                            <li>Можно комбинировать разные типы для сложных форм (например, бронирование, планирование событий, отчётность).</li>
+                            <li>В некоторых старых браузерах поддержка может быть ограничена. Для сложных случаев используют сторонние JS-библиотеки.</li>
+                        </ul>
+                        <p class="note">
+                            💡
+                            <b>Совет:</b>
+                            Всегда указывайте
+                            <code>min</code>
+                            и
+                            <code>max</code>
+                            для ограничения диапазона дат/времени, если это важно для вашей задачи!
+                        </p>
+                    </div>
+                </section>
+
+                <!-- 7. Валидация форм -->
+                <section class="section" id="forms-validation">
+                    <div class="container">
+                        <h2>Валидация форм</h2>
+                        <p class="note">
+                            <b>Валидация</b>
+                            — это проверка данных, которые вводит пользователь в форму.
+                            <br />
+                            Если что-то заполнено некорректно, браузер аккуратно сообщит об ошибке и не даст отправить форму, пока пользователь не исправит данные.
+                        </p>
+                        <p>HTML предоставляет встроенные средства валидации формы с помощью специальных атрибутов. Они позволяют без единой строчки JavaScript сразу проверять корректность ввода:</p>
+                        <ul class="list-ul">
+                            <li>
+                                <code>required</code>
+                                — поле обязательно для заполнения.
+                            </li>
+                            <li>
+                                <code>min</code>
+                                ,
+                                <code>max</code>
+                                — минимальные и максимальные значения для числовых и дат.
+                            </li>
+                            <li>
+                                <code>pattern</code>
+                                — регулярное выражение для проверки формата ввода (например, для телефона или индекса).
+                            </li>
+                            <li>
+                                <code>maxlength</code>
+                                и
+                                <code>minlength</code>
+                                — ограничение длины текста в символах.
+                            </li>
+                            <li>
+                                <code>type</code>
+                                — тип поля (например,
+                                <code>email</code>
+                                ,
+                                <code>number</code>
+                                ,
+                                <code>tel</code>
+                                ), который автоматически включает базовую валидацию.
+                            </li>
+                            <li>
+                                <code>step</code>
+                                — шаг изменения для чисел и времени (например, только чётные числа, или время с шагом 15 минут).
+                            </li>
+                        </ul>
+
+                        <!-- required -->
+                        <h3>required — обязательное поле</h3>
+                        <p class="note">
+                            <code>required</code>
+                            — самый простой способ сделать поле обязательным.
+                            <br />
+                            Если пользователь оставит поле пустым, форма не отправится: браузер покажет подсказку, что поле нужно заполнить.
+                        </p>
+                        <h4>Пример:</h4>
+                        <div class="grid-column-50">
+                            <pre><code>&lt;form&gt;
+  &lt;input type="text" placeholder="Имя" required /&gt;
+  &lt;input type="email" placeholder="Email" required /&gt;
+  &lt;button type="submit"&gt;Отправить&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+                            <form>
+                                <input type="text" placeholder="Имя" required />
+                                <input type="email" placeholder="Email" required />
+                                <button type="submit">Отправить</button>
+                            </form>
+                        </div>
+
+                        <!-- minlength и maxlength -->
+                        <h3>minlength и maxlength — длина текста</h3>
+                        <p>
+                            Чтобы сделать пароль надёжным, можно задать минимальную длину с помощью
+                            <code>minlength</code>
+                            .
+                            <br />
+                            <b>Например:</b>
+                        </p>
+                        <div class="grid-column-50">
+                            <pre><code>
+&lt;form&gt;
+  &lt;input type="password" placeholder="Придумайте пароль" minlength="8" required /&gt;
+  &lt;button type="submit"&gt;Создать аккаунт&lt;/button&gt;
+&lt;/form&gt;
+      </code></pre>
+                            <form>
+                                <input type="password" placeholder="Придумайте пароль" minlength="8" required />
+                                <button type="submit">Создать аккаунт</button>
+                            </form>
+                            <p>
+                                📏 Чтобы ограничить максимальное количество символов, используй атрибут
+                                <b>maxlength</b>
+                                :
+                            </p>
+                            <form>
+                                <input type="text" placeholder="Введите текст (до 20 символов)" maxlength="20" />
+                            </form>
+                        </div>
+
+                        <!-- min и max -->
+                        <h3>min и max — диапазон значений</h3>
+                        <p>
+                            Для числовых или датных полей можно ограничить диапазон с помощью
+                            <code>min</code>
+                            и
+                            <code>max</code>
+                            .
+                            <br />
+                            Например, для возраста — только значения от 18 до 60:
+                        </p>
+                        <div class="grid-column-50">
+                            <pre><code>
+&lt;form&gt;
+  &lt;label for="age"&gt;Возраст (18-60):&lt;/label&gt;
+  &lt;input type="number" id="age" name="age" min="18" max="60" required&gt;
+
+  &lt;label for="date"&gt;Дата не раньше 2025-08-01:&lt;/label&gt;
+  &lt;input type="date" id="date" name="date" min="2025-08-01"&gt;
+
+  &lt;button type="submit"&gt;Отправить&lt;/button&gt;
+&lt;/form&gt;
+      </code></pre>
+                            <form>
+                                <label for="age">Возраст (18-60):</label>
+                                <input type="number" id="age" name="age" min="18" max="60" required />
+
+                                <label for="date">Дата не раньше 2025-08-01:</label>
+                                <input type="date" id="date" name="date" min="2025-08-01" />
+
+                                <button type="submit">Отправить</button>
+                            </form>
+                        </div>
+
+                        <!-- pattern -->
+                        <h3>pattern — проверка по шаблону</h3>
+                        <p>
+                            Атрибут
+                            <code>pattern</code>
+                            позволяет задать шаблон ввода с помощью регулярного выражения.
+                            <br />
+                            Например, проверка номера телефона:
+                        </p>
+                        <div class="grid-column-50">
+                            <pre><code>
+&lt;form&gt;
+  &lt;input type="tel" pattern="\+7\d{10}" placeholder="+7XXXXXXXXXX" required /&gt;
+  &lt;button type="submit"&gt;Проверить&lt;/button&gt;
+&lt;/form&gt;
+      </code></pre>
+                            <form>
+                                <input type="tel" pattern="\+7\d{10}" placeholder="+7XXXXXXXXXX" required />
+                                <button type="submit">Проверить</button>
+                            </form>
+                        </div>
+                        <p>Если формат не совпадает, браузер покажет сообщение об ошибке.</p>
+
+                        <!-- step -->
+                        <h3>step — шаг изменения</h3>
+                        <p>
+                            Атрибут
+                            <code>step</code>
+                            задаёт шаг (интервал) для числовых и временных полей.
+                            <br />
+                            Например, можно разрешить вводить только чётные числа:
+                        </p>
+                        <div class="grid-column-50">
+                            <pre><code>
+&lt;form&gt;
+  &lt;input type="number" min="0" max="100" step="2" /&gt;
+&lt;/form&gt;
+      </code></pre>
+                            <form>
+                                <input type="number" min="0" max="100" step="2" />
+                            </form>
+                        </div>
+
+                        <h3>Итоги и советы</h3>
+                        <ul class="list-ul">
+                            <li>Встроенная валидация работает автоматически во всех современных браузерах.</li>
+                            <li>Поля с ошибками подсвечиваются, а браузер показывает подсказку.</li>
+                            <li>
+                                Для сложных проверок можно добавить
+                                <b>JavaScript</b>
+                                , но всегда начинайте с HTML-валидаторов.
+                            </li>
+                            <li>
+                                Делайте формы понятными: используйте
+                                <b>placeholder</b>
+                                и
+                                <b>label</b>
+                                для подсказок.
+                            </li>
+                        </ul>
+                        <p class="note">
+                            💡
+                            <b>Совет:</b>
+                            Используйте как можно больше встроенных возможностей HTML — это просто, удобно и безопасно!
+                        </p>
+                    </div>
+                </section>
+
+                <!-- 8. Советы -->
+                <section class="section" id="forms-tips">
+                    <div class="container">
+                        <h2>Советы по HTML-формам</h2>
+                        <ul class="list-ul">
+                            <li>
+                                Используйте атрибут
+                                <code>for</code>
+                                в
+                                <code>&lt;label&gt;</code>
+                                для привязки метки к полю ввода.
+                            </li>
+                            <li>
+                                Добавляйте атрибут
+                                <code>required</code>
+                                для полей, которые обязательно должны быть заполнены.
+                            </li>
+                            <li>
+                                Для больших форм группируйте поля с помощью
+                                <code>&lt;fieldset&gt;</code>
+                                и
+                                <code>&lt;legend&gt;</code>
+                                .
+                            </li>
+                            <li>
+                                Подсказки для пользователя можно добавлять с помощью атрибута
+                                <code>placeholder</code>
+                                .
+                            </li>
+                            <li>Проверьте форму на корректную обработку данных на стороне сервера.</li>
+                            <li>
+                                Используйте
+                                <b>type="email"</b>
+                                ,
+                                <b>type="number"</b>
+                                и другие специализированные типы для удобства пользователя и валидации.
+                            </li>
+                            <li>
+                                Для мобильных устройств используйте подходящий
+                                <b>inputmode</b>
+                                (например,
+                                <code>inputmode="numeric"</code>
+                                ).
+                            </li>
+                        </ul>
+                        <div class="note tip">
+                            <strong>Совет:</strong>
+                            Актуальные HTML-формы делают сбор данных простым и удобным для пользователя!
+                        </div>
+                    </div>
+                </section>
+
+                <!-- button -->
+                <section class="section" id="forms-button">
+                    <div class="container">
+                        <div>
+                            <h2>Кнопка — button</h2>
+                            <p class="note">
+                                Элемент
+                                <b>&lt;button&gt;</b>
+                                создаёт интерактивную кнопку на странице.
+                                <br />
+                                Обычно используется для отправки формы или запуска какого-то действия.
+                                <br />
+                                <code style="background-color: #fff">
+                                    <b>&lt;button&gt;</b>
+                                    Нажми на меня
+                                    <b>&lt;/button&gt;</b>
+                                </code>
+                            </p>
+
+                            <div class="grid-column-50">
+                                <pre><code>
+&lt;button type="submit"&gt;Отправить&lt;/button&gt;
+&lt;button type="reset"&gt;Сбросить&lt;/button&gt;
+&lt;button type="button"&gt;Просто кнопка&lt;/button&gt;
+        </code></pre>
+                                <form style="align-self: center">
+                                    <button type="submit">Отправить</button>
+                                    <button type="reset">Сбросить</button>
+                                    <button type="button" onclick="alert('Привет!')">Просто кнопка</button>
+                                </form>
+                            </div>
+
+                            <p>Что происходит в коде?</p>
+                            <ul class="list-ul">
+                                <li>
+                                    <b>&lt;button&gt;</b>
+                                    — создаёт кнопку.
+                                </li>
+                                <li>
+                                    Текст между открывающим и закрывающим тегом
+                                    <b>&lt;button&gt;</b>
+                                    — это надпись на кнопке.
+                                </li>
+                                <li>Кнопку можно стилизовать с помощью CSS или добавить иконку внутрь.</li>
+                            </ul>
+                            <p class="note">
+                                ⚠️ Важно: если не указать атрибут
+                                <b>type</b>
+                                , по умолчанию кнопка внутри формы будет
+                                <b>submit</b>
+                                и отправит форму.
+                                <br />
+                                Для кнопок, которые не должны отправлять форму, всегда указывайте
+                                <b>type="button"</b>
+                                .
+                            </p>
+                            <p>
+                                🔘
+                                <b>&lt;button&gt;</b>
+                                — универсальный элемент для любых действий пользователя!
+                            </p>
+
+                            <!-- Тип: submit -->
+                            <h3>
+                                Кнопка отправки формы —
+                                <code>&lt;button type="submit"&gt;</code>
+                                и
+                                <code>&lt;input type="submit"&gt;</code>
+                            </h3>
+                            <p>
+                                <b>Кнопка submit</b>
+                                предназначена для отправки данных формы на сервер. 🚀
+                                <br />
+                                Такой кнопкой можно воспользоваться двумя способами:
+                            </p>
+                            <ul class="list-ul">
+                                <li>
+                                    С помощью тега
+                                    <b>&lt;button&gt;</b>
+                                    :
+                                    <br />
+                                    <code>&lt;button type="submit"&gt;Отправить&lt;/button&gt;</code>
+                                </li>
+                                <li>
+                                    С помощью тега
+                                    <b>&lt;input type="submit"&gt;</b>
+                                    :
+                                    <br />
+                                    <code>&lt;input type="submit" value="Я хочу пиццу! 🍕"&gt;</code>
+                                </li>
+                            </ul>
+                            <p>
+                                Для
+                                <code>&lt;input type="submit"&gt;</code>
+                                текст на кнопке задаётся через атрибут
+                                <b>value</b>
+                                .
+                                <br />
+                                Вместо стандартного "Submit" можно написать что-то креативное:
+                            </p>
+                            <div class="grid-column-50">
+                                <pre><code>
+&lt;input type="submit" value="Я хочу пиццу! 🍕"&gt;
+        </code></pre>
+                                <form style="align-self: center">
+                                    <input type="submit" value="Я хочу пиццу! 🍕" />
+                                </form>
+                            </div>
+                            <p>
+                                Для
+                                <code>&lt;button&gt;</code>
+                                текст и даже HTML-иконки (например,
+                                <code>&lt;span&gt;🍕&lt;/span&gt;</code>
+                                ) можно размещать между открывающим и закрывающим тегом:
+                            </p>
+                            <div class="grid-column-50">
+                                <pre><code>
+&lt;button type="submit"&gt;Отправить заказ 🍕&lt;/button&gt;
+        </code></pre>
+                                <form style="align-self: center">
+                                    <button type="submit">Отправить заказ 🍕</button>
+                                </form>
+                            </div>
+
+                            <!-- Тип: reset -->
+                            <h3>
+                                Кнопка сброса формы —
+                                <code>&lt;button type="reset"&gt;</code>
+                            </h3>
+                            <p>
+                                <b>Кнопка reset</b>
+                                используется для очистки всех полей формы — значения вернутся к исходным.
+                                <br />
+                                Это удобно, если пользователь хочет начать заполнение формы с нуля.
+                            </p>
+                            <div class="grid-column-50">
+                                <pre><code>
+&lt;button type="reset"&gt;Сбросить&lt;/button&gt;
+        </code></pre>
+                                <form style="align-self: center">
+                                    <button type="reset">Сбросить</button>
+                                </form>
+                            </div>
+
+                            <!-- Тип: button -->
+                            <h3>
+                                Обычная кнопка —
+                                <code>&lt;button type="button"&gt;</code>
+                            </h3>
+                            <p>
+                                <b>Кнопка button</b>
+                                не связана с отправкой или сбросом формы.
+                                <br />
+                                Она используется для любых пользовательских действий: открытия модальных окон, запуска скриптов, переключения интерфейса и так далее.
+                            </p>
+                            <div class="grid-column-50">
+                                <pre><code>
+&lt;button type="button" onclick="alert('Привет!')"&gt;Просто кнопка&lt;/button&gt;
+        </code></pre>
+                                <form style="align-self: center">
+                                    <button type="button" onclick="alert('Привет!')">Просто кнопка</button>
+                                </form>
+                            </div>
+                            <div>
+                                <h2>Стилизация кнопок</h2>
+                                <p class="note">
+                                    Кнопки можно сделать ярче и красивее с помощью CSS.
+                                    <br />
+                                    Например, изменить цвет, форму, добавить эффекты наведения или тень.
+                                    <br />
+                                    Вот базовый пример оформления кнопки:
+                                </p>
+
+                                <div class="grid-column-50">
+                                    <pre><code>
+&lt;button class="my-btn"&gt;Яркая кнопка&lt;/button&gt;
+
+&lt;style&gt;
+.my-btn {
+  background-color: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 24px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.my-btn:hover {
+  background-color: #1565c0;
+}
+&lt;/style&gt;
+        </code></pre>
+                                    <form style="align-self: center">
+                                        <button class="my-btn" type="button">Яркая кнопка</button>
+                                    </form>
+                                </div>
+
+                                <p>Что происходит в стилях?</p>
+                                <ul class="list-ul">
+                                    <li>
+                                        <b>background-color</b>
+                                        — задаёт цвет фона кнопки.
+                                    </li>
+                                    <li>
+                                        <b>color</b>
+                                        — цвет текста.
+                                    </li>
+                                    <li>
+                                        <b>border</b>
+                                        и
+                                        <b>border-radius</b>
+                                        — убирают стандартную рамку и скругляют углы.
+                                    </li>
+                                    <li>
+                                        <b>padding</b>
+                                        — внутренние отступы, чтобы кнопка выглядела объёмнее.
+                                    </li>
+                                    <li>
+                                        <b>font-size</b>
+                                        — размер шрифта на кнопке.
+                                    </li>
+                                    <li>
+                                        <b>cursor: pointer</b>
+                                        — курсор в виде руки при наведении.
+                                    </li>
+                                    <li>
+                                        <b>transition</b>
+                                        — плавное изменение цвета при наведении (
+                                        <b>:hover</b>
+                                        ).
+                                    </li>
+                                </ul>
+
+                                <h3>Ещё примеры</h3>
+                                <style>
+                                    .my-btn {
+                                        background-color: #1976d2;
+                                        color: #fff;
+                                        border: none;
+                                        border-radius: 5px;
+                                        padding: 10px 24px;
+                                        font-size: 1em;
+                                        cursor: pointer;
+                                        transition: background 0.2s;
+                                    }
+                                    .my-btn:hover {
+                                        background-color: #1565c0;
+                                    } /* Кнопка с тенью и плавным масштабом */
+                                    .fancy-btn {
+                                        background: linear-gradient(90deg, #ff9800 30%, #ff5722 90%);
+                                        color: #fff;
+                                        padding: 12px 28px;
+                                        font-weight: bold;
+                                        border: none;
+                                        border-radius: 25px;
+                                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                                        transition: transform 0.15s, box-shadow 0.15s;
+                                    }
+                                    .fancy-btn:hover {
+                                        transform: scale(1.08);
+                                        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+                                    }
+                                </style>
+                                <div class="grid-column-50">
+                                    <pre><code>
+/* Кнопка с тенью и плавным масштабом */
+.fancy-btn {
+  background: linear-gradient(90deg, #ff9800 30%, #ff5722 90%);
+  color: #fff;
+  padding: 12px 28px;
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.fancy-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+}
+        </code></pre>
+                                    <form style="align-self: center">
+                                        <button class="fancy-btn" type="button">Красивая кнопка</button>
+                                    </form>
+                                </div>
+
+                                <p class="note">
+                                    💡 Можно создавать свои классы для разных видов кнопок (например,
+                                    <b>.primary-btn</b>
+                                    ,
+                                    <b>.danger-btn</b>
+                                    и т.д.), чтобы использовать их во многих местах сайта.
+                                    <br />
+                                    С помощью CSS кнопки могут стать не только функциональными, но и стильными!
+                                </p>
+                            </div>
+                            <!-- Пример -->
+                            <h4>Пример нескольких кнопок</h4>
+                            <div class="grid-column-50">
+                                <pre><code>
+&lt;button type="submit"&gt;Сохранить&lt;/button&gt;
+&lt;button type="reset"&gt;Очистить&lt;/button&gt;
+&lt;button type="button" onclick="alert('Вы нажали кнопку!')"&gt;Показать сообщение&lt;/button&gt;
+        </code></pre>
+                                <form style="align-self: center">
+                                    <button type="submit">Сохранить</button>
+                                    <button type="reset">Очистить</button>
+                                    <button type="button" onclick="alert('Вы нажали кнопку!')">Показать сообщение</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="section" id="forms-button-modern-styles">
+                    <div class="container">
+                        <h2>Современные стили кнопок — примеры</h2>
+                        <style>
+                            .btn-modern {
+                                font-family: inherit;
+                                font-size: 1rem;
+                                padding: 10px 24px;
+                                border: none;
+                                cursor: pointer;
+                                margin: 8px 8px 8px 0;
+                                transition: all 0.2s;
+                            }
+                            /* 1. Primary */
+                            .btn-primary {
+                                background: #1976d2;
+                                color: #fff;
+                                border-radius: 6px;
+                            }
+                            .btn-primary:hover {
+                                background: #1256a0;
+                            }
+                            /* 2. Outline */
+                            .btn-outline {
+                                background: #fff;
+                                color: #1976d2;
+                                border: 2px solid #1976d2;
+                                border-radius: 6px;
+                            }
+                            .btn-outline:hover {
+                                background: #1976d2;
+                                color: #fff;
+                            }
+                            /* 3. Success */
+                            .btn-success {
+                                background: #43a047;
+                                color: #fff;
+                                border-radius: 25px;
+                                box-shadow: 0 2px 8px rgba(67, 160, 71, 0.08);
+                            }
+                            .btn-success:hover {
+                                background: #388e3c;
+                            }
+                            /* 4. Danger */
+                            .btn-danger {
+                                background: #e53935;
+                                color: #fff;
+                                border-radius: 6px;
+                            }
+                            .btn-danger:hover {
+                                background: #b71c1c;
+                            }
+                            /* 5. Gradient */
+                            .btn-gradient {
+                                background: linear-gradient(90deg, #ff512f 10%, #dd2476 90%);
+                                color: #fff;
+                                border-radius: 25px;
+                                box-shadow: 0 4px 16px rgba(221, 36, 118, 0.1);
+                            }
+                            .btn-gradient:hover {
+                                filter: brightness(0.9);
+                            }
+                            /* 6. Glass */
+                            .btn-glass {
+                                background: rgba(255, 255, 255, 0.2);
+                                color: #222;
+                                border-radius: 12px;
+                                backdrop-filter: blur(4px);
+                                border: 1px solid #bbb;
+                                box-shadow: 0 2px 24px rgba(0, 0, 0, 0.06);
+                                transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.2s;
+                            }
+                            .btn-glass:hover {
+                                background: rgba(255, 255, 255, 0.45);
+                                color: #111;
+                                box-shadow: 0 6px 32px rgba(0, 0, 0, 0.16);
+                                border-color: #888;
+                            }
+                            /* 7. Shadow */
+                            .btn-shadow {
+                                background: #fff;
+                                color: #444;
+                                border-radius: 8px;
+                                box-shadow: 0 4px 16px rgba(25, 118, 210, 0.13);
+                                border: 1px solid #eee;
+                                transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.2s;
+                            }
+                            .btn-shadow:hover {
+                                background: #f5faff;
+                                box-shadow: 0 12px 36px rgba(25, 118, 210, 0.22);
+                                color: #1976d2;
+                                border-color: #1976d2;
+                            }
+                            /* 8. Dark */
+                            .btn-dark {
+                                background: #222;
+                                color: #f5f5f5;
+                                border-radius: 6px;
+                                letter-spacing: 1px;
+                            }
+                            .btn-dark:hover {
+                                background: #111;
+                            }
+                            /* 9. Link */
+                            .btn-link {
+                                background: none;
+                                color: #1976d2;
+                                text-decoration: underline;
+                                padding: 0 4px;
+                                border-radius: 0;
+                            }
+                            .btn-link:hover {
+                                color: #0d3880;
+                                background: #e3ecfa;
+                            }
+                            /* 10. Icon */
+                            .btn-icon {
+                                background: #fff;
+                                border: 2px solid #1976d2;
+                                color: #1976d2;
+                                border-radius: 50%;
+                                width: 44px;
+                                height: 44px;
+                                display: inline-flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-size: 1.4em;
+                                padding: 0;
+                            }
+                            .btn-icon:hover {
+                                background: #1976d2;
+                                color: #fff;
+                            }
+                        </style>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; background-color: #fff; padding: 20px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)">
+                            <button class="btn-modern btn-primary" type="button">Primary</button>
+                            <button class="btn-modern btn-outline" type="button">Outline</button>
+                            <button class="btn-modern btn-success" type="button">Success</button>
+                            <button class="btn-modern btn-danger" type="button">Danger</button>
+                            <button class="btn-modern btn-gradient" type="button">Градиент</button>
+                            <button class="btn-modern btn-glass" type="button">Стекло</button>
+                            <button class="btn-modern btn-shadow" type="button">Тень</button>
+                            <button class="btn-modern btn-dark" type="button">Тёмная</button>
+                            <button class="btn-modern btn-link" type="button">Ссылка</button>
+                            <button class="btn-modern btn-icon" type="button" title="Like">&#10084;</button>
+                        </div>
+
+                        <h3>Краткое описание</h3>
+                        <ul class="list-ul">
+                            <li>
+                                <b>Primary</b>
+                                — стандартная цветная кнопка для главных действий.
+                            </li>
+                            <li>
+                                <b>Outline</b>
+                                — прозрачная, с цветной рамкой.
+                            </li>
+                            <li>
+                                <b>Success</b>
+                                — зелёная, для успешных или подтверждающих действий.
+                            </li>
+                            <li>
+                                <b>Danger</b>
+                                — красная, для удаления и предупреждений.
+                            </li>
+                            <li>
+                                <b>Градиент</b>
+                                — модный плавный переход цветов.
+                            </li>
+                            <li>
+                                <b>Стекло</b>
+                                — лёгкая, с прозрачностью и размытием.
+                            </li>
+                            <li>
+                                <b>Тень</b>
+                                — белая с эффектом парящей тени.
+                            </li>
+                            <li>
+                                <b>Тёмная</b>
+                                — минималистичная тёмная кнопка.
+                            </li>
+                            <li>
+                                <b>Ссылка</b>
+                                — выглядит как текстовая ссылка.
+                            </li>
+                            <li>
+                                <b>Icon</b>
+                                — круглая кнопка с иконкой, например “лайк”.
+                            </li>
+                        </ul>
+                        <p class="note">✨ Экспериментируйте с цветами, тенями, градиентами, скруглением и иконками, чтобы создавать собственные современные стили кнопок!</p>
+                    </div>
+                </section>
+            </main>
+            @@include('../partials/footer.html', {})
+        </div>
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+    </body>
+</html>

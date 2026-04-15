@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="ru">
+  @@include('../partials/head.html', { "title": "Работа с данными и data() в React", "description": "Изучите основы работы с данными, передачу обновление хранение информации в компонентах React." })
+  <body>
+    <div class="wrapper">
+      @@include('../partials/header.html', {})
+
+      <main class="page">
+        <nav class="nav-tabs">
+          <a href="#intro">Введение</a>
+          <a href="#concepts">Понятия о данных</a>
+          <a href="#data-flow">Поток данных</a>
+          <a href="#fetching">Загрузка данных</a>
+          <a href="#state-data">Данные в state</a>
+          <a href="#props-data">Передача данных через props</a>
+          <a href="#update">Обновление данных</a>
+          <a href="#list-keys">Списки данных</a>
+          <a href="#practice">Практика</a>
+          <a href="#tips">Советы</a>
+          <a href="#best-practices">Лучшие практики</a>
+          <a href="#examples">Примеры</a>
+        </nav>
+
+        <!-- Введение -->
+        <section class="section" id="intro">
+          <div class="container">
+            <div class="intro-code-block">
+              <h1>Работа с данными и data() в React</h1>
+              <p class="note">
+                <strong>Данные — основа динамики в React.</strong>
+                <br />
+                Вы учитесь получать, хранить, изменять и передавать данные между компонентами.
+                <br />
+                <b>State</b>
+                и
+                <b>props</b>
+                — инструменты для управления состоянием.
+                <br />
+                <b>Поток данных</b>
+                всегда идет сверху вниз.
+                <br />
+                На этой странице — всё, чтобы уверенно работать с данными в React!
+              </p>
+              <p>Отличие данных и состояния (state) в React от Vue:</p>
+              <ul class="list-ul">
+                <li>В React нет реактивности как в Vue — изменения state вызывают перерисовку.</li>
+                <li>State в React может быть любым типом (объекты, массивы, примитивы).</li>
+                <li>Данные передаются только сверху вниз через props.</li>
+                <li>Для сложной логики состояния часто используют дополнительные библиотеки (Redux, MobX и др.).</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Основные понятия -->
+        <section class="section" id="concepts">
+          <div class="container">
+            <h2>Понятия о данных в React</h2>
+            <ul class="list-ul">
+              <li>
+                <b>Данные (data)</b>
+                — любая информация, которую отображает или использует компонент. Например, текст, изображения, списки и т. д.
+              </li>
+              <li>
+                <b>State</b>
+                — внутренние данные компонента, которые могут меняться. Используется для хранения локального состояния.
+              </li>
+              <li>
+                <b>Props</b>
+                — данные, которые компонент получает от родителя. Они неизменяемы внутри компонента.
+              </li>
+              <li>
+                <b>Поток данных</b>
+                — передача данных сверху вниз (от родителя к детям). Компоненты не могут изменять props.
+              </li>
+              <li>
+                <b>Списки данных</b>
+                — массивы объектов для отображения коллекций. Каждый элемент должен иметь уникальный ключ (key).
+              </li>
+              <li>
+                <b>Загрузка данных</b>
+                — получение данных из внешних источников (API) с помощью fetch и useEffect.
+              </li>
+              <li>
+                <b>Хук</b>
+                — специальная функция, которая позволяет использовать состояние и другие возможности React в функциональных компонентах.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Поток данных -->
+        <section class="section" id="data-flow">
+          <div class="container">
+            <h2>Поток данных в React</h2>
+            <p class="note">
+              Данные в React передаются
+              <b>только сверху вниз</b>
+              — от родителя к дочерним компонентам через
+              <code>props</code>
+              .
+              <br />
+              Изменять данные можно только там, где они хранятся (в state родителя).
+            </p>
+            <h4>Схема потока данных</h4>
+            <div class="code-block">
+              <pre><code>
+App (state)
+ ├─→ List (props)
+ │     ├─→ ListItem (props)
+                            </code></pre>
+            </div>
+
+            <div class="note note--info">
+              <b>Важно:</b>
+              Компоненты не могут изменять props — только читать и отображать.
+              <br />
+              Для изменения данных используйте функции обновления state в родительском компоненте.
+              <br />
+              Это нужно для предсказуемости и стабильности приложения!
+            </div>
+
+            <h4>Пример потока данных от родителя к дочернему компоненту</h4>
+            <div class="code-block">
+              <pre><code>function App() {
+  //Родительский компонент с состоянием
+  const [items, setItems] = React.useState([]);
+
+  //Передача массива в дочерний компонент через props
+  return (
+    &lt;div&gt;
+      &lt;!-- Компонент List получает items как props --&gt;
+      &lt;List items={items} /&gt;
+    &lt;/div&gt;
+  );
+}
+
+//Дочерний компонент List получает props и отображает список
+function List({ items }) {
+  //items - массив из props
+  return (
+    &lt;ul&gt;
+      {items.map(item => (
+        &lt;!-- Передача каждого item в ListItem --&gt;
+        &lt;ListItem key={item.id} item={item} /&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}
+
+//Еще один дочерний компонент, получает один item через props
+function ListItem({ item }) {
+  //item - объект из props
+  return &lt;li&gt;{item.name}&lt;/li&gt;;
+}</code></pre>
+            </div>
+            <h4>Объяснение кода</h4>
+            <ul class="list-ul">
+              <li>App — родительский компонент с состоянием (state) items.</li>
+              <li>App передает items в List через props.</li>
+              <li>List получает props и отображает список, передавая каждый item в ListItem.</li>
+              <li>ListItem получает один item через props и отображает его.</li>
+              <li>Поток данных идет только сверху вниз: App → List → ListItem.</li>
+              <li>Компоненты не могут изменять props, только читать и отображать.</li>
+            </ul>
+
+            <div class="note note--info">
+              <b>Важно:</b>
+              Компоненты не могут изменять props — только читать и отображать.
+              <br />
+              Для изменения данных используйте функции обновления state в родительском компоненте.
+              <br />
+              Это нужно для предсказуемости и стабильности приложения.
+            </div>
+          </div>
+        </section>
+
+        <!-- Загрузка данных -->
+        <section class="section" id="fetching">
+          <div class="container">
+            <h2>Загрузка данных (fetching)</h2>
+            <p class="note">
+              Для загрузки данных из API используйте
+              <code>fetch()</code>
+              и хук
+              <code>useEffect</code>
+              .
+            </p>
+            <p>
+              <b>fetch()</b>
+              — это встроенный метод для выполнения HTTP-запросов. У него есть два основных параметра: URL и объект настроек.
+              <br />
+              <b>HTTP-запрос</b>
+              это запрос, отправляемый клиентом на сервер для получения или отправки данных. Это может быть GET, POST, PUT, DELETE и другие
+              методы.
+              <br />
+              <b>useEffect</b>
+              — хук, который позволяет выполнять побочные эффекты в функциональных компонентах. Например, загрузку данных, подписки или
+              изменение DOM.
+              <br />
+              Хук принимает функцию и массив зависимостей. Если массив пустой, эффект выполняется только при монтировании компонента.
+            </p>
+            <h4>Пример загрузки данных</h4>
+            <div class="code-block">
+              <pre><code>//Компонент загружает и отображает список пользователей
+function Users() {
+  //State для хранения пользователей
+  const [users, setUsers] = React.useState([]);
+
+  //useEffect для загрузки данных при монтировании
+  React.useEffect(() => {
+    //fetch для получения данных с API
+    fetch("https://jsonplaceholder.typicode.com/users")
+      //Преобразование ответа в JSON
+      .then(res => res.json())
+      //Обновление state с полученными данными
+      .then(data => setUsers(data));
+  }, []);
+
+  //Рендер списка пользователей из state
+  return (
+    &lt;ul&gt;
+      &lt;!-- Отображение каждого пользователя --&gt;
+      {users.map(u =&gt; &lt;li key={u.id}&gt;{u.name}&lt;/li&gt;)}
+    &lt;/ul&gt;
+  );
+}
+                                </code></pre>
+              <button class="copy-btn">Скопировать</button>
+            </div>
+
+            <h4>Что происходит в коде:</h4>
+
+            <ul class="list-ul">
+              <li>Создается state для хранения пользователей.</li>
+              <li>useEffect загружает данные при монтировании.</li>
+              <li>fetch получает данные с API и преобразует в JSON.</li>
+              <li>setUsers обновляет state с полученными данными.</li>
+              <li>Компонент рендерит список пользователей из state.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Данные в state -->
+        <section class="section" id="state-data">
+          <div class="container">
+            <h2>Данные в state</h2>
+            <p class="note">
+              <strong>State</strong>
+              — это внутренние данные компонента, которые могут меняться. Используется для хранения локального состояния.
+              <br />
+              В React state создается с помощью хука
+              <code>useState</code>
+              .
+              <br />
+              State может быть любым типом: объекты, массивы, примитивы (строки, числа, булевы).
+              <br />
+              Например, для хранения списка продуктов используйте массив объектов.
+            </p>
+            <h4>Пример использования данных в state</h4>
+            <ul class="list-ul">
+              <li>Списки продуктов, задачи, сообщения и т. д.</li>
+              <li>Формы с несколькими полями.</li>
+              <li>Настройки пользователя.</li>
+              <li>Любые данные, которые меняются со временем.</li>
+            </ul>
+
+            <h4>Пример данных в state</h4>
+            <div class="code-block">
+              <pre><code>
+function Products() {
+  //State для хранения массива продуктов, products - текущее состояние, setProducts - функция для обновления
+  const [products, setProducts] = React.useState([
+    //Начальное значение - массив продуктов
+    { id: 1, name: "Ноутбук" },
+    { id: 2, name: "Мышь" }
+  ]);
+
+  //Рендер списка продуктов из state
+  return (
+    //Отображение каждого продукта
+    &lt;ul&gt;
+      &lt;!--Перебор массива products и создание li для каждого продукта --&gt;
+      {products.map(p =&gt; &lt;li key={p.id}&gt;{p.name}&lt;/li&gt;)}
+    &lt;/ul&gt;
+  );
+}
+                                </code></pre>
+              <button class="copy-btn">Скопировать</button>
+            </div>
+
+            <h4>Объяснение кода:</h4>
+            <ul class="list-ul">
+              <li>
+                <b>function Products()</b>
+                - это функциональный компонент.
+              </li>
+              <li>
+                <b>useState</b>
+                - хук для создания state для компонента
+                <b>Products</b>
+                . Принимает начальное значение (массив продуктов с
+                <b>id</b>
+                и
+                <b>name</b>
+                ) и возвращает массив с текущим состоянием и функцией для его обновления. Где
+                <b>products</b>
+                - текущее состояние,
+                <b>setProducts</b>
+                - функция для обновления.
+              </li>
+              <li>Внутри компонента возвращается JSX-разметка, которая отображает список продуктов.</li>
+              <li>
+                Используется метод
+                <b>map()</b>
+                для перебора массива
+                <b>products</b>
+                и создания элемента
+                <b>li</b>
+                для каждого продукта.
+              </li>
+              <li>Каждый элемент списка должен иметь уникальный ключ (key) - в данном случае используется id продукта.</li>
+              <li>Компонент рендерит список продуктов из state.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Передача данных через props -->
+        <section class="section" id="props-data">
+          <div class="container">
+            <h2>Передача данных через props</h2>
+            <p class="note">
+              <strong>Props</strong>
+              — это данные, которые компонент получает от родителя. Они неизменяемы внутри компонента.
+              <br />
+              Props позволяют передавать информацию и конфигурацию в дочерние компоненты.
+              <br />
+              Например, для передачи списка элементов используйте массив объектов.
+            </p>
+            <h4>Когда использовать props &#128073;</h4>
+            <ul class="list-ul">
+              <li>Передача данных от родителя к дочернему компоненту.</li>
+              <li>Конфигурация компонента (например, стили, классы и т. д.).</li>
+              <li>Передача функций-обработчиков событий.</li>
+              <li>Передача любых данных, которые не меняются внутри компонента.</li>
+            </ul>
+            <!-- иконка юникод:	&#10060; -->
+            <h4>Когда не использовать props &#10060;</h4>
+            <ul class="list-ul">
+              <li>Для хранения локального состояния компонента (используйте state).</li>
+              <li>Для передачи данных между несвязанными компонентами (используйте контекст или глобальное состояние).</li>
+              <li>Для изменения данных внутри компонента (props неизменяемы).</li>
+            </ul>
+            <!-- иконка юникод:	&#128077; -->
+            <h4>Пример передачи массива через props &#128077;</h4>
+            <div class="code-block">
+              <pre><code>//Компонент List получает массив items через props и отображает список
+function List(props) {
+  return (
+    &lt;ul&gt;
+      &lt;!-- Перебор массива items из props и создание li для каждого элемента --&gt;
+      {props.items.map(item =&gt; &lt;li key={item.id}&gt;{item.name}&lt;/li&gt;)}
+    &lt;/ul&gt;
+  );
+}
+
+// Использование	компонента List с передачей массива через props
+&lt;List items={[{id: 1, name: "Яблоко"}, {id: 2, name: "Груша"}]} /&gt;
+                                </code></pre>
+            </div>
+
+            <h5>Объяснение кода &#128203;</h5>
+            <ul class="list-ul">
+              <li>
+                <b>function List(props)</b>
+                - это функциональный компонент, который принимает
+                <b>props</b>
+                в качестве аргумента. Props - это объект, содержащий все переданные свойства.
+              </li>
+              <li>Внутри компонента возвращается JSX-разметка, которая отображает список элементов.</li>
+              <li>
+                Используется метод
+                <b>map()</b>
+                для перебора массива
+                <b>items</b>
+                из
+                <b>props</b>
+                и создания элемента
+                <b>li</b>
+                для каждого элемента.
+              </li>
+              <li>Каждый элемент списка должен иметь уникальный ключ (key) - в данном случае используется id элемента.</li>
+              <li>
+                Компонент
+                <b>List</b>
+                используется с передачей массива объектов через
+                <b>props</b>
+                .
+              </li>
+              <li>Массив содержит объекты с id и name, которые отображаются в списке.</li>
+
+              <li>Компонент рендерит список элементов, полученных через props.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Обновление данных -->
+        <section class="section" id="update">
+          <div class="container">
+            <h2>Обновление данных</h2>
+            <p class="note">
+              <strong>Изменение данных</strong>
+              в state с помощью функции обновления, возвращаемой
+              <code>useState</code>
+              .
+              <br />
+              В React state должен оставаться неизменяемым — для обновления создавайте новые копии объектов/массивов.
+              <br />
+              Например, для добавления элемента в массив используйте spread-оператор
+              <code>[...array, новый]</code>
+              .
+            </p>
+            <h4>Для чего это нужно?</h4>
+            <ul class="list-ul">
+              <li>Обновление интерфейса при изменении данных.</li>
+              <li>Реакция на действия пользователя (клики, ввод и т. д.).</li>
+              <li>Синхронизация с внешними источниками (API, WebSocket и т. д.).</li>
+              <li>Управление состоянием приложения.</li>
+            </ul>
+            <h4>Пример добавления элемента</h4>
+            <div class="code-block">
+              <pre><code>//Компонент AddProduct для добавления продуктов в список
+function AddProduct() {
+  //State для хранения массива продуктов
+  const [products, setProducts] = React.useState([]);
+  //State для хранения значения input
+  const [input, setInput] = React.useState("");
+
+  //Функция для добавления нового продукта
+  const handleAdd = () => {
+   //Проверка на пустой ввод
+    setProducts([...products, { id: Date.now(), name: input }]);
+    setInput("");
+  };
+
+  //Рендер формы и списка продуктов
+  return (
+    &lt;div&gt;
+      &lt;!-- Поле ввода для названия продукта --&gt;
+      &lt;input value={input} onChange={e =&gt; setInput(e.target.value)} placeholder="Название"/&gt;
+      &lt;!-- Кнопка для добавления продукта --&gt;
+      &lt;button onClick={handleAdd}&gt;Добавить&lt;/button&gt;
+      &lt;!-- Список продуктов --&gt;
+      &lt;ul&gt;
+        {products.map(p =&gt; &lt;li key={p.id}&gt;{p.name}&lt;/li&gt;)}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}
+                                </code></pre>
+            </div>
+            <h5>Объяснение кода &#128203;</h5>
+
+            <ul class="list-ul">
+              <li>Создается state для хранения массива продуктов и значения input.</li>
+              <li>Функция handleAdd добавляет новый продукт в массив, создавая новую копию с помощью spread-оператора.</li>
+              <li>После добавления input очищается.</li>
+              <li>Компонент рендерит форму для ввода и кнопку для добавления продукта.</li>
+              <li>Также отображается список продуктов из state.</li>
+              <li>Каждый элемент списка имеет уникальный ключ (key) - id продукта.</li>
+              <li>Компонент позволяет динамически добавлять продукты в список, обновляя state правильно.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Списки данных и ключи -->
+        <section class="section" id="list-keys">
+          <div class="container">
+            <h2>Списки данных и ключи</h2>
+            <p class="note">
+              <strong>Списки данных</strong>
+              - это массивы объектов для отображения коллекций. Каждый элемент должен иметь уникальный ключ (key) для оптимальной работы
+              React.
+              <br />
+              <strong>Key</strong>
+              - это специальный атрибут, который помогает React идентифицировать элементы при обновлении списка. Он должен быть уникальным
+              среди соседних элементов.
+              <br />
+              Используйте уникальные идентификаторы из данных (например, id) в качестве ключей. Если уникальных идентификаторов нет, можно
+              использовать индекс массива, но это не рекомендуется для динамических списков.
+              <br />
+              Правильное использование ключей улучшает производительность и предотвращает баги при обновлении списков.
+            </p>
+            <h4>Когда использовать ключи?</h4>
+            <ul class="list-ul">
+              <li>При рендеринге списков с помощью map() или других методов перебора.</li>
+              <li>Когда элементы списка могут добавляться, удаляться или изменяться.</li>
+              <li>Для оптимизации производительности при обновлении DOM.</li>
+            </ul>
+            <h4>Для чего это нужно?</h4>
+            <ul class="list-ul">
+              <li>Для правильной идентификации элементов при обновлении списка.</li>
+              <li>Для предотвращения ошибок и багов при изменении списка.</li>
+              <li>Для оптимизации производительности при рендеринге списков.</li>
+            </ul>
+
+            <h4>Пример списка</h4>
+
+            <div class="code-block">
+              <pre><code>//Компонент CityList получает массив городов через props и отображает список
+function CityList(props) {
+  return (
+    //Отображение списка городов
+    &lt;ul&gt;
+      &lt;!-- Перебор массива cities из props и создание li для каждого города --&gt;
+      {props.cities.map(city =&gt; &lt;li key={city.id}&gt;{city.name}&lt;/li&gt;)}
+    &lt;/ul&gt;
+  );
+}
+//Использование компонента CityList с передачей массива городов через props
+&lt;CityList cities={[{id: 1, name: "Москва"}, {id: 2, name: "Питер"}]} /&gt;
+                                </code></pre>
+            </div>
+            <h5>Объяснение кода &#128203;</h5>
+            <ul class="list-ul">
+              <li>Создается функциональный компонент CityList, который принимает props.</li>
+              <li>Внутри компонента возвращается JSX-разметка, которая отображает список городов.</li>
+              <li>Используется метод map() для перебора массива cities из props и создания элемента li для каждого города.</li>
+              <li>Каждый элемент списка имеет уникальный ключ (key) - в данном случае используется id города.</li>
+              <li>Компонент CityList используется с передачей массива объектов через props.</li>
+              <li>Массив содержит объекты с id и name, которые отображаются в списке.</li>
+              <li>
+                Компонент рендерит список городов, полученных через props, с правильным использованием ключей для оптимальной работы React.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Практика -->
+        <section class="section" id="practice">
+          <div class="container">
+            <h2>Практика: мини-приложение "Список задач"</h2>
+            <div class="note">
+              Создайте простое приложение для управления списком задач. Пользователь должен иметь возможность добавлять новые задачи,
+              отмечать их как выполненные и видеть список всех задач.
+              <br />
+              Используйте state для хранения задач и props для передачи данных между компонентами.
+              <br />
+              Это упражнение поможет закрепить знания о работе с данными в React!
+            </div>
+
+            <div class="code-block">
+              <pre><code>
+&lt;div id="root"&gt;&lt;/div&gt;
+&lt;script type="text/babel"&gt;
+function TodoApp() {
+  const [tasks, setTasks] = React.useState([
+    { id: 1, text: "Изучить React", done: false },
+    { id: 2, text: "Сделать домашку", done: false }
+  ]);
+  const [input, setInput] = React.useState("");
+
+  const addTask = () => {
+    if (input.trim()) {
+      setTasks([...tasks, { id: Date.now(), text: input, done: false }]);
+      setInput("");
+    }
+  };
+
+  const toggleTask = (id) => {
+    setTasks(tasks.map(t => t.id === id ? { ...t, done: !t.done } : t));
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;input value={input} onChange={e =&gt; setInput(e.target.value)} placeholder="Новая задача"/&gt;
+      &lt;button onClick={addTask}&gt;Добавить&lt;/button&gt;
+      &lt;ul&gt;
+        {tasks.map(task =&gt;
+          &lt;li key={task.id} style={{ textDecoration: task.done ? "line-through" : "" }} onClick={() =&gt; toggleTask(task.id)}&gt;
+            {task.text}
+          &lt;/li&gt;
+        )}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;TodoApp /&gt;);
+&lt;/script&gt;
+                                </code></pre>
+            </div>
+            <div class="interactive-demo demo-box">
+              <div id="todo-root"></div>
+              <script type="text/babel">
+                function TodoApp() {
+                  const [tasks, setTasks] = React.useState([
+                    {
+                      id: 1,
+                      text: "Изучить React",
+                      done: false,
+                    },
+                    {
+                      id: 2,
+                      text: "Сделать домашку",
+                      done: false,
+                    },
+                  ]);
+                  const [input, setInput] = React.useState("");
+
+                  const addTask = () => {
+                    if (input.trim()) {
+                      setTasks([
+                        ...tasks,
+                        {
+                          id: Date.now(),
+                          text: input,
+                          done: false,
+                        },
+                      ]);
+                      setInput("");
+                    }
+                  };
+
+                  const toggleTask = (id) => {
+                    setTasks(tasks.map((t) => (t.id === id ? { ...t, done: !t.done } : t)));
+                  };
+
+                  return (
+                    <div>
+                      <input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Новая задача" />
+                      <button onClick={addTask}>Добавить</button>
+                      <ul>
+                        {tasks.map((task) => (
+                          <li
+                            key={task.id}
+                            style={{
+                              textDecoration: task.done ? "line-through" : "",
+                            }}
+                            onClick={() => toggleTask(task.id)}>
+                            {task.text}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  );
+                }
+                const root = ReactDOM.createRoot(document.getElementById("todo-root"));
+                root.render(<TodoApp />);
+              </script>
+            </div>
+            <h5>Объяснение кода &#128203;</h5>
+            <ul class="list-ul">
+              <li>Создается функциональный компонент TodoApp.</li>
+              <li>Используется useState для хранения массива задач и значения input.</li>
+              <li>Функция addTask добавляет новую задачу в массив, создавая новую копию с помощью spread-оператора.</li>
+              <li>Функция toggleTask переключает состояние задачи (выполнена/не выполнена) по id.</li>
+              <li>Компонент рендерит форму для ввода новой задачи и кнопку для добавления.</li>
+              <li>Также отображается список задач из state, каждая задача кликабельна для отметки выполнения.</li>
+              <li>Каждый элемент списка имеет уникальный ключ (key) - id задачи.</li>
+              <li>Компонент позволяет динамически управлять списком задач, обновляя state правильно.</li>
+            </ul>
+
+            <div class="note note--info">
+              В этом примере: хранение массива, добавление, обновление и отображение данных с помощью state!
+            </div>
+          </div>
+        </section>
+
+        <!-- Советы -->
+        <section class="section" id="tips">
+          <div class="container">
+            <h2>Советы и типичные ошибки</h2>
+            <ul class="list-ul">
+              <li>Всегда используйте уникальные ключи (key) при рендеринге списков.</li>
+              <li>Не мутируйте state напрямую — создавайте новые копии объектов/массивов.</li>
+              <li>Используйте функции-обработчики для всех действий с данными.</li>
+              <li>Разделяйте логику и представление: храните данные в state, выводите через props.</li>
+              <li>Проверяйте типы props с помощью PropTypes или TypeScript.</li>
+              <li>Используйте useEffect для загрузки данных из API.</li>
+              <li>Делайте компоненты маленькими и переиспользуемыми.</li>
+              <li>Следите за производительностью: используйте React.memo и useCallback.</li>
+              <li>Используйте контекст для передачи данных через дерево компонентов.</li>
+              <li>Используйте Redux или другие библиотеки для управления глобальным состоянием.</li>
+              <li>Следите за производительностью: используйте мемоизацию и оптимизацию рендеринга.</li>
+              <li>Избегайте лишних перерисовок компонентов.</li>
+              <li>Используйте React.lazy и Suspense для динамической загрузки компонентов.</li>
+              <li>Следите за производительностью: используйте мемоизацию и оптимизацию рендеринга.</li>
+              <li>Избегайте лишних перерисовок компонентов.</li>
+              <li>Используйте React.lazy и Suspense для динамической загрузки компонентов.</li>
+            </ul>
+            <div class="note note--info">
+              Частая ошибка: отсутствие ключей при рендеринге списков. Используйте уникальные ключи для каждого элемента списка.
+            </div>
+          </div>
+        </section>
+
+        <!-- Лучшие практики -->
+        <section class="section" id="best-practices">
+          <div class="container">
+            <h2>Лучшие практики</h2>
+            <ul class="list-ul">
+              <li>Разделяйте данные и представление: храните данные в state, выводите через props.</li>
+              <li>Делайте компоненты маленькими, переиспользуемыми.</li>
+              <li>Пишите функции-обработчики для каждого действия с данными.</li>
+              <li>Добавляйте PropTypes/documentation для props и структуры данных.</li>
+              <li>Используйте контекст для передачи данных через дерево компонентов.</li>
+              <li>Используйте Redux или другие библиотеки для управления глобальным состоянием.</li>
+              <li>Следите за производительностью: используйте мемоизацию и оптимизацию рендеринга.</li>
+            </ul>
+            <div class="note note--info">Чистый поток данных, отсутствие мутаций и грамотное разделение — залог стабильности!</div>
+          </div>
+        </section>
+
+        <!-- Примеры -->
+        <section class="section" id="examples">
+          <div class="container">
+            <h2>Примеры работы с данными в React</h2>
+
+            <!-- Пример 1: Передача массива как props -->
+            <h4>Пример 1. Передача массива данных</h4>
+            <p>В этом примере мы передаем массив фруктов в компонент через props.</p>
+
+            <div class="demo-box">
+              <div id="fruits-demo"></div>
+            </div>
+            <pre><code>
+function FruitList(props) {
+  return (
+    &lt;ul&gt;
+      {props.fruits.map(f =&gt; &lt;li key={f.id}&gt;{f.name}&lt;/li&gt;)}
+    &lt;/ul&gt;
+  );
+}
+const root = ReactDOM.createRoot(document.getElementById('fruits-demo'));
+root.render(&lt;FruitList fruits={[{id:1, name:"Яблоко"}, {id:2, name:"Апельсин"}]} /&gt;);
+            </code></pre>
+            <div class="note note--info">
+              <b>Пояснение:</b>
+              Массив объектов передается через prop
+              <code>fruits</code>
+              , отображается через
+              <code>map</code>
+              .
+            </div>
+            <h5>Что происходит:</h5>
+            <ul class="list-ul">
+              <li>
+                Создается компонент
+                <code>FruitList</code>
+                , который принимает пропс
+                <code>fruits</code>
+                .
+              </li>
+              <li>
+                Внутри компонента используется метод
+                <code>map()</code>
+                для перебора массива фруктов и создания элемента
+                <code>li</code>
+                для каждого фрукта.
+              </li>
+              <li>Каждый элемент списка имеет уникальный ключ (key) - в данном случае используется id фрукта.</li>
+              <li>
+                Компонент рендерится в элемент с id
+                <code>fruits-demo</code>
+                , передавая массив фруктов через пропс.
+              </li>
+              <li>В результате отображается список фруктов на странице.</li>
+            </ul>
+            <!-- Пример 2: Загрузка данных из API -->
+            <h4>Пример 2. Получение данных через fetch</h4>
+            <p>В этом примере мы загружаем данные с внешнего API и отображаем их в списке.</p>
+            <div class="demo-box">
+              <div id="api-demo"></div>
+            </div>
+            <pre><code>
+function ApiData() {
+  const [data, setData] = React.useState([]);
+  React.useEffect(() =&gt; {
+    fetch("https://jsonplaceholder.typicode.com/posts?_limit=3")
+      .then(res =&gt; res.json())
+      .then(setData);
+  }, []);
+  return (
+    &lt;ul&gt;
+      {data.map(post =&gt; &lt;li key={post.id}&gt;{post.title}&lt;/li&gt;)}
+    &lt;/ul&gt;
+  );
+}
+const root = ReactDOM.createRoot(document.getElementById('api-demo'));
+root.render(&lt;ApiData /&gt;);
+            </code></pre>
+
+            <div class="note note--info">
+              <b>Пояснение:</b>
+              <code>useEffect</code>
+              для загрузки,
+              <code>setData</code>
+              для хранения.
+            </div>
+            <h5>Что происходит:</h5>
+            <ul class="list-ul">
+              <li>
+                Создается компонент
+                <code>ApiData</code>
+                , который использует хук
+                <code>useState</code>
+                для хранения загруженных данных.
+              </li>
+              <li>
+                Хук
+                <code>useEffect</code>
+                используется для выполнения побочного эффекта - загрузки данных с внешнего API при монтировании компонента.
+              </li>
+              <li>
+                Метод
+                <code>fetch()</code>
+                отправляет HTTP-запрос к API и получает ответ.
+              </li>
+              <li>
+                Ответ преобразуется в JSON с помощью
+                <code>res.json()</code>
+                и передается в функцию
+                <code>setData</code>
+                для обновления состояния.
+              </li>
+              <li>
+                Компонент рендерит список загруженных данных, используя метод
+                <code>map()</code>
+                для создания элемента
+                <code>li</code>
+                для каждого элемента данных.
+              </li>
+              <li>Каждый элемент списка имеет уникальный ключ (key) - в данном случае используется id элемента данных.</li>
+              <li>
+                Компонент рендерится в элемент с id
+                <code>api-demo</code>
+                , отображая загруженные данные на странице.
+              </li>
+            </ul>
+            <!-- Пример 3: Обновление данных -->
+            <h4>Пример 3. Добавление элемента в массив</h4>
+            <p>В этом примере мы добавляем элементы в массив, хранящийся в state, с помощью формы.</p>
+            <div class="demo-box">
+              <div id="add-demo"></div>
+            </div>
+            <pre><code>
+function AddDemo() {
+  const [items, setItems] = React.useState([]);
+  const [value, setValue] = React.useState("");
+  const addItem = () =&gt; {
+    if (value.trim()) setItems([...items, value]);
+    setValue("");
+  };
+  return (
+    &lt;div&gt;
+      &lt;input value={value} onChange={e =&gt; setValue(e.target.value)} /&gt;
+      &lt;button onClick={addItem}&gt;Добавить&lt;/button&gt;
+      &lt;ul&gt;{items.map((item, i) =&gt; &lt;li key={i}&gt;{item}&lt;/li&gt;)}&lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}
+const root = ReactDOM.createRoot(document.getElementById('add-demo'));
+root.render(&lt;AddDemo /&gt;);
+            </code></pre>
+            <div class="note note--info">
+              <b>Пояснение:</b>
+              Обновление массива через spread-оператор, state не мутируется.
+            </div>
+            <h5>Что происходит:</h5>
+            <ul class="list-ul">
+              <li>
+                Создается компонент
+                <code>AddDemo</code>
+                , который использует хук
+                <code>useState</code>
+                для хранения массива элементов и значения input.
+              </li>
+              <li>
+                Функция
+                <code>addItem</code>
+                добавляет новый элемент в массив, создавая новую копию с помощью spread-оператора.
+              </li>
+              <li>После добавления input очищается.</li>
+              <li>Компонент рендерит форму для ввода нового элемента и кнопку для добавления.</li>
+              <li>Также отображается список элементов из state, каждый элемент кликабельна для отметки выполнения.</li>
+              <li>Каждый элемент списка имеет уникальный ключ (key) - в данном случае используется индекс элемента.</li>
+              <li>Компонент позволяет динамически добавлять элементы в список, обновляя state правильно.</li>
+            </ul>
+          </div>
+        </section>
+      </main>
+      @@include('../partials/footer.html', {})
+    </div>
+    @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+      // Пример 1: Массив через props
+      function FruitList(props) {
+        return (
+          <ul>
+            {props.fruits.map((f) => (
+              <li key={f.id}>{f.name}</li>
+            ))}
+          </ul>
+        );
+      }
+      const fruitsRoot = ReactDOM.createRoot(document.getElementById("fruits-demo"));
+      fruitsRoot.render(
+        <FruitList
+          fruits={[
+            { id: 1, name: "Яблоко" },
+            { id: 2, name: "Апельсин" },
+          ]}
+        />
+      );
+
+      // Пример 2: Загрузка данных через fetch
+      function ApiData() {
+        const [data, setData] = React.useState([]);
+        React.useEffect(() => {
+          fetch("https://reqres.in/api/users?per_page=3")
+            .then((res) => res.json())
+            .then((json) => setData(json.data)); // reqres возвращает { data: [...] }
+        }, []);
+        return (
+          <ul>
+            {data.map((user) => (
+              <li key={user.id}>
+                <img
+                  src={user.avatar}
+                  alt=""
+                  width={24}
+                  style={{
+                    verticalAlign: "middle",
+                    marginRight: 8,
+                  }}
+                />
+                {user.first_name} {user.last_name}
+              </li>
+            ))}
+          </ul>
+        );
+      }
+      const apiRoot = ReactDOM.createRoot(document.getElementById("api-demo"));
+      apiRoot.render(<ApiData />);
+
+      // Пример 3: Добавление элемента
+      function AddDemo() {
+        const [items, setItems] = React.useState([]);
+        const [value, setValue] = React.useState("");
+        const addItem = () => {
+          if (value.trim()) setItems([...items, value]);
+          setValue("");
+        };
+        return (
+          <div>
+            <input value={value} onChange={(e) => setValue(e.target.value)} />
+            <button onClick={addItem}>Добавить</button>
+            <ul>
+              {items.map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        );
+      }
+      const addRoot = ReactDOM.createRoot(document.getElementById("add-demo"));
+      addRoot.render(<AddDemo />);
+    </script>
+  </body>
+</html>

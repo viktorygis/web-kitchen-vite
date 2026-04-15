@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../partials/head.html', { "title": "Циклы в JavaScript: while, do...while, for", "description": "Циклы" })
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+
+            <main class="page">
+                <!-- Локальное меню -->
+                <nav class="nav-tabs" id="page-nav">
+                    <ul>
+                        <li><a href="#intro">Введение</a></li>
+                        <li><a href="#core-concepts">Основные понятия</a></li>
+                        <li><a href="#while">Цикл while</a></li>
+                        <li><a href="#do-while">Цикл do...while</a></li>
+                        <li><a href="#for">Цикл for</a></li>
+                        <li><a href="#for-flex">Варианты for</a></li>
+                        <li><a href="#control-flow">break / continue</a></li>
+                        <li><a href="#labels">Метки</a></li>
+                        <li><a href="#comparison">Сравнение циклов</a></li>
+                        <li><a href="#best-practices">Практики</a></li>
+                        <li><a href="#pitfalls">Ловушки</a></li>
+                        <li><a href="#practice">Тренажёр</a></li>
+                        <li><a href="#summary">Итоги</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Введение -->
+                <section class="section" id="intro" class="topic-section">
+                    <div class="container">
+                        <h1>Циклы в JavaScript</h1>
+                        <p class="note">
+                            <strong>Циклы</strong>
+                            позволяют повторять выполнение блока кода, пока выполняется некоторое условие, или определённое число раз. Используются для перебора коллекций, повторных вычислений и автоматизации однотипных операций.
+                        </p>
+                        <div class="note-block">
+                            <h4>Основные типы циклов (базовые):</h4>
+                            <ul class="list-ul">
+                                <li>
+                                    <code>while</code>
+                                    — повторяет, пока условие истинно (проверка до итерации).
+                                </li>
+                                <li>
+                                    <code>do...while</code>
+                                    — выполняет тело как минимум один раз (проверка после итерации).
+                                </li>
+                                <li>
+                                    <code>for</code>
+                                    — универсальная форма с явным началом / условием / шагом.
+                                </li>
+                            </ul>
+                            <p>
+                                Также есть
+                                <code>for...of</code>
+                                ,
+                                <code>for...in</code>
+                                — рассматриваются отдельно (в темах про массивы и объекты).
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Основные понятия -->
+                <section class="section" id="core-concepts" class="topic-section">
+                    <div class="container">
+                        <h2>Основные понятия цикла</h2>
+                        <div class="note-block">
+                            <ul class="list-ul">
+                                <li>
+                                    <strong>Итерация</strong>
+                                    — одно выполнение тела цикла.
+                                </li>
+                                <li>
+                                    <strong>Условие</strong>
+                                    — выражение, определяющее продолжать или закончить цикл.
+                                </li>
+                                <li>
+                                    <strong>Счётчик</strong>
+                                    — переменная, изменяющаяся на каждой итерации (например,
+                                    <code>i++</code>
+                                    ).
+                                </li>
+                                <li>
+                                    <strong>Тело цикла</strong>
+                                    — код, который повторяется.
+                                </li>
+                                <li>
+                                    <strong>Выход</strong>
+                                    — момент, когда условие перестаёт быть истиной или выполнен
+                                    <code>break</code>
+                                    .
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="example note-block">
+                            <h4>Общий принцип:</h4>
+                            <pre><code>Инициализация → Проверка условия → (true?) Выполнение тела → Шаг → Проверка → ... → (false?) Выход</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- while -->
+                <section class="section" id="while" class="topic-section">
+                    <div class="container">
+                        <h2>
+                            <code>while</code>
+                            — цикл с предусловием
+                        </h2>
+
+                        <p class="note">
+                            <strong>
+                                Цикл
+                                <code>while</code>
+                            </strong>
+                            — это «повторяй, пока условие истинно». Он особенно полезен, когда ты не знаешь заранее, сколько итераций будет, но точно знаешь, при каком условии нужно остановиться.
+                        </p>
+
+                        <h4>Синтаксис:</h4>
+                        <div class="note-block">
+                            <pre><code>while (условие) {
+  // тело цикла
+}</code></pre>
+                        </div>
+                        <h4>Базовый пример</h4>
+                        <div class="grid-column-100">
+                            <pre><code>let i = 0;              // 1. Инициализация счётчика
+while (i &lt; 7) {          // 2. Проверка условия перед каждой итерацией
+  console.log("Повторение:", i); // 3. Тело (выполняется, если условие true)
+  i++;                  // 4. Шаг — обязательно, иначе бесконечный цикл
+}</code></pre>
+                            <div>
+                                <p><b>Что произойдёт в консоли:</b></p>
+                                <pre><code>Повторение: 0
+Повторение: 1
+Повторение: 2
+Повторение: 3
+Повторение: 4
+Повторение: 5
+Повторение: 6</code></pre>
+                                <p style="padding: 10px 0 0 0">
+                                    Число
+                                    <code>7</code>
+                                    не выводится, потому что условие
+                                    <code>i &lt; 7</code>
+                                    становится ложным при
+                                    <code>i === 7</code>
+                                    .
+                                </p>
+                            </div>
+                        </div>
+
+                        <h3>Разбор по шагам</h3>
+                        <ol class="list-ol">
+                            <li>
+                                <strong>Инициализация:</strong>
+                                <code>i = 0</code>
+                                .
+                            </li>
+                            <li>
+                                <strong>Проверка условия:</strong>
+                                <code>i &lt; 7</code>
+                                → true → выполняем тело.
+                            </li>
+                            <li>
+                                <strong>Выполнение тела:</strong>
+                                вывод
+                                <code>"Повторение: 0"</code>
+                                .
+                            </li>
+                            <li>
+                                <strong>Изменение счётчика:</strong>
+                                <code>i++</code>
+                                →
+                                <code>i = 1</code>
+                                .
+                            </li>
+                            <li>
+                                <strong>Повтор:</strong>
+                                снова проверяем условие — пока true, цикл продолжается.
+                            </li>
+                            <li>
+                                <strong>Завершение:</strong>
+                                при
+                                <code>i = 7</code>
+                                условие false → выходим.
+                            </li>
+                        </ol>
+
+                        <h3>Когда использовать</h3>
+                        <ul class="list-ul">
+                            <li>
+                                Количество повторов заранее
+                                <strong>неизвестно</strong>
+                                .
+                            </li>
+                            <li>Ожидаешь «сигнал остановки» (например, ввод пустой строки).</li>
+                            <li>Нужна реакция на внешние изменения состояния.</li>
+                        </ul>
+
+                        <h3>Пример с пользовательским вводом</h3>
+                        <pre><code>let line;
+while ((line = prompt("Введите что-нибудь (пусто — выход)")) !== "") {
+  console.log("Введено:", line);
+}
+console.log("Завершено.");</code></pre>
+
+                        <h3>Типичные ошибки</h3>
+                        <div class="warning">
+                            <ul class="list-ul">
+                                <li>
+                                    <strong>Нет изменения счётчика:</strong>
+                                    условие никогда не станет ложным ⇒ бесконечный цикл.
+                                </li>
+                                <li>
+                                    <strong>Слишком сложное условие:</strong>
+                                    вынеси части во временные переменные.
+                                </li>
+                                <li>
+                                    <strong>Неожиданное приведение типов:</strong>
+                                    например, сравнение строки с числом (
+                                    <code>"7" &lt; 10</code>
+                                    → true).
+                                </li>
+                            </ul>
+                        </div>
+
+                        <h3>
+                            Сравнение с
+                            <code>for</code>
+                        </h3>
+                        <table class="table-note">
+                            <thead>
+                                <tr>
+                                    <th>for</th>
+                                    <th>while</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Все части в одной строке</td>
+                                    <td>Логика распределена по блокам</td>
+                                </tr>
+                                <tr>
+                                    <td>Хорош, когда известен диапазон</td>
+                                    <td>Хорош, когда неизвестно число итераций</td>
+                                </tr>
+                                <tr>
+                                    <td>Счётчик очевиден</td>
+                                    <td>Можно обойтись без явного счётчика</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3>Расширенные примеры</h3>
+                        <pre><code>// Бесконечный цикл с ручным break
+let n = 0;
+while (true) {
+  if (n === 3) break;
+  console.log(n);
+  n++;
+}
+
+// Отслеживание состояния
+let attempts = 0;
+let success = false;
+while (!success &amp;&amp; attempts &lt; 5) {
+  attempts++;
+  success = Math.random() &gt; 0.7;
+}
+console.log("Успешно?", success, "Попыток:", attempts);</code></pre>
+
+                        <h3>Мини‑практика (while)</h3>
+                        <div>
+                            <!-- 1. Счёт от 0 до 4 -->
+                            <h4>Счёт от 0 до 4</h4>
+                            <div class="grid-column-50 example-block" data-run="let i=0; let text=''; while(i<5){ text = text + i + ' '; console.log(text); i = i + 1; } text">
+                                <pre><code>let i = 0;
+let text = '';
+while (i &lt; 5) {
+  text = text + i + ' ';
+  console.log(text);      // промежуточное состояние
+  i = i + 1;
+}
+</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    0 1 2 3 4
+                                </div>
+                            </div>
+
+                            <!-- 2. Сумма чисел 1..5 -->
+                            <h4>Сумма 1..5</h4>
+                            <div class="grid-column-50 example-block" data-run="let i=1; let sum=0; while(i<=5){ sum = sum + i; console.log('После добавления', i, 'сумма =', sum); i = i + 1; } sum">
+                                <pre><code>let i = 1;
+let sum = 0;
+while (i &lt;= 5) {
+  sum = sum + i;
+  console.log('После добавления', i, 'сумма =', sum);
+  i = i + 1;
+}
+</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    15
+                                </div>
+                            </div>
+
+                            <!-- 3. Обратный отсчёт -->
+                            <h4>Обратный отсчёт 5..1</h4>
+                            <div class="grid-column-50 example-block" data-run="let n=5; let text=''; while(n>0){ text = text + n + ' '; console.log('Добавили', n, '=>', text); n = n - 1; } text">
+                                <pre><code>let n = 5;
+let text = '';
+while (n &gt; 0) {
+  text = text + n + ' ';
+  console.log('Добавили', n, '=>', text);
+  n = n - 1;
+}
+</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    5 4 3 2 1
+                                </div>
+                            </div>
+
+                            <!-- 4. Строка *** -->
+                            <h4>Строка из трёх звёздочек</h4>
+                            <div class="grid-column-50 example-block" data-run="let count=0; let s=''; while(count<3){ s = s + '*'; console.log(s); count = count + 1; } s">
+                                <pre><code>let count = 0;
+let s = '';
+while (count &lt; 3) {
+  s = s + '*';
+  console.log(s); // текущее состояние строки
+  count = count + 1;
+}
+</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    ***
+                                </div>
+                            </div>
+
+                            <!-- 5. Чётные 0 2 4 6 8 -->
+                            <h4>Чётные числа меньше 10</h4>
+                            <div class="grid-column-50 example-block" data-run="let i=0; let text=''; while(i<10){ text = text + i + ' '; console.log('Добавили', i, '=>', text); i = i + 2; } text">
+                                <pre><code>let i = 0;
+let text = '';
+while (i &lt; 10) {
+  text = text + i + ' ';
+  console.log('Добавили', i, '=>', text);
+  i = i + 2;
+}
+text;</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    0 2 4 6 8
+                                </div>
+                            </div>
+
+                            <!-- 6. Первое число, кратное 7 -->
+                            <h4>Первое число, кратное 7 (начиная с 1)</h4>
+                            <div class="grid-column-50 example-block" data-run="let n=1; let found=-1; while(true){ if(n % 7 === 0){ console.log('Нашли', n); found = n; break; } console.log('Пробуем', n); n = n + 1; } found">
+                                <pre><code>let n = 1;
+let found = -1;
+while (true) {
+  if (n % 7 === 0) {
+    console.log('Нашли', n);
+    found = n;
+    break;
+  }
+  console.log('Пробуем', n);
+  n = n + 1;
+}
+found; // первое кратное 7</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    7
+                                </div>
+                            </div>
+
+                            <!-- 7. Шаги +3 до 20 -->
+                            <h4>Шаги +3 до достижения 20</h4>
+                            <div class="grid-column-50 example-block" data-run="let x=0; let steps=0; while(x<20){ x = x + 3; steps = steps + 1; console.log('x =', x, 'шагов =', steps); } steps">
+                                <pre><code>let x = 0;
+let steps = 0;
+while (x &lt; 20) {
+  x = x + 3;
+  steps = steps + 1;
+  console.log('x =', x, 'шагов =', steps);
+}
+steps; // сколько раз прибавили</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    7
+                                </div>
+                            </div>
+
+                            <!-- 8. Слово по буквам -->
+                            <h4>Построение слова "loop"</h4>
+                            <div class="grid-column-50 example-block" data-run="let word='loop'; let i=0; let out=''; while(i<word.length){ out = out + word[i]; console.log(out); i = i + 1; } out">
+                                <pre><code>let word = 'loop';
+let i = 0;
+let out = '';
+while (i &lt; word.length) {
+  out = out + word[i];
+  console.log(out); // текущее накопление
+  i = i + 1;
+}
+out; // "loop"</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    loop
+                                </div>
+                            </div>
+
+                            <!-- 9. Пять плюсов -->
+                            <h4>Строка из пяти плюсов</h4>
+                            <div class="grid-column-50 example-block" data-run="let i=0; let s=''; while(i<5){ s = s + '+'; console.log(s); i = i + 1; } s">
+                                <pre><code>let i = 0;
+let s = '';
+while (i &lt; 5) {
+  s = s + '+';
+  console.log(s);
+  i = i + 1;
+}
+s; // "+++++"</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    +++++
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- do while -->
+                <section class="section" id="do-while" class="topic-section">
+                    <div class="container">
+                        <h2>
+                            <code>do...while</code>
+                            — цикл с постусловием
+                        </h2>
+
+                        <p class="note">
+                            <strong>
+                                Цикл
+                                <code>do...while</code>
+                            </strong>
+                            похож на
+                            <code>while</code>
+                            , но есть ключевое отличие:
+                            <br />
+                            <u>тело выполняется минимум один раз</u>
+                            , даже если условие изначально ложно. Полезен, когда нужно сначала что-то сделать (показать меню, запросить ввод), а уже потом решать — повторять ли.
+                        </p>
+
+                        <h4>Синтаксис:</h4>
+                        <pre><code>do {
+  // тело цикла (выполнится хотя бы один раз)
+} while (условие);</code></pre>
+
+                        <h3>Базовый пример</h3>
+                        <pre><code>let i = 0;
+do {
+  console.log("Повторение:", i);
+  i++;
+} while (i &lt; 5);</code></pre>
+
+                        <div class="example note-block">
+                            <h4>Вывод в консоль:</h4>
+                            <pre><code>Повторение: 0
+Повторение: 1
+Повторение: 2
+Повторение: 3
+Повторение: 4</code></pre>
+                            <p>
+                                Когда
+                                <code>i</code>
+                                становится равным 5 — условие
+                                <code>i &lt; 5</code>
+                                ложно, цикл завершается.
+                            </p>
+                        </div>
+
+                        <h3>Разбор по шагам</h3>
+                        <ol class="list-ol">
+                            <li>
+                                <strong>Инициализация:</strong>
+                                <code>i = 0</code>
+                                .
+                            </li>
+                            <li>
+                                <strong>Первое выполнение тела:</strong>
+                                выводит
+                                <code>Повторение: 0</code>
+                                .
+                            </li>
+                            <li>
+                                <strong>Шаг:</strong>
+                                <code>i++</code>
+                                →
+                                <code>i = 1</code>
+                                .
+                            </li>
+                            <li>
+                                <strong>Проверка условия:</strong>
+                                <code>i &lt; 5</code>
+                                → true → вторая итерация.
+                            </li>
+                            <li>… повтор до тех пор, пока условие не станет false.</li>
+                            <li>
+                                <strong>Завершение:</strong>
+                                при
+                                <code>i = 5</code>
+                                условие false → выход.
+                            </li>
+                        </ol>
+
+                        <div class="note-block">
+                            <h4>Почему «хотя бы один раз»?</h4>
+                            <pre><code>let n = 10;
+do {
+  console.log("Это выведется даже при ложном условии");
+} while (n &lt; 0);</code></pre>
+                            <p>
+                                Здесь тело выполнится один раз, хотя
+                                <code>n &lt; 0</code>
+                                уже изначально false.
+                            </p>
+                        </div>
+
+                        <h3>Практический пример (валидация ввода)</h3>
+                        <pre><code>let value;
+do {
+  value = prompt("Введите число больше 10 (Отмена - выход)", "");
+  if (value === null) {
+    console.log("Отменено пользователем.");
+    break;
+  }
+} while (+value &lt;= 10);
+
+if (value !== null) {
+  console.log("Вы ввели:", value);
+}</code></pre>
+
+                        <div class="note-block">
+                            <h4>Когда использовать:</h4>
+                            <ul class="list-ul">
+                                <li>Нужно выполнить действие хотя бы один раз (меню / ввод / первичная инициализация).</li>
+                                <li>
+                                    Проверка условия логически следует
+                                    <em>после</em>
+                                    выполнения шага.
+                                </li>
+                                <li>Условие зависит от результата тела (например, пользовательского ввода).</li>
+                            </ul>
+                        </div>
+
+                        <h3>
+                            Сравнение с
+                            <code>while</code>
+                        </h3>
+                        <table class="table-note">
+                            <thead>
+                                <tr>
+                                    <th>Характеристика</th>
+                                    <th><code>while</code></th>
+                                    <th><code>do...while</code></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Порядок</td>
+                                    <td>Сначала проверка, потом тело</td>
+                                    <td>Сначала тело, потом проверка</td>
+                                </tr>
+                                <tr>
+                                    <td>Минимум итераций</td>
+                                    <td>0</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>Подходит для</td>
+                                    <td>Когда возможно «ни разу»</td>
+                                    <td>Гарантированная первичная операция</td>
+                                </tr>
+                                <tr>
+                                    <td>Читаемость</td>
+                                    <td>Привычнее / чаще используется</td>
+                                    <td>Реже, но уместен в сценариях ввода</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3>Типичные ошибки</h3>
+                        <div class="warning">
+                            <ul class="list-ul">
+                                <li>
+                                    <strong>Забыл выход:</strong>
+                                    условие всегда true ⇒ бесконечный цикл.
+                                </li>
+                                <li>
+                                    <strong>Неправильное условие:</strong>
+                                    проверяется после тела — иногда «лишняя» итерация.
+                                </li>
+                                <li>
+                                    <strong>Преобразование типов:</strong>
+                                    <code>prompt()</code>
+                                    возвращает строку — используй
+                                    <code>+value</code>
+                                    или
+                                    <code>Number(value)</code>
+                                    для сравнения.
+                                </li>
+                            </ul>
+                        </div>
+
+                        <h3>Расширенные примеры</h3>
+                        <pre><code>// 1. Повторяем до случайного успеха
+let attempts = 0;
+let ok;
+do {
+  attempts++;
+  ok = Math.random() &gt; 0.75;
+} while (!ok &amp;&amp; attempts &lt; 10);
+console.log("Попыток:", attempts, "Успех?", ok);
+
+// 2. Минимум одно вычисление
+let cache;
+do {
+  cache = computeHeavy();
+} while (!cache.valid);
+
+// (условная функция)
+function computeHeavy() {
+  return { valid: Math.random() &gt; 0.3 };
+}</code></pre>
+
+                        <h3>Мини‑практика</h3>
+                        <div>
+                            <!-- 1. Счёт от 0 до 4 -->
+                            <h4>Счёт от 0 до 4</h4>
+                            <div class="grid-column-50 example-block" data-run="let i=0; let text=''; do { text = text + i + ' '; console.log(text); i = i + 1; } while (i < 5); text">
+                                <pre><code>let i = 0;
+let text = '';
+do {
+  text = text + i + ' ';
+  console.log(text);          // промежуточное состояние
+  i = i + 1;
+} while (i &lt; 5);
+text; // итоговая строка (с пробелом на конце)</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    0 1 2 3 4
+                                </div>
+                            </div>
+
+                            <!-- 2. Сумма 1..5 -->
+                            <h4>Сумма 1..5</h4>
+                            <div class="grid-column-50 example-block" data-run="let i=1; let sum=0; do { sum = sum + i; console.log('После добавления', i, 'сумма =', sum); i = i + 1; } while (i <= 5); sum">
+                                <pre><code>let i = 1;
+let sum = 0;
+do {
+  sum = sum + i;
+  console.log('После добавления', i, 'сумма =', sum);
+  i = i + 1;
+} while (i &lt;= 5);
+sum; // итоговая сумма</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    15
+                                </div>
+                            </div>
+
+                            <!-- 3. Обратный отсчёт -->
+                            <h4>Обратный отсчёт 5..1</h4>
+                            <div class="grid-column-50 example-block" data-run="let n=5; let text=''; do { text = text + n + ' '; console.log('Добавили', n, '=>', text); n = n - 1; } while (n > 0); text">
+                                <pre><code>let n = 5;
+let text = '';
+do {
+  text = text + n + ' ';
+  console.log('Добавили', n, '=>', text);
+  n = n - 1;
+} while (n &gt; 0);
+text; // итоговая строка</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    5 4 3 2 1
+                                </div>
+                            </div>
+
+                            <!-- 4. Строка из трёх звёздочек -->
+                            <h4>Строка из трёх звёздочек</h4>
+                            <div class="grid-column-50 example-block" data-run="let count=0; let s=''; do { s = s + '*'; console.log(s); count = count + 1; } while (count < 3); s">
+                                <pre><code>let count = 0;
+let s = '';
+do {
+  s = s + '*';
+  console.log(s);
+  count = count + 1;
+} while (count &lt; 3);
+s; // "***"</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    ***
+                                </div>
+                            </div>
+
+                            <!-- 5. Чётные числа меньше 10 -->
+                            <h4>Чётные числа меньше 10</h4>
+                            <div class="grid-column-50 example-block" data-run="let i=0; let text=''; do { text = text + i + ' '; console.log('Добавили', i, '=>', text); i = i + 2; } while (i < 10); text">
+                                <pre><code>let i = 0;
+let text = '';
+do {
+  text = text + i + ' ';
+  console.log('Добавили', i, '=>', text);
+  i = i + 2;
+} while (i &lt; 10);
+text;</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    0 2 4 6 8
+                                </div>
+                            </div>
+
+                            <!-- 6. Первое число, кратное 7 -->
+                            <h4>Первое число, кратное 7 (начиная с 1)</h4>
+                            <div class="grid-column-50 example-block" data-run="let n=1; let found=-1; do { if (n % 7 === 0) { console.log('Нашли', n); found = n; break; } console.log('Пробуем', n); n = n + 1; } while (true); found">
+                                <pre><code>let n = 1;
+let found = -1;
+do {
+  if (n % 7 === 0) {
+    console.log('Нашли', n);
+    found = n;
+    break;
+  }
+  console.log('Пробуем', n);
+  n = n + 1;
+} while (true);
+found; // первое кратное 7</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    7
+                                </div>
+                            </div>
+
+                            <!-- 7. Шаги +3 до достижения 20 -->
+                            <h4>Шаги +3 до достижения 20</h4>
+                            <div class="grid-column-50 example-block" data-run="let x=0; let steps=0; do { x = x + 3; steps = steps + 1; console.log('x =', x, 'шагов =', steps); } while (x < 20); steps">
+                                <pre><code>let x = 0;
+let steps = 0;
+do {
+  x = x + 3;
+  steps = steps + 1;
+  console.log('x =', x, 'шагов =', steps);
+} while (x &lt; 20);
+steps; // сколько раз прибавили</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    7
+                                </div>
+                            </div>
+
+                            <!-- 8. Построение слова "loop" -->
+                            <h4>Построение слова "loop"</h4>
+                            <div class="grid-column-50 example-block" data-run="let word='loop'; let i=0; let out=''; do { out = out + word[i]; console.log(out); i = i + 1; } while (i < word.length); out">
+                                <pre><code>let word = 'loop';
+let i = 0;
+let out = '';
+do {
+  out = out + word[i];
+  console.log(out);
+  i = i + 1;
+} while (i &lt; word.length);
+out; // "loop"</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    loop
+                                </div>
+                            </div>
+
+                            <!-- 9. Пять плюсов -->
+                            <h4>Строка из пяти плюсов</h4>
+                            <div class="grid-column-50 example-block" data-run="let i=0; let s=''; do { s = s + '+'; console.log(s); i = i + 1; } while (i < 5); s">
+                                <pre><code>let i = 0;
+let s = '';
+do {
+  s = s + '+';
+  console.log(s);
+  i = i + 1;
+} while (i &lt; 5);
+s; // "+++++"</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    +++++
+                                </div>
+                            </div>
+
+                            <!-- 10. Первое случайное число > 0.8 -->
+                            <h4>Первое случайное число &gt; 0.8</h4>
+                            <div class="grid-column-50 example-block" data-run="let tries=0; let x=0; do { x = Math.random(); tries = tries + 1; console.log('Попытка', tries, 'x =', x); } while (x <= 0.8); 'Попыток: '+tries">
+                                <pre><code>let tries = 0;
+let x = 0;
+do {
+  x = Math.random();
+  tries = tries + 1;
+  console.log('Попытка', tries, 'x =', x);
+} while (x &lt;= 0.8);
+'Попыток: ' + tries; // строка с числом попыток</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    Попыток: (число разное)
+                                </div>
+                            </div>
+
+                            <!-- 11. (Особенность) Выполнится хотя бы один раз -->
+                            <h4>Особенность: выполнится хотя бы один раз</h4>
+                            <div class="grid-column-50 example-block" data-run="let i=5; let text=''; do { text = text + 'i=' + i; console.log('Тело выполнено при i =', i); i = i + 1; } while (i < 5); text">
+                                <pre><code>let i = 5;          // условие (i &lt; 5) уже ЛОЖЬ
+let text = '';
+do {
+  text = text + 'i=' + i;
+  console.log('Тело выполнено при i =', i);
+  i = i + 1;
+} while (i &lt; 5);     // но тело всё равно выполнилось один раз
+text; // "i=5"</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    i=5
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="note">
+                            💡
+                            <strong>Совет:</strong>
+                            выбирай
+                            <code>do...while</code>
+                            , если «сначала действие — потом проверка». Если сомневаешься — чаще достаточно
+                            <code>while</code>
+                            .
+                        </p>
+                    </div>
+                </section>
+
+                <!-- for -->
+                <section class="section" id="for" class="topic-section">
+                    <div class="container">
+                        <h2>
+                            <code>for</code>
+                            — универсальный цикл
+                        </h2>
+
+                        <p class="note">
+                            <strong>
+                                Цикл
+                                <code>for</code>
+                            </strong>
+                            — это «компактный повторитель»: запускает один и тот же блок кода заданное число раз. Вся логика (старт, условие, изменение счётчика) сосредоточена в одной строке.
+                        </p>
+
+                        <div class="note-block">
+                            <h4>Структура цикла</h4>
+                            <pre><code>for (инициализация; условие; шаг) {
+  // тело цикла
+}</code></pre>
+                            <ul class="list-ul">
+                                <li>
+                                    <strong>Инициализация</strong>
+                                    — выполняется один раз перед первой проверкой (обычно объявление счётчика:
+                                    <code>let i = 0</code>
+                                    ).
+                                </li>
+                                <li>
+                                    <strong>Условие</strong>
+                                    — проверяется перед каждой итерацией. Если
+                                    <code>false</code>
+                                    — выходим.
+                                </li>
+                                <li>
+                                    <strong>Шаг</strong>
+                                    — выполняется после тела каждой итерации (часто
+                                    <code>i++</code>
+                                    ).
+                                </li>
+                                <li>
+                                    <strong>Тело</strong>
+                                    — код, который повторяется.
+                                </li>
+                            </ul>
+                        </div>
+
+                        <h3>Разбор базового примера</h3>
+                        <pre><code>for (let i = 0; i &lt; 5; i++) {
+  console.log("Повторение:", i);
+}</code></pre>
+
+                        <div class="example note-block">
+                            <h4>Что происходит по шагам:</h4>
+                            <ol class="list-ol">
+                                <li>
+                                    <code>let i = 0</code>
+                                    — инициализация (один раз).
+                                </li>
+                                <li>
+                                    Проверка
+                                    <code>i &lt; 5</code>
+                                    →
+                                    <code>true</code>
+                                    → выполняем тело → вывод
+                                    <code>Повторение: 0</code>
+                                    .
+                                </li>
+                                <li>
+                                    <code>i++</code>
+                                    →
+                                    <code>i = 1</code>
+                                    , снова проверка условия → и так далее.
+                                </li>
+                                <li>
+                                    Когда
+                                    <code>i</code>
+                                    становится 5, условие
+                                    <code>i &lt; 5</code>
+                                    ложно → цикл завершается.
+                                </li>
+                            </ol>
+                            <h5>Вывод в консоль:</h5>
+                            <pre><code>Повторение: 0
+Повторение: 1
+Повторение: 2
+Повторение: 3
+Повторение: 4</code></pre>
+                        </div>
+
+                        <h3>Части цикла (сводная таблица)</h3>
+                        <table class="table-note">
+                            <thead>
+                                <tr>
+                                    <th>Часть</th>
+                                    <th>Когда выполняется</th>
+                                    <th>Пример</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Инициализация</td>
+                                    <td>Перед первой проверкой условия</td>
+                                    <td><code>let i = 0</code></td>
+                                </tr>
+                                <tr>
+                                    <td>Условие</td>
+                                    <td>Перед каждой итерацией</td>
+                                    <td><code>i &lt; 5</code></td>
+                                </tr>
+                                <tr>
+                                    <td>Тело</td>
+                                    <td>Если условие true</td>
+                                    <td><code>console.log(i)</code></td>
+                                </tr>
+                                <tr>
+                                    <td>Шаг</td>
+                                    <td>После тела, перед следующей проверкой</td>
+                                    <td><code>i++</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3>Варианты и гибкость</h3>
+                        <pre><code>// 1. Пропуск инициализации (счётчик объявлен заранее)
+let k = 0;
+for (; k &lt; 3; k++) console.log(k);
+
+// 2. Пропуск шага
+for (let j = 0; j &lt; 3;) {
+  console.log(j);
+  j++;
+}
+
+// 3. Несколько переменных
+for (let a = 0, b = 5; a &lt; b; a++, b--) {
+  console.log(a, b);
+}
+
+// 4. Обратный отсчёт
+for (let n = 5; n &gt; 0; n--) {
+  console.log(n);
+}
+
+// 5. Бесконечный цикл (нужен break)
+for (;;) {
+  break;
+}</code></pre>
+
+                        <div class="note-block">
+                            <h4>
+                                Когда выбирать
+                                <code>for</code>
+                                :
+                            </h4>
+                            <ul class="list-ul">
+                                <li>Заранее известно количество повторов.</li>
+                                <li>Нужен индекс (позиция в массиве).</li>
+                                <li>Нужно компактно описать управление счётчиком.</li>
+                            </ul>
+                        </div>
+
+                        <h3>Типичные ошибки</h3>
+                        <div class="warning">
+                            <ul class="list-ul">
+                                <li>
+                                    <strong>Бесконечный цикл:</strong>
+                                    забыли изменить счётчик (
+                                    <code>i++</code>
+                                    ).
+                                </li>
+                                <li>
+                                    <strong>Off-by-one:</strong>
+                                    <code>i &lt;= arr.length</code>
+                                    вместо
+                                    <code>i &lt; arr.length</code>
+                                    .
+                                </li>
+                                <li>
+                                    <strong>Неподходящий тип объявлен:</strong>
+                                    использование
+                                    <code>var</code>
+                                    вместо
+                                    <code>let</code>
+                                    (протекает за пределы цикла).
+                                </li>
+                                <li>
+                                    <strong>Лишний индекс:</strong>
+                                    когда индекс не нужен — рассмотрите
+                                    <code>for...of</code>
+                                    .
+                                </li>
+                            </ul>
+                        </div>
+
+                        <h3>Расширенные примеры</h3>
+                        <pre><code>// Пропуск чётных
+for (let i = 0; i &lt; 10; i++) {
+  if (i % 2 === 0) continue;
+  console.log("Нечётное:", i);
+}
+
+// Преждевременный выход
+for (let i = 0; i &lt; 100; i++) {
+  if (i === 7) {
+    console.log("Нашли 7 и остановились");
+    break;
+  }
+}
+
+// Агрегация
+let sum = 0;
+for (let i = 1; i &lt;= 5; i++) {
+  sum += i;
+}
+console.log("Сумма 1..5 =", sum); // 15</code></pre>
+
+                        <h3>Мини-практика</h3>
+                        <div>
+                            <!-- 1. Счёт от 0 до 4 -->
+                            <h4>Счёт от 0 до 4</h4>
+                            <div class="grid-column-50 example-block" data-run="let text=''; for(let i=0;i<5;i++){ text = text + i + ' '; console.log(text); } text">
+                                <pre><code>let text = '';
+for (let i = 0; i &lt; 5; i++) {
+  text = text + i + ' ';
+  console.log(text);       // промежуточное состояние
+}
+text; // итоговая строка (с пробелом на конце)</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    0 1 2 3 4
+                                </div>
+                            </div>
+
+                            <!-- 2. Сумма 1..5 -->
+                            <h4>Сумма 1..5</h4>
+                            <div class="grid-column-50 example-block" data-run="let sum=0; for(let i=1;i<=5;i++){ sum = sum + i; console.log('Добавили', i, '=>', sum); } sum">
+                                <pre><code>let sum = 0;
+for (let i = 1; i &lt;= 5; i++) {
+  sum = sum + i;
+  console.log('Добавили', i, '=>', sum);
+}
+sum; // итоговая сумма</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    15
+                                </div>
+                            </div>
+
+                            <!-- 3. Обратный отсчёт -->
+                            <h4>Обратный отсчёт 5..1</h4>
+                            <div class="grid-column-50 example-block" data-run="let text=''; for(let n=5;n>0;n--){ text = text + n + ' '; console.log('Добавили', n, '=>', text); } text">
+                                <pre><code>let text = '';
+for (let n = 5; n &gt; 0; n--) {
+  text = text + n + ' ';
+  console.log('Добавили', n, '=>', text);
+}
+text; // итог</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    5 4 3 2 1
+                                </div>
+                            </div>
+
+                            <!-- 4. Строка из трёх звёздочек -->
+                            <h4>Строка из трёх звёздочек</h4>
+                            <div class="grid-column-50 example-block" data-run="let s=''; for(let count=0; count<3; count++){ s = s + '*'; console.log(s); } s">
+                                <pre><code>let s = '';
+for (let count = 0; count &lt; 3; count++) {
+  s = s + '*';
+  console.log(s);
+}
+s; // "***"</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    ***
+                                </div>
+                            </div>
+
+                            <!-- 5. Чётные числа меньше 10 -->
+                            <h4>Чётные числа меньше 10</h4>
+                            <div class="grid-column-50 example-block" data-run="let text=''; for(let i=0;i<10;i+=2){ text = text + i + ' '; console.log('Добавили', i, '=>', text); } text">
+                                <pre><code>let text = '';
+for (let i = 0; i &lt; 10; i += 2) {
+  text = text + i + ' ';
+  console.log('Добавили', i, '=>', text);
+}
+text;</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    0 2 4 6 8
+                                </div>
+                            </div>
+
+                            <!-- 6. Первое число, кратное 7 -->
+                            <h4>Первое число, кратное 7 (начиная с 1)</h4>
+                            <div class="grid-column-50 example-block" data-run="let found=-1; for(let n=1;;n++){ if(n % 7 === 0){ console.log('Нашли', n); found = n; break; } console.log('Пробуем', n); } found">
+                                <pre><code>let found = -1;
+for (let n = 1; ; n++) {         // бесконечный цикл через for
+  if (n % 7 === 0) {
+    console.log('Нашли', n);
+    found = n;
+    break;
+  }
+  console.log('Пробуем', n);
+}
+found; // первое кратное 7</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    7
+                                </div>
+                            </div>
+
+                            <!-- 7. Шаги +3 до достижения 20 -->
+                            <h4>Шаги +3 до достижения 20</h4>
+                            <div class="grid-column-50 example-block" data-run="let x=0; let steps=0; for(; x<20; ){ x = x + 3; steps = steps + 1; console.log('x =', x, 'шагов =', steps); } steps">
+                                <pre><code>let x = 0;
+let steps = 0;
+for (; x &lt; 20; ) {         // используем for без части обновления
+  x = x + 3;
+  steps = steps + 1;
+  console.log('x =', x, 'шагов =', steps);
+}
+steps; // сколько раз прибавили</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    7
+                                </div>
+                            </div>
+
+                            <!-- 8. Построение слова "loop" -->
+                            <h4>Построение слова "loop"</h4>
+                            <div class="grid-column-50 example-block" data-run="let word='loop'; let out=''; for(let i=0;i<word.length;i++){ out = out + word[i]; console.log(out); } out">
+                                <pre><code>let word = 'loop';
+let out = '';
+for (let i = 0; i &lt; word.length; i++) {
+  out = out + word[i];
+  console.log(out);
+}
+out; // "loop"</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    loop
+                                </div>
+                            </div>
+
+                            <!-- 9. Строка из пяти плюсов -->
+                            <h4>Строка из пяти плюсов</h4>
+                            <div class="grid-column-50 example-block" data-run="let s=''; for(let i=0;i<5;i++){ s = s + '+'; console.log(s); } s">
+                                <pre><code>let s = '';
+for (let i = 0; i &lt; 5; i++) {
+  s = s + '+';
+  console.log(s);
+}
+s; // "+++++"</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    +++++
+                                </div>
+                            </div>
+
+                            <!-- 10. Первое случайное число > 0.8 -->
+                            <h4>Первое случайное число &gt; 0.8</h4>
+                            <div class="grid-column-50 example-block" data-run="let x=0; let tries=0; for(;;){ x = Math.random(); tries = tries + 1; console.log('Попытка', tries, 'x =', x); if(x > 0.8) break; } 'Попыток: '+tries">
+                                <pre><code>let x = 0;
+let tries = 0;
+for (;;) {                     // бесконечный цикл, выйдем через break
+  x = Math.random();
+  tries = tries + 1;
+  console.log('Попытка', tries, 'x =', x);
+  if (x &gt; 0.8) {
+    break;
+  }
+}
+'Попыток: ' + tries; // строка с числом попыток</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    Попыток: (число разное)
+                                </div>
+                            </div>
+
+                            <!-- 11. Особенность: не выполнится ни разу, если условие сразу ложь -->
+                            <h4>Особенность: тело не выполнится, если условие сразу ложь</h4>
+                            <div class="grid-column-50 example-block" data-run="let i=5; let text=''; for(; i<5; i++){ text = text + i; console.log('Это не будет показано'); } text">
+                                <pre><code>let i = 5;          // условие i &lt; 5 уже ложь
+let text = '';
+for (; i &lt; 5; i++) {
+  text = text + i;  // тело не выполнится ни разу
+  console.log('Это не будет показано');
+}
+text; // пустая строка ""</code></pre>
+                                <div class="example">
+                                    // Результат
+                                    <br />
+                                    (пусто)
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="note">
+                            💡
+                            <strong>Совет:</strong>
+                            если в теле цикла много логики — вынеси её в функцию для лучшей читаемости.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Вариативность for -->
+                <section class="section" id="for-flex" class="topic-section">
+                    <div class="container">
+                        <h2>
+                            Гибкость цикла
+                            <code>for</code>
+                        </h2>
+                        <p>Любую часть можно опустить.</p>
+                        <pre><code>// Без "начала"
+let i = 0;
+for (; i &lt; 3; i++) console.log(i);
+
+// Без "шага"
+for (let j = 0; j &lt; 3;) {
+  console.log(j);
+  j++;
+}
+
+// Бесконечный цикл (нужен break внутри)
+for (;;) {
+  break;
+}</code></pre>
+
+                        <div class="note-block">
+                            <h4>Когда НЕ использовать for:</h4>
+                            <ul class="list-ul">
+                                <li>
+                                    Для перебора массива ради обработки каждого элемента → лучше
+                                    <code>for...of</code>
+                                    (выше читаемость).
+                                </li>
+                                <li>
+                                    Для поиска / фильтрации → чаще подойдут
+                                    <code>Array.prototype.filter / find / some / every</code>
+                                    .
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Управление потоком -->
+                <section class="section" id="control-flow" class="topic-section">
+                    <div class="container">
+                        <h2>
+                            Управление выполнением цикла:
+                            <code>break</code>
+                            ,
+                            <code>continue</code>
+                            и бесконечные циклы
+                        </h2>
+
+                        <p class="note">
+                            Внутри цикла можно управлять потоком выполнения: досрочно прервать цикл с помощью
+                            <code>break</code>
+                            , пропустить текущую итерацию через
+                            <code>continue</code>
+                            , а также — осознанно построить «бесконечный» цикл с ручким выходом.
+                        </p>
+
+                        <h3>Бесконечный цикл</h3>
+                        <p>
+                            <strong>Бесконечный цикл</strong>
+                            — это цикл, у которого условие завершения никогда не становится ложным (или вообще отсутствует). Он полезен, когда требуется «постоянный цикл ожидания» с явным выходом внутри.
+                        </p>
+                        <pre><code>while (true) {
+  console.log("Этот цикл никогда не закончится сам!");
+  // Нужен break (или return) внутри при определённом условии
+}</code></pre>
+
+                        <div class="warning">Никогда не оставляй бесконечный цикл без выхода — это «повисание» интерфейса / нагрузки на CPU.</div>
+
+                        <h4>Как избежать непреднамеренного бесконечного цикла:</h4>
+                        <ul class="list-ul">
+                            <li>
+                                <strong>Изменяй состояние:</strong>
+                                счётчик / данные должны двигать условие к завершению.
+                            </li>
+                            <li>
+                                <strong>Проверяй условие:</strong>
+                                может ли оно стать
+                                <code>false</code>
+                                вообще?
+                            </li>
+                            <li>
+                                <strong>
+                                    Используй
+                                    <code>break</code>
+                                    :
+                                </strong>
+                                когда наступает «условие выхода».
+                            </li>
+                            <li>
+                                <strong>Ограничивай попытки:</strong>
+                                добавь «страховку» (макс. число итераций).
+                            </li>
+                        </ul>
+
+                        <pre><code>// Осознанный бесконечный цикл с защитой
+let attempts = 0;
+while (true) {
+  attempts++;
+  if (Math.random() &gt; 0.85) {
+    console.log("Успех на попытке", attempts);
+    break;
+  }
+  if (attempts &gt; 1000) {
+    console.log("Принудительный выход (лимит)");
+    break;
+  }
+}</code></pre>
+
+                        <h3><code>break</code></h3>
+                        <p>
+                            <code>break</code>
+                            немедленно завершает текущий цикл (или внешний по метке).
+                        </p>
+                        <pre><code>for (let i = 0; i &lt; 10; i++) {
+  if (i === 5) {
+    console.log("Нашли 5 — выходим");
+    break;
+  }
+}</code></pre>
+
+                        <h4>Применение:</h4>
+                        <ul class="list-ul">
+                            <li>Поиск первого подходящего элемента.</li>
+                            <li>Прерывание по «сигналу» (ошибка, флаг, внешнее событие).</li>
+                            <li>Ограничение глубины / времени.</li>
+                        </ul>
+
+                        <h3><code>continue</code></h3>
+                        <p>
+                            <code>continue</code>
+                            пропускает остаток текущей итерации и переходит к следующей проверке условия.
+                        </p>
+                        <pre><code>for (let i = 0; i &lt; 10; i++) {
+  if (i % 2 === 0) continue; // пропускаем чётные
+  console.log("Нечётное:", i);
+}</code></pre>
+
+                        <div class="note-block">
+                            <strong>Совет:</strong>
+                            Частые
+                            <code>continue</code>
+                            иногда ухудшают читаемость — попробуй инвертировать условие:
+                            <pre><code>// Вместо:
+for (let x of arr) {
+  if (!x.active) continue;
+  process(x);
+}
+
+// Можно:
+for (let x of arr) {
+  if (x.active) {
+    process(x);
+  }
+}</code></pre>
+                        </div>
+
+                        <h3>
+                            Сравнение
+                            <code>break</code>
+                            и
+                            <code>continue</code>
+                        </h3>
+                        <table class="table-note">
+                            <thead>
+                                <tr>
+                                    <th>Оператор</th>
+                                    <th>Действие</th>
+                                    <th>Типичный сценарий</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>break</code></td>
+                                    <td>Полностью завершает цикл</td>
+                                    <td>Найден результат / достигнут лимит</td>
+                                </tr>
+                                <tr>
+                                    <td><code>continue</code></td>
+                                    <td>Пропускает оставшуюся часть тела итерации</td>
+                                    <td>Пропустить неинтересные элементы</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3>Вложенные циклы и досрочный выход</h3>
+                        <pre><code>outer: for (let i = 0; i &lt; 3; i++) {
+  for (let j = 0; j &lt; 3; j++) {
+    if (i === 1 &amp;&amp; j === 2) {
+      console.log("Выходим из ОБОИХ циклов");
+      break outer; // метка
+    }
+  }
+}</code></pre>
+                        <div class="warning">
+                            Метки используй экономно — иногда лучше вынести внутренний цикл в функцию и сделать
+                            <code>return</code>
+                            .
+                        </div>
+
+                        <h3>Типичные ошибки</h3>
+                        <div class="warning">
+                            <ul class="list-ul">
+                                <li>
+                                    <strong>Забыли шаг:</strong>
+                                    счётчик не меняется → цикл бесконечен.
+                                </li>
+                                <li>
+                                    <strong>Условие всегда true:</strong>
+                                    неверная логика (
+                                    <code>i &lt;= length</code>
+                                    при инкременте и неизменном length).
+                                </li>
+                                <li>
+                                    <strong>break вне цикла:</strong>
+                                    синтаксическая ошибка.
+                                </li>
+                                <li>
+                                    <strong>Продолжение после цели:</strong>
+                                    забыли
+                                    <code>break</code>
+                                    и зря тратим время.
+                                </li>
+                                <li>
+                                    <strong>Злоупотребление continue:</strong>
+                                    «рваный» поток чтения.
+                                </li>
+                            </ul>
+                        </div>
+
+                        <h3>Паттерны с безопасным выходом</h3>
+                        <pre><code>// 1. Лимит попыток
+let ok = false;
+for (let tries = 0; tries &lt; 5; tries++) {
+  ok = Math.random() &gt; 0.6;
+  if (ok) { console.log("Успех на", tries + 1); break; }
+}
+
+// 2. break вместо флага
+// Антипаттерн:
+let found = false;
+for (const x of list) {
+  if (x.id === target) { found = true; }
+}
+if (found) console.log("Нашли");
+
+// Лучше:
+for (const x of list) {
+  if (x.id === target) {
+    console.log("Нашли");
+    break;
+  }
+}</code></pre>
+
+                        <h3>Мини‑практика</h3>
+                        <div class="practice-buttons">
+                            <button type="button" data-expr="let i=0; for(;;){ if(i===3) break; i++; } i">for(;;) + break</button>
+                            <button type="button" data-expr="let c=0; while(true){ if(Math.random()>0.7) break; c++; } c">while(true)</button>
+                            <button type="button" data-expr="let odds=[]; for(let i=0;i&lt;10;i++){ if(i%2===0) continue; odds.push(i);} odds.join(',')">Нечётные</button>
+                            <button type="button" data-expr="let f=-1; for(let i=0;i&lt;10;i++){ if(i===6){f=i; break;} } f">Поиск 6</button>
+                            <button type="button" data-expr="let cnt=0; outer: for(let i=0;i&lt;3;i++){ for(let j=0;j&lt;3;j++){ cnt++; if(i===1&&j===1) break outer; } } cnt">Метка</button>
+                        </div>
+
+                        <p class="note">
+                            💡
+                            <strong>Совет:</strong>
+                            если ловишь себя на множестве
+                            <code>continue</code>
+                            /
+                            <code>break</code>
+                            — возможно, стоит пересмотреть структуру кода или использовать методы массива (
+                            <code>some</code>
+                            ,
+                            <code>every</code>
+                            ,
+                            <code>find</code>
+                            ).
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Метки -->
+                <section class="section" id="labels" class="topic-section">
+                    <div class="container">
+                        <h2>Метки (labels) для вложенных циклов</h2>
+                        <p>Позволяют выйти из внешнего цикла изнутри внутреннего.</p>
+                        <pre><code>outer: for (let i = 0; i &lt; 3; i++) {
+  for (let j = 0; j &lt; 3; j++) {
+    const val = prompt(`(${i},${j})`, "");
+    if (val === null) break outer;
+  }
+}
+console.log("Готово");</code></pre>
+                        <div class="note-block warning">
+                            <strong>Используй редко:</strong>
+                            метки могут сделать поток управления запутанным. Часто их можно заменить флагами или вынесением логики в функцию.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Сравнение -->
+                <section class="section" id="comparison" class="topic-section">
+                    <div class="container">
+                        <h2>Сравнение типов циклов</h2>
+                        <table class="table-note">
+                            <thead>
+                                <tr>
+                                    <th>Цикл</th>
+                                    <th>Когда использовать</th>
+                                    <th>Проверка условия</th>
+                                    <th>Мин. итераций</th>
+                                    <th>Пример сценария</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>while</code></td>
+                                    <td>Неизвестно число повторов заранее</td>
+                                    <td>Перед каждой итерацией</td>
+                                    <td>0</td>
+                                    <td>Чтение до пустой строки</td>
+                                </tr>
+                                <tr>
+                                    <td><code>do...while</code></td>
+                                    <td>Нужно выполнить минимум 1 раз</td>
+                                    <td>После итерации</td>
+                                    <td>1</td>
+                                    <td>Меню ввода, валидация</td>
+                                </tr>
+                                <tr>
+                                    <td><code>for</code></td>
+                                    <td>Число повторов известно / индекс важен</td>
+                                    <td>Перед каждой итерацией</td>
+                                    <td>0</td>
+                                    <td>Перебор первых N элементов</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Практики -->
+                <section class="section" id="best-practices" class="topic-section">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+                        <ul class="list-ul">
+                            <li>Избегай «магических чисел» — выноси пределы в переменные/константы.</li>
+                            <li>
+                                Используй
+                                <code>for...of</code>
+                                для итерации по массивам, когда индекс не нужен.
+                            </li>
+                            <li>
+                                Используй методы массива (
+                                <code>map</code>
+                                ,
+                                <code>filter</code>
+                                ,
+                                <code>reduce</code>
+                                ) для декларативной логики.
+                            </li>
+                            <li>
+                                Преждевременный
+                                <code>break</code>
+                                вместо лишних флагов увеличивает читаемость.
+                            </li>
+                            <li>
+                                Не изменяй длину массива (например,
+                                <code>push</code>
+                                /
+                                <code>splice</code>
+                                ) внутри обычного
+                                <code>for</code>
+                                , если это влияет на индексы.
+                            </li>
+                            <li>Старайся, чтобы тело цикла было небольшим — вынеси сложную логику в функцию.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Ловушки -->
+                <section class="section" id="pitfalls" class="topic-section">
+                    <div class="container">
+                        <h2>Ловушки</h2>
+                        <div class="note-block warning">
+                            <ul class="list-ul">
+                                <li>
+                                    <strong>Бесконечный цикл:</strong>
+                                    забыли изменить счётчик или неверное условие (
+                                    <code>while (true)</code>
+                                    без
+                                    <code>break</code>
+                                    ).
+                                </li>
+                                <li>
+                                    <strong>Off-by-one ошибка:</strong>
+                                    <code>i &lt;= arr.length</code>
+                                    вместо
+                                    <code>i &lt; arr.length</code>
+                                    .
+                                </li>
+                                <li>
+                                    <strong>Повторное объявление счетчика:</strong>
+                                    использование
+                                    <code>var</code>
+                                    вместо
+                                    <code>let</code>
+                                    может привести к утечкам в область видимости.
+                                </li>
+                                <li>
+                                    <strong>Ненужный continue:</strong>
+                                    можно переписать условие в позитивной форме.
+                                </li>
+                                <li>
+                                    <strong>Модификация массива при проходе:</strong>
+                                    меняет индексы — лучше итерироваться с конца или создавать копию.
+                                </li>
+                                <li>
+                                    <strong>
+                                        Использование
+                                        <code>for...in</code>
+                                        для массива:
+                                    </strong>
+                                    приводит к перебору «лишних» ключей / не гарантирует порядок.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Практика -->
+                <section class="section" id="practice" class="topic-section">
+                    <div class="container">
+                        <h2>Тренажёр</h2>
+                        <p>Нажми на кнопку или введи свой код (не вводи длительные / бесконечные циклы!).</p>
+
+                        <div class="practice-buttons">
+                            <button type="button" data-expr="let s=0; for(let i=1;i&lt;=5;i++) s+=i; s">Сумма 1..5</button>
+                            <button type="button" data-expr="let i=0; while(i&lt;3){i++;} i">while i&lt;3</button>
+                            <button type="button" data-expr="let i=0; do {i++;} while(i&lt;2); i">do...while</button>
+                            <button type="button" data-expr="for(let i=0;i&lt;4;i++){ if(i===2) break; console.log(i);} 'done'">break пример</button>
+                            <button type="button" data-expr="[1,2,3,4].filter(n=&gt;n%2)">Фильтр нечётных</button>
+                        </div>
+
+                        <form id="expr-form" class="expr-form" onsubmit="return false;">
+                            <label>
+                                Ваш код:
+                                <input type="text" id="expr-input" value="for (let i=0;i&lt;3;i++){console.log(i)}" autocomplete="off" />
+                            </label>
+                            <button type="button" id="run-expr">Выполнить</button>
+                        </form>
+                        <div style="position: fixed; bottom: 20px; right: 20px">
+                            <h4>Результат</h4>
+                            <pre><code id="expr-output">// Результат появится здесь</code></pre>
+                        </div>
+
+                        <div class="warning">Код выполняется через eval — не вводи потенциально опасные или бесконечные конструкции.</div>
+                    </div>
+                </section>
+
+                <!-- Итоги -->
+                <section class="section" id="summary" class="topic-section">
+                    <div class="container">
+                        <h2>Итоги</h2>
+                        <ul class="list-ul">
+                            <li>
+                                <code>while</code>
+                                — когда заранее неизвестно число итераций.
+                            </li>
+                            <li>
+                                <code>do...while</code>
+                                — гарантированно одна итерация.
+                            </li>
+                            <li>
+                                <code>for</code>
+                                — когда нужно явное управление счётчиком.
+                            </li>
+                            <li>
+                                <code>break</code>
+                                и
+                                <code>continue</code>
+                                управляют потоком внутри цикла.
+                            </li>
+                            <li>Метки нужны редко — используем осознанно.</li>
+                            <li>Современные методы массивов часто читаемее ручных циклов.</li>
+                        </ul>
+                    </div>
+                </section>
+            </main>
+
+            @@include('../partials/footer.html', {})
+        </div>
+
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+
+        <script>
+            (function initPracticeEval() {
+                const output = document.getElementById("expr-output");
+                if (!output) return;
+
+                function evalWithCapture(src) {
+                    const originalLog = console.log;
+                    const logs = [];
+                    console.log = (...args) => {
+                        logs.push(args.map((a) => String(a)).join(" "));
+                        originalLog(...args);
+                    };
+                    let value;
+                    let error = null;
+                    try {
+                        // eval НЕБЕЗОПАСЕН для непроверенного произвольного ввода
+                        value = eval(src);
+                    } catch (e) {
+                        error = e;
+                    } finally {
+                        console.log = originalLog;
+                    }
+                    return { value, logs, error };
+                }
+
+                function run(expr) {
+                    const { value, logs, error } = evalWithCapture(expr);
+                    if (error) {
+                        output.textContent = `> ${expr}\n! Ошибка: ${error.message}`;
+                        return;
+                    }
+                    const logsBlock = logs.length ? logs.join("\\n") : "";
+                    output.textContent = `> ${expr}\n` + (logsBlock ? `# console.log:\\n${logsBlock}\\n` : "") + `= ${String(value)} (тип: ${typeof value})`;
+                }
+
+                document.addEventListener("click", (e) => {
+                    const btn = e.target.closest("[data-expr]");
+                    if (!btn) return;
+                    const expr = btn.getAttribute("data-expr");
+                    run(expr);
+                });
+
+                document.getElementById("run-expr")?.addEventListener("click", () => {
+                    const input = document.getElementById("expr-input");
+                    run(input.value);
+                });
+            })();
+        </script>
+    </body>
+</html>

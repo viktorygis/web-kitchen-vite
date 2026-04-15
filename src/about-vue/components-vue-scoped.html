@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "Scoped-стили во Vue: изоляция, глубокие селекторы и динамика", "description": "Разбираемся, зачем нужны scoped-стили во Vue, как работает ::v-deep, и как делать динамические стили через :style и :class" })
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="#intro">Введение</a>
+        <a href="#deep">Глубокие селекторы</a>
+        <a href="#dynamic-style">Динамические стили: :style</a>
+        <a href="#dynamic-class">Динамические классы: :class</a>
+        <a href="#practice">Практика</a>
+        <a href="#tips">Советы</a>
+        <a href="#best-practices">Лучшие практики</a>
+        <a href="#examples">Примеры</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="intro">
+        <div class="container">
+          <h1>Scoped-стили во Vue</h1>
+          <div class="note">
+            <strong>Scoped-стили</strong> - это способ изолировать CSS-правила внутри компонентов Vue, предотвращая конфликты и обеспечивая чистоту кода.
+          </div>
+          <h4>Как работают scoped-стили?</h4>
+          <p>Когда вы добавляете атрибут <code>scoped</code> к тегу &lt;style&gt; в вашем компоненте Vue, Vue автоматически генерирует уникальные атрибуты для всех элементов внутри этого компонента и соответствующих CSS-правил. Это гарантирует, что стили применяются только к этому конкретному компоненту и не влияют на другие части приложения.</p>
+
+
+          <h4>Пример 1:</h4>
+          <p>Компонент с scoped-стилями:</p>
+          <div class="code-block">
+            <pre><code>&lt;template&gt;
+  &lt;div class="box"&gt;Привет! 🎨&lt;/div&gt;
+&lt;/template&gt;
+&lt;style scoped&gt;
+.box {
+  background-color: lightblue;
+  padding: 10px;
+  border-radius: 5px;
+}
+&lt;/style&gt;</code></pre>
+          </div>
+          <h4>Пример 2:</h4>
+          <p>Компонент без scoped-стилей:</p>
+          <div class="code-block">
+            <pre><code>&lt;template&gt;
+  &lt;div class="box"&gt;Привет! 🎨&lt;/div&gt;
+&lt;/template&gt;
+&lt;style&gt;
+.box {
+  background-color: lightblue;
+  padding: 10px;
+  border-radius: 5px;
+}
+&lt;/style&gt;</code></pre>
+          </div>
+          <div class="note note--info">
+            В первом примере стиль применяется только к этому компоненту, а во втором - ко всем элементам с классом <code>.box</code> в приложении.
+          </div>
+        </div>
+      </section>
+
+
+
+      <!-- Глубокие селекторы -->
+      <section class="section" id="deep">
+        <div class="container">
+          <h2>Глубокие селекторы</h2>
+          <p class="note"><strong>Глубокие селекторы</strong> - это способ стилизовать вложенные компоненты или элементы внутри компонента, когда используются scoped-стили. В Vue 3 для этого используется специальный селектор <code>::v-deep</code>.
+
+            <br />Он позволяет "пробиться" через изоляцию scoped-стилей и применить стили к внутренним элементам дочерних компонентов.</p>
+          <p class="note note--info"><code>::v-deep</code> - это псевдо-селектор, который позволяет применять стили к элементам внутри дочерних компонентов, несмотря на то, что они находятся в области действия scoped-стилей родительского компонента.
+            <br> <b>систаксис следующий: </b><code>::v-deep(selector)</code> или просто <code>::v-deep</code> перед селектором.
+          </p>
+
+          <h4>Пример использования ::v-deep (Vue 3)</h4>
+
+          <div class="code-block">
+            <pre><code>&lt;style scoped&gt;
+::v-deep(.child) {
+  color: red;
+}
+&lt;/style&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>В этом примере мы используем <code>::v-deep</code> для стилизации элемента с классом <code>.child</code>, который находится внутри дочернего компонента.</li>
+            <li>Даже если дочерний компонент имеет свои собственные scoped-стили, правило внутри <code>::v-deep</code> будет применено к элементу <code>.child</code>.</li>
+            <li>Это полезно, когда вам нужно изменить стили внутренних элементов, не нарушая изоляцию scoped-стилей.</li>
+          </ul>
+
+
+
+          <div class="interactive-demo">
+            <div id="deep-demo-parent"></div>
+          </div>
+          <!-- Вывод: -->
+          <p class="note note--info">
+            🚀
+            <strong>Вывод:</strong>
+            используйте <code>::v-deep</code> для стилизации внутренних элементов дочерних компонентов, когда это необходимо.
+          </p>
+        </div>
+      </section>
+
+      <!-- Динамические стили с :style -->
+      <section class="section" id="dynamic-style">
+        <div class="container">
+          <h2>Динамические стили через :style</h2>
+          <p class="note"><strong>:style</strong> - это директива Vue, которая позволяет привязывать стили к элементам динамически, используя объект или строку. Это особенно полезно, когда стили зависят от состояния компонента или данных.</p>
+          <h4>Что нужно знать о :style:</h4>
+          <ul class="list-ul">
+            <li>Можно передавать объект с CSS-свойствами и их значениями.</li>
+            <li>Значения могут быть реактивными, что позволяет изменять стили в ответ на действия пользователя или изменения данных.</li>
+            <li><b>Когда использовать :style:</b>
+              <ul>
+                <li>Динамическое изменение цветов, размеров, отступов и других стилей</li>
+                <li>Анимации и переходы</li>
+                <li>Темизация компонентов</li>
+              </ul>
+            </li>
+
+
+            <h4>Пример: динамическое изменение фона</h4>
+            <p>В этом примере мы создадим компонент, который позволяет пользователю менять цвет фона блока при нажатии на кнопку.</p>
+            <div class="code-block">
+              <pre><code>&lt;div id="dynamic-style-demo"&gt;
+  &lt;div class="box" :style="{ backgroundColor: bgColor }"&gt;
+    Динамический цвет! 🎨
+  &lt;/div&gt;
+  &lt;button @click="changeColor"&gt;🔄 Сменить цвет&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            <h5>Объяснение кода:</h5>
+            <ul class="list-ul">
+              <li>Мы используем директиву <code>:style</code> для привязки свойства <code>backgroundColor</code> к реактивному свойству <code>bgColor</code>.</li>
+              <li>При нажатии на кнопку вызывается метод <code>changeColor</code>, который изменяет значение <code>bgColor</code>, что приводит к обновлению стиля фона блока.</li>
+            </ul>
+            <div class="interactive-demo">
+              <div id="dynamic-style-demo"></div>
+            </div>
+
+            <!-- Вывод: -->
+            <p class="note note--info">
+              🚀
+              <strong>Вывод:</strong>
+              используйте <code>:style</code> для динамического изменения стилей на основе состояния компонента.
+            </p>
+
+        </div>
+      </section>
+
+      <!-- Динамические классы с :class -->
+      <section class="section" id="dynamic-class">
+        <div class="container">
+          <h2>Динамическое подключение CSS-классов через :class</h2>
+          <p class="note"><strong>:class</strong> - это директива Vue, которая позволяет динамически добавлять или удалять CSS-классы на основе состояния компонента или данных. Это особенно полезно для управления визуальными состояниями элементов, такими как активные, выделенные или ошибки.</p>
+          <h4>Что нужно знать о :class:</h4>
+          <ul class="list-ul">
+            <li>Можно передавать объект, где ключи - это имена классов, а значения - булевы выражения, определяющие, должен ли класс быть применён.</li>
+            <li>Можно также передавать массив классов для добавления нескольких классов одновременно.</li>
+            <li><b>Когда использовать :class:</b>
+              <ul>
+                <li>Переключение между состояниями (например, активный/неактивный)</li>
+                <li>Применение тем или стилей на основе условий</li>
+                <li>Управление видимостью элементов через классы</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h4>Пример: переключение темы</h4>
+          <p>В этом примере мы создадим компонент, который позволяет пользователю переключаться между тёмной и светлой темами с помощью динамического класса.</p>
+          <div class="code-block">
+            <pre><code>&lt;div id="dynamic-class-demo"&gt;
+  &lt;div :class="{ dark: isDark, light: !isDark }"&gt;Тема: {{ isDark ? "Тёмная" : "Светлая" }}&lt;/div&gt;
+  &lt;button @click="isDark = !isDark"&gt;Переключить тему&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Мы используем директиву <code>:class</code> для динамического применения классов <code>dark</code> и <code>light</code> на основе значения реактивного свойства <code>isDark</code>.</li>
+            <li>При нажатии на кнопку значение <code>isDark</code> переключается, что приводит к изменению применяемого класса и, соответственно, темы компонента.</li>
+          </ul>
+          <div class="interactive-demo">
+            <div id="dynamic-class-demo"></div>
+          </div>
+          <!-- Вывод: -->
+          <div class="note note--info">
+            🚀
+            <strong>Вывод:</strong>
+            используйте <code>:class</code> для динамического управления классами на основе состояния компонента.
+          </div>
+        </div>
+      </section>
+
+      <!-- Практика -->
+      <section class="section" id="practice">
+        <div class="container">
+          <h2>Практика: мини-приложение со scoped-стилями и динамикой</h2>
+          <div class="code-block">
+            <pre><code>&lt;div id="scoped-demo"&gt;
+  &lt;div :class="{ 'box': true, dark: isDark }" :style="{ borderColor: borderColor }"&gt;
+    Цвет рамки и тема меняются!
+  &lt;/div&gt;
+  &lt;button @click="toggleTheme"&gt;Сменить тему&lt;/button&gt;
+  &lt;button @click="changeBorder"&gt;Сменить цвет рамки&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Мы используем директиву <code>:class</code> для динамического применения класса <code>dark</code> на основе значения реактивного свойства <code>isDark</code>.</li>
+            <li>Также используем директиву <code>:style</code> для динамического изменения цвета рамки на основе значения реактивного свойства <code>borderColor</code>.</li>
+            <li>При нажатии на кнопки вызываются методы <code>toggleTheme</code> и <code>changeBorder</code>, которые изменяют соответствующие свойства, что приводит к обновлению стилей компонента.</li>
+          </ul>
+          <div class="interactive-demo">
+            <div id="scoped-demo"></div>
+          </div>
+
+          <div class="demo-btn" onclick="alert('Попробуйте сменить тему и цвет рамки!')">Проверьте работу</div>
+          <div class="note note--info">
+            В этом примере применяется сразу и
+            <b>:class</b>
+            , и
+            <b>:style</b>
+            — вы можете менять тему и цвет рамки независимо!
+          </div>
+        </div>
+      </section>
+
+      <!-- Советы -->
+      <section class="section" id="tips">
+        <div class="container">
+          <h2>Советы и частые ошибки</h2>
+          <ul class="list-ul">
+            <li>
+              Не забывайте ставить
+              <code>scoped</code>
+              в &lt;style&gt; — иначе стили будут глобальными!
+            </li>
+            <li>
+              Для глубокого стилизации используйте только
+              <code>::v-deep</code>
+              в новых проектах
+            </li>
+            <li>
+              <code>:class</code>
+              — для переключения классов,
+              <code>:style</code>
+              — для уникальных значений
+            </li>
+            <li>Старайтесь не смешивать глобальные и scoped-стили без необходимости</li>
+          </ul>
+          <div class="note note--info">
+            <b>Частая проблема:</b>
+            забыли scoped — и ваши стили вдруг "разъехались" по всему проекту!
+          </div>
+        </div>
+      </section>
+
+      <!-- Лучшие практики -->
+      <section class="section" id="best-practices">
+        <div class="container">
+          <h2>Лучшие практики работы со стилями во Vue</h2>
+          <ul class="list-ul">
+            <li>Всегда используйте scoped-стили для компонентов, если не требуется глобальная тема</li>
+            <li>Глобальные стили — только для сброса, шрифтов и корневых переменных</li>
+            <li>
+              Старайтесь не использовать
+              <code>::v-deep</code>
+              без крайней необходимости
+            </li>
+            <li>Документируйте динамические классы и стили, чтобы избежать путаницы</li>
+          </ul>
+          <div class="note note--info">
+            <b>Совет:</b>
+            Делайте компоненты максимально изолированными — это залог предсказуемости и красоты UI.
+          </div>
+        </div>
+      </section>
+
+      <!-- Примеры реальных задач с scoped-стилями -->
+      <section class="section" id="examples">
+        <div class="container">
+          <h2>Реальные примеры использования scoped-стилей и динамики во Vue</h2>
+
+          <!-- Пример 1:  Анимированная полоска прогресса -->
+          <h4>Пример 1. Анимированная полоска прогресса</h4>
+          <p>В этом примере мы создадим прогресс-бар, ширина которого изменяется динамически при нажатии на кнопку.</p>
+
+          <div class="code-block">
+            <pre><code>&lt;div id="progress-demo"&gt;
+  &lt;div class="progress-bar" :style="{ width: percent + '%' }"&gt;&lt;/div&gt;
+  &lt;button @click="inc"&gt;+10%&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Мы используем директиву <code>:style</code> для привязки свойства <code>width</code> к реактивному свойству <code>percent</code>, которое определяет текущий процент заполнения прогресс-бара.</li>
+            <li>При нажатии на кнопку вызывается метод <code>inc</code>, который увеличивает значение <code>percent</code> на 10, что приводит к обновлению ширины прогресс-бара.</li>
+          </ul>
+          <div class="interactive-demo">
+            <div id="progress-demo"></div>
+          </div>
+
+          <!-- Пример 2: Динамическая ширина через :style  -->
+          <h4>Пример 2. Стилизация дочернего компонента через ::v-deep</h4>
+          <p>В этом примере родительский компонент использует <code>::v-deep</code> для изменения стилей кнопки, которая находится внутри дочернего компонента.</p>
+          <div class="code-block">
+            <pre><code>&lt;style scoped&gt;
+::v-deep(.child-btn) {
+  background: orange;
+  color: #fff;
+}
+&lt;/style&gt;
+&lt;button class="child-btn"&gt;Кнопка&lt;/button&gt;</code></pre>
+          </div>
+          <h5>Объяснение кода:</h5>
+          <ul class="list-ul">
+            <li>Мы используем селектор <code>::v-deep(.child-btn)</code> для стилизации кнопки с классом <code>.child-btn</code>, которая находится внутри дочернего компонента.</li>
+            <li>Даже если дочерний компонент имеет свои собственные scoped-стили, правило внутри <code>::v-deep</code> будет применено к кнопке.</li>
+          </ul>
+          <div class="interactive-demo">
+            <div id="deep-child-btn-demo"></div>
+            <script>
+              // Дочерний компонент с CSS-"scoped" классом
+              const ChildComponent = {
+                template: `
+    <div class="deep-child-scoped">
+      <button class="child-btn">Кнопка</button>
+    </div>
+  `
+              };
+
+              // Родитель, вставляющий дочерний компонент
+              const ParentComponent = {
+                components: {
+                  ChildComponent
+                },
+                template: `<child-component />`
+              };
+
+              Vue.createApp(ParentComponent).mount("#deep-child-btn-demo");
+            </script>
+          </div>
+          <!-- Кнопка без scoped стилей -->
+          <div class="interactive-demo">
+
+            <button class="child-btn">Кнопка без scoped стилей</button>
+          </div>
+
+        </div>
+      </section>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+  <script>
+    // Пример 1: scoped (демо box)
+    Vue.createApp({
+      template: `<div class="box-demo1">Привет! 🎨</div>`,
+    }).mount("#scoped-demo-1");
+
+    // Пример 2: deep selector (родитель + дочерний)
+    Vue.createApp({
+      template: `<div>
+                    <div>
+                        <span class="child" style="color: red;">Это дочерний элемент, стилизованный через ::v-deep</span>
+                    </div>
+                </div>`,
+    }).mount("#deep-demo-parent");
+
+    // Динамический стиль
+    Vue.createApp({
+      data() {
+        return {
+          bgColor: "lightblue"
+        };
+      },
+      methods: {
+        changeColor() {
+          this.bgColor = this.bgColor === "lightblue" ? "lightcoral" : "lightblue";
+        },
+      },
+      template: `
+                  <div>
+                    <div class="box" :style="{ backgroundColor: bgColor }">
+                      Динамический цвет! 🎨
+                    </div>
+                    <button @click="changeColor">🔄 Сменить цвет</button>
+                  </div>
+                `,
+    }).mount("#dynamic-style-demo");
+
+    // Динамический класс
+    Vue.createApp({
+      data() {
+        return {
+          isDark: false
+        };
+      },
+      template: `
+                  <div>
+                    <div :class="{ dark: isDark, light: !isDark }" style="padding: 10px 0; border-radius: 8px;">
+                        Тема: {{ isDark ? "Тёмная" : "Светлая" }}
+                    </div>
+                    <button @click="isDark = !isDark">Переключить тему</button>
+                  </div>
+                `,
+    }).mount("#dynamic-class-demo");
+
+    // Практика: пример с темой и цветом рамки
+    Vue.createApp({
+      data() {
+        return {
+          isDark: false,
+          borderColor: "dodgerblue",
+        };
+      },
+      methods: {
+        toggleTheme() {
+          this.isDark = !this.isDark;
+        },
+        changeBorder() {
+          this.borderColor = this.borderColor === "dodgerblue" ? "tomato" : "dodgerblue";
+        },
+      },
+      template: `
+                  <div>
+                    <div :class="{ 'box': true, dark: isDark }" :style="{ borderColor: borderColor }">
+                      Цвет рамки и тема меняются!
+                    </div>
+                    <button @click="toggleTheme">Сменить тему</button>
+                    <button @click="changeBorder">Сменить цвет рамки</button>
+                  </div>
+                `,
+    }).mount("#scoped-demo");
+
+    // Пример прогресс-бара
+    Vue.createApp({
+      data() {
+        return {
+          percent: 40
+        };
+      },
+      methods: {
+        inc() {
+          if (this.percent < 100) this.percent += 10;
+        },
+      },
+      template: `
+                  <div>
+                    <div class="progress-bar" :style="{ width: percent + '%' }"></div>
+                    <button @click="inc">+10%</button>
+                  </div>
+                `,
+    }).mount("#progress-demo");
+  </script>
+  <style>
+    /* Пример 1 */
+    .box-demo1 {
+      background-color: lightblue;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    /* Демо динамического цвета */
+    #dynamic-style-demo .box {
+      padding: 20px;
+      text-align: center;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    /* Демо динамических классов */
+    #dynamic-class-demo .dark {
+      background: #222;
+      color: #fff;
+    }
+
+    #dynamic-class-demo .light {
+      background: #f9f9f9;
+      color: #222;
+    }
+
+    /* Практика */
+    #scoped-demo .box {
+      padding: 20px;
+      border: 3px solid;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      transition: all 0.3s;
+      background: #f9f9f9;
+      color: #222;
+    }
+
+    #scoped-demo .dark {
+      background: #222;
+      color: #fff;
+    }
+
+    /* Прогресс-бар */
+    #progress-demo .progress-bar {
+      height: 20px;
+      background: limegreen;
+      transition: width 0.3s;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    /* Стиль дочернего компонента (как будто scoped) */
+    .deep-child-scoped .child-btn {
+      padding: 8px 20px;
+      border-radius: 6px;
+      background: #e0e0e0;
+      color: #222;
+      border: none;
+      transition: background .2s;
+    }
+
+    /* "Проброс" через ::v-deep на конкретное демо */
+    #deep-child-btn-demo .child-btn {
+      background: orange;
+      color: #fff;
+    }
+  </style>
+
+</body>
+
+</html>
