@@ -40,21 +40,31 @@ header {
 	padding: 0;
 	margin: 0;
 	display: flex;
+	align-items: stretch;
 }
 
 .nav-item {
 	position: relative;
+	display: flex;
+	align-items: stretch;
 }
 
 .nav-link {
 	text-decoration: none;
 	padding: 15px;
-	display: block;
+	display: flex;
+	align-items: center;
+	height: 100%;
 	font-size: 16px;
 	line-height: 140%;
 	transition: color 0.2s ease;
 	color: $yellowColor;
 	font-weight: 400;
+
+	&:link,
+	&:visited {
+		color: $yellowColor;
+	}
 
 	&:hover {
 		color: #fff;
@@ -93,6 +103,11 @@ header {
 	text-decoration: none;
 	font-weight: 400;
 	transition: 0.3s;
+
+	&:link,
+	&:visited {
+		color: $yellowColor;
+	}
 
 	&:hover {
 		color: #fff;
