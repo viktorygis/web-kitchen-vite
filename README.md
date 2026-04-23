@@ -22,6 +22,12 @@ npm run dev
 - `npm run build` — production-сборка в `dist/`
 - `npm run preview` — предпросмотр сборки
 
+
+## Сборка
+
+https://github.com/viktorygis/web-kitchen-vite-pages — пример готовой сборки для деплоя. В `dist/` уже есть все страницы, стили и скрипты. Просто загрузите `dist/` на хостинг.
+
+
 ## Структура
 
 ```text
