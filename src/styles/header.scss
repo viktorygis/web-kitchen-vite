@@ -64,6 +64,8 @@ header {
 	&:link,
 	&:visited {
 		color: $yellowColor;
+    	text-decoration: none;
+
 	}
 
 	&:hover {
