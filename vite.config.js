@@ -28,6 +28,7 @@ const srcDir = path.resolve(__dirname, "src");
 export default defineConfig({
   root: "src",
   publicDir: "../public",
+  base: "/web-kitchen-vite/",  // ← имя твоего репозитория!
 
   resolve: {
     alias: {
