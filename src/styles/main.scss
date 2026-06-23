@@ -34,8 +34,8 @@ body {
   border-radius: $borderRadius;
   background-color: $backgroundColorDark;
   box-shadow: $shadowSmall;
-  padding: 20px;
-  align-items: center;
+  padding: 24px;
+  align-items: start;
   margin-bottom: 20px;
 
   @media (max-width: $media-md) {
@@ -49,6 +49,99 @@ body {
 
   @media (max-width: $media-md) {
     grid-template-columns: 1fr;
+  }
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: $primary; // замени на актуальную переменную текста, если она называется иначе
+  }
+
+  .list-ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 14px;
+      line-height: 1.5;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 8px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: $secondary; // замени на актуальную переменную акцента
+      }
+
+      code {
+        background-color: rgba(0, 0, 0, 0.25);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: $fontFamilyCode, monospace;
+        font-size: 13px;
+      }
+    }
+  }
+
+  pre {
+    position: relative;
+    margin: 0;
+    border-radius: $borderRadius;
+    background-color: rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+
+    code {
+      display: block;
+      padding: 16px 18px;
+      font-family: $fontFamilyCode, monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      padding: 4px 10px;
+      font-size: 12px;
+      border: none;
+      border-radius: 4px;
+      background-color: rgba(255, 255, 255, 0.08);
+      color: inherit;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.15s ease, background-color 0.15s ease;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.16);
+      }
+    }
+
+    &:hover .copy-btn {
+      opacity: 1;
+    }
   }
 }
 

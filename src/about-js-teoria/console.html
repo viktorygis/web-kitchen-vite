@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "console - JavaScript", "description": "console - JavaScript" })
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <ul class="nav-tabs__list">
+          <li class="nav-tabs__item"><a href="#variables-intro" class="nav-tabs__link">Введение</a></li>
+          <li class="nav-tabs__item"><a href="#console-log" class="nav-tabs__link">console.log()</a></li>
+          <li class="nav-tabs__item"><a href="#console-other-methods" class="nav-tabs__link">Другие методы console</a></li>
+          <li class="nav-tabs__item"><a href="#console-multiple-values" class="nav-tabs__link">Несколько значений</a></li>
+          <li class="nav-tabs__item"><a href="#console-tips" class="nav-tabs__link">Подсказки</a></li>
+        </ul>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="variables-intro">
+        <div class="container">
+          <h1>console </h1>
+
+          <p class="note">
+            <strong>console</strong>
+            — это встроенный объект в JavaScript, который предоставляет методы для вывода информации в консоль браузера.
+            <br /> В JavaScript для работы с консолью используется объект console. Он помогает нам выводить сообщения, чтобы мы могли понять, что пошло не так, если что-то пошло не по плану, или просто следить за процессом.
+
+
+          </p>
+
+          <div class="grid-column-50">
+            <div class="example">
+              <h4>Основные понятия:</h4>
+              <ul class="list-ul">
+                <li><code>console.log()</code> — выводит информацию в консоль</li>
+                <li><code>console.error()</code> — выводит сообщение об ошибке</li>
+                <li><code>console.warn()</code> — выводит предупреждение</li>
+                <li><code>console.info()</code> — выводит информационное сообщение</li>
+                <li><code>console.table()</code> — выводит данные в виде таблицы</li>
+              </ul>
+
+            </div>
+            <div class="example">
+              <h4>Где используются:</h4>
+              <ul class="list-ul">
+                <li>В разработке веб-приложений</li>
+                <li>Для отладки кода</li>
+                <li>Для логирования событий</li>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- console.log -->
+      <section class="section" id="console-log">
+        <div class="container">
+          <h2>console.log()</h2>
+
+          <p class="note">
+            <strong>console.log()</strong>
+            — это метод объекта console, который используется для вывода информации в консоль.
+            <br />
+            Он является одним из самых часто используемых методов для отладки кода.
+            br />
+            С помощью этого метода мы можем печатать текст, переменные, результаты вычислений или даже ошибки, чтобы увидеть, что происходит в программе.
+
+
+
+          </p>
+
+          <div class="grid-column-100">
+            <div>
+              <h4>Примеры использования:</h4>
+              <pre><code>console.log('Hello, World!'); // вывод строки : Hello, World!
+let x = 10;
+console.log('Значение x:', x); // вывод значения переменной: Значение x: 10
+console.log('Сумма:', 5 + 3); // вывод результата выражения</code></pre>
+            </div>
+            <div>
+              <h4>Вывод объектов и массивов:</h4>
+              <pre><code>let user = { name: 'John', age: 30 };
+console.log('Пользователь:', user); // вывод объекта
+let numbers = [1, 2, 3, 4, 5];
+console.log('Массив чисел:', numbers); // вывод массива</code></pre>
+            </div>
+
+            <div>
+              <h4>Мы можем использовать инструкцию console.log() сколько угодно раз.</h4>
+              <pre><code>console.log('Первое сообщение');
+console.log('Второе сообщение');</code></pre>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Другие методы console -->
+      <section class="section" id="console-other-methods">
+        <div class="container">
+          <h2>Другие методы console</h2>
+          <ul class="list-ul">
+            <li><code>console.error()</code> — выводит сообщение об ошибке</li>
+            <li><code>console.warn()</code> — выводит предупреждение</li>
+            <li><code>console.info()</code> — выводит информационное сообщение</li>
+          </ul>
+
+
+          <div class="note-block">
+            <h3>console.error()</h3>
+            <pre><code>console.error('Это сообщение об ошибке');</code></pre>
+          </div>
+
+          <div class="note-block">
+            <h3>console.warn()</h3>
+            <pre><code>console.warn('Это предупреждение');</code></pre>
+          </div>
+
+          <div class="note-block">
+            <h3>console.info()</h3>
+            <pre><code>console.info('Это информационное сообщение');</code></pre>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- несколько значений -->
+      <section class="section" id="console-multiple-values">
+        <div class="container">
+          <h2>Несколько значений</h2>
+          <p>Для вывода нескольких значений в консоль, мы можем передать их в console.log() через запятую. Все значения будут выведены в одной строке, разделенные пробелами.</p>
+          <pre><code>let x = 10;
+
+let y = 20;
+
+console.log(x, y); // 10 20
+</code></pre>
+
+
+        </div>
+      </section>
+      <!-- Подсказки -->
+      <section class="section" id="console-tips">
+        <div class="container">
+          <h2>Подсказки</h2>
+          <p>Когда нужно вывести больше информации в консоль, мы можем использовать подсказки.
+            br />Это поможет сделать вывод более понятным и читаемым. Например, можно выводить описание перед значением, чтобы не запутаться.
+          </p>
+          <pre><code>let height = 180;
+console.log("Рост:", height, "см");  // Выведет: Рост: 180 см    </code></pre>
+
+          <p>Писать их конечно нужно в<b> " "</b></p>
+        </div>
+      </section>
+
+
+
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+</body>
+
+</html>
