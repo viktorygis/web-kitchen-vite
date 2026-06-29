@@ -7,8 +7,8 @@
 // =================== список с маркерами ===================
 .list-ul {
   list-style: none;
-  padding-left: 1rem;
   margin: 1rem 0;
+  padding-left: 1rem;
 
   & li {
     position: relative;
@@ -23,14 +23,14 @@
     content: "•";
     position: absolute;
     left: 0;
+    top: -0.5rem;
     color: $secondary;
     font-size: 1.5rem;
-    top: -8px;
   }
 
   & ul {
-    margin-top: 10px;
-    padding-left: 20px;
+    margin-top: 0.625rem;
+    padding-left: 1.25rem;
   }
 
   & li li::before {
@@ -41,13 +41,14 @@
 // =================== список с нумерацией ===================
 .list-ol {
   list-style: none;
-  margin: 1em 0;
+  counter-reset: item;
+  margin: 1rem 0;
   padding: 0;
 
   & li {
     position: relative;
-    padding-left: 20px;
-    margin-bottom: 0.5em;
+    padding-left: 1.25rem;
+    margin-bottom: 0.5rem;
     counter-increment: item;
   }
 
@@ -55,32 +56,32 @@
     content: counter(item) ".";
     position: absolute;
     left: 0;
-    top: 13px;
+    top: 0.8125rem;
     transform: translateY(-50%);
-    font-weight: bold;
     color: $darkColor;
+    font-weight: bold;
   }
 
   & ol {
-    margin-top: 10px;
-    padding-left: 20px;
+    margin-top: 0.625rem;
+    padding-left: 1.25rem;
   }
 }
 
 // =================== список с иконками ===================
 .list-icon {
   list-style: none;
-  margin: 1em 0;
+  margin: 1rem 0;
   padding: 0;
 
   & li {
     position: relative;
-    padding-left: 20px;
-    margin-bottom: 0.5em;
+    padding-left: 1.25rem;
+    margin-bottom: 0.5rem;
   }
 
   & ul {
-    margin-top: 10px;
-    padding-left: 20px;
+    margin-top: 0.625rem;
+    padding-left: 1.25rem;
   }
 }

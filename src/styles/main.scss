@@ -120,28 +120,7 @@ body {
       white-space: pre;
     }
 
-    .copy-btn {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      padding: 4px 10px;
-      font-size: 12px;
-      border: none;
-      border-radius: 4px;
-      background-color: rgba(255, 255, 255, 0.08);
-      color: inherit;
-      cursor: pointer;
-      opacity: 0;
-      transition: opacity 0.15s ease, background-color 0.15s ease;
 
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.16);
-      }
-    }
-
-    &:hover .copy-btn {
-      opacity: 1;
-    }
   }
 }
 

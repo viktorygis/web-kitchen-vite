@@ -24,6 +24,10 @@ pre {
   margin: 1rem 0;
   font-size: 0.95rem;
   line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+
+
 }
 
 // Вложенный code внутри pre

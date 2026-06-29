@@ -168,24 +168,22 @@ user.name = 'Pete'; // Можно, т.к. изменяется свойство 
             В JavaScript используют camelCase для имен переменных и UPPER_CASE для констант.
           </p>
 
-          <div class="grid-column-50">
-            <div>
-              <h4>Правила именования:</h4>
-              <ul class="list-icons">
-                <li>✅ Может содержать буквы, цифры, <b>$, _</b></li>
-                <li>❌ Не может начинаться с цифры</li>
-                <li>❌ Пробелы запрещены!</li>
-                <li>✅ Регистр имеет значение (myVar ≠ myvar)</li>
-                <li>❌ Нельзя использовать зарезервированные слова</li>
-              </ul>
-            </div>
-            <div>
-              <h4>Примеры имен:</h4>
-              <pre><code>let userName; // хорошее
+
+          <h4>Правила именования:</h4>
+          <ul class="list-icon">
+            <li>✅ Может содержать буквы, цифры, <b>$, _</b></li>
+            <li>❌ Не может начинаться с цифры</li>
+            <li>❌ Пробелы запрещены!</li>
+            <li>✅ Регистр имеет значение (myVar ≠ myvar)</li>
+            <li>❌ Нельзя использовать зарезервированные слова</li>
+          </ul>
+
+          <h4>Примеры имен:</h4>
+          <div class="code-block">
+            <pre><code>let userName; // хорошее
 let shoppingCart; // хорошее
 let 123abc; // плохое (начинается с цифры)
 let let; // плохое (ключевое слово)</code></pre>
-            </div>
           </div>
 
           <div class="note-block">
@@ -213,18 +211,18 @@ let let; // плохое (ключевое слово)</code></pre>
             для присвоения.
           </p>
 
-          <div class="grid-column-50">
-            <div>
-              <h4>Простое присвоение:</h4>
-              <pre><code>let message;
+
+          <h4>Простое присвоение:</h4>
+          <div class="code-block">
+            <pre><code>let message;
 message = 'Hello!'; // присвоение значения
 let age = 30; // объявление с присвоением</code></pre>
-            </div>
-            <div>
-              <h4>Множественное присвоение:</h4>
-              <pre><code>let a, b, c;
+          </div>
+
+          <h4>Множественное присвоение:</h4>
+          <div class="code-block">
+            <pre><code>let a, b, c;
 a = b = c = 0; // все переменные получают значение 0</code></pre>
-            </div>
           </div>
 
           <div class="note">
@@ -237,6 +235,88 @@ a = b = c = 0; // все переменные получают значение 
           </div>
         </div>
       </section>
+
+      <!-- Обновлоение значений -->
+      <section class="section" id="variables-update">
+        <div class="container">
+          <h2>Обновление значений</h2>
+
+          <p class="note">
+            <strong>Обновление </strong>— это процесс изменения значения переменной.
+            <br />
+            В JavaScript можно использовать оператор
+            <code>=</code>
+            для обновления.<br />
+            Мы можем обновлять переменные <b>let</b> так часто, как захотим.
+          </p>
+
+
+          <h4>Простое обновление:</h4>
+          <div class="code-block">
+            <pre><code>let status = "Сплю";
+status = "А теперь не сплю😢";
+console.log(status);//А теперь не сплю😢
+status="Еду на работу😭";
+console.log(status);//Еду на работу😭
+</code></pre>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Математические операции -->
+      <section class="section" id="variables-math">
+        <div class="container">
+          <h2>Математические операции</h2>
+
+          <p class="note">
+            В JavaScript можно выполнять математические операции с переменными.
+          </p>
+
+
+          <h4>Примеры математических операций:</h4>
+          <p>Давайте начнём с переменной counter, которая хранит значение 5, и увеличим его на 1. И выведи это в консоль</p>
+          <div class="code-block">
+            <pre><code>let counter = 5;
+counter = counter+1;
+console.log(counter);//6
+</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Оператор + -->
+      <section class="section" id="variables-operator-plus">
+        <div class="container">
+          <h2>Оператор +</h2>
+
+          <p class="note">
+            В JavaScript оператор
+            <code>+</code>
+            используется для сложения чисел и конкатенации строк.
+          </p>
+          <h4>Примеры использования оператора +:</h4>
+          <div class="code-block">
+            <pre><code>let age = 25;
+let message = "Мне " + age + " лет!";
+console.log(message);  // Выведет: Мне 25 лет!
+</code></pre>
+          </div>
+
+          <h4>Примеры использования оператора +:</h4>
+          <div class="code-block">
+            <pre><code>let score = 50;
+score + 10;
+console.log(score);
+// Выведет: 50 (значение переменной score не изменилось)</code></pre>
+          </div>
+
+
+        </div>
+      </section>
+
+
+
 
 
 

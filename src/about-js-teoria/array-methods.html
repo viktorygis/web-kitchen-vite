@@ -1,207 +1,694 @@
 <!DOCTYPE html>
 <html lang="ru">
-    @@include('../partials/head.html', { "title": "JavaScript: Методы массивов", "description": "Полное руководство по методам массивов в JavaScript с примерами" })
-    <body>
-        <div class="wrapper">
-            @@include('../partials/header.html', {})
-            <main class="page">
-                <nav class="nav-tabs">
-                    <a href="../teoria/arrays-basics.html">← Основы</a>
-                    <a href="#methods-mutating" class="active">Мутирующие</a>
-                    <a href="#methods-nonmutating">Немутирующие</a>
-                    <a href="#methods-iteration">Итерационные</a>
-                </nav>
+@@include('../partials/head.html', { "title": "JavaScript: Методы массивов", "description": "Полное руководство по методам массивов в JavaScript с примерами" })
 
-                <!-- Введение -->
-                <section class="section" id="methods-intro">
-                    <div class="container">
-                        <h1>Методы массивов JavaScript</h1>
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="#methods-intro" class="active">Введение</a>
+        <a href="#method-push">push()</a>
+        <a href="#method-pop">pop()</a>
+        <a href="#method-unshift">unshift()</a>
+        <a href="#method-shift">shift()</a>
+        <a href="#method-splice">splice()</a>
+        <a href="#method-sort">sort()</a>
+        <a href="#method-reverse">reverse()</a>
+        <a href="#method-fill">fill()</a>
 
-                        <p class="note">
-                            <strong>Методы массивов</strong>
-                            — это встроенные функции для работы с массивами. Они делятся на мутирующие (изменяют исходный массив) и немутирующие (возвращают новый массив или значение).
-                        </p>
+        <a href="#method-indexof">indexOf()</a>
+        <a href="#method-includes">includes()</a>
+        <a href="#method-find">find()</a>
+        <a href="#method-map">map()</a>
+        <a href="#method-filter">filter()</a>
+        <a href="#method-flat">flat()</a>
 
-                        <div class="grid-column-50">
-                            <div class="example">
-                                <h4>Классификация методов:</h4>
-                                <ul class="list-ul">
-                                    <li>Добавление/удаление элементов</li>
-                                    <li>Поиск и фильтрация</li>
-                                    <li>Преобразование</li>
-                                    <li>Сортировка</li>
-                                    <li>Итерация</li>
-                                    <li>Редукция</li>
-                                </ul>
-                            </div>
-                            <div class="example">
-                                <h4>Современные методы (ES6+):</h4>
-                                <ul class="list-ul">
-                                    <li>
-                                        <code>find()</code>
-                                        ,
-                                        <code>findIndex()</code>
-                                    </li>
-                                    <li><code>includes()</code></li>
-                                    <li>
-                                        <code>flat()</code>
-                                        ,
-                                        <code>flatMap()</code>
-                                    </li>
-                                    <li><code>at()</code></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
 
-                <!-- Мутирующие методы -->
-                <section class="section" id="methods-mutating">
-                    <div class="container">
-                        <h2>Мутирующие методы массивов</h2>
+        <a href="#methods-nonmutating-summary">Немутирующие методы</a>
+        <a href="#method-fill">fill()</a>
+        <a href="#method-slice">slice()</a>
 
-                        <p class="note warning">⚠️ Эти методы изменяют исходный массив. Используйте их осторожно!</p>
 
-                        <!-- 1. Добавление/удаление элементов -->
-                        <h2>1. Добавление/удаление элементов</h2>
 
-                        <div class="method-card">
-                            <h3><code>push()</code></h3>
-                            <p><strong>Добавляет элементы в конец массива</strong></p>
-                            <ul class="list-ul">
-                                <li>Возвращает новую длину массива</li>
-                                <li>Временная сложность: O(1)</li>
-                                <li>Можно добавить несколько элементов через запятую</li>
-                            </ul>
 
-                            <div class="grid-column-100">
-                                <pre><code>arr.push(element1, ..., elementN)</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Пример:</h4>
-                                <pre><code>const fruits = ['яблоко', 'груша'];
-fruits.push('апельсин', 'лимон');
-console.log(fruits);
-// ['яблоко', 'груша', 'апельсин', 'лимон']</code></pre>
-                            </div>
-                        </div>
 
-                        <div class="method-card">
-                            <h3><code>pop()</code></h3>
-                            <p><strong>Удаляет последний элемент массива</strong></p>
-                            <ul class="list-ul">
-                                <li>Возвращает удаленный элемент (или undefined)</li>
-                                <li>Временная сложность: O(1)</li>
-                                <li>Уменьшает length массива на 1</li>
-                            </ul>
+        <a href="#methods-iterating-summary">Итерационные методы</a>
+      </nav>
 
-                            <div class="grid-column-100">
-                                <pre><code>arr.pop()</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Пример:</h4>
-                                <pre><code>const fruits = ['яблоко', 'груша', 'апельсин'];
+      <!-- Введение: классификация методов -->
+      <section class="section" id="methods-intro">
+        <div class="container">
+          <h1>Методы массивов JavaScript</h1>
+
+          <p class="note">
+            <strong>Методы массивов</strong>
+            — это встроенные функции для работы с массивами. По влиянию на исходный массив их делят на три группы: мутирующие, немутирующие и итерационные.
+          </p>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Группа</th>
+                <th>Метод</th>
+                <th>Что делает</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td rowspan="8">⚠️ Мутирующие<br>(изменяют массив "на месте")</td>
+                <td><a href="#method-push"><code>push()</code></a></td>
+                <td>добавляет элементы в конец</td>
+              </tr>
+              <tr>
+                <td><a href="#method-pop"><code>pop()</code></a></td>
+                <td>удаляет последний элемент</td>
+              </tr>
+              <tr>
+                <td><a href="#method-unshift"><code>unshift()</code></a></td>
+                <td>добавляет элементы в начало</td>
+              </tr>
+              <tr>
+                <td><a href="#method-shift"><code>shift()</code></a></td>
+                <td>удаляет первый элемент</td>
+              </tr>
+              <tr>
+                <td><a href="#method-splice"><code>splice()</code></a></td>
+                <td>добавляет/удаляет элементы в любом месте</td>
+              </tr>
+              <tr>
+                <td><a href="#method-sort"><code>sort()</code></a></td>
+                <td>сортирует массив</td>
+              </tr>
+              <tr>
+                <td><a href="#method-reverse"><code>reverse()</code></a></td>
+                <td>переворачивает порядок элементов</td>
+              </tr>
+              <tr>
+                <td><a href="#method-fill"><code>fill()</code></a></td>
+                <td>заполняет одинаковыми значениями</td>
+              </tr>
+
+              <tr>
+                <td rowspan="12">✅ Немутирующие<br>(возвращают новый массив/значение)</td>
+                <td><a href="#method-concat"><code>concat()</code></a></td>
+                <td>объединяет массивы</td>
+              </tr>
+              <tr>
+                <td><a href="#method-slice"><code>slice()</code></a></td>
+                <td>копирует часть массива</td>
+              </tr>
+              <tr>
+                <td><a href="#method-join"><code>join()</code></a></td>
+                <td>объединяет элементы в строку</td>
+              </tr>
+              <tr>
+                <td><a href="#method-tostring"><code>toString()</code></a></td>
+                <td>строковое представление массива</td>
+              </tr>
+              <tr>
+                <td><a href="#method-indexof"><code>indexOf()</code> / <code>lastIndexOf()</code></a></td>
+                <td>поиск индекса элемента</td>
+              </tr>
+              <tr>
+                <td><a href="#method-includes"><code>includes()</code></a></td>
+                <td>проверка наличия элемента</td>
+              </tr>
+              <tr>
+                <td><a href="#method-find"><code>find()</code> / <code>findIndex()</code></a></td>
+                <td>поиск по условию</td>
+              </tr>
+              <tr>
+                <td><a href="#method-map"><code>map()</code></a></td>
+                <td>преобразует элементы</td>
+              </tr>
+              <tr>
+                <td><a href="#method-filter"><code>filter()</code></a></td>
+                <td>фильтрует элементы</td>
+              </tr>
+              <tr>
+                <td><a href="#method-flat"><code>flat()</code> / <code>flatMap()</code></a></td>
+                <td>выравнивает вложенные массивы</td>
+              </tr>
+              <tr>
+                <td><a href="#method-modern"><code>toReversed()</code> / <code>toSorted()</code> / <code>with()</code></a></td>
+                <td>безопасные аналоги мутирующих методов</td>
+              </tr>
+              <tr>
+                <td><a href="#method-at"><code>at()</code></a></td>
+                <td>доступ к элементу по индексу</td>
+              </tr>
+
+              <tr>
+                <td rowspan="3">🔁 Итерационные<br>(проходят по элементам)</td>
+                <td><a href="#method-foreach"><code>forEach()</code></a></td>
+                <td>выполняет функцию для каждого элемента</td>
+              </tr>
+              <tr>
+                <td><a href="#method-every-some"><code>every()</code> / <code>some()</code></a></td>
+                <td>проверяют условие для всех/хотя бы одного элемента</td>
+              </tr>
+              <tr>
+                <td><a href="#method-reduce"><code>reduce()</code> / <code>reduceRight()</code></a></td>
+                <td>сводят массив к одному значению</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <!-- ===================== МУТИРУЮЩИЕ МЕТОДЫ ===================== -->
+
+      <!-- push() -->
+      <section class="section" id="method-push">
+        <div class="container">
+          <h2><code>push()</code></h2>
+          <p class="note"><strong>push()</strong> - метод <b>добавляет</b> один или несколько элементов <b>в конец массива</b>. Является мутирующим методом. То есть изменяет исходный массив.</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>arr.push(element1, ..., elementN)</code></pre>
+          </div>
+
+          <h4>Параметры:</h4>
+          <ul class="list-ul">
+            <li>один или несколько элементов, которые будут добавлены в конец массива</li>
+          </ul>
+
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Новую длину массива (после добавления элементов)</li>
+          </ul>
+
+          <h4>Описание:</h4>
+          <ul class="list-ul">
+            <li>Изменяет исходный массив — отдельно копировать результат не нужно</li>
+            <li>Временная сложность: O(1) — эффективнее, чем <code>unshift()</code></li>
+            <li>Если нужен немутирующий аналог, используйте spread: <code>[...arr, element]</code></li>
+          </ul>
+
+          <h4>Пример:</h4>
+          <div class="code-block">
+            <pre><code>let vegetables = ["помидор", "картофель"];
+const newLength = vegetables.push("морковь");
+
+console.log(vegetables); // ["помидор", "картофель", "морковь"]
+console.log(newLength);  // 3</code></pre>
+          </div>
+
+          <div class="note-block warning">
+            <h4>⚠️ Частые ошибки</h4>
+
+            <p><strong>1. Путают возвращаемое значение с массивом</strong></p>
+            <p>Метод возвращает число (новую длину), а не обновлённый массив — несмотря на интуитивное ожидание получить именно массив:</p>
+            <div class="code-block">
+              <pre><code>let result = arr.push(item);
+console.log(result); // число, а НЕ массив!</code></pre>
+            </div>
+
+            <p><strong>2. Передают массив, ожидая его "слияния" с исходным</strong></p>
+            <p><code>push()</code> добавляет переданный массив как один вложенный элемент, а не разворачивает его:</p>
+            <div class="code-block">
+              <pre><code>const arr = [1, 2];
+arr.push([3, 4]);
+console.log(arr); // [1, 2, [3, 4]] — НЕ [1, 2, 3, 4]!
+
+// Чтобы объединить массивы, используйте spread или concat:
+arr.push(...[3, 4]);      // через spread
+// или
+const merged = arr.concat([3, 4]); // немутирующий вариант</code></pre>
+            </div>
+
+            <p><strong>3. Вызывают на замороженном массиве</strong></p>
+            <p><code>Object.freeze()</code> делает массив неизменяемым — <code>push()</code> в этом случае не "тихо игнорируется", а выбрасывает исключение:</p>
+            <div class="code-block">
+              <pre><code>const frozen = Object.freeze([1, 2]);
+frozen.push(3);
+// TypeError: Cannot add property 2, object is not extensible</code></pre>
+            </div>
+
+            <p><strong>4. push() с очень большим количеством аргументов через spread</strong></p>
+            <p>Распаковка огромного массива в аргументы функции может превысить лимит стека вызовов:</p>
+            <div class="code-block">
+              <pre><code>const target = [];
+const hugeArray = new Array(200000).fill(0);
+
+target.push(...hugeArray);
+// RangeError: Maximum call stack size exceeded (в некоторых движках)
+
+// Решение для очень больших массивов — concat() или apply() чанками:
+const merged = target.concat(hugeArray);</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>💡 Когда использовать</h4>
+            <ul class="list-ul">
+              <li>Накопление результатов в цикле: <code>results.push(item)</code></li>
+              <li>Реализация стека (LIFO) в паре с <code>pop()</code></li>
+              <li>
+                Добавление элементов в массив состояния React/Vue — но напрямую мутировать массив в state нельзя,
+                нужно создавать новый массив: <code>setItems(prev => [...prev, newItem])</code>
+              </li>
+            </ul>
+          </div>
+
+          <p class="note note--info">
+            💡 <strong>Кстати:</strong> <code>push()</code> — обобщённый (generic) метод. Он определён в <code>Array.prototype</code>,
+            но работает с любым объектом, у которого есть числовое свойство <code>length</code>:
+          </p>
+          <div class="code-block">
+            <pre><code>const arrayLike = { length: 0 };
+Array.prototype.push.call(arrayLike, 'a', 'b');
+console.log(arrayLike); // { 0: 'a', 1: 'b', length: 2 }</code></pre>
+          </div>
+        </div>
+      </section>
+      <!-- pop() -->
+      <section class="section" id="method-pop">
+        <div class="container">
+          <h2><code>pop()</code></h2>
+          <p class="note"><strong>pop()</strong> - метод <b>удаляет последний элемент</b> массива и возвращает его. Является мутирующим методом. То есть изменяет исходный массив.</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>arr.pop()</code></pre>
+          </div>
+
+          <h4>Параметры:</h4>
+          <ul class="list-ul">
+            <li>Метод не принимает параметров</li>
+          </ul>
+
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Удаленный элемент массива (или undefined, если массив пуст)</li>
+          </ul>
+
+          <h4>Описание:</h4>
+          <ul class="list-ul">
+            <li>Уменьшает length массива на 1</li>
+            <li>Временная сложность: O(1)</li>
+            <li>Часто используется в реализации стека (LIFO)</li>
+          </ul>
+
+          <h4>Пример:</h4>
+          <div class="code-block">
+            <pre><code>const fruits = ['яблоко', 'груша', 'апельсин'];
 const lastFruit = fruits.pop();
 console.log(lastFruit); // 'апельсин'
-console.log(fruits); // ['яблоко', 'груша']</code></pre>
-                            </div>
-                        </div>
+console.log(fruits); // ['яблоко', 'груша']
 
-                        <div class="method-card">
-                            <h3><code>unshift()</code></h3>
-                            <p><strong>Добавляет элементы в начало массива</strong></p>
-                            <ul class="list-ul">
-                                <li>Возвращает новую длину массива</li>
-                                <li>Временная сложность: O(n) - менее эффективен чем push</li>
-                                <li>Сдвигает все существующие элементы</li>
-                            </ul>
+// Пустой массив
+const empty = [];
+const removed = empty.pop();
+console.log(removed); // undefined, так как массив был пуст
+console.log(empty); // [] — массив остался пустым</code></pre>
+          </div>
 
-                            <div class="grid-column-100">
-                                <pre><code>arr.unshift(element1, ..., elementN)</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Пример:</h4>
-                                <pre><code>const nums = [2, 3];
+          <div class="note-block warning">
+            <h4>⚠️ Частые ошибки</h4>
+
+            <p><strong>1. Путают pop() с shift()</strong></p>
+            <p><code>pop()</code> удаляет элемент <b>с конца</b>, а <code>shift()</code> — <b>с начала</b>. Это одна из самых частых путаниц у новичков:</p>
+            <div class="code-block">
+              <pre><code>const arr = ['a', 'b', 'c'];
+arr.pop();   // удаляет 'c' (с конца)
+arr.shift(); // удалил бы 'a' (с начала) — это другой метод!</code></pre>
+            </div>
+
+            <p><strong>2. Используют <code>pop()</code> в условии цикла с "ложными" значениями</strong></p>
+            <p>Если в массиве есть значения вроде <code>0</code>, <code>''</code>, <code>null</code>, цикл вида <code>while (arr.pop())</code> остановится досрочно — даже если в массиве остались элементы:</p>
+            <div class="code-block">
+              <pre><code>const queue = [1, 2, 0, 3]; // внимание на 0
+
+while (queue.pop()) {
+  console.log('обработка');
+}
+// Цикл остановится, когда pop() вернёт 0 (он "falsy"),
+// хотя элемент 1 ещё остаётся в массиве необработанным!
+
+// Правильно — проверять длину массива:
+while (queue.length > 0) {
+  const item = queue.pop();
+  console.log('обработка', item);
+}</code></pre>
+            </div>
+
+            <p><strong>3. Считают, что <code>const</code> запрещает мутацию массива</strong></p>
+            <p><code>const</code> запрещает только переприсваивание переменной, а не изменение содержимого массива — поэтому <code>pop()</code> прекрасно работает на <code>const</code>-массиве:</p>
+            <div class="code-block">
+              <pre><code>const arr = [1, 2, 3];
+arr.pop(); // работает без ошибок
+console.log(arr); // [1, 2]
+
+// arr = [];   // ❌ Ошибка: Assignment to constant variable.</code></pre>
+            </div>
+
+            <p><strong>4. Вызывают pop() на замороженном массиве</strong></p>
+            <div class="code-block">
+              <pre><code>const frozen = Object.freeze([1, 2, 3]);
+frozen.pop();
+// TypeError: Cannot delete property '2' of [object Array]</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>💡 Когда использовать</h4>
+            <ul class="list-ul">
+              <li>Реализация стека (LIFO) в паре с <code>push()</code> — например, история действий для "Undo"</li>
+              <li>Постепенная обработка элементов массива с конца (например, очередь задач, где порядок не важен)</li>
+              <li>Алгоритмы вроде поиска в глубину (DFS), где стек используется явно через массив</li>
+              <li>
+                Если важно сохранить исходный массив — используйте немутирующий аналог:
+                <code>arr.slice(0, -1)</code> (массив без последнего элемента)
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <!-- unshift() -->
+      <section class="section" id="method-unshift">
+        <div class="container">
+          <h2><code>unshift()</code></h2>
+          <p class="note"><strong>unshift()</strong> - метод <b>добавляет</b> один или несколько элементов <b>в начало массива</b>. Является мутирующим методом. То есть изменяет исходный массив.</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>arr.unshift(element1, ..., elementN)</code></pre>
+          </div>
+
+          <h4>Параметры:</h4>
+          <ul class="list-ul">
+            <li>element1, ..., elementN - элементы, которые будут добавлены в начало массива</li>
+          </ul>
+
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Новую длину массива</li>
+          </ul>
+
+          <h4>Описание:</h4>
+          <ul class="list-ul">
+            <li>Сдвигает все существующие элементы массива</li>
+            <li>Временная сложность: O(n) - менее эффективен чем push, так как требует переиндексации</li>
+          </ul>
+
+          <h4>Пример:</h4>
+          <div class="code-block">
+            <pre><code>const nums = [2, 3];
 nums.unshift(0, 1);
 console.log(nums); // [0, 1, 2, 3]</code></pre>
-                            </div>
-                        </div>
+          </div>
 
-                        <div class="method-card">
-                            <h3><code>shift()</code></h3>
-                            <p><strong>Удаляет первый элемент массива</strong></p>
-                            <ul class="list-ul">
-                                <li>Возвращает удаленный элемент (или undefined)</li>
-                                <li>Временная сложность: O(n)</li>
-                                <li>Используется в реализации очереди (queue)</li>
-                            </ul>
+          <div class="note-block warning">
+            <h4>⚠️ Частые ошибки</h4>
 
-                            <div class="grid-column-100">
-                                <pre><code>arr.shift()</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Пример:</h4>
-                                <pre><code>const queue = ['Аня', 'Борис', 'Вика'];
+            <p><strong>1. Ожидают, что несколько элементов добавятся в обратном порядке</strong></p>
+            <p>При передаче нескольких аргументов они вставляются в исходном порядке, а не по одному (что дало бы обратный результат):</p>
+            <div class="code-block">
+              <pre><code>const arr = [3, 4];
+
+arr.unshift(1, 2);
+console.log(arr); // [1, 2, 3, 4] — порядок сохранён
+
+// А если бы вызывали unshift по одному элементу — результат был бы другим:
+const arr2 = [3, 4];
+arr2.unshift(1);
+arr2.unshift(2);
+console.log(arr2); // [2, 1, 3, 4] — а не [1, 2, 3, 4]!</code></pre>
+            </div>
+
+            <p><strong>2. Используют unshift() в цикле для построения большого массива</strong></p>
+            <p>Каждый вызов сдвигает все элементы — O(n). В цикле это превращается в O(n²), что критично для больших объёмов данных:</p>
+            <div class="code-block">
+              <pre><code>// Медленно на больших данных:
+const result = [];
+for (const item of hugeArray) {
+  result.unshift(item); // каждый вызов — O(n)
+}
+
+// Быстрее: push() + один reverse() в конце
+const result2 = [];
+for (const item of hugeArray) {
+  result2.push(item); // O(1) на каждой итерации
+}
+result2.reverse();</code></pre>
+            </div>
+
+            <p><strong>3. Передают массив, ожидая его разворачивания в начало</strong></p>
+            <p>Как и <code>push()</code>, <code>unshift()</code> вставляет переданный массив целиком, как один элемент, а не разворачивает его:</p>
+            <div class="code-block">
+              <pre><code>const arr = [3, 4];
+arr.unshift([1, 2]);
+console.log(arr); // [[1, 2], 3, 4] — НЕ [1, 2, 3, 4]!
+
+// Используйте spread, чтобы разложить элементы:
+const arr2 = [3, 4];
+arr2.unshift(...[1, 2]);
+console.log(arr2); // [1, 2, 3, 4]</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>💡 Когда использовать</h4>
+            <ul class="list-ul">
+              <li>Добавление элемента в начало небольшого массива, где порядок важен (например, недавние уведомления сверху списка)</li>
+              <li>Если операция выполняется часто и массив большой — рассмотрите структуру данных, оптимизированную под вставку в начало (например, обратный массив + push, или связный список)</li>
+              <li>Если нужен немутирующий аналог — используйте spread: <code>[newItem, ...arr]</code></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- shift() -->
+      <section class="section" id="method-shift">
+        <div class="container">
+          <h2><code>shift()</code></h2>
+          <p class="note"><strong>shift()</strong> - метод <b>удаляет первый элемент</b> массива и возвращает его. Является мутирующим методом. То есть изменяет исходный массив.</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>arr.shift()</code></pre>
+          </div>
+
+          <h4>Параметры:</h4>
+          <ul class="list-ul">
+            <li>Метод не принимает параметров</li>
+          </ul>
+
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Удаленный элемент массива (или undefined, если массив пуст)</li>
+          </ul>
+
+          <h4>Описание:</h4>
+          <ul class="list-ul">
+            <li>Сдвигает все последующие элементы на одну позицию назад</li>
+            <li>Временная сложность: O(n)</li>
+            <li>Используется в реализации очереди (queue)</li>
+          </ul>
+
+          <h4>Пример:</h4>
+          <div class="code-block">
+            <pre><code>const queue = ['Аня', 'Борис', 'Вика'];
 const first = queue.shift();
 console.log(first); // 'Аня'
 console.log(queue); // ['Борис', 'Вика']</code></pre>
-                            </div>
-                        </div>
+          </div>
 
-                        <!-- 2. Универсальные методы -->
-                        <h2>2. Универсальные методы</h2>
+          <div class="note-block warning">
+            <h4>⚠️ Частые ошибки</h4>
 
-                        <div class="method-card">
-                            <h3><code>splice()</code></h3>
-                            <p><strong>Добавляет/удаляет элементы в любом месте массива</strong></p>
-                            <ul class="list-ul">
-                                <li>Возвращает массив удаленных элементов</li>
-                                <li>Временная сложность: O(n)</li>
-                                <li>Параметры: start, deleteCount, items...</li>
-                                <li>Может использоваться для вставки без удаления</li>
-                            </ul>
+            <p><strong>1. Путают shift() с pop()</strong></p>
+            <p><code>shift()</code> удаляет элемент <b>с начала</b>, <code>pop()</code> — <b>с конца</b>. Похожие по смыслу методы с разным направлением — частый источник багов:</p>
+            <div class="code-block">
+              <pre><code>const arr = ['a', 'b', 'c'];
+arr.shift(); // удаляет 'a' (с начала)
+// arr.pop() удалил бы 'c' (с конца) — это другой метод!</code></pre>
+            </div>
 
-                            <div class="grid-column-100">
-                                <pre><code>arr.splice(start, deleteCount, item1, ..., itemN)</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Примеры:</h4>
-                                <pre><code>// Удаление
+            <p><strong>2. <code>while (arr.shift())</code> с falsy-значениями</strong></p>
+            <p>Та же ловушка, что и у <code>pop()</code>: если в массиве встречаются <code>0</code>, <code>''</code>, <code>null</code>, цикл остановится раньше времени:</p>
+            <div class="code-block">
+              <pre><code>const queue = [1, 0, 2]; // внимание на 0
+
+while (queue.shift()) {
+  console.log('обработка');
+}
+// Остановится на 0, хотя элемент 2 ещё остаётся в массиве!
+
+// Правильно — проверять длину:
+while (queue.length > 0) {
+  const item = queue.shift();
+  console.log('обработка', item);
+}</code></pre>
+            </div>
+
+            <p><strong>3. Используют shift() в цикле для обработки большого массива</strong></p>
+            <p>Каждый вызов сдвигает все оставшиеся элементы — O(n). При многократном вызове в цикле сложность становится O(n²):</p>
+            <div class="code-block">
+              <pre><code>// Медленно на больших массивах:
+while (queue.length > 0) {
+  const item = queue.shift(); // каждый вызов — O(n)
+  process(item);
+}
+
+// Быстрее: использовать индекс вместо мутации массива
+let index = 0;
+while (index < queue.length) {
+  process(queue[index]);
+  index++;
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>💡 Когда использовать</h4>
+            <ul class="list-ul">
+              <li>Реализация очереди (FIFO) — обработка задач в порядке их поступления</li>
+              <li>Постепенное "разбор" массива с начала, когда массив небольшой</li>
+              <li>Для больших объёмов данных в горячем коде — предпочитайте индекс-указатель вместо shift(), чтобы избежать O(n²)</li>
+              <li>Если нужен немутирующий аналог — используйте <code>arr.slice(1)</code> (массив без первого элемента)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- splice() -->
+      <section class="section" id="method-splice">
+        <div class="container">
+          <h2><code>splice()</code></h2>
+          <p class="note"><strong>splice()</strong> - метод <b>добавляет и/или удаляет элементы</b> в любом месте массива. Является мутирующим методом. То есть изменяет исходный массив.</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>arr.splice(start, deleteCount, item1, ..., itemN)</code></pre>
+          </div>
+
+          <h4>Параметры:</h4>
+          <ul class="list-ul">
+            <li>start - индекс, с которого начинаются изменения</li>
+            <li>deleteCount - количество элементов для удаления</li>
+            <li>item1, ..., itemN - элементы, которые будут вставлены начиная с индекса start (необязательно)</li>
+          </ul>
+
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Массив удаленных элементов (пустой массив, если ничего не удалено)</li>
+          </ul>
+
+          <h4>Описание:</h4>
+          <ul class="list-ul">
+            <li>Может удалять и добавлять элементы одновременно</li>
+            <li>Может использоваться для вставки без удаления (deleteCount = 0)</li>
+            <li>Временная сложность: O(n)</li>
+            <li>Изменяет исходный массив — если нужна копия, используйте <code>slice()</code> перед <code>splice()</code></li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>// Удаление
 const arr1 = [1, 2, 3, 4];
-arr1.splice(1, 2); // [2, 3]
+arr1.splice(1, 2); // [2, 3] - удаленные элементы
 // arr1: [1, 4]
 
 // Вставка
 const arr2 = ['a', 'd'];
-arr2.splice(1, 0, 'b', 'c'); // []
+arr2.splice(1, 0, 'b', 'c'); // [] - ничего не удалено
 // arr2: ['a', 'b', 'c', 'd']
 
 // Замена
 const arr3 = [10, 20, 30];
-arr3.splice(1, 1, 'двадцать'); // [20]
+arr3.splice(1, 1, 'двадцать'); // [20] - удаленный элемент
 // arr3: [10, 'двадцать', 30]</code></pre>
-                            </div>
-                        </div>
+          </div>
 
-                        <!-- 3. Изменение порядка -->
-                        <h2>3. Изменение порядка элементов</h2>
+          <div class="note-block warning">
+            <h4>⚠️ Частые ошибки</h4>
 
-                        <div class="method-card">
-                            <h3><code>sort()</code></h3>
-                            <p><strong>Сортирует элементы массива</strong></p>
-                            <ul class="list-ul">
-                                <li>Возвращает отсортированный массив</li>
-                                <li>Временная сложность: O(n log n)</li>
-                                <li>Без функции сравнения сортирует как строки</li>
-                                <li>Функция сравнения должна возвращать число</li>
-                            </ul>
+            <p><strong>1. Путают splice() со slice()</strong></p>
+            <p>Похожие названия, но разное поведение: <code>splice()</code> мутирует массив, <code>slice()</code> — нет. Это одна из самых частых путаниц:</p>
+            <div class="code-block">
+              <pre><code>const arr = [1, 2, 3, 4];
 
-                            <div class="grid-column-100">
-                                <pre><code>arr.sort([compareFunction])</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Примеры:</h4>
-                                <pre><code>// Сортировка строк
+arr.slice(1, 3);  // [2, 3] — НЕ изменяет arr
+console.log(arr); // [1, 2, 3, 4] — без изменений
+
+arr.splice(1, 2); // [2, 3] — изменяет arr!
+console.log(arr); // [1, 4] — массив изменился</code></pre>
+            </div>
+
+            <p><strong>2. Второй параметр путают с конечным индексом (как в slice)</strong></p>
+            <p>В <code>slice(start, end)</code> второй аргумент — это индекс конца диапазона. В <code>splice(start, deleteCount)</code> — это <b>количество</b> удаляемых элементов, а не индекс. Перенос привычки из slice() даёт неверный результат:</p>
+            <div class="code-block">
+              <pre><code>const arr = [1, 2, 3, 4, 5];
+
+// Ошибочно подумать "удалить от 1 до 3":
+arr.splice(1, 3); // удалит 3 ЭЛЕМЕНТА начиная с индекса 1: [2, 3, 4]
+console.log(arr); // [1, 5] — а не то, что могло ожидаться</code></pre>
+            </div>
+
+            <p><strong>3. Забывают, что deleteCount можно не указывать</strong></p>
+            <p>Если вызвать <code>splice()</code> с одним аргументом (без deleteCount), удаляются ВСЕ элементы от start до конца массива:</p>
+            <div class="code-block">
+              <pre><code>const arr = [1, 2, 3, 4, 5];
+arr.splice(2); // deleteCount не указан
+console.log(arr); // [1, 2] — удалены все элементы от индекса 2 до конца!</code></pre>
+            </div>
+
+            <p><strong>4. Ожидают одиночный элемент вместо массива в результате</strong></p>
+            <p>Даже если удаляется один элемент, возвращается массив из одного элемента, а не сам элемент:</p>
+            <div class="code-block">
+              <pre><code>const arr = [10, 20, 30];
+const removed = arr.splice(1, 1);
+console.log(removed);    // [20] — массив, а не 20
+console.log(removed[0]); // 20 — чтобы получить сам элемент</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>💡 Когда использовать</h4>
+            <ul class="list-ul">
+              <li>Удаление элемента по известному индексу: <code>arr.splice(index, 1)</code></li>
+              <li>Вставка элемента в середину массива без удаления: <code>arr.splice(index, 0, newItem)</code></li>
+              <li>Замена элемента на другой по индексу: <code>arr.splice(index, 1, newItem)</code></li>
+              <li>Если нужна немутирующая версия — используйте комбинацию <code>slice()</code> или новый метод <code>toSpliced()</code> (ES2023)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- sort() -->
+      <section class="section" id="method-sort">
+        <div class="container">
+          <h2><code>sort()</code></h2>
+          <p class="note"><strong>sort()</strong> - метод <b>сортирует элементы массива</b> на месте. Является мутирующим методом. То есть изменяет исходный массив.</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>arr.sort([compareFunction])</code></pre>
+          </div>
+
+          <h4>Параметры:</h4>
+          <ul class="list-ul">
+            <li>compareFunction - функция сравнения (необязательно). Должна возвращать число: меньше 0 (a перед b), больше 0 (b перед a), 0 (без изменений)</li>
+          </ul>
+
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Отсортированный массив (тот же самый, изменённый на месте)</li>
+          </ul>
+
+          <h4>Описание:</h4>
+          <ul class="list-ul">
+            <li>Без функции сравнения сортирует элементы как строки</li>
+            <li>Временная сложность: O(n log n)</li>
+            <li>Использует устойчивую сортировку в современных движках</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>// Сортировка строк
 const names = ['Мария', 'Анна', 'Иван'];
 names.sort(); // ['Анна', 'Иван', 'Мария']
 
@@ -209,55 +696,188 @@ names.sort(); // ['Анна', 'Иван', 'Мария']
 const nums = [10, 2, 5];
 nums.sort((a, b) => a - b); // [2, 5, 10]
 
+// Без функции сравнения числа сортируются как строки:
+const wrong = [10, 1, 5];
+wrong.sort(); // [1, 10, 5] (т.к. «1» меньше «5» лексикографически)
+
 // Сортировка объектов
 const users = [
   { name: 'Аня', age: 25 },
   { name: 'Петя', age: 30 }
 ];
 users.sort((a, b) => a.age - b.age);</code></pre>
-                            </div>
-                        </div>
+          </div>
 
-                        <div class="method-card">
-                            <h3><code>reverse()</code></h3>
-                            <p><strong>Переворачивает порядок элементов</strong></p>
-                            <ul class="list-ul">
-                                <li>Возвращает перевернутый массив</li>
-                                <li>Временная сложность: O(n)</li>
-                                <li>Изменяет исходный массив</li>
-                                <li>Первый элемент становится последним</li>
-                            </ul>
+          <div class="note-block warning">
+            <h4>⚠️ Частые ошибки</h4>
 
-                            <div class="grid-column-100">
-                                <pre><code>arr.reverse()</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Пример:</h4>
-                                <pre><code>const letters = ['a', 'b', 'c'];
+            <p><strong>1. Случайная мутация массива, который не должен меняться</strong></p>
+            <p><code>sort()</code> изменяет исходный массив — если он передан как пропс в React/Vue или используется где-то ещё, это может привести к неожиданным побочным эффектам:</p>
+            <div class="code-block">
+              <pre><code>function renderSorted(items) {
+  return items.sort((a, b) => a - b); // мутирует массив, переданный извне!
+}
+
+// Безопаснее — сортировать копию:
+function renderSortedSafe(items) {
+  return [...items].sort((a, b) => a - b);
+}</code></pre>
+            </div>
+
+            <p><strong>2. Функция сравнения возвращает boolean, а не число</strong></p>
+            <p>Возврат <code>true</code>/<code>false</code> вместо числа может "случайно работать" в одних случаях и давать неверный результат в других, потому что движок ожидает именно число:</p>
+            <div class="code-block">
+              <pre><code>const nums = [3, 1, 2];
+
+// Неправильно — возвращает boolean:
+nums.sort((a, b) => a > b); // может дать непредсказуемый результат
+
+// Правильно — возвращает число:
+nums.sort((a, b) => a - b); // [1, 2, 3]</code></pre>
+            </div>
+
+            <p><strong>3. Сортировка строк с буквами разных регистров</strong></p>
+            <p>По умолчанию сортировка учитывает код символа, из-за чего заглавные буквы могут оказаться "раньше" строчных не так, как ожидается при алфавитной сортировке:</p>
+            <div class="code-block">
+              <pre><code>const words = ['banana', 'Apple', 'cherry'];
+words.sort();
+console.log(words); // ['Apple', 'banana', 'cherry'] — заглавная 'A' < строчных букв по коду символа
+
+// Для алфавитной сортировки без учёта регистра используйте localeCompare:
+words.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>💡 Когда использовать</h4>
+            <ul class="list-ul">
+              <li>Упорядочивание данных для отображения (список, таблица, рейтинг)</li>
+              <li>Подготовка массива перед бинарным поиском</li>
+              <li>Для сортировки по убыванию — измените знак в компараторе: <code>(a, b) => b - a</code>, а не сортируйте и затем вызывайте <code>reverse()</code></li>
+              <li>Если важно сохранить исходный порядок массива — используйте <code>[...arr].sort()</code> или немутирующий <code>toSorted()</code> (ES2023)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- reverse() -->
+      <section class="section" id="method-reverse">
+        <div class="container">
+          <h2><code>reverse()</code></h2>
+          <p class="note"><strong>reverse()</strong> - метод <b>переворачивает порядок элементов</b> массива на месте. Является мутирующим методом. То есть изменяет исходный массив.</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>arr.reverse()</code></pre>
+          </div>
+
+          <h4>Параметры:</h4>
+          <ul class="list-ul">
+            <li>Метод не принимает параметров</li>
+          </ul>
+
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Перевернутый массив (тот же самый, изменённый на месте)</li>
+          </ul>
+
+          <h4>Описание:</h4>
+          <ul class="list-ul">
+            <li>Первый элемент становится последним и наоборот</li>
+            <li>Временная сложность: O(n)</li>
+            <li>Работает "на месте" без создания нового массива</li>
+          </ul>
+
+          <h4>Пример:</h4>
+          <div class="code-block">
+            <pre><code>const letters = ['a', 'b', 'c'];
 letters.reverse();
 console.log(letters); // ['c', 'b', 'a']</code></pre>
-                            </div>
-                        </div>
+          </div>
 
-                        <!-- 4. Заполнение -->
-                        <h2>4. Заполнение массива</h2>
+          <div class="note-block warning">
+            <h4>⚠️ Частые ошибки</h4>
 
-                        <div class="method-card">
-                            <h3><code>fill()</code></h3>
-                            <p><strong>Заполняет массив одинаковыми значениями</strong></p>
-                            <ul class="list-ul">
-                                <li>Возвращает измененный массив</li>
-                                <li>Временная сложность: O(n)</li>
-                                <li>Можно указать диапазон [start, end)</li>
-                                <li>Полезен для инициализации массивов</li>
-                            </ul>
+            <p><strong>1. Пытаются вызвать reverse() прямо на строке</strong></p>
+            <p>У строк нет метода <code>reverse()</code> — он есть только у массивов. Чтобы перевернуть строку, её нужно сначала превратить в массив символов:</p>
+            <div class="code-block">
+              <pre><code>'hello'.reverse();
+// TypeError: 'hello'.reverse is not a function
 
-                            <div class="grid-column-100">
-                                <pre><code>arr.fill(value, [start], [end])</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Примеры:</h4>
-                                <pre><code>// Заполнение всего массива
+// Правильный способ для строк:
+'hello'.split('').reverse().join(''); // 'olleh'</code></pre>
+            </div>
+
+            <p><strong>2. Не ожидают мутацию исходного массива</strong></p>
+            <p>Как и <code>sort()</code>, <code>reverse()</code> изменяет массив "на месте" — если массив используется где-то ещё (например, передан в функцию), это может привести к неожиданным побочным эффектам:</p>
+            <div class="code-block">
+              <pre><code>const original = [1, 2, 3];
+const ref = original;
+
+ref.reverse();
+console.log(original); // [3, 2, 1] — original тоже изменился! Это одна и та же ссылка
+
+// Если нужна копия — разворачивайте копию:
+const reversedCopy = [...original].reverse();</code></pre>
+            </div>
+
+            <p><strong>3. Используют sort() + reverse() для сортировки по убыванию</strong></p>
+            <p>Это работает, но менее эффективно и менее читаемо, чем явный компаратор, особенно для нечисловых сравнений с особыми случаями (например, NaN):</p>
+            <div class="code-block">
+              <pre><code>const nums = [3, 1, 2];
+
+// Работает, но требует двух проходов:
+nums.sort((a, b) => a - b).reverse(); // [3, 2, 1]
+
+// Лучше — один компаратор:
+nums.sort((a, b) => b - a); // [3, 2, 1]</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>💡 Когда использовать</h4>
+            <ul class="list-ul">
+              <li>Отображение списка в обратном хронологическом порядке (например, последние сообщения сверху)</li>
+              <li>Проверка массива на палиндром (сравнение с развёрнутой копией)</li>
+              <li>Если нужен немутирующий аналог — используйте <code>[...arr].reverse()</code> или новый метод <code>toReversed()</code> (ES2023)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- fill() -->
+      <section class="section" id="method-fill">
+        <div class="container">
+          <h2><code>fill()</code></h2>
+          <p class="note"><strong>fill()</strong> - метод <b>заполняет</b> элементы массива <b>одинаковым значением</b>. Является мутирующим методом. То есть изменяет исходный массив.</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>arr.fill(value, [start], [end])</code></pre>
+          </div>
+
+          <h4>Параметры:</h4>
+          <ul class="list-ul">
+            <li>value - значение, которым заполняются элементы</li>
+            <li>start - индекс начала заполнения (необязательно, по умолчанию 0)</li>
+            <li>end - индекс конца заполнения, не включается (необязательно, по умолчанию arr.length)</li>
+          </ul>
+
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Изменённый массив (тот же самый)</li>
+          </ul>
+
+          <h4>Описание:</h4>
+          <ul class="list-ul">
+            <li>Можно указать диапазон [start, end)</li>
+            <li>Временная сложность: O(n)</li>
+            <li>Полезен для инициализации массивов</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>// Заполнение всего массива
 const arr1 = new Array(3).fill(0);
 // [0, 0, 0]
 
@@ -265,439 +885,747 @@ const arr1 = new Array(3).fill(0);
 const arr2 = [1, 2, 3, 4, 5];
 arr2.fill('x', 1, 4);
 // [1, 'x', 'x', 'x', 5]</code></pre>
-                            </div>
-                        </div>
+          </div>
 
-                        <div class="note-block warning">
-                            <h4>Важные предупреждения</h4>
-                            <ul class="list-ul">
-                                <li>
-                                    <strong>sort() без функции сравнения</strong>
-                                    преобразует элементы к строкам:
-                                    <code>[10, 2, 5].sort()</code>
-                                    →
-                                    <code>[10, 2, 5]</code>
-                                </li>
-                                <li>
-                                    <strong>splice()</strong>
-                                    может привести к потере данных - сохраняйте возвращаемое значение
-                                </li>
-                                <li>
-                                    <strong>unshift/shift</strong>
-                                    менее эффективны для больших массивов чем push/pop
-                                </li>
-                            </ul>
-                        </div>
+          <div class="note-block warning">
+            <h4>⚠️ Частые ошибки</h4>
 
-                        <h3>Сводная таблица</h3>
-                        <table class="table-note">
-                            <thead>
-                                <tr>
-                                    <th style="width: 10%">Метод</th>
-                                    <th style="width: 50%">Описание</th>
-                                    <th style="width: 20%">Синтаксис</th>
-                                    <th style="width: 10%">Возвращает</th>
-                                    <th style="width: 10%">Сложность</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><code>push()</code></td>
-                                    <td>
-                                        <strong>Добавляет один или несколько элементов в конец массива</strong>
-                                        <ul class="list-ul">
-                                            <li>Изменяет исходный массив</li>
-                                            <li>Эффективен для добавления элементов</li>
-                                            <li>Можно добавить несколько элементов сразу</li>
-                                        </ul>
-                                    </td>
-                                    <td><code>arr.push(elem1, ..., elemN)</code></td>
-                                    <td>Новую длину массива</td>
-                                    <td>O(1)</td>
-                                </tr>
-                                <tr>
-                                    <td><code>pop()</code></td>
-                                    <td>
-                                        <strong>Удаляет последний элемент массива</strong>
-                                        <ul class="list-ul">
-                                            <li>Уменьшает длину массива на 1</li>
-                                            <li>Для пустого массива возвращает undefined</li>
-                                            <li>Часто используется в структурах данных типа стека</li>
-                                        </ul>
-                                    </td>
-                                    <td><code>arr.pop()</code></td>
-                                    <td>Удаленный элемент или undefined</td>
-                                    <td>O(1)</td>
-                                </tr>
-                                <tr>
-                                    <td><code>unshift()</code></td>
-                                    <td>
-                                        <strong>Добавляет элементы в начало массива</strong>
-                                        <ul class="list-ul">
-                                            <li>Сдвигает существующие элементы</li>
-                                            <li>Менее эффективен чем push (из-за переиндексации)</li>
-                                            <li>Можно добавить несколько элементов сразу</li>
-                                        </ul>
-                                    </td>
-                                    <td><code>arr.unshift(elem1, ..., elemN)</code></td>
-                                    <td>Новую длину массива</td>
-                                    <td>O(n)</td>
-                                </tr>
-                                <tr>
-                                    <td><code>shift()</code></td>
-                                    <td>
-                                        <strong>Удаляет первый элемент массива</strong>
-                                        <ul class="list-ul">
-                                            <li>Сдвигает все последующие элементы</li>
-                                            <li>Для пустого массива возвращает undefined</li>
-                                            <li>Используется в очереди (queue)</li>
-                                        </ul>
-                                    </td>
-                                    <td><code>arr.shift()</code></td>
-                                    <td>Удаленный элемент или undefined</td>
-                                    <td>O(n)</td>
-                                </tr>
-                                <tr>
-                                    <td><code>splice()</code></td>
-                                    <td>
-                                        <strong>Универсальный метод для добавления/удаления элементов</strong>
-                                        <ul class="list-ul">
-                                            <li>Может удалять и добавлять элементы одновременно</li>
-                                            <li>Первый параметр - индекс начала изменений</li>
-                                            <li>Второй параметр - количество удаляемых элементов</li>
-                                            <li>Остальные параметры - элементы для добавления</li>
-                                        </ul>
-                                    </td>
-                                    <td><code>arr.splice(start, deleteCount, item1, ..., itemN)</code></td>
-                                    <td>Массив удаленных элементов</td>
-                                    <td>O(n)</td>
-                                </tr>
-                                <tr>
-                                    <td><code>sort()</code></td>
-                                    <td>
-                                        <strong>Сортирует элементы массива на месте</strong>
-                                        <ul class="list-ul">
-                                            <li>Без функции сравнения сортирует как строки</li>
-                                            <li>Функция сравнения должна возвращать число</li>
-                                            <li>Использует устойчивую сортировку в современных движках</li>
-                                            <li>
-                                                Для чисел:
-                                                <code>(a, b) => a - b</code>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                    <td><code>arr.sort([compareFunction])</code></td>
-                                    <td>Отсортированный массив</td>
-                                    <td>O(n log n)</td>
-                                </tr>
-                                <tr>
-                                    <td><code>reverse()</code></td>
-                                    <td>
-                                        <strong>Переворачивает порядок элементов массива</strong>
-                                        <ul class="list-ul">
-                                            <li>Изменяет исходный массив</li>
-                                            <li>Первый элемент становится последним и наоборот</li>
-                                            <li>Работает "на месте" без создания нового массива</li>
-                                        </ul>
-                                    </td>
-                                    <td><code>arr.reverse()</code></td>
-                                    <td>Перевернутый массив</td>
-                                    <td>O(n)</td>
-                                </tr>
-                                <tr>
-                                    <td><code>fill()</code></td>
-                                    <td>
-                                        <strong>Заполняет массив одинаковыми значениями</strong>
-                                        <ul class="list-ul">
-                                            <li>Можно указать диапазон [start, end)</li>
-                                            <li>Полезен для инициализации массивов</li>
-                                            <li>Изменяет исходный массив</li>
-                                        </ul>
-                                    </td>
-                                    <td><code>arr.fill(value, [start], [end])</code></td>
-                                    <td>Измененный массив</td>
-                                    <td>O(n)</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
+            <p><strong>1. Заполнение объектом или массивом — все элементы ссылаются на один и тот же объект</strong></p>
+            <p>Это одна из самых опасных ошибок с <code>fill()</code>: значение не копируется для каждого элемента, а используется одна и та же ссылка:</p>
+            <div class="code-block">
+              <pre><code>const matrix = new Array(3).fill([]);
+matrix[0].push(1);
+console.log(matrix); // [[1], [1], [1]] — изменился КАЖДЫЙ подмассив!
 
-                <!-- Немутирующие методы -->
-                <section class="section" id="methods-nonmutating">
-                    <div class="container">
-                        <h2>Немутирующие методы массивов</h2>
+// Правильно — создать отдельный массив для каждой позиции:
+const matrix2 = Array.from({ length: 3 }, () => []);
+matrix2[0].push(1);
+console.log(matrix2); // [[1], [], []] — изменился только первый</code></pre>
+            </div>
 
-                        <p class="note success">✅ Эти методы НЕ изменяют исходный массив, а возвращают новый массив или значение</p>
+            <p><strong>2. Хотят заполнить разными значениями, а не одним</strong></p>
+            <p><code>fill()</code> всегда ставит одно и то же значение во все позиции. Если нужны разные значения (например, индексы или вычисляемые данные), используйте <code>Array.from()</code> с функцией:</p>
+            <div class="code-block">
+              <pre><code>// fill() даёт одинаковые значения:
+const arr = new Array(5).fill(0);
+console.log(arr); // [0, 0, 0, 0, 0]
 
-                        <!-- 1. Методы доступа -->
-                        <h2>1. Методы доступа</h2>
+// Array.from() с callback даёт разные значения:
+const indices = Array.from({ length: 5 }, (_, i) => i);
+console.log(indices); // [0, 1, 2, 3, 4]</code></pre>
+            </div>
 
-                        <div class="method-card">
-                            <h3><code>concat()</code></h3>
-                            <p><strong>Объединяет массивы в новый массив</strong></p>
-                            <ul class="list-ul">
-                                <li>Не изменяет исходные массивы</li>
-                                <li>Может принимать массивы и/или значения</li>
-                                <li>Возвращает новый массив</li>
-                            </ul>
+            <p><strong>3. Путают конечный индекс end с включающим</strong></p>
+            <p>Как и в <code>slice()</code>/<code>splice()</code>, индекс <code>end</code> не включается в диапазон заполнения:</p>
+            <div class="code-block">
+              <pre><code>const arr = [1, 2, 3, 4, 5];
+arr.fill('x', 1, 4);
+console.log(arr); // [1, 'x', 'x', 'x', 5] — индекс 4 НЕ изменился</code></pre>
+            </div>
+          </div>
 
-                            <div class="grid-column-100">
-                                <pre><code>const newArray = arr.concat(value1, value2, ..., valueN)</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Пример:</h4>
-                                <pre><code>const arr1 = [1, 2];
+          <div class="note-block info">
+            <h4>💡 Когда использовать</h4>
+            <ul class="list-ul">
+              <li>Инициализация массива значениями по умолчанию: <code>new Array(n).fill(0)</code></li>
+              <li>Сброс значений массива (например, обнуление счётчиков)</li>
+              <li>Создание "пустого" игрового поля или сетки из примитивов (чисел, строк, булевых значений)</li>
+              <li>Если элементы должны быть независимыми объектами/массивами — используйте <code>Array.from()</code> вместо <code>fill()</code></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Сводная таблица мутирующих методов -->
+      <section class="section" id="methods-mutating-summary">
+        <div class="container">
+          <h3>Сводная таблица мутирующих методов</h3>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th style="width: 10%">Метод</th>
+                <th style="width: 50%">Описание</th>
+                <th style="width: 20%">Синтаксис</th>
+                <th style="width: 10%">Возвращает</th>
+                <th style="width: 10%">Сложность</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>push()</code></td>
+                <td>
+                  <strong>Добавляет один или несколько элементов в конец массива</strong>
+                  <ul class="list-ul">
+                    <li>Изменяет исходный массив</li>
+                    <li>Эффективен для добавления элементов</li>
+                    <li>Можно добавить несколько элементов сразу</li>
+                  </ul>
+                </td>
+                <td><code>arr.push(elem1, ..., elemN)</code></td>
+                <td>Новую длину массива</td>
+                <td>O(1)</td>
+              </tr>
+              <tr>
+                <td><code>pop()</code></td>
+                <td>
+                  <strong>Удаляет последний элемент массива</strong>
+                  <ul class="list-ul">
+                    <li>Уменьшает длину массива на 1</li>
+                    <li>Для пустого массива возвращает undefined</li>
+                    <li>Часто используется в структурах данных типа стека</li>
+                  </ul>
+                </td>
+                <td><code>arr.pop()</code></td>
+                <td>Удаленный элемент или undefined</td>
+                <td>O(1)</td>
+              </tr>
+              <tr>
+                <td><code>unshift()</code></td>
+                <td>
+                  <strong>Добавляет элементы в начало массива</strong>
+                  <ul class="list-ul">
+                    <li>Сдвигает существующие элементы</li>
+                    <li>Менее эффективен чем push (из-за переиндексации)</li>
+                    <li>Можно добавить несколько элементов сразу</li>
+                  </ul>
+                </td>
+                <td><code>arr.unshift(elem1, ..., elemN)</code></td>
+                <td>Новую длину массива</td>
+                <td>O(n)</td>
+              </tr>
+              <tr>
+                <td><code>shift()</code></td>
+                <td>
+                  <strong>Удаляет первый элемент массива</strong>
+                  <ul class="list-ul">
+                    <li>Сдвигает все последующие элементы</li>
+                    <li>Для пустого массива возвращает undefined</li>
+                    <li>Используется в очереди (queue)</li>
+                  </ul>
+                </td>
+                <td><code>arr.shift()</code></td>
+                <td>Удаленный элемент или undefined</td>
+                <td>O(n)</td>
+              </tr>
+              <tr>
+                <td><code>splice()</code></td>
+                <td>
+                  <strong>Универсальный метод для добавления/удаления элементов</strong>
+                  <ul class="list-ul">
+                    <li>Может удалять и добавлять элементы одновременно</li>
+                    <li>Первый параметр - индекс начала изменений</li>
+                    <li>Второй параметр - количество удаляемых элементов</li>
+                    <li>Остальные параметры - элементы для добавления</li>
+                  </ul>
+                </td>
+                <td><code>arr.splice(start, deleteCount, item1, ..., itemN)</code></td>
+                <td>Массив удаленных элементов</td>
+                <td>O(n)</td>
+              </tr>
+              <tr>
+                <td><code>sort()</code></td>
+                <td>
+                  <strong>Сортирует элементы массива на месте</strong>
+                  <ul class="list-ul">
+                    <li>Без функции сравнения сортирует как строки</li>
+                    <li>Функция сравнения должна возвращать число</li>
+                    <li>Использует устойчивую сортировку в современных движках</li>
+                    <li>
+                      Для чисел:
+                      <code>(a, b) => a - b</code>
+                    </li>
+                  </ul>
+                </td>
+                <td><code>arr.sort([compareFunction])</code></td>
+                <td>Отсортированный массив</td>
+                <td>O(n log n)</td>
+              </tr>
+              <tr>
+                <td><code>reverse()</code></td>
+                <td>
+                  <strong>Переворачивает порядок элементов массива</strong>
+                  <ul class="list-ul">
+                    <li>Изменяет исходный массив</li>
+                    <li>Первый элемент становится последним и наоборот</li>
+                    <li>Работает "на месте" без создания нового массива</li>
+                  </ul>
+                </td>
+                <td><code>arr.reverse()</code></td>
+                <td>Перевернутый массив</td>
+                <td>O(n)</td>
+              </tr>
+              <tr>
+                <td><code>fill()</code></td>
+                <td>
+                  <strong>Заполняет массив одинаковыми значениями</strong>
+                  <ul class="list-ul">
+                    <li>Можно указать диапазон [start, end)</li>
+                    <li>Полезен для инициализации массивов</li>
+                    <li>Изменяет исходный массив</li>
+                  </ul>
+                </td>
+                <td><code>arr.fill(value, [start], [end])</code></td>
+                <td>Измененный массив</td>
+                <td>O(n)</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="note-block warning">
+            <h4>Важные предупреждения</h4>
+            <ul class="list-ul">
+              <li>
+                <strong>unshift/shift</strong>
+                менее эффективны для больших массивов чем push/pop
+              </li>
+              <li>
+                Если нужно сохранить исходный массив, используйте немутирующие аналоги:
+                <code>toSorted()</code>, <code>toReversed()</code>, <code>slice()</code>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== НЕМУТИРУЮЩИЕ МЕТОДЫ ===================== -->
+
+      <!-- concat() -->
+      <section class="section" id="method-concat">
+        <div class="container">
+          <h2><code>concat()</code></h2>
+          <p class="note"><strong>concat()</strong> - метод <b>объединяет</b> два или более массивов и возвращает новый массив. Является немутирующим методом. То есть не изменяет исходные массивы.</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>const newArray = arr.concat(value1, value2, ..., valueN)</code></pre>
+          </div>
+
+          <h5>Параметры:</h5>
+          <ul class="list-ul">
+            <li>value1, ..., valueN - массивы и/или значения, которые будут объединены с исходным массивом (необязательно)</li>
+          </ul>
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Новый массив, состоящий из элементов исходного массива и переданных аргументов</li>
+          </ul>
+          <h4>Описание:</h4>
+          <ul class="list-ul">
+            <li>Не изменяет исходные массивы</li>
+            <li>Может принимать как массивы, так и обычные значения</li>
+          </ul>
+
+          <h4>Пример:</h4>
+          <div class="code-block">
+            <pre><code>const arr1 = [1, 2];
 const arr2 = [3, 4];
 const combined = arr1.concat(arr2, 5, [6, 7]);
 // [1, 2, 3, 4, 5, 6, 7]</code></pre>
-                            </div>
-                        </div>
+          </div>
+        </div>
+      </section>
 
-                        <div class="method-card">
-                            <h3><code>slice()</code></h3>
-                            <p><strong>Возвращает копию части массива</strong></p>
-                            <ul class="list-ul">
-                                <li>Параметры: [start], [end]</li>
-                                <li>Отрицательные индексы отсчитываются с конца</li>
-                                <li>Без параметров - полная копия массива</li>
-                            </ul>
+      <!-- slice() -->
+      <section class="section" id="method-slice">
+        <div class="container">
+          <h2><code>slice()</code></h2>
+          <p class="note"><strong>slice()</strong> - метод возвращает <b>копию части массива</b> в виде нового массива. Является немутирующим методом. То есть не изменяет исходный массив.</p>
 
-                            <div class="grid-column-100">
-                                <pre><code>const newArray = arr.slice([start], [end])</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Примеры:</h4>
-                                <pre><code>const nums = [1, 2, 3, 4, 5];
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>const newArray = arr.slice([start], [end])</code></pre>
+          </div>
+
+          <h5>Параметры:</h5>
+          <ul class="list-ul">
+            <li>start - индекс начала копирования (необязательно, по умолчанию 0)</li>
+            <li>end - индекс конца копирования, не включается (необязательно, по умолчанию arr.length)</li>
+          </ul>
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Новый массив с выбранными элементами</li>
+          </ul>
+          <h4>Описание:</h4>
+          <ul class="list-ul">
+            <li>Отрицательные индексы отсчитываются с конца массива</li>
+            <li>Без параметров возвращает полную копию массива</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>const nums = [1, 2, 3, 4, 5];
 nums.slice(1, 3); // [2, 3]
 nums.slice(-2);   // [4, 5]
 nums.slice();     // копия массива [1, 2, 3, 4, 5]</code></pre>
-                            </div>
-                        </div>
+          </div>
+        </div>
+      </section>
 
-                        <div class="method-card">
-                            <h3><code>join()</code></h3>
-                            <p><strong>Объединяет элементы массива в строку</strong></p>
-                            <ul class="list-ul">
-                                <li>По умолчанию разделитель - запятая</li>
-                                <li>Для пустого массива возвращает пустую строку</li>
-                                <li>null/undefined преобразуются в пустые строки</li>
-                            </ul>
+      <!-- join() -->
+      <section class="section" id="method-join">
+        <div class="container">
+          <h2><code>join()</code></h2>
+          <p class="note"><strong>join()</strong> - метод <b>объединяет элементы массива в строку</b>, разделяя их указанным разделителем. Является немутирующим методом. То есть не изменяет исходный массив.</p>
 
-                            <div class="grid-column-100">
-                                <pre><code>const str = arr.join([separator])</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Примеры:</h4>
-                                <pre><code>['a', 'b', 'c'].join();    // 'a,b,c'
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>const str = arr.join([separator])</code></pre>
+          </div>
+
+          <h5>Параметры:</h5>
+          <ul class="list-ul">
+            <li>separator - строка-разделитель (необязательно, по умолчанию запятая)</li>
+          </ul>
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Строку, составленную из элементов массива</li>
+          </ul>
+          <h4>Описание:</h4>
+          <ul class="list-ul">
+            <li>Для пустого массива возвращает пустую строку</li>
+            <li>null и undefined преобразуются в пустые строки</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>['a', 'b', 'c'].join();    // 'a,b,c'
 ['a', 'b', 'c'].join('-'); // 'a-b-c'
-[1, null, 2].join(' ');    // '1  2'</code></pre>
-                            </div>
-                        </div>
+[1, null, 2].join(' ');    // '1  2' (null превращается в пустую строку)</code></pre>
+          </div>
+        </div>
+      </section>
 
-                        <div class="method-card">
-                            <h3><code>toString()</code></h3>
-                            <p><strong>Возвращает строковое представление массива</strong></p>
-                            <ul class="list-ul">
-                                <li>Эквивалентен arr.join()</li>
-                                <li>Для вложенных массивов рекурсивно преобразует элементы</li>
-                                <li>Используется при неявном преобразовании типов</li>
-                            </ul>
+      <!-- toString() -->
+      <section class="section" id="method-tostring">
+        <div class="container">
+          <h2><code>toString()</code></h2>
+          <p class="note"><strong>toString()</strong> - метод возвращает <b>строковое представление массива</b>. Является немутирующим методом. То есть не изменяет исходный массив.</p>
 
-                            <div class="grid-column-100">
-                                <pre><code>const str = arr.toString()</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Примеры:</h4>
-                                <pre><code>[1, 2, 3].toString();      // '1,2,3'
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>const str = arr.toString()</code></pre>
+          </div>
+
+          <h5>Параметры:</h5>
+          <ul class="list-ul">
+            <li>Метод не принимает параметров</li>
+          </ul>
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Строку, эквивалентную результату arr.join()</li>
+          </ul>
+          <h4>Описание:</h4>
+          <ul class="list-ul">
+            <li>Для вложенных массивов рекурсивно преобразует элементы в строку</li>
+            <li>Используется при неявном преобразовании массива в строку (например, в шаблонных строках)</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>[1, 2, 3].toString();      // '1,2,3'
 ['a', 'b', 'c'].toString(); // 'a,b,c'
 [1, [2, 3]].toString();    // '1,2,3'</code></pre>
-                            </div>
-                        </div>
+          </div>
+        </div>
+      </section>
 
-                        <!-- 2. Методы поиска -->
-                        <h2>2. Методы поиска</h2>
+      <!-- indexOf() / lastIndexOf() -->
+      <section class="section" id="method-indexof">
+        <div class="container">
+          <h2><code>indexOf()</code> / <code>lastIndexOf()</code></h2>
+          <p class="note"><strong>indexOf()</strong> и <strong>lastIndexOf()</strong> - методы ищут <b>индекс элемента</b> в массиве:
+            <br><b>indexOf()</b> с начала, <b>lastIndexOf()</b> с конца. Являются немутирующими методами. То есть не изменяют исходный массив. <br>
+            Если элемент не найден возвращают <b>-1</b>.
+          </p>
 
-                        <div class="method-card">
-                            <h3>
-                                <code>indexOf()</code>
-                                /
-                                <code>lastIndexOf()</code>
-                            </h3>
-                            <p><strong>Поиск индекса элемента в массиве</strong></p>
-                            <ul class="list-ul">
-                                <li>indexOf() ищет с начала, lastIndexOf() - с конца</li>
-                                <li>Используют строгое сравнение (===)</li>
-                                <li>Возвращают -1 если элемент не найден</li>
-                            </ul>
-
-                            <div class="grid-column-100">
-                                <pre><code>const index = arr.indexOf(searchElement, [fromIndex])
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>const index = arr.indexOf(searchElement, [fromIndex])
 const lastIndex = arr.lastIndexOf(searchElement, [fromIndex])</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Примеры:</h4>
-                                <pre><code>const nums = [1, 2, 3, 2, 1];
+          </div>
+
+          <h4>Параметры:</h4>
+          <ul class="list-ul">
+            <li><b>searchElement</b> - элемент, индекс которого нужно найти</li>
+            <li><b>fromIndex</b> - индекс, с которого начинается поиск (необязательно)</li>
+          </ul>
+
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li><b>Индекс</b> найденного элемента или <b>-1</b>, если элемент не найден</li>
+          </ul>
+
+          <h4>Описание:</h4>
+          <ul class="list-ul">
+            <li>Используют строгое сравнение <b>(===)</b></li>
+            <li><b>indexOf()</b> ищет с начала массива, <b>lastIndexOf()</b> - с конца</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>const nums = [1, 2, 3, 2, 1];
 nums.indexOf(2);     // 1
 nums.indexOf(4);     // -1
 nums.lastIndexOf(2); // 3
-nums.indexOf(2, 2);  // 3</code></pre>
-                            </div>
-                        </div>
+nums.indexOf(2, 2);  // 3
 
-                        <div class="method-card">
-                            <h3><code>includes()</code></h3>
-                            <p><strong>Проверяет наличие элемента в массиве</strong></p>
-                            <ul class="list-ul">
-                                <li>Возвращает true/false</li>
-                                <li>Использует строгое сравнение (===)</li>
-                                <li>Работает с NaN (в отличие от indexOf)</li>
-                            </ul>
+let fruits = ["яблоко", "банан", "киви"];
+console.log(fruits.indexOf("банан")); // 1
+console.log(fruits.indexOf("апельсин")); // -1 — не найдено
+</code></pre>
+          </div>
 
-                            <div class="grid-column-100">
-                                <pre><code>const result = arr.includes(valueToFind, [fromIndex])</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Примеры:</h4>
-                                <pre><code>const arr = [1, 2, 3, NaN];
+          <div class="note-block warning">
+            <h4>⚠️ Частые ошибки</h4>
+
+            <p><strong>1. Не находят NaN</strong></p>
+            <p>Из-за строгого сравнения (===) <code>indexOf()</code> не может найти <code>NaN</code>, потому что <code>NaN === NaN</code> равно <code>false</code>:</p>
+            <div class="code-block">
+              <pre><code>const arr = [1, NaN, 3];
+arr.indexOf(NaN); // -1 — не найдено, хотя NaN есть в массиве!
+
+// Используйте includes() — он находит NaN корректно:
+arr.includes(NaN); // true</code></pre>
+            </div>
+
+            <p><strong>2. Сравнение объектов/массивов по значению</strong></p>
+            <p>Как и большинство методов поиска, <code>indexOf()</code> сравнивает объекты по ссылке, а не по содержимому:</p>
+            <div class="code-block">
+              <pre><code>const users = [{ name: 'Аня' }, { name: 'Петя' }];
+users.indexOf({ name: 'Аня' }); // -1 — это другой объект!
+
+// Чтобы найти индекс по содержимому, используйте findIndex():
+users.findIndex(user => user.name === 'Аня'); // 0</code></pre>
+            </div>
+
+            <p><strong>3. Забывают, что результат — число, и сравнивают его как boolean</strong></p>
+            <p>Частая ошибка — писать <code>if (arr.indexOf(x))</code> вместо <code>if (arr.indexOf(x) !== -1)</code>. Если элемент найден на позиции 0, такое условие будет ложным, хотя элемент присутствует:</p>
+            <div class="code-block">
+              <pre><code>const arr = ['a', 'b', 'c'];
+
+if (arr.indexOf('a')) {
+  console.log('найдено'); // не выведется! indexOf('a') вернёт 0, а 0 — falsy
+}
+
+// Правильно:
+if (arr.indexOf('a') !== -1) {
+  console.log('найдено'); // выведется
+}
+
+// Или читабельнее через includes():
+if (arr.includes('a')) {
+  console.log('найдено');
+}</code></pre>
+            </div>
+
+            <p><strong>4. Путают направление поиска у fromIndex в lastIndexOf()</strong></p>
+            <p><code>fromIndex</code> у <code>lastIndexOf()</code> задаёт верхнюю границу поиска, а сам поиск всё равно идёт от этой позиции к началу массива — это иногда сбивает с толку:</p>
+            <div class="code-block">
+              <pre><code>const arr = [1, 2, 3, 2, 1];
+
+arr.lastIndexOf(2, 2); // 1 — поиск идёт от индекса 2 к началу, находит 2 на позиции 1
+arr.lastIndexOf(2);    // 3 — без fromIndex ищет от самого конца</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>💡 Когда использовать</h4>
+            <ul class="list-ul">
+              <li>Когда нужна именно <b>позиция</b> элемента, а не просто факт его наличия (для этого хватило бы <code>includes()</code>)</li>
+              <li>
+                Удаление конкретного элемента из массива по значению — найти индекс, затем удалить через <code>splice()</code>:
+                <code>arr.splice(arr.indexOf(item), 1)</code>
+              </li>
+              <li>Поиск последнего вхождения элемента (например, последнее упоминание дубликата) — <code>lastIndexOf()</code></li>
+              <li>Если объекты сравниваются по содержимому, а не по ссылке — используйте <code>findIndex()</code> вместо <code>indexOf()</code></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- includes() -->
+      <section class="section" id="method-includes">
+        <div class="container">
+          <h2><code>includes()</code></h2>
+          <p class="note"><strong>includes()</strong> - метод проверяет, <b>содержит ли массив</b> указанный элемент. Является немутирующим методом. То есть не изменяет исходный массив.</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>const result = arr.includes(valueToFind, [fromIndex])</code></pre>
+          </div>
+
+          <h4>Параметры:</h4>
+          <ul class="list-ul">
+            <li><b>valueToFind</b> - значение, наличие которого нужно проверить</li>
+            <li><b>fromIndex</b> - индекс, с которого начинается поиск (необязательно)</li>
+          </ul>
+
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li><b>true</b>, если элемент найден;</li>
+            <li><b>false</b>, если элемент не найден</li>
+          </ul>
+
+          <h4>Описание:</h4>
+          <ul class="list-ul">
+            <li>Использует алгоритм сравнения SameValueZero (почти как ===, но корректно работает с NaN)</li>
+            <li>В отличие от indexOf, корректно находит NaN</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>const arr = [1, 2, 3, NaN];
 arr.includes(2);    // true
 arr.includes(4);    // false
 arr.includes(NaN);  // true (indexOf не может найти NaN)</code></pre>
-                            </div>
-                        </div>
+          </div>
 
-                        <div class="method-card">
-                            <h3>
-                                <code>find()</code>
-                                /
-                                <code>findIndex()</code>
-                            </h3>
-                            <p><strong>Поиск по условию (ES6+)</strong></p>
-                            <ul class="list-ul">
-                                <li>find() возвращает элемент, findIndex() - его индекс</li>
-                                <li>Возвращают undefined/-1 если не найдено</li>
-                                <li>Принимают функцию-предикат</li>
-                            </ul>
+          <div class="note-block warning">
+            <h4>⚠️ Частые ошибки</h4>
 
-                            <div class="grid-column-100">
-                                <pre><code>const element = arr.find(callback(element, index, array))
+            <p><strong>1. Проверка наличия объекта или массива по значению</strong></p>
+            <p><code>includes()</code> сравнивает объекты по ссылке, а не по содержимому. Два визуально одинаковых объекта — это разные ссылки:</p>
+            <div class="code-block">
+              <pre><code>const users = [{ name: 'Аня' }, { name: 'Петя' }];
+
+users.includes({ name: 'Аня' }); // false — это другой объект!
+
+// Чтобы найти по содержимому, используйте some() или find():
+users.some(user => user.name === 'Аня'); // true</code></pre>
+            </div>
+
+            <p><strong>2. Путают <code>Array.prototype.includes()</code> со <code>String.prototype.includes()</code></strong></p>
+            <p>У строк <code>includes()</code> ищет подстроку, а у массивов — точное совпадение элемента. Это разные методы с похожим названием:</p>
+            <div class="code-block">
+              <pre><code>'JavaScript'.includes('Script'); // true — подстрока
+
+['Java', 'Script'].includes('Script'); // true — точный элемент
+['Java', 'Script'].includes('JavaScript'); // false — такого элемента целиком нет</code></pre>
+            </div>
+
+            <p><strong>3. Не знают про неочевидное поведение с -0 и +0</strong></p>
+            <p>SameValueZero считает <code>-0</code> и <code>0</code> одним и тем же значением (в отличие от <code>===</code> в некоторых контекстах это совпадает, но важно знать явно):</p>
+            <div class="code-block">
+              <pre><code>[-0].includes(0); // true
+[0].includes(-0); // true</code></pre>
+            </div>
+
+            <p><strong>4. Используют includes() для частых проверок в большом массиве</strong></p>
+            <p>Каждый вызов — это поиск за O(n). Если проверка наличия делается многократно (например, в цикле), это может стать узким местом по производительности:</p>
+            <div class="code-block">
+              <pre><code>const hugeArray = [/* тысячи элементов */];
+
+// Медленно при частых вызовах: каждый includes() — O(n)
+for (const item of itemsToCheck) {
+  if (hugeArray.includes(item)) { /* ... */ }
+}
+
+// Быстрее: один раз создать Set — поиск O(1)
+const lookupSet = new Set(hugeArray);
+for (const item of itemsToCheck) {
+  if (lookupSet.has(item)) { /* ... */ }
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>💡 Когда использовать</h4>
+            <ul class="list-ul">
+              <li>Проверка наличия примитивного значения (числа, строки, булева) в небольшом или среднем массиве</li>
+              <li>
+                Замена громоздкой конструкции <code>arr.indexOf(x) !== -1</code> на более читаемую:
+                <code>arr.includes(x)</code>
+              </li>
+              <li>Проверка значения против "белого" или "чёрного" списка допустимых значений</li>
+              <li>Если важна именно позиция элемента, а не факт наличия — используйте <code>indexOf()</code></li>
+              <li>Для частых проверок наличия в больших массивах — рассмотрите <code>Set</code> вместо <code>includes()</code></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- find() / findIndex() -->
+      <section class="section" id="method-find">
+        <div class="container">
+          <h2><code>find()</code> / <code>findIndex()</code></h2>
+          <p class="note"><strong>find()</strong> и <strong>findIndex()</strong> - методы ищут элемент <b>по условию</b>: find() возвращает сам элемент, findIndex() - его индекс. Являются немутирующими методами (ES6+). То есть не изменяют исходный массив.</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>const element = arr.find(callback(element, index, array))
 const index = arr.findIndex(callback(element, index, array))</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Примеры:</h4>
-                                <pre><code>const users = [
+          </div>
+
+          <h5>Параметры:</h5>
+          <ul class="list-ul">
+            <li>callback - функция-предикат, вызывается для каждого элемента до тех пор, пока не вернёт true</li>
+          </ul>
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>find() - найденный элемент или undefined, если не найден</li>
+            <li>findIndex() - индекс найденного элемента или -1, если не найден</li>
+          </ul>
+          <h4>Описание:</h4>
+          <ul class="list-ul">
+            <li>Принимают функцию-предикат, останавливаются на первом подходящем элементе</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>const users = [
   {id: 1, name: 'Аня'},
   {id: 2, name: 'Петя'}
 ];
 
 users.find(user => user.id === 2); // {id: 2, name: 'Петя'}
 users.findIndex(user => user.name === 'Маша'); // -1</code></pre>
-                            </div>
-                        </div>
+          </div>
+        </div>
+      </section>
 
-                        <!-- 3. Методы преобразования -->
-                        <h2>3. Методы преобразования</h2>
+      <!-- map() -->
+      <section class="section" id="method-map">
+        <div class="container">
+          <h2><code>map()</code></h2>
+          <p class="note"><strong>map()</strong> - метод создаёт <b>новый массив с преобразованными элементами</b>, применяя переданную функцию к каждому элементу. Является немутирующим методом. То есть не изменяет исходный массив.</p>
 
-                        <div class="method-card">
-                            <h3><code>map()</code></h3>
-                            <p><strong>Создает новый массив с преобразованными элементами</strong></p>
-                            <ul class="list-ul">
-                                <li>Не изменяет исходный массив</li>
-                                <li>Длина нового массива = длине исходного</li>
-                                <li>Принимает функцию преобразования</li>
-                            </ul>
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>const newArray = arr.map(callback(currentValue, index, array))</code></pre>
+          </div>
 
-                            <div class="grid-column-100">
-                                <pre><code>const newArray = arr.map(callback(currentValue, index, array))</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Примеры:</h4>
-                                <pre><code>const nums = [1, 2, 3];
+          <h5>Параметры:</h5>
+          <ul class="list-ul">
+            <li>callback - функция преобразования, вызывается для каждого элемента массива</li>
+          </ul>
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Новый массив с результатами вызова callback для каждого элемента</li>
+          </ul>
+          <h4>Описание:</h4>
+          <ul class="list-ul">
+            <li>Длина нового массива равна длине исходного</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>const nums = [1, 2, 3];
 const doubled = nums.map(n => n * 2); // [2, 4, 6]
 
 const users = [{name: 'Аня'}, {name: 'Петя'}];
 const names = users.map(user => user.name); // ['Аня', 'Петя']</code></pre>
-                            </div>
-                        </div>
+          </div>
+        </div>
+      </section>
 
-                        <div class="method-card">
-                            <h3><code>filter()</code></h3>
-                            <p><strong>Создает новый массив с элементами, прошедшими проверку</strong></p>
-                            <ul class="list-ul">
-                                <li>Длина нового массива ≤ длине исходного</li>
-                                <li>Принимает функцию-предикат</li>
-                                <li>Возвращает пустой массив, если ни один элемент не прошел проверку</li>
-                            </ul>
+      <!-- filter() -->
+      <section class="section" id="method-filter">
+        <div class="container">
+          <h2><code>filter()</code></h2>
+          <p class="note"><strong>filter()</strong> - метод создаёт <b>новый массив с элементами, прошедшими проверку</b> переданной функцией. Является немутирующим методом. То есть не изменяет исходный массив.</p>
 
-                            <div class="grid-column-100">
-                                <pre><code>const newArray = arr.filter(callback(element, index, array))</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Примеры:</h4>
-                                <pre><code>const nums = [1, 2, 3, 4, 5];
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>const newArray = arr.filter(callback(element, index, array))</code></pre>
+          </div>
+
+          <h5>Параметры:</h5>
+          <ul class="list-ul">
+            <li>callback - функция-предикат, вызывается для каждого элемента массива</li>
+          </ul>
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Новый массив с элементами, для которых callback вернул true</li>
+          </ul>
+          <h4>Описание:</h4>
+          <ul class="list-ul">
+            <li>Длина нового массива меньше или равна длине исходного</li>
+            <li>Возвращает пустой массив, если ни один элемент не прошел проверку</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>const nums = [1, 2, 3, 4, 5];
 const even = nums.filter(n => n % 2 === 0); // [2, 4]
 
 const words = ['apple', 'banana', 'grape'];
 const longWords = words.filter(word => word.length > 5); // ['banana']</code></pre>
-                            </div>
-                        </div>
+          </div>
+        </div>
+      </section>
 
-                        <div class="method-card">
-                            <h3>
-                                <code>flat()</code>
-                                /
-                                <code>flatMap()</code>
-                                (ES2019)
-                            </h3>
-                            <p><strong>"Выравнивает" вложенные массивы</strong></p>
-                            <ul class="list-ul">
-                                <li>flat() - выравнивает на указанную глубину (по умолчанию 1)</li>
-                                <li>flatMap() = map() + flat(1)</li>
-                                <li>Удаляет пустые слоты</li>
-                            </ul>
+      <!-- flat() / flatMap() -->
+      <section class="section" id="method-flat">
+        <div class="container">
+          <h2><code>flat()</code> / <code>flatMap()</code></h2>
+          <p class="note"><strong>flat()</strong> и <strong>flatMap()</strong> - методы <b>"выравнивают" вложенные массивы</b>. Являются немутирующими методами (ES2019). То есть не изменяют исходный массив.</p>
 
-                            <div class="grid-column-100">
-                                <pre><code>const newArray = arr.flat([depth])
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>const newArray = arr.flat([depth])
 const newArray = arr.flatMap(callback)</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Примеры:</h4>
-                                <pre><code>const arr = [1, [2, 3], [4, [5]]];
+          </div>
+
+          <h5>Параметры:</h5>
+          <ul class="list-ul">
+            <li>depth - глубина выравнивания (необязательно, по умолчанию 1)</li>
+            <li>callback - функция преобразования для flatMap()</li>
+          </ul>
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Новый "выровненный" массив</li>
+          </ul>
+          <h4>Описание:</h4>
+          <ul class="list-ul">
+            <li>flatMap() эквивалентен вызову map(), а затем flat(1)</li>
+            <li>Удаляет пустые слоты массива</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>const arr = [1, [2, 3], [4, [5]]];
 arr.flat();    // [1, 2, 3, 4, [5]]
 arr.flat(2);   // [1, 2, 3, 4, 5]
 
 const phrases = ['Hello world', 'JavaScript arrays'];
 const words = phrases.flatMap(phrase => phrase.split(' '));
 // ['Hello', 'world', 'JavaScript', 'arrays']</code></pre>
-                            </div>
-                        </div>
+          </div>
+        </div>
+      </section>
 
-                        <!-- 4. Современные методы (ES2023+) -->
-                        <h2>4. Современные методы (ES2023+)</h2>
+      <!-- toReversed() / toSorted() / with() -->
+      <section class="section" id="method-modern">
+        <div class="container">
+          <h2><code>toReversed()</code> / <code>toSorted()</code> / <code>with()</code></h2>
+          <p class="note"><strong>toReversed()</strong>, <strong>toSorted()</strong> и <strong>with()</strong> - <b>немутирующие версии</b> мутирующих методов reverse(), sort() и присвоения по индексу. Являются немутирующими методами (ES2023). То есть не изменяют исходный массив.</p>
 
-                        <div class="method-card">
-                            <h3>
-                                <code>toReversed()</code>
-                                /
-                                <code>toSorted()</code>
-                                /
-                                <code>with()</code>
-                            </h3>
-                            <p><strong>Немутирующие версии мутирующих методов</strong></p>
-                            <ul class="list-ul">
-                                <li>toReversed() - немутирующий аналог reverse()</li>
-                                <li>toSorted() - немутирующий аналог sort()</li>
-                                <li>with() - немутирующий аналог arr[index] = value</li>
-                            </ul>
-
-                            <div class="grid-column-100">
-                                <pre><code>const reversed = arr.toReversed()
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>const reversed = arr.toReversed()
 const sorted = arr.toSorted([compareFn])
 const newArray = arr.with(index, value)</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Примеры:</h4>
-                                <pre><code>const arr = [1, 2, 3];
+          </div>
+
+          <h5>Параметры:</h5>
+          <ul class="list-ul">
+            <li>compareFn - функция сравнения для toSorted() (необязательно)</li>
+            <li>index, value - индекс и новое значение для with()</li>
+          </ul>
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Новый массив с применённым изменением; исходный массив остаётся без изменений</li>
+          </ul>
+          <h4>Описание:</h4>
+          <ul class="list-ul">
+            <li>toReversed() - немутирующий аналог reverse()</li>
+            <li>toSorted() - немутирующий аналог sort()</li>
+            <li>with() - немутирующий аналог arr[index] = value</li>
+            <li>Не поддерживаются в старых браузерах — проверяйте совместимость перед использованием</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>const arr = [1, 2, 3];
 arr.toReversed(); // [3, 2, 1] (arr не изменился)
 
 const unsorted = [3, 1, 2];
@@ -705,202 +1633,237 @@ unsorted.toSorted((a, b) => a - b); // [1, 2, 3]
 
 const letters = ['a', 'b', 'd'];
 letters.with(2, 'c'); // ['a', 'b', 'c']</code></pre>
-                            </div>
-                        </div>
+          </div>
+        </div>
+      </section>
 
-                        <div class="method-card">
-                            <h3>
-                                <code>at()</code>
-                                (ES2022)
-                            </h3>
-                            <p><strong>Доступ к элементам по индексу (включая отрицательные)</strong></p>
-                            <ul class="list-ul">
-                                <li>Принимает положительные и отрицательные индексы</li>
-                                <li>arr.at(-1) - последний элемент</li>
-                                <li>Безопаснее arr[index] для вычисляемых индексов</li>
-                            </ul>
+      <!-- at() -->
+      <section class="section" id="method-at">
+        <div class="container">
+          <h2><code>at()</code></h2>
+          <p class="note"><strong>at()</strong> - метод обеспечивает <b>доступ к элементу по индексу</b>, включая отрицательные индексы. Является немутирующим методом (ES2022). То есть не изменяет исходный массив.</p>
 
-                            <div class="grid-column-100">
-                                <pre><code>const element = arr.at(index)</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Примеры:</h4>
-                                <pre><code>const fruits = ['apple', 'banana', 'orange'];
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>const element = arr.at(index)</code></pre>
+          </div>
+
+          <h5>Параметры:</h5>
+          <ul class="list-ul">
+            <li>index - положительный или отрицательный индекс элемента</li>
+          </ul>
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Элемент массива по указанному индексу или undefined, если индекс выходит за границы</li>
+          </ul>
+          <h4>Описание:</h4>
+          <ul class="list-ul">
+            <li>arr.at(-1) возвращает последний элемент</li>
+            <li>Безопаснее arr[index] для вычисляемых индексов</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>const fruits = ['apple', 'banana', 'orange'];
 fruits.at(0);   // 'apple'
 fruits.at(-1);  // 'orange'
 fruits.at(-2);  // 'banana'
 fruits.at(5);   // undefined</code></pre>
-                            </div>
-                        </div>
+          </div>
+        </div>
+      </section>
 
-                        <!-- Сводная таблица -->
-                        <div class="note-block">
-                            <h3>Сводная таблица немутирующих методов</h3>
-                            <table class="table-note">
-                                <thead>
-                                    <tr>
-                                        <th>Метод</th>
-                                        <th>Возвращает</th>
-                                        <th>Использование</th>
-                                        <th>Особенности</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>concat()</code></td>
-                                        <td>Массив</td>
-                                        <td>Объединение массивов</td>
-                                        <td>Может принимать любое количество аргументов</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>slice()</code></td>
-                                        <td>Массив</td>
-                                        <td>Копирование части массива</td>
-                                        <td>Отрицательные индексы, создание копий</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>join()</code></td>
-                                        <td>Строка</td>
-                                        <td>Объединение элементов</td>
-                                        <td>Разделитель по умолчанию - запятая</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <code>indexOf()</code>
-                                            <br />
-                                            <code>lastIndexOf()</code>
-                                        </td>
-                                        <td>Число</td>
-                                        <td>Поиск индекса элемента</td>
-                                        <td>Строгое сравнение, возвращает -1 если не найдено</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>includes()</code></td>
-                                        <td>Boolean</td>
-                                        <td>Проверка наличия элемента</td>
-                                        <td>Работает с NaN, строгое сравнение</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <code>find()</code>
-                                            <br />
-                                            <code>findIndex()</code>
-                                        </td>
-                                        <td>Элемент/Число</td>
-                                        <td>Поиск по условию</td>
-                                        <td>Принимает функцию-предикат</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>map()</code></td>
-                                        <td>Массив</td>
-                                        <td>Преобразование элементов</td>
-                                        <td>Длина = исходному массиву</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>filter()</code></td>
-                                        <td>Массив</td>
-                                        <td>Фильтрация элементов</td>
-                                        <td>Только элементы, прошедшие проверку</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <code>flat()</code>
-                                            <br />
-                                            <code>flatMap()</code>
-                                        </td>
-                                        <td>Массив</td>
-                                        <td>Выравнивание массивов</td>
-                                        <td>flatMap = map + flat(1)</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>at()</code></td>
-                                        <td>Элемент</td>
-                                        <td>Доступ по индексу</td>
-                                        <td>Поддерживает отрицательные индексы</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <code>toReversed()</code>
-                                            <br />
-                                            <code>toSorted()</code>
-                                            <br />
-                                            <code>with()</code>
-                                        </td>
-                                        <td>Массив</td>
-                                        <td>Безопасные операции</td>
-                                        <td>ES2023+ (не поддерживается в старых браузерах)</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+      <section class="section" id="methods-nonmutating-summary">
+        <div class="container">
+          <h3>Сводная таблица немутирующих методов</h3>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Метод</th>
+                <th>Возвращает</th>
+                <th>Использование</th>
+                <th>Особенности</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>concat()</code></td>
+                <td>Массив</td>
+                <td>Объединение массивов</td>
+                <td>Может принимать любое количество аргументов</td>
+              </tr>
+              <tr>
+                <td><code>slice()</code></td>
+                <td>Массив</td>
+                <td>Копирование части массива</td>
+                <td>Отрицательные индексы, создание копий</td>
+              </tr>
+              <tr>
+                <td><code>join()</code></td>
+                <td>Строка</td>
+                <td>Объединение элементов</td>
+                <td>Разделитель по умолчанию - запятая</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>indexOf()</code>
+                  <br />
+                  <code>lastIndexOf()</code>
+                </td>
+                <td>Число</td>
+                <td>Поиск индекса элемента</td>
+                <td>Строгое сравнение, возвращает -1 если не найдено</td>
+              </tr>
+              <tr>
+                <td><code>includes()</code></td>
+                <td>Boolean</td>
+                <td>Проверка наличия элемента</td>
+                <td>Работает с NaN, строгое сравнение</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>find()</code>
+                  <br />
+                  <code>findIndex()</code>
+                </td>
+                <td>Элемент/Число</td>
+                <td>Поиск по условию</td>
+                <td>Принимает функцию-предикат</td>
+              </tr>
+              <tr>
+                <td><code>map()</code></td>
+                <td>Массив</td>
+                <td>Преобразование элементов</td>
+                <td>Длина = исходному массиву</td>
+              </tr>
+              <tr>
+                <td><code>filter()</code></td>
+                <td>Массив</td>
+                <td>Фильтрация элементов</td>
+                <td>Только элементы, прошедшие проверку</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>flat()</code>
+                  <br />
+                  <code>flatMap()</code>
+                </td>
+                <td>Массив</td>
+                <td>Выравнивание массивов</td>
+                <td>flatMap = map + flat(1)</td>
+              </tr>
+              <tr>
+                <td><code>at()</code></td>
+                <td>Элемент</td>
+                <td>Доступ по индексу</td>
+                <td>Поддерживает отрицательные индексы</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>toReversed()</code>
+                  <br />
+                  <code>toSorted()</code>
+                  <br />
+                  <code>with()</code>
+                </td>
+                <td>Массив</td>
+                <td>Безопасные операции</td>
+                <td>ES2023+ (не поддерживается в старых браузерах)</td>
+              </tr>
+            </tbody>
+          </table>
 
-                        <div class="note-block info">
-                            <h4>Рекомендации по использованию:</h4>
-                            <ul class="list-ul">
-                                <li>Используйте немутирующие методы для функционального программирования</li>
-                                <li>Методы ES2023+ (toReversed, toSorted, with) - безопасная замена мутирующим операциям</li>
-                                <li>
-                                    Для проверки существования элемента предпочитайте
-                                    <code>includes()</code>
-                                    вместо
-                                    <code>indexOf()</code>
-                                </li>
-                                <li>
-                                    Комбинируйте методы для сложных преобразований:
-                                    <code>filter().map()</code>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
+          <div class="note-block info">
+            <h4>Рекомендации по использованию:</h4>
+            <ul class="list-ul">
+              <li>Используйте немутирующие методы для функционального программирования</li>
+              <li>Методы ES2023+ (toReversed, toSorted, with) - безопасная замена мутирующим операциям</li>
+              <li>
+                Для проверки существования элемента предпочитайте
+                <code>includes()</code>
+                вместо
+                <code>indexOf()</code>
+              </li>
+              <li>
+                Комбинируйте методы для сложных преобразований:
+                <code>filter().map()</code>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-                <!-- Итерационные методы -->
-                <section class="section" id="methods-iteration">
-                    <div class="container">
-                        <h2>Итерационные методы и редукция</h2>
+      <!-- ===================== ИТЕРАЦИОННЫЕ МЕТОДЫ ===================== -->
 
-                        <!-- 1. Методы итерации -->
-                        <h2>1. Методы итерации</h2>
+      <!-- forEach() -->
+      <section class="section" id="method-foreach">
+        <div class="container">
+          <h2><code>forEach()</code></h2>
+          <p class="note"><strong>forEach()</strong> - метод <b>выполняет переданную функцию для каждого элемента</b> массива. Является итерационным методом. То есть проходит по всем элементам, но сам массив не изменяет.</p>
 
-                        <div class="method-card">
-                            <h3><code>forEach()</code></h3>
-                            <p><strong>Выполняет функцию для каждого элемента массива</strong></p>
-                            <ul class="list-ul">
-                                <li>Не возвращает значение (возвращает undefined)</li>
-                                <li>Не изменяет массив (но может изменять элементы)</li>
-                                <li>Не прерывается при возврате false (в отличие от for)</li>
-                            </ul>
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>arr.forEach(callback(currentValue, index, array))</code></pre>
+          </div>
 
-                            <div class="grid-column-100">
-                                <pre><code>arr.forEach(callback(currentValue, index, array))</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Пример:</h4>
-                                <pre><code>const fruits = ['apple', 'banana', 'orange'];
+          <h5>Параметры:</h5>
+          <ul class="list-ul">
+            <li>callback - функция, вызываемая для каждого элемента массива</li>
+          </ul>
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>undefined - метод не возвращает значение</li>
+          </ul>
+          <h4>Описание:</h4>
+          <ul class="list-ul">
+            <li>Не изменяет сам массив (но может изменять элементы внутри callback)</li>
+            <li>Не прерывается при возврате false из callback (в отличие от обычного цикла for)</li>
+          </ul>
+
+          <h4>Пример:</h4>
+          <div class="code-block">
+            <pre><code>const fruits = ['apple', 'banana', 'orange'];
 fruits.forEach((fruit, index) => {
   console.log(`${index}: ${fruit}`);
 });
 // 0: apple
 // 1: banana
 // 2: orange</code></pre>
-                            </div>
-                        </div>
+          </div>
+        </div>
+      </section>
 
-                        <div class="method-card">
-                            <h3><code>every()</code></h3>
-                            <p><strong>Проверяет, все ли элементы удовлетворяют условию</strong></p>
-                            <ul class="list-ul">
-                                <li>Возвращает true/false</li>
-                                <li>Прекращает проверку при первом false</li>
-                                <li>Для пустого массива возвращает true</li>
-                            </ul>
+      <!-- every() / some() -->
+      <section class="section" id="method-every-some">
+        <div class="container">
+          <h2><code>every()</code> / <code>some()</code></h2>
+          <p class="note"><strong>every()</strong> и <strong>some()</strong> - методы <b>проверяют условие</b> для элементов массива: every() для всех элементов, some() для хотя бы одного. Являются итерационными методами. То есть проходят по элементам, но сам массив не изменяют.</p>
 
-                            <div class="grid-column-100">
-                                <pre><code>const result = arr.every(callback(element, index, array))</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Примеры:</h4>
-                                <pre><code>const nums = [2, 4, 6, 8];
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>const allMatch = arr.every(callback(element, index, array))
+const anyMatch = arr.some(callback(element, index, array))</code></pre>
+          </div>
+
+          <h5>Параметры:</h5>
+          <ul class="list-ul">
+            <li>callback - функция-предикат, вызывается для каждого элемента до получения результата</li>
+          </ul>
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>every() - true, если ВСЕ элементы прошли проверку; иначе false</li>
+            <li>some() - true, если хотя бы ОДИН элемент прошёл проверку; иначе false</li>
+          </ul>
+          <h4>Описание:</h4>
+          <ul class="list-ul">
+            <li>every() прекращает проверку при первом false</li>
+            <li>some() прекращает проверку при первом true</li>
+            <li>Для пустого массива every() возвращает true, а some() — false</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>const nums = [2, 4, 6, 8];
 const allEven = nums.every(n => n % 2 === 0); // true
 
 const users = [
@@ -908,59 +1871,50 @@ const users = [
   {age: 22},
   {age: 16}
 ];
-const allAdult = users.every(user => user.age >= 18); // false</code></pre>
-                            </div>
-                        </div>
+const allAdult = users.every(user => user.age >= 18); // false
 
-                        <div class="method-card">
-                            <h3><code>some()</code></h3>
-                            <p><strong>Проверяет, удовлетворяет ли условию хотя бы один элемент</strong></p>
-                            <ul class="list-ul">
-                                <li>Возвращает true/false</li>
-                                <li>Прекращает проверку при первом true</li>
-                                <li>Для пустого массива возвращает false</li>
-                            </ul>
-
-                            <div class="grid-column-100">
-                                <pre><code>const result = arr.some(callback(element, index, array))</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Примеры:</h4>
-                                <pre><code>const nums = [1, 3, 5, 8];
-const hasEven = nums.some(n => n % 2 === 0); // true
+const oddNums = [1, 3, 5, 8];
+const hasEven = oddNums.some(n => n % 2 === 0); // true
 
 const tasks = [
   {completed: false},
   {completed: true}
 ];
 const hasCompleted = tasks.some(task => task.completed); // true</code></pre>
-                            </div>
-                        </div>
+          </div>
+        </div>
+      </section>
 
-                        <!-- 2. Методы редукции -->
-                        <h2>2. Методы редукции</h2>
+      <!-- reduce() / reduceRight() -->
+      <section class="section" id="method-reduce">
+        <div class="container">
+          <h2><code>reduce()</code> / <code>reduceRight()</code></h2>
+          <p class="note"><strong>reduce()</strong> и <strong>reduceRight()</strong> - методы <b>сводят массив к одному значению</b>: reduce() обрабатывает массив слева направо, reduceRight() - справа налево. Являются итерационными методами. То есть проходят по элементам, но сам массив не изменяют.</p>
 
-                        <div class="method-card">
-                            <h3>
-                                <code>reduce()</code>
-                                /
-                                <code>reduceRight()</code>
-                            </h3>
-                            <p><strong>Сводит массив к одному значению (слева направо или справа налево)</strong></p>
-                            <ul class="list-ul">
-                                <li>reduce() обрабатывает массив слева направо</li>
-                                <li>reduceRight() - справа налево</li>
-                                <li>Принимает функцию-редуктор и начальное значение</li>
-                                <li>Широко используется для агрегации данных</li>
-                            </ul>
-
-                            <div class="grid-column-100">
-                                <pre><code>const result = arr.reduce(callback(accumulator, currentValue, index, array), initialValue)
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>const result = arr.reduce(callback(accumulator, currentValue, index, array), initialValue)
 const result = arr.reduceRight(callback(accumulator, currentValue, index, array), initialValue)</code></pre>
-                            </div>
-                            <div class="grid-column-100">
-                                <h4>Примеры:</h4>
-                                <pre><code>// Сумма элементов
+          </div>
+
+          <h5>Параметры:</h5>
+          <ul class="list-ul">
+            <li>callback - функция-редуктор, вызывается для каждого элемента</li>
+            <li>initialValue - начальное значение аккумулятора (необязательно, но рекомендуется указывать явно)</li>
+          </ul>
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Итоговое значение, к которому свёлся массив</li>
+          </ul>
+          <h4>Описание:</h4>
+          <ul class="list-ul">
+            <li>Широко используется для агрегации данных (суммы, максимумы, счётчики и т.д.)</li>
+            <li>Без initialValue первый элемент массива становится начальным значением аккумулятора</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>// Сумма элементов
 const nums = [1, 2, 3, 4];
 const sum = nums.reduce((acc, n) => acc + n, 0); // 10
 
@@ -978,17 +1932,18 @@ const count = words.reduce((acc, word) => {
 const nested = [[1], [2, 3], [4]];
 const flatRight = nested.reduceRight((acc, arr) => acc.concat(arr), []);
 // [4, 2, 3, 1]</code></pre>
-                            </div>
-                        </div>
+          </div>
+        </div>
+      </section>
 
-                        <!-- 3. Цепочки методов -->
-                        <div class="note-block">
-                            <h3>Цепочки методов</h3>
-                            <p>Методы можно объединять в цепочки для сложных преобразований данных:</p>
+      <section class="section" id="methods-chains">
+        <div class="container">
+          <h2>Цепочки методов</h2>
+          <p>Методы можно объединять в цепочки для сложных преобразований данных:</p>
 
-                            <div class="method-card">
-                                <h4>Фильтрация + преобразование</h4>
-                                <pre><code>const products = [
+          <h4>Фильтрация + преобразование</h4>
+          <div class="code-block">
+            <pre><code>const products = [
   { name: 'Laptop', price: 1000, category: 'electronics' },
   { name: 'Shirt', price: 30, category: 'clothes' },
   { name: 'Phone', price: 800, category: 'electronics' }
@@ -1000,11 +1955,11 @@ const result = products
   .map(p => p.name);
 
 console.log(result); // ['Laptop', 'Phone']</code></pre>
-                            </div>
+          </div>
 
-                            <div class="method-card">
-                                <h4>Обработка + агрегация</h4>
-                                <pre><code>const orders = [
+          <h4>Обработка + агрегация</h4>
+          <div class="code-block">
+            <pre><code>const orders = [
   { id: 1, items: [ {price: 10}, {price: 20} ] },
   { id: 2, items: [ {price: 15}, {price: 25} ] }
 ];
@@ -1015,23 +1970,23 @@ const total = orders
   .reduce((sum, item) => sum + item.price, 0);
 
 console.log(total); // 70</code></pre>
-                            </div>
+          </div>
 
-                            <div class="note-block info">
-                                <h4>Рекомендации по цепочкам:</h4>
-                                <ul class="list-ul">
-                                    <li>Фильтруйте перед преобразованием (filter → map) для лучшей производительности</li>
-                                    <li>Избегайте излишне длинных цепочек (более 3-4 операций)</li>
-                                    <li>Для сложных преобразований используйте промежуточные переменные</li>
-                                    <li>Помните, что forEach в конце цепочки не возвращает значение</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </main>
-            @@include('../partials/footer.html', {})
+          <div class="note-block info">
+            <h4>Рекомендации по цепочкам:</h4>
+            <ul class="list-ul">
+              <li>Фильтруйте перед преобразованием (filter → map) для лучшей производительности</li>
+              <li>Избегайте излишне длинных цепочек (более 3-4 операций)</li>
+              <li>Для сложных преобразований используйте промежуточные переменные</li>
+              <li>Помните, что forEach в конце цепочки не возвращает значение</li>
+            </ul>
+          </div>
         </div>
-        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
-    </body>
+      </section>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+</body>
+
 </html>

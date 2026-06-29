@@ -1,291 +1,304 @@
 <!DOCTYPE html>
 <html lang="ru">
-    @@include('../partials/head.html', { "title": "Основы JavaScript: Типы данных", "description": "Краткое руководство по типам данных в JavaScript" })
-    <body>
-        <div class="wrapper">
-            @@include('../partials/header.html', {})
-            <main class="page">
-                <nav class="nav-tabs">
-                    <a href="#types-intro" class="active">Введение</a>
-                    <a href="#types-primitive">Примитивы</a>
-                    <a href="#types-object">Объекты</a>
-                    <a href="#types-check">Проверка типов</a>
-                </nav>
+@@include('../partials/head.html', { "title": "Основы JavaScript: Типы данных", "description": "Краткое руководство по типам данных в JavaScript" })
 
-                <!-- Введение -->
-                <section class="section" id="types-intro">
-                    <div class="container">
-                        <h1>Типы данных в JavaScript</h1>
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="#types-intro" class="active">Введение</a>
+        <a href="#types-primitive">Примитивы</a>
+        <a href="#types-object">Объекты</a>
+        <a href="#types-string">Строки</a>
+        <a href="#types-number">Числа</a>
+        <a href="#types-boolean">Boolean</a>
+        <a href="#types-undefined">Undefined</a>
+        <a href="#types-null">Null</a>
+        <a href="#types-array">Массивы</a>
+        <a href="#types-check">Проверка типов</a>
 
-                        <p class="note">
-                            <strong>JavaScript</strong>
-                            — динамически типизированный язык с 8 основными типами данных.
-                            <br />
-                            Переменные могут менять тип в процессе выполнения программы.
-                        </p>
+      </nav>
 
-                        <div class="grid-column-50">
-                            <div class="example">
-                                <h4>Классификация типов:</h4>
-                                <ul class="list-ul">
-                                    <li>7 примитивных типов</li>
-                                    <li>1 объектный тип</li>
-                                    <li>Специальные значения (null, undefined)</li>
-                                </ul>
-                            </div>
-                            <div class="example">
-                                <h4>Особенности:</h4>
-                                <ul class="list-ul">
-                                    <li>Автоматическое преобразование типов</li>
-                                    <li>Гибкость в работе с данными</li>
-                                    <li>Нестрогая типизация</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+      <!-- Введение -->
+      <section class="section" id="types-intro">
+        <div class="container">
+          <h1>Типы данных в JavaScript</h1>
 
-                <!-- Примитивные типы -->
-                <section class="section" id="types-primitive">
-                    <div class="container">
-                        <h2>Примитивные типы данных</h2>
+          <p class="note">
+            <strong>JavaScript</strong>
+            — динамически типизированный язык с 8 основными типами данных.
+            <br />
+            Переменные могут менять тип в процессе выполнения программы.
+          </p>
 
-                        <p class="note">
-                            <strong>Примитивы</strong>
-                            — простые неизменяемые значения, которые хранятся непосредственно в переменной.
-                            <br />
-                            При присваивании создается копия значения.
-                        </p>
+          <h4>Классификация типов:</h4>
+          <ul class="list-ul">
+            <li>7 примитивных типов</li>
+            <li>1 объектный тип</li>
+            <li>Специальные значения (null, undefined)</li>
+          </ul>
 
-                        <table class="table-note">
-                            <thead>
-                                <tr>
-                                    <th>Тип</th>
-                                    <th>Описание</th>
-                                    <th>Пример</th>
-                                    <th>typeof</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><code>number</code></td>
-                                    <td>
-                                        Целые и дробные числа (±2
-                                        <sup>53</sup>
-                                        -1)
-                                    </td>
-                                    <td><code>let n = 3.14;</code></td>
-                                    <td>"number"</td>
-                                </tr>
-                                <tr>
-                                    <td><code>bigint</code></td>
-                                    <td>Целые числа произвольной длины</td>
-                                    <td><code>const big = 123n;</code></td>
-                                    <td>"bigint"</td>
-                                </tr>
-                                <tr>
-                                    <td><code>string</code></td>
-                                    <td>Текст в кавычках</td>
-                                    <td><code>let s = "текст";</code></td>
-                                    <td>"string"</td>
-                                </tr>
-                                <tr>
-                                    <td><code>boolean</code></td>
-                                    <td>Логические true/false</td>
-                                    <td><code>let b = true;</code></td>
-                                    <td>"boolean"</td>
-                                </tr>
-                                <tr>
-                                    <td><code>null</code></td>
-                                    <td>Специальное "ничего"</td>
-                                    <td><code>let x = null;</code></td>
-                                    <td>"object" (ошибка)</td>
-                                </tr>
-                                <tr>
-                                    <td><code>undefined</code></td>
-                                    <td>Неприсвоенное значение</td>
-                                    <td><code>let u;</code></td>
-                                    <td>"undefined"</td>
-                                </tr>
-                                <tr>
-                                    <td><code>symbol</code></td>
-                                    <td>Уникальные идентификаторы</td>
-                                    <td><code>const sym = Symbol();</code></td>
-                                    <td>"symbol"</td>
-                                </tr>
-                            </tbody>
-                        </table>
+          <h4>Особенности:</h4>
+          <ul class="list-ul">
+            <li>Автоматическое преобразование типов</li>
+            <li>Гибкость в работе с данными</li>
+            <li>Нестрогая типизация</li>
+          </ul>
+        </div>
+      </section>
 
-                        <div class="note-block">
-                            <h3>Особенности примитивов:</h3>
-                            <ul class="list-ul">
-                                <li>Неизменяемы (immutable)</li>
-                                <li>Сравниваются по значению</li>
-                                <li>Занимают фиксированный объем памяти</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
+      <!-- Примитивные типы -->
+      <section class="section" id="types-primitive">
+        <div class="container">
+          <h2>Примитивные типы данных</h2>
 
-                <!-- Объекты -->
-                <section class="section" id="types-object">
-                    <div class="container">
-                        <h2>Объектные типы</h2>
+          <p class="note">
+            <strong>Примитивы</strong>
+            — простые неизменяемые значения, которые хранятся непосредственно в переменной.
+            <br />
+            При присваивании создается копия значения.
+          </p>
 
-                        <p class="note">
-                            <strong>Объекты</strong>
-                            — сложные структуры данных, которые могут содержать коллекции свойств и методов.
-                            <br />
-                            При присваивании передается ссылка на объект.
-                        </p>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Тип</th>
+                <th>Описание</th>
+                <th>Пример</th>
+                <th>typeof</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>number</code></td>
+                <td>
+                  Целые и дробные числа (±2
+                  <sup>53</sup>
+                  -1)
+                </td>
+                <td><code>let n = 3.14;</code></td>
+                <td>"number"</td>
+              </tr>
+              <tr>
+                <td><code>bigint</code></td>
+                <td>Целые числа произвольной длины</td>
+                <td><code>const big = 123n;</code></td>
+                <td>"bigint"</td>
+              </tr>
+              <tr>
+                <td><code>string</code></td>
+                <td>Текст в кавычках</td>
+                <td><code>let s = "текст";</code></td>
+                <td>"string"</td>
+              </tr>
+              <tr>
+                <td><code>boolean</code></td>
+                <td>Логические true/false</td>
+                <td><code>let b = true;</code></td>
+                <td>"boolean"</td>
+              </tr>
+              <tr>
+                <td><code>null</code></td>
+                <td>Специальное "ничего"</td>
+                <td><code>let x = null;</code></td>
+                <td>"object" (ошибка)</td>
+              </tr>
+              <tr>
+                <td><code>undefined</code></td>
+                <td>Неприсвоенное значение</td>
+                <td><code>let u;</code></td>
+                <td>"undefined"</td>
+              </tr>
+              <tr>
+                <td><code>symbol</code></td>
+                <td>Уникальные идентификаторы</td>
+                <td><code>const sym = Symbol();</code></td>
+                <td>"symbol"</td>
+              </tr>
+            </tbody>
+          </table>
 
-                        <div class="grid-column-50">
-                            <div>
-                                <h4>Основные объектные типы:</h4>
-                                <ul class="list-ul">
-                                    <li>
-                                        Обычные объекты
-                                        <code>{}</code>
-                                    </li>
-                                    <li>
-                                        Массивы
-                                        <code>[]</code>
-                                    </li>
-                                    <li>
-                                        Функции
-                                        <code>function(){}</code>
-                                    </li>
-                                    <li>
-                                        Даты
-                                        <code>new Date()</code>
-                                    </li>
-                                    <li>
-                                        Регулярные выражения
-                                        <code>/pattern/</code>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h4>Пример объекта:</h4>
-                                <pre><code>const user = {
+          <div class="note-block">
+            <h3>Особенности примитивов:</h3>
+            <ul class="list-ul">
+              <li>Неизменяемы (immutable)</li>
+              <li>Сравниваются по значению</li>
+              <li>Занимают фиксированный объем памяти</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Объекты -->
+      <section class="section" id="types-object">
+        <div class="container">
+          <h2>Объектные типы</h2>
+
+          <p class="note">
+            <strong>Объекты</strong>
+            — сложные структуры данных, которые могут содержать коллекции свойств и методов.
+            <br />
+            При присваивании передается ссылка на объект.
+          </p>
+
+          <div>
+            <h4>Основные объектные типы:</h4>
+            <ul class="list-ul">
+              <li>
+                Обычные объекты
+                <code>{}</code>
+              </li>
+              <li>
+                Массивы
+                <code>[]</code>
+              </li>
+              <li>
+                Функции
+                <code>function(){}</code>
+              </li>
+              <li>
+                Даты
+                <code>new Date()</code>
+              </li>
+              <li>
+                Регулярные выражения
+                <code>/pattern/</code>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4>Пример объекта:</h4>
+            <div class="code-block">
+              <pre><code>const user = {
   name: "Иван",
   age: 30,
   isAdmin: false
 };</code></pre>
-                            </div>
-                        </div>
+            </div>
+          </div>
 
-                        <div class="note-block">
-                            <h3>Особенности объектов:</h3>
-                            <ul class="list-ul">
-                                <li>Изменяемы (mutable)</li>
-                                <li>Сравниваются по ссылке</li>
-                                <li>Могут содержать методы</li>
-                                <li>Имеют прототипы</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-                <section class="section" id="data-types-details">
-                    <div class="container">
-                        <h2>Подробно о типах данных JavaScript</h2>
+          <div class="note-block">
+            <h3>Особенности объектов:</h3>
+            <ul class="list-ul">
+              <li>Изменяемы (mutable)</li>
+              <li>Сравниваются по ссылке</li>
+              <li>Могут содержать методы</li>
+              <li>Имеют прототипы</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-                        <!-- Строки -->
-                        <div class="note-block">
-                            <h3>1. Строки (String)</h3>
-                            <p class="note">
-                                <strong>Строки</strong>
-                                — используются для хранения и работы с текстовыми данными.
-                            </p>
+      <!-- Строки -->
+      <section class="section" id="types-string">
+        <div class="container">
+          <h2>Строки (String)</h2>
+          <p class="note">
+            <strong>Строки</strong>
+            — используются для хранения и работы с текстовыми данными.
+          </p>
 
-                            <div class="grid-column-50">
-                                <div>
-                                    <h4>Основные особенности:</h4>
-                                    <ul class="list-ul">
-                                        <li>Заключаются в кавычки: '', "" или ``</li>
-                                        <li>Поддерживают интерполяцию через ${} в обратных кавычках</li>
-                                        <li>Имеют множество полезных методов (length, toUpperCase и др.)</li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h4>Примеры использования:</h4>
-                                    <pre><code>// Объявление строк
+          <div>
+            <h4>Основные особенности:</h4>
+            <ul class="list-ul">
+              <li>Заключаются в кавычки: <b>''</b>, <b>""</b> или <b>``</b></li>
+              <li>Поддерживают интерполяцию через <b>${}</b> в обратных кавычках</li>
+              <li>Имеют множество полезных методов (length, toUpperCase и др.)</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Примеры использования:</h4>
+            <div class="code-block">
+              <pre><code>// Объявление строк
 let name = "Вика";
 let message = `Привет, ${name}!`; // интерполяция
 
 // Методы строк
 console.log(name.length); // 4
 console.log(message.toUpperCase()); // "ПРИВЕТ, ВИКА!"</code></pre>
-                                </div>
-                            </div>
+            </div>
+          </div>
 
-                            <h4>Где применяются:</h4>
-                            <ul class="list-ul">
-                                <li>Хранение имен, адресов, текстовых данных</li>
-                                <li>Формирование сообщений для пользователей</li>
-                                <li>Работа с URL и путями к файлам</li>
-                                <li>Валидация ввода в формах</li>
-                            </ul>
-                        </div>
+          <h4>Где применяются:</h4>
+          <ul class="list-ul">
+            <li>Хранение имен, адресов, текстовых данных</li>
+            <li>Формирование сообщений для пользователей</li>
+            <li>Работа с URL и путями к файлам</li>
+            <li>Валидация ввода в формах</li>
+          </ul>
+        </div>
+      </section>
 
-                        <!-- Числа -->
-                        <div class="note-block">
-                            <h3>2. Числа (Number)</h3>
-                            <p class="note">
-                                <strong>Числа</strong>
-                                — используются для математических операций и хранения числовых данных.
-                            </p>
+      <!-- Числа -->
+      <section class="section" id="types-number">
+        <div class="container">
+          <div class="note-block">
+            <h2>Числа (Number)</h2>
+            <p class="note">
+              <strong>Числа</strong>
+              — используются для математических операций и хранения числовых данных.
+            </p>
 
-                            <div class="grid-column-50">
-                                <div>
-                                    <h4>Особенности:</h4>
-                                    <ul class="list-ul">
-                                        <li>Могут быть целыми и дробными</li>
-                                        <li>Поддерживают специальные значения: Infinity, -Infinity, NaN</li>
-                                        <li>Имеют методы для работы (toFixed, toString и др.)</li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h4>Примеры:</h4>
-                                    <pre><code>let age = 38;
+            <div>
+              <h4>Особенности:</h4>
+              <ul class="list-ul">
+                <li>Могут быть целыми и дробными</li>
+                <li>Поддерживают специальные значения: Infinity, -Infinity, NaN</li>
+                <li>Имеют методы для работы (toFixed, toString и др.)</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Примеры:</h4>
+              <div class="code-block">
+                <pre><code>let age = 38;
 let price = 99.99;
 let result = 10 / 0; // Infinity
 
 // Математические операции
 let total = price * 1.2; // НДС
 let rounded = total.toFixed(2); // "119.99"</code></pre>
-                                </div>
-                            </div>
+              </div>
+            </div>
 
-                            <h4>Применение:</h4>
-                            <ul class="list-ul">
-                                <li>Расчеты в финансовых приложениях</li>
-                                <li>Работа с датами и временем (timestamp)</li>
-                                <li>Графики и диаграммы</li>
-                                <li>Игровая логика (очки, здоровье)</li>
-                            </ul>
-                        </div>
+            <h4>Применение:</h4>
+            <ul class="list-ul">
+              <li>Расчеты в финансовых приложениях</li>
+              <li>Работа с датами и временем (timestamp)</li>
+              <li>Графики и диаграммы</li>
+              <li>Игровая логика (очки, здоровье)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-                        <!-- Логические значения -->
-                        <div class="note-block">
-                            <h3>3. Логические значения (Boolean)</h3>
-                            <p class="note">
-                                <strong>Boolean</strong>
-                                — представляют истину (true) или ложь (false).
-                            </p>
-
-                            <div class="grid-column-50">
-                                <div>
-                                    <h4>Особенности:</h4>
-                                    <ul class="list-ul">
-                                        <li>Используются в условиях и сравнениях</li>
-                                        <li>Любое значение можно преобразовать к boolean</li>
-                                        <li>Ложные значения: false, 0, "", null, undefined, NaN</li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h4>Примеры:</h4>
-                                    <pre><code>let isMom = true;
+      <!-- Логические значения -->
+      <section class="section" id="types-boolean">
+        <div class="container">
+          <div class="note-block">
+            <h2>Логические значения (Boolean)</h2>
+            <p class="note">
+              <strong>Boolean</strong>
+              — это тип данных, который может принимать только два значения: <code>true</code> (истина) и <code>false</code> (ложь).
+              <br />
+              Эти значения называются булевыми по имени математика Джорджа Буля.
+            </p>
+            <ul class="list-ul">
+              <li><b>true</b> означает, что утверждение истинно.</li>
+              <li><b>false</b> означает, что утверждение ложно.</li>
+            </ul>
+            <div>
+              <h4>Особенности:</h4>
+              <ul class="list-ul">
+                <li>Используются в условиях и сравнениях</li>
+                <li>Любое значение можно преобразовать к boolean</li>
+                <li>Ложные значения: false, 0, "", null, undefined, NaN</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Примеры:</h4>
+              <div class="code-block">
+                <pre><code>let isMom = true;
 let hasDiscount = false;
 
 // Использование в условиях
@@ -295,39 +308,62 @@ if (isMom) {
 
 // Преобразование типов
 console.log(Boolean(1)); // true
-console.log(!!"text"); // true (двойное отрицание)</code></pre>
-                                </div>
-                            </div>
+console.log(!!"text"); // true (двойное отрицание)
 
-                            <h4>Применение:</h4>
-                            <ul class="list-ul">
-                                <li>Управление потоком выполнения (if/else)</li>
-                                <li>Флаги состояния (isLoading, isActive)</li>
-                                <li>Валидация данных (isValid)</li>
-                                <li>Переключатели (darkMode, notificationsEnabled)</li>
-                            </ul>
-                        </div>
+// Сравнения
+let isEqual = (5 == 5);  // Это будет true, потому что 5 равно 5
+let isGreater = (5 > 3);  // Это будет true, потому что 5 больше 3
+let isLess = (5 < 3);     // Это будет false, потому что 5 не меньше 3
 
-                        <!-- Undefined -->
-                        <div class="note-block">
-                            <h3>4. Undefined</h3>
-                            <p class="note">
-                                <strong>Undefined</strong>
-                                — означает, что переменная объявлена, но не инициализирована.
-                            </p>
+// Логическое отрицание
+let isRaining = true;
+console.log(!isRaining);  // false
 
-                            <div class="grid-column-50">
-                                <div>
-                                    <h4>Особенности:</h4>
-                                    <ul class="list-ul">
-                                        <li>Возвращается при обращении к несуществующему свойству</li>
-                                        <li>Функция возвращает undefined, если нет return</li>
-                                        <li>Не следует явно присваивать undefined</li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h4>Примеры:</h4>
-                                    <pre><code>let x;
+let isSunny = false;
+console.log(!isSunny);    // true
+
+// Пример с переменными
+// Мы можем сохранить отрицание в другой переменной
+const isMorning = true;
+const isEvening = !isMorning;
+console.log(isEvening); // false</code></pre>
+              </div>
+            </div>
+
+            <h4>Применение:</h4>
+            <ul class="list-ul">
+              <li>Управление потоком выполнения (if/else)</li>
+              <li>Флаги состояния (isLoading, isActive)</li>
+              <li>Валидация данных (isValid)</li>
+              <li>Переключатели (darkMode, notificationsEnabled)</li>
+            </ul>
+          </div>
+          <p class="note note--info">💡 <strong>Запомни</strong>: <b>true</b> и <b>false</b> — это не строки, а именно логические значения. Их можно использовать в условиях и операторах.</p>
+        </div>
+      </section>
+
+      <!-- Undefined -->
+      <section class="section" id="types-undefined">
+        <div class="container">
+          <div class="note-block">
+            <h2>Undefined</h2>
+            <p class="note">
+              <strong>Undefined</strong>
+              — означает, что переменная объявлена, но не инициализирована.
+            </p>
+
+            <div>
+              <h4>Особенности:</h4>
+              <ul class="list-ul">
+                <li>Возвращается при обращении к несуществующему свойству</li>
+                <li>Функция возвращает undefined, если нет return</li>
+                <li>Не следует явно присваивать undefined</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Примеры:</h4>
+              <div class="code-block">
+                <pre><code>let x;
 console.log(x); // undefined
 
 function noReturn() {}
@@ -335,37 +371,41 @@ console.log(noReturn()); // undefined
 
 let obj = {};
 console.log(obj.property); // undefined</code></pre>
-                                </div>
-                            </div>
+              </div>
+            </div>
 
-                            <h4>Применение:</h4>
-                            <ul class="list-ul">
-                                <li>Обнаружение неинициализированных переменных</li>
-                                <li>Проверка наличия свойств объектов</li>
-                                <li>Аргументы функций по умолчанию</li>
-                            </ul>
-                        </div>
+            <h4>Применение:</h4>
+            <ul class="list-ul">
+              <li>Обнаружение неинициализированных переменных</li>
+              <li>Проверка наличия свойств объектов</li>
+              <li>Аргументы функций по умолчанию</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-                        <!-- Null -->
-                        <div class="note-block">
-                            <h3>5. Null</h3>
-                            <p class="note">
-                                <strong>Null</strong>
-                                — специальное значение, представляющее "ничего" или "пусто".
-                            </p>
+      <!-- Null -->
+      <section class="section" id="types-null">
+        <div class="container">
+          <div class="note-block">
+            <h2>Null</h2>
+            <p class="note">
+              <strong>Null</strong>
+              — специальное значение, представляющее "ничего" или "пусто".
+            </p>
 
-                            <div class="grid-column-50">
-                                <div>
-                                    <h4>Особенности:</h4>
-                                    <ul class="list-ul">
-                                        <li>Должен присваиваться явно</li>
-                                        <li>Используется для очистки значений</li>
-                                        <li>typeof null возвращает "object" (историческая ошибка)</li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h4>Примеры:</h4>
-                                    <pre><code>let y = null; // явное присвоение
+            <div>
+              <h4>Особенности:</h4>
+              <ul class="list-ul">
+                <li>Должен присваиваться явно</li>
+                <li>Используется для очистки значений</li>
+                <li>typeof null возвращает "object" (историческая ошибка)</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Примеры:</h4>
+              <div class="code-block">
+                <pre><code>let y = null; // явное присвоение
 
 // Очистка ссылки
 let data = getData();
@@ -375,89 +415,300 @@ data = null; // освобождаем память
 if (y === null) {
   console.log("Значение отсутствует");
 }</code></pre>
-                                </div>
-                            </div>
+              </div>
+            </div>
 
-                            <h4>Применение:</h4>
-                            <ul class="list-ul">
-                                <li>Явное указание на отсутствие значения</li>
-                                <li>Очистка ссылок на объекты</li>
-                                <li>Работа с DOM (элемент не найден)</li>
-                                <li>Инициализация переменных перед использованием</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-                <!-- Проверка типов -->
-                <section class="section" id="types-check">
-                    <div class="container">
-                        <h2>Проверка типов данных</h2>
+            <h4>Применение:</h4>
+            <ul class="list-ul">
+              <li>Явное указание на отсутствие значения</li>
+              <li>Очистка ссылок на объекты</li>
+              <li>Работа с DOM (элемент не найден)</li>
+              <li>Инициализация переменных перед использованием</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-                        <p class="note">
-                            <strong>Оператор typeof</strong>
-                            — возвращает строку с типом операнда.
-                            <br />
-                            Имеет особенности при работе с null и объектами.
-                        </p>
+      <!-- Массивы -->
+      <section class="section" id="types-array">
+        <div class="container">
+          <h2>Массивы (Array)</h2>
+          <p class="note">
+            <strong>Массивы</strong>
+            — это упорядоченные коллекции значений, которые могут содержать элементы разных типов.
+          </p>
+          <h4>Синтаксис:</h4>
+          <p>Если обычная переменная хранит одно значение, то массив позволяет хранить несколько в квадратных скобках [ ], разделяя элементы запятыми.</p>
+          <div class="code-block">
+            <pre><code>let array = [element1, element2, element3];</code></pre>
+          </div>
 
-                        <table class="table-note">
-                            <thead>
-                                <tr>
-                                    <th>Выражение</th>
-                                    <th>Результат typeof</th>
-                                    <th>Примечание</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><code>typeof 42</code></td>
-                                    <td>"number"</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><code>typeof "текст"</code></td>
-                                    <td>"string"</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><code>typeof true</code></td>
-                                    <td>"boolean"</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><code>typeof undefined</code></td>
-                                    <td>"undefined"</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><code>typeof null</code></td>
-                                    <td>"object"</td>
-                                    <td>Историческая ошибка</td>
-                                </tr>
-                                <tr>
-                                    <td><code>typeof {}</code></td>
-                                    <td>"object"</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><code>typeof []</code></td>
-                                    <td>"object"</td>
-                                    <td>Для массивов используйте Array.isArray()</td>
-                                </tr>
-                                <tr>
-                                    <td><code>typeof function(){}</code></td>
-                                    <td>"function"</td>
-                                    <td>Функции — подвид объектов</td>
-                                </tr>
-                            </tbody>
-                        </table>
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>let fruits = ["яблоко", "банан", "вишня"];
+let numbers = [1, 2, 3, 4];</code></pre>
+          </div>
 
-                        <h3>Рекомендации и примеры проверки типов:</h3>
+          <h4>Может хранить разные типы данных:</h4>
+          <p>
+            Массивы могут содержать элементы разных типов, включая числа, строки, объекты и даже другие массивы.
+          </p>
+          <div class="code-block">
+            <pre><code>let mixed = [1, "текст", true, null, undefined, { name: "Иван" }];
+let simple = ["hello", 25];</code></pre>
+          </div>
 
-                        <div class="grid-column-100">
-                            <div>
-                                <h4>1. Проверка null:</h4>
-                                <pre><code>const maybeNull = null;
+          <h4>Создание пустого массива:</h4>
+          <p>
+            Пустой массив можно создать с помощью литерала <code>[]</code> или конструктора <code>new Array()</code>.
+            <br />
+            Потом можно добавлять элементы с помощью методов массива, таких как <code>push()</code>.
+          </p>
+          <div class="code-block">
+            <pre><code>let guestList = []; // Пустой массив
+guestList.push("Леха", "Лепеха"); // Добавление элементов
+console.log(guestList); // ["Леха", "Лепеха"]</code></pre>
+          </div>
+
+          <h4>Переприсвоение массива:</h4>
+          <p>
+            Если переменная объявлена с помощью <code>let</code>, ей можно присвоить совершенно новый массив целиком.
+          </p>
+          <div class="code-block">
+            <pre><code>let foods = ["овощи", "фрукты"];
+foods = ["чипсики", "энергетики"]; // Переменной присвоен новый массив
+console.log(foods); // Выведет ["чипсики", "энергетики"]</code></pre>
+          </div>
+
+          <h4>Индексы:</h4>
+          <p>Индексы — это числовые позиции элементов в массиве, начиная с нуля. Первый элемент имеет индекс 0, второй — 1 и так далее.
+            <br />
+            Для доступа к элементу массива используйте квадратные скобки с индексом.
+          </p>
+          <div class="code-block">
+            <pre><code>let fruits = ["яблоко", "банан", "вишня"];
+console.log(fruits[0]); // "яблоко"
+console.log(fruits[1]); // "банан"
+console.log(fruits[2]); // "вишня"</code></pre>
+          </div>
+
+          <h4>Обращение к несуществующему элементу:</h4>
+          <p>Если обратиться к индексу, который не существует, вернется <code>undefined</code>.</p>
+          <div class="code-block">
+            <pre><code>let items = ["ручка", "ластик", "тетрадь"];
+
+console.log(items[1]); // "ластик" ✅ (существует)
+console.log(items[5]); // undefined ❌ (такого индекса нет)</code></pre>
+          </div>
+
+          <h4>Массив через const:</h4>
+          <p>Даже если массив объявлен с помощью <code>const</code>, его элементы можно изменять, добавлять и удалять. Однако нельзя переназначить саму переменную массива.</p>
+          <p><code>Assignment to constant variable.</code> — ошибка, возникающая при попытке переназначить переменную, объявленную с помощью <code>const</code>.</p>
+          <div class="code-block">
+            <pre><code>const numbers = [1, 2, 3];
+numbers[1] = 42; // Изменяем второй элемент
+console.log(numbers); // [1, 42, 3]
+
+// Попытка переназначить массив вызовет ошибку
+// numbers = [4, 5, 6]; // ❌ Ошибка: Assignment to constant variable.</code></pre>
+          </div>
+
+          <h4>Замена элемента по индексу:</h4>
+          <p>
+            Чтобы заменить любой элемент массива, нужно просто указать его индекс и новое значение.
+          </p>
+          <div class="code-block">
+            <pre><code>let fruits = ["яблоко", "банан", "арбузик"];
+fruits[1] = "клубничка"; // Меняем "банан" на "клубничку"
+console.log(fruits); // ["яблоко", "клубничка", "арбузик"]</code></pre>
+          </div>
+
+          <h4>Свойство .length</h4>
+          <p>
+            Свойство <code>.length</code> возвращает количество элементов в массиве.
+          </p>
+          <div class="code-block">
+            <pre><code>let fruits = ["яблоко", "банан", "арбузик"];
+console.log(fruits.length); // 3</code></pre>
+          </div>
+
+          <h4>length - 1</h4>
+          <p>
+            Чтобы получить индекс последнего элемента массива, нужно использовать <code>length - 1</code>.
+          </p>
+          <div class="code-block">
+            <pre><code>let fruits = ["яблоко", "банан", "арбузик"];
+console.log(fruits[fruits.length - 1]); // "арбузик"
+
+// Изменяем последний элемент массива
+let numbers = [213, 44, 95, 23, 71, 85, 12];
+numbers[numbers.length - 1] = 3;
+console.log(numbers);</code></pre>
+          </div>
+
+          <h4>Удаление всех элементов массива</h4>
+          <p>
+            Чтобы удалить все элементы массива, можно присвоить ему пустой массив.
+          </p>
+          <div class="code-block">
+            <pre><code>let fruits = ["яблоко", "банан", "арбузик"];
+fruits = []; // Теперь массив пустой
+console.log(fruits); // []</code></pre>
+          </div>
+
+          <h4>Полная замена массива</h4>
+          <p>
+            Чтобы заменить весь массив, можно присвоить переменной новый массив.
+          </p>
+          <div class="code-block">
+            <pre><code>let fruits = ["яблоко", "банан", "арбузик"];
+fruits = ["груша", "апельсин"]; // Теперь массив содержит новые элементы
+console.log(fruits); // ["груша", "апельсин"]</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Проверка типов -->
+      <section class="section" id="types-check">
+        <div class="container">
+          <h2>Проверка типов данных</h2>
+
+          <p class="note">
+            <strong>Оператор typeof</strong> - используется для определения типа данных переменной или выражения.
+          </p>
+          <h4>Пример:</h4>
+          <div class="code-block">
+            <pre><code>console.log(typeof 42);           // "number"
+console.log(typeof "текст");       // "string"
+console.log(typeof true);          // "boolean"
+console.log(typeof undefined);     // "undefined"
+console.log(typeof null);          // "object" (историческая ошибка)
+console.log(typeof {});            // "object"
+console.log(typeof []);            // "object" (массивы - объекты)
+console.log(typeof function(){}); // "function", хотя и является объектом</code></pre>
+          </div>
+
+          <h4>Зачем нужна проверка типов:</h4>
+          <ul class="list-ul">
+            <li>Для отладки и предотвращения ошибок</li>
+            <li>Для динамической обработки данных</li>
+            <li>Для проверки входных данных в функциях</li>
+            <li>Для обеспечения совместимости с различными типами данных</li>
+          </ul>
+
+          <p>Проверка типа данных помогает избежать ошибок в программе. Например, если мы ожидаем число, но получаем строку, это может привести к неправильным результатам.
+            <br />
+            💡 typeof помогает убедиться, что данные имеют нужный тип.
+            Создадим переменную isActive и проверим её тип.</p>
+          <div class="code-block">
+            <pre><code>let isActive = true;
+console.log(typeof isActive); // "boolean"</code></pre>
+          </div>
+
+          <h4>Проверка на null:</h4>
+          <p>
+            <strong>Важно:</strong> <b>typeof null</b> возвращает <b>"object"</b>, что является исторической ошибкой. <br>
+            Так что, несмотря на то что <b>null</b> — это отдельный тип данных, <b>typeof null</b> всё равно возвращает <b>"object"</b>
+          </p>
+          <div class="code-block">
+            <pre><code>let value = null;
+console.log(typeof value); // "object"
+
+// Для проверки на null используйте строгое сравнение:
+if (value === null) {
+  console.log("Это null");
+}</code></pre>
+          </div>
+
+          <h4>Проверка на undefined:</h4>
+          <p>
+            <strong>Важно:</strong> <b>undefined</b> — это отдельный тип данных, который указывает на то, что переменная была объявлена, но не инициализирована. <br>
+            <b>typeof undefined</b> возвращает <b>"undefined"</b>
+          </p>
+          <div class="code-block">
+            <pre><code>let value;
+console.log(typeof value); // "undefined"
+
+// Для проверки на undefined используйте строгое сравнение:
+if (value === undefined) {
+  console.log("Это undefined");
+}</code></pre>
+          </div>
+
+          <p class="note note--info">
+            Тип данных <strong>null</strong> используется для явного указания, что переменная не имеет значения. Это не то же самое, что <strong>undefined</strong> — null означает отсутствие значения, в то время как undefined указывает, что значение ещё не присвоено.
+          </p>
+          <p>Создадим переменную user и присвоим ей значение null, чтобы когда данные станут доступны, можно заменить null на объект с данными.</p>
+
+          <div class="code-block">
+            <pre><code>let user = null;
+console.log(user); // Выведет null
+
+// Позже, когда данные станут доступны:
+user = { name: "Иван", age: 30 };
+console.log(user); // Выведет объект { name: "Иван", age: 30 }</code></pre>
+          </div>
+
+          <h4>Таблица типов данных:</h4>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Выражение</th>
+                <th>Результат typeof</th>
+                <th>Примечание</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>typeof 42</code></td>
+                <td>"number"</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><code>typeof "текст"</code></td>
+                <td>"string"</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><code>typeof true</code></td>
+                <td>"boolean"</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><code>typeof undefined</code></td>
+                <td>"undefined"</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><code>typeof null</code></td>
+                <td>"object"</td>
+                <td>Историческая ошибка</td>
+              </tr>
+              <tr>
+                <td><code>typeof {}</code></td>
+                <td>"object"</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><code>typeof []</code></td>
+                <td>"object"</td>
+                <td>Для массивов используйте Array.isArray()</td>
+              </tr>
+              <tr>
+                <td><code>typeof function(){}</code></td>
+                <td>"function"</td>
+                <td>Функции — подвид объектов</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Рекомендации и примеры проверки типов:</h3>
+
+          <div>
+            <h4>1. Проверка null:</h4>
+            <div class="code-block">
+              <pre><code>const maybeNull = null;
 
 // Правильный способ:
 if (maybeNull === null) {
@@ -466,11 +717,13 @@ if (maybeNull === null) {
 
 // Неправильно (вернет 'object'):
 console.log(typeof maybeNull);</code></pre>
-                            </div>
+            </div>
+          </div>
 
-                            <div>
-                                <h4>2. Проверка массивов:</h4>
-                                <pre><code>const arr = [1, 2, 3];
+          <div>
+            <h4>2. Проверка массивов:</h4>
+            <div class="code-block">
+              <pre><code>const arr = [1, 2, 3];
 const obj = {};
 
 // Правильный способ:
@@ -480,13 +733,13 @@ console.log(Array.isArray(obj)); // false
 // Неправильно (оба вернут 'object'):
 console.log(typeof arr);
 console.log(typeof obj);</code></pre>
-                            </div>
-                        </div>
+            </div>
+          </div>
 
-                        <div class="grid-column-100">
-                            <div>
-                                <h4>3. Проверка объектов:</h4>
-                                <pre><code>const date = new Date();
+          <div>
+            <h4>3. Проверка объектов:</h4>
+            <div class="code-block">
+              <pre><code>const date = new Date();
 const user = { name: 'John' };
 
 // Проверка конкретного типа:
@@ -502,11 +755,13 @@ function isPlainObject(value) {
 
 console.log(isPlainObject(user)); // true
 console.log(isPlainObject(date)); // false</code></pre>
-                            </div>
+            </div>
+          </div>
 
-                            <div>
-                                <h4>4. Другие полезные проверки:</h4>
-                                <pre><code>// Проверка числа (учитывает NaN):
+          <div>
+            <h4>4. Другие полезные проверки:</h4>
+            <div class="code-block">
+              <pre><code>// Проверка числа (учитывает NaN):
 function isNumber(value) {
   return typeof value === 'number' && !isNaN(value);
 }
@@ -519,37 +774,39 @@ console.log(typeof fn === 'function'); // true
 let x;
 console.log(typeof x === 'undefined'); // true
 console.log(x === undefined); // тоже работает</code></pre>
-                            </div>
-                        </div>
+            </div>
+          </div>
 
-                        <div class="note">
-                            <h4>Важные замечания:</h4>
-                            <ul class="list-ul">
-                                <li>
-                                    <code>typeof null</code>
-                                    возвращает
-                                    <code>'object'</code>
-                                    - это известная ошибка в языке
-                                </li>
-                                <li>
-                                    Для проверки массивов всегда используйте
-                                    <code>Array.isArray()</code>
-                                </li>
-                                <li>
-                                    <code>instanceof</code>
-                                    не работает с примитивами и между фреймами
-                                </li>
-                                <li>
-                                    Для надежной проверки типов в сложных случаях используйте библиотеки типа
-                                    <code>lodash</code>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-            </main>
-            @@include('../partials/footer.html', {})
+          <div class="note">
+            <h4>Важные замечания:</h4>
+            <ul class="list-ul">
+              <li>
+                <code>typeof null</code>
+                возвращает
+                <code>'object'</code>
+                - это известная ошибка в языке
+              </li>
+              <li>
+                Для проверки массивов всегда используйте
+                <code>Array.isArray()</code>
+              </li>
+              <li>
+                <code>instanceof</code>
+                не работает с примитивами и между фреймами
+              </li>
+              <li>
+                Для надежной проверки типов в сложных случаях используйте библиотеки типа
+                <code>lodash</code>
+              </li>
+            </ul>
+          </div>
         </div>
-        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
-    </body>
+      </section>
+
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+</body>
+
 </html>
