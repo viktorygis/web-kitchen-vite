@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "Задачи: Массивы", "description": "Задачи: Массивы" })
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <section class="section">
+        <div class="container">
+          <h1>1. Массивы</h1>
+          <div class="example"></div>
+        </div>
+      </section>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+  <script>
+    let arr = [1, 2, 3, 4, 5];
+
+    function showScreen(item) {
+      const example = document.querySelector(".example");
+      example.innerHTML = item.join(", ");
+    }
+
+    showScreen(arr);
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "JavaScript: Итерационные методы массивов", "description": "Подробное руководство по итерационным методам массивов: forEach, every, some, reduce, reduceRight" })
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="array-methods.html">← Назад к обзору</a>
+        <a href="#iterating-intro" class="active">Введение</a>
+        <a href="#method-foreach">forEach()</a>
+        <a href="#method-every-some">every() и some()</a>
+        <a href="#method-reduce">reduce()</a>
+        <a href="#summary">Сводная таблица</a>
+      </nav>
+
+      <!-- Введение в итерационные методы -->
+      <section class="section" id="iterating-intro">
+        <div class="container">
+          <h1>Итерационные методы массивов</h1>
+
+          <p class="note">
+            <strong>Итерационные методы</strong> — это методы, которые <b>проходят по каждому элементу массива</b> и выполняют над ними операции. Они полезны для обработки и анализа больших наборов данных.
+          </p>
+
+          <div class="note-block info">
+            <h4>🔄 Как работают итерационные методы</h4>
+            <ul class="list-ul">
+              <li><code>forEach()</code> — просто выполняет функцию для каждого элемента</li>
+              <li><code>every()</code> — проверяет, ВСЕ ли элементы удовлетворяют условию</li>
+              <li><code>some()</code> — проверяет, ХОТЯ БЫ ОДИН элемент удовлетворяет условию</li>
+              <li><code>reduce()</code> — аккумулирует значения в один результат</li>
+            </ul>
+          </div>
+
+          <p class="note note--info">
+            💡 <strong>Важно:</strong> Итерационные методы НЕ создают новый массив (кроме reduce, который возвращает одно значение). Используйте <code>map()</code> и <code>filter()</code>, если нужен новый массив.
+          </p>
+        </div>
+      </section>
+
+      <!-- forEach() -->
+      <section class="section" id="method-foreach">
+        <div class="container">
+          <h2><code>forEach()</code> — Итерация по элементам</h2>
+          <p class="note"><strong>forEach()</strong> - метод <b>выполняет функцию один раз для каждого элемента</b> массива. Не возвращает новый массив и не изменяет исходный (если функция не мутирует).</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>arr.forEach(callback(element, index, array))</code></pre>
+          </div>
+
+          <h4>Параметры:</h4>
+          <ul class="list-ul">
+            <li><strong>callback</strong> - функция для выполнения на каждой итерации</li>
+          </ul>
+
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li><code>undefined</code> (не возвращает ничего полезного)</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>const fruits = ['apple', 'banana', 'orange'];
+
+// Просто вывести каждый элемент
+fruits.forEach(fruit => {
+  console.log(fruit);
+});
+// apple
+// banana
+// orange
+
+// С индексом
+fruits.forEach((fruit, index) => {
+  console.log(`${index}: ${fruit}`);
+});
+// 0: apple
+// 1: banana
+// 2: orange
+
+// Практический пример: накопление в переменную (плохо!)
+let sum = 0;
+[1, 2, 3, 4].forEach(num => {
+  sum += num;
+});
+console.log(sum); // 10</code></pre>
+          </div>
+
+          <div class="note-block warning">
+            <h4>⚠️ Частые ошибки</h4>
+
+            <p><strong>1. Используют forEach() когда нужен map()</strong></p>
+            <p><code>forEach()</code> не возвращает новый массив:</p>
+            <div class="code-block">
+              <pre><code>// Неправильно — результат не сохранится:
+const doubled = arr.forEach(x => x * 2); // undefined
+
+// Правильно:
+const doubled = arr.map(x => x * 2);</code></pre>
+            </div>
+
+            <p><strong>2. Пытаются использовать break или continue</strong></p>
+            <p>В <code>forEach()</code> нельзя использовать break/continue:</p>
+            <div class="code-block">
+              <pre><code>// Неправильно:
+arr.forEach(x => {
+  if (x === 2) break; // SyntaxError!
+});
+
+// Правильно — используйте for или find():
+for (const x of arr) {
+  if (x === 2) break; // работает
+}</code></pre>
+            </div>
+
+            <p><strong>3. Изменяют массив внутри forEach()</strong></p>
+            <p>Это может привести к неожиданному поведению:</p>
+            <div class="code-block">
+              <pre><code>const arr = [1, 2, 3];
+arr.forEach((x, i) => {
+  if (x === 2) arr.splice(i, 1); // опасно!
+});</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>💡 Когда использовать</h4>
+            <ul class="list-ul">
+              <li>Выполнение побочных эффектов: логирование, обновление DOM, API запросы</li>
+              <li>Простая итерация без трансформации данных</li>
+              <li>Если нужен новый массив — используйте <code>map()</code></li>
+              <li>Если нужна фильтрация — используйте <code>filter()</code></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- every() и some() -->
+      <section class="section" id="method-every-some">
+        <div class="container">
+          <h2><code>every()</code> и <code>some()</code> — Проверка условия</h2>
+          <p class="note"><strong>every()</strong> - проверяет, <b>ВСЕ ЛИ элементы</b> удовлетворяют условию. <strong>some()</strong> - проверяет, <b>ХОТЯ БЫ ОДИН элемент</b> удовлетворяет условию.</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>arr.every(callback(element, index, array))
+arr.some(callback(element, index, array))</code></pre>
+          </div>
+
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li><code>true</code> или <code>false</code></li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>const nums = [2, 4, 6, 8];
+
+// every() — все ли чётные?
+console.log(nums.every(x => x % 2 === 0)); // true
+
+// some() — есть ли хотя бы одно чётное?
+console.log(nums.some(x => x % 2 === 0)); // true
+
+const mixed = [1, 2, 3, 5];
+
+// every() — все ли чётные?
+console.log(mixed.every(x => x % 2 === 0)); // false
+
+// some() — есть ли хотя бы одно чётное?
+console.log(mixed.some(x => x % 2 === 0)); // true (есть 2)
+
+// Практический пример: валидация
+const users = [
+  { name: 'Аня', age: 25 },
+  { name: 'Петя', age: 30 },
+  { name: 'Виктор', age: 28 }
+];
+
+// Все ли совершеннолетние?
+const allAdult = users.every(u => u.age >= 18); // true
+
+// Есть ли несовершеннолетние?
+const hasMinor = users.some(u => u.age < 18); // false</code></pre>
+          </div>
+
+          <div class="note-block warning">
+            <h4>⚠️ Частые ошибки</h4>
+
+            <p><strong>1. Путают логику every() и some()</strong></p>
+            <div class="code-block">
+              <pre><code>const arr = [2, 4, 5, 6];
+
+arr.every(x => x % 2 === 0); // false (не все чётные)
+arr.some(x => x % 2 === 0);  // true (есть чётные)</code></pre>
+            </div>
+
+            <p><strong>2. Забывают о пустых массивах</strong></p>
+            <p>Пустой массив для every() возвращает true (vacuous truth), для some() — false:</p>
+            <div class="code-block">
+              <pre><code>const empty = [];
+
+empty.every(x => x > 10); // true — технически верно (нет элементов, которые не подходят)
+empty.some(x => x > 10);  // false — нет элементов, которые подходят</code></pre>
+            </div>
+
+            <p><strong>3. Используют неправильное условие</strong></p>
+            <div class="code-block">
+              <pre><code>// Неправильно — без return:
+arr.every(x => { x > 0 }); // false (return пропущен)
+
+// Правильно:
+arr.every(x => x > 0);</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>💡 Когда использовать</h4>
+            <ul class="list-ul">
+              <li><code>every()</code> — все ли элементы валидны? Все ли права установлены?</li>
+              <li><code>some()</code> — есть ли ошибки? Есть ли совпадений?</li>
+              <li>Валидация формы: <code>fields.every(f => f.valid)</code></li>
+              <li>Проверка прав: <code>user.permissions.some(p => p === 'admin')</code></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- reduce() -->
+      <section class="section" id="method-reduce">
+        <div class="container">
+          <h2><code>reduce()</code> и <code>reduceRight()</code> — Аккумуляция</h2>
+          <p class="note"><strong>reduce()</strong> - метод <b>аккумулирует значения массива в один результат</b>, вызывая функцию для каждого элемента. Это один из самых мощных методов массивов.</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>arr.reduce(callback(accumulator, element, index, array), [initialValue])
+arr.reduceRight(callback(accumulator, element, index, array), [initialValue])</code></pre>
+          </div>
+
+          <h4>Параметры:</h4>
+          <ul class="list-ul">
+            <li><strong>callback</strong> - функция, которая получает аккумулятор и текущий элемент</li>
+            <li><strong>initialValue</strong> - начальное значение аккумулятора (необязательно)</li>
+          </ul>
+
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Одно значение — результат аккумуляции</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>// Сумма всех чисел
+const nums = [1, 2, 3, 4, 5];
+const sum = nums.reduce((acc, x) => acc + x, 0);
+console.log(sum); // 15
+
+// Произведение
+const product = nums.reduce((acc, x) => acc * x, 1);
+console.log(product); // 120
+
+// Подсчёт элементов по типу
+const items = ['a', 'b', 'a', 'c', 'b', 'a'];
+const count = items.reduce((acc, item) => {
+  acc[item] = (acc[item] || 0) + 1;
+  return acc;
+}, {});
+console.log(count); // { a: 3, b: 2, c: 1 }
+
+// Объединение массивов массивов
+const arr = [[1, 2], [3, 4], [5, 6]];
+const flat = arr.reduce((acc, row) => acc.concat(row), []);
+console.log(flat); // [1, 2, 3, 4, 5, 6]
+
+// Преобразование массива в объект
+const users = [
+  { id: 1, name: 'Аня' },
+  { id: 2, name: 'Петя' }
+];
+const userMap = users.reduce((acc, user) => {
+  acc[user.id] = user;
+  return acc;
+}, {});
+console.log(userMap); // { 1: { id: 1, name: 'Аня' }, ... }
+
+// reduceRight() — справа налево
+const arr2 = [1, 2, 3, 4];
+arr2.reduce((acc, x) => acc - x, 0);      // 0 - 1 - 2 - 3 - 4 = -10
+arr2.reduceRight((acc, x) => acc - x, 0); // 0 - 4 - 3 - 2 - 1 = -10</code></pre>
+          </div>
+
+          <div class="note-block warning">
+            <h4>⚠️ Частые ошибки</h4>
+
+            <p><strong>1. Забывают initialValue</strong></p>
+            <p>Без начального значения первый элемент используется как аккумулятор:</p>
+            <div class="code-block">
+              <pre><code>const nums = [1, 2, 3];
+
+// Без initialValue:
+nums.reduce((acc, x) => acc + x); // 1 + 2 + 3 = 6
+
+// С initialValue:
+nums.reduce((acc, x) => acc + x, 0); // 0 + 1 + 2 + 3 = 6
+
+// Разница — на пустом массиве:
+[].reduce((acc, x) => acc + x); // TypeError!
+[].reduce((acc, x) => acc + x, 0); // 0</code></pre>
+            </div>
+
+            <p><strong>2. Забывают return аккумулятор</strong></p>
+            <p>Callback ДОЛЖЕН возвращать обновленный аккумулятор:</p>
+            <div class="code-block">
+              <pre><code>// Неправильно:
+const result = nums.reduce((acc, x) => { acc + x }); // undefined!
+
+// Правильно:
+const result = nums.reduce((acc, x) => acc + x, 0);</code></pre>
+            </div>
+
+            <p><strong>3. Мутируют аккумулятор</strong></p>
+            <p>Хотя это работает, лучше создавать новый объект/массив:</p>
+            <div class="code-block">
+              <pre><code>// Работает, но опасно:
+const result = arr.reduce((acc, x) => {
+  acc.push(x * 2);
+  return acc;
+}, []);
+
+// Лучше — использовать map() + filter():
+const result = arr.filter(x => x > 5).map(x => x * 2);</code></pre>
+            </div>
+
+            <p><strong>4. Используют reduce() для всего подряд</strong></p>
+            <p>Reduce мощный, но часто код более читаемо с map/filter:</p>
+            <div class="code-block">
+              <pre><code>// Сложно читать:
+arr.reduce((acc, x) => x > 2 ? [...acc, x * 2] : acc, []);
+
+// Читабельнее:
+arr.filter(x => x > 2).map(x => x * 2);</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>💡 Когда использовать</h4>
+            <ul class="list-ul">
+              <li>Суммирование/произведение: <code>nums.reduce((a, x) => a + x, 0)</code></li>
+              <li>Подсчёт элементов: <code>arr.reduce((acc, x) => ({ ...acc, [x]: (acc[x] || 0) + 1 }), {})</code></li>
+              <li>Преобразование массива в объект по ID</li>
+              <li>Выравнивание вложенных массивов (хотя есть flat())</li>
+              <li>Если код становится сложным — рассмотрите map/filter вместо reduce</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Сводная таблица -->
+      <section class="section" id="summary">
+        <div class="container">
+          <h2>Сводная таблица итерационных методов</h2>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th style="width: 15%">Метод</th>
+                <th style="width: 40%">Описание</th>
+                <th style="width: 20%">Синтаксис</th>
+                <th style="width: 25%">Возвращает</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>forEach()</code></td>
+                <td>Выполняет функцию для каждого элемента</td>
+                <td><code>arr.forEach(fn)</code></td>
+                <td>undefined</td>
+              </tr>
+              <tr>
+                <td><code>every()</code></td>
+                <td>Проверяет, ВСЕ ли элементы подходят</td>
+                <td><code>arr.every(fn)</code></td>
+                <td>true/false</td>
+              </tr>
+              <tr>
+                <td><code>some()</code></td>
+                <td>Проверяет, ЕСТЬ ЛИ подходящие элементы</td>
+                <td><code>arr.some(fn)</code></td>
+                <td>true/false</td>
+              </tr>
+              <tr>
+                <td><code>reduce()</code></td>
+                <td>Аккумулирует значения в один результат</td>
+                <td><code>arr.reduce(fn, init)</code></td>
+                <td>Одно значение</td>
+              </tr>
+              <tr>
+                <td><code>reduceRight()</code></td>
+                <td>reduce() справа налево</td>
+                <td><code>arr.reduceRight(fn, init)</code></td>
+                <td>Одно значение</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3 style="margin-top: 40px;">Сравнение методов</h3>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th style="width: 20%">Задача</th>
+                <th style="width: 30%">Используйте</th>
+                <th style="width: 50%">Пример</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Побочные эффекты</td>
+                <td><code>forEach()</code></td>
+                <td><code>arr.forEach(x => console.log(x))</code></td>
+              </tr>
+              <tr>
+                <td>Трансформация</td>
+                <td><code>map()</code></td>
+                <td><code>arr.map(x => x * 2)</code></td>
+              </tr>
+              <tr>
+                <td>Фильтрация</td>
+                <td><code>filter()</code></td>
+                <td><code>arr.filter(x => x > 5)</code></td>
+              </tr>
+              <tr>
+                <td>Проверка ВСЕ</td>
+                <td><code>every()</code></td>
+                <td><code>arr.every(x => x > 0)</code></td>
+              </tr>
+              <tr>
+                <td>Проверка ХОТЯ БЫ ОДИН</td>
+                <td><code>some()</code></td>
+                <td><code>arr.some(x => x &lt; 0)</code></td>
+              </tr>
+              <tr>
+                <td>Аккумуляция</td>
+                <td><code>reduce()</code></td>
+                <td><code>arr.reduce((a, x) => a + x, 0)</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Навигация к другим разделам -->
+      <section class="section">
+        <div class="container">
+          <h2>Другие разделы методов массивов</h2>
+          <ul class="list-ul">
+            <li><a href="array-methods.html">← Вернуться на главную страницу</a></li>
+            <li><a href="array-methods-mutating.html">← Мутирующие методы</a></li>
+            <li><a href="array-methods-non-mutating.html">← Немутирующие методы</a></li>
+          </ul>
+        </div>
+      </section>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+</body>
+
+</html>

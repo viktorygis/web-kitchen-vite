@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "JavaScript: Немутирующие методы массивов", "description": "Подробное руководство по немутирующим методам массивов: concat, slice, join, indexOf, includes, find, map, filter, flat, at" })
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs">
+        <a href="array-methods.html">← Назад к обзору</a>
+        <a href="#non-mutating-intro" class="active">Введение</a>
+        <a href="#method-concat">concat()</a>
+        <a href="#method-slice">slice()</a>
+        <a href="#method-join">join()</a>
+        <a href="#method-indexof">indexOf()</a>
+        <a href="#method-includes">includes()</a>
+        <a href="#method-find">find()</a>
+        <a href="#method-map">map()</a>
+        <a href="#method-filter">filter()</a>
+        <a href="#method-flat">flat()</a>
+        <a href="#method-at">at()</a>
+        <a href="#summary">Сводная таблица</a>
+      </nav>
+
+      <!-- Введение в немутирующие методы -->
+      <section class="section" id="non-mutating-intro">
+        <div class="container">
+          <h1>Немутирующие методы массивов</h1>
+
+          <p class="note">
+            <strong>Немутирующие методы</strong> — это методы, которые <b>не изменяют исходный массив</b>, а возвращают новый массив или новое значение. Они безопасны для использования с данными, которые нужно сохранить неизменёнными.
+          </p>
+
+          <div class="note-block info">
+            <h4>✅ Преимущества немутирующих методов</h4>
+            <ul class="list-ul">
+              <li>Безопасны в React/Vue (не нужны предостережения о мутации props/state)</li>
+              <li>Проще отследить изменения данных</li>
+              <li>Можно цеплять методы: <code>arr.filter(...).map(...).join(...)</code></li>
+              <li>Исходный массив остаётся неизменным (functional programming)</li>
+            </ul>
+          </div>
+
+          <p class="note note--info">
+            💡 <strong>Производительность:</strong> Немутирующие методы создают новые массивы, что требует больше памяти. Для очень больших массивов и производительно-критичного кода это может быть важным фактором. Но в большинстве случаев удобство кода важнее.
+          </p>
+        </div>
+      </section>
+
+      <!-- concat() -->
+      <section class="section" id="method-concat">
+        <div class="container">
+          <h2><code>concat()</code> — Объединение массивов</h2>
+          <p class="note"><strong>concat()</strong> - метод <b>объединяет</b> два или более массивов и возвращает <b>новый массив</b>. Не изменяет исходные массивы.</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>arr.concat(array1, array2, ..., value1, value2, ...)</code></pre>
+          </div>
+
+          <h4>Параметры:</h4>
+          <ul class="list-ul">
+            <li>Массивы или значения для объединения</li>
+          </ul>
+
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Новый массив с объединёнными элементами</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>const arr1 = [1, 2];
+const arr2 = [3, 4];
+const arr3 = [5, 6];
+
+const combined = arr1.concat(arr2, arr3);
+console.log(combined); // [1, 2, 3, 4, 5, 6]
+console.log(arr1); // [1, 2] — не изменился
+
+// Объединение с отдельными значениями
+const result = arr1.concat('a', 'b', arr2);
+console.log(result); // [1, 2, 'a', 'b', 3, 4]</code></pre>
+          </div>
+
+          <div class="note-block warning">
+            <h4>⚠️ Частые ошибки</h4>
+
+            <p><strong>1. Забывают присвоить результат</strong></p>
+            <p><code>concat()</code> не изменяет исходный массив:</p>
+            <div class="code-block">
+              <pre><code>const arr = [1, 2];
+arr.concat([3, 4]); // результат не сохранён
+
+console.log(arr); // [1, 2] — не изменился!
+
+// Правильно:
+const combined = arr.concat([3, 4]);</code></pre>
+            </div>
+
+            <p><strong>2. Путают с push() при объединении массивов</strong></p>
+            <div class="code-block">
+              <pre><code>const arr = [1, 2];
+arr.push([3, 4]); // добавляет МАССИВ как элемент
+console.log(arr); // [1, 2, [3, 4]]
+
+// concat() разворачивает массивы:
+const combined = arr.concat([3, 4]); // [1, 2, 3, 4]</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>💡 Когда использовать</h4>
+            <ul class="list-ul">
+              <li>Объединение нескольких массивов в новый</li>
+              <li>Когда нужно сохранить исходные массивы неизменными</li>
+              <li>Альтернатива: spread оператор <code>[...arr1, ...arr2, ...arr3]</code></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- slice() -->
+      <section class="section" id="method-slice">
+        <div class="container">
+          <h2><code>slice()</code> — Копирование части массива</h2>
+          <p class="note"><strong>slice()</strong> - метод <b>копирует часть массива</b> и возвращает новый массив. Не изменяет исходный массив.</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>arr.slice([start], [end])</code></pre>
+          </div>
+
+          <h4>Параметры:</h4>
+          <ul class="list-ul">
+            <li><strong>start</strong> - индекс начала (включается), по умолчанию 0</li>
+            <li><strong>end</strong> - индекс конца (НЕ включается), по умолчанию arr.length</li>
+          </ul>
+
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Новый массив с элементами из диапазона [start, end)</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>const arr = ['a', 'b', 'c', 'd', 'e'];
+
+// Копия всего массива
+const copy = arr.slice(); // ['a', 'b', 'c', 'd', 'e']
+
+// С начала до индекса 3 (не включая 3)
+const part1 = arr.slice(0, 3); // ['a', 'b', 'c']
+
+// От индекса 2 до конца
+const part2 = arr.slice(2); // ['c', 'd', 'e']
+
+// Последние 2 элемента
+const last2 = arr.slice(-2); // ['d', 'e']
+
+// Без первого и последнего элемента
+const middle = arr.slice(1, -1); // ['b', 'c', 'd']</code></pre>
+          </div>
+
+          <div class="note-block warning">
+            <h4>⚠️ Частые ошибки</h4>
+
+            <p><strong>1. Путают slice() со splice()</strong></p>
+            <p><code>slice()</code> не мутирует, <code>splice()</code> мутирует:</p>
+            <div class="code-block">
+              <pre><code>const arr = [1, 2, 3, 4];
+arr.slice(1, 3);  // [2, 3] — не изменяет arr
+arr.splice(1, 2); // [2, 3] — изменяет arr на [1, 4]</code></pre>
+            </div>
+
+            <p><strong>2. Забывают, что end не включается</strong></p>
+            <div class="code-block">
+              <pre><code>const arr = [0, 1, 2, 3, 4];
+arr.slice(1, 3); // [1, 2] — индекс 3 не включен!</code></pre>
+            </div>
+
+            <p><strong>3. Используют отрицательные индексы неправильно</strong></p>
+            <p>Отрицательный индекс считается с конца, но диапазон остаётся действительным:</p>
+            <div class="code-block">
+              <pre><code>const arr = ['a', 'b', 'c', 'd'];
+arr.slice(-2); // ['c', 'd'] — последние 2
+arr.slice(-3, -1); // ['b', 'c'] — с третьей с конца до второй с конца</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>💡 Когда использовать</h4>
+            <ul class="list-ul">
+              <li>Копирование массива: <code>arr.slice()</code></li>
+              <li>Извлечение части массива без мутации</li>
+              <li>Удаление первых/последних элементов: <code>arr.slice(1)</code>, <code>arr.slice(0, -1)</code></li>
+              <li>Альтернатива: spread оператор для полной копии <code>[...arr]</code></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- join() -->
+      <section class="section" id="method-join">
+        <div class="container">
+          <h2><code>join()</code> — Объединение в строку</h2>
+          <p class="note"><strong>join()</strong> - метод <b>объединяет все элементы массива в строку</b> с заданным разделителем.</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>arr.join([separator])</code></pre>
+          </div>
+
+          <h4>Параметры:</h4>
+          <ul class="list-ul">
+            <li><strong>separator</strong> - строка для разделения элементов, по умолчанию запятая (,)</li>
+          </ul>
+
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Строка с объединёнными элементами</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>const arr = ['Hello', 'World', 'JavaScript'];
+
+// По умолчанию через запятую
+console.log(arr.join()); // 'Hello,World,JavaScript'
+
+// Через пробел
+console.log(arr.join(' ')); // 'Hello World JavaScript'
+
+// Через дефис
+console.log(arr.join('-')); // 'Hello-World-JavaScript'
+
+// Без разделителя
+console.log(arr.join('')); // 'HelloWorldJavaScript'
+
+// Числовой массив
+const nums = [1, 2, 3, 4, 5];
+console.log(nums.join(', ')); // '1, 2, 3, 4, 5'</code></pre>
+          </div>
+
+          <div class="note-block warning">
+            <h4>⚠️ Частые ошибки</h4>
+
+            <p><strong>1. Забывают преобразовать в строку</strong></p>
+            <p><code>join()</code> преобразует элементы в строки, но <code>null</code> и <code>undefined</code> становятся пустыми строками:</p>
+            <div class="code-block">
+              <pre><code>const arr = [1, null, 3, undefined, 5];
+console.log(arr.join(', ')); // '1, , 3, , 5'</code></pre>
+            </div>
+
+            <p><strong>2. Путают с split()</strong></p>
+            <p><code>join()</code> — массив в строку, <code>split()</code> — строка в массив:</p>
+            <div class="code-block">
+              <pre><code>const arr = ['a', 'b', 'c'];
+const str = arr.join('-'); // 'a-b-c'
+const back = str.split('-'); // ['a', 'b', 'c']</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>💡 Когда использовать</h4>
+            <ul class="list-ul">
+              <li>Вывод списка пользователей: <code>names.join(', ')</code></li>
+              <li>Создание CSV: <code>row.join(',')</code></li>
+              <li>Путь к файлу: <code>pathParts.join('/')</code></li>
+              <li>HTML список: <code>items.join('&lt;/li>&lt;li>')</code></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- indexOf() -->
+      <section class="section" id="method-indexof">
+        <div class="container">
+          <h2><code>indexOf()</code> и <code>lastIndexOf()</code> — Поиск индекса</h2>
+          <p class="note"><strong>indexOf()</strong> - метод возвращает <b>индекс первого вхождения</b> элемента в массив, или -1 если элемента нет.</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>arr.indexOf(searchElement, [fromIndex])
+arr.lastIndexOf(searchElement, [fromIndex])</code></pre>
+          </div>
+
+          <h4>Параметры:</h4>
+          <ul class="list-ul">
+            <li><strong>searchElement</strong> - элемент для поиска</li>
+            <li><strong>fromIndex</strong> - индекс для начала поиска (необязательно)</li>
+          </ul>
+
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Индекс элемента или -1 если не найден</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>const arr = ['a', 'b', 'c', 'b', 'd'];
+
+// Первое вхождение
+console.log(arr.indexOf('b')); // 1
+
+// Поиск с начала с позиции 2
+console.log(arr.indexOf('b', 2)); // 3
+
+// Элемента нет
+console.log(arr.indexOf('z')); // -1
+
+// Последнее вхождение
+console.log(arr.lastIndexOf('b')); // 3
+
+// Проверка наличия элемента
+if (arr.indexOf('c') !== -1) {
+  console.log('Элемент найден');
+}</code></pre>
+          </div>
+
+          <div class="note-block warning">
+            <h4>⚠️ Частые ошибки</h4>
+
+            <p><strong>1. Используют с объектами или массивами</strong></p>
+            <p><code>indexOf()</code> использует строгое равенство (===), поэтому с объектами не работает:</p>
+            <div class="code-block">
+              <pre><code>const arr = [{id: 1}, {id: 2}];
+console.log(arr.indexOf({id: 1})); // -1 — разные объекты!
+
+// Используйте find() для поиска по свойству:
+const found = arr.find(item => item.id === 1);</code></pre>
+            </div>
+
+            <p><strong>2. Забывают проверить результат</strong></p>
+            <p>Индекс 0 — валидный результат, нельзя использовать <code>if (index)</code>:</p>
+            <div class="code-block">
+              <pre><code>const arr = ['a', 'b', 'c'];
+const index = arr.indexOf('a'); // 0
+
+// Неправильно:
+if (index) { } // 0 — falsy!
+
+// Правильно:
+if (index !== -1) { } // Проверяем на -1</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>💡 Когда использовать</h4>
+            <ul class="list-ul">
+              <li>Проверка наличия примитива в массиве</li>
+              <li>Поиск индекса для splice: <code>arr.splice(arr.indexOf(item), 1)</code></li>
+              <li>Для объектов/сложных условий используйте <code>find()</code> или <code>findIndex()</code></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- includes() -->
+      <section class="section" id="method-includes">
+        <div class="container">
+          <h2><code>includes()</code> — Проверка наличия</h2>
+          <p class="note"><strong>includes()</strong> - метод проверяет, <b>содержит ли массив элемент</b>, и возвращает <code>true</code> или <code>false</code>.</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>arr.includes(searchElement, [fromIndex])</code></pre>
+          </div>
+
+          <h4>Параметры:</h4>
+          <ul class="list-ul">
+            <li><strong>searchElement</strong> - элемент для поиска</li>
+            <li><strong>fromIndex</strong> - индекс для начала поиска (необязательно)</li>
+          </ul>
+
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li><code>true</code> если элемент найден, <code>false</code> если нет</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>const arr = ['apple', 'banana', 'orange'];
+
+// Проверка наличия
+console.log(arr.includes('banana')); // true
+console.log(arr.includes('grape')); // false
+
+// С начала с позиции 1
+console.log(arr.includes('apple', 1)); // false
+
+// С NaN
+const withNaN = [1, 2, NaN, 4];
+console.log(withNaN.includes(NaN)); // true — особенность includes!</code></pre>
+          </div>
+
+          <div class="note-block warning">
+            <h4>⚠️ Частые ошибки</h4>
+
+            <p><strong>1. Путают includes() с indexOf()</strong></p>
+            <p><code>includes()</code> возвращает boolean, <code>indexOf()</code> — индекс:</p>
+            <div class="code-block">
+              <pre><code>const arr = ['a', 'b', 'c'];
+
+arr.includes('b'); // true
+arr.indexOf('b'); // 1
+
+// includes() более читаемо для проверок:
+if (arr.includes('b')) { } // лучше, чем
+if (arr.indexOf('b') !== -1) { }</code></pre>
+            </div>
+
+            <p><strong>2. Используют с объектами</strong></p>
+            <p>Как и <code>indexOf()</code>, работает только с примитивами:</p>
+            <div class="code-block">
+              <pre><code>const arr = [{id: 1}, {id: 2}];
+arr.includes({id: 1}); // false — разные объекты
+
+// Используйте some():
+arr.some(item => item.id === 1); // true</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>💡 Когда использовать</h4>
+            <ul class="list-ul">
+              <li>Проверка наличия в условиях: <code>if (allowedMethods.includes(method))</code></li>
+              <li>Валидация: <code>validStatuses.includes(user.status)</code></li>
+              <li>Более читаемо чем <code>indexOf() !== -1</code></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- find() -->
+      <section class="section" id="method-find">
+        <div class="container">
+          <h2><code>find()</code> и <code>findIndex()</code> — Поиск по условию</h2>
+          <p class="note"><strong>find()</strong> - метод возвращает <b>первый элемент массива</b>, который удовлетворяет функции-тесту, или <code>undefined</code> если ничего не найдено.</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>arr.find(callback(element, index, array))
+arr.findIndex(callback(element, index, array))</code></pre>
+          </div>
+
+          <h4>Параметры:</h4>
+          <ul class="list-ul">
+            <li><strong>callback</strong> - функция, возвращающая true/false для проверки условия</li>
+          </ul>
+
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li><code>find()</code> — первый элемент, удовлетворяющий условию, или undefined</li>
+            <li><code>findIndex()</code> — индекс первого элемента, или -1 если не найден</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>const users = [
+  { id: 1, name: 'Аня', age: 25 },
+  { id: 2, name: 'Петя', age: 30 },
+  { id: 3, name: 'Виктор', age: 28 }
+];
+
+// Найти первого пользователя старше 26
+const user = users.find(u => u.age > 26);
+console.log(user); // { id: 2, name: 'Петя', age: 30 }
+
+// Найти индекс
+const index = users.findIndex(u => u.id === 2);
+console.log(index); // 1
+
+// Не найдено
+const notFound = users.find(u => u.age > 50);
+console.log(notFound); // undefined</code></pre>
+          </div>
+
+          <div class="note-block warning">
+            <h4>⚠️ Частые ошибки</h4>
+
+            <p><strong>1. Путают find() с filter()</strong></p>
+            <p><code>find()</code> возвращает первый элемент, <code>filter()</code> — все подходящие:</p>
+            <div class="code-block">
+              <pre><code>const arr = [1, 2, 3, 4, 5];
+
+arr.find(x => x > 2); // 3 — первый элемент
+arr.filter(x => x > 2); // [3, 4, 5] — все элементы</code></pre>
+            </div>
+
+            <p><strong>2. Используют неправильное условие</strong></p>
+            <p>Callback должен возвращать boolean:</p>
+            <div class="code-block">
+              <pre><code>// Неправильно — return пропущен:
+const found = users.find(u => { u.age > 25 });
+
+// Правильно:
+const found = users.find(u => u.age > 25);</code></pre>
+            </div>
+
+            <p><strong>3. Не обрабатывают undefined</strong></p>
+            <p>Если ничего не найдено, вернётся undefined:</p>
+            <div class="code-block">
+              <pre><code>const found = users.find(u => u.id === 999); // undefined
+console.log(found.name); // TypeError!
+
+// Правильно — проверяем:
+if (found) {
+  console.log(found.name);
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>💡 Когда использовать</h4>
+            <ul class="list-ul">
+              <li>Поиск объекта по свойству: <code>users.find(u => u.id === id)</code></li>
+              <li>Найти первый элемент, удовлетворяющий условию</li>
+              <li>Если нужны ВСЕ элементы — используйте <code>filter()</code></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- map() -->
+      <section class="section" id="method-map">
+        <div class="container">
+          <h2><code>map()</code> — Преобразование элементов</h2>
+          <p class="note"><strong>map()</strong> - метод <b>преобразует каждый элемент массива</b> с помощью функции и возвращает <b>новый массив</b>.</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>arr.map(callback(element, index, array))</code></pre>
+          </div>
+
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Новый массив с преобразованными элементами</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>const nums = [1, 2, 3, 4, 5];
+
+// Умножить на 2
+const doubled = nums.map(x => x * 2);
+console.log(doubled); // [2, 4, 6, 8, 10]
+
+// Преобразовать строки в числа
+const strs = ['1', '2', '3'];
+const numbers = strs.map(Number);
+console.log(numbers); // [1, 2, 3]
+
+// Извлечь свойства из объектов
+const users = [
+  { name: 'Аня', age: 25 },
+  { name: 'Петя', age: 30 }
+];
+const names = users.map(u => u.name);
+console.log(names); // ['Аня', 'Петя']
+
+// С индексом
+const indexed = nums.map((x, i) => `${i}: ${x}`);
+console.log(indexed); // ['0: 1', '1: 2', ...]</code></pre>
+          </div>
+
+          <div class="note-block warning">
+            <h4>⚠️ Частые ошибки</h4>
+
+            <p><strong>1. Забывают return в стрелочной функции</strong></p>
+            <div class="code-block">
+              <pre><code>// Неправильно:
+const result = nums.map(x => { x * 2 }); // [undefined, undefined, ...]
+
+// Правильно:
+const result = nums.map(x => x * 2); // [2, 4, 6, ...]
+
+// Или с блоком:
+const result = nums.map(x => { return x * 2 });</code></pre>
+            </div>
+
+            <p><strong>2. Путают map() с forEach()</strong></p>
+            <p><code>map()</code> возвращает новый массив, <code>forEach()</code> не возвращает ничего:</p>
+            <div class="code-block">
+              <pre><code>const arr = [1, 2, 3];
+
+const mapped = arr.map(x => x * 2); // [2, 4, 6]
+const iterated = arr.forEach(x => x * 2); // undefined</code></pre>
+            </div>
+
+            <p><strong>3. Не сохраняют результат</strong></p>
+            <div class="code-block">
+              <pre><code>nums.map(x => x * 2); // результат выброшен!
+
+// Правильно:
+const doubled = nums.map(x => x * 2);</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>💡 Когда использовать</h4>
+            <ul class="list-ul">
+              <li>Преобразование одного массива в другой</li>
+              <li>Извлечение свойств: <code>users.map(u => u.id)</code></li>
+              <li>Преобразование типов: <code>strs.map(Number)</code></li>
+              <li>React render списков: <code>items.map(item => &lt;Item key={item.id} {...item} />)</code></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- filter() -->
+      <section class="section" id="method-filter">
+        <div class="container">
+          <h2><code>filter()</code> — Фильтрация элементов</h2>
+          <p class="note"><strong>filter()</strong> - метод <b>фильтрует элементы массива</b> на основе условия и возвращает <b>новый массив</b> с подходящими элементами.</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>arr.filter(callback(element, index, array))</code></pre>
+          </div>
+
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Новый массив с элементами, для которых callback вернул true</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>const nums = [1, 2, 3, 4, 5];
+
+// Только чётные числа
+const evens = nums.filter(x => x % 2 === 0);
+console.log(evens); // [2, 4]
+
+// Элементы больше 3
+const greater = nums.filter(x => x > 3);
+console.log(greater); // [4, 5]
+
+// Удалить null и undefined
+const arr = [1, null, 2, undefined, 3];
+const clean = arr.filter(x => x != null);
+console.log(clean); // [1, 2, 3]
+
+// Фильтр объектов
+const users = [
+  { name: 'Аня', active: true },
+  { name: 'Петя', active: false },
+  { name: 'Виктор', active: true }
+];
+const activeUsers = users.filter(u => u.active);
+console.log(activeUsers); // 2 пользователей</code></pre>
+          </div>
+
+          <div class="note-block warning">
+            <h4>⚠️ Частые ошибки</h4>
+
+            <p><strong>1. Мутируют исходный массив</strong></p>
+            <p><code>filter()</code> не мутирует, но легко перепутать с методами вроде splice():</p>
+            <div class="code-block">
+              <pre><code>const arr = [1, 2, 3, 4];
+const filtered = arr.filter(x => x > 2);
+
+console.log(arr); // [1, 2, 3, 4] — не изменился
+console.log(filtered); // [3, 4]</code></pre>
+            </div>
+
+            <p><strong>2. Забывают return в callback</strong></p>
+            <div class="code-block">
+              <pre><code>// Неправильно:
+const filtered = arr.filter(x => { x > 2 }); // пустой массив!
+
+// Правильно:
+const filtered = arr.filter(x => x > 2);</code></pre>
+            </div>
+
+            <p><strong>3. Используют в условии неправильный результат</strong></p>
+            <div class="code-block">
+              <pre><code>const result = arr.filter(x => x > 2);
+
+if (result) { } // всегда true, даже если пуст!
+
+// Правильно:
+if (result.length > 0) { }</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>💡 Когда использовать</h4>
+            <ul class="list-ul">
+              <li>Фильтрация по условию: <code>items.filter(item => item.active)</code></li>
+              <li>Удаление элементов: <code>arr.filter(x => x !== toRemove)</code></li>
+              <li>Поиск по типу: <code>items.filter(item => item instanceof User)</code></li>
+              <li>Комбинировать с map: <code>arr.filter(...).map(...)</code></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- flat() -->
+      <section class="section" id="method-flat">
+        <div class="container">
+          <h2><code>flat()</code> и <code>flatMap()</code> — Выравнивание массивов</h2>
+          <p class="note"><strong>flat()</strong> - метод <b>выравнивает вложенные массивы</b> на указанную глубину и возвращает новый массив.</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>arr.flat([depth])
+arr.flatMap(callback(element, index, array))</code></pre>
+          </div>
+
+          <h4>Параметры:</h4>
+          <ul class="list-ul">
+            <li><strong>depth</strong> - глубина выравнивания, по умолчанию 1, можно использовать Infinity</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>// flat() — выравнивание на 1 уровень
+const arr1 = [1, [2, 3], [4, [5, 6]]];
+console.log(arr1.flat()); // [1, 2, 3, 4, [5, 6]]
+
+// На 2 уровня
+console.log(arr1.flat(2)); // [1, 2, 3, 4, 5, 6]
+
+// На любую глубину
+console.log(arr1.flat(Infinity)); // [1, 2, 3, 4, 5, 6]
+
+// flatMap() — map + flat(1)
+const users = [
+  { name: 'Аня', hobbies: ['чтение', 'спорт'] },
+  { name: 'Петя', hobbies: ['игры', 'музыка'] }
+];
+const hobbies = users.flatMap(u => u.hobbies);
+console.log(hobbies); // ['чтение', 'спорт', 'игры', 'музыка']
+
+// Эквивалентно:
+const hobbies2 = users.map(u => u.hobbies).flat();</code></pre>
+          </div>
+
+          <div class="note-block warning">
+            <h4>⚠️ Частые ошибки</h4>
+
+            <p><strong>1. Забывают указать глубину</strong></p>
+            <p>По умолчанию flat() выравнивает только на 1 уровень:</p>
+            <div class="code-block">
+              <pre><code>const arr = [1, [2, [3, [4]]]];
+arr.flat(); // [1, 2, [3, [4]]] — выравнен 1 уровень!
+arr.flat(2); // [1, 2, 3, [4]]
+arr.flat(Infinity); // [1, 2, 3, 4]</code></pre>
+            </div>
+
+            <p><strong>2. Путают flatMap с map + flat</strong></p>
+            <div class="code-block">
+              <pre><code>const arr = [1, 2, 3];
+
+// flatMap использует flat(1):
+const result1 = arr.flatMap(x => [x, x * 2]); // [1, 2, 2, 4, 3, 6]
+
+// map().flat(2) и т.д.:
+const result2 = arr.map(x => [x, x * 2]).flat(2); // то же самое</code></pre>
+            </div>
+
+            <p><strong>3. Используют на очень глубоких структурах</strong></p>
+            <p>Для очень глубоких вложенных структур используйте рекурсию или специальные функции.</p>
+          </div>
+
+          <div class="note-block info">
+            <h4>💡 Когда использовать</h4>
+            <ul class="list-ul">
+              <li>Объединение результатов поиска в подмассивах</li>
+              <li>Выравнивание API ответов с вложенными данными</li>
+              <li>flatMap для одновременного map и flat: <code>arr.flatMap(x => [x.id, x.name])</code></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- at() -->
+      <section class="section" id="method-at">
+        <div class="container">
+          <h2><code>at()</code> — Доступ с отрицательными индексами</h2>
+          <p class="note"><strong>at()</strong> - метод возвращает элемент массива по индексу, поддерживая отрицательные индексы для доступа с конца. (ES2022)</p>
+
+          <h4>Синтаксис:</h4>
+          <div class="code-block">
+            <pre><code>arr.at(index)</code></pre>
+          </div>
+
+          <h4>Параметры:</h4>
+          <ul class="list-ul">
+            <li><strong>index</strong> - индекс элемента, может быть отрицательным</li>
+          </ul>
+
+          <h4>Возвращает:</h4>
+          <ul class="list-ul">
+            <li>Элемент по индексу или undefined если индекс вне границ</li>
+          </ul>
+
+          <h4>Примеры:</h4>
+          <div class="code-block">
+            <pre><code>const arr = ['a', 'b', 'c', 'd', 'e'];
+
+// Обычный доступ
+console.log(arr.at(0)); // 'a'
+console.log(arr.at(2)); // 'c'
+
+// Отрицательные индексы — с конца!
+console.log(arr.at(-1)); // 'e' — последний элемент
+console.log(arr.at(-2)); // 'd' — предпоследний
+console.log(arr.at(-5)); // 'a' — первый
+
+// Вне границ
+console.log(arr.at(10)); // undefined
+console.log(arr.at(-10)); // undefined</code></pre>
+          </div>
+
+          <div class="note-block warning">
+            <h4>⚠️ Важные моменты</h4>
+
+            <p><strong>1. Это новый метод (ES2022)</strong></p>
+            <p>Может не поддерживаться в старых браузерах. Проверьте совместимость:</p>
+            <div class="code-block">
+              <pre><code>// Альтернатива для старых браузеров:
+arr[arr.length - 1]; // вместо arr.at(-1)</code></pre>
+            </div>
+
+            <p><strong>2. Удобнее чем старый синтаксис</strong></p>
+            <p>Сравнение способов получить последний элемент:</p>
+            <div class="code-block">
+              <pre><code>// Старый способ:
+arr[arr.length - 1];
+arr.slice(-1)[0];
+
+// Новый способ (более читаемо):
+arr.at(-1);</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>💡 Когда использовать</h4>
+            <ul class="list-ul">
+              <li>Последний элемент: <code>arr.at(-1)</code> вместо <code>arr[arr.length - 1]</code></li>
+              <li>Второй с конца: <code>arr.at(-2)</code></li>
+              <li>Более читаемый код с отрицательными индексами</li>
+              <li>Поддержка браузеров: проверьте перед использованием</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Сводная таблица -->
+      <section class="section" id="summary">
+        <div class="container">
+          <h2>Сводная таблица немутирующих методов</h2>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th style="width: 15%">Метод</th>
+                <th style="width: 40%">Описание</th>
+                <th style="width: 20%">Синтаксис</th>
+                <th style="width: 25%">Возвращает</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>concat()</code></td>
+                <td>Объединяет массивы</td>
+                <td><code>arr.concat(...arrays)</code></td>
+                <td>Новый массив</td>
+              </tr>
+              <tr>
+                <td><code>slice()</code></td>
+                <td>Копирует часть массива</td>
+                <td><code>arr.slice(start, end)</code></td>
+                <td>Новый массив</td>
+              </tr>
+              <tr>
+                <td><code>join()</code></td>
+                <td>Объединяет в строку</td>
+                <td><code>arr.join(sep)</code></td>
+                <td>Строка</td>
+              </tr>
+              <tr>
+                <td><code>indexOf()</code></td>
+                <td>Поиск индекса элемента</td>
+                <td><code>arr.indexOf(item)</code></td>
+                <td>Индекс или -1</td>
+              </tr>
+              <tr>
+                <td><code>includes()</code></td>
+                <td>Проверка наличия</td>
+                <td><code>arr.includes(item)</code></td>
+                <td>true/false</td>
+              </tr>
+              <tr>
+                <td><code>find()</code></td>
+                <td>Поиск по условию</td>
+                <td><code>arr.find(fn)</code></td>
+                <td>Элемент или undefined</td>
+              </tr>
+              <tr>
+                <td><code>map()</code></td>
+                <td>Преобразование элементов</td>
+                <td><code>arr.map(fn)</code></td>
+                <td>Новый массив</td>
+              </tr>
+              <tr>
+                <td><code>filter()</code></td>
+                <td>Фильтрация элементов</td>
+                <td><code>arr.filter(fn)</code></td>
+                <td>Новый массив</td>
+              </tr>
+              <tr>
+                <td><code>flat()</code></td>
+                <td>Выравнивание вложенных</td>
+                <td><code>arr.flat(depth)</code></td>
+                <td>Новый массив</td>
+              </tr>
+              <tr>
+                <td><code>at()</code></td>
+                <td>Доступ с отриц. индексами</td>
+                <td><code>arr.at(index)</code></td>
+                <td>Элемент или undefined</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Навигация к другим разделам -->
+      <section class="section">
+        <div class="container">
+          <h2>Другие разделы методов массивов</h2>
+          <ul class="list-ul">
+            <li><a href="array-methods.html">← Вернуться на главную страницу</a></li>
+            <li><a href="array-methods-mutating.html">← Мутирующие методы</a></li>
+            <li><a href="array-methods-iterating.html">Итерационные методы →</a></li>
+          </ul>
+        </div>
+      </section>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+</body>
+
+</html>
