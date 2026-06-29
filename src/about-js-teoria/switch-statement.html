@@ -1,127 +1,123 @@
 <!DOCTYPE html>
 <html lang="ru">
-    @@include('../partials/head.html', { "title": "Конструкция \"switch\" в JavaScript", "description": "Конструкция \"switch\" в JavaScript" })
+    @@include('../partials/head.html', { "title": "Конструкция switch в JavaScript", "description": "switch, case, break, default" })
     <body>
         <div class="wrapper">
             @@include('../partials/header.html', {})
             <main class="page">
-                <section class="section">
+                <!-- Локальное меню по секциям -->
+                <nav class="nav-tabs" id="page-nav">
+                    <ul>
+                        <li><a href="#intro">Введение</a></li>
+                        <li><a href="#how-it-works">Как работает</a></li>
+                        <li><a href="#syntax">Синтаксис</a></li>
+                        <li><a href="#basic-example">Простой пример</a></li>
+                        <li><a href="#grouping">Группировка case</a></li>
+                        <li><a href="#fallthrough">Fall-through</a></li>
+                        <li><a href="#strict-equality">Строгое сравнение</a></li>
+                        <li><a href="#switch-expressions">Выражения в case</a></li>
+                        <li><a href="#data-types">Типы данных</a></li>
+                        <li><a href="#compare">switch vs if/else</a></li>
+                        <li><a href="#best-practices">Практики</a></li>
+                        <li><a href="#pitfalls">Ловушки</a></li>
+                        <li><a href="#patterns">Шаблоны</a></li>
+                        <li><a href="#summary">Итоги</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Введение -->
+                <section class="section" id="intro">
                     <div class="container">
-                        <h1>Конструкция "switch" в JavaScript</h1>
+                        <h1>Конструкция switch в JavaScript</h1>
+                        <p class="note">
+                            <strong>Конструкция switch</strong> — альтернатива длинным цепочкам <code>if...else if</code>.<br />
+                            Сравнивает одно выражение с несколькими вариантами и выполняет соответствующий блок кода.
+                        </p>
+                        <div class="note-block">
+                            <h4>С помощью switch ты можешь:</h4>
+                            <ul class="list-ul">
+                                <li>Проверять одно значение против множества вариантов.</li>
+                                <li>Писать более читаемый код вместо глубокой вложенности.</li>
+                                <li>Группировать несколько случаев в один блок кода.</li>
+                                <li>Обрабатывать значения перечисляемых типов (дни, статусы, команды).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
 
-                        <div class="content">
-                            <h2>Введение в конструкцию switch</h2>
-                            <p>
-                                Конструкция
-                                <code>switch</code>
-                                предоставляет более наглядный способ сравнить одно выражение сразу с несколькими вариантами. Это мощная альтернатива длинным цепочкам
-                                <code>if...else if</code>
-                                .
-                            </p>
+                <!-- Как работает -->
+                <section class="section" id="how-it-works">
+                    <div class="container">
+                        <h2>Как работает switch</h2>
+                        <p class="note">
+                            <strong>Алгоритм работы:</strong><br />
+                            1. Вычисляется выражение в <code>switch(...)</code><br />
+                            2. Результат сравнивается с каждым <code>case</code> (строгое сравнение ===)<br />
+                            3. При совпадении выполняется код этого <code>case</code><br />
+                            4. <code>break</code> завершает выполнение<br />
+                            5. Если совпадений нет — выполняется <code>default</code>
+                        </p>
 
-                            <div class="note">
-                                <strong>Основные понятия:</strong>
-                                <ul>
-                                    <li>
-                                        <strong>switch</strong>
-                                        - ключевое слово для начала конструкции
-                                    </li>
-                                    <li>
-                                        <strong>case</strong>
-                                        - вариант для сравнения
-                                    </li>
-                                    <li>
-                                        <strong>break</strong>
-                                        - прерывает выполнение конструкции
-                                    </li>
-                                    <li>
-                                        <strong>default</strong>
-                                        - вариант по умолчанию (если нет совпадений)
-                                    </li>
-                                </ul>
+                        <div class="note-block">
+                            <h4>Диаграмма выполнения</h4>
+                            <div class="code-block">
+                                <pre><code>Выражение (switch)
+    ↓
+Проверка: case 1? НЕТ
+    ↓
+Проверка: case 2? ДА
+    ↓
+Выполнение кода case 2
+    ↓
+break → Выход из switch</code></pre>
                             </div>
+                        </div>
+                    </div>
+                </section>
 
-                            <h2>Синтаксис конструкции switch</h2>
+                <!-- Синтаксис -->
+                <section class="section" id="syntax">
+                    <div class="container">
+                        <h2>Синтаксис switch</h2>
+                        <div class="note-block">
+                            <h4>Базовая структура:</h4>
+                            <div class="code-block">
+                                <pre><code>switch (выражение) {
+  case значение1:
+    // код для значение1
+    break;
 
-                            <div class="card">
-                                <h3>Базовый синтаксис</h3>
-                                <div class="syntax-block">
-                                    switch(выражение) {
-                                    <br />
-                                    &nbsp;&nbsp;case значение1:
-                                    <br />
-                                    &nbsp;&nbsp;&nbsp;&nbsp;// код для значение1
-                                    <br />
-                                    &nbsp;&nbsp;&nbsp;&nbsp;break;
-                                    <br />
-                                    <br />
-                                    &nbsp;&nbsp;case значение2:
-                                    <br />
-                                    &nbsp;&nbsp;&nbsp;&nbsp;// код для значение2
-                                    <br />
-                                    &nbsp;&nbsp;&nbsp;&nbsp;break;
-                                    <br />
-                                    <br />
-                                    &nbsp;&nbsp;default:
-                                    <br />
-                                    &nbsp;&nbsp;&nbsp;&nbsp;// код, если нет совпадений
-                                    <br />
-                                    }
-                                </div>
+  case значение2:
+    // код для значение2
+    break;
 
-                                <p>Работа конструкции:</p>
-                                <ol>
-                                    <li>
-                                        Вычисляется выражение в
-                                        <code>switch(...)</code>
-                                    </li>
-                                    <li>
-                                        Результат последовательно сравнивается с каждым
-                                        <code>case</code>
-                                    </li>
-                                    <li>
-                                        При совпадении выполняется код соответствующего
-                                        <code>case</code>
-                                    </li>
-                                    <li>
-                                        Ключевое слово
-                                        <code>break</code>
-                                        прерывает выполнение конструкции
-                                    </li>
-                                    <li>
-                                        Если совпадений нет, выполняется код в
-                                        <code>default</code>
-                                        (если он есть)
-                                    </li>
-                                </ol>
-
-                                <div class="flow-diagram">
-                                    <div class="flow-item">
-                                        <strong>Выражение</strong>
-                                        <p>switch(x)</p>
-                                    </div>
-                                    <div class="flow-item">
-                                        <strong>Сравнение</strong>
-                                        <p>case 'value1'</p>
-                                    </div>
-                                    <div class="flow-item">
-                                        <strong>Выполнение</strong>
-                                        <p>код case</p>
-                                    </div>
-                                    <div class="flow-item">
-                                        <strong>Завершение</strong>
-                                        <p>break или конец</p>
-                                    </div>
-                                </div>
+  default:
+    // код, если нет совпадений
+}</code></pre>
                             </div>
+                        </div>
 
-                            <h2>Примеры использования</h2>
+                        <div class="note-block">
+                            <h4>Ключевые элементы:</h4>
+                            <ul class="list-ul">
+                                <li><strong>switch</strong> — ключевое слово для начала конструкции.</li>
+                                <li><strong>case</strong> — вариант для сравнения с выражением.</li>
+                                <li><strong>break</strong> — прерывает выполнение и выходит из switch.</li>
+                                <li><strong>default</strong> — блок по умолчанию (если нет совпадений). Необязателен.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
 
-                            <div class="card">
-                                <h3>Простой пример</h3>
-                                <p>Определение дня недели по числовому значению:</p>
-
-                                <pre><code>let day = 3;
+                <!-- Простой пример -->
+                <section class="section" id="basic-example">
+                    <div class="container">
+                        <h2>Простой пример</h2>
+                        <p class="note">
+                            Определение дня недели по числовому значению:
+                        </p>
+                        <div class="code-block">
+                            <pre><code>let day = 3;
 let dayName;
 
 switch (day) {
@@ -151,20 +147,27 @@ switch (day) {
 }
 
 console.log(dayName); // "Среда"</code></pre>
+                        </div>
 
-                                <div class="note">
-                                    <strong>Важно:</strong>
-                                    Без
-                                    <code>break</code>
-                                    выполнение "проваливается" в следующий case!
-                                </div>
-                            </div>
+                        <p>При <code>day = 3</code> сравнивается:</p>
+                        <ul class="list-ul">
+                            <li><code>case 1:</code> → <code>3 === 1</code> → false, пропускаем.</li>
+                            <li><code>case 2:</code> → <code>3 === 2</code> → false, пропускаем.</li>
+                            <li><code>case 3:</code> → <code>3 === 3</code> → true, выполняем код, <code>break</code>.</li>
+                        </ul>
+                    </div>
+                </section>
 
-                            <div class="card">
-                                <h3>Группировка case</h3>
-                                <p>Один блок кода можно выполнить для нескольких значений:</p>
+                <!-- Группировка case -->
+                <section class="section" id="grouping">
+                    <div class="container">
+                        <h2>Группировка case</h2>
+                        <p class="note">
+                            Один блок кода можно выполнить для нескольких значений. Просто перечисли несколько <code>case</code> подряд.
+                        </p>
 
-                                <pre><code>let grade = 'B';
+                        <div class="code-block">
+                            <pre><code>let grade = 'B';
 let result;
 
 switch (grade) {
@@ -172,25 +175,41 @@ switch (grade) {
   case 'B':
     result = "Отлично!";
     break;
+
   case 'C':
     result = "Хорошо";
     break;
+
   case 'D':
   case 'E':
     result = "Нужно подтянуть знания";
     break;
+
   default:
     result = "Неизвестная оценка";
 }
 
 console.log(result); // "Отлично!"</code></pre>
-                            </div>
+                        </div>
 
-                            <div class="card">
-                                <h3>Пример без break</h3>
-                                <p>Демонстрация "проваливания" при отсутствии break:</p>
+                        <p>Код <code>"Отлично!"</code> выполнится как для <code>grade = 'A'</code>, так и для <code>grade = 'B'</code>.</p>
 
-                                <pre><code>let number = 2;
+                        <div class="note">
+                            <strong>Когда использовать:</strong> Когда несколько значений должны привести к одному результату.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Fall-through -->
+                <section class="section" id="fallthrough">
+                    <div class="container">
+                        <h2>Fall-through: проваливание без break</h2>
+                        <p class="note">
+                            Если забыть <code>break</code>, выполнение "проваливается" в следующий <code>case</code>. Обычно это ошибка, но иногда используется намеренно.
+                        </p>
+
+                        <div class="code-block">
+                            <pre><code>let number = 2;
 let message = "";
 
 switch (number) {
@@ -206,36 +225,73 @@ switch (number) {
 }
 
 console.log(message); // "Два Три"</code></pre>
+                        </div>
 
-                                <div class="warning">
-                                    <strong>Предупреждение:</strong>
-                                    Случайное "проваливание" - частая причина ошибок. Всегда используйте
-                                    <code>break</code>
-                                    , если вам не нужно специальное поведение!
-                                </div>
-                            </div>
+                        <div class="note-block">
+                            <h4>Что произойдёт:</h4>
+                            <ul class="list-ul">
+                                <li><code>case 1:</code> → <code>2 === 1</code> → false, пропускаем.</li>
+                                <li><code>case 2:</code> → <code>2 === 2</code> → true, добавляем "Два ".</li>
+                                <li>Нет <code>break</code>, выполнение продолжается!</li>
+                                <li><code>case 3:</code> → выполняем, добавляем "Три", затем <code>break</code>.</li>
+                                <li>Результат: <code>"Два Три"</code></li>
+                            </ul>
+                        </div>
 
-                            <h2>Особенности конструкции switch</h2>
+                        <div class="warning">
+                            <strong>Осторожно!</strong> Fall-through — частая причина ошибок. Всегда добавляй <code>break</code> в конце <code>case</code>, если ты не хочешь этого поведения!<br />
+                            Если намеренно опускаешь <code>break</code>, оставь комментарий: <code>// fall-through</code>
+                        </div>
+                    </div>
+                </section>
 
-                            <div class="comparison">
-                                <div class="comparison-item">
-                                    <h3>Строгая проверка</h3>
-                                    <p>Switch использует строгое сравнение (===)</p>
-                                    <pre><code>let value = "5";
+                <!-- Строгое сравнение -->
+                <section class="section" id="strict-equality">
+                    <div class="container">
+                        <h2>Строгое сравнение (===)</h2>
+                        <p class="note">
+                            <strong>Switch всегда использует строгое сравнение (===).</strong> Тип и значение должны совпадать полностью. Типы не приводятся.
+                        </p>
+
+                        <div class="code-block">
+                            <pre><code>let value = "5";
+
 switch (value) {
-  case 5:   // не сработает ("5" !== 5)
+  case 5:     // НЕ сработает ("5" !== 5)
     console.log("Число 5");
     break;
-  case "5": // сработает
+  case "5":   // Сработает
     console.log("Строка '5'");
     break;
-}</code></pre>
-                                </div>
+  default:
+    console.log("Другое");
+}
 
-                                <div class="comparison-item">
-                                    <h3>Выражения в case</h3>
-                                    <p>В case можно использовать выражения</p>
-                                    <pre><code>let a = 10;
+// Вывод: "Строка '5'"</code></pre>
+                        </div>
+
+                        <div class="note-block">
+                            <h4>Примеры строгого сравнения:</h4>
+                            <ul class="list-ul">
+                                <li><code>5 === "5"</code> → false (число vs строка)</li>
+                                <li><code>1 === true</code> → false (число vs булево)</li>
+                                <li><code>0 === false</code> → false (число vs булево)</li>
+                                <li><code>"" === 0</code> → false (строка vs число)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Выражения в case -->
+                <section class="section" id="switch-expressions">
+                    <div class="container">
+                        <h2>Выражения в case</h2>
+                        <p class="note">
+                            В <code>case</code> можно использовать выражения, а не только константы. Хитрый способ: переводи в switch <code>true</code> и проверяй выражения.
+                        </p>
+
+                        <div class="code-block">
+                            <pre><code>let a = 10;
 let b = 5;
 
 switch (true) {
@@ -245,17 +301,37 @@ switch (true) {
   case (a * b === 50):
     console.log("Произведение равно 50");
     break;
+  case (a > b):
+    console.log("a больше b");
+    break;
   default:
     console.log("Другое");
-}</code></pre>
-                                </div>
-                            </div>
+}
 
-                            <div class="card">
-                                <h3>Типы данных в switch</h3>
-                                <p>Switch может работать с любыми типами данных:</p>
+// Вывод: "Произведение равно 50"</code></pre>
+                        </div>
 
-                                <pre><code>let value = true;
+                        <div class="note">
+                            <strong>Как это работает:</strong><br />
+                            1. В switch передаём <code>true</code><br />
+                            2. Каждый case содержит выражение (возвращает true/false)<br />
+                            3. Сравнивается: <code>true === (результат выражения)</code><br />
+                            4. Когда выражение вернёт <code>true</code> — совпадение найдено!
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Типы данных -->
+                <section class="section" id="data-types">
+                    <div class="container">
+                        <h2>Работа с разными типами данных</h2>
+                        <p class="note">
+                            Switch может работать с любыми типами данных: числа, строки, булевы значения, null, undefined и даже объекты.
+                        </p>
+
+                        <h4>Пример с булевыми значениями:</h4>
+                        <div class="code-block">
+                            <pre><code>let value = true;
 
 switch (value) {
   case true:
@@ -266,89 +342,342 @@ switch (value) {
     break;
   default:
     console.log("Не булево значение");
-}</code></pre>
-                            </div>
+}
 
-                            <h2>Сравнение switch и if...else</h2>
-
-                            <table class="table-note">
-                                <thead>
-                                    <tr>
-                                        <th>Критерий</th>
-                                        <th>switch</th>
-                                        <th>if...else</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Читаемость</td>
-                                        <td>Выше при множестве условий</td>
-                                        <td>Выше при 2-3 условиях</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Сравнение</td>
-                                        <td>Строгое равенство (===)</td>
-                                        <td>Любые условия</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Производительность</td>
-                                        <td>Может быть выше при множестве условий</td>
-                                        <td>Одинакова при малом числе условий</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Группировка условий</td>
-                                        <td>Возможна через перечисление case</td>
-                                        <td>Через операторы || или &&</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Лучшее применение</td>
-                                        <td>Одно выражение, много вариантов</td>
-                                        <td>Сложные условия, диапазоны значений</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                            <div class="summary">
-                                <h3>Рекомендации и лучшие практики</h3>
-                                <ul>
-                                    <li>
-                                        Используйте
-                                        <code>switch</code>
-                                        при 3+ условиях для одного выражения
-                                    </li>
-                                    <li>
-                                        Всегда добавляйте
-                                        <code>break</code>
-                                        в конце каждого case (когда нужно)
-                                    </li>
-                                    <li>
-                                        Включайте блок
-                                        <code>default</code>
-                                        для обработки неожиданных значений
-                                    </li>
-                                    <li>Группируйте case для выполнения одного кода при разных значениях</li>
-                                    <li>Избегайте сложных выражений в case - они могут снизить читаемость</li>
-                                    <li>
-                                        Для проверки диапазонов значений используйте
-                                        <code>if...else</code>
-                                    </li>
-                                    <li>
-                                        Комментируйте случаи, когда намеренно опускаете
-                                        <code>break</code>
-                                    </li>
-                                    <li>Соблюдайте одинаковый стиль отступов для улучшения читаемости</li>
-                                </ul>
-                            </div>
+// Вывод: "Истина"</code></pre>
                         </div>
 
-                        <div class="footer">
-                            <p>Конструкция switch - мощный инструмент для обработки множественных условий. Используйте её там, где она повышает читаемость кода!</p>
+                        <h4>Пример со строками:</h4>
+                        <div class="code-block">
+                            <pre><code>let command = "start";
+
+switch (command) {
+  case "start":
+    console.log("Запуск...");
+    break;
+  case "stop":
+    console.log("Остановка...");
+    break;
+  case "pause":
+    console.log("Пауза...");
+    break;
+  default:
+    console.log("Неизвестная команда");
+}
+
+// Вывод: "Запуск..."</code></pre>
+                        </div>
+
+                        <h4>Пример с null/undefined:</h4>
+                        <div class="code-block">
+                            <pre><code>let value = null;
+
+switch (value) {
+  case null:
+    console.log("Значение null");
+    break;
+  case undefined:
+    console.log("Значение undefined");
+    break;
+  default:
+    console.log("Другое значение");
+}
+
+// Вывод: "Значение null"</code></pre>
                         </div>
                     </div>
                 </section>
+
+                <!-- Сравнение switch и if/else -->
+                <section class="section" id="compare">
+                    <div class="container">
+                        <h2>Сравнение switch и if...else</h2>
+
+                        <table class="table-note">
+                            <thead>
+                                <tr>
+                                    <th>Критерий</th>
+                                    <th>switch</th>
+                                    <th>if...else</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Читаемость</td>
+                                    <td>Выше при 3+ условиях</td>
+                                    <td>Выше при 2-3 условиях</td>
+                                </tr>
+                                <tr>
+                                    <td>Сравнение</td>
+                                    <td>Только строгое (===)</td>
+                                    <td>Любые условия (&gt;, &lt;, &amp;&amp;, ||)</td>
+                                </tr>
+                                <tr>
+                                    <td>Множество ветвей</td>
+                                    <td>Удобно для 5+ вариантов</td>
+                                    <td>Становится громоздким</td>
+                                </tr>
+                                <tr>
+                                    <td>Группировка условий</td>
+                                    <td>Естественная через перечисление case</td>
+                                    <td>Через || и &amp;&amp;</td>
+                                </tr>
+                                <tr>
+                                    <td>Диапазоны значений</td>
+                                    <td>Неудобно (нужны выражения)</td>
+                                    <td>Естественно (10 &lt; x &amp;&amp; x &lt; 20)</td>
+                                </tr>
+                                <tr>
+                                    <td>Производительность</td>
+                                    <td>Может быть выше при многих case</td>
+                                    <td>Одинакова</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="note-block">
+                            <h4>Когда использовать switch?</h4>
+                            <ul class="list-ul">
+                                <li>Одно выражение сравнивается с 3+ вариантами.</li>
+                                <li>Типичные значения: дни недели, статусы, команды, коды ошибок.</li>
+                                <li>Когда нужна группировка нескольких case в один блок.</li>
+                            </ul>
+                        </div>
+
+                        <div class="note-block">
+                            <h4>Когда использовать if...else?</h4>
+                            <ul class="list-ul">
+                                <li>Проверка диапазонов значений (10 &lt; x &lt; 20).</li>
+                                <li>Сложные условия с логическими операторами.</li>
+                                <li>2-3 простых условия.</li>
+                                <li>Когда нужны разные типы сравнения.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Лучшие практики -->
+                <section class="section" id="best-practices">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+                        <ul class="list-ul">
+                            <li><strong>Всегда добавляй break:</strong> В конце каждого case, если ты не хочешь fall-through.</li>
+                            <li><strong>Включай default:</strong> Даже если не ожидаешь других значений — для отловки ошибок.</li>
+                            <li><strong>Группируй case:</strong> Если несколько значений приводят к одному результату.</li>
+                            <li><strong>Комментируй fall-through:</strong> Если намеренно опускаешь break, пиши <code>// fall-through</code>.</li>
+                            <li><strong>Избегай сложных выражений:</strong> Switch теряет читаемость со сложной логикой в case.</li>
+                            <li><strong>Используй для простых проверок:</strong> Если нужна сложная логика — используй if/else.</li>
+                            <li><strong>Соблюдай стиль отступов:</strong> Для улучшения читаемости кода.</li>
+                        </ul>
+
+                        <div class="note-block">
+                            <h4>Пример хорошего стиля:</h4>
+                            <div class="code-block">
+                                <pre><code>switch (status) {
+  case "pending":
+    handlePending();
+    break;
+
+  case "success":
+  case "completed":
+    handleSuccess();
+    break;
+
+  case "error":
+  case "failed":
+    handleError();
+    break;
+
+  default:
+    console.warn("Unknown status:", status);
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Ловушки -->
+                <section class="section" id="pitfalls">
+                    <div class="container">
+                        <h2>Ловушки</h2>
+                        <div class="note-block warning">
+                            <ul class="list-ul">
+                                <li>
+                                    <strong>Забыл break:</strong> Выполнение "проваливается" в следующий case. Частая ошибка!
+                                    <div class="code-block">
+                                        <pre><code>// ОШИБКА
+switch (x) {
+  case 1:
+    console.log("Один"); // забыли break!
+  case 2:
+    console.log("Два");
+    break;
+}
+// При x=1: выведет "Один" И "Два"</code></pre>
+                                    </div>
+                                </li>
+                                <li>
+                                    <strong>Путаница с типами:</strong> <code>5 !== "5"</code>. Switch использует ===.
+                                    <div class="code-block">
+                                        <pre><code>// ОШИБКА
+let x = "5";
+switch (x) {
+  case 5: // не сработает
+    console.log("Число");
+    break;
+}</code></pre>
+                                    </div>
+                                </li>
+                                <li>
+                                    <strong>Case с объектами:</strong> Объекты сравниваются по ссылке, не по содержимому.
+                                    <div class="code-block">
+                                        <pre><code>// ОШИБКА
+let obj1 = {x: 1};
+let obj2 = {x: 1};
+
+switch (obj1) {
+  case obj2: // false, разные ссылки
+    console.log("Совпадение");
+}</code></pre>
+                                    </div>
+                                </li>
+                                <li><strong>Отсутствие default:</strong> Если значение не совпадает ни с одним case — ничего не произойдёт. Добавь default для отловки ошибок.</li>
+                                <li><strong>Сложная логика в case:</strong> Switch теряет преимущество читаемости.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Шаблоны -->
+                <section class="section" id="patterns">
+                    <div class="container">
+                        <h2>Полезные шаблоны</h2>
+
+                        <h4>1. Карта действий (switch как диспетчер)</h4>
+                        <div class="code-block">
+                            <pre><code>function handleCommand(cmd) {
+  switch (cmd) {
+    case "help":
+      showHelp();
+      break;
+    case "start":
+      startApp();
+      break;
+    case "stop":
+      stopApp();
+      break;
+    default:
+      console.error("Unknown command:", cmd);
+  }
+}</code></pre>
+                        </div>
+
+                        <h4>2. Группировка с условной логикой</h4>
+                        <div class="code-block">
+                            <pre><code>let role = "admin";
+
+switch (role) {
+  case "admin":
+  case "moderator":
+    console.log("Доступ к панели управления");
+    break;
+
+  case "user":
+    console.log("Доступ к профилю");
+    break;
+
+  case "guest":
+    console.log("Ограниченный доступ");
+    break;
+}</code></pre>
+                        </div>
+
+                        <h4>3. Switch с возвращением значения</h4>
+                        <div class="code-block">
+                            <pre><code>function getStatusMessage(code) {
+  switch (code) {
+    case 200:
+      return "OK";
+    case 404:
+      return "Not Found";
+    case 500:
+      return "Server Error";
+    default:
+      return "Unknown Status";
+  }
+}</code></pre>
+                        </div>
+
+                        <h4>4. Switch(true) для выражений</h4>
+                        <div class="code-block">
+                            <pre><code>let age = 25;
+
+switch (true) {
+  case age &lt; 13:
+    console.log("Дети");
+    break;
+  case age &lt; 18:
+    console.log("Подростки");
+    break;
+  case age &lt; 65:
+    console.log("Взрослые");
+    break;
+  default:
+    console.log("Пенсионеры");
+}</code></pre>
+                        </div>
+
+                        <h4>5. Объект вместо switch для большей гибкости</h4>
+                        <div class="code-block">
+                            <pre><code>// Альтернатива switch для простых отображений
+const actions = {
+  start: () =&gt; console.log("Запуск"),
+  stop: () =&gt; console.log("Остановка"),
+  pause: () =&gt; console.log("Пауза")
+};
+
+let cmd = "start";
+actions[cmd]?.(); // Вызовет действие или ничего</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Итоги -->
+                <section class="section" id="summary">
+                    <div class="container">
+                        <h2>Итоги</h2>
+                        <ul class="list-ul">
+                            <li><code>switch</code> — альтернатива цепочкам <code>if...else if</code>.</li>
+                            <li>Используй для сравнения одного выражения с несколькими вариантами.</li>
+                            <li><strong>Всегда</strong> добавляй <code>break</code> в конце <code>case</code> (если не нужен fall-through).</li>
+                            <li><code>switch</code> использует строгое сравнение (<code>===</code>), типы не приводятся.</li>
+                            <li>Можно группировать несколько <code>case</code> для одного блока кода.</li>
+                            <li>Fall-through (без break) — частая ошибка, комментируй намеренное использование.</li>
+                            <li>Для выражений используй <code>switch (true)</code> с условиями в <code>case</code>.</li>
+                            <li>Для диапазонов и сложной логики используй <code>if...else</code>.</li>
+                            <li>Всегда включай <code>default</code> для обработки неожиданных значений.</li>
+                            <li>При 3+ вариантов switch часто более читаемый, чем if/else.</li>
+                        </ul>
+                    </div>
+                </section>
             </main>
+
             @@include('../partials/footer.html', {})
         </div>
-        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+
+        @@include('../partials/popup.html', {})
+        @@include('../partials/js.html', {})
+
+        <script>
+            // Плавная прокрутка
+            document.getElementById("page-nav")?.addEventListener("click", (e) => {
+                const a = e.target.closest('a[href^="#"]');
+                if (!a) return;
+                e.preventDefault();
+                const id = a.getAttribute("href").slice(1);
+                const el = document.getElementById(id);
+                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+        </script>
     </body>
 </html>
