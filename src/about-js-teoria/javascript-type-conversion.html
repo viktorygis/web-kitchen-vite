@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "Преобразование типов в JavaScript", "description": "Преобразование типов в JavaScript" })
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs" id="page-nav">
+        <a href="#type-conversion-intro" class="active">Введение</a>
+        <a href="#type-conversion-string">Строковое</a>
+        <a href="#type-conversion-number">Численное</a>
+        <a href="#type-conversion-boolean">Логическое</a>
+        <a href="#type-conversion-table">Сводная таблица</a>
+        <a href="#type-conversion-best-practices">Лучшие практики</a>
+        <a href="#type-conversion-mistakes">Типичные ошибки</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="type-conversion-intro">
+        <div class="container">
+          <h1>Преобразование типов в JavaScript</h1>
+
+          <p class="note">
+            <strong>Преобразование типов</strong> — автоматическое или явное изменение типа значения.
+            <br />
+            JavaScript использует неявное преобразование в операциях и предоставляет функции для явного преобразования.
+          </p>
+
+          <article class="article-block">
+            <h3>Основные виды преобразований</h3>
+            <ul class="list-ul">
+              <li>Строковое преобразование — <code>String()</code></li>
+              <li>Численное преобразование — <code>Number()</code></li>
+              <li>Логическое преобразование — <code>Boolean()</code></li>
+            </ul>
+          </article>
+
+          <article class="article-block">
+            <h3>Когда происходит преобразование</h3>
+            <ul class="list-ul">
+              <li>При математических операциях</li>
+              <li>При сравнении значений</li>
+              <li>При выводе данных</li>
+              <li>В логических контекстах</li>
+              <li>При конкатенации строк</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- Строковое преобразование -->
+      <section class="section" id="type-conversion-string">
+        <div class="container">
+          <h2>Строковое преобразование</h2>
+
+          <p class="note">
+            <strong>String(value)</strong> — преобразует значение в строку.
+            <br />
+            Происходит автоматически при конкатенации строк или выводе в консоль.
+          </p>
+
+          <h3>Синтаксис</h3>
+          <div class="code-block">
+            <pre><code>String(value)</code></pre>
+          </div>
+          <p>Где <code>value</code> — любое значение для преобразования.</p>
+
+          <div class="code-block">
+            <h4>Примеры преобразования в строку:</h4>
+            <pre><code>String(true);      // "true"
+String(null);      // "null"
+String(123);       // "123"
+String(undefined); // "undefined"
+String([1, 2, 3]); // "1,2,3"</code></pre>
+          </div>
+
+          <article class="article-block">
+            <h3>Особенности строкового преобразования</h3>
+            <ul class="list-ul">
+              <li>Работает для всех типов данных</li>
+              <li>Для объектов вызывает метод <code>toString()</code></li>
+              <li>Для массивов возвращает элементы через запятую</li>
+              <li>null и undefined преобразуются в строки "null" и "undefined"</li>
+            </ul>
+          </article>
+
+          <h3>Оператор + для конкатенации</h3>
+          <p>
+            Оператор <code>+</code> выполняет конкатенацию (объединение строк), если хотя бы один операнд является строкой:
+          </p>
+          <div class="code-block">
+            <pre><code>let result1 = "Hello, " + 123;     // "Hello, 123"
+let result2 = "Age: " + true;      // "Age: true"
+let result3 = "Count: " + undefined; // "Count: undefined"</code></pre>
+          </div>
+
+          <article class="article-block">
+            <h3>Практическое применение</h3>
+            <ul class="list-ul">
+              <li>Формирование строковых сообщений для вывода</li>
+              <li>Подготовка данных для отправки на сервер</li>
+              <li>Создание URL-адресов с параметрами</li>
+              <li>Логирование информации</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- Численное преобразование -->
+      <section class="section" id="type-conversion-number">
+        <div class="container">
+          <h2>Численное преобразование</h2>
+
+          <p class="note">
+            <strong>Number(value)</strong> — преобразует значение в число.
+            <br />
+            Происходит автоматически в математических операциях и сравнениях.
+          </p>
+
+          <h3>Синтаксис</h3>
+          <div class="code-block">
+            <pre><code>Number(value)</code></pre>
+          </div>
+          <p>Где <code>value</code> — любое значение для преобразования.</p>
+
+          <div class="code-block">
+            <h4>Примеры преобразования в число:</h4>
+            <pre><code>Number("123");    // 123
+Number("123z");   // NaN
+Number(true);     // 1
+Number(false);    // 0
+Number(null);     // 0
+Number(undefined);// NaN</code></pre>
+          </div>
+
+          <h3>Правила преобразования в число</h3>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Значение</th>
+                <th>Результат</th>
+                <th>Примечание</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>undefined</code></td>
+                <td><code>NaN</code></td>
+                <td>Не число</td>
+              </tr>
+              <tr>
+                <td><code>null</code></td>
+                <td><code>0</code></td>
+                <td>Специальное случай</td>
+              </tr>
+              <tr>
+                <td><code>true / false</code></td>
+                <td><code>1 / 0</code></td>
+                <td>Логические значения</td>
+              </tr>
+              <tr>
+                <td>Пустая строка ""</td>
+                <td><code>0</code></td>
+                <td>Специальное правило</td>
+              </tr>
+              <tr>
+                <td>Пробельные символы " "</td>
+                <td><code>0</code></td>
+                <td>Обрезаются и преобразуются</td>
+              </tr>
+              <tr>
+                <td>Нечисловая строка "abc"</td>
+                <td><code>NaN</code></td>
+                <td>Не может быть преобразована</td>
+              </tr>
+              <tr>
+                <td>Строка с числом " 123 "</td>
+                <td><code>123</code></td>
+                <td>Пробелы обрезаются</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <article class="article-block">
+            <h3>Альтернативные методы преобразования в число</h3>
+            <div class="code-block">
+              <pre><code>parseInt("100px");    // 100 (целое число)
+parseFloat("12.5em"); // 12.5 (дробное число)
++"123";               // 123 (унарный плюс)
+Number("123");        // 123 (явное преобразование)</code></pre>
+            </div>
+          </article>
+
+          <div class="warning">
+            <h3>⚠️ Важно о NaN</h3>
+            <div class="code-block">
+              <pre><code>console.log(Number("abc"));   // NaN
+console.log(typeof NaN);      // "number" (парадокс!)
+console.log(NaN === NaN);     // false (не сравнивается сам с собой)
+console.log(isNaN(NaN));      // true (правильный способ проверки)
+console.log(Number.isNaN(NaN));// true (более надёжный способ)</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Логическое преобразование -->
+      <section class="section" id="type-conversion-boolean">
+        <div class="container">
+          <h2>Логическое преобразование</h2>
+
+          <p class="note">
+            <strong>Boolean(value)</strong> — преобразует значение в логический тип.
+            <br />
+            Происходит автоматически в условиях (if, while) и логических операциях (&&, ||, !).
+          </p>
+
+          <h3>Синтаксис</h3>
+          <div class="code-block">
+            <pre><code>Boolean(value)</code></pre>
+          </div>
+          <p>Где <code>value</code> — любое значение для преобразования.</p>
+
+          <div class="code-block">
+            <h4>Примеры преобразования в логический тип:</h4>
+            <pre><code>Boolean(1);       // true
+Boolean(0);       // false
+Boolean("text");  // true
+Boolean("");      // false
+Boolean(null);    // false
+Boolean([]);      // true (объект!</code></pre>
+          </div>
+
+          <h3>Правила преобразования в логический тип</h3>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Значение</th>
+                <th>Результат</th>
+                <th>Категория</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>0</code></td>
+                <td><code>false</code></td>
+                <td rowspan="5">Falsy значения</td>
+              </tr>
+              <tr>
+                <td><code>""</code> (пустая строка)</td>
+                <td><code>false</code></td>
+              </tr>
+              <tr>
+                <td><code>null</code></td>
+                <td><code>false</code></td>
+              </tr>
+              <tr>
+                <td><code>undefined</code></td>
+                <td><code>false</code></td>
+              </tr>
+              <tr>
+                <td><code>NaN</code></td>
+                <td><code>false</code></td>
+              </tr>
+              <tr>
+                <td>Любое число ≠ 0 (например, 1, -1, 0.5)</td>
+                <td><code>true</code></td>
+                <td rowspan="5">Truthy значения</td>
+              </tr>
+              <tr>
+                <td>Любая непустая строка (например, "0", " ")</td>
+                <td><code>true</code></td>
+              </tr>
+              <tr>
+                <td>Объект (включая пустой {})</td>
+                <td><code>true</code></td>
+              </tr>
+              <tr>
+                <td>Массив (включая пустой [])</td>
+                <td><code>true</code></td>
+              </tr>
+              <tr>
+                <td>Функция</td>
+                <td><code>true</code></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <article class="article-block">
+            <h3>Важные особенности логического преобразования</h3>
+            <ul class="list-ul">
+              <li>Только 5 значений преобразуются в <code>false</code>: 0, "", null, undefined, NaN</li>
+              <li>Строка "0" преобразуется в <code>true</code> (не пустая строка)</li>
+              <li>Пробелы в строке — <code>true</code> (не пустая строка)</li>
+              <li>Все объекты преобразуются в <code>true</code>, даже пустые</li>
+              <li>Пустые массивы [] преобразуются в <code>true</code> (это объект!)</li>
+              <li>Функции преобразуются в <code>true</code></li>
+            </ul>
+          </article>
+
+          <div class="warning">
+            <h3>⚠️ Частые ошибки с пустыми массивами</h3>
+            <div class="code-block">
+              <pre><code>let arr = [];
+Boolean(arr);  // true (это ловушка!)
+if (arr) console.log("true"); // выведет "true"
+
+// Правильная проверка на пустой массив:
+if (arr.length === 0) {
+  console.log("массив пуст");
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Сводная таблица -->
+      <section class="section" id="type-conversion-table">
+        <div class="container">
+          <h2>Сводная таблица преобразований</h2>
+
+          <p>Как различные значения преобразуются в разные типы:</p>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Значение</th>
+                <th>String()</th>
+                <th>Number()</th>
+                <th>Boolean()</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>undefined</code></td>
+                <td>"undefined"</td>
+                <td><code>NaN</code></td>
+                <td><code>false</code></td>
+              </tr>
+              <tr>
+                <td><code>null</code></td>
+                <td>"null"</td>
+                <td><code>0</code></td>
+                <td><code>false</code></td>
+              </tr>
+              <tr>
+                <td><code>true</code></td>
+                <td>"true"</td>
+                <td><code>1</code></td>
+                <td><code>true</code></td>
+              </tr>
+              <tr>
+                <td><code>false</code></td>
+                <td>"false"</td>
+                <td><code>0</code></td>
+                <td><code>false</code></td>
+              </tr>
+              <tr>
+                <td><code>""</code> (пустая строка)</td>
+                <td>""</td>
+                <td><code>0</code></td>
+                <td><code>false</code></td>
+              </tr>
+              <tr>
+                <td><code>"123"</code></td>
+                <td>"123"</td>
+                <td><code>123</code></td>
+                <td><code>true</code></td>
+              </tr>
+              <tr>
+                <td><code>"123z"</code></td>
+                <td>"123z"</td>
+                <td><code>NaN</code></td>
+                <td><code>true</code></td>
+              </tr>
+              <tr>
+                <td><code>"0"</code></td>
+                <td>"0"</td>
+                <td><code>0</code></td>
+                <td><code>true</code></td>
+              </tr>
+              <tr>
+                <td><code>0</code></td>
+                <td>"0"</td>
+                <td><code>0</code></td>
+                <td><code>false</code></td>
+              </tr>
+              <tr>
+                <td><code>1</code></td>
+                <td>"1"</td>
+                <td><code>1</code></td>
+                <td><code>true</code></td>
+              </tr>
+              <tr>
+                <td><code>[]</code> (пустой массив)</td>
+                <td>""</td>
+                <td><code>0</code></td>
+                <td><code>true</code></td>
+              </tr>
+              <tr>
+                <td><code>{}</code> (пустой объект)</td>
+                <td>"[object Object]"</td>
+                <td><code>NaN</code></td>
+                <td><code>true</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Лучшие практики -->
+      <section class="section" id="type-conversion-best-practices">
+        <div class="container">
+          <h2>Лучшие практики</h2>
+
+          <div class="note-block">
+            <h3>✅ Используйте явное преобразование для ясности</h3>
+            <div class="code-block">
+              <pre><code>// Хорошо - явное преобразование
+const age = Number("25");
+const message = String(true);
+const isActive = Boolean(1);
+
+// Менее ясно - неявное преобразование
+const age2 = +"25";
+let message2 = true + "";
+let isActive2 = !!"text";</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Выбирайте правильный метод преобразования в число</h3>
+            <div class="code-block">
+              <pre><code>// Для чистого числового преобразования:
+Number("123");    // 123
++"123";           // 123 (унарный плюс)
+
+// Для извлечения чисел из строк:
+parseInt("100px");    // 100
+parseFloat("3.14em"); // 3.14
+
+// Для проверки валидности:
+Number.isNaN(NaN);    // true (надёжнее чем isNaN())
+Number.isInteger(5);  // true</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Проверяйте значения перед преобразованием</h3>
+            <div class="code-block">
+              <pre><code>// Хорошо - проверка перед использованием
+const userInput = "123";
+if (userInput !== "") {
+  const num = Number(userInput);
+  if (!Number.isNaN(num)) {
+    console.log(num);
+  }
+}
+
+// Или проще:
+const num = parseInt(userInput, 10);
+if (Number.isNaN(num)) {
+  console.log("Некорректное число");
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Будьте осторожны с логическими преобразованиями</h3>
+            <div class="code-block">
+              <pre><code>// Помните о Falsy значениях:
+const values = [0, "", null, undefined, NaN, false];
+
+values.forEach(value => {
+  if (!value) {
+    console.log(`${value} это falsy`);
+  }
+});
+
+// Явная проверка часто лучше:
+if (arr.length === 0) {
+  // пустой массив
+}
+
+if (str === "") {
+  // пустая строка
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Используйте строгое сравнение (===)</h3>
+            <div class="code-block">
+              <pre><code>// ❌ Нестрогое сравнение вызывает неявное преобразование
+0 == false;        // true
+"" == false;       // true
+null == undefined; // true
+
+// ✅ Строгое сравнение избегает преобразований
+0 === false;        // false
+"" === false;       // false
+null === undefined; // false</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Типичные ошибки -->
+      <section class="section" id="type-conversion-mistakes">
+        <div class="container">
+          <h2>Типичные ошибки</h2>
+
+          <div class="warning">
+            <h3>❌ Забывают о NaN в числовом преобразовании</h3>
+            <div class="code-block">
+              <pre><code>// Проблема:
+const result = Number("abc"); // NaN
+if (result > 0) {
+  console.log("положительное число"); // не выполнится
+}
+
+// Правильно:
+if (!Number.isNaN(result)) {
+  if (result > 0) {
+    console.log("положительное число");
+  }
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Путают пустой массив с false</h3>
+            <div class="code-block">
+              <pre><code>// Ошибка:
+if ([]) {
+  console.log("это true!"); // выведет
+}
+
+// Правильно проверить:
+if (Array.isArray(arr) && arr.length === 0) {
+  console.log("пустой массив");
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Используют нестрогое сравнение с преобразованиями</h3>
+            <div class="code-block">
+              <pre><code>// Неожиданные результаты:
+"5" == 5;     // true (преобразуется!)
+"5" == true;  // false
+0 == false;   // true
+"" == false;  // true
+
+// Правильно - используйте ===
+"5" === 5;    // false
+"5" === "5";  // true</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Неправильно проверяют на null/undefined</h3>
+            <div class="code-block">
+              <pre><code>// Ошибка - также поймёт 0, "", false
+if (!value) {
+  console.log("что-то пошло не так");
+}
+
+// Правильно:
+if (value === null || value === undefined) {
+  console.log("нет значения");
+}
+
+// Или современный способ:
+if (value ?? false) {
+  console.log("есть значение");
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Забывают о пробельных символах</h3>
+            <div class="code-block">
+              <pre><code>// Может быть неожиданно:
+Boolean("   ");     // true (пробелы это символы)
+Number("   ");      // 0 (пробелы обрезаются)
+Boolean(Number("  ")); // false
+
+// Если нужна проверка на пусто/пробелы:
+if (str.trim() === "") {
+  console.log("строка пуста или только пробелы");
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Используют parseInt без второго параметра</h3>
+            <div class="code-block">
+              <pre><code>// Опасно:
+parseInt("10");      // 10 (но может быть 8, если "010")
+parseInt("010");     // может быть 10 или 8
+
+// Правильно - всегда указывайте систему счисления:
+parseInt("10", 10);  // 10 (десятичная)
+parseInt("010", 10); // 10 (явно десятичная)
+parseInt("FF", 16);  // 255 (шестнадцатеричная)</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Итоги -->
+      <section class="section" id="type-conversion-summary">
+        <div class="container">
+          <h2>Итоги</h2>
+
+          <div class="note-block">
+            <h3>Ключевые моменты</h3>
+            <ul class="list-ul">
+              <li>JavaScript выполняет как явное, так и неявное преобразование типов</li>
+              <li>Явное преобразование делает код понятнее и безопаснее</li>
+              <li>Есть только 5 falsy значений: 0, "", null, undefined, NaN</li>
+              <li>NaN — это число, но не равно самому себе</li>
+              <li>Пустые массивы и объекты преобразуются в true</li>
+              <li>Строгое сравнение (===) избегает неожиданных преобразований</li>
+            </ul>
+          </div>
+
+          <div class="note-block">
+            <h3>Рекомендации</h3>
+            <ol class="list-ol">
+              <li>Используйте явное преобразование для ясности: <code>String()</code>, <code>Number()</code>, <code>Boolean()</code></li>
+              <li>Всегда используйте <code>===</code> вместо <code>==</code></li>
+              <li>Проверяйте значения перед преобразованием в число</li>
+              <li>Помните о особых случаях: NaN, пустые массивы, null vs undefined</li>
+              <li>Для parseInt указывайте систему счисления: <code>parseInt(str, 10)</code></li>
+              <li>Используйте <code>Number.isNaN()</code> вместо <code>isNaN()</code></li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+</body>
+
+</html>

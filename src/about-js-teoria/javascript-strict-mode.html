@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "Строгий режим — 'use strict'", "description": "Строгий режим JavaScript и его особенности" })
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs" id="page-nav">
+        <a href="#strict-intro" class="active">Введение</a>
+        <a href="#strict-usage">Использование</a>
+        <a href="#strict-features">Особенности</a>
+        <a href="#strict-this">Изменения this</a>
+        <a href="#strict-comparison">Сравнение</a>
+        <a href="#strict-best-practices">Лучшие практики</a>
+        <a href="#strict-mistakes">Типичные ошибки</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="strict-intro">
+        <div class="container">
+          <h1>Строгий режим — "use strict"</h1>
+
+          <p class="note">
+            <strong>Строгий режим</strong> — режим выполнения JavaScript, который применяет более строгие правила и ограничения.
+            <br />
+            Был введен в ECMAScript 5 (2009) для устранения проблем обратной совместимости и улучшения безопасности кода.
+          </p>
+
+          <article class="article-block">
+            <h3>Основные цели строгого режима</h3>
+            <ul class="list-ul">
+              <li>Устранение "небрежных" и опасных ошибок</li>
+              <li>Предотвращение использования устаревших и нестабильных возможностей</li>
+              <li>Упрощение оптимизации кода для JavaScript движков</li>
+              <li>Подготовка к будущим версиям языка</li>
+            </ul>
+          </article>
+
+          <article class="article-block">
+            <h3>Где применяется</h3>
+            <ul class="list-ul">
+              <li>В отдельных скриптах</li>
+              <li>В отдельных функциях</li>
+              <li>Автоматически в модулях (ES6)</li>
+              <li>Автоматически в классах (ES6)</li>
+            </ul>
+          </article>
+
+          <div class="warning">
+            <h3>⚠️ Важно</h3>
+            <p>Строгий режим является односторонней операцией — нельзя отключить его после активации на определённом уровне. Он оставляет код работающим в более строгих условиях, что помогает избежать ошибок.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Использование -->
+      <section class="section" id="strict-usage">
+        <div class="container">
+          <h2>Использование "use strict"</h2>
+
+          <p class="note">
+            <strong>Директива "use strict"</strong> — специальная строка, которая активирует строгий режим.
+            <br />
+            Должна быть первой исполняемой строкой в скрипте или функции (могут быть комментарии выше).
+          </p>
+
+          <h3>Глобальное применение</h3>
+          <p>Активирует строгий режим для всего скрипта:</p>
+          <div class="code-block">
+            <pre><code>"use strict";
+
+// Весь код ниже будет в строгом режиме
+let x = 10;
+console.log(x);
+
+function myFunction() {
+  // Также в строгом режиме
+  let y = 20;
+}</code></pre>
+          </div>
+
+          <h3>Локальное применение</h3>
+          <p>Активирует строгий режим только для конкретной функции:</p>
+          <div class="code-block">
+            <pre><code>// Этот код НЕ в строгом режиме
+function normalFunction() {
+  x = 10; // Создаёт глобальную переменную (разрешено)
+}
+
+// Этот код В строгом режиме
+function strictFunction() {
+  'use strict';
+  y = 20; // ReferenceError: y is not defined
+}
+
+normalFunction();    // Работает
+strictFunction();    // Ошибка!</code></pre>
+          </div>
+
+          <h3>Активация в разных контекстах</h3>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Контекст</th>
+                <th>Способ активации</th>
+                <th>Примечание</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Скрипт</td>
+                <td><code>"use strict";</code> первой строкой</td>
+                <td>Включает для всего файла</td>
+              </tr>
+              <tr>
+                <td>Функция</td>
+                <td><code>'use strict';</code> первой строкой функции</td>
+                <td>Включает только для функции</td>
+              </tr>
+              <tr>
+                <td>Модуль (ES6)</td>
+                <td>Автоматически включен</td>
+                <td>Не требует директивы</td>
+              </tr>
+              <tr>
+                <td>Класс (ES6)</td>
+                <td>Автоматически включен</td>
+                <td>Все методы в строгом режиме</td>
+              </tr>
+              <tr>
+                <td>Консоль браузера</td>
+                <td>Нужно обернуть в IIFE</td>
+                <td><code>(function() { 'use strict'; ... })()</code></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="code-block">
+            <h4>Активация в консоли браузера (Developer Tools):</h4>
+            <pre><code>// Нужно обернуть в IIFE
+(function() {
+  'use strict';
+  x = 10; // ReferenceError
+})();
+
+// Или с использованием блока
+{
+  'use strict';
+  y = 20; // ReferenceError
+}</code></pre>
+          </div>
+
+          <article class="article-block">
+            <h3>Важные моменты при использовании</h3>
+            <ul class="list-ul">
+              <li>Директива должна быть первой исполняемой строкой (комментарии разрешены)</li>
+              <li>Использование <code>"use strict";</code> (с двойными кавычками) или <code>'use strict';</code> (с одинарными) — оба варианта работают</li>
+              <li>Регистр имеет значение: только <code>"use strict"</code> или <code>'use strict'</code> работают</li>
+              <li>Директива — это всего лишь строка, поэтому старые браузеры просто её игнорируют</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- Особенности -->
+      <section class="section" id="strict-features">
+        <div class="container">
+          <h2>Особенности строгого режима</h2>
+
+          <article class="article-block">
+            <h3>1. Переменные должны быть объявлены</h3>
+            <p>Нельзя использовать переменные без объявления через <code>var</code>, <code>let</code> или <code>const</code>:</p>
+            <div class="code-block">
+              <pre><code>// БЕЗ strict
+x = 10; // Создаёт глобальную переменную
+
+// СО strict
+'use strict';
+x = 10; // ReferenceError: x is not defined
+
+// Правильно
+let x = 10; // OK
+const y = 20; // OK
+var z = 30; // OK</code></pre>
+            </div>
+          </article>
+
+          <article class="article-block">
+            <h3>2. Удаление переменных запрещено</h3>
+            <p>Нельзя удалять переменные, объявленные через <code>var</code>, <code>let</code> или <code>const</code>:</p>
+            <div class="code-block">
+              <pre><code>// БЕЗ strict
+let x = 10;
+delete x; // undefined в non-strict, false в результате
+
+// СО strict
+'use strict';
+let x = 10;
+delete x; // SyntaxError: Delete of an unqualified identifier in strict mode</code></pre>
+            </div>
+          </article>
+
+          <article class="article-block">
+            <h3>3. Параметры функции должны быть уникальными</h3>
+            <p>Запрещены дублирующиеся имена параметров:</p>
+            <div class="code-block">
+              <pre><code>// БЕЗ strict
+function sum(a, a) {
+  return a + a; // Используется второй параметр
+}
+sum(1, 2); // 4
+
+// СО strict
+'use strict';
+function sum(a, a) { // SyntaxError: Duplicate parameter name not allowed here
+  return a + a;
+}</code></pre>
+            </div>
+          </article>
+
+          <article class="article-block">
+            <h3>4. Свойства объектов не могут быть удалены так же</h3>
+            <div class="code-block">
+              <pre><code>const obj = {};
+Object.defineProperty(obj, 'x', { value: 10, configurable: false });
+
+// БЕЗ strict
+delete obj.x; // false (молчаливо игнорируется)
+
+// СО strict
+'use strict';
+delete obj.x; // TypeError: Cannot delete property 'x' of #&lt;Object&gt;</code></pre>
+            </div>
+          </article>
+
+          <article class="article-block">
+            <h3>5. Запрещено использование eval()</h3>
+            <p>eval() не создаёт переменные в локальной области видимости:</p>
+            <div class="code-block">
+              <pre><code>// БЕЗ strict
+eval('var x = 10');
+console.log(x); // 10 (глобальная переменная создана)
+
+// СО strict
+'use strict';
+eval('var x = 10');
+console.log(typeof x); // undefined (x локальна для eval)</code></pre>
+            </div>
+          </article>
+
+          <article class="article-block">
+            <h3>6. Запрещено использование with</h3>
+            <p>Конструкция <code>with</code> запрещена в строгом режиме:</p>
+            <div class="code-block">
+              <pre><code>// БЕЗ strict
+const obj = { x: 10 };
+with (obj) {
+  console.log(x); // 10 (работает)
+}
+
+// СО strict
+'use strict';
+with (obj) { // SyntaxError: Strict mode code may not include a with statement
+  console.log(x);
+}</code></pre>
+            </div>
+          </article>
+
+          <article class="article-block">
+            <h3>7. Запрещены восьмеричные литералы</h3>
+            <p>Синтаксис старых восьмеричных чисел запрещён:</p>
+            <div class="code-block">
+              <pre><code>// БЕЗ strict
+let num = 010; // 8 (восьмеричное число)
+
+// СО strict
+'use strict';
+let num = 010; // SyntaxError: Octal literals are not allowed in strict mode</code></pre>
+            </div>
+          </article>
+
+          <article class="article-block">
+            <h3>8. Свойства arguments неизменяемы</h3>
+            <div class="code-block">
+              <pre><code>function test(a) {
+  // БЕЗ strict
+  arguments[0] = 20;
+  console.log(a); // 20 (привязаны вместе)
+
+  // СО strict
+  'use strict';
+  arguments[0] = 30;
+  console.log(a); // Остаёт 1 (независимы)
+}
+test(1);</code></pre>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Изменения this -->
+      <section class="section" id="strict-this">
+        <div class="container">
+          <h2>Изменения в работе this</h2>
+
+          <p class="note">
+            <strong>В строгом режиме</strong> поведение <code>this</code> существенно отличается от обычного режима.
+            <br />
+            Это одно из самых важных изменений.
+          </p>
+
+          <article class="article-block">
+            <h3>this в функциях без объекта</h3>
+            <div class="code-block">
+              <pre><code>// БЕЗ strict
+function greet() {
+  console.log(this); // window (или global в Node.js)
+}
+greet();
+
+// СО strict
+'use strict';
+function greet() {
+  console.log(this); // undefined
+}
+greet(); // this = undefined</code></pre>
+            </div>
+          </article>
+
+          <article class="article-block">
+            <h3>this при вызове через call/apply</h3>
+            <div class="code-block">
+              <pre><code>function test(value) {
+  console.log(this, value);
+}
+
+// БЕЗ strict
+test.call(null, 'a');      // window, 'a'
+test.apply(null, ['b']);   // window, 'b'
+
+// СО strict
+'use strict';
+test.call(null, 'a');      // null, 'a'
+test.apply(null, ['b']);   // null, 'b'
+test.call(undefined, 'c'); // undefined, 'c'</code></pre>
+            </div>
+          </article>
+
+          <article class="article-block">
+            <h3>this в методах объекта</h3>
+            <div class="code-block">
+              <pre><code>const obj = {
+  value: 42,
+  getValue: function() {
+    console.log(this.value);
+  }
+};
+
+// Работает одинаково в обоих режимах
+obj.getValue(); // 42 (this = obj)
+
+// Проблема при присваивании
+const fn = obj.getValue;
+fn(); // БЕЗ strict: window.value (undefined)
+      // СО strict: Error: Cannot read property 'value' of undefined</code></pre>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Сравнение -->
+      <section class="section" id="strict-comparison">
+        <div class="container">
+          <h2>Сравнение: Strict vs Non-Strict</h2>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Возможность</th>
+                <th>Без strict</th>
+                <th>Со strict</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Необъявленные переменные</td>
+                <td>✅ Создаёт глобальные</td>
+                <td>❌ ReferenceError</td>
+              </tr>
+              <tr>
+                <td>Удаление переменных</td>
+                <td>❌ false</td>
+                <td>❌ SyntaxError</td>
+              </tr>
+              <tr>
+                <td>Дублирующиеся параметры</td>
+                <td>✅ Разрешены</td>
+                <td>❌ SyntaxError</td>
+              </tr>
+              <tr>
+                <td>eval()</td>
+                <td>✅ Создаёт в глобальной области</td>
+                <td>✅ Создаёт локально</td>
+              </tr>
+              <tr>
+                <td>with statement</td>
+                <td>✅ Разрешен</td>
+                <td>❌ SyntaxError</td>
+              </tr>
+              <tr>
+                <td>Восьмеричные литералы</td>
+                <td>✅ 010 = 8</td>
+                <td>❌ SyntaxError</td>
+              </tr>
+              <tr>
+                <td>this в функции</td>
+                <td>✅ window/global</td>
+                <td>✅ undefined</td>
+              </tr>
+              <tr>
+                <td>arguments привязаны к параметрам</td>
+                <td>✅ Да</td>
+                <td>❌ Нет</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="code-block">
+            <h4>Практическое сравнение:</h4>
+            <pre><code>// === БЕЗ STRICT ===
+x = 10; // Создаёт window.x
+function test() { return this; }
+test() === window; // true
+
+// === СО STRICT ===
+'use strict';
+x = 10; // ReferenceError
+function test() { return this; }
+test() === undefined; // true</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Лучшие практики -->
+      <section class="section" id="strict-best-practices">
+        <div class="container">
+          <h2>Лучшие практики</h2>
+
+          <div class="note-block">
+            <h3>✅ Используйте для новых проектов</h3>
+            <div class="code-block">
+              <pre><code>// Всегда добавляйте в начало нового файла
+"use strict";
+
+// Весь код вашего приложения
+const app = {
+  // ...
+};</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Используйте в модулях ES6</h3>
+            <div class="code-block">
+              <pre><code>// Модули автоматически в строгом режиме
+// Не нужно писать "use strict"
+export function myFunction() {
+  // Уже в строгом режиме
+  x = 10; // ReferenceError
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Используйте для отдельных функций в старых проектах</h3>
+            <div class="code-block">
+              <pre><code>// Переходите постепенно
+function newFunction() {
+  'use strict';
+  // Только эта функция в строгом режиме
+  let x = 10;
+}
+
+function oldFunction() {
+  // Может быть в старом стиле
+  // Постепенно переводите
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Тестируйте код в строгом режиме</h3>
+            <div class="code-block">
+              <pre><code>// Разработка
+const app = {
+  init: function() {
+    'use strict';
+    // Проверяйте весь код в строгом режиме
+    // Это поможет найти проблемы рано
+  }
+};</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ В современных фреймворках он уже включен</h3>
+            <div class="code-block">
+              <pre><code>// React, Vue, Angular и другие фреймворки
+// автоматически используют "use strict"
+// в своих сборщиках (webpack, vite и т.д.)
+
+// Вам просто нужно писать код безопасно
+const Component = () => {
+  // Уже в строгом режиме через сборщик
+  return &lt;div&gt;Hello&lt;/div&gt;;
+};</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Типичные ошибки -->
+      <section class="section" id="strict-mistakes">
+        <div class="container">
+          <h2>Типичные ошибки</h2>
+
+          <div class="warning">
+            <h3>❌ "use strict" не первая строка</h3>
+            <div class="code-block">
+              <pre><code>// Ошибка - директива не сработает
+console.log('something');
+"use strict"; // Не активируется!
+
+// Правильно - первой строкой
+"use strict";
+console.log('something');</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Забывают активировать в новых файлах</h3>
+            <div class="code-block">
+              <pre><code>// Плохо - можно случайно создать глобальные переменные
+function init() {
+  data = []; // Создаёт глобальную переменную!
+}
+
+// Хорошо
+"use strict";
+function init() {
+  const data = []; // Ошибка: data не определена
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Неправильное написание директивы</h3>
+            <div class="code-block">
+              <pre><code>// ❌ Не работает - неправильный регистр
+"USE STRICT"; // Просто строка, не директива
+
+// ❌ Не работает - дополнительные слова
+"use strict mode"; // Просто строка
+
+// ✅ Работает
+"use strict";
+'use strict';
+
+// ✅ Работает (если первая)
+// комментарий
+"use strict";</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Неправильно обрабатывают this в callback-функциях</h3>
+            <div class="code-block">
+              <pre><code>// Ошибка
+'use strict';
+const obj = {
+  value: 10,
+  process: function(callback) {
+    callback(); // this будет undefined!
+  }
+};
+
+// Правильно - используйте arrow-функции или bind
+obj.process(() => {
+  console.log(this.value); // this из внешней области
+});
+
+// Или bind
+obj.process(function() {
+  console.log(this.value);
+}.bind(obj));</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Ожидают, что strict активируется глобально в concat-файлах</h3>
+            <div class="code-block">
+              <pre><code>// file1.js
+"use strict";
+// ...
+
+// file2.js
+// Это файл НЕ в строгом режиме!
+// "use strict" не передаётся между файлами
+
+// Решение - добавьте в каждый файл или используйте сборщик
+"use strict";
+// ...</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Удаляют необходимые переменные</h3>
+            <div class="code-block">
+              <pre><code>// Ошибка
+'use strict';
+let x = 10;
+delete x; // TypeError: Cannot delete property 'x'
+
+// Правильно - просто переприсваивайте
+x = null; // или undefined
+delete obj.property; // OK для свойств объектов</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Смешивают strict и non-strict функции неправильно</h3>
+            <div class="code-block">
+              <pre><code>// Опасно - разные режимы
+'use strict';
+function strictFn() {
+  x = 10; // ReferenceError
+}
+
+function nonStrictFn() { // ❌ Будет в strict режиме!
+  x = 10; // ReferenceError
+}
+
+// Функции наследуют режим оборачивающего скрипта</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Итоги -->
+      <section class="section" id="strict-summary">
+        <div class="container">
+          <h2>Итоги</h2>
+
+          <div class="note-block">
+            <h3>Ключевые моменты</h3>
+            <ul class="list-ul">
+              <li>"use strict" — директива для активации строгого режима</li>
+              <li>Должна быть первой исполняемой строкой в скрипте или функции</li>
+              <li>Запрещает необъявленные переменные</li>
+              <li>Запрещает удаление обычных переменных</li>
+              <li>Запрещает дублирующиеся параметры функции</li>
+              <li>Изменяет поведение this (становится undefined вместо window)</li>
+              <li>eval() работает локально, а не глобально</li>
+              <li>Модули и классы ES6 автоматически в строгом режиме</li>
+            </ul>
+          </div>
+
+          <div class="note-block">
+            <h3>Рекомендации</h3>
+            <ol class="list-ol">
+              <li>✅ Используйте "use strict" для всех новых проектов</li>
+              <li>✅ Добавляйте в начало файла или функции</li>
+              <li>✅ Проверяйте конфликты с существующим кодом</li>
+              <li>✅ Используйте в консоли при отладке</li>
+              <li>✅ Помните о изменении поведения this</li>
+              <li>✅ Не беспокойтесь в ES6 модулях и классах</li>
+              <li>❌ Не удаляйте его из старого кода без проверки</li>
+              <li>❌ Не ожидайте его активации через concat файлов</li>
+            </ol>
+          </div>
+
+          <div class="note-block">
+            <h3>Будущее</h3>
+            <p>В будущих версиях JavaScript многие ограничения строгого режима станут стандартом. Модули (import/export) и классы (class) уже используют строгий режим по умолчанию, что указывает на направление развития языка.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+</body>
+
+</html>

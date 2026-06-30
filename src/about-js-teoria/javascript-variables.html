@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "Основы JavaScript: Переменные", "description": "Переменные в JavaScript" })
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs" id="page-nav">
+        <a href="#variables-intro" class="active">Введение</a>
+        <a href="#variables-declaration">Объявление</a>
+        <a href="#variables-types">Типы переменных</a>
+        <a href="#variables-naming">Именование</a>
+        <a href="#variables-assignment">Присвоение значений</a>
+        <a href="#variables-update">Обновление значений</a>
+        <a href="#variables-math">Математические операции</a>
+        <a href="#variables-best-practices">Лучшие практики</a>
+        <a href="#variables-mistakes">Типичные ошибки</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="variables-intro">
+        <div class="container">
+          <h1>Переменные</h1>
+
+          <p class="note">
+            <strong>Переменные</strong> — именованные хранилища для данных в JavaScript.
+            <br />
+            Они используются для хранения информации о товарах, сообщениях, пользователях и любых других данных.
+          </p>
+
+          <article class="article-block">
+            <h3>Основные понятия</h3>
+            <ul class="list-ul">
+              <li>Именованное хранилище данных</li>
+              <li>Могут изменяться (кроме констант)</li>
+              <li>Имеют область видимости (scope)</li>
+              <li>Могут содержать любые типы данных</li>
+            </ul>
+          </article>
+
+          <article class="article-block">
+            <h3>Где используются переменные</h3>
+            <ul class="list-ul">
+              <li>Хранение промежуточных результатов вычислений</li>
+              <li>Работа с пользовательскими данными</li>
+              <li>Управление состоянием приложений</li>
+              <li>Сохранение конфигураций и констант</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- Объявление переменных -->
+      <section class="section" id="variables-declaration">
+        <div class="container">
+          <h2>Объявление переменных</h2>
+
+          <p class="note">
+            <strong>Объявление переменной</strong> — создание именованного хранилища для данных.
+            <br />
+            В JavaScript используются три ключевых слова: <code>let</code>, <code>const</code> и <code>var</code>.
+          </p>
+
+          <div class="code-block">
+            <h4>Простое объявление:</h4>
+            <pre><code>let message = 'Hello!'; // объявление с инициализацией
+let age; // объявление без значения</code></pre>
+          </div>
+
+          <div class="code-block">
+            <h4>Множественное объявление:</h4>
+            <pre><code>let user = 'John',
+    age = 25,
+    isAdmin = false;</code></pre>
+            <p class="note">(Примечание: рекомендуется объявлять по одной переменной на строку для читаемости)</p>
+          </div>
+
+          <h3>Особенности объявления</h3>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Ключевое слово</th>
+                <th>Область видимости</th>
+                <th>Можно изменять</th>
+                <th>Hoisting</th>
+                <th>Когда использовать</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>let</code></td>
+                <td>Блочная</td>
+                <td>Да</td>
+                <td>Без инициализации</td>
+                <td>По умолчанию для изменяемых переменных</td>
+              </tr>
+              <tr>
+                <td><code>const</code></td>
+                <td>Блочная</td>
+                <td>Нет</td>
+                <td>Без инициализации</td>
+                <td>Для констант и неизменяемых ссылок</td>
+              </tr>
+              <tr>
+                <td><code>var</code></td>
+                <td>Функциональная</td>
+                <td>Да</td>
+                <td>С инициализацией (undefined)</td>
+                <td>Только для поддержки старого кода</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Типы переменных -->
+      <section class="section" id="variables-types">
+        <div class="container">
+          <h2>Типы переменных</h2>
+
+          <article class="article-block">
+            <h3>Изменяемые переменные (let)</h3>
+            <p>Переменные объявленные с <code>let</code> могут быть изменены в любой момент:</p>
+            <div class="code-block">
+              <pre><code>let counter = 0;
+counter = 1; // значение можно изменить
+let price;
+price = 100; // можно присвоить позже
+price = 99.99; // и изменить снова</code></pre>
+            </div>
+          </article>
+
+          <article class="article-block">
+            <h3>Константы (const)</h3>
+            <p>Константы не могут быть переопределены, но их свойства могут быть изменены:</p>
+            <div class="code-block">
+              <pre><code>const PI = 3.14159;
+// PI = 3.1415; // ❌ Ошибка: присвоение константе
+
+const user = { name: 'John' };
+user.name = 'Pete'; // ✅ Можно, изменяется свойство объекта
+// user = {}; // ❌ Ошибка: переопределение константы</code></pre>
+            </div>
+          </article>
+
+          <article class="article-block">
+            <h3>Переменные старого стиля (var)</h3>
+            <p><code>var</code> — это способ объявления переменных в старом JavaScript (до ES6). Его отличия от <code>let</code> и <code>const</code>:</p>
+
+            <div class="code-block">
+              <h4>Область видимости var (функциональная):</h4>
+              <pre><code>function example() {
+  if (true) {
+    var x = 10;
+  }
+  console.log(x); // 10 (переменная видна за пределами блока if!)
+}
+
+function example2() {
+  if (true) {
+    let y = 10;
+  }
+  console.log(y); // ❌ ReferenceError: y is not defined
+}</code></pre>
+            </div>
+
+            <div class="code-block">
+              <h4>Hoisting (поднятие) с var:</h4>
+              <pre><code>console.log(a); // undefined (не ошибка!)
+var a = 5;
+
+// Это эквивалентно:
+var a; // объявление "поднимается" наверх
+console.log(a); // undefined
+a = 5;
+
+// С let это даёт ошибку:
+console.log(b); // ❌ ReferenceError
+let b = 5;</code></pre>
+            </div>
+
+            <div class="code-block">
+              <h4>Переобъявление var:</h4>
+              <pre><code>var x = 1;
+var x = 2; // ✅ Можно переобъявить
+console.log(x); // 2
+
+let y = 1;
+let y = 2; // ❌ SyntaxError: Identifier 'y' has already been declared</code></pre>
+            </div>
+
+            <div class="code-block">
+              <h4>var в цикле:</h4>
+              <pre><code>// С var - проблема!
+for (var i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 100);
+}
+// Выведет: 3, 3, 3 (i изменяется до выполнения callback)
+
+// С let - правильно
+for (let i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 100);
+}
+// Выведет: 0, 1, 2 (каждый i находится в своём блоке)</code></pre>
+            </div>
+          </article>
+
+          <h3>Сравнение let, const и var</h3>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Характеристика</th>
+                <th>let</th>
+                <th>const</th>
+                <th>var</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Область видимости</strong></td>
+                <td>Блочная { }</td>
+                <td>Блочная { }</td>
+                <td>Функциональная</td>
+              </tr>
+              <tr>
+                <td><strong>Можно изменять</strong></td>
+                <td>✅ Да</td>
+                <td>❌ Нет</td>
+                <td>✅ Да</td>
+              </tr>
+              <tr>
+                <td><strong>Можно переобъявлять</strong></td>
+                <td>❌ Нет</td>
+                <td>❌ Нет</td>
+                <td>✅ Да</td>
+              </tr>
+              <tr>
+                <td><strong>Hoisting</strong></td>
+                <td>Temporal Dead Zone</td>
+                <td>Temporal Dead Zone</td>
+                <td>Инициализирован как undefined</td>
+              </tr>
+              <tr>
+                <td><strong>Используется сейчас</strong></td>
+                <td>✅ Да</td>
+                <td>✅ Да</td>
+                <td>❌ Нет (устарела)</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="note-block">
+            <h3>Когда что использовать</h3>
+            <ul class="list-ul">
+              <li><code>const</code> — по умолчанию, если значение не меняется</li>
+              <li><code>let</code> — если значение будет изменяться</li>
+              <li><code>var</code> — ❌ НИКОГДА в новом коде, только в старых проектах</li>
+            </ul>
+          </div>
+
+          <div class="warning">
+            <h3>⚠️ Почему var считается плохой практикой</h3>
+            <ul class="list-ul">
+              <li>Функциональная область видимости создаёт баги</li>
+              <li>Hoisting с undefined приводит к непредсказуемому поведению</li>
+              <li>Можно случайно переобъявить переменную</li>
+              <li>Трудно отследить, где переменная была изменена</li>
+              <li>Modern JavaScript (ES6+) предоставляет <code>let</code> и <code>const</code> специально для избежания этих проблем</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Именование переменных -->
+      <section class="section" id="variables-naming">
+        <div class="container">
+          <h2>Именование переменных</h2>
+
+          <p class="note">
+            <strong>Имя переменной</strong> должно четко отражать её назначение.
+            <br />
+            В JavaScript используют <code>camelCase</code> для переменных и <code>UPPER_CASE</code> для констант.
+          </p>
+
+          <h3>Правила именования</h3>
+          <ul class="list-icon">
+            <li>✅ Может содержать буквы, цифры, <code>$</code>, <code>_</code></li>
+            <li>❌ Не может начинаться с цифры</li>
+            <li>❌ Пробелы запрещены</li>
+            <li>✅ Регистр имеет значение (<code>myVar</code> ≠ <code>myvar</code>)</li>
+            <li>❌ Нельзя использовать зарезервированные слова</li>
+          </ul>
+
+          <div class="code-block">
+            <h4>Примеры имен переменных:</h4>
+            <pre><code>let userName; // ✅ хорошее имя
+let shoppingCart; // ✅ хорошее имя
+let 123abc; // ❌ плохое (начинается с цифры)
+let let; // ❌ плохое (ключевое слово)
+let _private; // ✅ приватная переменная
+let $value; // ✅ допустимо, но не рекомендуется</code></pre>
+          </div>
+
+          <div class="note-block">
+            <h3>Рекомендации по именованию</h3>
+            <ol class="list-ol">
+              <li>Используйте понятные, описательные имена</li>
+              <li>Избегайте сокращений (используйте <code>userData</code> вместо <code>data</code>)</li>
+              <li>Для булевых переменных используйте префиксы: <code>is</code>, <code>has</code>, <code>can</code>
+                <ul>
+                  <li><code>isActive</code> — активен ли элемент</li>
+                  <li><code>hasPermission</code> — есть ли разрешение</li>
+                  <li><code>canDelete</code> — можно ли удалить</li>
+                </ul>
+              </li>
+              <li>Для констант используйте <code>UPPER_CASE</code> с подчеркиваниями
+                <ul>
+                  <li><code>MAX_SIZE</code></li>
+                  <li><code>API_URL</code></li>
+                  <li><code>DEFAULT_TIMEOUT</code></li>
+                </ul>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- Присвоение значений -->
+      <section class="section" id="variables-assignment">
+        <div class="container">
+          <h2>Присвоение значений</h2>
+
+          <p class="note">
+            <strong>Присвоение</strong> — это процесс установки или изменения значения переменной.
+            <br />
+            В JavaScript используется оператор <code>=</code> (равно) для присвоения.
+          </p>
+
+          <div class="code-block">
+            <h4>Простое присвоение:</h4>
+            <pre><code>let message;
+message = 'Hello!'; // присвоение значения переменной
+
+let age = 30; // объявление с одновременным присвоением</code></pre>
+          </div>
+
+          <div class="code-block">
+            <h4>Множественное присвоение:</h4>
+            <pre><code>let a, b, c;
+a = b = c = 0; // все переменные получают значение 0
+
+// Операция выполняется справа налево:
+// 1. c присваивается 0
+// 2. b присваивается значение c (0)
+// 3. a присваивается значение b (0)</code></pre>
+          </div>
+
+          <div class="note-block">
+            <h3>Особенности присвоения</h3>
+            <ul class="list-ul">
+              <li>Присвоение возвращает присвоенное значение</li>
+              <li>Можно использовать в выражениях: <code>let x = (a = 5) + 2; // x будет 7</code></li>
+              <li>При множественном присвоении выполняется справа налево</li>
+              <li>Приоритет присвоения очень низкий</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Обновление значений -->
+      <section class="section" id="variables-update">
+        <div class="container">
+          <h2>Обновление значений</h2>
+
+          <p class="note">
+            <strong>Обновление</strong> — это процесс изменения значения переменной после её объявления.
+            <br />
+            Мы можем обновлять переменные <code>let</code> так часто, как захотим.
+          </p>
+
+          <div class="code-block">
+            <h4>Примеры обновления значений:</h4>
+            <pre><code>let status = "Сплю";
+console.log(status); // "Сплю"
+
+status = "А теперь не сплю😢";
+console.log(status); // "А теперь не сплю😢"
+
+status = "Еду на работу😭";
+console.log(status); // "Еду на работу😭"</code></pre>
+          </div>
+
+          <div class="code-block">
+            <h4>Обновление числовых переменных:</h4>
+            <pre><code>let count = 10;
+count = count + 5; // увеличение на 5
+console.log(count); // 15
+
+count = count - 3; // уменьшение на 3
+console.log(count); // 12
+
+count = count * 2; // умножение на 2
+console.log(count); // 24</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Математические операции -->
+      <section class="section" id="variables-math">
+        <div class="container">
+          <h2>Математические операции</h2>
+
+          <p class="note">
+            <strong>Математические операции</strong> используются для выполнения вычислений с переменными.
+            <br />
+            JavaScript поддерживает стандартные арифметические операторы.
+          </p>
+
+          <h3>Основные арифметические операторы</h3>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Оператор</th>
+                <th>Название</th>
+                <th>Пример</th>
+                <th>Результат</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>+</code></td>
+                <td>Сложение</td>
+                <td><code>5 + 3</code></td>
+                <td>8</td>
+              </tr>
+              <tr>
+                <td><code>-</code></td>
+                <td>Вычитание</td>
+                <td><code>5 - 3</code></td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td><code>*</code></td>
+                <td>Умножение</td>
+                <td><code>5 * 3</code></td>
+                <td>15</td>
+              </tr>
+              <tr>
+                <td><code>/</code></td>
+                <td>Деление</td>
+                <td><code>15 / 3</code></td>
+                <td>5</td>
+              </tr>
+              <tr>
+                <td><code>%</code></td>
+                <td>Остаток от деления</td>
+                <td><code>17 % 5</code></td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td><code>**</code></td>
+                <td>Возведение в степень</td>
+                <td><code>2 ** 3</code></td>
+                <td>8</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="code-block">
+            <h4>Примеры математических операций:</h4>
+            <pre><code>let counter = 5;
+counter = counter + 1; // увеличение на 1
+console.log(counter); // 6
+
+let a = 10;
+let b = 3;
+console.log(a + b); // 13
+console.log(a - b); // 7
+console.log(a * b); // 30
+console.log(a / b); // 3.333...
+console.log(a % b); // 1
+console.log(a ** 2); // 100</code></pre>
+          </div>
+
+          <h3>Оператор + для конкатенации строк</h3>
+          <p>Оператор <code>+</code> используется не только для сложения чисел, но и для объединения строк:</p>
+
+          <div class="code-block">
+            <h4>Конкатенация строк с оператором +:</h4>
+            <pre><code>let firstName = "John";
+let lastName = "Doe";
+let fullName = firstName + " " + lastName;
+console.log(fullName); // "John Doe"
+
+let age = 25;
+let message = "Мне " + age + " лет!";
+console.log(message); // "Мне 25 лет!"</code></pre>
+          </div>
+
+          <div class="warning">
+            <h4>⚠️ Важно: Тип приоритета при использовании +</h4>
+            <div class="code-block">
+              <pre><code>console.log(5 + 3); // 8 (числа складываются)
+console.log("5" + 3); // "53" (строковая конкатенация)
+console.log(5 + "3"); // "53" (строковая конкатенация)
+console.log("5" + "3"); // "53" (строковая конкатенация)</code></pre>
+            </div>
+          </div>
+
+          <h3>Сокращённые операторы присвоения</h3>
+          <div class="code-block">
+            <pre><code>let x = 10;
+x += 5; // то же самое, что x = x + 5
+console.log(x); // 15
+
+x -= 3; // то же самое, что x = x - 3
+console.log(x); // 12
+
+x *= 2; // то же самое, что x = x * 2
+console.log(x); // 24
+
+x /= 4; // то же самое, что x = x / 4
+console.log(x); // 6</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Лучшие практики -->
+      <section class="section" id="variables-best-practices">
+        <div class="container">
+          <h2>Лучшие практики</h2>
+
+          <div class="note-block">
+            <h3>✅ Используйте const по умолчанию</h3>
+            <div class="code-block">
+              <pre><code>// Хорошо
+const PI = 3.14159;
+const MAX_USERS = 100;
+
+// Используйте let только когда нужно изменять
+let userCount = 0;
+userCount++;</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Давайте понятные имена переменным</h3>
+            <div class="code-block">
+              <pre><code>// Хорошо
+const userAge = 25;
+const isAdmin = true;
+const emailAddress = "user@example.com";
+
+// Плохо
+const ua = 25;
+const ia = true;
+const ea = "user@example.com";</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Инициализируйте переменные сразу</h3>
+            <div class="code-block">
+              <pre><code>// Хорошо
+const name = "John";
+const age = 25;
+
+// Избегайте
+let name;
+let age;
+name = "John";
+age = 25;</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Группируйте связанные переменные</h3>
+            <div class="code-block">
+              <pre><code>// Хорошо - данные пользователя вместе
+const userName = "John";
+const userEmail = "john@example.com";
+const userAge = 25;
+
+// Или используйте объект
+const user = {
+  name: "John",
+  email: "john@example.com",
+  age: 25
+};</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Никогда не используйте var</h3>
+            <div class="code-block">
+              <pre><code>// ❌ Плохо - избегайте var
+var oldStyle = "не используйте это";
+
+// ✅ Хорошо - используйте const и let
+const newStyle = "используйте это";
+let mutableValue = "или это если нужно менять";</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Типичные ошибки -->
+      <section class="section" id="variables-mistakes">
+        <div class="container">
+          <h2>Типичные ошибки</h2>
+
+          <div class="warning">
+            <h3>❌ Забыли присвоить значение</h3>
+            <div class="code-block">
+              <pre><code>let message; // переменная объявлена, но не инициализирована
+console.log(message); // undefined
+
+// Правильно:
+let message = "Hello";
+console.log(message); // "Hello"</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Попытка изменить const</h3>
+            <div class="code-block">
+              <pre><code>const PI = 3.14;
+PI = 3.1415; // ❌ TypeError: Assignment to constant variable
+
+// Правильно:
+let radius = 5;
+radius = 10; // ✅ OK для let</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Использование var вместо let/const</h3>
+            <div class="code-block">
+              <pre><code>// Плохо - использование var (старый стандарт)
+var x = 5;
+if (true) {
+  var x = 10;
+}
+console.log(x); // 10 (неожиданный результат!)
+
+// Хорошо - использование let
+let y = 5;
+if (true) {
+  let y = 10;
+}
+console.log(y); // 5 (блочная видимость работает правильно)</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Неправильное имя переменной</h3>
+            <div class="code-block">
+              <pre><code>let 123name; // ❌ Ошибка: начинается с цифры
+let my-var; // ❌ Ошибка: содержит дефис
+let let; // ❌ Ошибка: ключевое слово
+
+// Правильно:
+let name123; // ✅ OK
+let my_var; // ✅ OK
+let myVar; // ✅ OK (camelCase)</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Строковая конкатенация вместо сложения</h3>
+            <div class="code-block">
+              <pre><code>let a = "5";
+let b = "3";
+console.log(a + b); // "53" (строковая конкатенация, а не сложение!)
+
+// Правильно:
+let x = 5;
+let y = 3;
+console.log(x + y); // 8 (математическое сложение)
+
+// Или преобразуйте строки:
+console.log(Number(a) + Number(b)); // 8</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Забыли обновить переменную</h3>
+            <div class="code-block">
+              <pre><code>let score = 50;
+score + 10; // ❌ Действие выполнено, но результат не сохранён
+console.log(score); // 50 (значение не изменилось)
+
+// Правильно:
+score = score + 10; // ✅ Результат сохранён
+console.log(score); // 60
+
+// Или используйте сокращённый оператор:
+score += 10;
+console.log(score); // 70</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Проблемы с var в циклах и блоках</h3>
+            <div class="code-block">
+              <pre><code>// Проблема с var
+for (var i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 100);
+}
+// Выведет: 3, 3, 3 (неожиданно!)
+
+// Решение с let
+for (let i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 100);
+}
+// Выведет: 0, 1, 2 (правильно!)</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Итоги -->
+      <section class="section" id="variables-summary">
+        <div class="container">
+          <h2>Итоги</h2>
+
+          <div class="note-block">
+            <h3>Что мы изучили</h3>
+            <ul class="list-ul">
+              <li><strong>Переменные</strong> — это именованные хранилища для данных</li>
+              <li><strong>Три способа объявления:</strong> <code>let</code>, <code>const</code>, <code>var</code></li>
+              <li><strong>const</strong> по умолчанию, <strong>let</strong> для изменяемых данных, <strong>var</strong> только для совместимости</li>
+              <li><strong>Правильное именование</strong> улучшает читаемость кода</li>
+              <li><strong>Математические операции</strong> используются для вычислений и объединения данных</li>
+              <li><strong>Сокращённые операторы</strong> делают код более компактным</li>
+            </ul>
+          </div>
+
+          <div class="note-block">
+            <h3>Ключевые правила</h3>
+            <ol class="list-ol">
+              <li>Используйте <code>const</code> для значений, которые не меняются</li>
+              <li>Используйте <code>let</code> для переменных, которые будут изменяться</li>
+              <li>❌ Никогда не используйте <code>var</code> в новом коде</li>
+              <li>Давайте понятные, описательные имена переменным</li>
+              <li>Инициализируйте переменные при объявлении</li>
+              <li>Помните о типах данных при использовании оператора <code>+</code></li>
+              <li>Блочная область видимости <code>let</code> и <code>const</code> предпочтительнее функциональной области <code>var</code></li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+</body>
+
+</html>

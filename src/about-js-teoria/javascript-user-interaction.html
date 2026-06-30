@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "Взаимодействие с пользователем", "description": "Функции alert, prompt и confirm для взаимодействия с пользователем" })
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs" id="page-nav">
+        <a href="#dialogs-intro" class="active">Введение</a>
+        <a href="#dialogs-alert">alert</a>
+        <a href="#dialogs-prompt">prompt</a>
+        <a href="#dialogs-confirm">confirm</a>
+        <a href="#dialogs-comparison">Сравнение</a>
+        <a href="#dialogs-best-practices">Лучшие практики</a>
+        <a href="#dialogs-mistakes">Типичные ошибки</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="dialogs-intro">
+        <div class="container">
+          <h1>Взаимодействие с пользователем</h1>
+
+          <p class="note">
+            <strong>Модальные окна</strong> — простой способ взаимодействия с пользователем в браузере.
+            <br />
+            JavaScript предоставляет три встроенные функции: <code>alert</code>, <code>prompt</code> и <code>confirm</code>.
+          </p>
+
+          <article class="article-block">
+            <h3>Общие особенности модальных окон</h3>
+            <ul class="list-ul">
+              <li>Блокируют выполнение скрипта до взаимодействия пользователя</li>
+              <li>Останавливают рендеринг страницы</li>
+              <li>Внешний вид зависит от браузера и операционной системы</li>
+              <li>Не являются частью DOM (не могут быть стилизованы)</li>
+            </ul>
+          </article>
+
+          <article class="article-block">
+            <h3>Когда использовать</h3>
+            <ul class="list-ul">
+              <li>✅ Быстрое прототипирование</li>
+              <li>✅ Отладка кода</li>
+              <li>✅ Срочные предупреждения и ошибки</li>
+              <li>❌ НЕ для повседневного взаимодействия (используйте пользовательские диалоги)</li>
+              <li>❌ НЕ для важных операций (пользователи часто нажимают OK автоматически)</li>
+            </ul>
+          </article>
+
+          <div class="warning">
+            <h3>⚠️ Важно</h3>
+            <p>Модальные окна блокируют всю страницу и раздражают пользователей. Используйте их только когда это действительно необходимо. Для лучшего пользовательского опыта создавайте собственные диалоги с HTML, CSS и JavaScript.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Alert -->
+      <section class="section" id="dialogs-alert">
+        <div class="container">
+          <h2>Функция alert()</h2>
+
+          <p class="note">
+            <strong>alert()</strong> — показывает сообщение пользователю и ждёт, пока пользователь нажмёт кнопку «ОК».
+            <br />
+            Самая простая функция для вывода уведомлений.
+          </p>
+
+          <h3>Синтаксис</h3>
+          <div class="code-block">
+            <pre><code>alert(message);</code></pre>
+          </div>
+          <p>Где <code>message</code> — текст или значение для отображения (будет преобразовано в строку).</p>
+
+          <div class="code-block">
+            <h4>Примеры использования alert():</h4>
+            <pre><code>alert("Добро пожаловать на наш сайт!");
+
+let name = "John";
+alert("Привет, " + name);
+
+alert("Ошибка: неверный пароль");
+
+let count = 42;
+alert(count);  // преобразуется в "42"</code></pre>
+          </div>
+
+          <article class="article-block">
+            <h3>Особенности alert()</h3>
+            <ul class="list-ul">
+              <li>Окно имеет только одну кнопку OK</li>
+              <li>Возвращает <code>undefined</code></li>
+              <li>Текст автоматически преобразуется в строку</li>
+              <li>Блокирует выполнение кода до нажатия OK</li>
+              <li>Пользователь не может взаимодействовать с страницей, пока окно открыто</li>
+            </ul>
+          </article>
+
+          <article class="article-block">
+            <h3>Практическое применение</h3>
+            <ul class="list-ul">
+              <li>Вывод важных уведомлений</li>
+              <li>Отображение сообщений об ошибках</li>
+              <li>Информирование о результатах операций</li>
+              <li>Отладка — быстрая проверка значений</li>
+            </ul>
+          </article>
+
+          <div class="code-block">
+            <h4>Практический пример с alert():</h4>
+            <pre><code>function saveData() {
+  // Сохраняем данные
+  const result = saveToServer();
+
+  if (result.success) {
+    alert("Данные успешно сохранены!");
+  } else {
+    alert("Ошибка при сохранении: " + result.error);
+  }
+}
+
+// Использование
+saveData();</code></pre>
+          </div>
+
+          <button onclick="demoAlert()" class="demo-button">Попробовать alert()</button>
+
+          <div class="note-block">
+            <h3>✅ Совет по форматированию</h3>
+            <p>Используйте шаблонные строки для более читаемого форматирования:</p>
+            <div class="code-block">
+              <pre><code>// Вместо:
+alert("Привет, " + name + "! Ваш ID: " + id);
+
+// Лучше:
+alert(`Привет, ${name}! Ваш ID: ${id}`);</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Prompt -->
+      <section class="section" id="dialogs-prompt">
+        <div class="container">
+          <h2>Функция prompt()</h2>
+
+          <p class="note">
+            <strong>prompt()</strong> — отображает диалоговое окно с запросом на ввод текста.
+            <br />
+            Позволяет получить информацию от пользователя через клавиатуру.
+          </p>
+
+          <h3>Синтаксис</h3>
+          <div class="code-block">
+            <pre><code>result = prompt(title, [default]);</code></pre>
+          </div>
+          <p>
+            <code>title</code> — текст вопроса для отображения<br />
+            <code>default</code> — начальное значение в поле ввода (необязательно)<br />
+            Возвращает: строка (если ОК) или <code>null</code> (если Отмена)
+          </p>
+
+          <div class="code-block">
+            <h4>Примеры использования prompt():</h4>
+            <pre><code>let name = prompt("Как вас зовут?", "Гость");
+console.log(name); // введённое имя или "Гость" по умолчанию
+
+let age = prompt("Сколько вам лет?");
+console.log(age); // введённый возраст или null если отмена
+
+let color = prompt("Ваш любимый цвет?", "синий");
+if (color !== null) {
+  alert(`Вы выбрали: ${color}`);
+}</code></pre>
+          </div>
+
+          <article class="article-block">
+            <h3>Особенности prompt()</h3>
+            <ul class="list-ul">
+              <li>Возвращает строку (даже если введено число)</li>
+              <li>Возвращает <code>null</code> при нажатии Отмена или Escape</li>
+              <li>Второй параметр (default) показывается в поле ввода</li>
+              <li>ВСЕГДА проверяйте результат на null перед использованием</li>
+              <li>В IE всегда рекомендуется указывать второй параметр</li>
+            </ul>
+          </article>
+
+          <div class="code-block">
+            <h4>✅ Правильная проверка результата:</h4>
+            <pre><code>let input = prompt("Введите число:", "10");
+
+// ВСЕГДА проверяйте на null первым
+if (input === null) {
+  console.log("Пользователь отменил ввод");
+} else if (input === "") {
+  console.log("Пользователь ничего не ввёл");
+} else {
+  console.log("Пользователь ввёл:", input);
+}</code></pre>
+          </div>
+
+          <div class="code-block">
+            <h4>Практический пример — валидация ввода в цикле:</h4>
+            <pre><code>let age;
+while (true) {
+  age = prompt("Сколько вам лет?", "18");
+
+  // Пользователь нажал Отмена
+  if (age === null) {
+    alert("Опрос отменён");
+    break;
+  }
+
+  // Проверяем, является ли это числом
+  if (!isNaN(age) && age !== "") {
+    alert(`Ваш возраст: ${age} лет`);
+    break;
+  }
+
+  // Просим ввести заново
+  alert("Пожалуйста, введите корректное число!");
+}</code></pre>
+          </div>
+
+          <button onclick="demoPrompt()" class="demo-button">Попробовать prompt()</button>
+          <div id="prompt-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px;"></div>
+
+          <button onclick="demoAgePrompt()" class="demo-button">Попробовать валидацию возраста</button>
+          <div id="age-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px;"></div>
+
+          <article class="article-block">
+            <h3>Практическое применение</h3>
+            <ul class="list-ul">
+              <li>Запрос имени пользователя</li>
+              <li>Ввод числовых значений (цены, количество и т.д.)</li>
+              <li>Простые вопросы и ответы</li>
+              <li>Временная авторизация</li>
+            </ul>
+          </article>
+
+          <div class="warning">
+            <h3>⚠️ Преобразование типов</h3>
+            <p>prompt() всегда возвращает строку! Если нужны числа, преобразуйте:</p>
+            <div class="code-block">
+              <pre><code>let input = prompt("Введите число:");
+let number = Number(input); // или parseInt(input, 10)
+let num2 = +input;          // или унарный плюс
+
+console.log(typeof input);  // "string"
+console.log(typeof number); // "number"</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Confirm -->
+      <section class="section" id="dialogs-confirm">
+        <div class="container">
+          <h2>Функция confirm()</h2>
+
+          <p class="note">
+            <strong>confirm()</strong> — отображает диалоговое окно с вопросом и двумя кнопками: OK и Отмена.
+            <br />
+            Используется для получения ответа "Да" или "Нет" от пользователя.
+          </p>
+
+          <h3>Синтаксис</h3>
+          <div class="code-block">
+            <pre><code>result = confirm(question);</code></pre>
+          </div>
+          <p>
+            <code>question</code> — текст вопроса<br />
+            Возвращает: <code>true</code> (если ОК) или <code>false</code> (если Отмена)
+          </p>
+
+          <div class="code-block">
+            <h4>Примеры использования confirm():</h4>
+            <pre><code>let isAdult = confirm("Вам есть 18 лет?");
+console.log(isAdult); // true или false
+
+let shouldDelete = confirm("Вы уверены, что хотите удалить файл?");
+if (shouldDelete) {
+  // Удаляем файл
+  console.log("Файл удалён");
+} else {
+  console.log("Удаление отменено");
+}</code></pre>
+          </div>
+
+          <article class="article-block">
+            <h3>Особенности confirm()</h3>
+            <ul class="list-ul">
+              <li>Возвращает логическое значение: <code>true</code> или <code>false</code></li>
+              <li>Нельзя изменить текст кнопок (всегда OK и Отмена)</li>
+              <li>Часто используется в цепочках условий if/else</li>
+              <li>Удобен для принятия бинарных решений</li>
+            </ul>
+          </article>
+
+          <div class="code-block">
+            <h4>Практические примеры с confirm():</h4>
+            <pre><code>// Пример 1: Подтверждение удаления
+function deleteFile(fileName) {
+  if (confirm(`Удалить файл "${fileName}"?`)) {
+    // Выполняем удаление
+    console.log("Файл удалён");
+  } else {
+    console.log("Удаление отменено");
+  }
+}
+
+// Пример 2: Проверка согласия
+function submitForm() {
+  if (confirm("Вы согласны с условиями использования?")) {
+    // Отправляем форму
+    console.log("Форма отправлена");
+  } else {
+    alert("Вы должны согласиться с условиями");
+  }
+}
+
+// Пример 3: Цепочка условий
+function performAction() {
+  if (!confirm("Вы действительно хотите это сделать?")) {
+    alert("Действие отменено");
+    return;
+  }
+
+  if (!confirm("Это необратимое действие. Продолжить?")) {
+    alert("Действие отменено");
+    return;
+  }
+
+  // Выполняем действие
+  console.log("Действие выполнено");
+}</code></pre>
+          </div>
+
+          <button onclick="demoConfirm()" class="demo-button">Попробовать confirm()</button>
+          <div id="confirm-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px;"></div>
+
+          <button onclick="demoFileDelete()" class="demo-button">Попробовать удаление файла</button>
+          <div id="file-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px;"></div>
+
+          <article class="article-block">
+            <h3>Практическое применение</h3>
+            <ul class="list-ul">
+              <li>Подтверждение опасных операций (удаление, выход)</li>
+              <li>Согласие с условиями и политиками</li>
+              <li>Выбор между двумя вариантами</li>
+              <li>Проверка намерений пользователя</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- Сравнение функций -->
+      <section class="section" id="dialogs-comparison">
+        <div class="container">
+          <h2>Сравнение функций</h2>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Функция</th>
+                <th>Кнопки</th>
+                <th>Возвращает</th>
+                <th>Использование</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>alert()</code></td>
+                <td>ОК</td>
+                <td><code>undefined</code></td>
+                <td>Информирование пользователя</td>
+              </tr>
+              <tr>
+                <td><code>prompt()</code></td>
+                <td>ОК, Отмена, поле ввода</td>
+                <td>Строка или <code>null</code></td>
+                <td>Получение текстовой информации</td>
+              </tr>
+              <tr>
+                <td><code>confirm()</code></td>
+                <td>ОК, Отмена</td>
+                <td><code>true</code> или <code>false</code></td>
+                <td>Получение ответа да/нет</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="code-block">
+            <h4>Практическое сравнение — комплексный пример:</h4>
+            <pre><code>// Комбинация всех трёх функций
+function register() {
+  // ALERT - информирование
+  alert("Добро пожаловать на страницу регистрации!");
+
+  // PROMPT - получение информации
+  let name = prompt("Ваше имя?", "");
+  if (name === null) return;
+
+  // CONFIRM - получение подтверждения
+  if (!confirm(`Подтвердить регистрацию для ${name}?`)) {
+    alert("Регистрация отменена");
+    return;
+  }
+
+  // ALERT - уведомление о результате
+  alert(`Добро пожаловать, ${name}!`);
+}
+
+register();</code></pre>
+          </div>
+
+          <button onclick="demoComplexExample()" class="demo-button">Попробовать комплексный пример</button>
+          <div id="complex-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px;"></div>
+        </div>
+      </section>
+
+      <!-- Лучшие практики -->
+      <section class="section" id="dialogs-best-practices">
+        <div class="container">
+          <h2>Лучшие практики</h2>
+
+          <div class="note-block">
+            <h3>✅ Всегда проверяйте результат prompt() на null</h3>
+            <div class="code-block">
+              <pre><code>// Хорошо
+let input = prompt("Введите число:");
+if (input !== null) {
+  let number = Number(input);
+  console.log(number);
+}
+
+// Плохо - не проверяем на null
+let input2 = prompt("Введите число:");
+let number2 = Number(input2); // ошибка если null</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Используйте шаблонные строки для форматирования</h3>
+            <div class="code-block">
+              <pre><code>// Хорошо
+let name = "John";
+alert(`Привет, ${name}!`);
+
+// Менее читаемо
+alert("Привет, " + name + "!");</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Преобразуйте данные из prompt() если нужны числа</h3>
+            <div class="code-block">
+              <pre><code>// Хорошо
+let age = prompt("Возраст:");
+if (age !== null) {
+  age = Number(age); // или parseInt(age, 10)
+  console.log(typeof age); // "number"
+}
+
+// Плохо - остаётся строкой
+let age2 = prompt("Возраст:");
+console.log(typeof age2); // "string"</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Давайте понятные сообщения и вопросы</h3>
+            <div class="code-block">
+              <pre><code>// Хорошо - ясные вопросы
+alert("Профиль успешно обновлён!");
+let name = prompt("Как вас зовут?", "Гость");
+if (confirm("Вы уверены, что хотите выйти?")) { ... }
+
+// Плохо - неясные сообщения
+alert("OK");
+let input = prompt("?", "");
+if (confirm("Y/N?")) { ... }</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Для важных операций используйте пользовательские диалоги</h3>
+            <div class="code-block">
+              <pre><code>// Не используйте для критичного:
+// confirm("Удалить всю базу данных?");
+
+// Лучше создайте свой диалог:
+// &lt;div class="custom-dialog"&gt;
+//   &lt;h3&gt;Вы уверены?&lt;/h3&gt;
+//   &lt;p&gt;Это действие необратимо!&lt;/p&gt;
+//   &lt;button id="confirm-btn"&gt;Удалить&lt;/button&gt;
+//   &lt;button id="cancel-btn"&gt;Отмена&lt;/button&gt;
+// &lt;/div&gt;</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Предоставляйте значения по умолчанию в prompt()</h3>
+            <div class="code-block">
+              <pre><code>// Хорошо - есть значение по умолчанию
+let name = prompt("Имя:", "Гость");
+
+// Менее удобно - нет подсказки
+let name2 = prompt("Имя:");
+
+// Хорошо - пустая строка если очень нужно
+let customValue = prompt("Введите значение:", "");</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Типичные ошибки -->
+      <section class="section" id="dialogs-mistakes">
+        <div class="container">
+          <h2>Типичные ошибки</h2>
+
+          <div class="warning">
+            <h3>❌ Не проверяют результат prompt() на null</h3>
+            <div class="code-block">
+              <pre><code>// Ошибка
+let name = prompt("Имя:");
+alert("Привет, " + name); // выведет "Привет, null" если отмена
+
+// Правильно
+let name = prompt("Имя:");
+if (name !== null) {
+  alert("Привет, " + name);
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Забывают преобразовать строку из prompt() в число</h3>
+            <div class="code-block">
+              <pre><code>// Ошибка - остаётся строкой
+let age = prompt("Возраст:");
+if (age > 18) { // сравнивает как строки!
+  console.log("Взрослый");
+}
+
+// Правильно
+let age = prompt("Возраст:");
+if (age !== null && Number(age) > 18) {
+  console.log("Взрослый");
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Используют много alert/confirm/prompt подряд</h3>
+            <div class="code-block">
+              <pre><code>// Плохо - раздражает пользователя
+alert("Добро пожаловать!");
+alert("Заполните профиль");
+alert("Прочитайте документ");
+alert("Согласитесь с условиями");
+
+// Лучше - один диалог или использовать page-based UI
+// Или группировать вопросы в одном диалоге</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Сравнивают prompt() результат неправильно</h3>
+            <div class="code-block">
+              <pre><code>// Ошибка - пустая строка не равна null
+let value = prompt("Введите:");
+if (value === null) {
+  // Если пользователь оставил пусто и нажал OK,
+  // сюда не попадёт (value будет "")
+}
+
+// Правильно
+if (value === null) {
+  console.log("Отмена");
+} else if (value === "") {
+  console.log("Пусто");
+} else {
+  console.log("Введено:", value);
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Используют модальные окна для критичных операций</h3>
+            <div class="code-block">
+              <pre><code>// Ошибка - пользователи часто нажимают OK автоматически
+if (confirm("Удалить все файлы?")) {
+  deleteAllFiles(); // Очень опасно!
+}
+
+// Лучше - используйте пользовательский диалог
+// с явным вводом подтверждения:
+// Введите "УДАЛИТЬ" для подтверждения</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Не проверяют пустые строки в prompt()</h3>
+            <div class="code-block">
+              <pre><code>// Ошибка
+let name = prompt("Имя:", "");
+console.log(name.length); // ошибка если нажали OK без ввода
+
+// Правильно
+let name = prompt("Имя:", "");
+if (name !== null && name.trim() !== "") {
+  console.log("Имя введено:", name);
+} else {
+  alert("Пожалуйста, введите имя");
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Зависают в бесконечном цикле с prompt()</h3>
+            <div class="code-block">
+              <pre><code>// Ошибка - цикл может зависнуть
+while (true) {
+  let value = prompt("Введите число:");
+  // Если нажать Отмена, value = null
+  // и цикл не завершится
+}
+
+// Правильно
+while (true) {
+  let value = prompt("Введите число:");
+  if (value === null) break; // выход при отмене
+  if (!isNaN(value)) break; // выход при корректном числе
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Итоги -->
+      <section class="section" id="dialogs-summary">
+        <div class="container">
+          <h2>Итоги</h2>
+
+          <div class="note-block">
+            <h3>Ключевые моменты</h3>
+            <ul class="list-ul">
+              <li><code>alert()</code> — показывает сообщение, возвращает undefined</li>
+              <li><code>prompt()</code> — получает текст, возвращает строку или null</li>
+              <li><code>confirm()</code> — получает да/нет, возвращает true или false</li>
+              <li>Все три функции блокируют выполнение кода</li>
+              <li>ВСЕГДА проверяйте результат prompt() на null</li>
+              <li>ВСЕГДА преобразуйте числа из prompt() в Number()</li>
+            </ul>
+          </div>
+
+          <div class="note-block">
+            <h3>Рекомендации</h3>
+            <ol class="list-ol">
+              <li>Используйте эти функции для простой отладки и прототипирования</li>
+              <li>Для финального приложения создавайте пользовательские диалоги</li>
+              <li>Всегда проверяйте результаты перед использованием</li>
+              <li>Используйте шаблонные строки для форматирования</li>
+              <li>Не используйте модальные окна для критичных операций</li>
+              <li>Преобразуйте типы данных если необходимо</li>
+              <li>Помните о гранулярности — не показывайте слишком много диалогов</li>
+              <li>Предоставляйте значения по умолчанию в prompt()</li>
+            </ol>
+          </div>
+
+          <div class="note-block">
+            <h3>Когда использовать альтернативы</h3>
+            <ul class="list-ul">
+              <li>Вместо множественных alert/confirm — используйте пользовательские диалоги</li>
+              <li>Вместо модальных окон для форм — используйте HTML формы</li>
+              <li>Вместо alert для ошибок — используйте console.error() или встроенные системы логирования</li>
+              <li>Для лучшего UX — создавайте собственные компоненты диалогов</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+
+  <style>
+    .demo-button {
+      padding: 8px 16px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 10px;
+      transition: background-color 0.3s;
+    }
+
+    .demo-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+
+  <script>
+    // Демонстрация alert
+    function demoAlert() {
+      const name = "Мир";
+      alert(`Привет, ${name}!`);
+    }
+
+    // Демонстрация prompt
+    function demoPrompt() {
+      const name = prompt("Как вас зовут?", "Гость");
+      const resultElement = document.getElementById("prompt-result");
+      if (name === null) {
+        resultElement.textContent = "Вы нажали Отмена";
+      } else if (name === "") {
+        resultElement.textContent = "Вы не ввели имя";
+      } else {
+        resultElement.textContent = `Привет, ${name}!`;
+      }
+    }
+
+    // Демонстрация prompt с валидацией
+    function demoAgePrompt() {
+      let age;
+      while (true) {
+        age = prompt("Сколько вам лет?", "18");
+        if (age === null) {
+          document.getElementById("age-result").textContent = "Опрос отменён";
+          break;
+        }
+        if (!isNaN(age) && age !== "") {
+          document.getElementById("age-result").textContent = `Вам ${age} лет`;
+          break;
+        }
+        alert("Введите число!");
+      }
+    }
+
+    // Демонстрация confirm
+    function demoConfirm() {
+      const isAdult = confirm("Вам есть 18 лет?");
+      document.getElementById("confirm-result").textContent = isAdult ? "Доступ разрешён" : "Доступ запрещён";
+    }
+
+    // Демонстрация удаления файла
+    function demoFileDelete() {
+      const shouldDelete = confirm("Вы уверены, что хотите удалить этот файл?");
+      document.getElementById("file-result").textContent = shouldDelete ? "Файл удалён" : "Удаление отменено";
+    }
+
+    // Комплексный пример
+    function demoComplexExample() {
+      alert("Добро пожаловать на страницу регистрации!");
+
+      let name = prompt("Ваше имя?", "");
+      if (name === null || name === "") {
+        document.getElementById("complex-result").textContent = "Регистрация отменена: имя не введено";
+        return;
+      }
+
+      if (!confirm(`Подтвердить регистрацию для ${name}?`)) {
+        document.getElementById("complex-result").textContent = "Регистрация отменена";
+        return;
+      }
+
+      document.getElementById("complex-result").textContent = `Добро пожаловать, ${name}! Регистрация завершена.`;
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "console - JavaScript", "description": "Работа с консолью в JavaScript" })
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs" id="page-nav">
+        <a href="#console-intro" class="active">Введение</a>
+        <a href="#console-log">console.log()</a>
+        <a href="#console-other-methods">Другие методы</a>
+        <a href="#console-multiple-values">Несколько значений</a>
+        <a href="#console-formatting">Форматирование вывода</a>
+        <a href="#console-advanced">Продвинутые методы</a>
+        <a href="#console-best-practices">Лучшие практики</a>
+        <a href="#console-mistakes">Типичные ошибки</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="console-intro">
+        <div class="container">
+          <h1>console — Работа с консолью</h1>
+
+          <p class="note">
+            <strong>console</strong> — встроенный объект в JavaScript, который предоставляет методы для вывода информации в консоль браузера.
+            <br />
+            Консоль используется для отладки кода, вывода сообщений, логирования событий и анализа работы приложения.
+          </p>
+
+          <article class="article-block">
+            <h3>Основные методы console</h3>
+            <ul class="list-ul">
+              <li><code>console.log()</code> — выводит информацию в консоль</li>
+              <li><code>console.error()</code> — выводит сообщение об ошибке (красный цвет)</li>
+              <li><code>console.warn()</code> — выводит предупреждение (жёлтый цвет)</li>
+              <li><code>console.info()</code> — выводит информационное сообщение</li>
+              <li><code>console.table()</code> — выводит данные в виде таблицы</li>
+              <li><code>console.time()</code> — запускает таймер для измерения времени</li>
+              <li><code>console.clear()</code> — очищает консоль</li>
+            </ul>
+          </article>
+
+          <article class="article-block">
+            <h3>Где и когда используется console</h3>
+            <ul class="list-ul">
+              <li>В разработке веб-приложений для отладки</li>
+              <li>Для отслеживания ошибок и исключений</li>
+              <li>Для логирования событий и действий пользователя</li>
+              <li>Для вывода результатов вычислений</li>
+              <li>Для проверки значений переменных во время выполнения</li>
+            </ul>
+          </article>
+
+          <div class="warning">
+            <h3>⚠️ Важно</h3>
+            <p>Консоль предназначена только для разработки и отладки. В продакшене (final версии) рекомендуется минимизировать использование console.log() для улучшения производительности.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- console.log -->
+      <section class="section" id="console-log">
+        <div class="container">
+          <h2>console.log()</h2>
+
+          <p class="note">
+            <strong>console.log()</strong> — основной метод объекта console для вывода информации в консоль.
+            <br />
+            Это один из самых часто используемых методов для отладки кода. С его помощью можно выводить текст, переменные, результаты вычислений и объекты.
+          </p>
+
+          <h3>Синтаксис</h3>
+          <div class="code-block">
+            <pre><code>console.log(значение1, значение2, ..., значениеN);</code></pre>
+          </div>
+
+          <div class="code-block">
+            <h4>Примеры вывода строк и чисел:</h4>
+            <pre><code>console.log('Hello, World!'); // вывод строки
+console.log(42);              // вывод числа
+console.log(true);            // вывод логического значения
+
+let x = 10;
+console.log(x);               // вывод значения переменной
+console.log('Значение x:', x); // вывод строки и переменной</code></pre>
+          </div>
+
+          <div class="code-block">
+            <h4>Вывод результатов выражений:</h4>
+            <pre><code>console.log(5 + 3);           // 8
+console.log(10 * 2);          // 20
+console.log('Hello' + ' ' + 'World'); // Hello World</code></pre>
+          </div>
+
+          <div class="code-block">
+            <h4>Вывод объектов и массивов:</h4>
+            <pre><code>let user = { name: 'John', age: 30, email: 'john@example.com' };
+console.log(user);            // выведет объект в развёрнутом виде
+console.log('User:', user);   // выведет с описанием
+
+let numbers = [1, 2, 3, 4, 5];
+console.log(numbers);         // выведет массив
+console.log('Numbers:', numbers); // выведет с описанием</code></pre>
+          </div>
+
+          <article class="article-block">
+            <h3>Особенности console.log()</h3>
+            <ul class="list-ul">
+              <li>Может выводить неограниченное количество значений через запятую</li>
+              <li>Автоматически преобразует значения в строки</li>
+              <li>Для объектов и массивов выводит структурированное представление</li>
+              <li>Не возвращает значение (возвращает undefined)</li>
+              <li>Можно использовать сколько угодно раз в коде</li>
+            </ul>
+          </article>
+
+          <div class="code-block">
+            <h4>Использование несколько раз подряд:</h4>
+            <pre><code>console.log('Начало программы');
+let name = 'Alice';
+console.log('Имя:', name);
+let age = 25;
+console.log('Возраст:', age);
+console.log('Конец программы');</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Другие методы console -->
+      <section class="section" id="console-other-methods">
+        <div class="container">
+          <h2>Другие методы console</h2>
+
+          <p>JavaScript предоставляет различные методы console для разных типов сообщений:</p>
+
+          <article class="article-block">
+            <h3>console.error() — Ошибки</h3>
+            <p>Выводит сообщение об ошибке (обычно красным цветом):</p>
+            <div class="code-block">
+              <pre><code>console.error('Это сообщение об ошибке');
+console.error('Ошибка:', new Error('Что-то пошло не так'));
+
+let age = -5;
+if (age < 0) {
+  console.error('Возраст не может быть отрицательным');
+}</code></pre>
+            </div>
+          </article>
+
+          <article class="article-block">
+            <h3>console.warn() — Предупреждения</h3>
+            <p>Выводит предупреждение (обычно жёлтым цветом):</p>
+            <div class="code-block">
+              <pre><code>console.warn('Это предупреждение');
+console.warn('Используется устаревший метод');
+
+let value = null;
+if (value === null) {
+  console.warn('Значение равно null');
+}</code></pre>
+            </div>
+          </article>
+
+          <article class="article-block">
+            <h3>console.info() — Информация</h3>
+            <p>Выводит информационное сообщение (обычно синим значком):</p>
+            <div class="code-block">
+              <pre><code>console.info('Это информационное сообщение');
+console.info('Приложение загружено успешно');
+console.info('Версия: 1.0.0');</code></pre>
+            </div>
+          </article>
+
+          <article class="article-block">
+            <h3>console.table() — Таблица</h3>
+            <p>Выводит данные в виде красивой таблицы:</p>
+            <div class="code-block">
+              <pre><code>// Для массива объектов:
+let users = [
+  { id: 1, name: 'John', age: 30 },
+  { id: 2, name: 'Alice', age: 25 },
+  { id: 3, name: 'Bob', age: 35 }
+];
+console.table(users);
+
+// Для простого объекта:
+let person = { name: 'John', age: 30, city: 'New York' };
+console.table(person);</code></pre>
+            </div>
+          </article>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Метод</th>
+                <th>Описание</th>
+                <th>Цвет вывода</th>
+                <th>Использование</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>log()</code></td>
+                <td>Общая информация</td>
+                <td>Чёрный</td>
+                <td>Отладка, вывод значений</td>
+              </tr>
+              <tr>
+                <td><code>error()</code></td>
+                <td>Ошибка</td>
+                <td>Красный</td>
+                <td>Сообщения об ошибках</td>
+              </tr>
+              <tr>
+                <td><code>warn()</code></td>
+                <td>Предупреждение</td>
+                <td>Жёлтый</td>
+                <td>Предупреждения о потенциальных проблемах</td>
+              </tr>
+              <tr>
+                <td><code>info()</code></td>
+                <td>Информация</td>
+                <td>Синий (значок i)</td>
+                <td>Информационные сообщения</td>
+              </tr>
+              <tr>
+                <td><code>table()</code></td>
+                <td>Таблица</td>
+                <td>Чёрный</td>
+                <td>Вывод структурированных данных</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Несколько значений -->
+      <section class="section" id="console-multiple-values">
+        <div class="container">
+          <h2>Вывод нескольких значений</h2>
+
+          <p class="note">
+            <strong>console.log()</strong> может принимать несколько аргументов через запятую.
+            <br />
+            Все значения будут выведены в одной строке, разделённые пробелами.
+          </p>
+
+          <div class="code-block">
+            <h4>Примеры вывода нескольких значений:</h4>
+            <pre><code>let x = 10;
+let y = 20;
+
+console.log(x, y);           // 10 20
+console.log(x + y);          // 30
+
+let name = 'John';
+let age = 30;
+console.log(name, age);      // John 30
+console.log('Имя:', name, 'Возраст:', age); // Имя: John Возраст: 30</code></pre>
+          </div>
+
+          <div class="code-block">
+            <h4>Вывод с описаниями (tips):</h4>
+            <pre><code>let height = 180;
+let weight = 75;
+
+console.log('Рост:', height, 'см');
+console.log('Вес:', weight, 'кг');
+console.log('Параметры:', height, weight, 'BMI:', (weight / (height * height) * 10000).toFixed(2));</code></pre>
+          </div>
+
+          <article class="article-block">
+            <h3>Преимущества описаний (tips)</h3>
+            <ul class="list-ul">
+              <li>Делает вывод понятнее и читабельнее</li>
+              <li>Помогает сразу понять, какое значение что обозначает</li>
+              <li>Упрощает отладку при работе с множеством переменных</li>
+              <li>Снижает вероятность ошибок при чтении консоли</li>
+            </ul>
+          </article>
+
+          <div class="note-block">
+            <h3>✅ Лучшая практика</h3>
+            <div class="code-block">
+              <pre><code>// Хорошо - с описаниями
+console.log('Пользователь:', name, 'Возраст:', age, 'Email:', email);
+
+// Менее информативно
+console.log(name, age, email);</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Форматирование вывода -->
+      <section class="section" id="console-formatting">
+        <div class="container">
+          <h2>Форматирование вывода</h2>
+
+          <p class="note">
+            <strong>Форматирование консоли</strong> позволяет улучшить читаемость вывода и добавить стили.
+          </p>
+
+          <article class="article-block">
+            <h3>Использование шаблонных строк (template literals)</h3>
+            <p>Современный и удобный способ форматирования:</p>
+            <div class="code-block">
+              <pre><code>let name = 'John';
+let age = 30;
+let city = 'New York';
+
+// Используя шаблонные строки (backticks):
+console.log(`Имя: ${name}, Возраст: ${age}, Город: ${city}`);
+// Выведет: Имя: John, Возраст: 30, Город: New York</code></pre>
+            </div>
+          </article>
+
+          <article class="article-block">
+            <h3>Стили CSS в console</h3>
+            <p>Можно добавить стили к тексту в консоли используя %c:</p>
+            <div class="code-block">
+              <pre><code>console.log('%cВнимание!', 'color: red; font-size: 18px; font-weight: bold;');
+console.log('%cУспех!', 'color: green; font-size: 16px;');
+console.log('%cИнформация', 'color: blue; background: yellow;');</code></pre>
+            </div>
+          </article>
+
+          <article class="article-block">
+            <h3>Группировка сообщений</h3>
+            <p>Группируйте связанные сообщения для лучшей организации:</p>
+            <div class="code-block">
+              <pre><code>console.group('Информация о пользователе');
+console.log('Имя: John');
+console.log('Возраст: 30');
+console.log('Email: john@example.com');
+console.groupEnd();
+
+console.group('Информация о заказе');
+console.log('Заказ ID: 12345');
+console.log('Сумма: $99.99');
+console.groupEnd();</code></pre>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Продвинутые методы -->
+      <section class="section" id="console-advanced">
+        <div class="container">
+          <h2>Продвинутые методы</h2>
+
+          <article class="article-block">
+            <h3>console.time() и console.timeEnd() — Измерение времени</h3>
+            <p>Измеряйте время выполнения кода:</p>
+            <div class="code-block">
+              <pre><code>console.time('Таймер');
+
+// Код, время которого мы хотим измерить
+let sum = 0;
+for (let i = 0; i < 1000000; i++) {
+  sum += i;
+}
+
+console.timeEnd('Таймер');
+// Выведет что-то типа: Таймер: 2.5ms</code></pre>
+            </div>
+          </article>
+
+          <article class="article-block">
+            <h3>console.assert() — Условная проверка</h3>
+            <p>Выводит сообщение только если условие ложно:</p>
+            <div class="code-block">
+              <pre><code>let age = 25;
+console.assert(age >= 18, 'Пользователь должен быть взрослым'); // ничего не выведет
+console.assert(age >= 30, 'Пользователь должен быть старше 30'); // выведет сообщение об ошибке</code></pre>
+            </div>
+          </article>
+
+          <article class="article-block">
+            <h3>console.count() — Подсчёт вызовов</h3>
+            <p>Подсчитывает, сколько раз был вызван console.count():</p>
+            <div class="code-block">
+              <pre><code>for (let i = 0; i < 5; i++) {
+  console.count('loop');
+}
+// Выведет: loop: 1, loop: 2, loop: 3, loop: 4, loop: 5
+
+console.count('click');  // click: 1
+console.count('click');  // click: 2</code></pre>
+            </div>
+          </article>
+
+          <article class="article-block">
+            <h3>console.clear() — Очистка консоли</h3>
+            <p>Очищает все сообщения из консоли:</p>
+            <div class="code-block">
+              <pre><code>console.log('Сообщение 1');
+console.log('Сообщение 2');
+console.clear(); // консоль очищена
+console.log('Сообщение 3'); // видно только это</code></pre>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Лучшие практики -->
+      <section class="section" id="console-best-practices">
+        <div class="container">
+          <h2>Лучшие практики</h2>
+
+          <div class="note-block">
+            <h3>✅ Используйте описательные сообщения</h3>
+            <div class="code-block">
+              <pre><code>// Хорошо
+console.log('Пользователь загружен:', user);
+console.log('Ошибка загрузки данных:', error);
+
+// Плохо
+console.log(user);
+console.log(error);</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Используйте разные методы для разных типов сообщений</h3>
+            <div class="code-block">
+              <pre><code>// Информация
+console.log('Приложение запущено');
+
+// Предупреждение
+console.warn('Значение может быть null');
+
+// Ошибка
+console.error('Ошибка при загрузке данных');</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Группируйте связанные логи</h3>
+            <div class="code-block">
+              <pre><code>console.group('API запрос');
+console.log('URL:', 'https://api.example.com/users');
+console.log('Метод:', 'GET');
+console.log('Статус: 200 OK');
+console.groupEnd();</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Удаляйте console логи перед продакшеном</h3>
+            <div class="code-block">
+              <pre><code>// В разработке (Development)
+console.log('Отладочная информация');
+
+// В продакшене (Production) - удалите или используйте условия
+if (process.env.NODE_ENV === 'development') {
+  console.log('Отладочная информация');
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Используйте console.table() для структурированных данных</h3>
+            <div class="code-block">
+              <pre><code>// Вместо:
+const users = [{id: 1, name: 'John'}, {id: 2, name: 'Alice'}];
+console.log(users);
+
+// Лучше:
+console.table(users);</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Используйте шаблонные строки для форматирования</h3>
+            <div class="code-block">
+              <pre><code>// Плохо
+console.log('Имя: ' + name + ', Возраст: ' + age);
+
+// Хорошо
+console.log(`Имя: ${name}, Возраст: ${age}`);</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Типичные ошибки -->
+      <section class="section" id="console-mistakes">
+        <div class="container">
+          <h2>Типичные ошибки</h2>
+
+          <div class="warning">
+            <h3>❌ Забывают указать описание</h3>
+            <div class="code-block">
+              <pre><code>// Плохо - непонятно что выводится
+console.log(user);
+console.log(data);
+console.log(result);
+
+// Хорошо
+console.log('Пользователь:', user);
+console.log('Данные:', data);
+console.log('Результат:', result);</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Оставляют много console.log() в финальном коде</h3>
+            <div class="code-block">
+              <pre><code>// Плохо - много ненужных логов в продакшене
+function getData() {
+  console.log('Начало загрузки');
+  console.log('Запрос отправлен');
+  console.log('Ответ получен');
+  console.log('Данные обработаны');
+  return data;
+}
+
+// Хорошо - удаляйте логи или используйте условия
+function getData() {
+  if (DEBUG) console.log('Начало загрузки');
+  return data;
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Выводят слишком много информации</h3>
+            <div class="code-block">
+              <pre><code>// Плохо - слишком много ненужной информации
+console.log(this);
+console.log(window);
+console.log(document);
+
+// Хорошо - выводите только нужное
+console.log('Текущий пользователь:', user);
+console.log('ID страницы:', pageId);</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Путают console методы</h3>
+            <div class="code-block">
+              <pre><code>// Плохо - используют log для ошибок
+console.log('Ошибка при загрузке');
+
+// Хорошо - используют правильный метод
+console.error('О��ибка при загрузке');
+
+// Плохо - используют log для предупреждений
+console.log('Это может быть проблемой');
+
+// Хорошо
+console.warn('Это может быть проблемой');</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Не используют шаблонные строки</h3>
+            <div class="code-block">
+              <pre><code>// Плохо - сложно читать
+console.log('Пользователь ' + name + ' возраст ' + age + ' город ' + city);
+
+// Хорошо
+console.log(`Пользователь ${name} возраст ${age} город ${city}`);</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Игнорируют console.error() и console.warn()</h3>
+            <div class="code-block">
+              <pre><code>// Плохо - не видно в консоли что это ошибка
+console.log('Ошибка: файл не найден');
+
+// Хорошо - видно красным цветом что это ошибка
+console.error('Ошибка: файл не найден');</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Итоги -->
+      <section class="section" id="console-summary">
+        <div class="container">
+          <h2>Итоги</h2>
+
+          <div class="note-block">
+            <h3>Ключевые моменты</h3>
+            <ul class="list-ul">
+              <li><code>console.log()</code> — основной инструмент отладки</li>
+              <li><code>console.error()</code> используйте для ошибок</li>
+              <li><code>console.warn()</code> используйте для предупреждений</li>
+              <li><code>console.table()</code> отлично подходит для структурированных данных</li>
+              <li>Всегда добавляйте описания к выводимым значениям</li>
+              <li>Используйте шаблонные строки для форматирования</li>
+              <li>Удаляйте ненужные логи перед отправкой в продакшен</li>
+            </ul>
+          </div>
+
+          <div class="note-block">
+            <h3>Рекомендации</h3>
+            <ol class="list-ol">
+              <li>Используйте console для отладки кода</li>
+              <li>Выбирайте правильный метод (log, error, warn, info)</li>
+              <li>Добавляйте описательные сообщения</li>
+              <li>Используйте console.table() для массивов объектов</li>
+              <li>Используйте шаблонные строки (backticks) для удобства</li>
+              <li>Группируйте связанные логи с console.group()</li>
+              <li>Измеряйте производительность с console.time()</li>
+              <li>Не забывайте удалять логи в финальной версии</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+</body>
+
+</html>
