@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../partials/head.html', { "title": "Функции-выражения в JavaScript", "description": "Функции-выражения: named и anonymous, IIFE, присвоение функции в переменную, передача как аргумента и отличия от function declaration." })
+
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+
+            <main class="page">
+                <nav class="nav-tabs" id="page-nav">
+                    <a href="#intro" class="active">Введение</a>
+                    <a href="#declaration-vs-expression">Declaration vs Expression</a>
+                    <a href="#named-anon">Named / Anonymous</a>
+                    <a href="#iife">IIFE</a>
+                    <a href="#functions-as-values">Функции как значения</a>
+                    <a href="#examples">Примеры</a>
+                    <a href="#pitfalls">Ловушки</a>
+                    <a href="#practice">Практика</a>
+                </nav>
+
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>Функции-выражения</h1>
+                        <p class="note">
+                            Функция-выражение — это когда функция создаётся как часть выражения (например, присваивается переменной или передаётся как аргумент). Это отличается от объявления функции (function declaration).
+                        </p>
+                        <article class="article-block">
+                            <h3>К чему это полезно?</h3>
+                            <ul class="list-ul">
+                                <li>Функции можно хранить в переменных и передавать как значения</li>
+                                <li>Можно создавать анонимные функции для одноразового использования</li>
+                                <li>Позволяет создавать замыкания и модульные структуры</li>
+                            </ul>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="section" id="declaration-vs-expression">
+                    <div class="container">
+                        <h2>Function declaration vs function expression</h2>
+                        <p class="note">Объявления функций "поднимаются" (hoisted) — их можно вызвать до объявления. Выражения функций видимы только после создания.</p>
+
+                        <div class="code-block">
+                            <pre><code class="language-js">// Declaration (hoisted)
+function greet() {
+  return "Hi";
+}
+console.log(greet()); // "Hi"
+
+// Expression (not hoisted in the same way)
+const say = function() {
+  return "Hello";
+};
+console.log(say()); // "Hello"</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="named-anon">
+                    <div class="container">
+                        <h2>Named и Anonymous function expressions</h2>
+                        <div class="code-block">
+                            <pre><code class="language-js">// Anonymous
+const anon = function() {
+  console.log("I'm anonymous");
+};
+
+// Named (полезно для отладки и рекурсии)
+const factorial = function fact(n) {
+  return n <= 1 ? 1 : n * fact(n - 1);
+};
+console.log(factorial(5)); // 120</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="iife">
+                    <div class="container">
+                        <h2>IIFE (Immediately Invoked Function Expression)</h2>
+                        <p class="note">Одноразовая функция, выполняемая сразу после создания — полезна для локализации переменных.</p>
+                        <div class="code-block">
+                            <pre><code class="language-js">(function() {
+  const secret = "только в этой функции";
+  console.log("IIFE runs:", secret);
+})();</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="functions-as-values">
+                    <div class="container">
+                        <h2>Функции как значения</h2>
+                        <p class="note">Функции можно передавать в другие функции, возвращать из функций и сохранять в структурах данных.</p>
+                        <div class="code-block">
+                            <pre><code class="language-js">function map(arr, fn) {
+  const res = [];
+  for (let i = 0; i < arr.length; i++) res.push(fn(arr[i]));
+  return res;
+}
+
+const doubled = map([1,2,3], x => x * 2);
+console.log(doubled); // [2,4,6]</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="examples">
+                    <div class="container">
+                        <h2>Примеры</h2>
+
+                        <article class="article-block">
+                            <h3>Пример: колбэк</h3>
+                            <div class="code-block">
+                                <pre><code class="language-js">function doAsync(task, cb) {
+  setTimeout(() => {
+    cb(task + " done");
+  }, 100);
+}
+
+doAsync("job", (res) => console.log("Callback got:", res));</code></pre>
+                            </div>
+                        </article>
+
+                        <article class="article-block">
+                            <h3>Пример: возвращаемая функция</h3>
+                            <div class="code-block">
+                                <pre><code class="language-js">function makeCounter() {
+  let count = 0;
+  return function() {
+    return ++count;
+  };
+}
+const c = makeCounter();
+console.log(c()); // 1
+console.log(c()); // 2</code></pre>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="section" id="pitfalls">
+                    <div class="container">
+                        <h2>Ловушки и советы</h2>
+                        <div class="warning">
+                            <h3>⚠️ Частые ошибки</h3>
+                            <ul class="list-ul">
+                                <li>Ожидание hoisting у function expression — вызов до присвоения даст ошибку</li>
+                                <li>Анонимные функции сложнее дебажить (стек вызовов без имени)</li>
+                                <li>Не перепутайте контекст this в function expression vs arrow function</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="practice">
+                    <div class="container">
+                        <h2>Интерактивные примеры</h2>
+                        <p class="note">Нажмите кнопку для просмотра результата.</p>
+
+                        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                            <button class="practice-btn" data-code="iife">IIFE</button>
+                            <button class="practice-btn" data-code="namedRec">Named recursion</button>
+                            <button class="practice-btn" data-code="counter">Counter closure</button>
+                        </div>
+
+                        <h4>Результат:</h4>
+                        <div class="code-block">
+                            <pre><code id="output-result">// Результат появится здесь</code></pre>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            @@include('../partials/footer.html', {})
+        </div>
+
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+
+        <script>
+            const examples = {
+                iife: function() {
+                    const out = [];
+                    (function() {
+                        const secret = "IIFE secret";
+                        out.push("IIFE ran: " + secret);
+                    })();
+                    return out.join('\n');
+                },
+                namedRec: function() {
+                    const out = [];
+                    const fact = function f(n) { return n <=1 ? 1 : n * f(n-1); };
+                    out.push("fact(5) = " + fact(5));
+                    return out.join('\n');
+                },
+                counter: function() {
+                    const out = [];
+                    function makeCounter() {
+                        let c = 0;
+                        return function() { return ++c; };
+                    }
+                    const c = makeCounter();
+                    out.push(c()); out.push(c()); out.push(c());
+                    return out.join('\n');
+                }
+            };
+
+            document.addEventListener('click', (e) => {
+                const btn = e.target.closest('[data-code]');
+                if (!btn) return;
+                const fn = examples[btn.getAttribute('data-code')];
+                try {
+                    document.getElementById('output-result').textContent = fn();
+                } catch (err) {
+                    document.getElementById('output-result').textContent = 'Ошибка: ' + err.message;
+                }
+            });
+
+            // навигация/подсветка и плавная прокрутка (как на других страницах)
+            (function init() {
+                const nav = document.getElementById("page-nav");
+                nav?.addEventListener("click", (e) => {
+                    const a = e.target.closest('a[href^="#"]');
+                    if (!a) return;
+                    e.preventDefault();
+                    document.getElementById(a.getAttribute("href").slice(1)).scrollIntoView({behavior:"smooth",block:"start"});
+                });
+            })();
+        </script>
+    </body>
+</html>

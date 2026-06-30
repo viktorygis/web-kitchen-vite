@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="ru">
-@@include('../partials/head.html', { "title": "Основы JavaScript: Типы данных", "description": "Краткое руководство по типам данных в JavaScript" })
+@@include('../partials/head.html', { "title": "Основы JavaScript: Типы данных", "description": "Подробный разбор типов данных в JavaScript: примитивы, объекты, массивы, проверка типов через typeof и Array.isArray, типичные ошибки и лучшие практики." })
 
 <body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
   <div class="wrapper">
     @@include('../partials/header.html', {})
-    <main class="page">
-      <nav class="nav-tabs">
-        <a href="#types-intro" class="active">Введение</a>
+    <main class="page" id="main" tabindex="-1">
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#types-intro" class="active" aria-current="page">Введение</a>
         <a href="#types-primitive">Примитивы</a>
         <a href="#types-object">Объекты</a>
         <a href="#types-string">Строки</a>
@@ -17,7 +19,9 @@
         <a href="#types-null">Null</a>
         <a href="#types-array">Массивы</a>
         <a href="#types-check">Проверка типов</a>
-
+        <a href="#types-pitfalls">Ловушки</a>
+        <a href="#types-best-practices">Лучшие практики</a>
+        <a href="#types-summary">Сводка</a>
       </nav>
 
       <!-- Введение -->
@@ -233,72 +237,69 @@ console.log(message.toUpperCase()); // "ПРИВЕТ, ВИКА!"</code></pre>
       <!-- Числа -->
       <section class="section" id="types-number">
         <div class="container">
-          <div class="note-block">
-            <h2>Числа (Number)</h2>
-            <p class="note">
-              <strong>Числа</strong>
-              — используются для математических операций и хранения числовых данных.
-            </p>
+          <h2>Числа (Number)</h2>
+          <p class="note">
+            <strong>Числа</strong>
+            — используются для математических операций и хранения числовых данных.
+          </p>
 
-            <div>
-              <h4>Особенности:</h4>
-              <ul class="list-ul">
-                <li>Могут быть целыми и дробными</li>
-                <li>Поддерживают специальные значения: Infinity, -Infinity, NaN</li>
-                <li>Имеют методы для работы (toFixed, toString и др.)</li>
-              </ul>
-            </div>
-            <div>
-              <h4>Примеры:</h4>
-              <div class="code-block">
-                <pre><code>let age = 38;
+          <div>
+            <h4>Особенности:</h4>
+            <ul class="list-ul">
+              <li>Могут быть целыми и дробными</li>
+              <li>Поддерживают специальные значения: Infinity, -Infinity, NaN</li>
+              <li>Имеют методы для работы (toFixed, toString и др.)</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Примеры:</h4>
+            <div class="code-block">
+              <pre><code>let age = 38;
 let price = 99.99;
 let result = 10 / 0; // Infinity
 
 // Математические операции
 let total = price * 1.2; // НДС
 let rounded = total.toFixed(2); // "119.99"</code></pre>
-              </div>
             </div>
-
-            <h4>Применение:</h4>
-            <ul class="list-ul">
-              <li>Расчеты в финансовых приложениях</li>
-              <li>Работа с датами и временем (timestamp)</li>
-              <li>Графики и диаграммы</li>
-              <li>Игровая логика (очки, здоровье)</li>
-            </ul>
           </div>
+
+          <h4>Применение:</h4>
+          <ul class="list-ul">
+            <li>Расчеты в финансовых приложениях</li>
+            <li>Работа с датами и временем (timestamp)</li>
+            <li>Графики и диаграммы</li>
+            <li>Игровая логика (очки, здоровье)</li>
+          </ul>
         </div>
       </section>
 
       <!-- Логические значения -->
       <section class="section" id="types-boolean">
         <div class="container">
-          <div class="note-block">
-            <h2>Логические значения (Boolean)</h2>
-            <p class="note">
-              <strong>Boolean</strong>
-              — это тип данных, который может принимать только два значения: <code>true</code> (истина) и <code>false</code> (ложь).
-              <br />
-              Эти значения называются булевыми по имени математика Джорджа Буля.
-            </p>
+          <h2>Логические значения (Boolean)</h2>
+          <p class="note">
+            <strong>Boolean</strong>
+            — это тип данных, который может принимать только два значения: <code>true</code> (истина) и <code>false</code> (ложь).
+            <br />
+            Эти значения называются булевыми по имени математика Джорджа Буля.
+          </p>
+          <ul class="list-ul">
+            <li><b>true</b> означает, что утверждение истинно.</li>
+            <li><b>false</b> означает, что утверждение ложно.</li>
+          </ul>
+          <div>
+            <h4>Особенности:</h4>
             <ul class="list-ul">
-              <li><b>true</b> означает, что утверждение истинно.</li>
-              <li><b>false</b> означает, что утверждение ложно.</li>
+              <li>Используются в условиях и сравнениях</li>
+              <li>Любое значение можно преобразовать к boolean</li>
+              <li>Ложные значения: false, 0, "", null, undefined, NaN</li>
             </ul>
-            <div>
-              <h4>Особенности:</h4>
-              <ul class="list-ul">
-                <li>Используются в условиях и сравнениях</li>
-                <li>Любое значение можно преобразовать к boolean</li>
-                <li>Ложные значения: false, 0, "", null, undefined, NaN</li>
-              </ul>
-            </div>
-            <div>
-              <h4>Примеры:</h4>
-              <div class="code-block">
-                <pre><code>let isMom = true;
+          </div>
+          <div>
+            <h4>Примеры:</h4>
+            <div class="code-block">
+              <pre><code>let isMom = true;
 let hasDiscount = false;
 
 // Использование в условиях
@@ -312,8 +313,8 @@ console.log(!!"text"); // true (двойное отрицание)
 
 // Сравнения
 let isEqual = (5 == 5);  // Это будет true, потому что 5 равно 5
-let isGreater = (5 > 3);  // Это будет true, потому что 5 больше 3
-let isLess = (5 < 3);     // Это будет false, потому что 5 не меньше 3
+let isGreater = (5 &gt; 3);  // Это будет true, потому что 5 больше 3
+let isLess = (5 &lt; 3);     // Это будет false, потому что 5 не меньше 3
 
 // Логическое отрицание
 let isRaining = true;
@@ -323,21 +324,20 @@ let isSunny = false;
 console.log(!isSunny);    // true
 
 // Пример с переменными
-// Мы можем сохранить отрицание в другой переменной
 const isMorning = true;
 const isEvening = !isMorning;
 console.log(isEvening); // false</code></pre>
-              </div>
             </div>
-
-            <h4>Применение:</h4>
-            <ul class="list-ul">
-              <li>Управление потоком выполнения (if/else)</li>
-              <li>Флаги состояния (isLoading, isActive)</li>
-              <li>Валидация данных (isValid)</li>
-              <li>Переключатели (darkMode, notificationsEnabled)</li>
-            </ul>
           </div>
+
+          <h4>Применение:</h4>
+          <ul class="list-ul">
+            <li>Управление потоком выполнения (if/else)</li>
+            <li>Флаги состояния (isLoading, isActive)</li>
+            <li>Валидация данных (isValid)</li>
+            <li>Переключатели (darkMode, notificationsEnabled)</li>
+          </ul>
+
           <p class="note note--info">💡 <strong>Запомни</strong>: <b>true</b> и <b>false</b> — это не строки, а именно логические значения. Их можно использовать в условиях и операторах.</p>
         </div>
       </section>
@@ -345,25 +345,24 @@ console.log(isEvening); // false</code></pre>
       <!-- Undefined -->
       <section class="section" id="types-undefined">
         <div class="container">
-          <div class="note-block">
-            <h2>Undefined</h2>
-            <p class="note">
-              <strong>Undefined</strong>
-              — означает, что переменная объявлена, но не инициализирована.
-            </p>
+          <h2>Undefined</h2>
+          <p class="note">
+            <strong>Undefined</strong>
+            — означает, что переменная объявлена, но не инициализирована.
+          </p>
 
-            <div>
-              <h4>Особенности:</h4>
-              <ul class="list-ul">
-                <li>Возвращается при обращении к несуществующему свойству</li>
-                <li>Функция возвращает undefined, если нет return</li>
-                <li>Не следует явно присваивать undefined</li>
-              </ul>
-            </div>
-            <div>
-              <h4>Примеры:</h4>
-              <div class="code-block">
-                <pre><code>let x;
+          <div>
+            <h4>Особенности:</h4>
+            <ul class="list-ul">
+              <li>Возвращается при обращении к несуществующему свойству</li>
+              <li>Функция возвращает undefined, если нет return</li>
+              <li>Не следует явно присваивать undefined</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Примеры:</h4>
+            <div class="code-block">
+              <pre><code>let x;
 console.log(x); // undefined
 
 function noReturn() {}
@@ -371,41 +370,39 @@ console.log(noReturn()); // undefined
 
 let obj = {};
 console.log(obj.property); // undefined</code></pre>
-              </div>
             </div>
-
-            <h4>Применение:</h4>
-            <ul class="list-ul">
-              <li>Обнаружение неинициализированных переменных</li>
-              <li>Проверка наличия свойств объектов</li>
-              <li>Аргументы функций по умолчанию</li>
-            </ul>
           </div>
+
+          <h4>Применение:</h4>
+          <ul class="list-ul">
+            <li>Обнаружение неинициализированных переменных</li>
+            <li>Проверка наличия свойств объектов</li>
+            <li>Аргументы функций по умолчанию</li>
+          </ul>
         </div>
       </section>
 
       <!-- Null -->
       <section class="section" id="types-null">
         <div class="container">
-          <div class="note-block">
-            <h2>Null</h2>
-            <p class="note">
-              <strong>Null</strong>
-              — специальное значение, представляющее "ничего" или "пусто".
-            </p>
+          <h2>Null</h2>
+          <p class="note">
+            <strong>Null</strong>
+            — специальное значение, представляющее "ничего" или "пусто".
+          </p>
 
-            <div>
-              <h4>Особенности:</h4>
-              <ul class="list-ul">
-                <li>Должен присваиваться явно</li>
-                <li>Используется для очистки значений</li>
-                <li>typeof null возвращает "object" (историческая ошибка)</li>
-              </ul>
-            </div>
-            <div>
-              <h4>Примеры:</h4>
-              <div class="code-block">
-                <pre><code>let y = null; // явное присвоение
+          <div>
+            <h4>Особенности:</h4>
+            <ul class="list-ul">
+              <li>Должен присваиваться явно</li>
+              <li>Используется для очистки значений</li>
+              <li>typeof null возвращает "object" (историческая ошибка)</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Примеры:</h4>
+            <div class="code-block">
+              <pre><code>let y = null; // явное присвоение
 
 // Очистка ссылки
 let data = getData();
@@ -415,17 +412,16 @@ data = null; // освобождаем память
 if (y === null) {
   console.log("Значение отсутствует");
 }</code></pre>
-              </div>
             </div>
-
-            <h4>Применение:</h4>
-            <ul class="list-ul">
-              <li>Явное указание на отсутствие значения</li>
-              <li>Очистка ссылок на объекты</li>
-              <li>Работа с DOM (элемент не найден)</li>
-              <li>Инициализация переменных перед использованием</li>
-            </ul>
           </div>
+
+          <h4>Применение:</h4>
+          <ul class="list-ul">
+            <li>Явное указание на отсутствие значения</li>
+            <li>Очистка ссылок на объекты</li>
+            <li>Работа с DOM (элемент не найден)</li>
+            <li>Инициализация переменных перед использованием</li>
+          </ul>
         </div>
       </section>
 
@@ -574,7 +570,7 @@ console.log(fruits); // ["груша", "апельсин"]</code></pre>
           <h2>Проверка типов данных</h2>
 
           <p class="note">
-            <strong>Оператор typeof</strong> - используется для определения типа данных переменной или выражения.
+            <strong>Оператор typeof</strong> — используется для определения типа данных переменной или выражения.
           </p>
           <h4>Пример:</h4>
           <div class="code-block">
@@ -603,36 +599,6 @@ console.log(typeof function(){}); // "function", хотя и является о
           <div class="code-block">
             <pre><code>let isActive = true;
 console.log(typeof isActive); // "boolean"</code></pre>
-          </div>
-
-          <h4>Проверка на null:</h4>
-          <p>
-            <strong>Важно:</strong> <b>typeof null</b> возвращает <b>"object"</b>, что является исторической ошибкой. <br>
-            Так что, несмотря на то что <b>null</b> — это отдельный тип данных, <b>typeof null</b> всё равно возвращает <b>"object"</b>
-          </p>
-          <div class="code-block">
-            <pre><code>let value = null;
-console.log(typeof value); // "object"
-
-// Для проверки на null используйте строгое сравнение:
-if (value === null) {
-  console.log("Это null");
-}</code></pre>
-          </div>
-
-          <h4>Проверка на undefined:</h4>
-          <p>
-            <strong>Важно:</strong> <b>undefined</b> — это отдельный тип данных, который указывает на то, что переменная была объявлена, но не инициализирована. <br>
-            <b>typeof undefined</b> возвращает <b>"undefined"</b>
-          </p>
-          <div class="code-block">
-            <pre><code>let value;
-console.log(typeof value); // "undefined"
-
-// Для проверки на undefined используйте строгое сравнение:
-if (value === undefined) {
-  console.log("Это undefined");
-}</code></pre>
           </div>
 
           <p class="note note--info">
@@ -710,7 +676,7 @@ console.log(user); // Выведет объект { name: "Иван", age: 30 }<
             <div class="code-block">
               <pre><code>const maybeNull = null;
 
-// Правильный способ:
+// Правильно:
 if (maybeNull === null) {
   console.log('Это null');
 }
@@ -726,7 +692,7 @@ console.log(typeof maybeNull);</code></pre>
               <pre><code>const arr = [1, 2, 3];
 const obj = {};
 
-// Правильный способ:
+// Правильно:
 console.log(Array.isArray(arr)); // true
 console.log(Array.isArray(obj)); // false
 
@@ -776,30 +742,54 @@ console.log(typeof x === 'undefined'); // true
 console.log(x === undefined); // тоже работает</code></pre>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div class="note">
+      <!-- Ловушки -->
+      <section class="section" id="types-pitfalls">
+        <div class="container">
+          <h2>Ловушки и типичные ошибки</h2>
+
+          <div class="warning">
             <h4>Важные замечания:</h4>
             <ul class="list-ul">
               <li>
-                <code>typeof null</code>
-                возвращает
-                <code>'object'</code>
-                - это известная ошибка в языке
+                <code>typeof null</code> возвращает <code>'object'</code> — это известная историческая ошибка в языке.
               </li>
               <li>
-                Для проверки массивов всегда используйте
-                <code>Array.isArray()</code>
+                Для проверки массивов всегда используйте <code>Array.isArray()</code>, а не <code>typeof</code>.
               </li>
               <li>
-                <code>instanceof</code>
-                не работает с примитивами и между фреймами
+                <code>instanceof</code> не работает с примитивами и между фреймами (iframe).
               </li>
               <li>
-                Для надежной проверки типов в сложных случаях используйте библиотеки типа
-                <code>lodash</code>
+                Путаница <code>null</code> и <code>undefined</code>: <code>null</code> присваивается явно, <code>undefined</code> — означает отсутствие инициализации.
+              </li>
+              <li>
+                Для надёжной проверки типов в сложных случаях используйте проверенные библиотеки, например <code>lodash</code>.
               </li>
             </ul>
           </div>
+        </div>
+      </section>
+
+      <!-- Лучшие практики -->
+      <section class="section" id="types-best-practices">
+        <div class="container">
+          <h2>Лучшие практики</h2>
+
+          <p class="note">Используйте <code>===</code> вместо <code>==</code> для сравнений — это избавляет от неожиданного приведения типов.</p>
+          <p class="note">Для проверки массивов используйте <code>Array.isArray()</code>, для проверки конкретных конструкторов — <code>instanceof</code>, а не <code>typeof</code>.</p>
+          <p class="note">Не присваивайте переменным <code>undefined</code> явно — оставляйте это значение как индикатор «не инициализировано», а для «осознанного отсутствия данных» используйте <code>null</code>.</p>
+        </div>
+      </section>
+
+      <!-- Сводка -->
+      <section class="section" id="types-summary">
+        <div class="container">
+          <h2>Сводка</h2>
+
+          <p class="note">JavaScript имеет 7 примитивных типов (number, bigint, string, boolean, null, undefined, symbol) и один объектный тип. Оператор <code>typeof</code> помогает определить тип значения, но имеет известные ограничения — для null и массивов нужны отдельные проверки (<code>=== null</code>, <code>Array.isArray()</code>).</p>
         </div>
       </section>
 

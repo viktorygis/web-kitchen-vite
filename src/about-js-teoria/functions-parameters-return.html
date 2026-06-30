@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../partials/head.html', { "title": "Параметры и return в JavaScript", "description": "Подробный разбор параметров функций, return, параметров по умолчанию, rest и spread операторов." })
+
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+
+            <main class="page">
+                <nav class="nav-tabs" id="page-nav">
+                    <a href="#intro" class="active">Введение</a>
+                    <a href="#parameters">Параметры</a>
+                    <a href="#return">Return</a>
+                    <a href="#default-parameters">Параметры по умолчанию</a>
+                    <a href="#rest-spread">Rest и Spread</a>
+                    <a href="#examples">Примеры</a>
+                    <a href="#pitfalls">Ловушки</a>
+                    <a href="#practice">Практика</a>
+                </nav>
+
+                <!-- ВВЕДЕНИЕ -->
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>Параметры и Return в функциях</h1>
+
+                        <p class="note">
+                            <strong>Параметры</strong> — это значения, которые функция получает для работы. <strong>Return</strong> — это значение, которое функция возвращает. Вместе они образуют интерфейс функции для взаимодействия с внешним кодом.
+                        </p>
+
+                        <article class="article-block">
+                            <h3>Основные концепции</h3>
+                            <ul class="list-ul">
+                                <li><strong>Параметры</strong> — переменные в определении функции</li>
+                                <li><strong>Аргументы</strong> — значения, передаваемые при вызове функции</li>
+                                <li><strong>Return</strong> — возвращаемое значение функции</li>
+                                <li><strong>Параметры по умолчанию</strong> — значения, если аргумент не передан</li>
+                                <li><strong>Rest параметр</strong> — захват всех аргументов в массив</li>
+                                <li><strong>Spread оператор</strong> — раскрытие массива в аргументы</li>
+                            </ul>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- ПАРАМЕТРЫ -->
+                <section class="section" id="parameters">
+                    <div class="container">
+                        <h2>Параметры функции</h2>
+
+                        <p class="note">
+                            <strong>Параметры</strong> — это переменные, объявленные в скобках при определении функции. Они получают значения (аргументы) при вызове функции.
+                        </p>
+
+                        <h4>Синтаксис:</h4>
+                        <div class="code-block">
+                            <pre><code>// Определение функции с параметрами
+function greet(name, greeting) {
+  console.log(greeting + ", " + name);
+}
+
+// Вызов функции с аргументами
+greet("Alice", "Hello");  // "Hello, Alice"
+greet("Bob", "Hi");       // "Hi, Bob"</code></pre>
+                        </div>
+
+                        <h4>Примеры с параметрами:</h4>
+                        <div class="code-block">
+                            <pre><code>// Пример 1: Функция с несколькими параметрами
+function add(a, b, c) {
+  return a + b + c;
+}
+
+console.log(add(1, 2, 3));      // 6
+console.log(add(10, 20, 30));   // 60
+
+// Пример 2: Параметры это локальные переменные
+function printParams(x, y) {
+  console.log("x =", x);
+  console.log("y =", y);
+  x = 100; // Изменение параметра не влияет на внешнюю переменную
+}
+
+let a = 5, b = 10;
+printParams(a, b);
+console.log("a =", a); // 5 (не изменилось)
+
+// Пример 3: Функция без параметров
+function sayHello() {
+  return "Привет, мир!";
+}
+
+console.log(sayHello()); // "Привет, мир!"
+
+// Пример 4: Больше аргументов, чем параметров (лишние игнорируются)
+function first(a, b) {
+  return a;
+}
+
+console.log(first(1, 2, 3, 4)); // 1
+
+// Пример 5: Меньше аргументов, чем параметров (остальные undefined)
+function divide(a, b) {
+  console.log("a =", a);
+  console.log("b =", b);
+  return a / b;
+}
+
+console.log(divide(10)); // a = 10, b = undefined, результат NaN</code></pre>
+                        </div>
+
+                        <article class="article-block">
+                            <h3>Важные моменты</h3>
+                            <ul class="list-ul">
+                                <li>Параметры — это локальные переменные функции</li>
+                                <li>Изменение параметра внутри функции не влияет на исходную переменную</li>
+                                <li>Параметры, для которых не передано значение, равны <code>undefined</code></li>
+                                <li>Лишние аргументы игнорируются</li>
+                                <li>Используйте <code>arguments</code> для доступа ко всем аргументам (старый способ)</li>
+                            </ul>
+                        </article>
+
+                        <h4>Объект arguments (устаревший способ):</h4>
+                        <div class="code-block">
+                            <pre><code>function sum() {
+  let total = 0;
+  for (let i = 0; i &lt; arguments.length; i++) {
+    total += arguments[i];
+  }
+  return total;
+}
+
+console.log(sum(1, 2, 3));      // 6
+console.log(sum(10, 20, 30, 40)); // 100
+
+// Современный способ - см. Rest параметр ниже</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- RETURN -->
+                <section class="section" id="return">
+                    <div class="container">
+                        <h2>Оператор Return</h2>
+
+                        <p class="note">
+                            <strong>Return</strong> завершает выполнение функции и возвращает значение вызывающему коду. Если return не указан, функция возвращает <code>undefined</code>.
+                        </p>
+
+                        <h4>Синтаксис:</h4>
+                        <div class="code-block">
+                            <pre><code>function functionName(parameters) {
+  // код
+  return value; // Возвращает значение и выходит из функции
+  // код ниже не выполнится
+}
+
+const result = functionName(args);
+console.log(result); // value</code></pre>
+                        </div>
+
+                        <h4>Примеры Return:</h4>
+                        <div class="code-block">
+                            <pre><code>// Пример 1: Возврат значения
+function multiply(a, b) {
+  return a * b; // Возвращает результат
+}
+
+const result = multiply(5, 3);
+console.log(result); // 15
+
+// Пример 2: Return без значения (возвращает undefined)
+function logMessage(message) {
+  console.log(message);
+  return; // или просто return без значения
+}
+
+const res = logMessage("Привет");
+console.log(res); // undefined
+
+// Пример 3: Ранний выход из функции
+function checkNumber(num) {
+  if (num &lt; 0) {
+    return "Число отрицательное";
+  }
+  if (num === 0) {
+    return "Число равно нулю";
+  }
+  return "Число положительное";
+}
+
+console.log(checkNumber(-5));  // "Число отрицательное"
+console.log(checkNumber(0));   // "Число равно нулю"
+console.log(checkNumber(10));  // "Число положительное"
+
+// Пример 4: Возврат объекта
+function getUserInfo(name, age) {
+  return {
+    name: name,
+    age: age,
+    isAdult: age &gt;= 18
+  };
+}
+
+const user = getUserInfo("Alice", 25);
+console.log(user); // { name: "Alice", age: 25, isAdult: true }
+
+// Пример 5: Возврат функции
+function createMultiplier(multiplier) {
+  return function(x) {
+    return x * multiplier;
+  };
+}
+
+const double = createMultiplier(2);
+console.log(double(5)); // 10
+
+// Пример 6: Возврат массива
+function getCoordinates() {
+  return [10, 20, 30];
+}
+
+const [x, y, z] = getCoordinates();
+console.log(x, y, z); // 10, 20, 30</code></pre>
+                        </div>
+
+                        <article class="article-block">
+                            <h3>Важные моменты о Return</h3>
+                            <ul class="list-ul">
+                                <li>Return прерывает выполнение функции — код после return не выполняется</li>
+                                <li>Функция может иметь несколько return (в разных ветвях if/else)</li>
+                                <li>Без return функция возвращает <code>undefined</code></li>
+                                <li>Можно возвращать любой тип: число, строку, объект, массив, функцию</li>
+                                <li>Return на разных строках требует правильного синтаксиса</li>
+                            </ul>
+                        </article>
+
+                        <div class="warning">
+                            <h3>⚠️ Опасность: return на новой строке</h3>
+                            <div class="code-block">
+                                <pre><code>// ❌ Плохо - возвращает undefined!
+function getValue() {
+  return
+  {
+    value: 42
+  };
+}
+
+console.log(getValue()); // undefined
+
+// ✅ Хорошо - возвращает объект
+function getValue() {
+  return {
+    value: 42
+  };
+}
+
+console.log(getValue()); // { value: 42 }</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ПАРАМЕТРЫ ПО УМОЛЧАНИЮ -->
+                <section class="section" id="default-parameters">
+                    <div class="container">
+                        <h2>Параметры по умолчанию</h2>
+
+                        <p class="note">
+                            <strong>Параметры по умолчанию</strong> — это значения, которые используются, если аргумент не был передан при вызове функции.
+                        </p>
+
+                        <h4>Синтаксис:</h4>
+                        <div class="code-block">
+                            <pre><code>function greet(name = "Гость", greeting = "Привет") {
+  console.log(greeting + ", " + name);
+}
+
+greet("Alice", "Hello");  // "Hello, Alice"
+greet("Bob");             // "Привет, Bob"
+greet();                  // "Привет, Гость"</code></pre>
+                        </div>
+
+                        <h4>Примеры параметров по умолчанию:</h4>
+                        <div class="code-block">
+                            <pre><code>// Пример 1: Простые значения по умолчанию
+function createUser(name = "Anonymous", role = "user") {
+  return { name, role };
+}
+
+console.log(createUser("Alice", "admin"));  // { name: "Alice", role: "admin" }
+console.log(createUser("Bob"));             // { name: "Bob", role: "user" }
+console.log(createUser());                  // { name: "Anonymous", role: "user" }
+
+// Пример 2: Вычисляемые значения по умолчанию
+function calculatePrice(price, discount = price * 0.1) {
+  return price - discount;
+}
+
+console.log(calculatePrice(100));      // 90 (100 - 10)
+console.log(calculatePrice(100, 20));  // 80 (100 - 20)
+
+// Пример 3: Параметры по умолчанию зависят от других параметров
+function buildMessage(name, message = `Привет, ${name}!`) {
+  return message;
+}
+
+console.log(buildMessage("Alice"));           // "Привет, Alice!"
+console.log(buildMessage("Bob", "Hi, Bob!")); // "Hi, Bob!"
+
+// Пример 4: Объект с параметрами по умолчанию
+function configureServer(config = {}) {
+  const { host = "localhost", port = 3000, ssl = false } = config;
+  console.log(`${ssl ? "https" : "http"}://${host}:${port}`);
+}
+
+configureServer();                                    // "http://localhost:3000"
+configureServer({ host: "example.com", ssl: true }); // "https://example.com:3000"
+
+// Пример 5: Функция по умолчанию
+function processData(data, callback = (x) => x) {
+  return callback(data);
+}
+
+console.log(processData(5));              // 5
+console.log(processData(5, (x) => x * 2)); // 10</code></pre>
+                        </div>
+
+                        <div class="note-block">
+                            <h3>Различие между undefined и отсутствием аргумента</h3>
+                            <div class="code-block">
+                                <pre><code>function test(x = 100) {
+  console.log(x);
+}
+
+test();          // 100 (параметр по умолчанию)
+test(undefined); // 100 (undefined также использует значение по умолчанию!)
+test(null);      // null (null не использует значение по умолчанию)
+test(0);         // 0 (0 не использует значение по умолчанию)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- REST И SPREAD -->
+                <section class="section" id="rest-spread">
+                    <div class="container">
+                        <h2>Rest (...) и Spread (...) операторы</h2>
+
+                        <p class="note">
+                            <strong>Rest оператор (...)</strong> собирает оставшиеся аргументы в массив. <strong>Spread оператор (...)</strong> раскрывает массив или объект в отдельные элементы.
+                        </p>
+
+                        <article class="article-block">
+                            <h3>Rest параметр</h3>
+                            <p>Собирает все оставшиеся аргументы в массив. Должен быть последним параметром.</p>
+
+                            <h4>Примеры Rest:</h4>
+                            <div class="code-block">
+                                <pre><code>// Пример 1: Rest параметр
+function sum(...numbers) {
+  let total = 0;
+  for (let num of numbers) {
+    total += num;
+  }
+  return total;
+}
+
+console.log(sum(1, 2, 3));        // 6
+console.log(sum(10, 20, 30, 40)); // 100
+
+// Пример 2: Rest с другими параметрами
+function buildString(separator, ...words) {
+  return words.join(separator);
+}
+
+console.log(buildString(" ", "Hello", "World", "!"));      // "Hello World !"
+console.log(buildString("-", "one", "two", "three"));      // "one-two-three"
+
+// Пример 3: Rest для сбора некоторых параметров
+function createList(title, ...items) {
+  return {
+    title,
+    items,
+    count: items.length
+  };
+}
+
+const list = createList("Фрукты", "яблоко", "банан", "груша");
+console.log(list);
+// { title: "Фрукты", items: ["яблоко", "банан", "груша"], count: 3 }</code></pre>
+                            </div>
+                        </article>
+
+                        <article class="article-block">
+                            <h3>Spread оператор</h3>
+                            <p>Раскрывает массив или объект в отдельные элементы.</p>
+
+                            <h4>Примеры Spread:</h4>
+                            <div class="code-block">
+                                <pre><code>// Пример 1: Spread для распаковки аргументов
+function add(a, b, c) {
+  return a + b + c;
+}
+
+const numbers = [1, 2, 3];
+console.log(add(...numbers)); // 6
+
+// Пример 2: Spread для копирования массива
+const arr1 = [1, 2, 3];
+const arr2 = [...arr1]; // Копия массива
+arr2.push(4);
+
+console.log(arr1); // [1, 2, 3]
+console.log(arr2); // [1, 2, 3, 4]
+
+// Пример 3: Spread для объединения массивов
+const first = [1, 2];
+const second = [3, 4];
+const combined = [...first, ...second]; // [1, 2, 3, 4]
+
+// Пример 4: Spread для копирования объекта
+const user = { name: "Alice", age: 25 };
+const userCopy = { ...user }; // Копия объекта
+userCopy.age = 30;
+
+console.log(user.age);     // 25
+console.log(userCopy.age); // 30
+
+// Пример 5: Spread с добавлением свойств
+const config = { host: "localhost", port: 3000 };
+const fullConfig = { ...config, ssl: true, timeout: 5000 };
+
+console.log(fullConfig);
+// { host: "localhost", port: 3000, ssl: true, timeout: 5000 }</code></pre>
+                            </div>
+                        </article>
+
+                        <h4>Сравнение Rest и Spread:</h4>
+                        <table class="table-note">
+                            <thead>
+                                <tr>
+                                    <th>Rest (...)</th>
+                                    <th>Spread (...)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Собирает элементы в массив</td>
+                                    <td>Раскрывает элементы из массива</td>
+                                </tr>
+                                <tr>
+                                    <td>В параметрах функции</td>
+                                    <td>При вызове функции или создании массива</td>
+                                </tr>
+                                <tr>
+                                    <td><code>function(...args) {}</code></td>
+                                    <td><code>func(...array)</code></td>
+                                </tr>
+                                <tr>
+                                    <td>Справа от <code>=</code></td>
+                                    <td>Слева от <code>=</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- ПРИМЕРЫ -->
+                <section class="section" id="examples">
+                    <div class="container">
+                        <h2>Практические примеры</h2>
+
+                        <article class="article-block">
+                            <h3>Пример 1: Функция с опциональными параметрами</h3>
+                            <div class="code-block">
+                                <pre><code>function formatDate(date = new Date(), format = "DD/MM/YYYY") {
+  // Простой пример форматирования
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+
+  return format
+    .replace("DD", day)
+    .replace("MM", month)
+    .replace("YYYY", year);
+}
+
+console.log(formatDate());                                // "31/12/2024"
+console.log(formatDate(new Date(2025, 0, 15)));          // "15/01/2025"
+console.log(formatDate(new Date(2025, 0, 15), "YYYY-MM-DD")); // "2025-01-15"</code></pre>
+                            </div>
+                        </article>
+
+                        <article class="article-block">
+                            <h3>Пример 2: Функция с переменным числом аргументов</h3>
+                            <div class="code-block">
+                                <pre><code>function average(...numbers) {
+  if (numbers.length === 0) return 0;
+
+  const sum = numbers.reduce((acc, num) => acc + num, 0);
+  return sum / numbers.length;
+}
+
+console.log(average());           // 0
+console.log(average(10, 20, 30)); // 20
+console.log(average(5, 15));      // 10</code></pre>
+                            </div>
+                        </article>
+
+                        <article class="article-block">
+                            <h3>Пример 3: Объединение rest и spread</h3>
+                            <div class="code-block">
+                                <pre><code>function mergeObjects(target, ...sources) {
+  return sources.reduce((result, source) => {
+    return { ...result, ...source };
+  }, target);
+}
+
+const base = { a: 1, b: 2 };
+const obj1 = { b: 3, c: 4 };
+const obj2 = { c: 5, d: 6 };
+
+const merged = mergeObjects(base, obj1, obj2);
+console.log(merged); // { a: 1, b: 3, c: 5, d: 6 }</code></pre>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- ЛОВУШКИ -->
+                <section class="section" id="pitfalls">
+                    <div class="container">
+                        <h2>Ловушки и рекомендации</h2>
+
+                        <div class="warning">
+                            <h3>⚠️ Основные ловушки</h3>
+                            <ul class="list-ul">
+                                <li>Return на новой строке может быть интерпретирован как завершение (используйте объекты со скобкой на той же строке)</li>
+                                <li>Изменение параметров объекта влияет на исходный объект (передача по ссылке)</li>
+                                <li>Параметры по умолчанию не применяются к <code>undefined</code>, но можно обойти это</li>
+                                <li>Rest параметр должен быть последним в списке параметров</li>
+                                <li>Spread в объектах перезаписывает свойства с одинаковыми ключами</li>
+                            </ul>
+                        </div>
+
+                        <div class="note-block">
+                            <h3>✅ Лучшие практики</h3>
+                            <ul class="list-ul">
+                                <li>Используйте параметры по умолчанию вместо проверки <code>if (!param)</code></li>
+                                <li>Используйте rest параметры для функций с переменным числом аргументов</li>
+                                <li>Используйте spread для копирования и объединения массивов/объектов</li>
+                                <li>Копируйте объекты при передаче в функцию, если нужна неизменяемость</li>
+                                <li>Документируйте параметры и возвращаемое значение функции</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ПРАКТИКА -->
+                <section class="section" id="practice">
+                    <div class="container">
+                        <h2>Интерактивные примеры</h2>
+
+                        <p class="note">Нажмите кнопку для просмотра результата.</p>
+
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;">
+                            <button class="practice-btn" data-code="defaultParams" style="padding: 8px 12px; font-size: 13px;">Параметры по умолчанию</button>
+                            <button class="practice-btn" data-code="restParam" style="padding: 8px 12px; font-size: 13px;">Rest параметр</button>
+                            <button class="practice-btn" data-code="spreadArray" style="padding: 8px 12px; font-size: 13px;">Spread массив</button>
+                            <button class="practice-btn" data-code="spreadObject" style="padding: 8px 12px; font-size: 13px;">Spread объект</button>
+                            <button class="practice-btn" data-code="returnValue" style="padding: 8px 12px; font-size: 13px;">Return значение</button>
+                        </div>
+
+                        <h4>Результат:</h4>
+                        <div class="code-block">
+                            <pre><code id="output-result">// Результат выполнения кода появится здесь</code></pre>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            @@include('../partials/footer.html', {})
+        </div>
+
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+
+        <script>
+            // Примеры кода
+            const examples = {
+                defaultParams: function() {
+                    const output = [];
+
+                    function greet(name = "Гость", greeting = "Привет") {
+                        return greeting + ", " + name;
+                    }
+
+                    output.push("greet('Alice', 'Hello') = " + greet("Alice", "Hello"));
+                    output.push("greet('Bob') = " + greet("Bob"));
+                    output.push("greet() = " + greet());
+
+                    return output.join('\n');
+                },
+                restParam: function() {
+                    const output = [];
+
+                    function sum(...numbers) {
+                        return numbers.reduce((acc, num) => acc + num, 0);
+                    }
+
+                    output.push("sum(1, 2, 3) = " + sum(1, 2, 3));
+                    output.push("sum(10, 20, 30, 40) = " + sum(10, 20, 30, 40));
+
+                    function buildString(separator, ...words) {
+                        return words.join(separator);
+                    }
+
+                    output.push("buildString(' ', 'Hello', 'World') = " + buildString(" ", "Hello", "World"));
+
+                    return output.join('\n');
+                },
+                spreadArray: function() {
+                    const output = [];
+
+                    const arr1 = [1, 2, 3];
+                    const arr2 = [...arr1, 4, 5];
+
+                    output.push("Исходный массив: [1, 2, 3]");
+                    output.push("После spread: [...arr1, 4, 5] = [" + arr2.join(", ") + "]");
+
+                    function add(a, b, c) {
+                        return a + b + c;
+                    }
+
+                    const numbers = [10, 20, 30];
+                    output.push("add(...[10, 20, 30]) = " + add(...numbers));
+
+                    return output.join('\n');
+                },
+                spreadObject: function() {
+                    const output = [];
+
+                    const user = { name: "Alice", age: 25 };
+                    const userWithRole = { ...user, role: "admin" };
+
+                    output.push("Исходный: " + JSON.stringify(user));
+                    output.push("После spread: " + JSON.stringify(userWithRole));
+
+                    const config1 = { host: "localhost", port: 3000 };
+                    const config2 = { ...config1, ssl: true };
+                    output.push("Config: " + JSON.stringify(config2));
+
+                    return output.join('\n');
+                },
+                returnValue: function() {
+                    const output = [];
+
+                    function getUserInfo(name, age) {
+                        return { name, age, isAdult: age >= 18 };
+                    }
+
+                    const user = getUserInfo("Bob", 22);
+                    output.push("getUserInfo('Bob', 22) =");
+                    output.push(JSON.stringify(user, null, 2));
+
+                    return output.join('\n');
+                }
+            };
+
+            // Обработчик кнопок
+            document.addEventListener('click', (e) => {
+                const btn = e.target.closest('[data-code]');
+                if (!btn) return;
+
+                const code = btn.getAttribute('data-code');
+                const example = examples[code];
+
+                if (example) {
+                    try {
+                        const result = example();
+                        document.getElementById('output-result').textContent = result;
+                    } catch (err) {
+                        document.getElementById('output-result').textContent = `Ошибка: ${err.message}`;
+                    }
+                }
+            });
+
+            // Подсветка активной секции при скролле
+            (function initSectionHighlight() {
+                const nav = document.getElementById("page-nav");
+                if (!nav) return;
+
+                const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
+                const map = new Map(links.map((a) => [a.getAttribute("href").slice(1), a]));
+
+                const observer = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                links.forEach((l) => l.classList.remove("active"));
+                                const link = map.get(entry.target.id);
+                                if (link) link.classList.add("active");
+                            }
+                        });
+                    },
+                    {
+                        root: null,
+                        rootMargin: "0px 0px -65% 0px",
+                        threshold: 0
+                    }
+                );
+
+                document.querySelectorAll(".section").forEach((sec) => observer.observe(sec));
+            })();
+
+            // Плавная прокрутка
+            document.getElementById("page-nav")?.addEventListener("click", (e) => {
+                const a = e.target.closest('a[href^="#"]');
+                if (!a) return;
+                e.preventDefault();
+                const id = a.getAttribute("href").slice(1);
+                const target = document.getElementById(id);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>

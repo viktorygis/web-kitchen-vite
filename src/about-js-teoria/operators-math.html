@@ -1,77 +1,43 @@
 <!DOCTYPE html>
 <html lang="ru">
-    @@include('../partials/head.html', { "title": "Математические операторы и округление в JavaScript", "description": "Арифметика" })
+    @@include('../partials/head.html', { "title": "Математические операторы и округление в JavaScript", "description": "Арифметика, округление и работа с числами в JavaScript" })
 
-    <style>
-        .demo-button {
-            padding: 8px 16px;
-            font-size: 14px;
-        }
-        button {
-            padding: 4px 8px;
-            font-size: 12px;
-        }
-    </style>
     <body>
         <div class="wrapper">
             @@include('../partials/header.html', {})
             <main class="page">
-                <nav class="nav-tabs">
+                <nav class="nav-tabs" id="page-nav">
                     <a href="#intro" class="active">Введение</a>
                     <a href="#math-ops">Арифметика</a>
                     <a href="#rounding">Округление</a>
                     <a href="#parsing">Парсинг/Числа</a>
                     <a href="#random">Случайные</a>
                     <a href="#precision">Точность</a>
-                    <a href="#examples">Примеры</a>
+                    <a href="#useful-functions">Полезные функции</a>
+                    <a href="#best-practices">Лучшие практики</a>
                 </nav>
 
                 <!-- Введение -->
                 <section class="section" id="intro">
                     <div class="container">
                         <h1>Математические операторы и округление в JavaScript</h1>
-                        <p class="note">В этом разделе — основные арифметические операторы, способы округления, работа с числами и парсинг строк, генерация случайных чисел и подводные камни точности с числами с плавающей точкой.</p>
-                        <div class="grid-column-100">
-                            <div class="example">
-                                <h4>Операторы:</h4>
-                                <ul class="list-ul">
-                                    <li>
-                                        Арифметика:
-                                        <code>+ - * / % **</code>
-                                    </li>
-                                    <li>
-                                        Унарные:
-                                        <code>+x</code>
-                                        (приведение к числу),
-                                        <code>-x</code>
-                                        (смена знака)
-                                    </li>
-                                    <li>
-                                        Скобки:
-                                        <code>( )</code>
-                                        для порядка операций
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="example">
-                                <h4>Округление:</h4>
-                                <ul class="list-ul">
-                                    <li>
-                                        <code>Math.floor</code>
-                                        ,
-                                        <code>Math.ceil</code>
-                                        ,
-                                        <code>Math.round</code>
-                                        ,
-                                        <code>Math.trunc</code>
-                                    </li>
-                                    <li>
-                                        <code>toFixed</code>
-                                        для форматирования с количеством знаков
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+
+                        <p class="note">
+                            <strong>Математические операции</strong> — это основные арифметические операторы, способы округления, работа с числами и парсинг строк, генерация случайных чисел и решение проблем точности с числами с плавающей точкой.
+                        </p>
+
+                        <article class="article-block">
+                            <h3>Что вы узнаете</h3>
+                            <ul class="list-ul">
+                                <li>Базовые арифметические операторы: <code>+ - * / % **</code></li>
+                                <li>Унарные операторы: <code>+x</code> (приведение к числу), <code>-x</code> (смена знака)</li>
+                                <li>Методы округления: <code>Math.floor</code>, <code>Math.ceil</code>, <code>Math.round</code>, <code>Math.trunc</code></li>
+                                <li>Форматирование чисел методом <code>toFixed()</code></li>
+                                <li>Парсинг строк в числа: <code>Number()</code>, <code>parseInt()</code>, <code>parseFloat()</code></li>
+                                <li>Генерация случайных чисел с <code>Math.random()</code></li>
+                                <li>Решение проблем точности с плавающей точкой</li>
+                            </ul>
+                        </article>
                     </div>
                 </section>
 
@@ -79,9 +45,9 @@
                 <section class="section" id="math-ops">
                     <div class="container">
                         <h2>Арифметические операторы</h2>
+
                         <p class="note">
-                            <strong>JavaScript</strong>
-                            поддерживает все базовые операции. Деление всегда возвращает число с плавающей точкой (если нужно).
+                            <strong>JavaScript</strong> поддерживает все базовые операции. Деление всегда возвращает число с плавающей точкой. Порядок операций важен для правильного результата.
                         </p>
 
                         <table class="table-note">
@@ -90,8 +56,7 @@
                                     <th>Оператор</th>
                                     <th>Название</th>
                                     <th>Пример</th>
-                                    <th>Код (JS)</th>
-                                    <th>Демо</th>
+                                    <th>Результат</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -99,120 +64,102 @@
                                     <td><code>+</code></td>
                                     <td>Сложение</td>
                                     <td><code>3 + 2</code></td>
-                                    <td>
-                                        <pre><code >console.log(3 + 2); // 5</code></pre>
-                                    </td>
-                                    <td><button onclick="demoExpr('3 + 2')">Попробовать</button></td>
+                                    <td>5</td>
                                 </tr>
                                 <tr>
                                     <td><code>-</code></td>
                                     <td>Вычитание</td>
                                     <td><code>5 - 2</code></td>
-                                    <td>
-                                        <pre><code >console.log(5 - 2); // 3</code></pre>
-                                    </td>
-                                    <td><button onclick="demoExpr('5 - 2')">Попробовать</button></td>
+                                    <td>3</td>
                                 </tr>
                                 <tr>
                                     <td><code>*</code></td>
                                     <td>Умножение</td>
                                     <td><code>2 * 3</code></td>
-                                    <td>
-                                        <pre><code >console.log(2 * 3); // 6</code></pre>
-                                    </td>
-                                    <td><button onclick="demoExpr('2 * 3')">Попробовать</button></td>
+                                    <td>6</td>
                                 </tr>
                                 <tr>
                                     <td><code>/</code></td>
                                     <td>Деление</td>
                                     <td><code>7 / 2</code></td>
-                                    <td>
-                                        <pre><code >console.log(7 / 2); // 3.5</code></pre>
-                                    </td>
-                                    <td><button onclick="demoExpr('7 / 2')">Попробовать</button></td>
+                                    <td>3.5</td>
                                 </tr>
                                 <tr>
                                     <td><code>%</code></td>
-                                    <td>Остаток</td>
+                                    <td>Остаток от деления</td>
                                     <td><code>7 % 2</code></td>
-                                    <td>
-                                        <pre><code >console.log(7 % 2); // 1</code></pre>
-                                    </td>
-                                    <td><button onclick="demoExpr('7 % 2')">Попробовать</button></td>
+                                    <td>1</td>
                                 </tr>
                                 <tr>
                                     <td><code>**</code></td>
-                                    <td>Степень</td>
+                                    <td>Возведение в степень</td>
                                     <td><code>2 ** 5</code></td>
-                                    <td>
-                                        <pre><code >console.log(2 ** 5); // 32</code></pre>
-                                    </td>
-                                    <td><button onclick="demoExpr('2 ** 5')">Попробовать</button></td>
+                                    <td>32</td>
                                 </tr>
                                 <tr>
                                     <td><code>+x</code></td>
-                                    <td>Унарный плюс</td>
+                                    <td>Унарный плюс (приведение к числу)</td>
                                     <td><code>+'42'</code></td>
-                                    <td>
-                                        <pre><code >const n = +'42';
-console.log(n, typeof n); // 42 'number'</code></pre>
-                                    </td>
-                                    <td><button onclick="demoExprplus('42')">Попробовать</button></td>
+                                    <td>42 (число)</td>
                                 </tr>
                                 <tr>
                                     <td><code>-x</code></td>
                                     <td>Смена знака</td>
                                     <td><code>-10</code></td>
-                                    <td>
-                                        <pre><code >let x = 10;
-console.log(-x); // -10</code></pre>
-                                    </td>
-                                    <td><button onclick="demoExpr('-10')">Попробовать</button></td>
+                                    <td>-10</td>
                                 </tr>
                             </tbody>
                         </table>
 
-                        <div class="note-block">
-                            <h4>Особенности:</h4>
+                        <h4>Примеры арифметических операций:</h4>
+                        <div class="code-block">
+                            <pre><code>// Базовые операции
+console.log(3 + 2);    // 5
+console.log(5 - 2);    // 3
+console.log(2 * 3);    // 6
+console.log(7 / 2);    // 3.5
+console.log(7 % 2);    // 1
+console.log(2 ** 5);   // 32
+
+// Унарные операторы
+console.log(+'42');    // 42 (приведение строки к числу)
+console.log(-10);      // -10 (смена знака)</code></pre>
+                        </div>
+
+                        <article class="article-block">
+                            <h3>Особенности операторов</h3>
                             <ul class="list-ul">
-                                <li>
-                                    <code>+</code>
-                                    со строкой выполняет конкатенацию:
-                                    <code>'1' + 2 = '12'</code>
-                                </li>
-                                <li>
-                                    Унарный
-                                    <code>+</code>
-                                    приводит к числу:
-                                    <code>+'1.5' = 1.5</code>
-                                </li>
-                                <li>
-                                    <code>%</code>
-                                    — остаток, знак совпадает со знаком делимого
-                                </li>
-                                <li>
-                                    Приоритет:
-                                    <code>()</code>
-                                    →
-                                    <code>**</code>
-                                    →
-                                    <code>* / %</code>
-                                    →
-                                    <code>+ -</code>
-                                </li>
+                                <li>Оператор <code>+</code> со строками выполняет конкатенацию: <code>'1' + 2 = '12'</code></li>
+                                <li>Унарный <code>+</code> приводит значение к числу: <code>+'1.5' = 1.5</code></li>
+                                <li>Остаток <code>%</code> — знак совпадает со знаком делимого (первого операнда)</li>
+                                <li>Деление на ноль возвращает <code>Infinity</code>: <code>5 / 0 = Infinity</code></li>
                             </ul>
+                        </article>
+
+                        <article class="article-block">
+                            <h3>Приоритет операций</h3>
+                            <p>Порядок выполнения операций (от выше к ниже):</p>
+                            <ol class="list-ol">
+                                <li><code>()</code> — скобки</li>
+                                <li><code>**</code> — возведение в степень</li>
+                                <li><code>* / %</code> — умножение, деление, остаток</li>
+                                <li><code>+ -</code> — сложение, вычитание</li>
+                            </ol>
+                        </article>
+
+                        <h4>Пример приоритета операций:</h4>
+                        <div class="code-block">
+                            <pre><code>// Без скобок - умножение выполняется первым
+let a = 5 + 2 * 3;      // 11
+let b = 10 - 2 ** 2;    // 6
+
+// Со скобками - другой порядок
+let c = (5 + 2) * 3;    // 21
+let d = (10 - 2) ** 2;  // 64</code></pre>
                         </div>
-                        <div class="note-block">
-                            <h4>Демо приоритета:</h4>
-                            <div class="grid-column-50">
-                                <pre><code>let a = 5 + 2 * 3;      // 11
-let b = (5 + 2) * 3;    // 21</code></pre>
-                                <div>
-                                    <button class="demo-button" onclick="demoPriorityMath()">Проверить</button>
-                                    <div id="priority-math-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px"></div>
-                                </div>
-                            </div>
-                        </div>
+
+                        <button onclick="demoPriorityMath()" style="padding: 8px 16px; font-size: 14px;">Проверить приоритет</button>
+                        <div id="priority-math-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px;"></div>
                     </div>
                 </section>
 
@@ -220,12 +167,9 @@ let b = (5 + 2) * 3;    // 21</code></pre>
                 <section class="section" id="rounding">
                     <div class="container">
                         <h2>Округление чисел</h2>
+
                         <p class="note">
-                            Четыре основных функции округления из
-                            <code>Math</code>
-                            , и форматирование через
-                            <code>toFixed</code>
-                            .
+                            <strong>Округление</strong> — преобразование числа с десятичной частью в целое. JavaScript предоставляет четыре функции из объекта <code>Math</code> и метод <code>toFixed()</code> для форматирования.
                         </p>
 
                         <table class="table-note">
@@ -233,7 +177,7 @@ let b = (5 + 2) * 3;    // 21</code></pre>
                                 <tr>
                                     <th>Функция</th>
                                     <th>Описание</th>
-                                    <th>Пример</th>
+                                    <th>Примеры</th>
                                     <th>Демо</th>
                                 </tr>
                             </thead>
@@ -242,122 +186,237 @@ let b = (5 + 2) * 3;    // 21</code></pre>
                                     <td><code>Math.floor(x)</code></td>
                                     <td>Вниз до целого</td>
                                     <td><code>Math.floor(3.9) = 3</code></td>
-                                    <td><button onclick="demoRound('floor', 3.9)">Попробовать</button></td>
+                                    <td><button onclick="demoRound('floor', 3.9)" style="padding: 4px 8px; font-size: 12px;">Попробовать</button></td>
                                 </tr>
                                 <tr>
                                     <td><code>Math.ceil(x)</code></td>
                                     <td>Вверх до целого</td>
                                     <td><code>Math.ceil(3.1) = 4</code></td>
-                                    <td><button onclick="demoRound('ceil', 3.1)">Попробовать</button></td>
+                                    <td><button onclick="demoRound('ceil', 3.1)" style="padding: 4px 8px; font-size: 12px;">Попробовать</button></td>
                                 </tr>
                                 <tr>
                                     <td><code>Math.round(x)</code></td>
-                                    <td>До ближайшего</td>
+                                    <td>До ближайшего целого</td>
                                     <td><code>Math.round(3.5) = 4</code></td>
-                                    <td><button onclick="demoRound('round', 3.5)">Попробовать</button></td>
+                                    <td><button onclick="demoRound('round', 3.5)" style="padding: 4px 8px; font-size: 12px;">Попробовать</button></td>
                                 </tr>
                                 <tr>
                                     <td><code>Math.trunc(x)</code></td>
                                     <td>Отбрасывает дробную часть</td>
                                     <td><code>Math.trunc(-3.9) = -3</code></td>
-                                    <td><button onclick="demoRound('trunc', -3.9)">Попробовать</button></td>
+                                    <td><button onclick="demoRound('trunc', -3.9)" style="padding: 4px 8px; font-size: 12px;">Попробовать</button></td>
                                 </tr>
                                 <tr>
                                     <td><code>num.toFixed(n)</code></td>
-                                    <td>Форматирует с n знаками после точки (строка)</td>
-                                    <td><code>(1.005).toFixed(2)</code></td>
-                                    <td><button onclick="demoToFixed(1.005,2)">Попробовать</button></td>
+                                    <td>Форматирует с n знаками</td>
+                                    <td><code>(1.005).toFixed(2) = '1.01'</code></td>
+                                    <td><button onclick="demoToFixed(1.005, 2)" style="padding: 4px 8px; font-size: 12px;">Попробовать</button></td>
                                 </tr>
                             </tbody>
                         </table>
-                        <h4>Советы:</h4>
-                        <div class="note note--info">
+
+                        <h4>Примеры округления:</h4>
+                        <div class="code-block">
+                            <pre><code>// Math.floor - вниз
+console.log(Math.floor(3.9));   // 3
+console.log(Math.floor(-3.1));  // -4
+
+// Math.ceil - вверх
+console.log(Math.ceil(3.1));    // 4
+console.log(Math.ceil(-3.9));   // -3
+
+// Math.round - к ближайшему
+console.log(Math.round(3.5));   // 4
+console.log(Math.round(3.4));   // 3
+
+// Math.trunc - отбросить дробь
+console.log(Math.trunc(3.9));   // 3
+console.log(Math.trunc(-3.9));  // -3
+
+// toFixed - форматирование
+console.log((1.005).toFixed(2));     // '1.01' (строка!)
+console.log((3.14159).toFixed(2));   // '3.14'</code></pre>
+                        </div>
+
+                        <div class="note-block">
+                            <h3>Важные моменты</h3>
                             <ul class="list-ul">
-                                <li>
-                                    Для округления до n знаков:
-                                    <code>Math.round(x * 10**n) / 10**n</code>
-                                </li>
-                                <li>
-                                    <code>toFixed</code>
-                                    возвращает строку — для числа используйте
-                                    <code>Number(x.toFixed(n))</code>
-                                </li>
-                                <li>
-                                    Поведение
-                                    <code>Math.round(0.5)</code>
-                                    → 1;
-                                    <code>Math.round(-0.5)</code>
-                                    → 0 (симметрия относительно 0 не строгая)
-                                </li>
+                                <li>Метод <code>toFixed()</code> возвращает <strong>строку</strong> — используйте <code>Number(x.toFixed(n))</code> для числа</li>
+                                <li>Для округления до n знаков после точки: <code>Math.round(x * 10**n) / 10**n</code></li>
+                                <li><code>Math.round(0.5)</code> → 1, но <code>Math.round(-0.5)</code> → 0</li>
+                                <li><code>Math.floor</code> и <code>Math.ceil</code> работают противоположно с отрицательными числами</li>
                             </ul>
                         </div>
-                        <button class="demo-button" onclick="demoRoundToN(1.005, 2)">Округлить 1.005 до 2 знаков</button>
-                        <div id="round-n-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px"></div>
+
+                        <h4>Округление до n знаков после точки:</h4>
+                        <div class="code-block">
+                            <pre><code>// Способ 1: toFixed (проще, но возвращает строку)
+const price1 = Number((19.99123).toFixed(2));  // 19.99
+
+// Способ 2: Math.round (более гибкий)
+const price2 = Math.round(19.99123 * 100) / 100;  // 19.99
+
+// Функция для удобства
+function roundTo(value, decimals) {
+  return Math.round(value * 10 ** decimals) / 10 ** decimals;
+}
+
+console.log(roundTo(3.14159, 2));  // 3.14</code></pre>
+                        </div>
+
+                        <button onclick="demoRoundToN(1.005, 2)" style="padding: 8px 16px; font-size: 14px;">Округлить 1.005 до 2 знаков</button>
+                        <div id="round-n-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px;"></div>
                     </div>
                 </section>
 
                 <!-- Парсинг и работа с числами -->
                 <section class="section" id="parsing">
                     <div class="container">
-                        <h2>Парсинг строк и проверки чисел</h2>
+                        <h2>Парсинг строк и проверка чисел</h2>
 
-                        <h3>Парсинг</h3>
-                        <div class="grid-column-100">
-                            <pre><code>Number('42')      // 42
-parseInt('101',2) // 5 (база 2)
-parseFloat('3.14px') // 3.14</code></pre>
+                        <article class="article-block">
+                            <h3>Парсинг строк в числа</h3>
 
-                            <div>
-                                <div style="display: flex; gap: 8px; flex-wrap: wrap">
-                                    <button onclick="demoParse('Number','42')">Number('42')</button>
-                                    <button onclick="demoParse('parseInt','101',2)">parseInt('101',2)</button>
-                                    <button onclick="demoParse('parseFloat','3.14px')">parseFloat('3.14px')</button>
-                                </div>
-                                <div id="parse-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px"></div>
+                            <table class="table-note">
+                                <thead>
+                                    <tr>
+                                        <th>Функция</th>
+                                        <th>Описание</th>
+                                        <th>Пример</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>Number(str)</code></td>
+                                        <td>Преобразует в число (строгое)</td>
+                                        <td><code>Number('42') = 42</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>parseInt(str, radix)</code></td>
+                                        <td>Парсит целое число с основанием</td>
+                                        <td><code>parseInt('101', 2) = 5</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>parseFloat(str)</code></td>
+                                        <td>Парсит число с точкой</td>
+                                        <td><code>parseFloat('3.14px') = 3.14</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Примеры парсинга:</h4>
+                            <div class="code-block">
+                                <pre><code>// Number - строгое преобразование
+console.log(Number('42'));       // 42
+console.log(Number('3.14'));     // 3.14
+console.log(Number('42px'));     // NaN
+
+// parseInt - парсинг целых чисел
+console.log(parseInt('42'));     // 42
+console.log(parseInt('101', 2)); // 5 (двоичная система)
+console.log(parseInt('FF', 16)); // 255 (шестнадцатеричная)
+
+// parseFloat - парсинг чисел с точкой
+console.log(parseFloat('3.14'));      // 3.14
+console.log(parseFloat('3.14px'));    // 3.14 (px игнорируется)</code></pre>
                             </div>
-                        </div>
 
-                        <h3>Проверки</h3>
-                        <div class="grid-column-100">
-                            <pre><code>Number.isNaN(value)     // строго NaN
-Number.isFinite(value)  // конечное число
-isNaN('foo')            // true (устаревшая нестрогая)</code></pre>
-
-                            <div>
-                                <div style="display: flex; gap: 8px; flex-wrap: wrap">
-                                    <button onclick="demoCheck('NaN')">Проверка NaN</button>
-                                    <button onclick="demoCheck('finite')">Проверка finite</button>
-                                </div>
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;">
+                                <button onclick="demoParse('Number', '42')" style="padding: 4px 8px; font-size: 12px;">Number('42')</button>
+                                <button onclick="demoParse('parseInt', '101', 2)" style="padding: 4px 8px; font-size: 12px;">parseInt('101',2)</button>
+                                <button onclick="demoParse('parseFloat', '3.14px')" style="padding: 4px 8px; font-size: 12px;">parseFloat('3.14px')</button>
                             </div>
-                        </div>
-                        <p class="note note--info">
-                            Рекомендуется:
-                            <code>Number.isNaN</code>
-                            и
-                            <code>Number.isFinite</code>
-                            — они не приводят тип.
-                        </p>
+                            <div id="parse-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px;"></div>
+                        </article>
 
-                        <div class="note">
-                            <h3>Разделители разрядов и основы</h3>
+                        <article class="article-block">
+                            <h3>Проверка чисел</h3>
+
+                            <table class="table-note">
+                                <thead>
+                                    <tr>
+                                        <th>Функция</th>
+                                        <th>Описание</th>
+                                        <th>Пример</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>Number.isNaN(value)</code></td>
+                                        <td>Строгая проверка на NaN</td>
+                                        <td><code>Number.isNaN(NaN) = true</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>Number.isFinite(value)</code></td>
+                                        <td>Проверяет конечное число</td>
+                                        <td><code>Number.isFinite(42) = true</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>Number.isInteger(value)</code></td>
+                                        <td>Проверяет целое число</td>
+                                        <td><code>Number.isInteger(42) = true</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Примеры проверок:</h4>
+                            <div class="code-block">
+                                <pre><code>// Number.isNaN - строгая проверка
+console.log(Number.isNaN(NaN));        // true
+console.log(Number.isNaN('foo'));      // false (не приводит тип)
+
+// Старая функция isNaN (нестрогая, не рекомендуется)
+console.log(isNaN('foo'));             // true (приводит тип)
+
+// Number.isFinite
+console.log(Number.isFinite(42));      // true
+console.log(Number.isFinite(Infinity)); // false
+console.log(Number.isFinite('42'));    // false (не приводит тип)
+
+// Number.isInteger
+console.log(Number.isInteger(42));     // true
+console.log(Number.isInteger(42.0));   // true
+console.log(Number.isInteger(3.14));   // false</code></pre>
+                            </div>
+
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;">
+                                <button onclick="demoCheck('NaN')" style="padding: 4px 8px; font-size: 12px;">Проверка NaN</button>
+                                <button onclick="demoCheck('finite')" style="padding: 4px 8px; font-size: 12px;">Проверка finite</button>
+                            </div>
+                        </article>
+
+                        <article class="article-block">
+                            <h3>Разделители разрядов и системы счисления</h3>
+
+                            <h4>Числовые литералы:</h4>
+                            <div class="code-block">
+                                <pre><code>// Разделители для читаемости
+const million = 1_000_000;    // 1000000
+const billion = 1_000_000_000; // 1000000000
+
+// Двоичная система (0b)
+const binary = 0b1010;        // 10
+
+// Восьмеричная система (0o)
+const octal = 0o77;           // 63
+
+// Шестнадцатеричная система (0x)
+const hex = 0xFF;             // 255
+const color = 0x00FF00;       // 65280</code></pre>
+                            </div>
+
+                            <button onclick="demoLiterals()" style="padding: 8px 16px; font-size: 14px;">Попробовать литералы</button>
+                            <div id="literals-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px;"></div>
+                        </article>
+
+                        <div class="note-block">
+                            <h3>Рекомендации</h3>
                             <ul class="list-ul">
-                                <li>
-                                    Числовые разделители:
-                                    <code>1_000_000</code>
-                                    (для читаемости)
-                                </li>
-                                <li>
-                                    Разные системы счисления:
-                                    <code>0b1010</code>
-                                    (2),
-                                    <code>0o77</code>
-                                    (8),
-                                    <code>0xFF</code>
-                                    (16)
-                                </li>
+                                <li>Используйте <code>Number.isNaN()</code> и <code>Number.isFinite()</code> — они не приводят тип</li>
+                                <li>Избегайте старой функции <code>isNaN()</code> — она приводит значение к числу</li>
+                                <li>Используйте <code>parseInt()</code> с явным указанием основания: <code>parseInt(str, 10)</code></li>
+                                <li>Для разделения больших чисел используйте подчеркивание: <code>1_000_000</code></li>
                             </ul>
-                            <button class="demo-button" onclick="demoLiterals()">Литералы</button>
-                            <div id="literals-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px"></div>
                         </div>
                     </div>
                 </section>
@@ -366,28 +425,99 @@ isNaN('foo')            // true (устаревшая нестрогая)</code>
                 <section class="section" id="random">
                     <div class="container">
                         <h2>Случайные числа</h2>
+
                         <p class="note">
-                            <code>Math.random()</code>
-                            возвращает число в диапазоне
-                            <code>[0, 1)</code>
-                            . На его основе можно строить нужные диапазоны.
+                            <strong>Math.random()</strong> возвращает случайное число в диапазоне [0, 1) (включая 0, не включая 1). На его основе можно строить случайные числа в любом диапазоне.
                         </p>
-                        <div class="grid-column-50">
-                            <div class="example">
-                                <h4>Формулы:</h4>
-                                <pre><code>// [min, max) вещественное
+
+                        <h4>Базовая функция Math.random():</h4>
+                        <div class="code-block">
+                            <pre><code>// Возвращает число от 0 до 1 (не включая 1)
+console.log(Math.random());     // 0.123456789
+console.log(Math.random());     // 0.987654321</code></pre>
+                        </div>
+
+                        <article class="article-block">
+                            <h3>Формулы для различных диапазонов</h3>
+
+                            <h4>Случайное целое число в диапазоне [min, max]:</h4>
+                            <div class="code-block">
+                                <pre><code>// Формула
+Math.floor(min + Math.random() * (max - min + 1))
+
+// Пример: случайное число от 1 до 6 (кубик)
+const dice = Math.floor(1 + Math.random() * 6);
+console.log(dice);  // 1, 2, 3, 4, 5 или 6</code></pre>
+                            </div>
+
+                            <h4>Случайное вещественное число в диапазоне [min, max):</h4>
+                            <div class="code-block">
+                                <pre><code>// Формула
 min + Math.random() * (max - min)
 
-// [min, max] целое
-Math.floor(min + Math.random() * (max - min + 1))</code></pre>
+// Пример: случайное число от 5 до 10
+const random = 5 + Math.random() * 5;
+console.log(random);  // 5.123 или 7.456 или 9.999</code></pre>
                             </div>
-                            <div class="example">
-                                <h4>Демо:</h4>
-                                <div style="display: flex; gap: 8px; flex-wrap: wrap">
-                                    <button onclick="demoRandomFloat(5,10)">[5,10) float</button>
-                                    <button onclick="demoRandomInt(1,6)">[1,6] int (кубик)</button>
-                                </div>
-                                <div id="random-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px"></div>
+
+                            <h4>Удобные функции:</h4>
+                            <div class="code-block">
+                                <pre><code>// Случайное целое число
+function randomInt(min, max) {
+  return Math.floor(min + Math.random() * (max - min + 1));
+}
+
+// Случайное вещественное число
+function randomFloat(min, max) {
+  return min + Math.random() * (max - min);
+}
+
+console.log(randomInt(1, 6));      // 1-6
+console.log(randomFloat(5, 10));   // 5.xxx-9.xxx</code></pre>
+                            </div>
+
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;">
+                                <button onclick="demoRandomFloat(5, 10)" style="padding: 8px 16px; font-size: 14px;">[5,10) float</button>
+                                <button onclick="demoRandomInt(1, 6)" style="padding: 8px 16px; font-size: 14px;">[1,6] int (кубик)</button>
+                            </div>
+                            <div id="random-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px;"></div>
+                        </article>
+
+                        <div class="note-block">
+                            <h3>Практические примеры</h3>
+
+                            <h4>Случайный элемент из массива:</h4>
+                            <div class="code-block">
+                                <pre><code>const items = ['apple', 'banana', 'cherry'];
+const random = items[Math.floor(Math.random() * items.length)];
+console.log(random);  // один из трёх элементов
+
+// Функция для удобства
+function randomItem(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+console.log(randomItem(['A', 'B', 'C']));  // A, B или C</code></pre>
+                            </div>
+
+                            <h4>Случайный цвет:</h4>
+                            <div class="code-block">
+                                <pre><code>// Случайный RGB цвет
+function randomColor() {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+console.log(randomColor());  // rgb(123, 45, 200)
+
+// Случайный hex цвет
+function randomHexColor() {
+  return '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+}
+
+console.log(randomHexColor());  // #3a7b2f</code></pre>
                             </div>
                         </div>
                     </div>
@@ -397,84 +527,341 @@ Math.floor(min + Math.random() * (max - min + 1))</code></pre>
                 <section class="section" id="precision">
                     <div class="container">
                         <h2>Точность и ошибки округления</h2>
+
                         <p class="note">
-                            Двоичное представление ломает «идеальные» десятичные дроби:
-                            <code>0.1 + 0.2 !== 0.3</code>
-                            . Используйте округление или сравнение с учетом
-                            <code>Number.EPSILON</code>
-                            .
+                            <strong>Проблема точности</strong> возникает потому, что JavaScript использует двоичное представление чисел (IEEE 754). Некоторые десятичные числа не могут быть представлены точно в двоичной системе. Например: <code>0.1 + 0.2 !== 0.3</code>
                         </p>
 
-                        <pre><code>// Проблема
-0.1 + 0.2 === 0.3 // false
+                        <h4>Демонстрация проблемы:</h4>
+                        <div class="code-block">
+                            <pre><code>// Проблема точности
+console.log(0.1 + 0.2);           // 0.30000000000000004
+console.log(0.1 + 0.2 === 0.3);   // false
 
-// Решения
-// 1) Округлить до n знаков
-Math.round((0.1 + 0.2) * 100) / 100 // 0.3
+// Другие примеры
+console.log(0.1 + 0.2 + 0.3);     // 0.6000000000000001
+console.log(1 - 0.9);             // 0.09999999999999998</code></pre>
+                        </div>
 
-// 2) Почти равны с EPSILON
-const nearlyEqual = (a, b, eps = Number.EPSILON) => Math.abs(a - b) &lt; eps;</code></pre>
+                        <article class="article-block">
+                            <h3>Решения</h3>
 
-                        <button class="demo-button" onclick="demoPrecision()">Показать проблему и решения</button>
-                        <div id="precision-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px"></div>
-                    </div>
-                </section>
+                            <h4>Способ 1: Округление до n знаков</h4>
+                            <div class="code-block">
+                                <pre><code>function roundTo(value, decimals) {
+  return Math.round(value * 10 ** decimals) / 10 ** decimals;
+}
 
-                <!-- Примеры и полезные функции -->
-                <section class="section" id="examples">
-                    <div class="container">
-                        <h2>Полезные математические функции</h2>
-                        <div class="grid-column-100">
-                            <div class="note-block">
-                                <h3>Частые методы Math</h3>
-                                <pre><code>Math.abs(-5)     // 5
-Math.max(1,4,2) // 4
-Math.min(1,4,2) // 1
-Math.pow(3,4)   // 81
-Math.sqrt(16)   // 4
-Math.hypot(3,4) // 5 (гипотенуза)
-Math.sign(-10)  // -1</code></pre>
-                                <div style="display: flex; gap: 8px; flex-wrap: wrap">
-                                    <button onclick="demoMaxMin()">max/min</button>
-                                    <button onclick="demoHypot()">hypot</button>
-                                </div>
-                                <div id="math-extra-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px"></div>
+const sum = 0.1 + 0.2;
+const rounded = roundTo(sum, 2);
+console.log(rounded);        // 0.3
+console.log(rounded === 0.3); // true</code></pre>
                             </div>
-                            <div class="note-block">
-                                <h3>Зажатие значения (clamp)</h3>
-                                <pre><code>const clamp = (x, min, max) => Math.min(Math.max(x, min), max);
-clamp(120, 0, 100) // 100</code></pre>
-                                <button onclick="demoClamp(120, 0, 100)" class="demo-button">clamp(120, 0, 100)</button>
-                                <div id="clamp-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px"></div>
+
+                            <h4>Способ 2: Сравнение с допуском (EPSILON)</h4>
+                            <div class="code-block">
+                                <pre><code>// Функция для сравнения с допуском
+function nearlyEqual(a, b, epsilon = Number.EPSILON) {
+  return Math.abs(a - b) &lt; epsilon;
+}
+
+const sum = 0.1 + 0.2;
+console.log(nearlyEqual(sum, 0.3));        // true
+console.log(nearlyEqual(sum, 0.3, 0.01));  // true
+
+// Number.EPSILON — наименьшая разница между 1 и числом, большим 1
+console.log(Number.EPSILON);  // 2.220446049250313e-16</code></pre>
                             </div>
+
+                            <h4>Способ 3: Работа с целыми числами (для денег)</h4>
+                            <div class="code-block">
+                                <pre><code>// Храните деньги в центах/копейках
+const price1 = 10;  // 10 центов
+const price2 = 20;  // 20 центов
+const total = price1 + price2;  // 30 центов
+const dollarAmount = total / 100;  // 0.30 долларов
+
+// Или используйте Decimal для точной арифметики
+// Но это требует отдельной библиотеки</code></pre>
+                            </div>
+                        </article>
+
+                        <button onclick="demoPrecision()" style="padding: 8px 16px; font-size: 14px;">Показать проблему и решения</button>
+                        <div id="precision-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px;"></div>
+
+                        <div class="warning">
+                            <h3>⚠️ Типичные ошибки</h3>
+                            <ul class="list-ul">
+                                <li>❌ Прямое сравнение с <code>===</code>: <code>0.1 + 0.2 === 0.3</code> (false!)</li>
+                                <li>❌ Доверие к количеству знаков: <code>(0.1 + 0.2).toFixed(1)</code> может вернуть '0.3', но это строка</li>
+                                <li>✅ Использование округления или сравнения с допуском</li>
+                                <li>✅ Для денег: работайте с целыми числами (центы, копейки)</li>
+                            </ul>
                         </div>
                     </div>
                 </section>
+
+                <!-- Полезные математические функции -->
+                <section class="section" id="useful-functions">
+                    <div class="container">
+                        <h2>Полезные математические функции</h2>
+
+                        <article class="article-block">
+                            <h3>Стандартные методы объекта Math</h3>
+
+                            <table class="table-note">
+                                <thead>
+                                    <tr>
+                                        <th>Функция</th>
+                                        <th>Описание</th>
+                                        <th>Пример</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>Math.abs(x)</code></td>
+                                        <td>Абсолютное значение</td>
+                                        <td><code>Math.abs(-5) = 5</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>Math.max(...values)</code></td>
+                                        <td>Максимальное значение</td>
+                                        <td><code>Math.max(1, 4, 2) = 4</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>Math.min(...values)</code></td>
+                                        <td>Минимальное значение</td>
+                                        <td><code>Math.min(1, 4, 2) = 1</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>Math.pow(x, y)</code></td>
+                                        <td>x в степени y</td>
+                                        <td><code>Math.pow(3, 4) = 81</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>Math.sqrt(x)</code></td>
+                                        <td>Квадратный корень</td>
+                                        <td><code>Math.sqrt(16) = 4</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>Math.sign(x)</code></td>
+                                        <td>Знак числа (-1, 0 или 1)</td>
+                                        <td><code>Math.sign(-10) = -1</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>Math.hypot(x, y)</code></td>
+                                        <td>Гипотенуза (длина вектора)</td>
+                                        <td><code>Math.hypot(3, 4) = 5</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Примеры использования:</h4>
+                            <div class="code-block">
+                                <pre><code>// Абсолютное значение
+console.log(Math.abs(-5));    // 5
+console.log(Math.abs(-3.14)); // 3.14
+
+// Максимум и минимум
+console.log(Math.max(1, 4, 2));      // 4
+console.log(Math.min(1, 4, 2));      // 1
+console.log(Math.max(...[1, 4, 2])); // 4
+
+// Степень
+console.log(Math.pow(2, 8));  // 256
+console.log(2 ** 8);          // 256 (современный синтаксис)
+
+// Корень
+console.log(Math.sqrt(16));   // 4
+console.log(Math.sqrt(2));    // 1.4142...
+
+// Знак
+console.log(Math.sign(10));   // 1
+console.log(Math.sign(-10));  // -1
+console.log(Math.sign(0));    // 0
+
+// Гипотенуза (расстояние от точки до начала координат)
+console.log(Math.hypot(3, 4)); // 5</code></pre>
+                            </div>
+
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;">
+                                <button onclick="demoMaxMin()" style="padding: 8px 16px; font-size: 14px;">max/min</button>
+                                <button onclick="demoHypot()" style="padding: 8px 16px; font-size: 14px;">hypot</button>
+                            </div>
+                            <div id="math-extra-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px;"></div>
+                        </article>
+
+                        <article class="article-block">
+                            <h3>Полезные вспомогательные функции</h3>
+
+                            <h4>Зажатие значения (clamp):</h4>
+                            <div class="code-block">
+                                <pre><code>// Функция для ограничения значения в диапазоне [min, max]
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
+console.log(clamp(50, 0, 100));   // 50
+console.log(clamp(120, 0, 100));  // 100
+console.log(clamp(-5, 0, 100));   // 0
+
+// Полезно для ограничения координат, громкости, прогресса
+const volume = clamp(150, 0, 100);  // 100</code></pre>
+                            </div>
+
+                            <button onclick="demoClamp(120, 0, 100)" style="padding: 8px 16px; font-size: 14px;">clamp(120, 0, 100)</button>
+                            <div id="clamp-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px;"></div>
+
+                            <h4>Линейная интерполяция (lerp):</h4>
+                            <div class="code-block">
+                                <pre><code>// Интерполяция между двумя значениями
+function lerp(a, b, t) {
+  return a + (b - a) * t;
+}
+
+console.log(lerp(0, 100, 0));    // 0
+console.log(lerp(0, 100, 0.5));  // 50
+console.log(lerp(0, 100, 1));    // 100
+
+// Полезно для анимаций и переходов
+const startColor = 0;
+const endColor = 255;
+const progress = 0.3;  // 30%
+const currentColor = lerp(startColor, endColor, progress);  // 76.5</code></pre>
+                            </div>
+
+                            <h4>Нормализация значения в диапазон [0, 1]:</h4>
+                            <div class="code-block">
+                                <pre><code>// Преобразовать значение из одного диапазона в [0, 1]
+function normalize(value, min, max) {
+  return (value - min) / (max - min);
+}
+
+console.log(normalize(50, 0, 100));   // 0.5
+console.log(normalize(75, 0, 100));   // 0.75
+console.log(normalize(0, 0, 100));    // 0
+
+// Обратная операция (денормализация)
+function denormalize(normalized, min, max) {
+  return normalized * (max - min) + min;
+}
+
+console.log(denormalize(0.5, 0, 100));   // 50</code></pre>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- Лучшие практики -->
+                <section class="section" id="best-practices">
+                    <div class="container">
+                        <h2>Лучшие практики</h2>
+
+                        <div class="note-block">
+                            <h3>✅ Используйте правильный метод округления</h3>
+                            <div class="code-block">
+                                <pre><code>// ❌ Плохо - непредсказуемо
+const price = (19.99 * 3).toFixed(2);
+
+// ✅ Хорошо - контролируемо
+function roundPrice(amount) {
+  return Math.round(amount * 100) / 100;
+}</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="note-block">
+                            <h3>✅ Для денег используйте целые числа</h3>
+                            <div class="code-block">
+                                <pre><code>// ❌ Плохо - проблемы с точностью
+const amount = 19.99 + 0.01;  // 20 или 19.99999?
+
+// ✅ Хорошо - работайте в центах/копейках
+const amountCents = 1999 + 1;  // 2000 центов = $20.00
+const dollars = amountCents / 100;  // 20</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="note-block">
+                            <h3>✅ Используйте Number.isNaN() вместо isNaN()</h3>
+                            <div class="code-block">
+                                <pre><code>// ❌ Плохо - приводит типы
+if (isNaN(value)) {  // isNaN('foo') = true!
+  // ...
+}
+
+// ✅ Хорошо - без приведения типов
+if (Number.isNaN(value)) {
+  // ...
+}</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="note-block">
+                            <h3>✅ Явно указывайте основание в parseInt()</h3>
+                            <div class="code-block">
+                                <pre><code>// ❌ Плохо - основание определяется автоматически
+const num = parseInt('010');  // 8 (восьмеричная) или 10 (десятичная)?
+
+// ✅ Хорошо - явно указано
+const num = parseInt('010', 10);  // 10 (десятичная)</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="note-block">
+                            <h3>✅ Используйте скобки для читаемости</h3>
+                            <div class="code-block">
+                                <pre><code>// Менее читаемо
+const result = 5 + 2 * 3 - 1;
+
+// Более читаемо
+const result = (5 + (2 * 3)) - 1;
+const result = 5 + (2 * 3) - 1;</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="note-block">
+                            <h3>✅ Используйте разделители для больших чисел</h3>
+                            <div class="code-block">
+                                <pre><code>// Менее читаемо
+const population = 1000000;
+
+// Более читаемо
+const population = 1_000_000;</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="warning">
+                            <h3>⚠️ Частые ошибки</h3>
+                            <ul class="list-ul">
+                                <li>❌ Прямое сравнение вещественных чисел с <code>===</code></li>
+                                <li>❌ Использование <code>toFixed()</code> для вычислений (она возвращает строку)</li>
+                                <li>❌ Предположение о точности двоичной арифметики</li>
+                                <li>❌ Забывание о <code>NaN !== NaN</code></li>
+                                <li>❌ Деление на ноль без проверки</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
             </main>
             @@include('../partials/footer.html', {})
         </div>
         @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
 
         <script>
-            // Безопасное вычисление простых выражений (только чтение, без доступа к внешним переменным)
-            function demoExpr(expr) {
-                try {
-                    const result = Function('"use strict"; return (' + expr + ")")();
-                    alert(`${expr} = ${result}`);
-                } catch (e) {
-                    alert(`Ошибка: ${e.message}`);
-                }
-            }
-            function demoExprplus(strNumber) {
-                const expr = `+('${strNumber}')`;
-                demoExpr(expr);
-            }
-
-            // Приоритет
+            // Приоритет операций
             function demoPriorityMath() {
                 const a = 5 + 2 * 3;
-                const b = (5 + 2) * 3;
-                document.getElementById("priority-math-result").innerHTML = `<p>5 + 2 * 3 = <b>${a}</b></p><p>(5 + 2) * 3 = <b>${b}</b></p>`;
+                const b = 10 - 2 ** 2;
+                const c = (5 + 2) * 3;
+                const d = (10 - 2) ** 2;
+                document.getElementById("priority-math-result").innerHTML = `
+                    <p>5 + 2 * 3 = <b>${a}</b></p>
+                    <p>10 - 2 ** 2 = <b>${b}</b></p>
+                    <p>(5 + 2) * 3 = <b>${c}</b></p>
+                    <p>(10 - 2) ** 2 = <b>${d}</b></p>
+                `;
             }
 
             // Округление
@@ -483,27 +870,30 @@ clamp(120, 0, 100) // 100</code></pre>
                     floor: Math.floor,
                     ceil: Math.ceil,
                     round: Math.round,
-                    trunc: Math.trunc,
+                    trunc: Math.trunc
                 };
                 const fn = map[kind];
                 const res = fn(value);
                 alert(`Math.${kind}(${value}) = ${res}`);
             }
+
             function demoToFixed(val, n) {
-                const s = Number(val).toFixed(n);
+                const s = val.toFixed(n);
                 alert(`${val}.toFixed(${n}) = "${s}" (тип: ${typeof s})`);
             }
+
             function demoRoundToN(val, n) {
                 const naive = Number(val.toFixed(n));
                 const calc = Math.round(val * 10 ** n) / 10 ** n;
-                document.getElementById("round-n-result").innerHTML = `<p>toFixed: Number(${val}.toFixed(${n})) = <b>${naive}</b></p>
-           <p>Math.round: Math.round(${val} * 10^${n}) / 10^${n} = <b>${calc}</b></p>`;
+                document.getElementById("round-n-result").innerHTML = `
+                    <p>toFixed: Number(${val}.toFixed(${n})) = <b>${naive}</b></p>
+                    <p>Math.round: Math.round(${val} * 10^${n}) / 10^${n} = <b>${calc}</b></p>
+                `;
             }
 
             // Парсинг
             function demoParse(kind, input, radix) {
-                let value,
-                    desc = "";
+                let value, desc = "";
                 if (kind === "Number") {
                     value = Number(input);
                     desc = `Number("${input}")`;
@@ -516,9 +906,10 @@ clamp(120, 0, 100) // 100</code></pre>
                 }
                 document.getElementById("parse-result").innerHTML = `<p>${desc} = <b>${value}</b> (тип: ${typeof value})</p>`;
             }
+
             function demoCheck(type) {
                 if (type === "NaN") {
-                    const a = Number("foo"); // NaN
+                    const a = Number("foo");
                     const b = "foo";
                     const strict = Number.isNaN(a);
                     const loose = isNaN(b);
@@ -529,20 +920,24 @@ clamp(120, 0, 100) // 100</code></pre>
                     alert(`Number.isFinite(42) = ${Number.isFinite(a)}, Number.isFinite('42') = ${Number.isFinite(b)} (false, без приведения)`);
                 }
             }
+
             function demoLiterals() {
                 const million = 1_000_000;
-                const bin = 0b1010; // 10
-                const oct = 0o77; // 63
-                const hex = 0xff; // 255
-                document.getElementById("literals-result").innerHTML = `<p>1_000_000 = <b>${million}</b></p>
-           <p>0b1010 = <b>${bin}</b>, 0o77 = <b>${oct}</b>, 0xFF = <b>${hex}</b></p>`;
+                const bin = 0b1010;
+                const oct = 0o77;
+                const hex = 0xff;
+                document.getElementById("literals-result").innerHTML = `
+                    <p>1_000_000 = <b>${million}</b></p>
+                    <p>0b1010 = <b>${bin}</b>, 0o77 = <b>${oct}</b>, 0xFF = <b>${hex}</b></p>
+                `;
             }
 
             // Случайные
             function demoRandomFloat(min, max) {
                 const v = min + Math.random() * (max - min);
-                document.getElementById("random-result").textContent = `Случайное [${min}, ${max}) = ${v}`;
+                document.getElementById("random-result").textContent = `Случайное [${min}, ${max}) = ${v.toFixed(4)}`;
             }
+
             function demoRandomInt(min, max) {
                 const v = Math.floor(min + Math.random() * (max - min + 1));
                 document.getElementById("random-result").textContent = `Случайное целое [${min}, ${max}] = ${v}`;
@@ -552,15 +947,18 @@ clamp(120, 0, 100) // 100</code></pre>
             function nearlyEqual(a, b, eps = Number.EPSILON) {
                 return Math.abs(a - b) < eps;
             }
+
             function demoPrecision() {
                 const sum = 0.1 + 0.2;
                 const eq = sum === 0.3;
                 const rounded = Math.round((0.1 + 0.2) * 100) / 100;
                 const epsEq = nearlyEqual(sum, 0.3);
-                document.getElementById("precision-result").innerHTML = `<p>0.1 + 0.2 = <b>${sum}</b></p>
-           <p>Сравнение === 0.3 → <b>${eq}</b></p>
-           <p>Округление до 2 знаков: <b>${rounded}</b></p>
-           <p>Почти равно с EPSILON: <b>${epsEq}</b></p>`;
+                document.getElementById("precision-result").innerHTML = `
+                    <p>0.1 + 0.2 = <b>${sum}</b></p>
+                    <p>Сравнение === 0.3 → <b>${eq}</b></p>
+                    <p>Округление до 2 знаков: <b>${rounded}</b></p>
+                    <p>Почти равно с EPSILON: <b>${epsEq}</b></p>
+                `;
             }
 
             // Примеры Math
@@ -569,10 +967,12 @@ clamp(120, 0, 100) // 100</code></pre>
                 const min = Math.min(1, 4, 2);
                 document.getElementById("math-extra-result").innerHTML = `<p>Math.max(1,4,2) = <b>${max}</b>, Math.min(1,4,2) = <b>${min}</b></p>`;
             }
+
             function demoHypot() {
                 const h = Math.hypot(3, 4);
                 document.getElementById("math-extra-result").innerHTML = `<p>Math.hypot(3,4) = <b>${h}</b></p>`;
             }
+
             function demoClamp(x, min, max) {
                 const v = Math.min(Math.max(x, min), max);
                 document.getElementById("clamp-result").innerHTML = `<p>clamp(${x}, ${min}, ${max}) = <b>${v}</b></p>`;

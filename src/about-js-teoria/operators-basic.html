@@ -1,425 +1,815 @@
 <!DOCTYPE html>
 <html lang="ru">
-    @@include('../partials/head.html', { "title": "Базовые операторы и математика в JavaScript", "description": "Основы арифметики и операторов в JavaScript" })
-    <body>
-        <div class="wrapper">
-            @@include('../partials/header.html', {})
-            <main class="page">
-                <nav class="nav-tabs">
-                    <a href="#operators-intro" class="active">Введение</a>
-                    <a href="#operators-math">Математика</a>
-                    <a href="#operators-assignment">Присваивание</a>
-                    <a href="#operators-other">Другие</a>
-                </nav>
+@@include('../partials/head.html', { "title": "Базовые операторы в JavaScript", "description": "Арифметические и другие базовые операторы JavaScript" })
 
-                <!-- Введение -->
-                <section class="section" id="operators-intro">
-                    <div class="container">
-                        <h1>Базовые операторы в JavaScript</h1>
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs" id="page-nav">
+        <a href="#operators-intro" class="active">Введение</a>
+        <a href="#operators-math">Математические</a>
+        <a href="#operators-assignment">Присваивание</a>
+        <a href="#operators-increment">Инкремент/Декремент</a>
+        <a href="#operators-comparison">Сравнение</a>
+        <a href="#operators-best-practices">Лучшие практики</a>
+        <a href="#operators-mistakes">Типичные ошибки</a>
+      </nav>
 
-                        <p class="note">
-                            <strong>Операторы</strong>
-                            — символы, выполняющие операции над значениями.
-                            <br />
-                            В JavaScript операторы делятся на несколько категорий по количеству операндов.
-                        </p>
+      <!-- Введение -->
+      <section class="section" id="operators-intro">
+        <div class="container">
+          <h1>Базовые операторы в JavaScript</h1>
 
-                        <div class="grid-column-50">
-                            <div class="example">
-                                <h4>Типы операторов:</h4>
-                                <ul class="list-ul">
-                                    <li>
-                                        <strong>Унарные</strong>
-                                        — один операнд (
-                                        <code>-x</code>
-                                        ,
-                                        <code>++x</code>
-                                        )
-                                    </li>
-                                    <li>
-                                        <strong>Бинарные</strong>
-                                        — два операнда (
-                                        <code>x + y</code>
-                                        )
-                                    </li>
-                                    <li>
-                                        <strong>Тернарные</strong>
-                                        — три операнда (
-                                        <code>a ? b : c</code>
-                                        )
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="example">
-                                <h4>Основные категории:</h4>
-                                <ul class="list-ul">
-                                    <li>Арифметические</li>
-                                    <li>Присваивания</li>
-                                    <li>Сравнения</li>
-                                    <li>Логические</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+          <p class="note">
+            <strong>Операторы</strong> — символы или ключевые слова, которые выполняют операции над значениями (операндами).
+            <br />
+            В JavaScript операторы делятся на категории по количеству операндов и типу операций.
+          </p>
 
-                <!-- Математические операторы -->
-                <section class="section" id="operators-math">
-                    <div class="container">
-                        <h2>Математические операторы</h2>
+          <article class="article-block">
+            <h3>Классификация операторов</h3>
+            <ul class="list-ul">
+              <li><strong>Унарные</strong> — работают с одним операндом (<code>-x</code>, <code>++x</code>, <code>!x</code>)</li>
+              <li><strong>Бинарные</strong> — работают с двумя операндами (<code>x + y</code>, <code>x &gt; y</code>)</li>
+              <li><strong>Тернарные</strong> — работают с тремя операндами (<code>a ? b : c</code>)</li>
+            </ul>
+          </article>
 
-                        <p class="note">
-                            <strong>Арифметика</strong>
-                            — базовые математические операции с числами.
-                            <br />
-                            JavaScript поддерживает все основные операции.
-                        </p>
+          <article class="article-block">
+            <h3>Основные категории операторов</h3>
+            <ul class="list-ul">
+              <li>Арифметические — математические операции</li>
+              <li>Присваивания — сохранение значений в переменные</li>
+              <li>Сравнения — сравнение значений</li>
+              <li>Логические — логические операции</li>
+              <li>Побитовые — операции на уровне битов</li>
+              <li>Типов — проверка и преобразование типов</li>
+            </ul>
+          </article>
 
-                        <table class="table-note">
-                            <thead>
-                                <tr>
-                                    <th>Оператор</th>
-                                    <th>Название</th>
-                                    <th>Пример</th>
-                                    <th>Результат</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><code>+</code></td>
-                                    <td>Сложение</td>
-                                    <td><code>3 + 2</code></td>
-                                    <td><button onclick="demoOperator('3 + 2')">Попробовать</button></td>
-                                </tr>
-                                <tr>
-                                    <td><code>-</code></td>
-                                    <td>Вычитание</td>
-                                    <td><code>5 - 2</code></td>
-                                    <td><button onclick="demoOperator('5 - 2')">Попробовать</button></td>
-                                </tr>
-                                <tr>
-                                    <td><code>*</code></td>
-                                    <td>Умножение</td>
-                                    <td><code>2 * 3</code></td>
-                                    <td><button onclick="demoOperator('2 * 3')">Попробовать</button></td>
-                                </tr>
-                                <tr>
-                                    <td><code>/</code></td>
-                                    <td>Деление</td>
-                                    <td><code>6 / 2</code></td>
-                                    <td><button onclick="demoOperator('6 / 2')">Попробовать</button></td>
-                                </tr>
-                                <tr>
-                                    <td><code>%</code></td>
-                                    <td>Остаток</td>
-                                    <td><code>5 % 2</code></td>
-                                    <td><button onclick="demoOperator('5 % 2')">Попробовать</button></td>
-                                </tr>
-                                <tr>
-                                    <td><code>**</code></td>
-                                    <td>Степень</td>
-                                    <td><code>2 ** 3</code></td>
-                                    <td><button onclick="demoOperator('2 ** 3')">Попробовать</button></td>
-                                </tr>
-                                <tr>
-                                    <td><code>+</code></td>
-                                    <td>Конкатенация</td>
-                                    <td><code>'a' + 'b'</code></td>
-                                    <td><button onclick="demoOperator('\'a\' + \'b\'')">Попробовать</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
+          <div class="warning">
+            <h3>⚠️ Приоритет операций</h3>
+            <p>Порядок выполнения операций важен! Используйте скобки для явного указания порядка:</p>
+            <div class="code-block">
+              <pre><code>// Без скобок - умножение выполнится первым
+console.log(5 + 2 * 3); // 11
 
-                        <div class="grid-column-50">
-                            <div class="note-block">
-                                <h3>Особенности:</h3>
-                                <ul class="list-ul">
-                                    <li>
-                                        Деление
-                                        <code>/</code>
-                                        всегда возвращает число (даже целочисленное)
-                                    </li>
-                                    <li>
-                                        Остаток
-                                        <code>%</code>
-                                        сохраняет знак делимого
-                                    </li>
-                                    <li>
-                                        Оператор
-                                        <code>+</code>
-                                        преобразует числа в строки при работе со строками
-                                    </li>
-                                    <li>Остаток от деления полезен для проверки делимости чисел (например, чётное/нечётное)</li>
-                                </ul>
-                            </div>
-                            <div class="note-block">
-                                <h3>Приоритет операций:</h3>
-                                <ol class="list-ol">
-                                    <li>
-                                        <code>()</code>
-                                        (скобки)
-                                    </li>
-                                    <li>
-                                        <code>**</code>
-                                        (степень)
-                                    </li>
-                                    <li>
-                                        <code>*</code>
-                                        ,
-                                        <code>/</code>
-                                        ,
-                                        <code>%</code>
-                                    </li>
-                                    <li>
-                                        <code>+</code>
-                                        ,
-                                        <code>-</code>
-                                    </li>
-                                </ol>
-                            </div>
-                        </div>
+// Со скобками - другой результат
+console.log((5 + 2) * 3); // 21</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
 
-                        <h3>Пример с приоритетами:</h3>
-                        <pre><code>let result = 5 + 2 * 3; // 11 (умножение выполняется первым)
-let result = (5 + 2) * 3; // 21 (скобки меняют порядок)</code></pre>
-                        <button onclick="demoPriority()" class="demo-button">Проверить приоритеты</button>
-                        <div id="priority-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px"></div>
+      <!-- Математические операторы -->
+      <section class="section" id="operators-math">
+        <div class="container">
+          <h2>Математические операторы</h2>
 
-                        <h3>Примеры использования:</h3>
-                        <pre><code>// Сложение
+          <p class="note">
+            <strong>Арифметические операторы</strong> — выполняют математические операции с числами.
+            <br />
+            JavaScript поддерживает все основные арифметические операции.
+          </p>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Оператор</th>
+                <th>Название</th>
+                <th>Описание</th>
+                <th>Пример</th>
+                <th>Результат</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>+</code></td>
+                <td>Сложение</td>
+                <td>Складывает два числа</td>
+                <td><code>5 + 3</code></td>
+                <td>8</td>
+              </tr>
+              <tr>
+                <td><code>-</code></td>
+                <td>Вычитание</td>
+                <td>Вычитает второе число из первого</td>
+                <td><code>5 - 3</code></td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td><code>*</code></td>
+                <td>Умножение</td>
+                <td>Умножает два числа</td>
+                <td><code>5 * 3</code></td>
+                <td>15</td>
+              </tr>
+              <tr>
+                <td><code>/</code></td>
+                <td>Деление</td>
+                <td>Делит первое число на второе</td>
+                <td><code>15 / 3</code></td>
+                <td>5</td>
+              </tr>
+              <tr>
+                <td><code>%</code></td>
+                <td>Остаток от деления (modulo)</td>
+                <td>Возвращает остаток от деления</td>
+                <td><code>17 % 5</code></td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td><code>**</code></td>
+                <td>Возведение в степень</td>
+                <td>Возводит число в степень</td>
+                <td><code>2 ** 3</code></td>
+                <td>8</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="code-block">
+            <h4>Примеры математических операций:</h4>
+            <pre><code>// Сложение
 let a = 10;
 let b = 40;
-let sum = a + b;
-console.log(`Сложение чисел: ${sum}`); // 50
+console.log(a + b); // 50
 
 // Вычитание
-let f = b - a;
-console.log(`Вычитание чисел: ${f}`); // 30
+console.log(b - a); // 30
 
 // Умножение
-let y = a * b;
-console.log(`Умножение чисел: ${y}`); // 400
+console.log(a * b); // 400
 
 // Деление
-let d = b / a;
-console.log(`Деление чисел: ${d}`); // 4
+console.log(b / a); // 4
 
 // Остаток от деления
-let remainder = b % a;
-console.log(`Остаток от деления(40/10): ${remainder}`); // 0
+console.log(b % a); // 0
+console.log(40 % 7); // 5
 
-let remainder02 = 40 % 7;
-console.log(`Остаток от деления(40/7): ${remainder02}`); // 5</code></pre>
-                    </div>
-                </section>
+// Возведение в степень
+console.log(2 ** 3); // 8
+console.log(5 ** 2); // 25</code></pre>
+          </div>
 
-                <!-- Операторы присваивания -->
-                <section class="section" id="operators-assignment">
-                    <div class="container">
-                        <h2>Операторы присваивания</h2>
+          <article class="article-block">
+            <h3>Особенности математических операторов</h3>
+            <ul class="list-ul">
+              <li>Деление <code>/</code> всегда возвращает число (даже для целочисленного деления)</li>
+              <li>Остаток <code>%</code> сохраняет знак делимого (первого операнда)</li>
+              <li>Оператор <code>+</code> выполняет конкатенацию строк, если хотя бы один операнд — строка</li>
+              <li>Остаток от деления полезен для проверки делимости (чётные/нечётные числа)</li>
+              <li>Все операторы работают с преобразованием типов (числовым преобразованием)</li>
+            </ul>
+          </article>
 
-                        <p class="note">
-                            <strong>Присваивание</strong>
-                            — сохранение значения в переменной.
-                            <br />
-                            В JavaScript есть базовые и составные операторы присваивания.
-                        </p>
+          <article class="article-block">
+            <h3>Приоритет операций (от высшего к низшему)</h3>
+            <ol class="list-ol">
+              <li><code>()</code> — скобки</li>
+              <li><code>**</code> — возведение в степень</li>
+              <li><code>*</code>, <code>/</code>, <code>%</code> — умножение, деление, остаток</li>
+              <li><code>+</code>, <code>-</code> — сложение, вычитание</li>
+            </ol>
+          </article>
 
-                        <table class="table-note">
-                            <thead>
-                                <tr>
-                                    <th>Оператор</th>
-                                    <th>Пример</th>
-                                    <th>Эквивалент</th>
-                                    <th>Демо</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><code>=</code></td>
-                                    <td><code>x = 5</code></td>
-                                    <td>-</td>
-                                    <td><button onclick="demoAssignment('x = 5')">Попробовать</button></td>
-                                </tr>
-                                <tr>
-                                    <td><code>+=</code></td>
-                                    <td><code>x += 2</code></td>
-                                    <td><code>x = x + 2</code></td>
-                                    <td><button onclick="demoAssignment('x += 2')">Попробовать</button></td>
-                                </tr>
-                                <tr>
-                                    <td><code>-=</code></td>
-                                    <td><code>x -= 1</code></td>
-                                    <td><code>x = x - 1</code></td>
-                                    <td><button onclick="demoAssignment('x -= 1')">Попробовать</button></td>
-                                </tr>
-                                <tr>
-                                    <td><code>*=</code></td>
-                                    <td><code>x *= 3</code></td>
-                                    <td><code>x = x * 3</code></td>
-                                    <td><button onclick="demoAssignment('x *= 3')">Попробовать</button></td>
-                                </tr>
-                                <tr>
-                                    <td><code>/=</code></td>
-                                    <td><code>x /= 2</code></td>
-                                    <td><code>x = x / 2</code></td>
-                                    <td><button onclick="demoAssignment('x /= 2')">Попробовать</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
+          <div class="code-block">
+            <h4>Пример с приоритетами операций:</h4>
+            <pre><code>// Без скобок
+let result1 = 5 + 2 * 3;     // 11 (умножение выполняется первым)
+let result2 = 10 - 2 ** 2;   // 6 (степень имеет приоритет)
 
-                        <div class="note-block">
-                            <h3>Особенности:</h3>
-                            <ul class="list-ul">
-                                <li>
-                                    Присваивание возвращает значение (
-                                    <code>a = b = c = 5</code>
-                                    )
-                                </li>
-                                <li>Составные операторы выполняют операцию и присваивание</li>
-                                <li>Можно использовать с любыми бинарными операторами</li>
-                            </ul>
-                        </div>
+// Со скобками
+let result3 = (5 + 2) * 3;   // 21 (скобки меняют порядок)
+let result4 = (10 - 2) ** 2; // 64 (скобки меняют порядок)
 
-                        <h3>Цепочка присваиваний:</h3>
-                        <pre><code>let a, b, c;
-a = b = c = 5; // все переменные получат значение 5</code></pre>
-                        <button onclick="demoChainAssignment()" class="demo-button">Проверить цепочку</button>
-                        <div id="chain-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px"></div>
-                    </div>
-                </section>
+console.log(result1, result2, result3, result4); // 11, 6, 21, 64</code></pre>
+          </div>
 
-                <!-- Другие операторы -->
-                <section class="section" id="operators-other">
-                    <div class="container">
-                        <h2>Другие операторы</h2>
+          <div class="note-block">
+            <h3>✅ Совет: Используйте унарный плюс для преобразования в число</h3>
+            <div class="code-block">
+              <pre><code>let str = "10";
+let num = +str; // 10 (преобразуется в число)
 
-                        <div class="grid-column-100">
-                            <div>
-                                <h3>Инкремент/декремент</h3>
-                                <p class="note">Изменяют значение переменной на 1:</p>
-                                <table class="table-note">
-                                    <tr>
-                                        <th>Форма</th>
-                                        <th>Оператор</th>
-                                        <th>Пример</th>
-                                        <th>Демо</th>
-                                    </tr>
-                                    <tr>
-                                        <td>Префиксная</td>
-                                        <td>
-                                            <code>++x</code>
-                                            ,
-                                            <code>--x</code>
-                                        </td>
-                                        <td><code>let x = 1; alert(++x); // 2</code></td>
-                                        <td><button onclick="demoIncrement('prefix')">Попробовать</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Постфиксная</td>
-                                        <td>
-                                            <code>x++</code>
-                                            ,
-                                            <code>x--</code>
-                                        </td>
-                                        <td><code>let x = 1; alert(x++); // 1</code></td>
-                                        <td><button onclick="demoIncrement('postfix')">Попробовать</button></td>
-                                    </tr>
-                                </table>
-                            </div>
-
-                            <div>
-                                <h3>Оператор запятая</h3>
-                                <p class="note">Вычисляет несколько выражений, возвращая последнее:</p>
-                                <pre><code>let x = (1 + 1, 2 + 2); // x = 4</code></pre>
-                                <button onclick="demoComma()" class="demo-button">Попробовать</button>
-                                <div id="comma-result" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px"></div>
-                            </div>
-                        </div>
-
-                        <div class="note">
-                            <h3>Практические советы:</h3>
-                            <ul class="list-ul">
-                                <li>Используйте скобки для явного указания порядка операций</li>
-                                <li>Избегайте сложных выражений с побочными эффектами</li>
-                                <li>Будьте осторожны с инкрементом в составных выражениях</li>
-                                <li>Используйте составные операторы для краткости кода</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-            </main>
-            @@include('../partials/footer.html', {})
+console.log(typeof str);  // "string"
+console.log(typeof num);  // "number"</code></pre>
+            </div>
+          </div>
         </div>
-        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+      </section>
 
-        <style>
-            .demo-button {
-                padding: 8px 16px;
-                font-size: 14px;
-            }
+      <!-- Операторы присваивания -->
+      <section class="section" id="operators-assignment">
+        <div class="container">
+          <h2>Операторы присваивания</h2>
 
-            button {
-                padding: 4px 8px;
-                font-size: 12px;
-            }
-        </style>
+          <p class="note">
+            <strong>Операторы присваивания</strong> — сохраняют значения в переменные.
+            <br />
+            В JavaScript есть базовый оператор <code>=</code> и составные операторы присваивания.
+          </p>
 
-        <script>
-            // Демонстрация операторов
-            function demoOperator(expr) {
-                try {
-                    const result = eval(expr);
-                    alert(`${expr} = ${result}`);
-                } catch (e) {
-                    alert(`Ошибка: ${e.message}`);
-                }
-            }
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Оператор</th>
+                <th>Название</th>
+                <th>Пример</th>
+                <th>Эквивалент</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>=</code></td>
+                <td>Присваивание</td>
+                <td><code>x = 5</code></td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td><code>+=</code></td>
+                <td>Сложение и присваивание</td>
+                <td><code>x += 2</code></td>
+                <td><code>x = x + 2</code></td>
+              </tr>
+              <tr>
+                <td><code>-=</code></td>
+                <td>Вычитание и присваивание</td>
+                <td><code>x -= 1</code></td>
+                <td><code>x = x - 1</code></td>
+              </tr>
+              <tr>
+                <td><code>*=</code></td>
+                <td>Умножение и присваивание</td>
+                <td><code>x *= 3</code></td>
+                <td><code>x = x * 3</code></td>
+              </tr>
+              <tr>
+                <td><code>/=</code></td>
+                <td>Деление и присваивание</td>
+                <td><code>x /= 2</code></td>
+                <td><code>x = x / 2</code></td>
+              </tr>
+              <tr>
+                <td><code>%=</code></td>
+                <td>Остаток и присваивание</td>
+                <td><code>x %= 5</code></td>
+                <td><code>x = x % 5</code></td>
+              </tr>
+              <tr>
+                <td><code>**=</code></td>
+                <td>Степень и присваивание</td>
+                <td><code>x **= 2</code></td>
+                <td><code>x = x ** 2</code></td>
+              </tr>
+            </tbody>
+          </table>
 
-            // Демонстрация присваивания
-            function demoAssignment(expr) {
-                let x = 0; // начальное значение для демонстрации
-                eval(expr);
-                alert(`После ${expr}, x = ${x}`);
-            }
+          <div class="code-block">
+            <h4>Примеры операторов присваивания:</h4>
+            <pre><code>let x = 10;
 
-            // Демонстрация приоритетов
-            function demoPriority() {
-                const result1 = 5 + 2 * 3;
-                const result2 = (5 + 2) * 3;
-                document.getElementById("priority-result").innerHTML = `
-          <p>5 + 2 * 3 = ${result1} (умножение выполняется первым)</p>
-          <p>(5 + 2) * 3 = ${result2} (скобки меняют порядок)</p>
-        `;
-            }
+// Базовое присваивание
+x = 5; // x = 5
 
-            // Демонстрация цепочки присваиваний
-            function demoChainAssignment() {
-                let a, b, c;
-                a = b = c = 5;
-                document.getElementById("chain-result").innerHTML = `
-          <p>a = ${a}, b = ${b}, c = ${c}</p>
-        `;
-            }
+// Составные операторы
+x += 2; // x = 7 (то же, что x = x + 2)
+x -= 1; // x = 6 (то же, что x = x - 1)
+x *= 2; // x = 12 (то же, что x = x * 2)
+x /= 3; // x = 4 (то же, что x = x / 3)
+x %= 3; // x = 1 (то же, что x = x % 3)
 
-            // Демонстрация инкремента
-            function demoIncrement(type) {
-                let x = 1;
-                let result;
-                if (type === "prefix") {
-                    result = ++x;
-                    alert(`Префиксная форма: ++x = ${result}, x теперь ${x}`);
-                } else {
-                    result = x++;
-                    alert(`Постфиксная форма: x++ = ${result}, x теперь ${x}`);
-                }
-            }
+console.log(x); // 1</code></pre>
+          </div>
 
-            // Демонстрация оператора запятая
-            function demoComma() {
-                const x = (1 + 1, 2 + 2);
-                document.getElementById("comma-result").textContent = `Результат: (1 + 1, 2 + 2) = ${x}`;
-            }
-        </script>
-    </body>
+          <article class="article-block">
+            <h3>Особенности присваивания</h3>
+            <ul class="list-ul">
+              <li>Присваивание возвращает присвоенное значение</li>
+              <li>Можно использовать множественное присваивание: <code>a = b = c = 5</code></li>
+              <li>Составные операторы выполняют операцию и присваивание в одно действие</li>
+              <li>Составные операторы работают с любыми бинарными операторами</li>
+              <li>Присваивание ассоциативно справа налево</li>
+            </ul>
+          </article>
+
+          <div class="code-block">
+            <h4>Цепочка присваиваний:</h4>
+            <pre><code>// Все переменные получат значение 5
+let a, b, c;
+a = b = c = 5;
+
+console.log(a); // 5
+console.log(b); // 5
+console.log(c); // 5
+
+// Выполняется справа налево:
+// 1. c = 5
+// 2. b = (результат: 5)
+// 3. a = (результат: 5)</code></pre>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Совет: Составные операторы для краткости</h3>
+            <div class="code-block">
+              <pre><code>// Менее читаемо
+x = x + 10;
+y = y * 2;
+
+// Более читаемо и кратко
+x += 10;
+y *= 2;</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Инкремент/Декремент -->
+      <section class="section" id="operators-increment">
+        <div class="container">
+          <h2>Операторы инкремента и декремента</h2>
+
+          <p class="note">
+            <strong>Инкремент (++)</strong> увеличивает значение на 1, <strong>декремент (--)</strong> уменьшает на 1.
+            <br />
+            Эти операторы имеют две формы: префиксную и постфиксную.
+          </p>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Форма</th>
+                <th>Оператор</th>
+                <th>Описание</th>
+                <th>Пример</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Префиксный инкремент</td>
+                <td><code>++x</code></td>
+                <td>Увеличивает значение и возвращает новое значение</td>
+                <td><code>let x = 5; let y = ++x; // x = 6, y = 6</code></td>
+              </tr>
+              <tr>
+                <td>Постфиксный инкремент</td>
+                <td><code>x++</code></td>
+                <td>Увеличивает значение и возвращает старое значение</td>
+                <td><code>let x = 5; let y = x++; // x = 6, y = 5</code></td>
+              </tr>
+              <tr>
+                <td>Префиксный декремент</td>
+                <td><code>--x</code></td>
+                <td>Уменьшает значение и возвращает новое значение</td>
+                <td><code>let x = 5; let y = --x; // x = 4, y = 4</code></td>
+              </tr>
+              <tr>
+                <td>Постфиксный декремент</td>
+                <td><code>x--</code></td>
+                <td>Уменьшает значение и возвращает старое значение</td>
+                <td><code>let x = 5; let y = x--; // x = 4, y = 5</code></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="code-block">
+            <h4>Различие между префиксной и постфиксной формой:</h4>
+            <pre><code>// Префиксная форма - возвращает новое значение
+let a = 5;
+let b = ++a;
+console.log(a); // 6
+console.log(b); // 6
+
+// Постфиксная форма - возвращает старое значение
+let c = 5;
+let d = c++;
+console.log(c); // 6
+console.log(d); // 5</code></pre>
+          </div>
+
+          <div class="code-block">
+            <h4>Использование в циклах:</h4>
+            <pre><code>// Инкремент в цикле
+for (let i = 0; i < 5; i++) {
+  console.log(i); // 0, 1, 2, 3, 4
+}
+
+// Декремент в цикле
+for (let i = 5; i > 0; i--) {
+  console.log(i); // 5, 4, 3, 2, 1
+}</code></pre>
+          </div>
+
+          <article class="article-block">
+            <h3>Важные моменты</h3>
+            <ul class="list-ul">
+              <li>Инкремент и декремент работают только с переменными (левое значение)</li>
+              <li>Постфиксная форма менее эффективна (создаёт копию старого значения)</li>
+              <li>В большинстве случаев префиксная форма предпочтительнее</li>
+              <li>В циклах разница между ++i и i++ не имеет значения</li>
+              <li>Используйте += 1 для большей читаемости в некоторых случаях</li>
+            </ul>
+          </article>
+
+          <div class="warning">
+            <h3>⚠️ Избегайте использования в сложных выражениях</h3>
+            <div class="code-block">
+              <pre><code>// Плохо - непредсказуемо
+let x = 5;
+let result = x++ + ++x;
+console.log(result); // 12 (может быть непонятно)
+
+// Лучше - ясно
+let x = 5;
+x++;
+let result = x + x;
+console.log(result); // 12 (понятнее)</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Операторы сравнения -->
+      <section class="section" id="operators-comparison">
+        <div class="container">
+          <h2>Операторы сравнения</h2>
+
+          <p class="note">
+            <strong>Операторы сравнения</strong> — сравнивают два значения и возвращают логический результат (true или false).
+            <br />
+            Часто используются в условиях и циклах.
+          </p>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Оператор</th>
+                <th>Название</th>
+                <th>Описание</th>
+                <th>Пример</th>
+                <th>Результат</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>==</code></td>
+                <td>Равенство</td>
+                <td>С преобразованием типов</td>
+                <td><code>5 == &quot;5&quot;</code></td>
+                <td>true</td>
+              </tr>
+              <tr>
+                <td><code>===</code></td>
+                <td>Строгое равенство</td>
+                <td>Без преобразования типов</td>
+                <td><code>5 === &quot;5&quot;</code></td>
+                <td>false</td>
+              </tr>
+              <tr>
+                <td><code>!=</code></td>
+                <td>Неравенство</td>
+                <td>С преобразованием типов</td>
+                <td><code>5 != &quot;5&quot;</code></td>
+                <td>false</td>
+              </tr>
+              <tr>
+                <td><code>!==</code></td>
+                <td>Строгое неравенство</td>
+                <td>Без преобразования типов</td>
+                <td><code>5 !== &quot;5&quot;</code></td>
+                <td>true</td>
+              </tr>
+              <tr>
+                <td><code>&gt;</code></td>
+                <td>Больше</td>
+                <td>Проверяет больше ли первое значение</td>
+                <td><code>5 &gt; 3</code></td>
+                <td>true</td>
+              </tr>
+              <tr>
+                <td><code>&lt;</code></td>
+                <td>Меньше</td>
+                <td>Проверяет меньше ли первое значение</td>
+                <td><code>5 &lt; 3</code></td>
+                <td>false</td>
+              </tr>
+              <tr>
+                <td><code>&gt;=</code></td>
+                <td>Больше или равно</td>
+                <td>Проверяет больше или равно</td>
+                <td><code>5 &gt;= 5</code></td>
+                <td>true</td>
+              </tr>
+              <tr>
+                <td><code>&lt;=</code></td>
+                <td>Меньше или равно</td>
+                <td>Проверяет меньше или равно</td>
+                <td><code>5 &lt;= 5</code></td>
+                <td>true</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="code-block">
+            <h4>Примеры операторов сравнения:</h4>
+            <pre><code>// Нестрогое равенство (с преобразованием)
+console.log(5 == "5");    // true
+console.log(0 == false);  // true
+console.log(null == undefined); // true
+
+// Строгое равенство (без преобразования)
+console.log(5 === "5");   // false
+console.log(0 === false); // false
+
+// Операторы больше/меньше
+console.log(10 > 5);      // true
+console.log(5 < 10);      // true
+console.log(5 >= 5);      // true
+console.log(5 <= 5);      // true
+
+// Неравенство
+console.log(5 != "5");    // false
+console.log(5 !== "5");   // true</code></pre>
+          </div>
+
+          <article class="article-block">
+            <h3>Важные моменты</h3>
+            <ul class="list-ul">
+              <li>Всегда используйте <code>===</code> и <code>!==</code> для избежания непредсказуемых преобразований</li>
+              <li>Нестрогое равенство <code>==</code> выполняет неявное преобразование типов</li>
+              <li>Сравнение строк происходит лексикографически (по алфавиту)</li>
+              <li>При сравнении чисел со строками, строка преобразуется в число</li>
+              <li><code>null == undefined</code> возвращает true, но <code>null === undefined</code> возвращает false</li>
+            </ul>
+          </article>
+
+          <div class="warning">
+            <h3>⚠️ Опасности нестрогого сравнения</h3>
+            <div class="code-block">
+              <pre><code>// Неожиданные результаты с ==
+console.log("" == 0);        // true
+console.log("0" == 0);       // true
+console.log([] == 0);        // true
+console.log([] == "");       // true
+console.log([] == ![]);      // true (парадокс!)
+
+// Строгое сравнение === работает предсказуемо
+console.log("" === 0);       // false
+console.log("0" === 0);      // false
+console.log([] === 0);       // false</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Лучшие практики -->
+      <section class="section" id="operators-best-practices">
+        <div class="container">
+          <h2>Лучшие практики</h2>
+
+          <div class="note-block">
+            <h3>✅ Всегда используйте === вместо ==</h3>
+            <div class="code-block">
+              <pre><code>// ❌ Плохо
+if (age == "18") {
+  console.log("Совершеннолетний");
+}
+
+// ✅ Хорошо
+if (age === 18) {
+  console.log("Совершеннолетний");
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Используйте скобки для явного порядка операций</h3>
+            <div class="code-block">
+              <pre><code>// Менее читаемо
+let result = a + b * c - d / e;
+
+// Более читаемо
+let result = (a + (b * c)) - (d / e);
+let result = a + (b * c) - (d / e);</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Используйте составные операторы для краткости</h3>
+            <div class="code-block">
+              <pre><code>// Более многословно
+counter = counter + 1;
+price = price * discount;
+
+// Более кратко и понятно
+counter += 1;
+price *= discount;</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Избегайте побочных эффектов в инкременте</h3>
+            <div class="code-block">
+              <pre><code>// Плохо - непредсказуемо
+let array = [1, 2, 3];
+let x = 0;
+array[x++] = x++; // Какой результат?
+
+// Хорошо - ясно
+let array = [1, 2, 3];
+let x = 0;
+array[x] = x + 1;
+x += 2;</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Преобразуйте типы явно для ясности</h3>
+            <div class="code-block">
+              <pre><code>// Неявное преобразование (может быть непонятно)
+let str = "10";
+let num = str * 1; // 10
+
+// Явное преобразование (ясно)
+let str = "10";
+let num = Number(str); // 10
+let num2 = parseInt(str, 10); // 10</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Используйте префиксный инкремент в циклах</h3>
+            <div class="code-block">
+              <pre><code>// Хорошо
+for (let i = 0; i < 10; ++i) {
+  console.log(i);
+}
+
+// Тоже хорошо (в JavaScript разницы нет)
+for (let i = 0; i < 10; i++) {
+  console.log(i);
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Типичные ошибки -->
+      <section class="section" id="operators-mistakes">
+        <div class="container">
+          <h2>Типичные ошибки</h2>
+
+          <div class="warning">
+            <h3>❌ Использование == вместо ===</h3>
+            <div class="code-block">
+              <pre><code>// Ошибка - неожиданный результат
+if (user_age == "18") { // true если age = 18 (число)
+  console.log("Взрослый");
+}
+
+// Правильно
+if (user_age === 18) { // true только если age = 18 (число)
+  console.log("Взрослый");
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Забывают скобки для порядка операций</h3>
+            <div class="code-block">
+              <pre><code>// Ошибка - неправильный результат
+let price = 100;
+let tax = 0.1;
+let discountPercent = 0.2;
+let total = price * (1 - discountPercent) + price * tax; // Правильно
+// Но без скобок была бы ошибка:
+let wrong = price * 1 - discountPercent + price * tax;</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Путают ++i и i++ в составных выражениях</h3>
+            <div class="code-block">
+              <pre><code>// Ошибка - получаются разные значения
+let x = 0;
+let result1 = x++; // result1 = 0, x = 1
+console.log(result1); // 0
+
+let y = 0;
+let result2 = ++y; // result2 = 1, y = 1
+console.log(result2); // 1
+
+// Правильно - явно указывайте намерение
+x++;
+console.log(x);</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Используют инкремент с побочными эффектами</h3>
+            <div class="code-block">
+              <pre><code>// Плохо - непредсказуемо
+let i = 5;
+let arr = [1, 2, 3];
+arr[i++] = i++; // Какой индекс? Какое значение?
+
+// Хорошо - явно
+let i = 5;
+let arr = [1, 2, 3];
+arr[i] = i + 1;
+i++;
+i++;</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Забывают о преобразовании типов</h3>
+            <div class="code-block">
+              <pre><code>// Ошибка - строка остаётся строкой
+let str = "10";
+let result = str + 5; // "105" (конкатенация, не сложение)
+
+// Правильно - явно преобразуйте
+let str = "10";
+let result = Number(str) + 5; // 15</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Используют составные операторы неправильно</h3>
+            <div class="code-block">
+              <pre><code>// Ошибка
+let x = 10;
+x =+ 5; // Это унарный плюс! x = 5, а не 15
+
+// Правильно
+let x = 10;
+x += 5; // x = 15</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Забывают о приоритете операций</h3>
+            <div class="code-block">
+              <pre><code>// Ошибка - неправильный результат
+let result = 2 + 3 * 4; // 14, не 20 (умножение первым)
+
+// Правильно - используйте скобки
+let result = (2 + 3) * 4; // 20</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Итоги -->
+      <section class="section" id="operators-summary">
+        <div class="container">
+          <h2>Итоги</h2>
+
+          <div class="note-block">
+            <h3>Ключевые моменты</h3>
+            <ul class="list-ul">
+              <li>Операторы выполняют операции над значениями (операндами)</li>
+              <li>Арифметические операторы: +, -, *, /, %, **</li>
+              <li>Операторы присваивания: =, +=, -=, *=, /=, %=, **=</li>
+              <li>Инкремент и декремент: ++, -- (префиксные и постфиксные)</li>
+              <li>Операторы сравнения: ==, ===, !=, !==, &gt;, &lt;, &gt;=, &lt;=</li>
+              <li>Приоритет операций влияет на результат вычислений</li>
+            </ul>
+          </div>
+
+          <div class="note-block">
+            <h3>Рекомендации</h3>
+            <ol class="list-ol">
+              <li>✅ Используйте <code>===</code> и <code>!==</code> вместо <code>==</code> и <code>!=</code></li>
+              <li>✅ Используйте скобки для явного указания порядка операций</li>
+              <li>✅ Избегайте побочных эффектов в инкременте/декременте</li>
+              <li>✅ Используйте составные операторы для краткости</li>
+              <li>✅ Преобразуйте типы явно для ясности</li>
+              <li>✅ Помните о приоритете операций</li>
+              <li>❌ Не используйте <code>==</code> для сравнения</li>
+              <li>❌ Не используйте инкремент в сложных выражениях</li>
+            </ol>
+          </div>
+
+          <div class="note-block">
+            <h3>Дополнительно</h3>
+            <p>На следующих страницах мы подробнее рассмотрим:</p>
+            <ul class="list-ul">
+              <li><strong>Операторы сравнения</strong> — детальный разбор всех операторов</li>
+              <li><strong>Логические операторы</strong> — &amp;&amp;, ||, !</li>
+              <li><strong>Нулевое слияние</strong> — ?? и ??=</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+</body>
+
 </html>

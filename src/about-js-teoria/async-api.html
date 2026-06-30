@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "API: основы, примеры и лучшие практики", "description": "Страница с основами и примерами работы с API, типичными ошибками и лучшими практиками использования." })
+
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+
+    <main class="page" id="main" tabindex="-1">
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#intro" class="active">Введение</a>
+        <a href="#concepts">Основные понятия</a>
+        <a href="#fetch">fetch</a>
+        <a href="#json">JSON</a>
+        <a href="#error-handling">Обработка ошибок</a>
+        <a href="#post">POST</a>
+        <a href="#examples">Примеры</a>
+        <a href="#practice">Практика</a>
+        <a href="#tips">Советы</a>
+        <a href="#best-practices">Лучшие практики</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="intro">
+        <div class="container">
+          <h1>Работа с API в JavaScript</h1>
+
+          <p class="note"><strong>API (Application Programming Interface)</strong> — интерфейс, который позволяет программам взаимодействовать друг с другом. Веб‑приложения используют API для получения и отправки данных.</p>
+
+          <p class="note note--info">С помощью встроенной функции <code>fetch</code> в JavaScript можно отправлять HTTP‑запросы и работать с ответами (обычно в формате JSON).</p>
+
+          <h4>Коротко — зачем API</h4>
+          <ul class="list-ul">
+            <li>Интеграция с внешними сервисами (платежи, карты, соцсети).</li>
+            <li>Получение актуальных данных (погода, новости).</li>
+            <li>Отправка форм/данных на сервер.</li>
+            <li>Автоматизация и расширение функциональности без переписывания сервера.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Основные понятия -->
+      <section class="section" id="concepts">
+        <div class="container">
+          <h2>Основные понятия</h2>
+
+          <ul class="list-ul">
+            <li><p class="note"><strong>REST</strong> — распространённый архитектурный стиль для веб‑API.</p></li>
+            <li><p class="note"><strong>Эндпоинт</strong> — URL, по которому доступна определённая функциональность API.</p></li>
+            <li><p class="note"><strong>Request / Response</strong> — запрос к API и ответ от него.</p></li>
+            <li><p class="note"><strong>JSON</strong> — текстовый формат обмена данными (обычно используется в API).</p></li>
+            <li><p class="note"><strong>Токен авторизации</strong> — ключ доступа к защищённым методам API.</p></li>
+            <li><p class="note"><strong>response.ok</strong> — свойство, показывающее успешность HTTP‑ответа (true при статусах 200–299).</p></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- fetch -->
+      <section class="section" id="fetch">
+        <div class="container">
+          <h2><code>fetch</code></h2>
+
+          <p class="note"><strong><code>fetch</code></strong> — встроенная функция для отправки HTTP‑запросов. Возвращает промис с объектом Response.</p>
+
+          <h4>Базовый пример использования</h4>
+          <div class="code-block">
+            <pre><code>fetch("https://api.example.com/data")
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error("Произошла ошибка:", error);
+  });</code></pre>
+
+          </div>
+
+          <p class="note note--info">Важно: <code>fetch</code> не считает HTTP‑статусы (404, 500) ошибками промиса — проверяйте <code>response.ok</code> вручную.</p>
+        </div>
+      </section>
+
+      <!-- JSON -->
+      <section class="section" id="json">
+        <div class="container">
+          <h2><code>JSON</code></h2>
+
+          <p class="note"><strong>JSON (JavaScript Object Notation)</strong> — текстовый формат для обмена данными, который легко преобразуется в объекты JavaScript.</p>
+
+          <h4>Пример JSON</h4>
+          <div class="code-block">
+            <pre><code class="language-json">{
+  "name": "Анна",
+  "age": 25,
+  "skills": ["HTML", "CSS", "JavaScript"]
+}</code></pre>
+
+          </div>
+
+          <h4>Как работать с JSON и fetch</h4>
+          <div class="code-block">
+            <pre><code>fetch("https://jsonplaceholder.typicode.com/users/1")
+  .then(response =&gt; {
+    if (!response.ok) throw new Error("HTTP error " + response.status);
+    return response.json();
+  })
+  .then(data =&gt; {
+    console.log(`Имя: ${data.name}, Email: ${data.email}`);
+  })
+  .catch(err =&gt; {
+    console.error("Ошибка:", err.message);
+  });</code></pre>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Обработка ошибок -->
+      <section class="section" id="error-handling">
+        <div class="container">
+          <h2>Обработка ошибок</h2>
+
+          <p class="note">Правильная обработка ошибок делает интеграции надёжными: проверяйте статус ответа, ловите исключения и показывайте пользователю понятные сообщения.</p>
+
+          <h4>Пример: проверка response.ok</h4>
+          <div class="code-block">
+            <pre><code>fetch("https://jsonplaceholder.typicode.com/invalid-url")
+  .then(response =&gt; {
+    if (!response.ok) {
+      throw new Error("Ошибка: " + response.status);
+    }
+    return response.json();
+  })
+  .then(data =&gt; console.log(data))
+  .catch(err =&gt; console.error("Произошла ошибка:", err.message));</code></pre>
+
+          </div>
+
+          <p class="note note--info">Используйте try/catch с async/await для более прямолинейной обработки ошибок внутри async‑функций.</p>
+        </div>
+      </section>
+
+      <!-- POST -->
+      <section class="section" id="post">
+        <div class="container">
+          <h2>Отправка данных: POST</h2>
+
+          <p class="note"><strong>POST</strong> используется для отправки данных на сервер. Обычно данные отправляют в формате JSON и указывают заголовок <code>Content-Type: application/json</code>.</p>
+
+          <h4>Пример POST</h4>
+          <div class="code-block">
+            <pre><code>fetch("https://jsonplaceholder.typicode.com/posts", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    title: "Новый пост",
+    body: "Это содержимое поста",
+    userId: 1
+  })
+})
+  .then(response =&gt; {
+    if (!response.ok) throw new Error("Ошибка: " + response.status);
+    return response.json();
+  })
+  .then(data =&gt; console.log("Успешно отправлено:", data))
+  .catch(err =&gt; console.error("Ошибка:", err.message));</code></pre>
+
+          </div>
+
+          <p class="note note--info">Не забывайте сериализовать объект в JSON с помощью <code>JSON.stringify()</code> перед отправкой в body.</p>
+        </div>
+      </section>
+
+      <!-- Примеры -->
+      <section class="section" id="examples">
+        <div class="container">
+          <h2>Примеры</h2>
+
+          <p class="note">Ниже — компактные рабочие примеры с публичным тестовым API jsonplaceholder.typicode.com.</p>
+
+          <div>
+            <h4>Пример: Получение списка товаров (GET)</h4>
+            <div class="code-block">
+              <pre><code>fetch("https://api.example.com/products")
+  .then(r =&gt; { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(data =&gt; console.log(data))
+  .catch(err =&gt; console.error("Ошибка:", err.message));</code></pre>
+
+            </div>
+          </div>
+
+          <div>
+            <h4>Пример: Получение текущей погоды (GET)</h4>
+            <div class="code-block">
+              <pre><code>fetch("https://api.weather.com/current?city=Moscow")
+  .then(r =&gt; { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(data =&gt; console.log(`Температура: ${data.temp}°C`))
+  .catch(err =&gt; console.error("Ошибка:", err.message));</code></pre>
+
+            </div>
+          </div>
+
+          <div>
+            <h4>Пример: Отправка отзыва (POST)</h4>
+            <div class="code-block">
+              <pre><code>fetch("https://jsonplaceholder.typicode.com/feedback", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ message: "Отличный сервис!" })
+})
+  .then(r =&gt; r.json())
+  .then(data =&gt; console.log("Ответ сервера:", data))
+  .catch(err =&gt; console.error("Ошибка:", err.message));</code></pre>
+
+            </div>
+          </div>
+
+          <div>
+            <h4>Пример: Удаление пользователя (DELETE)</h4>
+            <div class="code-block">
+              <pre><code>fetch("https://jsonplaceholder.typicode.com/user/123", { method: "DELETE" })
+  .then(r =&gt; {
+    if (r.ok) console.log("Пользователь удален");
+    else throw new Error("Ошибка удаления");
+  })
+  .catch(err =&gt; console.error("Ошибка:", err.message));</code></pre>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Практика -->
+      <section class="section" id="practice">
+        <div class="container">
+          <h2>Практика</h2>
+
+          <p class="note">Интерактивные демо используют публичный тестовый API <a target="_blank" rel="noopener" href="https://jsonplaceholder.typicode.com/">jsonplaceholder.typicode.com</a>.</p>
+
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <div class="interactive-demo" aria-hidden="false" style="min-width:280px;">
+              <h3>Получить пользователя по ID</h3>
+              <label for="userIdDemo">ID (1–10)</label>
+              <input id="userIdDemo" type="number" min="1" max="10" placeholder="1" />
+              <button class="demo-btn" data-demo="getUser">Показать пользователя</button>
+              <div class="demo-result" id="userDemoResult" aria-live="polite"></div>
+            </div>
+
+            <div class="interactive-demo" style="min-width:280px;">
+              <h3>Список всех пользователей</h3>
+              <button class="demo-btn" data-demo="getUsers">Показать всех</button>
+              <div class="demo-result" id="usersDemoResult" aria-live="polite"></div>
+            </div>
+
+            <div class="interactive-demo" style="min-width:280px;">
+              <h3>Посты пользователя</h3>
+              <label for="userPostsIdDemo">ID (1–10)</label>
+              <input id="userPostsIdDemo" type="number" min="1" max="10" placeholder="1" />
+              <button class="demo-btn" data-demo="getUserPosts">Показать посты</button>
+              <div class="demo-result" id="userPostsDemoResult" aria-live="polite"></div>
+            </div>
+          </div>
+
+          <p class="note note--info">Демо безопасны: выполняются только GET‑запросы к публичному API и не меняют реальные данные.</p>
+        </div>
+      </section>
+
+      <!-- Советы -->
+      <section class="section" id="tips">
+        <div class="container">
+          <h2>Советы и типичные ошибки</h2>
+
+          <p class="note"><strong>fetch</strong> возвращает промис — обрабатывайте результат через <code>.then</code> или <code>async/await</code>.</p>
+          <p class="note">Проверяйте <code>response.ok</code> — HTTP‑статус 404/500 не вызовет отклонение промиса сам по себе.</p>
+          <p class="note"><strong>JSON</strong> — текст: используйте <code>response.json()</code> и ловите ошибки парсинга.</p>
+          <p class="note">Для защищённых API храните токены в переменных окружения и никогда не коммитьте их в репозиторий.</p>
+
+          <div class="note note--info"><strong>Частая ошибка</strong> — неверный заголовок <code>Content-Type</code> или забытый токен, из‑за чего сервер возвращает 401/403.</div>
+        </div>
+      </section>
+
+      <!-- Лучшие практики -->
+      <section class="section" id="best-practices">
+        <div class="container">
+          <h2>Лучшие практики</h2>
+
+          <p class="note">Храните ключи и токены в безопасном месте (переменные окружения), логируйте ошибки и документируйте API для команды.</p>
+          <p class="note">Используйте <code>AbortController</code> для отмены долгих запросов и таймаутов; применяйте <code>Promise.allSettled</code>, если нужны результаты всех задач.</p>
+        </div>
+      </section>
+    </main>
+
+    @@include('../partials/footer.html', {})
+  </div>
+
+  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+
+  <style>
+
+    .code-block { position: relative; margin: 12px 0; }
+    .demo-box { margin: 8px 0; }
+    .demo-result { margin-top: 8px; white-space: pre-wrap; }
+    .skip-link { position: absolute; left: -999px; }
+    .skip-link:focus { left: 8px; top: 8px; background:#000; color:#fff; padding:8px 12px; z-index:1000; }
+  </style>
+
+  <script>
+    // Copy buttons: делегирование
+    document.addEventListener('click', (e) => {
+      const copyBtn = e.target.closest('.copy-btn');
+      if (copyBtn) {
+        const codeEl = copyBtn.previousElementSibling?.querySelector('pre code') || copyBtn.closest('.code-block')?.querySelector('pre code');
+        if (!codeEl) return;
+        const text = codeEl.innerText;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(() => {
+            const old = copyBtn.textContent;
+            copyBtn.textContent = 'Скопировано';
+            setTimeout(() => copyBtn.textContent = old, 1400);
+          });
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); } catch (err) {}
+          ta.remove();
+        }
+      }
+    });
+
+    // Demo functions (use jsonplaceholder)
+    async function fetchJson(url) {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    }
+
+    async function demoGetUser() {
+      const id = Number(document.getElementById('userIdDemo').value);
+      const out = document.getElementById('userDemoResult');
+      if (!id || id < 1 || id > 10) {
+        out.textContent = 'Введите ID от 1 до 10.';
+        return;
+      }
+      out.textContent = 'Загружаем...';
+      try {
+        const data = await fetchJson(`https://jsonplaceholder.typicode.com/users/${id}`);
+        out.innerHTML = `<b>Имя:</b> ${data.name}<br><b>Email:</b> ${data.email}<br><b>Город:</b> ${data.address.city}`;
+      } catch (err) {
+        out.textContent = 'Ошибка запроса: ' + err.message;
+      }
+    }
+
+    async function demoGetUsers() {
+      const out = document.getElementById('usersDemoResult');
+      out.textContent = 'Загружаем...';
+      try {
+        const data = await fetchJson('https://jsonplaceholder.typicode.com/users');
+        out.innerHTML = '<b>Пользователи:</b><br>' + data.map(u => `${u.id}: ${u.name} (${u.email})`).join('<br>');
+      } catch (err) {
+        out.textContent = 'Ошибка запроса: ' + err.message;
+      }
+    }
+
+    async function demoGetUserPosts() {
+      const id = Number(document.getElementById('userPostsIdDemo').value);
+      const out = document.getElementById('userPostsDemoResult');
+      if (!id || id < 1 || id > 10) {
+        out.textContent = 'Введите ID от 1 до 10.';
+        return;
+      }
+      out.textContent = 'Загружаем...';
+      try {
+        const posts = await fetchJson(`https://jsonplaceholder.typicode.com/posts?userId=${id}`);
+        if (!posts.length) { out.innerHTML = 'Посты не найдены.'; return; }
+        out.innerHTML = '<b>Посты пользователя:</b><br>' + posts.map(p => `<b>${p.title}</b><br>${p.body}`).join('<hr>');
+      } catch (err) {
+        out.textContent = 'Ошибка запроса: ' + err.message;
+      }
+    }
+
+  </script>
+</body>
+</html>

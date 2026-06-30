@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../partials/head.html', { "title": "Try Catch Finally в JavaScript", "description": "Подробный разбор обработки ошибок с помощью try, catch, finally и Error объектов в JavaScript." })
+
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+
+            <main class="page">
+                <nav class="nav-tabs" id="page-nav">
+                    <a href="#intro" class="active">Введение</a>
+                    <a href="#try-catch">Try Catch</a>
+                    <a href="#finally">Finally</a>
+                    <a href="#error-types">Типы ошибок</a>
+                    <a href="#throw">Throw</a>
+                    <a href="#examples">Примеры</a>
+                    <a href="#pitfalls">Ловушки</a>
+                    <a href="#practice">Практика</a>
+                </nav>
+
+                <!-- ВВЕДЕНИЕ -->
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>Обработка ошибок: Try Catch Finally</h1>
+
+                        <p class="note">
+                            <strong>Try Catch Finally</strong> — это механизм обработки ошибок (исключений) в JavaScript. Позволяет перехватывать ошибки, обрабатывать их и продолжать выполнение программы без её краха.
+                        </p>
+
+                        <article class="article-block">
+                            <h3>Основные конструкции</h3>
+                            <ul class="list-ul">
+                                <li><strong>try</strong> — блок кода, где могут возникнуть ошибки</li>
+                                <li><strong>catch</strong> — блок обработки ошибок, если они произойдут</li>
+                                <li><strong>finally</strong> — блок кода, который выполнится в любом случае</li>
+                                <li><strong>throw</strong> — оператор для генерации ошибок вручную</li>
+                            </ul>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- TRY CATCH -->
+                <section class="section" id="try-catch">
+                    <div class="container">
+                        <h2>Try Catch: перехват ошибок</h2>
+
+                        <p class="note">
+                            <strong>Try блок</strong> содержит код, который может вызвать ошибку. <strong>Catch блок</strong> выполняется, если в try возникнет ошибка.
+                        </p>
+
+                        <h4>Синтаксис:</h4>
+                        <div class="code-block">
+                            <pre><code>try {
+  // Код, который может вызвать ошибку
+  riskyOperation();
+} catch (error) {
+  // Код обработки ошибки
+  console.log("Ошибка перехвачена:", error.message);
+}</code></pre>
+                        </div>
+
+                        <h4>Примеры Try Catch:</h4>
+                        <div class="code-block">
+                            <pre><code>// Пример 1: Перехват ошибки доступа к свойству
+try {
+  const obj = null;
+  console.log(obj.property); // Ошибка!
+} catch (error) {
+  console.log("Поймана ошибка:", error.message);
+  // Вывод: "Поймана ошибка: Cannot read property 'property' of null"
+}
+
+// Пример 2: Перехват ошибки парсинга JSON
+try {
+  const json = "{invalid json}";
+  const data = JSON.parse(json); // Ошибка!
+} catch (error) {
+  console.log("JSON не валиден:", error.message);
+  // Вывод: "JSON не валиден: Unexpected token i in JSON at position 1"
+}
+
+// Пример 3: Продолжение выполнения после ошибки
+try {
+  const result = JSON.parse('{"name": "John"}');
+  console.log("Успешно:", result);
+} catch (error) {
+  console.log("Ошибка парсинга");
+}
+console.log("Программа продолжает работу"); // Выполнится в любом случае</code></pre>
+                        </div>
+
+                        <article class="article-block">
+                            <h3>Объект Error</h3>
+                            <div class="code-block">
+                                <pre><code>try {
+  // Генерируем ошибку
+  throw new Error("Что-то пошло не так!");
+} catch (error) {
+  // Свойства объекта ошибки
+  console.log("Сообщение:", error.message);   // "Что-то пошло не так!"
+  console.log("Тип:", error.name);            // "Error"
+  console.log("Stack trace:", error.stack);   // Полная информация об ошибке
+}</code></pre>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- FINALLY -->
+                <section class="section" id="finally">
+                    <div class="container">
+                        <h2>Finally: код выполняется всегда</h2>
+
+                        <p class="note">
+                            <strong>Finally блок</strong> выполняется независимо от того, произошла ошибка или нет. Используется для очистки ресурсов.
+                        </p>
+
+                        <h4>Синтаксис:</h4>
+                        <div class="code-block">
+                            <pre><code>try {
+  // Рискованный код
+} catch (error) {
+  // Обработка ошибки
+} finally {
+  // Выполнится в любом случае
+}</code></pre>
+                        </div>
+
+                        <h4>Примеры Finally:</h4>
+                        <div class="code-block">
+                            <pre><code>// Пример 1: Закрытие ресурсов
+let resource;
+try {
+  console.log("1. Открываем ресурс");
+  resource = "открыт";
+  throw new Error("Ошибка при работе");
+} catch (error) {
+  console.log("2. Обработка ошибки:", error.message);
+} finally {
+  console.log("3. Закрываем ресурс:", resource);
+}
+// Вывод:
+// 1. Открываем ресурс
+// 2. Обработка ошибки: Ошибка при работе
+// 3. Закрываем ресурс: открыт
+
+// Пример 2: Логирование
+try {
+  const result = 10 / 2;
+  console.log("Результат:", result);
+} finally {
+  console.log("Операция завершена");
+}
+// Вывод:
+// Результат: 5
+// Операция завершена
+
+// Пример 3: Try без catch (но с finally)
+try {
+  console.log("Выполнение кода");
+} finally {
+  console.log("Очистка ресурсов");
+}
+
+// Пример 4: Return в try и finally
+function test() {
+  try {
+    console.log("В try");
+    return "результат из try";
+  } finally {
+    console.log("В finally"); // Выполнится ДО return
+  }
+}
+
+console.log(test());
+// Вывод:
+// В try
+// В finally
+// результат из try</code></pre>
+                        </div>
+
+                        <div class="note-block">
+                            <h3>Когда использовать finally</h3>
+                            <ul class="list-ul">
+                                <li>Закрытие файлов и соединений с БД</li>
+                                <li>Освобождение памяти и ресурсов</li>
+                                <li>Логирование и отслеживание</li>
+                                <li>Очистка глобального состояния</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ТИПЫ ОШИБОК -->
+                <section class="section" id="error-types">
+                    <div class="container">
+                        <h2>Типы ошибок в JavaScript</h2>
+
+                        <p class="note">
+                            JavaScript имеет встроенные типы ошибок для разных ситуаций. Каждый тип расширяет базовый класс <code>Error</code>.
+                        </p>
+
+                        <table class="table-note">
+                            <thead>
+                                <tr>
+                                    <th>Тип ошибки</th>
+                                    <th>Описание</th>
+                                    <th>Пример</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>Error</code></td>
+                                    <td>Базовый тип ошибки</td>
+                                    <td><code>throw new Error("Ошибка")</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>SyntaxError</code></td>
+                                    <td>Ошибка синтаксиса</td>
+                                    <td><code>eval("!!!")</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>TypeError</code></td>
+                                    <td>Ошибка типа</td>
+                                    <td><code>null.method()</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>ReferenceError</code></td>
+                                    <td>Ошибка ссылки на переменную</td>
+                                    <td><code>console.log(undefinedVar)</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>RangeError</code></td>
+                                    <td>Ошибка диапазона</td>
+                                    <td><code>new Array(-1)</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>URIError</code></td>
+                                    <td>Ошибка URI функции</td>
+                                    <td><code>decodeURIComponent("%")</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4>Перехват различных типов ошибок:</h4>
+                        <div class="code-block">
+                            <pre><code>try {
+  // Какая-то операция
+  riskyFunction();
+} catch (error) {
+  if (error instanceof TypeError) {
+    console.log("Ошибка типа:", error.message);
+  } else if (error instanceof ReferenceError) {
+    console.log("Ошибка ссылки:", error.message);
+  } else if (error instanceof Error) {
+    console.log("Неизвестная ошибка:", error.message);
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- THROW -->
+                <section class="section" id="throw">
+                    <div class="container">
+                        <h2>Оператор throw: генерация ошибок</h2>
+
+                        <p class="note">
+                            <strong>Throw</strong> генерирует ошибку вручную. Используется для создания пользовательских ошибок и валидации.
+                        </p>
+
+                        <h4>Синтаксис:</h4>
+                        <div class="code-block">
+                            <pre><code>throw new Error("Описание ошибки");
+throw new TypeError("Неправильный тип");
+throw "Просто строка"; // Можно бросить что угодно</code></pre>
+                        </div>
+
+                        <h4>Примеры throw:</h4>
+                        <div class="code-block">
+                            <pre><code>// Пример 1: Валидация параметров
+function divide(a, b) {
+  if (typeof a !== "number" || typeof b !== "number") {
+    throw new TypeError("Оба параметра должны быть числами");
+  }
+  if (b === 0) {
+    throw new Error("Деление на ноль невозможно");
+  }
+  return a / b;
+}
+
+try {
+  console.log(divide(10, 2));    // 5
+  console.log(divide(10, 0));    // Ошибка!
+} catch (error) {
+  console.log("Ошибка:", error.message);
+}
+
+// Пример 2: Пользовательский класс ошибки
+class ValidationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "ValidationError";
+  }
+}
+
+function validateAge(age) {
+  if (age < 0 || age > 120) {
+    throw new ValidationError("Возраст должен быть между 0 и 120");
+  }
+  return true;
+}
+
+try {
+  validateAge(-5);
+} catch (error) {
+  if (error instanceof ValidationError) {
+    console.log("Ошибка валидации:", error.message);
+  }
+}
+
+// Пример 3: Цепочка обработки
+function processData(data) {
+  try {
+    if (!data) {
+      throw new Error("Данные не предоставлены");
+    }
+    const parsed = JSON.parse(data);
+    if (!parsed.name) {
+      throw new Error("Поле 'name' не найдено");
+    }
+    return parsed;
+  } catch (error) {
+    console.log("Ошибка обработки:", error.message);
+    throw error; // Пробрасываем ошибку дальше
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ПРАКТИЧЕСКИЕ ПРИМЕРЫ -->
+                <section class="section" id="examples">
+                    <div class="container">
+                        <h2>Практические примеры</h2>
+
+                        <article class="article-block">
+                            <h3>Пример 1: Безопасный парсинг JSON</h3>
+                            <div class="code-block">
+                                <pre><code>function parseJSON(jsonString) {
+  try {
+    const data = JSON.parse(jsonString);
+    return { success: true, data };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+}
+
+console.log(parseJSON('{"name": "John"}'));
+// { success: true, data: { name: 'John' } }
+
+console.log(parseJSON("invalid"));
+// { success: false, error: "Unexpected token i in JSON at position 0" }</code></pre>
+                            </div>
+                        </article>
+
+                        <article class="article-block">
+                            <h3>Пример 2: Валидация форм</h3>
+                            <div class="code-block">
+                                <pre><code>function validateForm(formData) {
+  const errors = [];
+
+  try {
+    if (!formData.email) {
+      throw new Error("Email обязателен");
+    }
+    if (!formData.email.includes("@")) {
+      throw new Error("Email невалиден");
+    }
+    if (!formData.password || formData.password.length &lt; 8) {
+      throw new Error("Пароль должен быть не менее 8 символов");
+    }
+    return { valid: true };
+  } catch (error) {
+    errors.push(error.message);
+    return { valid: false, errors };
+  }
+}
+
+const result = validateForm({ email: "test", password: "123" });
+console.log(result);</code></pre>
+                            </div>
+                        </article>
+
+                        <article class="article-block">
+                            <h3>Пример 3: Работа с асинхронным кодом</h3>
+                            <div class="code-block">
+                                <pre><code>// async/await с try-catch
+async function fetchUserData(userId) {
+  let userData;
+  try {
+    console.log("Загружаем данные...");
+    const response = await fetch(`/api/users/${userId}`);
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    userData = await response.json();
+    return userData;
+  } catch (error) {
+    console.log("Ошибка при загрузке:", error.message);
+    return null;
+  } finally {
+    console.log("Загрузка завершена");
+  }
+}</code></pre>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- ЛОВУШКИ -->
+                <section class="section" id="pitfalls">
+                    <div class="container">
+                        <h2>Ловушки и рекомендации</h2>
+
+                        <div class="warning">
+                            <h3>⚠️ Основные ловушки</h3>
+                            <ul class="list-ul">
+                                <li><strong>Пустой catch блок</strong> — скрывает ошибки. Всегда логируйте или обрабатывайте ошибку</li>
+                                <li><strong>Catch перехватывает ВСЕ ошибки</strong> — включая ошибки в коде самого catch блока</li>
+                                <li><strong>Try-catch не ловит асинхронные ошибки</strong> — используйте async/await или .catch()</li>
+                                <li><strong>Finally с return</strong> — finally выполняется перед return, но может переопределить значение</li>
+                                <li><strong>Производительность</strong> — try-catch добавляет небольшой оверхед, не используйте для управления потоком</li>
+                            </ul>
+                        </div>
+
+                        <div class="note-block">
+                            <h3>✅ Лучшие практики</h3>
+                            <ul class="list-ul">
+                                <li>Обрабатывайте ошибки конкретным образом, не игнорируйте их</li>
+                                <li>Используйте специфические типы ошибок (TypeError, ValidationError и т.д.)</li>
+                                <li>Логируйте ошибки для отладки и мониторинга</li>
+                                <li>Используйте finally для очистки ресурсов</li>
+                                <li>Для асинхронного кода используйте async/await с try-catch</li>
+                                <li>Не используйте try-catch для управления потоком выполнения</li>
+                                <li>Пробрасывайте ошибки вверх, если не знаете, как их обработать</li>
+                            </ul>
+                        </div>
+
+                        <h4>Плохо: пустой catch блок</h4>
+                        <div class="code-block">
+                            <pre><code>// ❌ Плохо - ошибка скрыта
+try {
+  riskyOperation();
+} catch (error) {
+  // Ничего не делаем - ошибка потеряна!
+}</code></pre>
+                        </div>
+
+                        <h4>Хорошо: обработка ошибки</h4>
+                        <div class="code-block">
+                            <pre><code>// ✅ Хорошо - ошибка обработана
+try {
+  riskyOperation();
+} catch (error) {
+  console.error("Произошла ошибка:", error);
+  // Или отправить на сервер логирования
+  logErrorToServer(error);
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ПРАКТИКА -->
+                <section class="section" id="practice">
+                    <div class="container">
+                        <h2>Интерактивные примеры</h2>
+
+                        <p class="note">Нажмите кнопку для выполнения примера кода.</p>
+
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;">
+                            <button class="practice-btn" data-code="tryCatchBasic" style="padding: 8px 12px; font-size: 13px;">Try-Catch базовый</button>
+                            <button class="practice-btn" data-code="finallyExample" style="padding: 8px 12px; font-size: 13px;">Finally пример</button>
+                            <button class="practice-btn" data-code="throwExample" style="padding: 8px 12px; font-size: 13px;">Throw пример</button>
+                            <button class="practice-btn" data-code="errorTypes" style="padding: 8px 12px; font-size: 13px;">Типы ошибок</button>
+                            <button class="practice-btn" data-code="parseJSON" style="padding: 8px 12px; font-size: 13px;">JSON парсинг</button>
+                        </div>
+
+                        <h4>Результат:</h4>
+                        <div class="code-block">
+                            <pre><code id="output-result">// Результат выполнения кода появится здесь</code></pre>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            @@include('../partials/footer.html', {})
+        </div>
+
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+
+        <script>
+            // Примеры кода
+            const examples = {
+                tryCatchBasic: function() {
+                    const output = [];
+                    try {
+                        output.push("1. В блоке try");
+                        const result = JSON.parse('{"valid": "json"}');
+                        output.push("2. Парсинг успешен: " + JSON.stringify(result));
+                    } catch (error) {
+                        output.push("3. Поймана ошибка: " + error.message);
+                    }
+                    output.push("4. Программа продолжает работу");
+                    return output.join('\n');
+                },
+                finallyExample: function() {
+                    const output = [];
+                    try {
+                        output.push("1. Начало операции");
+                        output.push("2. Операция выполнена");
+                    } finally {
+                        output.push("3. Finally: очистка ресурсов");
+                    }
+                    output.push("4. После всего");
+                    return output.join('\n');
+                },
+                throwExample: function() {
+                    const output = [];
+                    function divide(a, b) {
+                        if (b === 0) {
+                            throw new Error("Деление на ноль!");
+                        }
+                        return a / b;
+                    }
+
+                    try {
+                        output.push("Результат 10 / 2 = " + divide(10, 2));
+                        output.push("Результат 10 / 0 = " + divide(10, 0));
+                    } catch (error) {
+                        output.push("Перехвачена ошибка: " + error.message);
+                    }
+                    return output.join('\n');
+                },
+                errorTypes: function() {
+                    const output = [];
+
+                    try {
+                        throw new TypeError("Это ошибка типа");
+                    } catch (error) {
+                        output.push("Тип: " + error.constructor.name);
+                        output.push("Сообщение: " + error.message);
+                    }
+
+                    try {
+                        throw new RangeError("Это ошибка диапазона");
+                    } catch (error) {
+                        output.push("Тип: " + error.constructor.name);
+                        output.push("Сообщение: " + error.message);
+                    }
+
+                    return output.join('\n');
+                },
+                parseJSON: function() {
+                    const output = [];
+
+                    function parseJSON(str) {
+                        try {
+                            return { success: true, data: JSON.parse(str) };
+                        } catch (error) {
+                            return { success: false, error: error.message };
+                        }
+                    }
+
+                    const result1 = parseJSON('{"name": "John"}');
+                    output.push("Валидный JSON: успех=" + result1.success);
+
+                    const result2 = parseJSON('invalid json');
+                    output.push("Невалидный JSON: успех=" + result2.success);
+                    output.push("Ошибка: " + result2.error);
+
+                    return output.join('\n');
+                }
+            };
+
+            // Обработчик кнопок
+            document.addEventListener('click', (e) => {
+                const btn = e.target.closest('[data-code]');
+                if (!btn) return;
+
+                const code = btn.getAttribute('data-code');
+                const example = examples[code];
+
+                if (example) {
+                    try {
+                        const result = example();
+                        document.getElementById('output-result').textContent = result;
+                    } catch (err) {
+                        document.getElementById('output-result').textContent = `Ошибка: ${err.message}`;
+                    }
+                }
+            });
+
+            // Подсветка активной секции при скролле
+            (function initSectionHighlight() {
+                const nav = document.getElementById("page-nav");
+                if (!nav) return;
+
+                const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
+                const map = new Map(links.map((a) => [a.getAttribute("href").slice(1), a]));
+
+                const observer = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                links.forEach((l) => l.classList.remove("active"));
+                                const link = map.get(entry.target.id);
+                                if (link) link.classList.add("active");
+                            }
+                        });
+                    },
+                    {
+                        root: null,
+                        rootMargin: "0px 0px -65% 0px",
+                        threshold: 0
+                    }
+                );
+
+                document.querySelectorAll(".section").forEach((sec) => observer.observe(sec));
+            })();
+
+            // Плавная прокрутка
+            document.getElementById("page-nav")?.addEventListener("click", (e) => {
+                const a = e.target.closest('a[href^="#"]');
+                if (!a) return;
+                e.preventDefault();
+                const id = a.getAttribute("href").slice(1);
+                const target = document.getElementById(id);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>

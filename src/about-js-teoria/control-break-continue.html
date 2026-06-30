@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../partials/head.html', { "title": "Break и Continue в JavaScript", "description": "Подробный разбор операторов break и continue для управления циклами в JavaScript." })
+
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+
+            <main class="page">
+                <nav class="nav-tabs" id="page-nav">
+                    <a href="#intro" class="active">Введение</a>
+                    <a href="#break">Break</a>
+                    <a href="#continue">Continue</a>
+                    <a href="#labeled-statements">Помеченные операторы</a>
+                    <a href="#examples">Практические примеры</a>
+                    <a href="#pitfalls">Ловушки</a>
+                    <a href="#practice">Тренажёр</a>
+                </nav>
+
+                <!-- ВВЕДЕНИЕ -->
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>Break и Continue в управлении циклами</h1>
+
+                        <p class="note">
+                            <strong>Break и Continue</strong> — это операторы для управления ходом выполнения циклов. Они позволяют прерывать цикл или пропускать текущую итерацию без использования сложных условий.
+                        </p>
+
+                        <article class="article-block">
+                            <h3>Основные операторы управления циклами</h3>
+                            <ul class="list-ul">
+                                <li><strong>break</strong> — полностью прерывает цикл и выходит из него</li>
+                                <li><strong>continue</strong> — пропускает текущую итерацию и переходит к следующей</li>
+                                <li><strong>Помеченные операторы</strong> — расширенные версии break/continue для вложенных циклов</li>
+                            </ul>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- BREAK -->
+                <section class="section" id="break">
+                    <div class="container">
+                        <h2>Оператор break</h2>
+
+                        <p class="note">
+                            <strong>Break</strong> полностью прерывает цикл и передаёт управление на следующий оператор после цикла.
+                        </p>
+
+                        <h4>Синтаксис:</h4>
+                        <div class="code-block">
+                            <pre><code>for (let i = 0; i < 10; i++) {
+  if (condition) {
+    break; // Выход из цикла
+  }
+}</code></pre>
+                        </div>
+
+                        <h4>Примеры break:</h4>
+                        <div class="code-block">
+                            <pre><code>// Пример 1: Поиск в массиве
+const numbers = [2, 4, 6, 8, 7, 10];
+for (let i = 0; i &lt; numbers.length; i++) {
+  if (numbers[i] % 2 !== 0) {
+    console.log("Найдено нечётное число:", numbers[i]);
+    break; // Выход сразу после нахождения
+  }
+}
+// Вывод: "Найдено нечётное число: 7"
+
+// Пример 2: Выход при условии
+let sum = 0;
+for (let i = 1; i &lt;= 100; i++) {
+  sum += i;
+  if (sum > 1000) {
+    console.log("Сумма превышает 1000:", sum);
+    break;
+  }
+}
+
+// Пример 3: Break в while цикле
+let input = "";
+while (true) {
+  input = prompt("Введите 'выход' для выхода:");
+  if (input === "выход") {
+    break; // Выход из бесконечного цикла
+  }
+  console.log("Вы ввели:", input);
+}</code></pre>
+                        </div>
+
+                        <article class="article-block">
+                            <h3>Когда использовать break</h3>
+                            <ul class="list-ul">
+                                <li>Поиск элемента в массиве или коллекции</li>
+                                <li>Выход при достижении определённого условия</li>
+                                <li>Преждевременное завершение дорогостоящей операции</li>
+                                <li>Управление бесконечными циклами</li>
+                            </ul>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- CONTINUE -->
+                <section class="section" id="continue">
+                    <div class="container">
+                        <h2>Оператор continue</h2>
+
+                        <p class="note">
+                            <strong>Continue</strong> пропускает текущую итерацию и переходит к следующей. Полезен для пропуска нежелательных значений.
+                        </p>
+
+                        <h4>Синтаксис:</h4>
+                        <div class="code-block">
+                            <pre><code>for (let i = 0; i < 10; i++) {
+  if (condition) {
+    continue; // Переход к следующей итерации
+  }
+  // Код здесь пропустится при условии
+}</code></pre>
+                        </div>
+
+                        <h4>Примеры continue:</h4>
+                        <div class="code-block">
+                            <pre><code>// Пример 1: Пропуск чётных чисел
+for (let i = 1; i &lt;= 10; i++) {
+  if (i % 2 === 0) {
+    continue; // Пропускаем чётные
+  }
+  console.log("Нечётное число:", i);
+}
+// Вывод: 1, 3, 5, 7, 9
+
+// Пример 2: Пропуск определённых элементов массива
+const items = ["яблоко", "банан", "", "апельсин", null, "груша"];
+for (let i = 0; i &lt; items.length; i++) {
+  if (!items[i]) {
+    continue; // Пропускаем пустые значения
+  }
+  console.log("Фрукт:", items[i]);
+}
+// Вывод: яблоко, банан, апельсин, груша
+
+// Пример 3: Пропуск элементов при фильтрации
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+let sum = 0;
+for (let num of numbers) {
+  if (num &lt; 5) {
+    continue; // Пропускаем числа меньше 5
+  }
+  sum += num;
+}
+console.log("Сумма чисел &gt;= 5:", sum); // 40</code></pre>
+                        </div>
+
+                        <article class="article-block">
+                            <h3>Когда использовать continue</h3>
+                            <ul class="list-ul">
+                                <li>Пропуск нежелательных или ��екорректных значений</li>
+                                <li>Фильтрация данных во время итерации</li>
+                                <li>Упрощение логики без вложенных if</li>
+                                <li>Пропуск пустых, null или undefined значений</li>
+                            </ul>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- ПОМЕЧЕННЫЕ ОПЕРАТОРЫ -->
+                <section class="section" id="labeled-statements">
+                    <div class="container">
+                        <h2>Помеченные операторы (Labeled Statements)</h2>
+
+                        <p class="note">
+                            <strong>Помеченные операторы</strong> позволяют использовать break и continue с вложенными циклами, прерывая или пропуская внешний цикл.
+                        </p>
+
+                        <h4>Синтаксис:</h4>
+                        <div class="code-block">
+                            <pre><code>labelName: {
+  // код
+  break labelName; // выход из помеченного блока
+}
+
+outerLoop: for (let i = 0; i &lt; 10; i++) {
+  for (let j = 0; j &lt; 10; j++) {
+    if (condition) {
+      break outerLoop; // выход из внешнего цикла
+    }
+  }
+}</code></pre>
+                        </div>
+
+                        <h4>Примеры помеченных операторов:</h4>
+                        <div class="code-block">
+                            <pre><code>// Пример 1: Break из вложенного цикла
+outerLoop: for (let i = 0; i &lt; 3; i++) {
+  for (let j = 0; j &lt; 3; j++) {
+    if (i === 1 && j === 1) {
+      console.log("Выход из обоих циклов при i=1, j=1");
+      break outerLoop;
+    }
+    console.log(`i=${i}, j=${j}`);
+  }
+}
+
+// Пример 2: Continue во внешнем цикле
+outerLoop: for (let i = 0; i &lt; 3; i++) {
+  for (let j = 0; j &lt; 3; j++) {
+    if (j === 1) {
+      console.log(`Переход к i=${i + 1} при j=1`);
+      continue outerLoop;
+    }
+    console.log(`i=${i}, j=${j}`);
+  }
+}
+
+// Пример 3: Поиск в матрице
+const matrix = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9]
+];
+
+search: for (let i = 0; i &lt; matrix.length; i++) {
+  for (let j = 0; j &lt; matrix[i].length; j++) {
+    if (matrix[i][j] === 5) {
+      console.log("Найдено число 5 в позиции:", i, j);
+      break search; // Выход из обоих циклов
+    }
+  }
+}</code></pre>
+                        </div>
+
+                        <div class="note-block">
+                            <h3>Когда использовать помеченные операторы</h3>
+                            <ul class="list-ul">
+                                <li>Выход из вложенных циклов при определённом условии</li>
+                                <li>Поиск значения в многомерных массивах</li>
+                                <li>Управление сложной логикой циклов</li>
+                            </ul>
+                        </div>
+
+                        <div class="warning">
+                            <h3>⚠️ Рекомендация: избегайте помеченных операторов</h3>
+                            <p>Помеченные операторы считаются устаревшей практикой. Предпочитайте:</p>
+                            <ul class="list-ul">
+                                <li>Рефакторинг в отдельную функцию с return</li>
+                                <li>Использование метода <code>find()</code> или <code>findIndex()</code></li>
+                                <li>Использование <code>some()</code> или <code>every()</code></li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ПРАКТИЧЕСКИЕ ПРИМЕРЫ -->
+                <section class="section" id="examples">
+                    <div class="container">
+                        <h2>Практические примеры</h2>
+
+                        <article class="article-block">
+                            <h3>Пример 1: Валидация входных данных</h3>
+                            <div class="code-block">
+                                <pre><code>function validatePassword(password) {
+  const requirements = [
+    password.length &gt;= 8,
+    /[A-Z]/.test(password), // Заглавная буква
+    /[a-z]/.test(password), // Строчная буква
+    /[0-9]/.test(password)  // Цифра
+  ];
+
+  for (let i = 0; i &lt; requirements.length; i++) {
+    if (!requirements[i]) {
+      console.log("Требование", i + 1, "не выполнено");
+      break;
+    }
+  }
+
+  console.log("Пароль валиден!");
+}</code></pre>
+                            </div>
+                        </article>
+
+                        <article class="article-block">
+                            <h3>Пример 2: Фильтрация данных во время цикла</h3>
+                            <div class="code-block">
+                                <pre><code>const orders = [
+  { id: 1, status: "pending" },
+  { id: 2, status: "completed" },
+  { id: 3, status: "cancelled" },
+  { id: 4, status: "completed" }
+];
+
+console.log("Завершённые заказы:");
+for (let order of orders) {
+  if (order.status !== "completed") {
+    continue;
+  }
+  console.log("Заказ", order.id);
+}</code></pre>
+                            </div>
+                        </article>
+
+                        <article class="article-block">
+                            <h3>Пример 3: Современный способ (рекомендуется)</h3>
+                            <div class="code-block">
+                                <pre><code>// Вместо break используйте find()
+const users = [
+  { id: 1, name: "Alice", role: "admin" },
+  { id: 2, name: "Bob", role: "user" },
+  { id: 3, name: "Charlie", role: "user" }
+];
+
+const admin = users.find(user => user.role === "admin");
+console.log("Администратор:", admin.name);
+
+// Вместо continue используйте filter()
+const regularUsers = users.filter(user => user.role !== "admin");
+console.log("Обычные пользователи:", regularUsers.length);</code></pre>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- ЛОВУШКИ -->
+                <section class="section" id="pitfalls">
+                    <div class="container">
+                        <h2>Ловушки и рекомендации</h2>
+
+                        <div class="warning">
+                            <h3>⚠️ Основные ловушки</h3>
+                            <ul class="list-ul">
+                                <li><strong>Break выходит только из текущего цикла</strong> — для вложенных циклов нужны помеченные операторы или рефакторинг</li>
+                                <li><strong>Continue не работает со switch</strong> — используйте break вместо continue в switch</li>
+                                <li><strong>Бесконечные циклы</strong> — убедитесь, что есть условие для break</li>
+                                <li><strong>Сложная логика</strong> — множество break/continue усложняет читаемость</li>
+                            </ul>
+                        </div>
+
+                        <div class="note-block">
+                            <h3>✅ Лучшие практики</h3>
+                            <ul class="list-ul">
+                                <li>Используйте break/continue для простых случаев</li>
+                                <li>Для сложных операций предпочитайте методы массивов: <code>find()</code>, <code>filter()</code>, <code>some()</code></li>
+                                <li>Рефакторьте сложные циклы в отдельные функции с return</li>
+                                <li>Избегайте помеченных операторов — используйте современные подходы</li>
+                                <li>Комментируйте причину использования break/continue</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ПРАКТИКА -->
+                <section class="section" id="practice">
+                    <div class="container">
+                        <h2>Интерактивные примеры</h2>
+
+                        <p class="note">Нажмите кнопку для просмотра результата выполнения кода.</p>
+
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;">
+                            <button class="practice-btn" data-code="breakExample1" style="padding: 8px 12px; font-size: 13px;">Break: поиск</button>
+                            <button class="practice-btn" data-code="continueExample1" style="padding: 8px 12px; font-size: 13px;">Continue: нечётные</button>
+                            <button class="practice-btn" data-code="continueExample2" style="padding: 8px 12px; font-size: 13px;">Continue: фильтр</button>
+                            <button class="practice-btn" data-code="nestedLoop" style="padding: 8px 12px; font-size: 13px;">Вложенный цикл</button>
+                        </div>
+
+                        <h4>Результат:</h4>
+                        <div class="code-block">
+                            <pre><code id="output-result">// Результат выполнения кода появится здесь</code></pre>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            @@include('../partials/footer.html', {})
+        </div>
+
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+
+        <script>
+            // Примеры кода
+            const examples = {
+                breakExample1: function() {
+                    const output = [];
+                    const numbers = [2, 4, 6, 8, 7, 10];
+                    for (let i = 0; i < numbers.length; i++) {
+                        if (numbers[i] % 2 !== 0) {
+                            output.push(`Найдено нечётное число: ${numbers[i]}`);
+                            break;
+                        }
+                    }
+                    return output.join('\n') || 'Нечётных чисел не найдено';
+                },
+                continueExample1: function() {
+                    const output = [];
+                    for (let i = 1; i <= 10; i++) {
+                        if (i % 2 === 0) continue;
+                        output.push(i);
+                    }
+                    return 'Нечётные числа: ' + output.join(', ');
+                },
+                continueExample2: function() {
+                    const output = [];
+                    const items = ["яблоко", "банан", "", "апельсин", null, "груша"];
+                    for (let i = 0; i < items.length; i++) {
+                        if (!items[i]) continue;
+                        output.push(items[i]);
+                    }
+                    return 'Фрукты: ' + output.join(', ');
+                },
+                nestedLoop: function() {
+                    const output = [];
+                    outerLoop: for (let i = 0; i < 3; i++) {
+                        for (let j = 0; j < 3; j++) {
+                            if (i === 1 && j === 1) {
+                                output.push('Выход при i=1, j=1');
+                                break outerLoop;
+                            }
+                            output.push(`i=${i}, j=${j}`);
+                        }
+                    }
+                    return output.join('\n');
+                }
+            };
+
+            // Обработчик кнопок
+            document.addEventListener('click', (e) => {
+                const btn = e.target.closest('[data-code]');
+                if (!btn) return;
+
+                const code = btn.getAttribute('data-code');
+                const example = examples[code];
+
+                if (example) {
+                    try {
+                        const result = example();
+                        document.getElementById('output-result').textContent = result;
+                    } catch (err) {
+                        document.getElementById('output-result').textContent = `Ошибка: ${err.message}`;
+                    }
+                }
+            });
+
+            // Подсветка активной секции при скролле
+            (function initSectionHighlight() {
+                const nav = document.getElementById("page-nav");
+                if (!nav) return;
+
+                const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
+                const map = new Map(links.map((a) => [a.getAttribute("href").slice(1), a]));
+
+                const observer = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                links.forEach((l) => l.classList.remove("active"));
+                                const link = map.get(entry.target.id);
+                                if (link) link.classList.add("active");
+                            }
+                        });
+                    },
+                    {
+                        root: null,
+                        rootMargin: "0px 0px -65% 0px",
+                        threshold: 0
+                    }
+                );
+
+                document.querySelectorAll(".section").forEach((sec) => observer.observe(sec));
+            })();
+
+            // Плавная прокрутка
+            document.getElementById("page-nav")?.addEventListener("click", (e) => {
+                const a = e.target.closest('a[href^="#"]');
+                if (!a) return;
+                e.preventDefault();
+                const id = a.getAttribute("href").slice(1);
+                const target = document.getElementById(id);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>

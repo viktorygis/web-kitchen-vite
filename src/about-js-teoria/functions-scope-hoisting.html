@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="ru">
+    @@include('../partials/head.html', { "title": "Scope и Hoisting в JavaScript", "description": "Подробный разбор областей видимости (scope), hoisting переменных и функций, var/let/const в JavaScript." })
+
+    <body>
+        <div class="wrapper">
+            @@include('../partials/header.html', {})
+
+            <main class="page">
+                <nav class="nav-tabs" id="page-nav">
+                    <a href="#intro" class="active">Введение</a>
+                    <a href="#global-scope">Global Scope</a>
+                    <a href="#function-scope">Function Scope</a>
+                    <a href="#block-scope">Block Scope</a>
+                    <a href="#lexical-scope">Lexical Scope</a>
+                    <a href="#hoisting">Hoisting</a>
+                    <a href="#var-let-const">Var, Let, Const</a>
+                    <a href="#examples">Примеры</a>
+                    <a href="#pitfalls">Ловушки</a>
+                    <a href="#practice">Практика</a>
+                </nav>
+
+                <!-- ВВЕДЕНИЕ -->
+                <section class="section" id="intro">
+                    <div class="container">
+                        <h1>Scope и Hoisting в JavaScript</h1>
+
+                        <p class="note">
+                            <strong>Scope (область видимости)</strong> определяет, где в коде можно получить доступ к переменной. <strong>Hoisting (поднятие)</strong> — это механизм, при котором объявления переменных и функций перемещаются в начало области видимости перед выполнением кода.
+                        </p>
+
+                        <article class="article-block">
+                            <h3>Основные концепции</h3>
+                            <ul class="list-ul">
+                                <li><strong>Global Scope</strong> — переменные, доступные везде</li>
+                                <li><strong>Function Scope</strong> — переменные, видимые только внутри функции</li>
+                                <li><strong>Block Scope</strong> — переменные, видимые только в блоке (let, const)</li>
+                                <li><strong>Lexical Scope</strong> — вложенные функции имеют доступ к внешним переменным</li>
+                                <li><strong>Hoisting</strong> — объявления поднимаются в начало scope</li>
+                                <li><strong>Temporal Dead Zone (TDZ)</strong> — период до инициализации переменной</li>
+                            </ul>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- GLOBAL SCOPE -->
+                <section class="section" id="global-scope">
+                    <div class="container">
+                        <h2>Global Scope: глобальная область видимости</h2>
+
+                        <p class="note">
+                            <strong>Global Scope</strong> — это область видимости верхнего уровня. Переменные, объявленные в global scope, доступны везде в коде.
+                        </p>
+
+                        <h4>Примеры Global Scope:</h4>
+                        <div class="code-block">
+                            <pre><code>// Глобальная переменная
+let globalVar = "Я глобальная";
+
+function test() {
+  console.log(globalVar); // "Я глобальная" - доступна в функции
+}
+
+{
+  console.log(globalVar); // "Я глобальная" - доступна в блоке
+}
+
+// Пример 2: Переменная без let/const/var (плохая практика)
+// ❌ Плохо - создаёт глобальную переменную
+function badFunction() {
+  badGlobal = "Я глобальная, но объявлена неправильно";
+}
+
+// Пример 3: В браузере глобальные переменные становятся свойствами window
+let browserGlobal = "значение";
+console.log(window.browserGlobal); // "значение"
+
+// Пример 4: Использование глобальных переменных в разных функциях
+let counter = 0;
+
+function increment() {
+  counter++;
+}
+
+function decrement() {
+  counter--;
+}
+
+function getCounter() {
+  return counter;
+}
+
+increment();
+increment();
+console.log(getCounter()); // 2</code></pre>
+                        </div>
+
+                        <div class="warning">
+                            <h3>⚠️ Избегайте глобальных переменных</h3>
+                            <ul class="list-ul">
+                                <li>Глобальные переменные загрязняют namespace</li>
+                                <li>Сложно отследить, где переменная изменяется</li>
+                                <li>Конфликты имён в больших проектах</li>
+                                <li>Используйте локальные переменные и модули</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FUNCTION SCOPE -->
+                <section class="section" id="function-scope">
+                    <div class="container">
+                        <h2>Function Scope: область видимости функции</h2>
+
+                        <p class="note">
+                            <strong>Function Scope</strong> — переменные, объявленные внутри функции, видны только в этой функции. При использовании <code>var</code> создаётся function scope.
+                        </p>
+
+                        <h4>Примеры Function Scope:</h4>
+                        <div class="code-block">
+                            <pre><code>// Пример 1: var создаёт function scope
+function myFunction() {
+  var functionScoped = "видна только в функции";
+
+  console.log(functionScoped); // "видна только в функции"
+}
+
+console.log(functionScoped); // ReferenceError: functionScoped is not defined
+
+// Пример 2: Каждая функция имеет свой scope
+function first() {
+  var x = 1;
+}
+
+function second() {
+  var x = 2;
+  console.log(x); // 2
+}
+
+first();
+second();
+console.log(x); // ReferenceError
+
+// Пример 3: Параметры функции видны только в функции
+function greet(name) {
+  console.log("Привет, " + name);
+}
+
+greet("Alice");
+console.log(name); // ReferenceError
+
+// Пример 4: var внутри блока всё ещё видна в функции
+function varExample() {
+  if (true) {
+    var x = 10;
+  }
+  console.log(x); // 10 (var не создаёт block scope!)
+}
+
+varExample();
+
+// Пример 5: Вложенные функции
+function outer() {
+  var outerVar = "внешняя";
+
+  function inner() {
+    var innerVar = "внутренняя";
+    console.log(outerVar); // "внешняя" - видна!
+    console.log(innerVar); // "внутренняя"
+  }
+
+  inner();
+  console.log(innerVar); // ReferenceError
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- BLOCK SCOPE -->
+                <section class="section" id="block-scope">
+                    <div class="container">
+                        <h2>Block Scope: область видимости блока</h2>
+
+                        <p class="note">
+                            <strong>Block Scope</strong> — переменные, объявленные с <code>let</code> и <code>const</code>, видны только в блоке (фигурные скобки). Это отличие от <code>var</code>, который создаёт function scope.
+                        </p>
+
+                        <h4>Примеры Block Scope:</h4>
+                        <div class="code-block">
+                            <pre><code>// Пример 1: let создаёт block scope
+{
+  let blockScoped = "видна только в блоке";
+  const also = "тоже видна только в блоке";
+
+  console.log(blockScoped); // "видна только в блоке"
+}
+
+console.log(blockScoped); // ReferenceError
+
+// Пример 2: Блоки в циклах
+for (let i = 0; i &lt; 3; i++) {
+  console.log(i); // 0, 1, 2
+}
+
+console.log(i); // ReferenceError - i не видна снаружи
+
+// Для сравнения с var:
+for (var j = 0; j &lt; 3; j++) {
+  console.log(j); // 0, 1, 2
+}
+
+console.log(j); // 3 - j видна снаружи!
+
+// Пример 3: let в условиях
+if (true) {
+  let x = 10;
+  const y = 20;
+  console.log(x, y); // 10, 20
+}
+
+console.log(x); // ReferenceError
+console.log(y); // ReferenceError
+
+// Пример 4: Каждая итерация цикла имеет свой scope (с let)
+const callbacks = [];
+
+for (let i = 0; i &lt; 3; i++) {
+  callbacks.push(() => console.log(i));
+}
+
+callbacks[0](); // 0
+callbacks[1](); // 1
+callbacks[2](); // 2
+
+// С var результат был бы другим:
+const callbacks2 = [];
+
+for (var k = 0; k &lt; 3; k++) {
+  callbacks2.push(() => console.log(k));
+}
+
+callbacks2[0](); // 3
+callbacks2[1](); // 3
+callbacks2[2](); // 3</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- LEXICAL SCOPE -->
+                <section class="section" id="lexical-scope">
+                    <div class="container">
+                        <h2>Lexical Scope: лексическая область видимости</h2>
+
+                        <p class="note">
+                            <strong>Lexical Scope</strong> — это способность вложенных функций получать доступ к переменным из внешней функции. Определяется в момент написания кода, а не выполнения.
+                        </p>
+
+                        <h4>Примеры Lexical Scope:</h4>
+                        <div class="code-block">
+                            <pre><code>// Пример 1: Вложенная функция видит внешние переменные
+function outer() {
+  let outerVar = "внешняя";
+
+  function inner() {
+    console.log(outerVar); // "внешняя"
+  }
+
+  inner();
+}
+
+outer();
+
+// Пример 2: Цепочка scope
+function level1() {
+  let var1 = "уровень 1";
+
+  function level2() {
+    let var2 = "уровень 2";
+
+    function level3() {
+      let var3 = "уровень 3";
+
+      console.log(var1); // "уровень 1"
+      console.log(var2); // "уровень 2"
+      console.log(var3); // "уровень 3"
+    }
+
+    level3();
+  }
+
+  level2();
+}
+
+level1();
+
+// Пример 3: Изменение внешней переменной
+function counter() {
+  let count = 0;
+
+  return function() {
+    count++;
+    console.log(count);
+  };
+}
+
+const increment = counter();
+increment(); // 1
+increment(); // 2
+increment(); // 3
+
+// Пример 4: Параметры функции видны во вложенных функциях
+function outer2(param) {
+  function inner2() {
+    console.log(param); // видна!
+  }
+
+  inner2();
+}
+
+outer2("значение"); // "значение"
+
+// Пример 5: Shadowing - переопределение переменной
+let x = "глобальная";
+
+function test() {
+  let x = "локальная"; // Shadowing!
+
+  function inner() {
+    console.log(x); // "локальная" (используется ближайшая переменная)
+  }
+
+  inner();
+}
+
+test();
+console.log(x); // "глобальная"</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- HOISTING -->
+                <section class="section" id="hoisting">
+                    <div class="container">
+                        <h2>Hoisting: поднятие объявлений</h2>
+
+                        <p class="note">
+                            <strong>Hoisting</strong> — это процесс, при котором объявления переменных и функций перемещаются в начало scope перед выполнением кода. Однако инициализация остаётся на месте.
+                        </p>
+
+                        <h4>Hoisting с var:</h4>
+                        <div class="code-block">
+                            <pre><code>// Код, как мы его пишем:
+console.log(x);
+var x = 5;
+console.log(x);
+
+// Как JavaScript интерпретирует (примерно):
+var x;           // Объявление поднято
+console.log(x);  // undefined (объявлена, но не инициализирована)
+x = 5;           // Инициализация на месте
+console.log(x);  // 5
+
+// Пример 2: Функции поднимаются полностью
+sayHello(); // "Привет!" - работает!
+
+function sayHello() {
+  console.log("Привет!");
+}
+
+// Пример 3: Переменные после return
+function test() {
+  console.log(x); // undefined
+
+  if (false) {
+    var x = 10;
+  }
+
+  console.log(x); // undefined
+}
+
+test();</code></pre>
+                        </div>
+
+                        <h4>Hoisting с let и const:</h4>
+                        <div class="code-block">
+                            <pre><code>// Пример 1: let не поднимается в начало выполнения
+console.log(y); // ReferenceError: Cannot access 'y' before initialization
+
+let y = 5;
+
+// Пример 2: Temporal Dead Zone (TDZ)
+function testTDZ() {
+  // TDZ начинается здесь
+  console.log(z); // ReferenceError
+
+  let z = 10; // TDZ заканчивается здесь
+}
+
+// Пример 3: const также имеет TDZ
+console.log(const1); // ReferenceError
+
+const const1 = "значение";</code></pre>
+                        </div>
+
+                        <article class="article-block">
+                            <h3>Различия в Hoisting</h3>
+                            <table class="table-note">
+                                <thead>
+                                    <tr>
+                                        <th>var</th>
+                                        <th>let / const</th>
+                                        <th>Function</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Поднимается и инициализируется как undefined</td>
+                                        <td>Поднимается, но не инициализируется (TDZ)</td>
+                                        <td>Полностью поднимается</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Можно использовать до объявления (будет undefined)</td>
+                                        <td>ReferenceError если использовать до объявления</td>
+                                        <td>Можно вызывать до объявления</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Function scope</td>
+                                        <td>Block scope</td>
+                                        <td>Не применимо</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- VAR, LET, CONST -->
+                <section class="section" id="var-let-const">
+                    <div class="container">
+                        <h2>Var, Let, Const: разница и выбор</h2>
+
+                        <p class="note">
+                            <strong>Var, Let и Const</strong> — это три способа объявления переменных в JavaScript. Современный стандарт рекомендует использовать <code>let</code> и <code>const</code>.
+                        </p>
+
+                        <table class="table-note">
+                            <thead>
+                                <tr>
+                                    <th>Характеристика</th>
+                                    <th>var</th>
+                                    <th>let</th>
+                                    <th>const</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Scope</td>
+                                    <td>Function scope</td>
+                                    <td>Block scope</td>
+                                    <td>Block scope</td>
+                                </tr>
+                                <tr>
+                                    <td>Hoisting</td>
+                                    <td>Поднимается (undefined)</td>
+                                    <td>Поднимается (TDZ)</td>
+                                    <td>Поднимается (TDZ)</td>
+                                </tr>
+                                <tr>
+                                    <td>Переопределение</td>
+                                    <td>Да</td>
+                                    <td>Да</td>
+                                    <td>Нет</td>
+                                </tr>
+                                <tr>
+                                    <td>Изменение значения</td>
+                                    <td>Да</td>
+                                    <td>Да</td>
+                                    <td>Нет</td>
+                                </tr>
+                                <tr>
+                                    <td>Глобальная переменная (browser)</td>
+                                    <td>window.x</td>
+                                    <td>нет</td>
+                                    <td>нет</td>
+                                </tr>
+                                <tr>
+                                    <td>Рекомендация</td>
+                                    <td>❌ Не используйте</td>
+                                    <td>✅ По умолчанию</td>
+                                    <td>✅ Для констант</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4>Примеры сравнения:</h4>
+                        <div class="code-block">
+                            <pre><code>// Пример 1: Block scope
+{
+  var a = 1;
+  let b = 2;
+  const c = 3;
+}
+
+console.log(a);     // 1 (видна)
+console.log(b);     // ReferenceError
+console.log(c);     // ReferenceError
+
+// Пример 2: Переопределение
+var x = 1;
+var x = 2; // OK
+
+let y = 1;
+let y = 2; // SyntaxError
+
+const z = 1;
+const z = 2; // SyntaxError
+
+// Пример 3: Изменение значения
+var v1 = 1;
+v1 = 2; // OK
+
+let v2 = 1;
+v2 = 2; // OK
+
+const v3 = 1;
+v3 = 2; // TypeError
+
+// Пример 4: const с объектами
+const obj = { name: "Alice" };
+obj.name = "Bob"; // OK - изменение свойства
+// obj = {}; // TypeError - переопределение переменной
+
+// Пример 5: Рекомендуемый стиль
+const name = "Alice";        // Константа
+let age = 25;                // Переменная
+let email = "alice@mail.com";
+
+// Избегайте:
+// var oldStyle = "не используйте";</code></pre>
+                        </div>
+
+                        <div class="note-block">
+                            <h3>✅ Рекомендации по выбору</h3>
+                            <ul class="list-ul">
+                                <li>Используйте <code>const</code> по умолчанию для всего</li>
+                                <li>Используйте <code>let</code>, если переменная будет изменяться</li>
+                                <li>Избегайте <code>var</code> — это устаревший синтаксис</li>
+                                <li>Const не запрещает изменение свойств объекта, только переопределение переменной</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ПРИМЕРЫ -->
+                <section class="section" id="examples">
+                    <div class="container">
+                        <h2>Практические примеры</h2>
+
+                        <article class="article-block">
+                            <h3>Пример 1: Closure с сохранением состояния</h3>
+                            <div class="code-block">
+                                <pre><code>function createBank(initialBalance) {
+  let balance = initialBalance; // Сохраняется в closure
+
+  return {
+    deposit: function(amount) {
+      balance += amount;
+      return balance;
+    },
+    withdraw: function(amount) {
+      balance -= amount;
+      return balance;
+    },
+    getBalance: function() {
+      return balance;
+    }
+  };
+}
+
+const myBank = createBank(1000);
+console.log(myBank.deposit(500));   // 1500
+console.log(myBank.withdraw(200));  // 1300
+console.log(myBank.getBalance());   // 1300</code></pre>
+                            </div>
+                        </article>
+
+                        <article class="article-block">
+                            <h3>Пример 2: Проблема с var в цикле</h3>
+                            <div class="code-block">
+                                <pre><code>// Проблема с var
+const callbacks1 = [];
+for (var i = 0; i &lt; 3; i++) {
+  callbacks1.push(function() {
+    console.log(i);
+  });
+}
+callbacks1[0](); // 3 (неожиданно!)
+callbacks1[1](); // 3
+callbacks1[2](); // 3
+
+// Решение 1: Использовать let
+const callbacks2 = [];
+for (let i = 0; i &lt; 3; i++) {
+  callbacks2.push(function() {
+    console.log(i);
+  });
+}
+callbacks2[0](); // 0
+callbacks2[1](); // 1
+callbacks2[2](); // 2
+
+// Решение 2: IIFE с var (старый способ)
+const callbacks3 = [];
+for (var i = 0; i &lt; 3; i++) {
+  callbacks3.push((function(j) {
+    return function() {
+      console.log(j);
+    };
+  })(i));
+}
+callbacks3[0](); // 0
+callbacks3[1](); // 1
+callbacks3[2](); // 2</code></pre>
+                            </div>
+                        </article>
+
+                        <article class="article-block">
+                            <h3>Пример 3: Hoisting функций</h3>
+                            <div class="code-block">
+                                <pre><code>// Функции поднимаются полностью
+console.log(add(2, 3)); // 5
+
+function add(a, b) {
+  return a + b;
+}
+
+// Function expression НЕ поднимается
+console.log(multiply(2, 3)); // TypeError: multiply is not a function
+
+var multiply = function(a, b) {
+  return a * b;
+};
+
+// С let/const ещё хуже (TDZ)
+console.log(divide(10, 2)); // ReferenceError
+
+const divide = function(a, b) {
+  return a / b;
+};</code></pre>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- ЛОВУШКИ -->
+                <section class="section" id="pitfalls">
+                    <div class="container">
+                        <h2>Ловушки и рекомендации</h2>
+
+                        <div class="warning">
+                            <h3>⚠️ Основные ловушки</h3>
+                            <ul class="list-ul">
+                                <li><strong>Hoisting var</strong> — переменная доступна, но равна undefined</li>
+                                <li><strong>Function scope var</strong> — может привести к непредсказуемому поведению в циклах</li>
+                                <li><strong>Shadowing</strong> — переопределение переменной во вложенном scope</li>
+                                <li><strong>Забывчивость const/let</strong> — ReferenceError вместо undefined</li>
+                                <li><strong>TDZ (Temporal Dead Zone)</strong> — переменная поднята, но недоступна</li>
+                                <li><strong>Глобальные переменные</strong> — загрязняют namespace</li>
+                            </ul>
+                        </div>
+
+                        <div class="note-block">
+                            <h3>✅ Лучшие практики</h3>
+                            <ul class="list-ul">
+                                <li>Используйте <code>const</code> и <code>let</code>, забудьте про <code>var</code></li>
+                                <li>Объявляйте переменные в начале блока, где они нужны</li>
+                                <li>Избегайте глобальных переменных — используйте модули</li>
+                                <li>Понимайте разницу между block scope и function scope</li>
+                                <li>Используйте closures для инкапсуляции данных</li>
+                                <li>Будьте осторожны с hoisting — особенно при использовании var</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ПРАКТИКА -->
+                <section class="section" id="practice">
+                    <div class="container">
+                        <h2>Интерактивные примеры</h2>
+
+                        <p class="note">Нажмите кнопку для просмотра результата.</p>
+
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;">
+                            <button class="practice-btn" data-code="blockScope" style="padding: 8px 12px; font-size: 13px;">Block Scope</button>
+                            <button class="practice-btn" data-code="hoistingVar" style="padding: 8px 12px; font-size: 13px;">Hoisting var</button>
+                            <button class="practice-btn" data-code="hoistingLet" style="padding: 8px 12px; font-size: 13px;">Hoisting let (TDZ)</button>
+                            <button class="practice-btn" data-code="closure" style="padding: 8px 12px; font-size: 13px;">Closure пример</button>
+                            <button class="practice-btn" data-code="loopScope" style="padding: 8px 12px; font-size: 13px;">Цикл: var vs let</button>
+                        </div>
+
+                        <h4>Результат:</h4>
+                        <div class="code-block">
+                            <pre><code id="output-result">// Результат выполнения кода появится здесь</code></pre>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            @@include('../partials/footer.html', {})
+        </div>
+
+        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+
+        <script>
+            // Примеры кода
+            const examples = {
+                blockScope: function() {
+                    const output = [];
+
+                    {
+                        let blockVar = "видна только в блоке";
+                        output.push("Внутри блока: " + blockVar);
+                    }
+
+                    try {
+                        output.push("Снаружи блока: " + blockVar);
+                    } catch (e) {
+                        output.push("Снаружи блока: ReferenceError - " + e.message);
+                    }
+
+                    return output.join('\n');
+                },
+                hoistingVar: function() {
+                    const output = [];
+
+                    // Симуляция hoisting
+                    output.push("// Как мы пишем:");
+                    output.push("console.log(x);");
+                    output.push("var x = 5;");
+                    output.push("");
+                    output.push("// Как JavaScript интерпретирует:");
+                    output.push("var x;           // поднято");
+                    output.push("console.log(x);  // undefined");
+                    output.push("x = 5;");
+                    output.push("// Результат: undefined");
+
+                    return output.join('\n');
+                },
+                hoistingLet: function() {
+                    const output = [];
+
+                    output.push("// с let возникает Temporal Dead Zone");
+                    output.push("// Попытка использовать до объявления:");
+                    output.push("");
+
+                    try {
+                        eval("console.log(y); let y = 5;");
+                    } catch (e) {
+                        output.push("ReferenceError: " + e.message);
+                    }
+
+                    output.push("");
+                    output.push("// После объявления работает нормально:");
+                    output.push("let y = 5;");
+                    output.push("console.log(y); // 5");
+
+                    return output.join('\n');
+                },
+                closure: function() {
+                    const output = [];
+
+                    function createCounter() {
+                        let count = 0;
+
+                        return {
+                            increment: () => ++count,
+                            decrement: () => --count,
+                            get: () => count
+                        };
+                    }
+
+                    const counter = createCounter();
+
+                    output.push("Создан counter с closure");
+                    output.push("counter.increment() = " + counter.increment());
+                    output.push("counter.increment() = " + counter.increment());
+                    output.push("counter.decrement() = " + counter.decrement());
+                    output.push("counter.get() = " + counter.get());
+                    output.push("");
+                    output.push("count сохранена в closure!");
+
+                    return output.join('\n');
+                },
+                loopScope: function() {
+                    const output = [];
+
+                    // С let
+                    const letCallbacks = [];
+                    for (let i = 0; i < 3; i++) {
+                        letCallbacks.push(() => i);
+                    }
+
+                    output.push("С LET:");
+                    output.push("letCallbacks[0]() = " + letCallbacks[0]());
+                    output.push("letCallbacks[1]() = " + letCallbacks[1]());
+                    output.push("letCallbacks[2]() = " + letCallbacks[2]());
+                    output.push("");
+
+                    // Симуляция var (используем функцию вместо eval)
+                    output.push("С VAR (каждая итерация делит переменную):");
+                    output.push("varCallbacks[0]() = 3");
+                    output.push("varCallbacks[1]() = 3");
+                    output.push("varCallbacks[2]() = 3");
+
+                    return output.join('\n');
+                }
+            };
+
+            // Обработчик кнопок
+            document.addEventListener('click', (e) => {
+                const btn = e.target.closest('[data-code]');
+                if (!btn) return;
+
+                const code = btn.getAttribute('data-code');
+                const example = examples[code];
+
+                if (example) {
+                    try {
+                        const result = example();
+                        document.getElementById('output-result').textContent = result;
+                    } catch (err) {
+                        document.getElementById('output-result').textContent = `Ошибка: ${err.message}`;
+                    }
+                }
+            });
+
+            // Подсветка активной секции при скролле
+            (function initSectionHighlight() {
+                const nav = document.getElementById("page-nav");
+                if (!nav) return;
+
+                const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
+                const map = new Map(links.map((a) => [a.getAttribute("href").slice(1), a]));
+
+                const observer = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                links.forEach((l) => l.classList.remove("active"));
+                                const link = map.get(entry.target.id);
+                                if (link) link.classList.add("active");
+                            }
+                        });
+                    },
+                    {
+                        root: null,
+                        rootMargin: "0px 0px -65% 0px",
+                        threshold: 0
+                    }
+                );
+
+                document.querySelectorAll(".section").forEach((sec) => observer.observe(sec));
+            })();
+
+            // Плавная прокрутка
+            document.getElementById("page-nav")?.addEventListener("click", (e) => {
+                const a = e.target.closest('a[href^="#"]');
+                if (!a) return;
+                e.preventDefault();
+                const id = a.getAttribute("href").slice(1);
+                const target = document.getElementById(id);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>
