@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "Введение в JavaScript и основы", "description": "Полное руководство по введению в JavaScript, основным концепциям, спецификации ECMAScript, справочникам и таблицам совместимости браузеров" })
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs" id="page-nav">
+        <a href="#js-intro" class="active">Введение</a>
+        <a href="#js-facts">Основные факты</a>
+        <a href="#js-characteristics">Характеристики</a>
+        <a href="#js-script-tag">Тег script</a>
+        <a href="#js-structure">Структура кода</a>
+        <a href="#js-comments">Комментарии</a>
+        <a href="#js-specification">Спецификация</a>
+        <a href="#js-resources">Справочники и ресурсы</a>
+        <a href="#js-best-practices">Лучшие практики</a>
+        <a href="#js-summary">Итоги</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="js-intro">
+        <div class="container">
+          <h1>Введение в JavaScript</h1>
+
+          <p class="note">
+            <strong>JavaScript</strong> — это язык программирования, который был создан для "оживления" веб-страниц. Скрипты на JavaScript встраиваются в HTML и выполняются автоматически при загрузке страниц в браузере.
+          </p>
+
+          <div class="note-block info">
+            <h4>💡 Почему JavaScript?</h4>
+            <ul class="list-ul">
+              <li>Полная интеграция с HTML/CSS</li>
+              <li>Простота для базовых задач</li>
+              <li>Поддержка всеми браузерами</li>
+              <li>Кроссплатформенность</li>
+              <li>Работает на клиенте и сервере</li>
+            </ul>
+          </div>
+
+          <p class="note note--info">
+            <strong>Альтернативные языки:</strong> TypeScript, CoffeeScript, Dart транспилируются в JavaScript, предлагая дополнительные возможности, такие как строгая типизация.
+          </p>
+        </div>
+      </section>
+
+      <!-- Основные факты -->
+      <section class="section" id="js-facts">
+        <div class="container">
+          <h2>Основные факты о JavaScript</h2>
+
+          <div class="note-block">
+            <h3>🏛️ Независимость от Java</h3>
+            <p>Первоначально язык называлась "LiveScript". Была переименована в JavaScript в попытке воспользоваться популярностью Java. Сегодня это независимый язык со своей спецификацией <strong>ECMAScript</strong>.</p>
+          </div>
+
+          <div class="note-block">
+            <h3>⚙️ Исполнение кода</h3>
+            <p>JavaScript выполняется в разных окружениях:</p>
+            <ul class="list-ul">
+              <li><strong>В браузере:</strong> Chrome (V8), Firefox (SpiderMonkey), Safari (JavaScriptCore), Edge (V8)</li>
+              <li><strong>На сервере:</strong> Node.js, Deno</li>
+              <li><strong>В приложениях:</strong> Electron, React Native</li>
+            </ul>
+          </div>
+
+          <div class="note-block">
+            <h3>🔒 Безопасность в браузере</h3>
+            <p>JavaScript ограничен в своих возможностях для защиты пользователей:</p>
+            <ul class="list-ul">
+              <li>❌ Не может произвольно читать/писать файлы на жёсткий диск</li>
+              <li>❌ Не имеет доступа к другим вкладкам (политика "одинакового источника")</li>
+              <li>✅ Может изменять DOM, отправлять запросы, работать с cookies</li>
+            </ul>
+          </div>
+
+          <h3>Возможности и ограничения</h3>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th style="width: 50%">✅ Возможности в браузере</th>
+                <th style="width: 50%">❌ Ограничения</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Изменение HTML и CSS (DOM, CSSOM)</td>
+                <td>Ограниченный доступ к файловой системе</td>
+              </tr>
+              <tr>
+                <td>Реагирование на действия пользователя (События)</td>
+                <td>Политика "одинакового источника"</td>
+              </tr>
+              <tr>
+                <td>Сетевые запросы (AJAX, Fetch, WebSocket)</td>
+                <td>Нельзя выполнять системные команды</td>
+              </tr>
+              <tr>
+                <td>Работа с cookies и localStorage</td>
+                <td>Ограниченный доступ к оборудованию</td>
+              </tr>
+              <tr>
+                <td>Работа с геолокацией (с разрешения)</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Характеристики JavaScript -->
+      <section class="section" id="js-characteristics">
+        <div class="container">
+          <h2>Характеристики JavaScript</h2>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th style="width: 50%">Характеристика</th>
+                <th style="width: 50%">Описание</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Интерпретируемый язык</strong></td>
+                <td>Код выполняется построчно, без предварительной компиляции</td>
+              </tr>
+              <tr>
+                <td><strong>Динамическая типизация</strong></td>
+                <td>Тип переменной определяется во время выполнения, может меняться</td>
+              </tr>
+              <tr>
+                <td><strong>Прототипное наследование</strong></td>
+                <td>Объекты наследуют от других объектов через прототипы</td>
+              </tr>
+              <tr>
+                <td><strong>Функции первого класса</strong></td>
+                <td>Функции — это значения, их можно передавать как аргументы</td>
+              </tr>
+              <tr>
+                <td><strong>Поддержка OOP</strong></td>
+                <td>Объектно-ориентированное программирование с классами (ES6+)</td>
+              </tr>
+              <tr>
+                <td><strong>Асинхронность</strong></td>
+                <td>Поддержка callbacks, Promises, async/await</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Тег script -->
+      <section class="section" id="js-script-tag">
+        <div class="container">
+          <h2>Тег &lt;script&gt;</h2>
+
+          <p class="note">
+            <strong>Тег &lt;script&gt;</strong> используется для вставки JavaScript кода в HTML документ. Может содержать код непосредственно или ссылаться на внешний файл.
+          </p>
+
+          <h3>Встроенный скрипт</h3>
+          <p>Код выполняется автоматически при загрузке страницы:</p>
+          <div class="code-block">
+            <pre><code>&lt;script&gt;
+  alert('Привет, мир!');
+&lt;/script&gt;</code></pre>
+          </div>
+
+          <h3>Внешний скрипт</h3>
+          <p>Рекомендуется для структуры и переиспользования:</p>
+          <div class="code-block">
+            <pre><code>&lt;script src="/path/to/script.js"&gt;&lt;/script&gt;</code></pre>
+          </div>
+
+          <h3>Атрибуты тега script</h3>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th style="width: 20%">Атрибут</th>
+                <th style="width: 35%">Описание</th>
+                <th style="width: 20%">Значение</th>
+                <th style="width: 25%">Статус</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>src</code></td>
+                <td>Путь к внешнему файлу JavaScript</td>
+                <td>URL файла</td>
+                <td>✅ Актуально</td>
+              </tr>
+              <tr>
+                <td><code>type</code></td>
+                <td>MIME тип скрипта</td>
+                <td>"text/javascript" (по умолчанию)</td>
+                <td>⚠️ Не требуется</td>
+              </tr>
+              <tr>
+                <td><code>async</code></td>
+                <td>Загружать скрипт асинхронно (не блокирует парсинг HTML)</td>
+                <td>Boolean</td>
+                <td>✅ Актуально</td>
+              </tr>
+              <tr>
+                <td><code>defer</code></td>
+                <td>Выполнить скрипт после загрузки DOM</td>
+                <td>Boolean</td>
+                <td>✅ Актуально</td>
+              </tr>
+              <tr>
+                <td><code>language</code></td>
+                <td>Язык скрипта (устарело)</td>
+                <td>"JavaScript"</td>
+                <td>❌ Устарел</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="note-block info">
+            <h4>💡 Лучшая практика размещения</h4>
+            <p>Скрипты обычно помещают в конец <code>&lt;body&gt;</code> или используют атрибут <code>defer</code> в <code>&lt;head&gt;</code> для оптимизации загрузки страницы.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Структура кода -->
+      <section class="section" id="js-structure">
+        <div class="container">
+          <h2>Структура кода JavaScript</h2>
+
+          <h3>Инструкции</h3>
+          <p class="note">
+            <strong>Инструкции</strong> — это команды, которые выполняют действия. Каждая инструкция обычно заканчивается точкой с запятой.
+          </p>
+
+          <div class="code-block">
+            <pre><code>alert('Привет');
+alert('Мир');</code></pre>
+          </div>
+
+          <h3>Точка с запятой</h3>
+          <p>Хотя JavaScript часто автоматически добавляет точки с запятой (автоматическая вставка ASI), их явное использование предотвращает ошибки:</p>
+
+          <div class="note-block warning">
+            <h4>⚠️ Проблема без точки с запятой</h4>
+            <div class="code-block">
+              <pre><code>let a = 1
+let b = 2
+[a, b] = [b, a] // Может быть неправильно интерпретировано!</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>✅ Правильное использование</h4>
+            <div class="code-block">
+              <pre><code>let a = 1;
+let b = 2;
+[a, b] = [b, a]; // Работает корректно</code></pre>
+            </div>
+          </div>
+
+          <h3>Рекомендации по структуре</h3>
+          <ul class="list-ul">
+            <li>✅ Всегда используйте точки с запятой для завершения инструкций</li>
+            <li>✅ Разделяйте логические блоки пустыми строками</li>
+            <li>✅ Соблюдайте единый стиль кодирования (используйте линтеры: ESLint)</li>
+            <li>✅ Используйте правильный отступ (2 или 4 пробела, или табуляция)</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Комментарии -->
+      <section class="section" id="js-comments">
+        <div class="container">
+          <h2>Комментарии в JavaScript</h2>
+
+          <p class="note">
+            <strong>Комментарии</strong> — это части кода, которые игнорируются интерпретатором. Служат для объяснения и документирования работы кода.
+          </p>
+
+          <h3>Однострочные комментарии</h3>
+          <div class="code-block">
+            <pre><code>// Это однострочный комментарий
+let x = 5; // Комментарий после кода</code></pre>
+          </div>
+
+          <h3>Многострочные комментарии</h3>
+          <div class="code-block">
+            <pre><code>/*
+  Это многострочный
+  комментарий для объяснения
+  более сложного кода
+*/
+let y = 10;</code></pre>
+          </div>
+
+          <h3>JSDoc комментарии</h3>
+          <p>Специальный формат для документирования функций и параметров:</p>
+          <div class="code-block">
+            <pre><code>/**
+ * Возвращает сумму двух чисел
+ * @param {number} a Первое число
+ * @param {number} b Второе число
+ * @returns {number} Сумма a и b
+ * @example
+ * sum(2, 3); // 5
+ */
+function sum(a, b) {
+  return a + b;
+}</code></pre>
+          </div>
+
+          <h3>Правила хороших комментариев</h3>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th style="width: 25%">Правило</th>
+                <th style="width: 50%">Описание</th>
+                <th style="width: 25%">Пример</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>"Почему", не "Что"</strong></td>
+                <td>Объясняйте причину, а не буквальное содержание кода</td>
+                <td>// Используем Map для O(1) поиска</td>
+              </tr>
+              <tr>
+                <td><strong>Избегайте дублирования</strong></td>
+                <td>Не повторяйте то, что видно из кода</td>
+                <td>Не пишите: // Увеличиваем x на 1</td>
+              </tr>
+              <tr>
+                <td><strong>JSDoc для функций</strong></td>
+                <td>Документируйте параметры и возвращаемые значения</td>
+                <td>@param, @returns, @example</td>
+              </tr>
+              <tr>
+                <td><strong>Обновляйте при изменениях</strong></td>
+                <td>Комментарии должны быть актуальны</td>
+                <td>Если код изменился — обновите комментарий</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="note-block warning">
+            <h4>❌ Примеры плохих комментариев</h4>
+            <div class="code-block">
+              <pre><code>// Это переменная
+let x = 5;
+
+// Увеличиваем на 1
+x++;
+
+// Выводим x
+console.log(x);</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>✅ Примеры хороших комментариев</h4>
+            <div class="code-block">
+              <pre><code>// Кэшируем результаты для оптимизации
+const cache = new Map();
+
+// Используем -1 для обозначения "не найдено"
+const notFound = -1;</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Спецификация -->
+      <section class="section" id="js-specification">
+        <div class="container">
+          <h2>Спецификация ECMAScript</h2>
+
+          <p class="note">
+            <strong>ECMA-262</strong> — официальная спецификация, содержащая полную и формализованную информацию о JavaScript. Определяет сам язык программирования на самом глубоком уровне.
+          </p>
+
+          <div class="note-block info">
+            <h4>📚 О спецификации</h4>
+            <p>Спецификация может показаться сложной из-за формального стиля изложения. Это не для ежедневного использования, но если вам нужна самая достоверная информация — это правильное место.</p>
+          </div>
+
+          <h3>История версий</h3>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th style="width: 20%">Версия</th>
+                <th style="width: 20%">Год</th>
+                <th style="width: 60%">Особенности</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ES5</td>
+                <td>2009</td>
+                <td>Strict mode, JSON, Array methods (map, filter, reduce)</td>
+              </tr>
+              <tr>
+                <td>ES6 (ES2015)</td>
+                <td>2015</td>
+                <td>Classes, Arrow functions, const/let, Promises, Modules</td>
+              </tr>
+              <tr>
+                <td>ES2016+</td>
+                <td>2016+</td>
+                <td>Ежегодные обновления: async/await, Symbols, Proxy, etc.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Где найти спецификацию</h3>
+          <ul class="list-ul">
+            <li><strong>Официальный текст:</strong> <a href="https://tc39.es/ecma262/" target="_blank">tc39.es/ecma262</a></li>
+            <li><strong>Предложения новых возможностей:</strong> <a href="https://github.com/tc39/proposals" target="_blank">github.com/tc39/proposals</a></li>
+            <li><strong>Stage процесс:</strong> Предложения проходят 5 этапов (Stage 0-4), Stage 3 — практически готовые функции</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Справочники и ресурсы -->
+      <section class="section" id="js-resources">
+        <div class="container">
+          <h2>Справочники и ресурсы</h2>
+
+          <h3>MDN (Mozilla Developer Network)</h3>
+          <p class="note">
+            <strong>MDN</strong> — наиболее полный и авторитетный справочник по JavaScript с примерами кода и подробными объяснениями.
+          </p>
+
+          <div class="note-block">
+            <h4>MDN JavaScript Reference</h4>
+            <p>Хороший источник для подробной информации о функциях, методах встроенных объектов, API браузера и т.д.</p>
+            <ul class="list-ul">
+              <li><strong>Адрес:</strong> <a href="https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference" target="_blank">developer.mozilla.org</a></li>
+              <li><strong>Как искать:</strong> Используйте поисковик "MDN [тема]" или ищите напрямую</li>
+              <li><strong>Примеры:</strong> <a href="https://google.com/search?q=MDN+parseInt" target="_blank">поиск информации о parseInt</a></li>
+            </ul>
+          </div>
+
+          <h3>Таблицы совместимости браузеров</h3>
+          <p class="note">
+            JavaScript постоянно развивается. Таблицы совместимости помогают понять, какие возможности поддерживаются в разных браузерах.
+          </p>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th style="width: 25%">Ресурс</th>
+                <th style="width: 50%">Описание</th>
+                <th style="width: 25%">Адрес</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>caniuse.com</strong></td>
+                <td>Таблицы совместимости всех возможностей JavaScript, CSS и HTML с браузерами</td>
+                <td><a href="https://caniuse.com" target="_blank">caniuse.com</a></td>
+              </tr>
+              <tr>
+                <td><strong>kangax.github.io</strong></td>
+                <td>Подробная таблица возможностей языка и поддержки движками (V8, SpiderMonkey и т.д.)</td>
+                <td><a href="https://kangax.github.io/compat-table" target="_blank">kangax.github.io</a></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="note" style="margin-top: 20px;">
+            Эти ресурсы ценны в ежедневной работе, так как содержат актуальную информацию о возможностях использования языка.
+          </p>
+        </div>
+      </section>
+
+      <!-- Лучшие практики -->
+      <section class="section" id="js-best-practices">
+        <div class="container">
+          <h2>Лучшие практики</h2>
+
+          <div class="note-block info">
+            <h4>✅ Используйте внешние файлы для JavaScript</h4>
+            <p>Встроенный скрипт усложняет поддержку и кэширование:</p>
+            <div class="code-block">
+              <pre><code>// Хорошо:
+&lt;script src="/js/main.js"&gt;&lt;/script&gt;
+
+// Плохо:
+&lt;script&gt;
+  // весь код здесь
+&lt;/script&gt;</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>✅ Размещайте скрипты правильно</h4>
+            <p>Скрипты в конце body или с атрибутом defer:</p>
+            <div class="code-block">
+              <pre><code>&lt;!-- Вариант 1: В конце body --&gt;
+&lt;body&gt;
+  &lt;content&gt;&lt;/content&gt;
+  &lt;script src="/js/main.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;!-- Вариант 2: В head с defer --&gt;
+&lt;head&gt;
+  &lt;script src="/js/main.js" defer&gt;&lt;/script&gt;
+&lt;/head&gt;</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>✅ Используйте точки с запятой</h4>
+            <p>Явные точки с запятой предотвращают ошибки автоматической вставки:</p>
+            <div class="code-block">
+              <pre><code>// Хорошо:
+let x = 5;
+console.log(x);
+
+// Может привести к ошибкам:
+let x = 5
+console.log(x)</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>✅ Комментируйте сложный код</h4>
+            <p>Объясняйте "почему", а не "что":</p>
+            <div class="code-block">
+              <pre><code>// Хорошо — объясняет причину:
+// Используем Map для быстрого поиска O(1)
+const userMap = new Map();
+
+// Плохо — описывает очевидное:
+// Создаём карту пользователей
+const userMap = new Map();</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block warning">
+            <h4>❌ Типичные ошибки новичков</h4>
+            <ul class="list-ul">
+              <li>Вставлять все скрипты в &lt;head&gt; без defer/async</li>
+              <li>Полагаться на автоматическую вставку точек с запятой</li>
+              <li>Писать слишком много комментариев для очевидного кода</li>
+              <li>Использовать встроенные скрипты для крупного функционала</li>
+              <li>Забывать об экранировании HTML символов в коде</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Итоги -->
+      <section class="section" id="js-summary">
+        <div class="container">
+          <h2>Итоги</h2>
+
+          <div class="note-block info">
+            <h3>Ключевые моменты:</h3>
+            <ul class="list-ul">
+              <li>✅ <strong>JavaScript</strong> — универсальный язык для веб-разработки</li>
+              <li>✅ Код встраивается в HTML через тег &lt;script&gt;</li>
+              <li>✅ Структура кода важна для читаемости и поддержки</li>
+              <li>✅ Комментарии должны объяснять "почему", а не "что"</li>
+              <li>✅ ECMA-262 — официальная спецификация языка</li>
+              <li>✅ MDN, caniuse.com — незаменимые справочники</li>
+              <li>✅ Лучшие практики — основа профессионального кода</li>
+            </ul>
+          </div>
+
+          <div class="note-block">
+            <h3>Что дальше?</h3>
+            <p>Теперь, когда вы знаете основы JavaScript, изучайте:</p>
+            <ul class="list-ul">
+              <li><a href="/about-js-teoria/javascript-variables.html">Переменные</a></li>
+              <li><a href="/about-js-teoria/javascript-data-types.html">Типы данных</a></li>
+              <li><a href="/about-js-teoria/javascript-operators-basic.html">Операторы</a></li>
+              <li>Функции и управление потоком</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
+</html>
