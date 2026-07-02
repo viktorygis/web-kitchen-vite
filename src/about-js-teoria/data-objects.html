@@ -1,292 +1,251 @@
 <!DOCTYPE html>
 <html lang="ru">
-    @@include('../partials/head.html', { "title": "JavaScript: Основы объектов", "description": "Полное руководство по объектам в JavaScript с примерами" })
-    <body>
-        <div class="wrapper">
-            @@include('../partials/header.html', {})
-            <main class="page">
-                <nav class="nav-tabs">
-                    <a href="#objects-intro" class="active">Введение</a>
-                    <a href="#objects-creation">Создание объектов</a>
-                    <a href="#objects-properties">Свойства</a>
-                    <a href="#objects-methods">Методы</a>
-                    <a href="#objects-advanced">Продвинутое</a>
-                </nav>
+@@include('../partials/head.html', { "title": "JavaScript: Основы объектов", "description": "Полное руководство по объектам в JavaScript с примерами создания, методов и лучших практик" })
 
-                <!-- Введение -->
-                <section class="section" id="objects-intro">
-                    <div class="container">
-                        <h1>Объекты в JavaScript</h1>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page" id="main" tabindex="-1">
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#objects-intro" class="active" aria-current="page">Введение</a>
+        <a href="#objects-creation">Создание объектов</a>
+        <a href="#objects-properties">Свойства</a>
+        <a href="#objects-methods">Методы</a>
+        <a href="#objects-built-in-methods">Встроенные методы</a>
+        <a href="#objects-best-practices">Лучшие практики</a>
+        <a href="#objects-pitfalls">Типичные ошибки</a>
+        <a href="#objects-advanced">Продвинутое</a>
+        <a href="#objects-summary">Итоги</a>
+      </nav>
 
-                        <p class="note">
-                            <strong>Объекты</strong>
-                            — это составные типы данных, представляющие собой коллекции пар "ключ-значение". Они используются для хранения сложных структур данных и являются основой объектно-ориентированного программирования в JavaScript.
-                        </p>
-                        <p>
-                            <b>Объекты</b>
-                            же используются для хранения коллекций различных значений и более сложных сущностей. В JavaScript объекты используются очень часто, это одна из основ языка.
-                        </p>
-                        <p>
-                            Объект может быть создан с помощью фигурных скобок
-                            <code>{…}</code>
-                            с необязательным списком свойств.
-                            <br />
-                            <b>Свойство</b>
-                            – это пара
-                            <b>«ключ: значение»</b>
-                            , где
-                            <b>ключ</b>
-                            – это
-                            <b>строка</b>
-                            (также называемая «именем свойства»), а
-                            <b>значение</b>
-                            может быть чем угодно.
-                        </p>
-                        <h4>Пример объекта:</h4>
-                        <pre><code>//user	- объект с разными свойствами и методом
-const user = {
-  //Свойства (ключ: значение)
+      <!-- Введение -->
+      <section class="section" id="objects-intro">
+        <div class="container">
+          <h1>Объекты в JavaScript</h1>
+
+          <p class="note">
+            <strong>Объекты</strong> — это составные типы данных, представляющие собой коллекции пар "ключ-значение". Они используются для хранения сложных структур данных и являются основой объектно-ориентированного программирования в JavaScript.
+          </p>
+
+          <p class="note note--info">
+            Объекты — это как коробки, в которых можно хранить несколько разных вещей (значений). Вместо того, чтобы хранить переменные по отдельности, объекты помогают нам группировать их и делать код более организованным. 🗂️
+          </p>
+
+          <p>
+            Объекты используются для хранения коллекций различных значений и более сложных сущностей. В JavaScript объекты используются очень часто, это одна из основ языка.
+          </p>
+
+          <p class="note">
+            Объект может быть создан с помощью фигурных скобок <code>{…}</code> с необязательным списком свойств.
+            <br />
+            <strong>Свойство</strong> – это пара <strong>«ключ: значение»</strong>, где <strong>ключ</strong> – это <strong>строка</strong> (также называемая «именем свойства»), а <strong>значение</strong> может быть чем угодно.
+          </p>
+
+          <h3>Пример объекта:</h3>
+          <div class="code-block">
+            <pre><code>const user = {
   name: 'Андрей',
-  //Можно использовать кавычки для ключей с пробелами
-  age: 30,
-  //Булево значение
-  isAdmin: true,
-
-  //Метод (функция в свойстве)
-  greet() {
-  //Используем this для доступа к свойствам объекта
-    console.log(`Привет, меня зовут ${this.name}!`);
-  }
+  age: 30
 };</code></pre>
+          </div>
 
-                        <p class="note note--info">
-                            Мы можем представить объект в виде ящика с подписанными папками. Каждый элемент данных хранится в своей папке, на которой написан ключ. По ключу папку легко найти, удалить или добавить в неё что-либо.
-                            <br />
-                            Пустой объект («пустой ящик») можно создать, используя один из двух вариантов синтаксиса:
-                        </p>
+          <p class="note note--info">Мы можем представить объект в виде ящика с подписанными папками. Каждый элемент данных хранится в своей папке, на которой написан ключ. По ключу папку легко найти, удалить или добавить в неё что-либо.
+          </p>
 
-                        <h4>Особенности объектов:</h4>
-                        <ul class="list-ul">
-                            <li>
-                                <b>Динамические</b>
-                                - свойства можно добавлять/удалять
-                            </li>
-                            <li>
-                                <b>Ссылочный</b>
-                                тип данных
-                            </li>
-                            <li>
-                                Могут содержать
-                                <b>методы</b>
-                                (функции)
-                            </li>
-                            <li>
-                                Имеют
-                                <b>прототипы</b>
-                                для наследования
-                            </li>
-                            <li>
-                                Ключи -
-                                <b>строки</b>
-                                или
-                                <b>символы</b>
-                            </li>
-                            <li>
-                                Значения -
-                                <b>любого типа</b>
-                            </li>
-                        </ul>
-                    </div>
-                </section>
+          <h4>Зачем нужны объекты?</h4>
+          <ul class="list-ul">
+            <li>Хранение связанных данных в одной структуре</li>
+            <li>Создание сложных сущностей с методами и свойствами</li>
+            <li>Использование в объектно-ориентированном программировании</li>
+            <li>Упрощение передачи данных между функциями и модулями</li>
+          </ul>
 
-                <!-- Способы создания объектов -->
-                <section class="section" id="objects-creation">
-                    <div class="container">
-                        <div class="note-block">
-                            <h2>Способы создания объектов:</h2>
+          <h4>Ключи в объекте должны быть уникальными</h4>
+          <p>Если в объекте указать несколько свойств с одинаковым ключом, то будет использовано последнее указанное значение.</p>
 
-                            <div class="note-block example">
-                                <h3>Литерал объекта (рекомендуется)</h3>
-                                <p class="note">
-                                    <strong>Литерал объекта</strong>
-                                    - самый распространённый и удобный способ создания объектов.
-                                    <br />
-                                    Позволяет создавать объекты с заданными свойствами и методами в компактном виде.
-                                </p>
-                                <h4>Синтаксис</h4>
-                                <pre><code>const obj = {
+          <div class="code-block">
+            <pre><code>let car = {
+  model: "Toyota",
+  year: 2020
+};
+
+console.log(car); // { model: 'Toyota', year: 2020 }
+
+car.model = "Honda"; // Изменяем значение свойства
+console.log(car); // { model: 'Honda', year: 2020 }</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Способы создания объектов -->
+      <section class="section" id="objects-creation">
+        <div class="container">
+          <h2>Способы создания объектов</h2>
+
+          <article class="note-block">
+            <h3>1. Литерал объекта (рекомендуется)</h3>
+            <p class="note">
+              <strong>Литерал объекта</strong> - самый распространённый и удобный способ создания объектов. Позволяет создавать объекты с заданными свойствами и методами в компактном виде.
+            </p>
+            <h4>Синтаксис:</h4>
+            <div class="code-block">
+              <pre><code>const obj = {
   key: 'value',
   method() { /* ... */ }
 };</code></pre>
-                                <p class="note note--info">
-                                    При использовании литерального синтаксиса {...} мы сразу можем поместить в объект несколько свойств в виде пар «ключ: значение».
-                                    <br />
-                                    У каждого свойства есть ключ (также называемый «имя» или «идентификатор»). После имени свойства следует двоеточие ":", и затем указывается значение свойства. Если в объекте несколько свойств, то они перечисляются через запятую.
-                                </p>
-                            </div>
+            </div>
+            <div class="note-block">
+              <p>
+                При использовании литерального синтаксиса {...} мы сразу можем поместить в объект несколько свойств в виде пар «ключ: значение». У каждого свойства есть ключ (также называемый «имя» или «идентификатор»). После имени свойства следует двоеточие ":", и затем указывается значение свойства. Если в объекте несколько свойств, то они перечисляются через запятую.
+              </p>
+            </div>
+          </article>
 
-                            <div class="note-block example">
-                                <h3>Конструктор Object</h3>
-                                <p class="note">
-                                    <strong>Конструктор Object</strong>
-                                    - функция, которая создаёт новый объект. Обычно его не используют для создания объектов, так как есть более удобные способы.
-                                </p>
-                                <h4>Синтаксис</h4>
-                                <pre><code>const obj = new Object();
+          <article class="note-block">
+            <h3>2. Конструктор Object</h3>
+            <p class="note">
+              <strong>Конструктор Object</strong> - функция, которая создаёт новый объект. Обычно его не используют для создания объектов, так как есть более удобные способы.
+            </p>
+            <h4>Синтаксис:</h4>
+            <div class="code-block">
+              <pre><code>const obj = new Object();
 obj.key = 'value';</code></pre>
-                            </div>
+            </div>
+          </article>
 
-                            <div class="note-block example">
-                                <h3>3. Object.create()</h3>
-                                <p class="note">
-                                    <strong>Object.create()</strong>
-                                    - создаёт новый объект с указанным прототипом. Полезен для создания объектов с наследованием.
-                                </p>
-                                <h4>Синтаксис</h4>
-                                <pre><code>const prototype = { a: 1 };
+          <article class="note-block">
+            <h3>3. Object.create()</h3>
+            <p class="note">
+              <strong>Object.create()</strong> - создаёт новый объект с указанным прототипом. Полезен для создания объектов с наследованием.
+            </p>
+            <h4>Синтаксис:</h4>
+            <div class="code-block">
+              <pre><code>const prototype = { a: 1 };
 const obj = Object.create(prototype);</code></pre>
-                            </div>
+            </div>
+          </article>
 
-                            <div class="note-block example">
-                                <h3>4. Конструктор класса (ES6)</h3>
-                                <p class="note">
-                                    <strong>Конструктор класса</strong>
-                                    - современный синтаксис для создания объектов и работы с наследованием. Позволяет определять шаблоны для создания похожих объектов.
-                                </p>
-                                <h4>Синтаксис</h4>
-                                <pre><code>class Person {
+          <article class="note-block">
+            <h3>4. Конструктор класса (ES6)</h3>
+            <p class="note">
+              <strong>Конструктор класса</strong> - современный синтаксис для создания объектов и работы с наследованием. Позволяет определять шаблоны для создания похожих объектов.
+            </p>
+            <h4>Синтаксис:</h4>
+            <div class="code-block">
+              <pre><code>class Person {
   constructor(name) {
     this.name = name;
   }
 }
 const obj = new Person('Андрей');</code></pre>
-                            </div>
+            </div>
+          </article>
 
-                            <div class="note-block example">
-                                <h3>5. const</h3>
-                                <p class="note">
-                                    <strong>const user = {}</strong>
-                                    Объект, объявленный как константа, может быть изменён Объект.
-                                </p>
-
-                                <h4>Например:</h4>
-
-                                <pre><code>const user = {
-   name: "John"
+          <article class="note-block">
+            <h3>5. Объект как константа</h3>
+            <p class="note">
+              <strong>const user = {}</strong> - Объект, объявленный как константа, может быть изменён. Только сама переменная защищена от переприсваивания.
+            </p>
+            <h4>Пример:</h4>
+            <div class="code-block">
+              <pre><code>const user = {
+  name: "John"
 };
 
-user.name = "Pete"; // (*)
+user.name = "Pete"; // Работает
 
 alert(user.name); // Pete
-	</code></pre>
-                                <p class="note note--info">
-                                    Может показаться, что строка (*) должна вызвать ошибку, но нет, здесь всё в порядке.
-                                    <br />
-                                    Дело в том, что объявление const защищает от изменений только саму переменную user, а не её содержимое.
-                                    <br />
-                                    Определение const выдаст ошибку только если мы присвоим переменной другое значение: user=....
-                                    <br />
-                                    user хранит ссылку на объект. И это не может быть изменено. Но содержимое объекта менять можно.
-                                </p>
-                            </div>
-                        </div>
 
-                        <h2>Резюме</h2>
+// Но это не работает:
+user = {}; // Ошибка!</code></pre>
+            </div>
+            <div class="note-block">
+              <p>
+                Объявление const защищает от изменений только саму переменную user, а не её содержимое. user хранит ссылку на объект. Эта ссылка не может быть изменена. Но содержимое объекта менять можно.
+              </p>
+            </div>
+          </article>
 
-                        <div class="note-block
-                        <p>Основные способы создания объектов в JavaScript:</p>
-                        <ul class="list-ul">
-                            <li>
-                                <strong>Литерал объекта</strong>
-                                - компактный и удобный способ создания объектов с заданными свойствами и методами.
-                            </li>
-                            <li>
-                                <strong>Конструктор Object</strong>
-                                - менее распространённый способ, обычно не используется для создания объектов.
-                            </li>
-                            <li>
-                                <strong>Object.create()</strong>
-                                - позволяет создавать объекты с указанным прототипом, полезен для наследования.
-                            </li>
-                            <li>
-                                <strong>Конструктор класса (ES6)</strong>
-                                - современный синтаксис для создания объектов и работы с наследованием.
-                            </li>
-                        </ul>
-                        <p>Выбор способа зависит от задачи: для простых объектов лучше использовать литералы, для сложных структур с наследованием - классы или Object.create().</p>
-                        <h3>Таблица сравнения</h3>
-                        <table class="table-note">
-                            <thead>
-                                <tr>
-                                    <th style="width: 25%">Назваие</th>
-                                    <th style="width: 25%">Способ</th>
-                                    <th style="width: 25%">Описание</th>
-                                    <th style="width: 25%">Когда использовать</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Литерал объекта</td>
-                                    <td><code>{…}</code></td>
-                                    <td>Создание объекта с заданными свойствами и методами.</td>
-                                    <td>Для простых объектов с известными свойствами.</td>
-                                </tr>
+          <h3>Сравнение способов создания объектов</h3>
+          <div style="overflow-x: auto">
+            <table class="table-note">
+              <thead>
+                <tr>
+                  <th style="width: 20%">Название</th>
+                  <th style="width: 15%">Способ</th>
+                  <th style="width: 35%">Описание</th>
+                  <th style="width: 30%">Когда использовать</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Литерал объекта</td>
+                  <td><code>{…}</code></td>
+                  <td>Создание объекта с заданными свойствами и методами.</td>
+                  <td>Для простых объектов с известными свойствами.</td>
+                </tr>
+                <tr>
+                  <td>Конструктор Object</td>
+                  <td><code>new Object()</code></td>
+                  <td>Создание пустого объекта, свойства добавляются позже.</td>
+                  <td>Редко используется, когда нужен пустой объект.</td>
+                </tr>
+                <tr>
+                  <td>Object.create()</td>
+                  <td><code>Object.create(proto)</code></td>
+                  <td>Создание объекта с указанным прототипом для наследования.</td>
+                  <td>Когда нужно создать объект с определённым прототипом.</td>
+                </tr>
+                <tr>
+                  <td>Конструктор класса</td>
+                  <td><code>class MyClass {…}</code></td>
+                  <td>Определение шаблона для создания похожих объектов с наследованием.</td>
+                  <td>Для сложных структур и объектов с поведением (методами).</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
 
-                                <tr>
-                                    <td>Конструктор Object</td>
-                                    <td><code>new Object()</code></td>
-                                    <td>Создание пустого объекта, свойства добавляются позже.</td>
-                                    <td>Редко используется, когда нужен пустой объект.</td>
-                                </tr>
-                                <tr>
-                                    <td>Object.create()</td>
-                                    <td><code>Object.create(proto)</code></td>
-                                    <td>Создание объекта с указанным прототипом для наследования.</td>
-                                    <td>Когда нужно создать объект с определённым прототипом.</td>
-                                </tr>
-                                <tr>
-                                    <td>Конструктор класса</td>
-                                    <td><code>class MyClass {…}</code></td>
-                                    <td>Определение шаблона для создания похожих объектов с наследованием.</td>
-                                    <td>Для сложных структур и объектов с поведением (методами).</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
+      <!-- Работа со свойствами -->
+      <section class="section" id="objects-properties">
+        <div class="container">
+          <h2>Работа со свойствами объектов</h2>
 
-                <!-- Работа со свойствами -->
-                <section class="section" id="objects-properties">
-                    <div class="container">
-                        <h2>Работа со свойствами объектов</h2>
-                        <!-- Доступ к свойствам -->
-                        <div class="note-block example">
-                            <h3>1. Доступ к свойствам</h3>
-                            <h4>Точечная нотация</h4>
-                            <p>Для обращения к свойствам используется запись «через точку»</p>
+          <article class="note-block">
+            <h3>1. Доступ к свойствам</h3>
 
-                            <pre><code>const person = { name: 'Андрей' };
+            <h4>Точечная нотация</h4>
+            <p>Для обращения к свойствам используется запись «через точку»:</p>
+            <div class="code-block">
+              <pre><code>const person = { name: 'Андрей' };
 
 // Точечная нотация
-console.log(person.name); // 'Андрей'
-</code></pre>
-                            <p>Обратите внимание, что строка в квадратных скобках заключена в кавычки (подойдёт любой тип кавычек).</p>
-                            <h4>Скобочная нотация</h4>
-                            <p>Для свойств, имена которых состоят из нескольких слов, доступ к значению «через точку» не работает:</p>
-                            <pre><code>let user = { "likes birds": true };
-// Скобочная нотация
-console.log(user['likes birds']); // 'true'</code></pre>
+console.log(person.name); // 'Андрей'</code></pre>
+            </div>
 
-                            <h4>Для динамических ключей</h4>
-                            <pre><code>const person = { name: 'Андрей' };
-// Для динамических ключей
+            <h4>Скобочная нотация</h4>
+            <p>Для свойств, имена которых состоят из нескольких слов или содержат специальные символы:</p>
+            <div class="code-block">
+              <pre><code>let user = { "likes birds": true };
+// Скобочная нотация
+console.log(user['likes birds']); // true</code></pre>
+            </div>
+
+            <h4>Для динамических ключей</h4>
+            <div class="code-block">
+              <pre><code>const person = { name: 'Андрей' };
 const key = 'name';
 console.log(person[key]); // 'Андрей'</code></pre>
-                        </div>
-                        <!-- Добавление/изменение свойств -->
-                        <div class="note-block example">
-                            <h3>2. Добавление/изменение свойств</h3>
-                            <pre><code>const car = { model: 'Tesla' };
+            </div>
+          </article>
+
+          <article class="note-block">
+            <h3>2. Добавление и изменение свойств</h3>
+            <div class="code-block">
+              <pre><code>const car = { model: 'Tesla' };
 
 // Добавление свойства
 car.year = 2023;
@@ -296,356 +255,737 @@ car.model = 'Model S';
 
 console.log(car);
 // { model: 'Model S', year: 2023 }</code></pre>
-                        </div>
-                        <!-- Удаление свойств -->
-                        <div class="note-block example">
-                            <h3>3. Удаление свойств</h3>
-                            <p>
-                                Для удаления свойства мы можем использовать оператор
-                                <code>delete</code>
-                            </p>
-                            <pre><code>const obj = { a: 1, b: 2, c: 3 };
+            </div>
+          </article>
+
+          <article class="note-block">
+            <h3>3. Удаление свойств</h3>
+            <p>Для удаления свойства используется оператор <code>delete</code>:</p>
+            <div class="code-block">
+              <pre><code>const obj = { a: 1, b: 2, c: 3 };
 
 delete obj.b;
 console.log(obj); // { a: 1, c: 3 }
 
 // Проверка существования
 console.log('b' in obj); // false</code></pre>
-                        </div>
-                        <!-- Короткие свойства ES6 -->
-                        <div class="note-block example">
-                            <h3>4. Короткие свойства (ES6)</h3>
-                            <p>Короткие свойства это синтаксис, позволяющий создавать свойства объекта, используя только имя переменной, если имя свойства совпадает с именем переменной.</p>
-                            <p>Это сокращает запись и улучшает читаемость кода.</p>
-                            <pre><code>const name = 'Андрей';
+            </div>
+          </article>
+
+          <article class="note-block">
+            <h3>4. Короткие свойства (ES6)</h3>
+            <p>Короткие свойства - это синтаксис, позволяющий создавать свойства объекта, используя только имя переменной, если имя свойства совпадает с именем переменной. Это сокращает запись и улучшает читаемость кода.</p>
+            <div class="code-block">
+              <pre><code>const name = 'Андрей';
 const age = 30;
 
 // Вместо { name: name, age: age }
 const person = { name, age };
 
 console.log(person); // { name: 'Андрей', age: 30 }</code></pre>
-                        </div>
+            </div>
+          </article>
 
-                        <!--   in оператор -->
-                        <div class="note-block example">
-                            <h3>
-                                <code>in</code>
-                                оператор
-                            </h3>
+          <article class="note-block">
+            <h3>5. Оператор <code>in</code></h3>
+            <p class="note">
+              <strong>Оператор in</strong> — проверяет наличие свойства в объекте, включая унаследованные свойства.
+            </p>
 
-                            <p><strong>Проверяет наличие свойства в объекте</strong></p>
+            <h4>Синтаксис:</h4>
+            <p><code>propertyName in object</code></p>
 
-                            <ul class="list-ul">
-                                <li>Проверяет собственные и унаследованные свойства</li>
-                                <li>Лучше использовать, чем сравнение с undefined</li>
-                            </ul>
+            <h4>Основные особенности:</h4>
+            <ul class="list-ul">
+              <li>Проверяет собственные и унаследованные свойства</li>
+              <li>Лучше использовать, чем сравнение с undefined</li>
+              <li>Возвращает boolean: true или false</li>
+            </ul>
 
-                            <code>propertyName in object</code>
-
-                            <div>
-                                <h4>Пример:</h4>
-                                <pre><code>//Проверка наличия свойства
-const car = { model: 'Tesla' };
+            <h4>Пример проверки свойства:</h4>
+            <div class="code-block">
+              <pre><code>const car = { model: 'Tesla' };
 console.log('model' in car); // true
 console.log('year' in car); // false</code></pre>
-                            </div>
+            </div>
 
-                            <div>
-                                <h4>Пример:</h4>
-
-                                <p class="note note--info">
-                                    Код для суммирования всех зарплат и сохраните результат в переменной sum. Должно получиться 390.
-                                    <br />
-                                    //Если объект salaries пуст, то результат должен быть 0.
-                                </p>
-                                <div class="grid-column-100">
-                                    <pre><code>let salaries = {
-	    John: 100,
-	    Ann: 160,
-	    Pete: 130,
-	};
-
-	let sum = 0;
-
-	for (let key in salaries) {
-	    sum += salaries[key];
-	}
-	console.log(sum);</code></pre>
-                                </div>
-                            </div>
-
-                            <div>
-                                <h4>Пример:</h4>
-
-                                <p class="note note--info">
-                                    Умножаем все числовые свойства на 2
-                                    <br />
-                                    Создайте функцию multiplyNumeric(obj), которая умножает все числовые свойства объекта obj на 2.
-                                </p>
-                                <div class="grid-column-100">
-                                    <pre><code>let menu = {
-    width: 200,
-    height: 300,
-    title: "My menu",
+            <h4>Пример: суммирование зарплат</h4>
+            <div class="code-block">
+              <pre><code>let salaries = {
+  John: 100,
+  Ann: 160,
+  Pete: 130
 };
 
-console.log(menu); //до вызова функции
-//{width: 200, height: 300, title: 'My menu'}
+let sum = 0;
+
+for (let key in salaries) {
+  sum += salaries[key];
+}
+console.log(sum); // 390</code></pre>
+            </div>
+
+            <h4>Пример: умножение числовых свойств</h4>
+            <div class="code-block">
+              <pre><code>let menu = {
+  width: 200,
+  height: 300,
+  title: "My menu"
+};
+
+console.log(menu); // До: {width: 200, height: 300, title: 'My menu'}
 
 function multiplyNumeric(obj) {
-    for (let key in obj) {
-        if (typeof obj[key] === "number") {
-            obj[key] *= 2;
-        }
+  for (let key in obj) {
+    if (typeof obj[key] === "number") {
+      obj[key] *= 2;
     }
+  }
 }
 
 multiplyNumeric(menu);
-console.log(menu); //после вызова функции
-//{width: 400, height: 600, title: 'My menu'}
-</code></pre>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+console.log(menu); // После: {width: 400, height: 600, title: 'My menu'}</code></pre>
+            </div>
+          </article>
+        </div>
+      </section>
 
-                <!-- Основные методы -->
-                <section class="section" id="objects-methods">
-                    <div class="container">
-                        <h2>Основные методы объектов</h2>
-                        <!-- Object.keys() -->
-                        <div class="note-block example">
-                            <h3>1. Object.keys()</h3>
-                            <p><strong>Возвращает массив ключей объекта</strong></p>
-                            <ul class="list-ul">
-                                <li>Возвращает только перечисляемые свойства</li>
-                                <li>Не возвращает унаследованные свойства</li>
-                            </ul>
+      <!-- Методы объектов -->
+      <section class="section" id="objects-methods">
+        <div class="container">
+          <h2>Методы объектов</h2>
 
-                            <code>Object.keys(obj)</code>
+          <p class="note">
+            <strong>Метод объекта</strong> — это функция, которая хранится как свойство объекта и предназначена для выполнения действий с данными этого объекта.
+          </p>
 
-                            <h4>Пример:</h4>
-                            <pre><code>const person = {
-   name: "Андрей",
-   age: 30,
+          <div class="note-block">
+            <p>
+              Методы вызываются с помощью точки (.) после имени объекта, а затем скобок (), как обычная функция. Внутри метода можно использовать ключевое слово <code>this</code> для доступа к другим свойствам того же объекта.
+            </p>
+          </div>
+
+          <h3>Пример простого метода:</h3>
+          <div class="code-block">
+            <pre><code>const person = {
+  name: "Иван",
+  greet: function() {
+    console.log("Меня зовут " + this.name);
+  }
+};
+
+person.greet(); // Выведет: Меня зовут Иван</code></pre>
+          </div>
+
+          <h3>Пример объекта с несколькими методами:</h3>
+          <div class="code-block">
+            <pre><code>const person = {
+  name: "Иван",
+  age: 25,
+  greet: function() {
+    console.log("Меня зовут " + this.name);
+  },
+  showAge: function() {
+    console.log("Мне " + this.age + " лет");
+  }
+};
+
+person.greet(); // Меня зовут Иван
+person.showAge(); // Мне 25 лет</code></pre>
+          </div>
+
+          <h3>Современный синтаксис методов (ES6):</h3>
+          <p>В современном JavaScript можно использовать сокращённый синтаксис для методов:</p>
+          <div class="code-block">
+            <pre><code>const person = {
+  name: "Иван",
+  age: 25,
+
+  // Сокращённый синтаксис (без function и двоеточия)
+  greet() {
+    console.log("Меня зовут " + this.name);
+  },
+
+  showAge() {
+    console.log("Мне " + this.age + " лет");
+  }
+};
+
+person.greet(); // Меня зовут Иван</code></pre>
+          </div>
+
+          <h3>Особенности методов объектов:</h3>
+          <ul class="list-ul">
+            <li>Метод имеет доступ к свойствам объекта через <code>this</code></li>
+            <li>Можно добавлять и удалять методы динамически</li>
+            <li>Методы могут вызывать другие методы того же объекта</li>
+            <li>Методы могут возвращать значения</li>
+            <li>Стрелочные функции как методы работают иначе (иной контекст <code>this</code>)</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Встроенные методы Object -->
+      <section class="section" id="objects-built-in-methods">
+        <div class="container">
+          <h2>Встроенные методы Object</h2>
+
+          <p class="note">
+            <strong>Встроенные методы Object</strong> — это функции, которые JavaScript предоставляет для работы с объектами. Они позволяют получать ключи, значения, пары ключ-значение, копировать объекты, защищать от изменений и многое другое.
+          </p>
+
+          <article class="note-block">
+            <h3>1. Object.keys()</h3>
+            <p class="note">
+              <strong>Object.keys()</strong> — возвращает массив ключей объекта.
+            </p>
+            <h4>Особенности:</h4>
+            <ul class="list-ul">
+              <li>Возвращает только перечисляемые свойства</li>
+              <li>Не возвращает унаследованные свойства</li>
+              <li>Порядок ключей сохраняется</li>
+            </ul>
+            <h4>Синтаксис:</h4>
+            <p><code>Object.keys(obj)</code></p>
+            <h4>Пример:</h4>
+            <div class="code-block">
+              <pre><code>const person = {
+  name: "Андрей",
+  age: 30
 };
 const keys = Object.keys(person);
 console.log(keys); // ['name', 'age']</code></pre>
-                        </div>
+            </div>
+            <button class="practice-btn" data-code="keys-example">Запустить пример</button>
+          </article>
 
-                        <!-- Object.values() -->
-                        <div class="note-block example">
-                            <h3>2. Object.values()</h3>
-                            <p><strong>Возвращает массив значений объекта</strong></p>
-                            <ul class="list-ul">
-                                <li>Порядок значений соответствует Object.keys()</li>
-                                <li>ES2017+ (не поддерживается в старых браузерах)</li>
-                            </ul>
-
-                            <code>Object.values(obj)</code>
-
-                            <h4>Пример:</h4>
-                            <pre><code>const person = { name: 'Андрей', age: 30 };
+          <article class="note-block">
+            <h3>2. Object.values()</h3>
+            <p class="note">
+              <strong>Object.values()</strong> — возвращает массив значений объекта.
+            </p>
+            <h4>Особенности:</h4>
+            <ul class="list-ul">
+              <li>Порядок значений соответствует Object.keys()</li>
+              <li>ES2017+ (не поддерживается в старых браузерах)</li>
+              <li>Возвращает только собственные свойства</li>
+            </ul>
+            <h4>Синтаксис:</h4>
+            <p><code>Object.values(obj)</code></p>
+            <h4>Пример:</h4>
+            <div class="code-block">
+              <pre><code>const person = { name: 'Андрей', age: 30 };
 const values = Object.values(person);
 console.log(values); // ['Андрей', 30]</code></pre>
-                        </div>
+            </div>
+            <button class="practice-btn" data-code="values-example">Запустить пример</button>
+          </article>
 
-                        <!-- Object.entries() -->
-                        <div class="note-block example">
-                            <h3>3. Object.entries()</h3>
-                            <p><strong>Возвращает массив пар [ключ, значение]</strong></p>
-                            <ul class="list-ul">
-                                <li>Удобен для преобразования объектов в Map</li>
-                                <li>Используется для итерации по объекту</li>
-                            </ul>
-
-                            <code>Object.entries(obj)</code>
-                            <h4>Пример:</h4>
-                            <pre><code>const person = {
-    name: "Андрей",
-    age: 30,
+          <article class="note-block">
+            <h3>3. Object.entries()</h3>
+            <p class="note">
+              <strong>Object.entries()</strong> — возвращает массив пар [ключ, значение].
+            </p>
+            <h4>Особенности:</h4>
+            <ul class="list-ul">
+              <li>Удобен для преобразования объектов в Map</li>
+              <li>Используется для итерация по объекту</li>
+              <li>ES2017+</li>
+            </ul>
+            <h4>Синтаксис:</h4>
+            <p><code>Object.entries(obj)</code></p>
+            <h4>Пример:</h4>
+            <div class="code-block">
+              <pre><code>const person = {
+  name: "Андрей",
+  age: 30
 };
 const entries = Object.entries(person);
-console.log(entries); // [['name', 'Андрей'], ['age', 30]]
+console.log(entries);
+// [['name', 'Андрей'], ['age', 30]]</code></pre>
+            </div>
+            <button class="practice-btn" data-code="entries-example">Запустить пример</button>
+          </article>
 
-// Итерация
-for (const [key, value] of Object.entries(person)) {
-    console.log(`${key}: ${value}`);
-}</code></pre>
-                        </div>
+          <article class="note-block">
+            <h3>4. Object.assign()</h3>
+            <p class="note">
+              <strong>Object.assign()</strong> — копирует свойства из объектов-источников в целевой объект.
+            </p>
+            <h4>Особенности:</h4>
+            <ul class="list-ul">
+              <li>Изменяет целевой объект (мутирующий метод)</li>
+              <li>Не копирует унаследованные свойства</li>
+              <li>Поверхностное копирование (не глубокое)</li>
+              <li>Возвращает целевой объект</li>
+            </ul>
+            <h4>Синтаксис:</h4>
+            <p><code>Object.assign(target, ...sources)</code></p>
+            <h4>Пример: объединение объектов</h4>
+            <div class="code-block">
+              <pre><code>const target = { a: 1 };
+const source = { b: 2 };
 
-                        <!-- Object.assign() -->
-                        <div class="note-block example">
-                            <h3>4. Object.assign()</h3>
-                            <p><strong>Копирует свойства из объектов-источников в целевой объект</strong></p>
-                            <ul class="list-ul">
-                                <li>Изменяет целевой объект (мутирующий метод)</li>
-                                <li>Не копирует унаследованные свойства</li>
-                                <li>Поверхностное копирование (не глубокое)</li>
-                            </ul>
-
-                            <code>Object.assign(target, ...sources)</code>
-
-                            <h4>Примеры:</h4>
-                            <pre><code>// Объединение объектов
-const target = {
-    a: 1,
-};
-const source = {
-    b: 2,
-};
 Object.assign(target, source);
-console.log(target); // { a: 1, b: 2 }
+console.log(target); // { a: 1, b: 2 }</code></pre>
+            </div>
+            <button class="practice-btn" data-code="assign-example">Запустить пример</button>
+          </article>
 
-// Клонирование объекта (поверхностное)
-//поверхностное почему? так как если в объекте есть вложенные объекты, то они будут скопированы по ссылке
-const obj = {
-    x: 10,
-    y: 20,
-};
-//клонирование obj в новый пустой объект
-const clone = Object.assign({}, obj);
-console.log(clone); // { x: 10, y: 20 }</code></pre>
-                        </div>
+          <article class="note-block">
+            <h3>5. Object.freeze()</h3>
+            <p class="note">
+              <strong>Object.freeze()</strong> — замораживает объект, предотвращая любые изменения.
+            </p>
+            <h4>Особенности:</h4>
+            <ul class="list-ul">
+              <li>Нельзя добавлять/удалять/изменять свойства</li>
+              <li>В строгом режиме попытки изменения вызывают ошибку</li>
+              <li>Не рекурсивен (вложенные объекты не замораживаются)</li>
+              <li>Возвращает замороженный объект</li>
+            </ul>
+            <h4>Синтаксис:</h4>
+            <p><code>Object.freeze(obj)</code></p>
+            <h4>Пример:</h4>
+            <div class="code-block">
+              <pre><code>const person = Object.freeze({ name: 'Андрей' });
 
-                        <!-- Object.freeze() -->
-                        <div class="note-block example">
-                            <h3>5. Object.freeze()</h3>
-                            <p><strong>Замораживает объект, предотвращая изменения</strong></p>
-                            <ul class="list-ul">
-                                <li>Нельзя добавлять/удалять/изменять свойства</li>
-                                <li>В строгом режиме попытки изменения вызовут ошибку</li>
-                                <li>Не рекурсивен (вложенные объекты не замораживаются)</li>
-                            </ul>
-
-                            <code>Object.freeze(obj)</code>
-                            <h4>Пример:</h4>
-                            <pre><code>const person = Object.freeze({ name: 'Андрей' });
 person.name = 'Иван'; // Не сработает
 console.log(person.name); // 'Андрей'
 
 // Проверка
 console.log(Object.isFrozen(person)); // true</code></pre>
-                        </div>
+            </div>
+            <button class="practice-btn" data-code="freeze-example">Запустить пример</button>
+          </article>
 
-                        <h3>Сводная таблица основных методов объектов</h3>
-                        <div style="overflow-x: auto">
-                            <table class="table-note">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 14%">Метод</th>
-                                        <th style="width: 28%">Описание</th>
-                                        <th style="width: 16%">Назначение</th>
-                                        <th style="width: 32%">Пример</th>
-                                        <th style="width: 10%">Возвращает</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><code>Object.keys(obj)</code></td>
-                                        <td>Массив ключей (имен свойств) объекта</td>
-                                        <td>Перебор, анализ структуры</td>
-                                        <td>
-                                            <pre><code>Object.keys({a:1,b:2}) // ['a','b']</code></pre>
-                                        </td>
-                                        <td>Array</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>Object.values(obj)</code></td>
-                                        <td>Массив значений свойств объекта</td>
-                                        <td>Обработка данных</td>
-                                        <td>
-                                            <pre><code>Object.values({a:1,b:2}) // [1,2]</code></pre>
-                                        </td>
-                                        <td>Array</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>Object.entries(obj)</code></td>
-                                        <td>Массив пар [ключ, значение]</td>
-                                        <td>Итерация, Map</td>
-                                        <td>
-                                            <pre><code>Object.entries({a:1,b:2}) // [['a',1],['b',2]]</code></pre>
-                                        </td>
-                                        <td>Array</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>Object.assign(target, ...sources)</code></td>
-                                        <td>Копирует свойства из объектов-источников в целевой объект</td>
-                                        <td>Объединение, клонирование</td>
-                                        <td>
-                                            <pre><code>Object.assign({a:1},{b:2}) // {a:1,b:2}</code></pre>
-                                        </td>
-                                        <td>Object</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>Object.freeze(obj)</code></td>
-                                        <td>Запрещает любые изменения объекта</td>
-                                        <td>Неизменяемый объект</td>
-                                        <td>
-                                            <pre><code>const obj = Object.freeze({a:1});
-obj.a = 2; // не изменит</code></pre>
-                                        </td>
-                                        <td>Object</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>Object.seal(obj)</code></td>
-                                        <td>Запрещает добавление/удаление свойств, но разрешает менять значения</td>
-                                        <td>Частичная неизменяемость</td>
-                                        <td>
-                                            <pre><code>const obj = Object.seal({a:1});
-obj.b = 2; // не добавит
-obj.a = 3; // изменит</code></pre>
-                                        </td>
-                                        <td>Object</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>Object.create(proto)</code></td>
-                                        <td>Создаёт новый объект с указанным прототипом</td>
-                                        <td>Наследование</td>
-                                        <td>
-                                            <pre><code>const proto = {greet(){alert('hi')}};
-const obj = Object.create(proto);
-obj.greet(); // 'hi'</code></pre>
-                                        </td>
-                                        <td>Object</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <b><code>Object.hasOwn(obj, prop)</code></b>
-                                        </td>
-                                        <td>Проверяет наличие собственного свойства</td>
-                                        <td>Точная проверка (ES2022+)</td>
-                                        <td>
-                                            <pre><code>Object.hasOwn({a:1},'a') // true</code></pre>
-                                        </td>
-                                        <td>Boolean</td>
-                                    </tr>
-                                    <tr>
-                                        <td><code>Object.fromEntries(iterable)</code></td>
-                                        <td>Создаёт объект из массива пар [ключ, значение]</td>
-                                        <td>Преобразование Map/массивов</td>
-                                        <td>
-                                            <pre><code>Object.fromEntries([['a',1],['b',2]])
-// {a:1,b:2}</code></pre>
-                                        </td>
-                                        <td>Object</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </section>
+          <article class="note-block">
+            <h3>6. Object.seal()</h3>
+            <p class="note">
+              <strong>Object.seal()</strong> — запрещает добавление и удаление свойств, но позволяет менять значения существующих свойств.
+            </p>
+            <h4>Особенности:</h4>
+            <ul class="list-ul">
+              <li>Можно менять существующие свойства</li>
+              <li>Нельзя добавлять новые свойства</li>
+              <li>Нельзя удалять свойства</li>
+              <li>Менее строгий, чем Object.freeze()</li>
+            </ul>
+            <h4>Пример:</h4>
+            <div class="code-block">
+              <pre><code>const obj = Object.seal({ a: 1 });
 
-                <!-- Продвинутые техники -->
-                <section class="section" id="objects-advanced">
-                    <div class="container">
-                        <h2>Продвинутые техники работы с объектами</h2>
+obj.a = 2; // Работает
+console.log(obj.a); // 2
 
-                        <!-- Деструктуризация объектов (ES6) -->
-                        <div class="note-block example">
-                            <h3>Деструктуризация объектов (ES6)</h3>
-                            <pre><code>const user = {
+obj.b = 3; // Не добавит
+console.log(obj); // { a: 2 }
+
+console.log(Object.isSealed(obj)); // true</code></pre>
+            </div>
+          </article>
+
+          <article class="note-block">
+            <h3>7. Object.hasOwn() (ES2022)</h3>
+            <p class="note">
+              <strong>Object.hasOwn()</strong> — проверяет наличие собственного свойства объекта (новый стандарт вместо hasOwnProperty).
+            </p>
+            <h4>Особенности:</h4>
+            <ul class="list-ul">
+              <li>Проверяет только собственные свойства (не унаследованные)</li>
+              <li>Безопаснее, чем hasOwnProperty</li>
+              <li>ES2022+</li>
+            </ul>
+            <h4>Пример:</h4>
+            <div class="code-block">
+              <pre><code>const obj = { a: 1 };
+
+console.log(Object.hasOwn(obj, 'a')); // true
+console.log(Object.hasOwn(obj, 'b')); // false
+console.log(Object.hasOwn(obj, 'toString')); // false</code></pre>
+            </div>
+          </article>
+
+          <!-- РЕЗУЛЬТАТЫ ПРИМЕРОВ -->
+          <div class="code-block" style="margin: 30px 0;" aria-live="polite" aria-atomic="true">
+            <pre><code id="output-result" style="min-height: 50px; display: block;">// результат появится здесь</code></pre>
+          </div>
+
+          <h3>Сравнение встроенных методов Object</h3>
+          <div style="overflow-x: auto">
+            <table class="table-note">
+              <thead>
+                <tr>
+                  <th style="width: 18%">Метод</th>
+                  <th style="width: 22%">Описание</th>
+                  <th style="width: 15%">Назначение</th>
+                  <th style="width: 25%">Пример</th>
+                  <th style="width: 10%">Возвращает</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>Object.keys(obj)</code></td>
+                  <td>Массив ключей (имен свойств) объекта</td>
+                  <td>Перебор, анализ структуры</td>
+                  <td><code>Object.keys({a:1,b:2})</code><br /> → <code>['a','b']</code></td>
+                  <td>Array</td>
+                </tr>
+                <tr>
+                  <td><code>Object.values(obj)</code></td>
+                  <td>Массив значений свойств объекта</td>
+                  <td>Обработка данных</td>
+                  <td><code>Object.values({a:1,b:2})</code><br /> → <code>[1,2]</code></td>
+                  <td>Array</td>
+                </tr>
+                <tr>
+                  <td><code>Object.entries(obj)</code></td>
+                  <td>Массив пар [ключ, значение]</td>
+                  <td>Итерация, Map</td>
+                  <td><code>Object.entries({a:1,b:2})</code><br /> → <code>[['a',1],['b',2]]</code></td>
+                  <td>Array</td>
+                </tr>
+                <tr>
+                  <td><code>Object.assign(target, ...sources)</code></td>
+                  <td>Копирует свойства из объектов-источников в целевой объект</td>
+                  <td>Объединение, клонирование</td>
+                  <td><code>Object.assign({a:1},{b:2})</code><br /> → <code>{a:1,b:2}</code></td>
+                  <td>Object</td>
+                </tr>
+                <tr>
+                  <td><code>Object.freeze(obj)</code></td>
+                  <td>Запрещает любые изменения объекта</td>
+                  <td>Неизменяемый объект</td>
+                  <td>Объект не может быть изменен после freeze</td>
+                  <td>Object</td>
+                </tr>
+                <tr>
+                  <td><code>Object.seal(obj)</code></td>
+                  <td>Запрещает добавление/удаление свойств, но разрешает менять значения</td>
+                  <td>Частичная неизменяемость</td>
+                  <td>Можно менять значения, но не добавлять новые свойства</td>
+                  <td>Object</td>
+                </tr>
+                <tr>
+                  <td><code>Object.create(proto)</code></td>
+                  <td>Создаёт новый объект с указанным прототипом</td>
+                  <td>Наследование</td>
+                  <td>Объект наследует свойства из proto</td>
+                  <td>Object</td>
+                </tr>
+                <tr>
+                  <td><code>Object.hasOwn(obj, prop)</code></td>
+                  <td>Проверяет наличие собственного свойства</td>
+                  <td>Точная проверка (ES2022+)</td>
+                  <td><code>Object.hasOwn({a:1},'a')</code> → <code>true</code></td>
+                  <td>Boolean</td>
+                </tr>
+                <tr>
+                  <td><code>Object.fromEntries(iterable)</code></td>
+                  <td>Создаёт объект из массива пар [ключ, значение]</td>
+                  <td>Преобразование Map/массивов</td>
+                  <td><code>Object.fromEntries([['a',1],['b',2]])</code><br /> → <code>{a:1,b:2}</code></td>
+                  <td>Object</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Лучшие практики -->
+      <section class="section" id="objects-best-practices">
+        <div class="container">
+          <h2>Лучшие практики работы с объектами</h2>
+
+          <article class="note-block">
+            <h3>1. Предпочитайте литерал объекта конструктору Object</h3>
+            <h4>✅ Хорошо:</h4>
+            <div class="code-block">
+              <pre><code>const user = {
+  name: 'Андрей',
+  age: 30
+};</code></pre>
+            </div>
+            <h4>❌ Плохо:</h4>
+            <div class="code-block">
+              <pre><code>const user = new Object();
+user.name = 'Андрей';
+user.age = 30;</code></pre>
+            </div>
+          </article>
+
+          <article class="note-block">
+            <h3>2. Используйте const для объектов по умолчанию</h3>
+            <div class="code-block">
+              <pre><code>// ✅ Хорошо - const позволяет менять содержимое
+const user = { name: 'Андрей' };
+user.name = 'Иван'; // OK
+
+// ❌ Плохо - пересваивание переменной
+let config = { debug: true };
+config = { debug: false }; // Лишнее переприсваивание</code></pre>
+            </div>
+          </article>
+
+          <article class="note-block">
+            <h3>3. Используйте деструктуризацию для доступа к свойствам</h3>
+            <h4>✅ Хорошо:</h4>
+            <div class="code-block">
+              <pre><code>const user = { name: 'Андрей', age: 30, city: 'Москва' };
+const { name, age } = user;
+console.log(name, age);</code></pre>
+            </div>
+            <h4>❌ Плохо:</h4>
+            <div class="code-block">
+              <pre><code>const user = { name: 'Андрей', age: 30, city: 'Москва' };
+console.log(user.name, user.age, user.city);</code></pre>
+            </div>
+          </article>
+
+          <article class="note-block">
+            <h3>4. Используйте Object.keys()/values()/entries() для итерации</h3>
+            <div class="code-block">
+              <pre><code>const obj = { a: 1, b: 2, c: 3 };
+
+// ✅ Хорошо - современный подход
+for (const [key, value] of Object.entries(obj)) {
+  console.log(key, value);
+}
+
+// ⚠️ Приемлемо - цикл for...in
+for (const key in obj) {
+  if (Object.hasOwn(obj, key)) {
+    console.log(key, obj[key]);
+  }
+}</code></pre>
+            </div>
+          </article>
+
+          <article class="note-block">
+            <h3>5. Проверяйте существование свойств правильно</h3>
+            <div class="code-block">
+              <pre><code>const obj = { prop: undefined };
+
+// ✅ Хорошо - проверяет само наличие свойства
+console.log(Object.hasOwn(obj, 'prop')); // true
+
+// ❌ Плохо - undefined может быть значением
+console.log(obj.prop !== undefined); // false (неправильно!)</code></pre>
+            </div>
+          </article>
+
+          <article class="note-block">
+            <h3>6. Избегайте поверхностного копирования для вложенных объектов</h3>
+            <div class="code-block">
+              <pre><code>const original = {
+  user: { name: 'Андрей' },
+  settings: { theme: 'dark' }
+};
+
+// ❌ Плохо - поверхностное копирование
+const shallow = Object.assign({}, original);
+shallow.user.name = 'Иван'; // Изменилась оригинальная ссылка!
+
+// ✅ Хорошо - глубокое копирование
+const deep = JSON.parse(JSON.stringify(original));
+deep.user.name = 'Иван'; // original не изменился</code></pre>
+            </div>
+          </article>
+
+          <article class="note-block">
+            <h3>7. Используйте Object.freeze() для константных данных</h3>
+            <div class="code-block">
+              <pre><code>const APP_CONFIG = Object.freeze({
+  API_URL: 'https://api.example.com',
+  TIMEOUT: 5000,
+  DEBUG: false
+});
+
+// ❌ Это не сработает (ошибка в строгом режиме или молча игнорируется)
+APP_CONFIG.API_URL = 'http://another.com';</code></pre>
+            </div>
+          </article>
+
+          <article class="note-block">
+            <h3>8. Используйте опциональную цепочку для безопасного доступа</h3>
+            <div class="code-block">
+              <pre><code>const user = {
+  profile: {
+    name: 'Андрей'
+  }
+};
+
+// ✅ Хорошо - опциональная цепочка (ES2020)
+console.log(user?.profile?.name); // 'Андрей'
+console.log(user?.contacts?.email); // undefined
+
+// ❌ Плохо - может вызвать ошибку
+console.log(user.contacts.email); // TypeError!</code></pre>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Типичные ошибки -->
+      <section class="section" id="objects-pitfalls">
+        <div class="container">
+          <h2>Типичные ошибки и ловушки</h2>
+
+          <div class="warning">
+            <h3>❌ Ошибка 1: Поверхностное копирование вложенных объектов</h3>
+            <div class="code-block">
+              <pre><code>const obj1 = { data: { value: 10 } };
+const obj2 = { ...obj1 }; // Spread operator
+
+obj2.data.value = 20;
+console.log(obj1.data.value); // 20 - изменился оригинал!
+
+// ✅ Решение: используйте глубокое копирование
+const obj3 = JSON.parse(JSON.stringify(obj1));
+obj3.data.value = 30;
+console.log(obj1.data.value); // 20 - оригинал не изменился</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Ошибка 2: Сравнение объектов по значению вместо по ссылке</h3>
+            <div class="code-block">
+              <pre><code>const obj1 = { a: 1 };
+const obj2 = { a: 1 };
+
+console.log(obj1 === obj2); // false - разные ссылки!
+console.log(obj1 == obj2); // false
+
+// ✅ Правильное сравнение значений:
+const isEqual = JSON.stringify(obj1) === JSON.stringify(obj2);
+console.log(isEqual); // true</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Ошибка 3: Использование this без контекста в методах</h3>
+            <div class="code-block">
+              <pre><code>const user = {
+  name: 'Андрей',
+  greet: function() {
+    console.log(this.name);
+  }
+};
+
+const greet = user.greet;
+greet(); // undefined - потеря контекста this!
+
+// ✅ Решение 1: используйте стрелочные функции
+const user2 = {
+  name: 'Андрей',
+  greet: () => {
+    console.log(this.name); // this сохраняется
+  }
+};
+
+// ✅ Решение 2: используйте bind
+const boundGreet = user.greet.bind(user);
+boundGreet(); // 'Андрей'</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Ошибка 4: Забывчивость о порядке свойств в цикле for...in</h3>
+            <div class="code-block">
+              <pre><code>const obj = { b: 2, a: 1, c: 3 };
+
+// for...in может перебирать свойства в непредсказуемом порядке
+for (const key in obj) {
+  console.log(key); // Порядок не гарантирован!
+}
+
+// ✅ Решение: используйте Object.entries() с известным порядком
+for (const [key, value] of Object.entries(obj)) {
+  console.log(key, value); // Порядок гарантирован
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Ошибка 5: Проверка существования свойства через undefined</h3>
+            <div class="code-block">
+              <pre><code>const obj = { prop: undefined };
+
+// ❌ Плохо - возвращает false, хотя свойство существует
+if (obj.prop !== undefined) {
+  console.log('Свойство существует');
+} // Не выполнится
+
+// ✅ Хорошо - проверяет само наличие свойства
+if (Object.hasOwn(obj, 'prop')) {
+  console.log('Свойство существует');
+} // Выполнится</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Ошибка 6: Забывчивость о неизменяемости массивов в Object.freeze()</h3>
+            <div class="code-block">
+              <pre><code>const obj = Object.freeze({
+  arr: [1, 2, 3]
+});
+
+obj.arr = [4, 5, 6]; // Не сработает
+obj.arr[0] = 999; // Но это СРАБОТАЕТ!
+
+console.log(obj.arr); // [999, 2, 3]
+
+// ✅ Решение: заморозьте и вложенные массивы
+function deepFreeze(obj) {
+  Object.freeze(obj);
+  Object.values(obj).forEach(val => {
+    if (typeof val === 'object' && val !== null) {
+      deepFreeze(val);
+    }
+  });
+}
+
+const frozen = deepFreeze({ arr: [1, 2, 3] });
+frozen.arr[0] = 999; // TypeError в строгом режиме</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Ошибка 7: Итерация по скрытым свойствам объекта</h3>
+            <div class="code-block">
+              <pre><code>const parent = { inheritedProp: 'inherited' };
+const child = Object.create(parent);
+child.ownProp = 'own';
+
+// ❌ Плохо - включит унаследованные свойства
+for (const key in child) {
+  console.log(key); // ownProp, inheritedProp
+}
+
+// ✅ Хорошо - только собственные свойства
+for (const key in child) {
+  if (Object.hasOwn(child, key)) {
+    console.log(key); // только ownProp
+  }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Продвинутые техники -->
+      <section class="section" id="objects-advanced">
+        <div class="container">
+          <h2>Продвинутые техники работы с объектами</h2>
+
+          <article class="note-block">
+            <h3>1. Деструктуризация объектов (ES6)</h3>
+            <p class="note">
+              <strong>Деструктуризация объектов</strong> — синтаксис, позволяющий извлекать свойства из объекта и присваивать их переменным в одной строке.
+            </p>
+            <div class="code-block">
+              <pre><code>const user = {
   id: 1,
   name: 'Андрей',
   address: {
@@ -656,19 +996,27 @@ obj.greet(); // 'hi'</code></pre>
 // Базовый вариант
 const { name, id } = user;
 
-// С псевдонимом
-const { name: userName } = user;
+// С переименованием (псевдонимом)
+const { name: userName, id: userId } = user;
 
 // Вложенная деструктуризация
 const { address: { city } } = user;
 
-console.log(userName, city); // 'Андрей', 'Москва'</code></pre>
-                        </div>
+// С значениями по умолчанию
+const { age = 30 } = user;
 
-                        <!-- Опциональная цепочка (ES2020) -->
-                        <div class="note-block example">
-                            <h3>Опциональная цепочка (ES2020)</h3>
-                            <pre><code>const user = {
+console.log(userName, city, age);
+// 'Андрей', 'Москва', 30</code></pre>
+            </div>
+          </article>
+
+          <article class="note-block">
+            <h3>2. Опциональная цепочка (ES2020)</h3>
+            <p class="note">
+              <strong>Опциональная цепочка</strong> — оператор <code>?.</code> позволяет безопасно получать доступ к вложенным свойствам и методам, даже если промежуточные значения равны null или undefined.
+            </p>
+            <div class="code-block">
+              <pre><code>const user = {
   profile: {
     name: 'Андрей'
   }
@@ -678,38 +1026,60 @@ console.log(userName, city); // 'Андрей', 'Москва'</code></pre>
 console.log(user?.profile?.name); // 'Андрей'
 console.log(user?.contacts?.email); // undefined
 
-// С вызовом методов
-user.greet?.(); // Не вызовет ошибку, если метода нет</code></pre>
-                        </div>
+// Безопасный вызов методов
+user.greet?.(); // Не вызовет ошибку, если метода нет
 
-                        <!-- Object.defineProperty() -->
-                        <div class="note-block example">
-                            <h3>Object.defineProperty()</h3>
-                            <p><strong>Определяет новое или изменяет существующее свойство</strong></p>
-                            <ul class="list-ul">
-                                <li>Позволяет задать дескрипторы свойства</li>
-                                <li>Контроль перечислимости, записываемости и т.д.</li>
-                                <li>Основа для геттеров/сеттеров</li>
-                            </ul>
+// С объединением нулевого значения (??)
+const email = user?.email ?? 'no-email@example.com';
+console.log(email); // 'no-email@example.com'</code></pre>
+            </div>
+          </article>
 
-                            <code>Object.defineProperty(obj, prop, descriptor)</code>
-                            <h4>Пример:</h4>
-                            <pre><code>const obj = {};
+          <article class="note-block">
+            <h3>3. Object.defineProperty()</h3>
+            <p class="note">
+              <strong>Object.defineProperty()</strong> — метод для определения новых или изменения существующих свойств объекта с полным контролем через дескрипторы.
+            </p>
+            <h4>Дескрипторы свойства:</h4>
+            <ul class="list-ul">
+              <li><strong>value</strong> — значение свойства</li>
+              <li><strong>writable</strong> — можно ли менять значение (true/false)</li>
+              <li><strong>enumerable</strong> — перечисляется ли в for...in (true/false)</li>
+              <li><strong>configurable</strong> — можно ли менять дескриптор (true/false)</li>
+              <li><strong>get</strong> — функция-геттер</li>
+              <li><strong>set</strong> — функция-сеттер</li>
+            </ul>
+            <div class="code-block">
+              <pre><code>const obj = {};
 
+// Определение свойства "только для чтения"
 Object.defineProperty(obj, 'readOnly', {
   value: 42,
   writable: false,
-  enumerable: true
+  enumerable: true,
+  configurable: false
 });
 
 obj.readOnly = 100; // Не изменится (в строгом режиме - ошибка)
-console.log(obj.readOnly); // 42</code></pre>
-                        </div>
+console.log(obj.readOnly); // 42
 
-                        <!-- Геттеры и сеттеры -->
-                        <div class="note-block example">
-                            <h3>Геттеры и сеттеры</h3>
-                            <pre><code>const user = {
+// Определение скрытого свойства
+Object.defineProperty(obj, 'hidden', {
+  value: 'secret',
+  enumerable: false
+});
+
+console.log(Object.keys(obj)); // ['readOnly'] - hidden не включено</code></pre>
+            </div>
+          </article>
+
+          <article class="note-block">
+            <h3>4. Геттеры и сеттеры</h3>
+            <p class="note">
+              <strong>Геттеры и сеттеры</strong> — специальные функции, которые автоматически вызываются при доступе и присваивании значения свойству.
+            </p>
+            <div class="code-block">
+              <pre><code>const user = {
   firstName: 'Андрей',
   lastName: 'Иванов',
 
@@ -726,13 +1096,216 @@ console.log(obj.readOnly); // 42</code></pre>
 
 console.log(user.fullName); // 'Андрей Иванов'
 user.fullName = 'Петр Сидоров';
-console.log(user.firstName); // 'Петр'</code></pre>
-                        </div>
-                    </div>
-                </section>
-            </main>
-            @@include('../partials/footer.html', {})
+console.log(user.firstName); // 'Петр'
+console.log(user.lastName); // 'Сидоров'</code></pre>
+            </div>
+          </article>
+
+          <article class="note-block">
+            <h3>5. Proxy объекты (ES6)</h3>
+            <p class="note">
+              <strong>Proxy</strong> — объект, который позволяет перехватывать и переопределять базовые операции над другим объектом.
+            </p>
+            <div class="code-block">
+              <pre><code>const user = { name: 'Андрей', age: 30 };
+
+const handler = {
+  get(target, prop) {
+    console.log(`Доступ к свойству: ${prop}`);
+    return target[prop];
+  },
+  set(target, prop, value) {
+    console.log(`Установка ${prop} = ${value}`);
+    target[prop] = value;
+  }
+};
+
+const proxy = new Proxy(user, handler);
+
+console.log(proxy.name); // "Доступ к свойству: name" → 'Андрей'
+proxy.age = 31; // "Установка age = 31"</code></pre>
+            </div>
+          </article>
+
+          <article class="note-block">
+            <h3>6. Spread оператор для объектов (ES2018)</h3>
+            <p class="note">
+              <strong>Spread оператор</strong> — <code>...</code> копирует свойства объекта в новый объект (поверхностное копирование).
+            </p>
+            <div class="code-block">
+              <pre><code>const obj1 = { a: 1, b: 2 };
+const obj2 = { c: 3 };
+
+// Объединение объектов
+const merged = { ...obj1, ...obj2 };
+console.log(merged); // { a: 1, b: 2, c: 3 }
+
+// Переопределение свойств
+const updated = { ...obj1, b: 99 };
+console.log(updated); // { a: 1, b: 99 }
+
+// Клонирование (поверхностное)
+const clone = { ...obj1 };
+console.log(clone); // { a: 1, b: 2 }</code></pre>
+            </div>
+          </article>
         </div>
-        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
-    </body>
+      </section>
+
+      <!-- Итоги -->
+      <section class="section" id="objects-summary">
+        <div class="container">
+          <h2>Итоги и выводы</h2>
+
+          <article class="note-block">
+            <h3>Ключевые моменты об объектах:</h3>
+            <ul class="list-ul">
+              <li><strong>Основа JavaScript</strong> — объекты являются фундаментальной частью языка и используются везде</li>
+              <li><strong>Ссылочный тип</strong> — объекты передаются по ссылке, а не по значению</li>
+              <li><strong>Динамические</strong> — свойства можно добавлять, менять и удалять во время выполнения</li>
+              <li><strong>Гибкие</strong> — значениями могут быть любые типы данных, включая функции (методы)</li>
+              <li><strong>Мощные методы</strong> — Object.keys(), Object.entries(), Object.assign() и другие упрощают работу</li>
+            </ul>
+          </article>
+
+          <article class="note-block">
+            <h3>Когда использовать разные способы создания:</h3>
+            <table class="table-note">
+              <thead>
+                <tr>
+                  <th style="width: 25%">Способ</th>
+                  <th style="width: 75%">Когда использовать</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Литерал {}</strong></td>
+                  <td>В 99% случаев - для простых и сложных объектов</td>
+                </tr>
+                <tr>
+                  <td><strong>Классы (class)</strong></td>
+                  <td>Когда нужны множественные экземпляры с методами и наследованием</td>
+                </tr>
+                <tr>
+                  <td><strong>Object.create()</strong></td>
+                  <td>Для специфического контроля над прототипом</td>
+                </tr>
+                <tr>
+                  <td><strong>new Object()</strong></td>
+                  <td>Редко используется, не рекомендуется</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="note-block">
+            <h3>Практические советы:</h3>
+            <ul class="list-ul">
+              <li>✅ Используйте <code>const</code> для объектов - вы можете менять их содержимое</li>
+              <li>✅ Применяйте деструктуризацию для упрощения кода</li>
+              <li>✅ Используйте опциональную цепочку <code>?.</code> для безопасного доступа</li>
+              <li>✅ Предпочитайте <code>Object.entries()</code> циклам <code>for...in</code></li>
+              <li>✅ Помните о поверхностном копировании при использовании Object.assign()</li>
+              <li>❌ Избегайте прямого доступа через точку к неизвестным свойствам</li>
+              <li>❌ Не забывайте проверять существование свойств перед использованием</li>
+              <li>❌ Не полагайтесь на порядок свойств в цикле for...in</li>
+            </ul>
+          </article>
+
+          <article class="note-block">
+            <h3>Что дальше изучить:</h3>
+            <ul class="list-ul">
+              <li>Классы и наследование (ES6 classes)</li>
+              <li>Прототипы и прототипное наследование</li>
+              <li>Деструктуризация в полной мере</li>
+              <li>Работа с JSON (JSON.parse() и JSON.stringify())</li>
+              <li>Proxy и Reflect для продвинутого контроля над объектами</li>
+              <li>Map и Set - альтернативные структуры данных</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+
+  <script>
+    // Примеры для практики
+    window.examples = {
+      'keys-example': function () {
+        const person = {
+          name: "Андрей",
+          age: 30
+        };
+        const keys = Object.keys(person);
+        return '> Object.keys({name: "Андрей", age: 30})\n= ' + JSON.stringify(keys);
+      },
+      'values-example': function () {
+        const person = {
+          name: 'Андрей',
+          age: 30
+        };
+        const values = Object.values(person);
+        return '> Object.values({name: "Андрей", age: 30})\n= ' + JSON.stringify(values);
+      },
+      'entries-example': function () {
+        const person = {
+          name: "Андрей",
+          age: 30
+        };
+        const entries = Object.entries(person);
+        return '> Object.entries({name: "Андрей", age: 30})\n= ' + JSON.stringify(entries);
+      },
+      'assign-example': function () {
+        const target = {
+          a: 1
+        };
+        const source = {
+          b: 2
+        };
+        const result = Object.assign({}, target, source);
+        return '> Object.assign({a:1}, {b:2})\n= ' + JSON.stringify(result);
+      },
+      'freeze-example': function () {
+        const person = Object.freeze({
+          name: 'Андрей'
+        });
+        person.name = 'Иван';
+        const after = person.name;
+        const isFrozen = Object.isFrozen(person);
+        return '> person.name = "Иван";\n> person.name\n= ' + JSON.stringify(after) + '\n> Object.isFrozen(person)\n= ' + isFrozen;
+      }
+    };
+
+    // Обработка примеров
+    document.addEventListener('click', function (e) {
+      const btn = e.target.closest('.practice-btn');
+      if (!btn) return;
+
+      const code = btn.dataset.code;
+      const fn = window.examples[code];
+
+      if (!fn) {
+        console.error('Пример не найден:', code);
+        return;
+      }
+
+      try {
+        const result = fn();
+        const output = document.getElementById('output-result');
+        if (output) {
+          output.textContent = result;
+        }
+      } catch (err) {
+        const output = document.getElementById('output-result');
+        if (output) {
+          output.textContent = '! Ошибка: ' + err.message;
+        }
+      }
+    });
+  </script>
+</body>
+
 </html>

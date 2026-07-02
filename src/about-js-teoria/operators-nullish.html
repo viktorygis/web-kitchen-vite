@@ -373,48 +373,7 @@ let x = a && (b ?? c);</code></pre>
         @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
 
         <script>
-            // Подсветка активной секции при скролле
-            (function initSectionHighlight() {
-                const nav = document.getElementById("page-nav");
-                if (!nav) return;
 
-                const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
-                const map = new Map(links.map((a) => [a.getAttribute("href").slice(1), a]));
-
-                const observer = new IntersectionObserver(
-                    (entries) => {
-                        entries.forEach((entry) => {
-                            if (entry.isIntersecting) {
-                                links.forEach((l) => l.classList.remove("active"));
-                                const link = map.get(entry.target.id);
-                                if (link) link.classList.add("active");
-                            }
-                        });
-                    },
-                    {
-                        root: null,
-                        rootMargin: "0px 0px -65% 0px",
-                        threshold: 0
-                    }
-                );
-
-                document.querySelectorAll(".section").forEach((sec) => observer.observe(sec));
-            })();
-
-            // Плавная прокрутка
-            document.getElementById("page-nav")?.addEventListener("click", (e) => {
-                const a = e.target.closest('a[href^="#"]');
-                if (!a) return;
-                e.preventDefault();
-                const id = a.getAttribute("href").slice(1);
-                const target = document.getElementById(id);
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start"
-                    });
-                }
-            });
 
             // Выполнение выражений из тренажёра
             function runExpression(expr) {
