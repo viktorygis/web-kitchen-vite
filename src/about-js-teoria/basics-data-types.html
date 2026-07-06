@@ -199,38 +199,215 @@
         <div class="container">
           <h2>Строки (String)</h2>
           <p class="note">
-            <strong>Строки</strong>
-            — используются для хранения и работы с текстовыми данными.
+            <strong>Строки</strong> — это тип данных для хранения и обработки текстовой информации.
+            Они являются одним из самых часто используемых типов в JavaScript.
           </p>
 
-          <div>
-            <h4>Основные особенности:</h4>
-            <ul class="list-ul">
-              <li>Заключаются в кавычки: <b>''</b>, <b>""</b> или <b>``</b></li>
-              <li>Поддерживают интерполяцию через <b>${}</b> в обратных кавычках</li>
-              <li>Имеют множество полезных методов (length, toUpperCase и др.)</li>
-            </ul>
-          </div>
-          <div>
-            <h4>Примеры использования:</h4>
-            <div class="code-block">
-              <pre><code>// Объявление строк
-let name = "Вика";
-let message = `Привет, ${name}!`; // интерполяция
+          <!-- Основные концепции -->
+          <div class="subsection">
+            <h3>Как создавать строки</h3>
+            <p>Строки можно создавать тремя способами, каждый из которых имеет свои особенности:</p>
 
-// Методы строк
-console.log(name.length); // 4
-console.log(message.toUpperCase()); // "ПРИВЕТ, ВИКА!"</code></pre>
+            <div class="code-block">
+              <pre><code>// Одинарные кавычки
+let singleQuote = 'Привет';
+
+// Двойные кавычки
+let doubleQuote = "Привет";
+
+// Обратные кавычки (шаблонные строки)
+let backtick = `Привет`;
+
+console.log(singleQuote === doubleQuote === backtick); // true</code></pre>
+            </div>
+
+            <p class="note note--info">
+              <strong>Совет:</strong> используйте обратные кавычки для новых проектов — они позволяют использовать интерполяцию и многострочные строки.
+            </p>
+          </div>
+
+          <!-- Основные свойства и методы -->
+          <div class="subsection">
+            <h3>Основные свойства и методы</h3>
+
+            <div class="code-block">
+              <pre><code>let text = "JavaScript";
+
+// Свойство length
+console.log(text.length); // 10
+
+// Методы для изменения регистра
+console.log(text.toUpperCase()); // "JAVASCRIPT"
+console.log(text.toLowerCase()); // "javascript"
+
+// Получение символа по индексу
+console.log(text[0]); // "J"
+console.log(text.charAt(0)); // "J"
+
+// Поиск подстроки
+console.log(text.includes("Script")); // true
+console.log(text.indexOf("Script")); // 4
+
+// Извлечение части строки
+console.log(text.slice(0, 4)); // "Java"
+console.log(text.substring(4, 10)); // "Script"</code></pre>
             </div>
           </div>
 
-          <h4>Где применяются:</h4>
-          <ul class="list-ul">
-            <li>Хранение имен, адресов, текстовых данных</li>
-            <li>Формирование сообщений для пользователей</li>
-            <li>Работа с URL и путями к файлам</li>
-            <li>Валидация ввода в формах</li>
-          </ul>
+          <!-- Шаблонные строки -->
+          <div class="subsection">
+            <h3>Шаблонные строки (Template literals)</h3>
+
+            <p class="note">
+              <strong>Шаблонные строки</strong> — это мощный инструмент для создания динамических текстов.
+              Они записываются в обратных кавычках <code>` `</code> и позволяют вставлять переменные и выражения через синтаксис <code>${...}</code>.
+            </p>
+
+            <h4>Интерполяция переменных</h4>
+            <p>Используйте <code>${переменная}</code> для вставки значения прямо в строку:</p>
+            <div class="code-block">
+              <pre><code>let name = "Иван";
+let age = 25;
+
+// Старый способ (конкатенация)
+let oldWay = "Имя: " + name + ", возраст: " + age;
+
+// Новый способ (интерполяция)
+let newWay = `Имя: ${name}, возраст: ${age}`;
+
+console.log(newWay); // Имя: Иван, возраст: 25</code></pre>
+            </div>
+
+            <h4>Вычисление выражений</h4>
+            <p>Внутри <code>${}</code> можно писать полноценные JavaScript выражения:</p>
+            <div class="code-block">
+              <pre><code>let a = 5;
+let b = 10;
+
+// Математические операции
+console.log(`${a} + ${b} = ${a + b}`); // 5 + 10 = 15
+
+// Вызов функций
+console.log(`Длина слова: ${name.length}`); // Длина слова: 4
+
+// Условные выражения
+console.log(`Возраст: ${age >= 18 ? 'Совершеннолетний' : 'Несовершеннолетний'}`);
+// Возраст: Совершеннолетний</code></pre>
+            </div>
+
+            <h4>Многострочные строки</h4>
+            <p>Шаблонные строки сохраняют переносы строк, что удобно для многострочного текста:</p>
+            <div class="code-block">
+              <pre><code>// Без шаблонных строк (сложно читать)
+let oldMultiline = "Строка 1\nСтрока 2\nСтрока 3";
+
+// С шаблонными строками (понятнее)
+let newMultiline = `Строка 1
+Строка 2
+Строка 3`;
+
+// Практический пример
+let profile = `
+  Имя: ${name}
+  Возраст: ${age}
+  Статус: Активный пользователь
+`;
+
+console.log(profile);</code></pre>
+            </div>
+          </div>
+
+          <!-- Практическое применение -->
+          <div class="subsection">
+            <h3>Практическое применение</h3>
+
+            <h4>1. Формирование сообщений для пользователей</h4>
+            <div class="code-block">
+              <pre><code>let userName = "Мария";
+let loginTime = new Date().toLocaleTimeString('ru-RU');
+
+let welcome = `Добро пожаловать, ${userName}!
+Вы вошли в систему в ${loginTime}.`;
+
+console.log(welcome);</code></pre>
+            </div>
+
+            <h4>2. Работа с URL и путями</h4>
+            <div class="code-block">
+              <pre><code>let domain = "example.com";
+let userId = 123;
+
+let apiUrl = `https://${domain}/api/users/${userId}`;
+let filePath = `/documents/${name}/report_2024.pdf`;
+
+console.log(apiUrl); // https://example.com/api/users/123</code></pre>
+            </div>
+
+            <h4>3. Валидация и проверка данных</h4>
+            <div class="code-block">
+              <pre><code>let email = "user@example.com";
+
+// Проверка на наличие "@"
+if (email.includes("@")) {
+  console.log("Почта содержит @");
+}
+
+// Извлечение части строки
+let domain = email.substring(email.indexOf("@") + 1);
+console.log(`Домен: ${domain}`); // Домен: example.com</code></pre>
+            </div>
+
+            <h4>4. Форматирование вывода</h4>
+            <div class="code-block">
+              <pre><code>let products = ["Ноутбук", "Телефон", "Планшет"];
+let prices = [1000, 500, 300];
+
+// Формирование таблицы
+let table = `
+Товар         | Цена
+${'-'.repeat(25)}
+${products[0].padEnd(13)} | $${prices[0]}
+${products[1].padEnd(13)} | $${prices[1]}
+${products[2].padEnd(13)} | $${prices[2]}
+`;
+
+console.log(table);</code></pre>
+            </div>
+          </div>
+
+          <!-- Полезные советы -->
+          <div class="subsection">
+            <h3>Полезные советы</h3>
+            <ul class="list-ul">
+              <li><strong>Выбирайте кавычки намеренно:</strong> если нужна интерполяция — обратные, для обычного текста подойдут одинарные или двойные</li>
+              <li><strong>Строки неизменяемы:</strong> методы строк возвращают новую строку, не изменяя исходную</li>
+              <li><strong>Индексация начинается с 0:</strong> первый символ находится на позиции 0</li>
+              <li><strong>Используйте методы для поиска:</strong> <code>includes()</code>, <code>indexOf()</code>, <code>startsWith()</code>, <code>endsWith()</code></li>
+              <li><strong>Для замены используйте replace():</strong> <code>text.replace('старое', 'новое')</code></li>
+            </ul>
+          </div>
+
+          <!-- Сравнение подходов -->
+          <div class="subsection">
+            <h3>Сравнение подходов</h3>
+            <div class="code-block">
+              <pre><code>let user = "Алексей";
+let action = "зарегистрировался";
+
+// Конкатенация (старый способ)
+let msg1 = "Пользователь " + user + " " + action;
+
+// Шаблонная строка (современный способ)
+let msg2 = `Пользователь ${user} ${action}`;
+
+// join (для списков)
+let msg3 = ["Пользователь", user, action].join(" ");
+
+// Все варианты дают одинаковый результат
+console.log(msg1 === msg2 === msg3); // true</code></pre>
+            </div>
+          </div>
+
         </div>
       </section>
 

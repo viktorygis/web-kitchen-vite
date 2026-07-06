@@ -10,6 +10,7 @@
         <a href="#variables-intro" class="active">Введение</a>
         <a href="#variables-declaration">Объявление</a>
         <a href="#variables-types">Типы переменных</a>
+        <a href="#variables-scopes">Области видимости</a>
         <a href="#variables-naming">Именование</a>
         <a href="#variables-assignment">Присвоение значений</a>
         <a href="#variables-update">Обновление значений</a>
@@ -271,6 +272,84 @@ for (let i = 0; i < 3; i++) {
           </div>
         </div>
       </section>
+
+      <!-- область видимости  -->
+      <section class="section" id="variables-scope">
+        <div class="container">
+          <h2>Область видимости</h2>
+          <h3>Что такое область видимости</h3>
+          <p class="note">
+            <strong>Область видимости</strong> определяет, где переменная доступна в коде.
+            <br />
+            В JavaScript существуют блочная и функциональная области видимости.
+          </p>
+          <h3>Блочная область видимости</h3>
+          <p class="note"><strong>Блочная область</strong> видимости означает, что переменные, объявленные с <code>let</code> или <code>const</code>, доступны только внутри блока кода, в котором они были объявлены. (например, в цикле, условии или функции)</p>
+          <h4>Пример блочной области видимости:</h4>
+          <div class="code-block">
+            <pre><code>if (true) {
+  let blockVar = 'Я внутри блока';
+  console.log(blockVar); // "Я внутри блока"
+}
+console.log(blockVar); // ❌ ReferenceError: blockVar is not defined</code></pre>
+          </div>
+          <h3>Функциональная область видимости</h3>
+          <p class="note"><strong>Функциональная область</strong> видимости означает, что переменные, объявленные с <code>var</code>, доступны внутри функции, в которой они были объявлены, но не за её пределами.</p>
+          <h4>Пример функциональной области видимости:</h4>
+          <div class="code-block">
+            <pre><code>function myFunction() {
+  var funcVar = 'Я внутри функции';
+  console.log(funcVar); // "Я внутри функции"
+}
+myFunction();
+
+console.log(funcVar); // ❌ ReferenceError: funcVar is not defined</code></pre>
+          </div>
+
+
+          <h3>Пример с let внутри функции:</h3>
+          <p>Например, переменные, объявленные внутри функции, доступны только внутри этой функции.</p>
+          <div class="code-block">
+            <pre><code>functionmyFunction() {
+ letname = "Иван";
+  console.log(name);
+}
+myFunction();</code></pre>
+          </div>
+
+
+          <h3>Глобальная область видимости</h3>
+          <p class="note"><strong>Глобальная область</strong> видимости означает, что переменные, объявленные вне функций и блоков, доступны в любом месте кода.<br />
+            Это важно, когда ты хочешь, чтобы переменная была доступна во всей программе, а не только внутри функции или блока.</p>
+
+          <div class="code-block">
+            <pre><code>let globalName = "Иван"; // глобальная переменная
+function greet() {
+  console.log(globalName);
+}
+greet();
+console.log(globalName); // "Иван" - доступна везде</code></pre>
+          </div>
+
+
+
+
+
+
+          <div class="note-block">
+            <h3>Рекомендации по области видимости</h3>
+            <ul class="list-ul">
+              <li>Используйте <code>let</code> и <code>const</code> для блочной области видимости</li>
+              <li>Избегайте <code>var</code>, чтобы не создавать функциональную область видимости</li>
+              <li>Держите переменные как можно ближе к месту их использования</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+
+
+
 
       <!-- Именование переменных -->
       <section class="section" id="variables-naming">

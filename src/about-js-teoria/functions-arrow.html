@@ -1,188 +1,295 @@
 <!DOCTYPE html>
 <html lang="ru">
-@@include('../partials/head.html', { "title": "Стрелочные функции в JavaScript", "description": "Краткий синтаксис, основы стрелочных функций" })
+@@include('../partials/head.html', {"title":"Стрелочные функции в JavaScript","description":"Краткий синтаксис и основы стрелочных функций в JavaScript"})
 
 <body>
   <div class="wrapper">
     @@include('../partials/header.html', {})
 
     <main class="page">
-      <!-- Локальное меню -->
       <nav class="nav-tabs" id="page-nav" style="max-width: max-content">
         <ul>
           <li><a href="#intro">Введение</a></li>
-          <li><a href="#basic">Основы</a></li>
-          <li><a href="#single-arg">Один аргумент</a></li>
-          <li><a href="#no-args">Без аргументов</a></li>
+          <li><a href="#basic">Объявление</a></li>
+          <li><a href="#params">Параметры и аргументы</a></li>
+          <li><a href="#return">Return</a></li>
+          <li><a href="#this">Контекст this</a></li>
           <li><a href="#dynamic">Динамическое создание</a></li>
-          <li><a href="#multiline">Многострочные стрелочные функции</a></li>
+          <li><a href="#multiline">Многострочные функции</a></li>
           <li><a href="#practice">Практика</a></li>
           <li><a href="#summary">Итого</a></li>
         </ul>
       </nav>
 
-      <section class="section topic-section" id="intro">
+      <section class="section" id="intro">
         <div class="container">
-          <h1>Стрелочные функции, основы</h1>
+          <h1>Стрелочные функции в JavaScript</h1>
+
           <p class="note">
-            <strong>Стрелочные функции</strong> — компактный современный синтаксис для создания функций.
-            <br />
-            Они особенно удобны для коротких действий и колбэков.
+            <strong>Стрелочные функции</strong> — это короткий и удобный синтаксис для записи функций в JavaScript.
+            Они особенно хорошо подходят для небольших вычислений, колбэков и простых обработчиков.
+            У стрелочных функций нет собственного <code>this</code>, поэтому они берут его из внешнего контекста.
           </p>
-          <div class="note-block">
-            <ul class="list-ul">
-              <li>
-                Стрелочная функция:
-                <code>(аргументы) =&gt; выражение</code>
-              </li>
-              <li>
-                Является сокращением для
-                <code>function</code>
-                -выражения
-              </li>
-              <li>Часто используется для простых однострочных функций</li>
-            </ul>
-          </div>
-        </div>
-      </section>
 
-      <section class="section topic-section" id="basic">
-        <div class="container">
-          <h2>Базовый синтаксис</h2>
-          <p>
-            Стрелочная функция записывается так:
-            <br />
-            <code>let func = (arg1, arg2, ...argN) =&gt; expression;</code>
+          <p class="note note--info">
+            Стрелочная функция записывается с помощью стрелки <strong>=&gt;</strong>.
           </p>
-          <p>
-            Это эквивалентно:
-            <br />
-            <code>let func = function(arg1, arg2, ...argN) { return expression; };</code>
-          </p>
-          <h4>Пример:</h4>
+
+          <h4>Простой пример</h4>
           <div class="code-block">
-            <pre><code>let sum = (a, b) => a + b;
-
-// То же самое:
-// let sum = function(a, b) { return a + b; }
-
-alert( sum(1, 2) ); // 3
-</code></pre>
-          </div>
-        </div>
-      </section>
-
-      <section class="section topic-section" id="single-arg">
-        <div class="container">
-          <h2>Один аргумент — ещё короче</h2>
-          <p>Если аргумент один, скобки можно опустить:</p>
-          <div class="code-block">
-            <pre><code>let double = n => n * 2;
-// То же что: let double = function(n) { return n * 2 }
-
-alert( double(3) ); // 6
-</code></pre>
-          </div>
-        </div>
-      </section>
-
-      <section class="section topic-section" id="no-args">
-        <div class="container">
-          <h2>Без аргументов</h2>
-          <p>Если аргументов нет — скобки всё равно нужны, но они пустые:</p>
-          <div class="code-block">
-            <pre><code>let sayHi = () => alert("Hello!");
-
-sayHi();
-</code></pre>
-          </div>
-        </div>
-      </section>
-
-      <section class="section topic-section" id="dynamic">
-        <div class="container">
-          <h2>Динамическое создание стрелочных функций</h2>
-          <p>Можно использовать стрелочные функции для динамического выбора действия:</p>
-          <div class="code-block">
-            <pre><code>let age = prompt("Сколько Вам лет?", 18);
-
-let welcome = (age < 18) ?
-  () => alert('Привет!') :
-  () => alert("Здравствуйте!");
-
-welcome();
-</code></pre>
-          </div>
-        </div>
-      </section>
-
-      <section class="section topic-section" id="multiline">
-        <div class="container">
-          <h2>Многострочные стрелочные функции</h2>
-          <p>
-            Если нужно написать несколько инструкций — используйте фигурные скобки.
-            <br />
-            <strong>
-              В таком случае
-              <code>return</code>
-              нужно писать явно!
-            </strong>
-          </p>
-          <div class="code-block">
-            <pre><code>let sum = (a, b) => {
-  let result = a + b;
-  return result;
+            <pre><code>const greet = () => {
+  console.log("Привет, мир!");
 };
 
-alert( sum(1, 2) ); // 3
-</code></pre>
+greet(); // Привет, мир!</code></pre>
+          </div>
+
+          <h4>То же самое обычной функцией</h4>
+          <div class="code-block">
+            <pre><code>function greet() {
+  console.log("Привет, мир!");
+}
+
+greet(); // Привет, мир!</code></pre>
           </div>
         </div>
       </section>
 
-      <section class="section topic-section" id="practice">
+      <section class="section" id="basic">
+        <div class="container">
+          <h2>Объявление</h2>
+
+          <p class="note">
+            <strong>Стрелочная функция</strong> — это разновидность функционального выражения.
+            Если тело состоит из одного выражения, фигурные скобки можно опустить, а результат вернётся автоматически.
+          </p>
+
+          <div class="code-block">
+            <pre><code>const sum = (a, b) => a + b;
+console.log(sum(1, 2)); // 3</code></pre>
+          </div>
+
+          <p class="note">
+            Если нужны несколько строк, используйте фигурные скобки и явно пишите <code>return</code>.
+          </p>
+
+          <div class="code-block">
+            <pre><code>const sum = (a, b) => {
+  return a + b;
+};
+
+console.log(sum(1, 2)); // 3</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="params">
+        <div class="container">
+          <h2>Параметры и аргументы</h2>
+
+          <p class="note note--info">
+            <strong>Параметры</strong> — это имена переменных в объявлении функции.
+            <strong>Аргументы</strong> — это значения, которые передаются при вызове.
+          </p>
+
+          <h4>Один параметр</h4>
+          <p>Если параметр один, круглые скобки можно опустить.</p>
+          <div class="code-block">
+            <pre><code>const square = n => n * n;
+console.log(square(4)); // 16</code></pre>
+          </div>
+
+          <h4>Несколько параметров</h4>
+          <p>Если параметров несколько, скобки обязательны.</p>
+          <div class="code-block">
+            <pre><code>const multiply = (a, b) => a * b;
+console.log(multiply(3, 4)); // 12</code></pre>
+          </div>
+
+          <h4>Без параметров</h4>
+          <p>Если параметров нет, скобки всё равно нужны.</p>
+          <div class="code-block">
+            <pre><code>const sayHi = () => alert("Hello!");
+sayHi();</code></pre>
+          </div>
+
+          <h4>Пример с именем</h4>
+          <div class="code-block">
+            <pre><code>const greetName = name => {
+  console.log("Привет, " + name + "!");
+};
+
+greetName("Иван"); // Привет, Иван!</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="return">
+        <div class="container">
+          <h2>Return</h2>
+
+          <p class="note">
+            Если стрелочная функция записана без фигурных скобок, она возвращает результат выражения автоматически.
+            Если используются фигурные скобки, нужно явно писать <code>return</code>.
+          </p>
+
+          <h4>Неявный возврат</h4>
+          <div class="code-block">
+            <pre><code>const sum = (a, b) => a + b;
+console.log(sum(2, 3)); // 5</code></pre>
+          </div>
+
+          <h4>Явный возврат</h4>
+          <div class="code-block">
+            <pre><code>const calculate = (a, b) => {
+  const result = a + b;
+  return result * 2;
+};
+
+console.log(calculate(2, 3)); // 10</code></pre>
+          </div>
+
+          <p>
+            Если забыть <code>return</code> внутри блока, функция вернёт <code>undefined</code>.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="this">
+        <div class="container">
+          <h2>Контекст this</h2>
+
+          <p class="note">
+            У стрелочной функции нет собственного <code>this</code>.
+            Она берёт его из внешней области видимости, поэтому хорошо подходит для вложенных колбэков, но не для методов объекта.
+          </p>
+
+          <h4>Стрелочная функция внутри метода</h4>
+          <div class="code-block">
+            <pre><code>const person = {
+  name: "Иван",
+  greet() {
+    const inner = () => {
+      console.log(this.name);
+    };
+
+    inner();
+  }
+};
+
+person.greet(); // Иван</code></pre>
+          </div>
+
+          <h4>Стрелочная функция как метод</h4>
+          <div class="code-block">
+            <pre><code>const person = {
+  name: "Иван",
+  greet: () => {
+    console.log(this.name);
+  }
+};
+
+person.greet(); // undefined</code></pre>
+          </div>
+
+          <p>
+            В обычном методе <code>this</code> указывает на объект, а у стрелочной функции значение <code>this</code> берётся снаружи.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="dynamic">
+        <div class="container">
+          <h2>Динамическое создание</h2>
+
+          <p>
+            Стрелочные функции можно создавать на лету, если выбор зависит от условия.
+          </p>
+
+          <div class="code-block">
+            <pre><code>const age = prompt("Сколько вам лет?", 18);
+
+const welcome = age &lt; 18
+  ? () => alert("Привет!")
+  : () => alert("Здравствуйте!");
+
+welcome();</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="multiline">
+        <div class="container">
+          <h2>Многострочные функции</h2>
+
+          <p>
+            Если нужно выполнить несколько действий, используйте фигурные скобки.
+            В этом случае <code>return</code> пишется явно.
+          </p>
+
+          <div class="code-block">
+            <pre><code>const formatSum = (a, b) => {
+  const result = a + b;
+  return "Сумма: " + result;
+};
+
+console.log(formatSum(2, 3)); // Сумма: 5</code></pre>
+          </div>
+
+          <p>
+            Это удобно, когда функция делает не одно действие, а небольшой набор шагов.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="practice">
         <div class="container">
           <h2>Практика</h2>
-          <p>Попробуйте выполнить различные стрелочные функции:</p>
+
+          <p class="note note--info">
+            Здесь вы можете потренироваться выполнять стрелочные функции. Введите выражение и аргументы, затем нажмите "Выполнить".
+          </p>
+
           <div class="practice-buttons">
-            <button type="button" data-expr="(a, b) => a + b">(a, b) => a + b (1,2)</button>
-            <button type="button" data-expr="n => n * 2">n => n * 2 (3)</button>
-            <button type="button" data-expr="() => 'Hello!'">() => 'Hello!'</button>
-            <button type="button" data-expr="(a, b) => { let r = a * b; return r; }">(a, b) => { let r=a*b; return r; } (2,4)</button>
+            <button type="button" class="practice-btn" data-expr="(a, b) => a + b">(a, b) => a + b</button>
+            <button type="button" class="practice-btn" data-expr="n => n * 2">n => n * 2</button>
+            <button type="button" class="practice-btn" data-expr="() => 'Hello!'">() => 'Hello!'</button>
+            <button type="button" class="practice-btn" data-expr="(a, b) => { let r = a * b; return r; }">
+              (a, b) => { let r=a*b; return r; }
+            </button>
           </div>
+
           <form id="expr-form" class="expr-form" onsubmit="return false;">
-            <label>
-              Выражение:
-              <input type="text" id="expr-input" value="(a, b) => a + b" autocomplete="off" />
-            </label>
-            <button type="button" id="run-expr">Выполнить с аргументами</button>
-            <input type="text" id="expr-args" value="1,2" placeholder="аргументы через запятую" autocomplete="off" />
+            <div class="form-group">
+              <label for="expr-input">Выражение:</label>
+              <input type="text" id="expr-input" class="form-input" value="(a, b) => a + b" />
+            </div>
+
+            <div class="form-group">
+              <label for="expr-args">Аргументы:</label>
+              <input type="text" id="expr-args" class="form-input" value="1,2" placeholder="например: 1,2" />
+            </div>
+
+            <button type="button" id="run-expr" class="btn-primary">Выполнить</button>
           </form>
+
           <div class="code-block">
             <pre><code id="expr-output">// Результат появится здесь</code></pre>
           </div>
         </div>
       </section>
 
-      <section class="section topic-section" id="summary">
+      <section class="section" id="summary">
         <div class="container">
           <h2>Итого</h2>
+
           <ul class="list-ul">
-            <li>Стрелочные функции — удобный и краткий синтаксис для функций.</li>
-            <li>
-              Однострочные:
-              <code>(...args) =&gt; выражение</code>
-              — сразу возвращают результат.
-            </li>
-            <li>
-              Многострочные:
-              <code>(...args) =&gt; { ... }</code>
-              — требуют
-              <code>return</code>
-              для возврата.
-            </li>
-            <li>Используйте для коротких действий и колбэков.</li>
-            <li>Подробнее о нюансах — в следующих главах!</li>
+            <li>Стрелочные функции — это короткий и удобный синтаксис.</li>
+            <li>Если тело состоит из одного выражения, результат возвращается автоматически.</li>
+            <li>Если используются фигурные скобки, нужен явный <code>return</code>.</li>
+            <li>Один параметр можно писать без скобок.</li>
+            <li>У стрелочных функций нет собственного <code>this</code>.</li>
+            <li>Они особенно удобны для колбэков, коротких обработчиков и простых вычислений.</li>
           </ul>
         </div>
       </section>
@@ -191,45 +298,66 @@ alert( sum(1, 2) ); // 3
     @@include('../partials/footer.html', {})
   </div>
 
-  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+
 
   <script>
-    // Примеры для кнопок
     const cases = {
       "(a, b) => a + b": [1, 2],
       "n => n * 2": [3],
       "() => 'Hello!'": [],
-      "(a, b) => { let r=a*b; return r; }": [2, 4],
+      "(a, b) => { let r = a * b; return r; }": [2, 4],
     };
-    document.querySelectorAll(".practice-buttons button").forEach((btn) => {
-      btn.onclick = () => {
-        const expr = btn.getAttribute("data-expr");
-        const args = cases[expr] || [];
-        try {
-          const fn = eval(expr);
-          const result = fn(...args);
-          document.getElementById("expr-output").textContent = `// ${expr}(${args.join(", ")}) → ${result}`;
-        } catch (e) {
-          document.getElementById("expr-output").textContent = `// Ошибка: ${e.message}`;
-        }
-      };
-    });
-    document.getElementById("run-expr").onclick = function () {
-      const expr = document.getElementById("expr-input").value;
-      const argsText = document.getElementById("expr-args").value;
-      const args = argsText.split(",").map((s) => {
-        s = s.trim();
-        if (!isNaN(s) && s !== "") return +s;
-        return s;
-      });
+
+    function executeExpression(expr, args) {
+      const outputEl = document.getElementById("expr-output");
       try {
         const fn = eval(expr);
         const result = fn(...args);
-        document.getElementById("expr-output").textContent = `// ${expr}(${args.join(", ")}) → ${result}`;
+        outputEl.textContent = `// ${expr}(${args.join(", ")}) → ${result}`;
+        outputEl.classList.remove("error");
       } catch (e) {
-        document.getElementById("expr-output").textContent = `// Ошибка: ${e.message}`;
+        outputEl.textContent = `// ❌ Ошибка: ${e.message}`;
+        outputEl.classList.add("error");
       }
-    };
+    }
+
+    document.querySelectorAll(".practice-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const expr = btn.getAttribute("data-expr");
+        const args = cases[expr] || [];
+        executeExpression(expr, args);
+      });
+    });
+
+    document.getElementById("run-expr").addEventListener("click", function () {
+      const expr = document.getElementById("expr-input").value.trim();
+      const argsText = document.getElementById("expr-args").value.trim();
+
+      if (!expr) {
+        document.getElementById("expr-output").textContent = "// ❌ Введите выражение";
+        document.getElementById("expr-output").classList.add("error");
+        return;
+      }
+
+      const args = argsText ?
+        argsText.split(",").map((s) => {
+          s = s.trim();
+          if (!isNaN(s) && s !== "") return +s;
+          return s.replace(/^['"]|['"]$/g, "");
+        }) :
+        [];
+
+      executeExpression(expr, args);
+    });
+
+    // Выполнить при нажатии Enter в поле аргументов
+    document.getElementById("expr-args").addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        document.getElementById("run-expr").click();
+      }
+    });
   </script>
 </body>
 

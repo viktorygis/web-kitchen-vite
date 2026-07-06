@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', {
+"title": "Product Management: инструменты продакт-менеджера",
+"description": "Инструменты, артефакты и рабочие практики продакт-менеджера: discovery, prioritization, roadmap, Jira, Confluence, analytics и BI"
+})
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs" id="page-nav">
+        <a href="#pm-intro" class="active">Введение</a>
+        <a href="#pm-tools">Инструменты</a>
+        <a href="#pm-discovery">Discovery</a>
+        <a href="#pm-prioritization">Prioritization</a>
+        <a href="#pm-roadmap">Roadmap</a>
+        <a href="#pm-delivery">Delivery</a>
+        <a href="#pm-jira">Jira</a>
+        <a href="#pm-confluence">Confluence</a>
+        <a href="#pm-analytics">Analytics</a>
+        <a href="#pm-bi">BI</a>
+        <a href="#pm-summary">Итоги</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="pm-intro">
+        <div class="container">
+          <h1>Product Management</h1>
+
+          <p class="note">
+            <strong>Product Management</strong> — это работа по созданию, развитию и улучшению продукта. Product Manager отвечает за продукт целиком или за отдельное направление/фичу, связывает бизнес, пользователей и команду разработки, а также помогает принимать решения о том, что делать в первую очередь [web:48][web:49].
+            <br />
+            На практике продакт работает с Jira, Confluence, Excel, SQL и BI-дашбордами, чтобы управлять задачами, документами, аналитикой и результатами [web:28][web:20][web:14].
+          </p>
+
+          <article class="article-block">
+            <h3>Роль продакт-менеджера</h3>
+            <ul class="list-ul">
+              <li>Отвечает за развитие продукта или конкретного направления внутри продукта.</li>
+              <li>Взаимодействует с разработчиками, аналитиками, дизайнерами, проект-менеджерами и стейкхолдерами.</li>
+              <li>Определяет, какие задачи важны сейчас, а что можно отложить.</li>
+              <li>Следит, чтобы продукт решал реальную пользовательскую и бизнес-задачу.</li>
+            </ul>
+          </article>
+
+          <article class="article-block">
+            <h3>Откуда приходят идеи и задачи</h3>
+            <ul class="list-ul">
+              <li>От рынка и конкурентов.</li>
+              <li>От заказчиков и внутренних стейкхолдеров.</li>
+              <li>От пользователей через интервью и CustDev.</li>
+              <li>Из аналитики поведения аудитории: где люди отваливаются, что ломает сценарий, где падает конверсия.</li>
+            </ul>
+          </article>
+
+          <article class="article-block">
+            <h3>Как продакт работает с backlog</h3>
+            <ul class="list-ul">
+              <li>Собирает backlog из разных источников.</li>
+              <li>Приоритизирует задачи по ценности, рискам и трудозатратам.</li>
+              <li>Определяет, что входит в MVP, а что можно отложить.</li>
+              <li>Развивает продукт итеративно, по периодам или спринтам.</li>
+            </ul>
+          </article>
+
+          <article class="article-block">
+            <h3>Что нужно знать продакту</h3>
+            <ul class="list-ul">
+              <li>Техническую базу, чтобы понимать ограничения разработки и говорить с командой на одном языке.</li>
+              <li>Основы UX и дизайна, чтобы не ломать пользовательские сценарии.</li>
+              <li>CustDev и исследование пользователей.</li>
+              <li>Аналитику, метрики, A/B-тесты и эксперименты.</li>
+              <li>Коммуникацию, тайм-менеджмент и leadership.</li>
+              <li>Agile-методологии: Scrum, Kanban, backlog, sprint и related concepts.</li>
+            </ul>
+          </article>
+
+          <article class="article-block">
+            <h3>Как становятся продакт-менеджером</h3>
+            <ul class="list-ul">
+              <li>Чаще всего переходят из смежных ролей: разработки, аналитики или дизайна.</li>
+              <li>Помогает продуктовое мышление и понимание нескольких сторон процесса.</li>
+              <li>Переход “с нуля” возможен, но обычно требует сильной практики и реальных кейсов.</li>
+            </ul>
+          </article>
+
+          <article class="article-block">
+            <h3>Как оценивают на интервью</h3>
+            <ul class="list-ul">
+              <li>Смотрят на кейсы, опыт и качество решений.</li>
+              <li>Проверяют умение рассуждать о приоритетах, метриках и компромиссах.</li>
+              <li>Важно не только знание терминов, но и способность объяснить, почему выбрано именно такое решение.</li>
+            </ul>
+          </article>
+
+          <article class="article-block">
+            <h3>Карьера и рост</h3>
+            <ul class="list-ul">
+              <li>Обычно стартуют с junior-уровня или перехода из смежной роли.</li>
+              <li>Рост идет через ответственность за более крупные части продукта.</li>
+              <li>В сильных компаниях доход может заметно расти за счет бонусов, опционов и доли в продукте.</li>
+            </ul>
+          </article>
+
+          <article class="article-block">
+            <h3>Главная идея</h3>
+            <ul class="list-ul">
+              <li>Product Manager соединяет разработку, дизайн и аналитику в один процесс.</li>
+              <li>Он помогает пройти путь от идеи и исследования до приоритизации, релиза и роста метрик.</li>
+              <li>Это центральная роль в развитии продукта, а не просто “человек, который ставит задачи”.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+      <!-- Что такое продукт -->
+      <section class="section" id="product-what-is">
+        <div class="container">
+          <h2>Что такое продукт</h2>
+
+          <p class="note">
+            <strong>Продукт</strong> — это товар или сервис, который помогает пользователю удовлетворить потребность или желание.
+            <br />
+            Главное отличие продукта от проекта в том, что проект — это процесс, а продукт — результат этого процесса.
+          </p>
+          <h4>Пример:</h4>
+          <div class="code-block">
+            <pre><code>Проект — создание сериала.
+Продукт — сам сериал, который смотрит пользователь.</code></pre>
+          </div>
+
+          <article class="article-block">
+            <h3>Ключевая идея</h3>
+            <ul class="list-ul">
+              <li>Продукт существует не сам по себе, а ради пользы для пользователя.</li>
+              <li>Он должен решать конкретную задачу, боль или желание.</li>
+              <li>Без ценности для пользователя продукт не имеет смысла.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- Основа продукта -->
+      <section class="section" id="product-need">
+        <div class="container">
+          <h2>Основа любого продукта</h2>
+
+          <p class="note">
+            Основа любого продукта — это <strong>потребность пользователя</strong>. Успешный продукт решает проблему, закрывает боль или помогает реализовать желание.
+          </p>
+
+          <article class="article-block">
+            <h3>Типы потребностей</h3>
+            <ul class="list-ul">
+              <li><strong>Боль</strong> — что-то мешает человеку.</li>
+              <li><strong>Проблема</strong> — неудобство, которое хочется устранить.</li>
+              <li><strong>Желание</strong> — например, купить новый смартфон.</li>
+            </ul>
+          </article>
+
+          <article class="article-block">
+            <h3>Почему это важно</h3>
+            <ul class="list-ul">
+              <li>Иногда продукт закрывает уже существующую потребность.</li>
+              <li>Иногда он создает новую потребность и новый способ поведения.</li>
+              <li>Хороший продукт всегда начинается с понимания человека, а не с технологии.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- Где искать идеи -->
+      <section class="section" id="product-ideas">
+        <div class="container">
+          <h2>Где искать идеи для продукта</h2>
+
+          <p class="note">
+            Идеи для продукта появляются там, где есть неудовлетворенная потребность или возможность решить проблему лучше, чем это делают существующие решения.
+          </p>
+
+          <article class="article-block">
+            <h3>Полезные источники идей</h3>
+            <ul class="list-ul">
+              <li>Наблюдать за собственным поведением.</li>
+              <li>Анализировать проблемы других людей.</li>
+              <li>Проводить интервью с пользователями.</li>
+              <li>Проверять гипотезы до начала разработки.</li>
+            </ul>
+          </article>
+
+          <div class="note-block">
+            <h3>Практический смысл</h3>
+            <p>Если проблема повторяется и люди уже пытаются решать ее обходными путями, это хороший сигнал для продуктовой идеи.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Компоненты продукта -->
+      <section class="section" id="product-components">
+        <div class="container">
+          <h2>Компоненты продукта</h2>
+
+          <p class="note">
+            Любой продукт можно рассматривать на трех уровнях: ядро, сам продукт и дополненный продукт.
+          </p>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Уровень</th>
+                <th>Что это значит</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Ядро</strong></td>
+                <td>Главная функция, ради которой продукт существует.</td>
+              </tr>
+              <tr>
+                <td><strong>Сам продукт</strong></td>
+                <td>Дизайн, бренд, качество, дополнительные функции.</td>
+              </tr>
+              <tr>
+                <td><strong>Дополненный продукт</strong></td>
+                <td>Поддержка, гарантия, доставка, обслуживание.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="code-block">
+            <h4>Пример на YouTube:</h4>
+            <pre><code>Ядро — просмотр видео.
+Сам продукт — поиск, рекомендации, интерфейс.
+Дополненный продукт — поддержка и партнерская программа.</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Жизненный цикл -->
+      <section class="section" id="product-lifecycle">
+        <div class="container">
+          <h2>Жизненный цикл продукта</h2>
+
+          <p class="note">
+            Продукт проходит несколько этапов: от поиска идеи до возможного спада. На каждом этапе меняются цели, задачи и метрики.
+          </p>
+
+          <article class="article-block">
+            <h3>Этапы жизненного цикла</h3>
+            <ul class="list-ul">
+              <li><strong>Развитие</strong> — поиск идеи и проверка гипотез.</li>
+              <li><strong>Внедрение</strong> — выход на рынок.</li>
+              <li><strong>Рост</strong> — быстрое увеличение пользователей.</li>
+              <li><strong>Зрелость</strong> — улучшение продукта и оптимизация процессов.</li>
+              <li><strong>Насыщение</strong> — замедление роста и высокая конкуренция.</li>
+              <li><strong>Спад</strong> — снижение популярности или переход к новому продукту.</li>
+            </ul>
+          </article>
+
+          <div class="note-block">
+            <h3>Важно помнить</h3>
+            <p>Продукт можно обновить, переработать или перезапустить, и тогда он снова пройдет новый цикл развития.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Метрики продукта -->
+      <section class="section" id="product-metrics">
+        <div class="container">
+          <h2>Метрики продукта</h2>
+
+          <p class="note">
+            Метрики помогают оценивать эффективность продукта. Это инструмент достижения целей, а не цель сама по себе.
+          </p>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Метрика</th>
+                <th>Что показывает</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Конверсия</strong></td>
+                <td>Сколько пользователей переходит с одного этапа на другой.</td>
+              </tr>
+              <tr>
+                <td><strong>Рост пользователей</strong></td>
+                <td>Количество новых клиентов.</td>
+              </tr>
+              <tr>
+                <td><strong>Churn Rate</strong></td>
+                <td>Процент пользователей, которые перестали пользоваться продуктом.</td>
+              </tr>
+              <tr>
+                <td><strong>CAC</strong></td>
+                <td>Стоимость привлечения одного клиента.</td>
+              </tr>
+              <tr>
+                <td><strong>LTV</strong></td>
+                <td>Прибыль, которую приносит пользователь за все время использования продукта.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <article class="article-block">
+            <h3>Зачем нужны метрики</h3>
+            <ul class="list-ul">
+              <li>Помогают принимать решения по развитию продукта.</li>
+              <li>Показывают, что работает, а что нет.</li>
+              <li>Позволяют сравнивать гипотезы и выбирать приоритеты.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- Главная мысль -->
+      <section class="section" id="product-summary">
+        <div class="container">
+          <h2>Главная мысль</h2>
+
+          <p class="note">
+            Успешный продукт создается не ради технологии, а ради решения реальной потребности пользователя.
+            <br />
+            Работа продукт-менеджера заключается в том, чтобы найти потребность, проверить гипотезу, создать решение, развивать продукт и постоянно анализировать его эффективность с помощью метрик.
+          </p>
+
+          <article class="article-block">
+            <h3>Кратко</h3>
+            <ul class="list-ul">
+              <li>Потребность → идея → гипотеза → продукт → метрики → улучшение.</li>
+              <li>Если нет потребности, нет и смысла в продукте.</li>
+              <li>Если нет метрик, нельзя понять, работает решение или нет.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+      <!-- Инструменты -->
+      <section class="section" id="pm-tools">
+        <div class="container">
+          <h2>Инструменты продакта</h2>
+
+          <p class="note">
+            Продакт-менеджеру не нужно быть экспертом во всем, но важно понимать, для чего используется каждый инструмент и на каком этапе он помогает.
+          </p>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Инструмент</th>
+                <th>Для чего нужен</th>
+                <th>Что важно уметь</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Jira</strong></td>
+                <td>Вести backlog, epics, stories, tasks, отслеживать delivery</td>
+                <td>Создавать задачи, работать с доской, управлять приоритетами</td>
+              </tr>
+              <tr>
+                <td><strong>Confluence</strong></td>
+                <td>Хранить требования, решения, roadmap, документацию</td>
+                <td>Оформлять страницы, писать требования, связывать материалы</td>
+              </tr>
+              <tr>
+                <td><strong>Excel</strong></td>
+                <td>Анализировать данные, считать метрики, делать сводные</td>
+                <td>Сводные таблицы, ВПР, XLOOKUP, Power Query</td>
+              </tr>
+              <tr>
+                <td><strong>SQL</strong></td>
+                <td>Получать и проверять данные из базы</td>
+                <td>SELECT, WHERE, GROUP BY, JOIN, COUNT, SUM, AVG</td>
+              </tr>
+              <tr>
+                <td><strong>BI</strong></td>
+                <td>Собирать дашборды и следить за KPI</td>
+                <td>Понимать логику визуализаций и структуру dashboard</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="note-block">
+            <h3>Что важно понимать</h3>
+            <ul class="list-ul">
+              <li>Инструмент сам по себе не решает задачу — решает процесс.</li>
+              <li>Roadmap должен быть связан с целями и метриками.</li>
+              <li>Требования должны быть понятны бизнесу и разработке.</li>
+              <li>Данные должны подтверждать приоритеты и результат.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Discovery -->
+      <section class="section" id="pm-discovery">
+        <div class="container">
+          <h2>Discovery</h2>
+
+          <p class="note">
+            <strong>Product Discovery</strong> — это этап, на котором продакт понимает, какую проблему стоит решать, для кого она важна и как проверить гипотезу до большой разработки [web:28].
+          </p>
+
+          <article class="article-block">
+            <h3>Инструменты для discovery</h3>
+            <ul class="list-ul">
+              <li>Интервью с пользователями.</li>
+              <li>Сбор обратной связи из поддержки и продаж.</li>
+              <li>Анализ воронки и поведения в продукте.</li>
+              <li>Документация наблюдений в Confluence.</li>
+            </ul>
+          </article>
+
+          <article class="article-block">
+            <h3>Что фиксировать</h3>
+            <ul class="list-ul">
+              <li>Проблему пользователя.</li>
+              <li>Сценарий, в котором она возникает.</li>
+              <li>Гипотезу решения.</li>
+              <li>Ожидаемый эффект.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- Prioritization -->
+      <section class="section" id="pm-prioritization">
+        <div class="container">
+          <h2>Prioritization</h2>
+
+          <p class="note">
+            Приоритизация нужна, чтобы ответить на главный вопрос: <strong>почему именно этот функционал нужно делать первым?</strong> Для этого используют frameworks вроде ICE, RICE и другие подходы [web:33].
+          </p>
+
+          <div class="code-block">
+            <h4>Типичный набор критериев:</h4>
+            <pre><code>Impact — какой эффект даст фича
+Confidence — насколько мы уверены
+Effort — сколько ресурсов нужно
+Reach — сколько пользователей затронет</code></pre>
+          </div>
+
+          <div class="note-block">
+            <h3>Инструменты для приоритизации</h3>
+            <ul class="list-ul">
+              <li>Таблица в Excel или Google Sheets.</li>
+              <li>Roadmap в Confluence.</li>
+              <li>Задачи и статусы в Jira.</li>
+              <li>Данные из аналитики и BI.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Roadmap -->
+      <section class="section" id="pm-roadmap">
+        <div class="container">
+          <h2>Roadmap</h2>
+
+          <p class="note">
+            <strong>Product Roadmap</strong> — это обзор направления, приоритетов и прогресса продукта во времени; он помогает команде и стейкхолдерам видеть, что и зачем делается [web:10][web:20].
+          </p>
+
+          <article class="article-block">
+            <h3>Что должно быть в roadmap</h3>
+            <ul class="list-ul">
+              <li>Цель или миссия.</li>
+              <li>Инициативы или крупные направления.</li>
+              <li>Сроки по кварталам или релизам.</li>
+              <li>Статус и приоритет.</li>
+              <li>Связь с OKR и Jira.</li>
+            </ul>
+          </article>
+
+          <article class="article-block">
+            <h3>Где вести roadmap</h3>
+            <ul class="list-ul">
+              <li>Confluence — удобно для общей страницы и обсуждений.</li>
+              <li>Jira — удобно для связи roadmap с задачами.</li>
+              <li>Таблица — удобно для быстрого черновика.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- Delivery -->
+      <section class="section" id="pm-delivery">
+        <div class="container">
+          <h2>Delivery</h2>
+
+          <p class="note">
+            <strong>Product Delivery</strong> — это этап, на котором идея превращается в работающий результат: задача декомпозируется, назначается, реализуется, проверяется и выпускается.
+          </p>
+
+          <div class="note-block">
+            <h3>Что важно для delivery</h3>
+            <ul class="list-ul">
+              <li>Понятный backlog.</li>
+              <li>Хорошо описанные user story и task.</li>
+              <li>Критерии готовности и приемки.</li>
+              <li>Контроль статусов и зависимости между задачами.</li>
+            </ul>
+          </div>
+
+          <div class="note-block">
+            <h3>Рабочие инструменты</h3>
+            <ul class="list-ul">
+              <li>Jira для постановки и контроля задач.</li>
+              <li>Confluence для требований и согласований.</li>
+              <li>BI для проверки результата после релиза.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Jira -->
+      <section class="section" id="pm-jira">
+        <div class="container">
+          <h2>Jira</h2>
+
+          <p class="note">
+            Jira — базовый инструмент для продакта, если команда работает по Agile. В Jira продакт управляет backlog, создает epic, story и task, а также отслеживает выполнение по доске [web:28][web:36].
+          </p>
+
+          <article class="article-block">
+            <h3>Что нужно уметь</h3>
+            <ul class="list-ul">
+              <li>Создавать Epic.</li>
+              <li>Создавать Story.</li>
+              <li>Создавать Task.</li>
+              <li>Вести backlog.</li>
+              <li>Работать со Scrum и Kanban board.</li>
+            </ul>
+          </article>
+
+          <article class="article-block">
+            <h3>Что писать в Jira</h3>
+            <ul class="list-ul">
+              <li>Краткое описание задачи.</li>
+              <li>Бизнес-ценность.</li>
+              <li>Критерии приемки.</li>
+              <li>Связанные ссылки на Confluence.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- Confluence -->
+      <section class="section" id="pm-confluence">
+        <div class="container">
+          <h2>Confluence</h2>
+
+          <p class="note">
+            Confluence — это место, где продакт оформляет требования, roadmap, решения и страницы продукта. Atlassian прямо позиционирует шаблоны Confluence как способ создавать, организовывать и обсуждать работу [web:34][web:20].
+          </p>
+
+          <article class="article-block">
+            <h3>Что удобно хранить в Confluence</h3>
+            <ul class="list-ul">
+              <li>Описание продукта.</li>
+              <li>Требования и user flow.</li>
+              <li>Roadmap и квартальные планы.</li>
+              <li>Протоколы встреч и решения.</li>
+              <li>Страницы для стейкхолдеров.</li>
+            </ul>
+          </article>
+
+          <article class="article-block">
+            <h3>Хорошая структура страницы</h3>
+            <ul class="list-ul">
+              <li>Цель.</li>
+              <li>Контекст.</li>
+              <li>Решение.</li>
+              <li>Риски.</li>
+              <li>Следующие шаги.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- Analytics -->
+      <section class="section" id="pm-analytics">
+        <div class="container">
+          <h2>Analytics</h2>
+
+          <p class="note">
+            Аналитика нужна, чтобы проверять гипотезы, отслеживать воронки и видеть, приносит ли фича ожидаемый эффект. Для большинства продуктовых задач достаточно Excel и базы SQL [web:14][web:19].
+          </p>
+
+          <article class="article-block">
+            <h3>Минимум, который должен знать продакт</h3>
+            <ul class="list-ul">
+              <li>Excel: сводные таблицы, ВПР, XLOOKUP, Power Query.</li>
+              <li>SQL: SELECT, WHERE, GROUP BY, JOIN, COUNT, SUM, AVG.</li>
+              <li>Понимание KPI, воронки, retention и конверсии.</li>
+            </ul>
+          </article>
+
+          <div class="code-block">
+            <h4>Пример логики анализа:</h4>
+            <pre><code>1. Посмотреть данные
+2. Найти проблему
+3. Сравнить до / после
+4. Проверить сегменты
+5. Сделать вывод по гипотезе</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- BI -->
+      <section class="section" id="pm-bi">
+        <div class="container">
+          <h2>BI</h2>
+
+          <p class="note">
+            BI-дашборд нужен не для “красоты”, а для того, чтобы быстро видеть картину продукта на одной странице. Power BI dashboards показывают данные в едином представлении и помогают рассказывать историю через визуализации [web:14][web:19].
+          </p>
+
+          <article class="article-block">
+            <h3>Что должен уметь продакт</h3>
+            <ul class="list-ul">
+              <li>Понимать, какие метрики вынести на дашборд.</li>
+              <li>Отличать KPI от вспомогательных показателей.</li>
+              <li>Читать графики, фильтры и сегменты.</li>
+              <li>Использовать dashboard для решений, а не только для отчетов.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- Итоги -->
+      <section class="section" id="pm-summary">
+        <div class="container">
+          <h2>Итоги</h2>
+
+          <div class="note-block">
+            <h3>Что должен освоить продакт</h3>
+            <ul class="list-ul">
+              <li>Понимать продуктовый процесс от идеи до результата.</li>
+              <li>Уметь приоритизировать и объяснять выбор.</li>
+              <li>Вести roadmap и связывать его с Jira и Confluence.</li>
+              <li>Использовать Excel, SQL и BI для проверки гипотез.</li>
+            </ul>
+          </div>
+
+          <div class="note-block">
+            <h3>Главная формула</h3>
+            <ul class="list-ul">
+              <li>Идея без приоритета — это просто список.</li>
+              <li>Приоритет без roadmap — это хаос.</li>
+              <li>Roadmap без delivery — это обещание.</li>
+              <li>Delivery без аналитики — это работа вслепую.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+</body>
+
+</html>

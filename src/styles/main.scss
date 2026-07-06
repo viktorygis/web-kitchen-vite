@@ -51,7 +51,7 @@ body {
     grid-template-columns: 1fr;
   }
 
-  > div {
+  >div {
     display: flex;
     flex-direction: column;
     gap: 14px;
@@ -157,6 +157,18 @@ body {
 .section-main {
   padding: 80px 0 30px 0;
 
+}
+
+.subsection {
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.subsection:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 // =================== Notes, Warnings, Summary ===================

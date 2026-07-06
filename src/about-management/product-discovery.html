@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', {
+  "title": "Product Discovery",
+  "description": "Product Discovery: поиск идей, интервью с пользователями, проверка гипотез и приоритизация"
+})
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs" id="page-nav">
+        <a href="#pd-intro" class="active">Введение</a>
+        <a href="#pd-purpose">Задача</a>
+        <a href="#pd-sources">Источники идей</a>
+        <a href="#pd-research">Исследование</a>
+        <a href="#pd-ideas">Работа с идеями</a>
+        <a href="#pd-validation">Проверка гипотез</a>
+        <a href="#pd-jpd">Jira Product Discovery</a>
+        <a href="#pd-summary">Итоги</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="pd-intro">
+        <div class="container">
+          <h1>Product Discovery</h1>
+
+          <p class="note">
+            <strong>Product Discovery</strong> — это этап, на котором продакт ищет реальные проблемы пользователей, формулирует идеи решения и проверяет, стоит ли их развивать дальше.
+            <br />
+            В discovery продакт собирает инсайты, работает с интервью, анализом поведения и обратной связью, а затем выбирает самые перспективные идеи для продуктового backlog [web:76][web:71].
+          </p>
+
+          <article class="article-block">
+            <h3>Зачем нужен discovery</h3>
+            <ul class="list-ul">
+              <li>Чтобы не строить продукт “вслепую”.</li>
+              <li>Чтобы понимать, какую проблему действительно нужно решать.</li>
+              <li>Чтобы находить сильные идеи до начала разработки.</li>
+              <li>Чтобы тратить ресурсы только на те решения, которые могут дать пользу пользователю и бизнесу.</li>
+            </ul>
+          </article>
+
+          <article class="article-block">
+            <h3>Главная идея</h3>
+            <ul class="list-ul">
+              <li>Сначала понять проблему.</li>
+              <li>Потом проверить гипотезу.</li>
+              <li>Потом приоритизировать.</li>
+              <li>И только после этого передавать в delivery.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- Задача -->
+      <section class="section" id="pd-purpose">
+        <div class="container">
+          <h2>Задача discovery</h2>
+
+          <p class="note">
+            Основная задача discovery — быстро понять, есть ли у идеи реальная ценность и стоит ли превращать ее в продуктовую инициативу.
+          </p>
+
+          <article class="article-block">
+            <h3>Что ищет продакт</h3>
+            <ul class="list-ul">
+              <li>Проблему пользователя.</li>
+              <li>Сценарий, где она возникает.</li>
+              <li>Сегмент аудитории, которому это важно.</li>
+              <li>Возможность решить задачу лучше текущих решений.</li>
+            </ul>
+          </article>
+
+          <div class="note-block">
+            <h3>Правильный вопрос</h3>
+            <p>Не “какую фичу сделать?”, а “какую проблему мы решаем и почему именно так?”</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Источники идей -->
+      <section class="section" id="pd-sources">
+        <div class="container">
+          <h2>Источники идей</h2>
+
+          <p class="note">
+            Идеи не берутся из воздуха — они появляются из наблюдений, обратной связи и реальных проблем пользователей.
+          </p>
+
+          <article class="article-block">
+            <h3>Откуда приходят идеи</h3>
+            <ul class="list-ul">
+              <li>От пользователей и customer interviews.</li>
+              <li>От поддержки, продаж и аккаунт-менеджеров.</li>
+              <li>От анализа конкурентов и рынка.</li>
+              <li>От собственных наблюдений за поведением людей.</li>
+              <li>Из данных продукта: воронка, отказы, падение конверсии, churn.</li>
+            </ul>
+          </article>
+
+          <div class="note-block">
+            <h3>Полезный принцип</h3>
+            <p>Если один и тот же сигнал повторяется из нескольких источников, это сильный кандидат в продуктовую идею.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Исследование -->
+      <section class="section" id="pd-research">
+        <div class="container">
+          <h2>Исследование</h2>
+
+          <p class="note">
+            Исследование помогает понять не только что хочет пользователь, но и почему он так себя ведет.
+          </p>
+
+          <article class="article-block">
+            <h3>Что делает продакт</h3>
+            <ul class="list-ul">
+              <li>Проводит интервью.</li>
+              <li>Слушает боли и ожидания пользователей.</li>
+              <li>Смотрит поведение в продукте.</li>
+              <li>Сравнивает сегменты аудитории.</li>
+            </ul>
+          </article>
+
+          <article class="article-block">
+            <h3>Что важно фиксировать</h3>
+            <ul class="list-ul">
+              <li>Контекст пользователя.</li>
+              <li>Что он пытался сделать.</li>
+              <li>Где возникла проблема.</li>
+              <li>Как он решает ее сейчас.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- Идеи -->
+      <section class="section" id="pd-ideas">
+        <div class="container">
+          <h2>Работа с идеями</h2>
+
+          <p class="note">
+            Идею важно не просто записать, а оформить так, чтобы ее можно было сравнить с другими идеями и дальше приоритизировать.
+          </p>
+
+          <article class="article-block">
+            <h3>Хорошая форма идеи</h3>
+            <ul class="list-ul">
+              <li>Какая проблема есть у пользователя.</li>
+              <li>Какое решение предлагается.</li>
+              <li>Какой ожидается эффект.</li>
+              <li>Почему это важно сейчас.</li>
+            </ul>
+          </article>
+
+          <div class="code-block">
+            <h4>Пример формулировки:</h4>
+            <pre><code>Пользователь не завершает оформление заказа,
+потому что форма слишком длинная.
+Нужно сократить шаги и проверить, вырастет ли конверсия.</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Проверка гипотез -->
+      <section class="section" id="pd-validation">
+        <div class="container">
+          <h2>Проверка гипотез</h2>
+
+          <p class="note">
+            До разработки важно убедиться, что гипотеза действительно имеет смысл. Для этого продуктовая команда делает быстрые проверки и смотрит на реакцию пользователей.
+          </p>
+
+          <article class="article-block">
+            <h3>Способы проверки</h3>
+            <ul class="list-ul">
+              <li>Интервью и опросы.</li>
+              <li>Прототипы и кликабельные макеты.</li>
+              <li>MVP.</li>
+              <li>A/B-тесты.</li>
+              <li>Анализ метрик после запуска.</li>
+            </ul>
+          </article>
+
+          <div class="note-block">
+            <h3>Что проверяем</h3>
+            <p>Есть ли у пользователей проблема, понятна ли им ценность решения и готовы ли они им пользоваться.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Jira Product Discovery -->
+      <section class="section" id="pd-jpd">
+        <div class="container">
+          <h2>Jira Product Discovery</h2>
+
+          <p class="note">
+            Jira Product Discovery — это инструмент для сбора идей, приоритизации и создания roadmap. Он помогает связать discovery с delivery и держать команды в одной картине [web:76][web:74][web:71].
+          </p>
+
+          <article class="article-block">
+            <h3>Что удобно делать в JPD</h3>
+            <ul class="list-ul">
+              <li>Собирать идеи в одном месте.</li>
+              <li>Добавлять инсайты и заметки.</li>
+              <li>Сравнивать идеи по критериям.</li>
+              <li>Формировать и делиться roadmap.</li>
+              <li>Связывать discovery с Jira-задачами.</li>
+            </ul>
+          </article>
+
+          <div class="note-block">
+            <h3>Смысл инструмента</h3>
+            <p>JPD помогает не потерять идеи, не спорить “на ощущениях” и быстрее превращать инсайты в приоритеты.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Итоги -->
+      <section class="section" id="pd-summary">
+        <div class="container">
+          <h2>Итоги</h2>
+
+          <div class="note-block">
+            <h3>Главное о discovery</h3>
+            <ul class="list-ul">
+              <li>Discovery отвечает за поиск проблем и проверку идей.</li>
+              <li>Идеи приходят из пользователей, данных и рынка.</li>
+              <li>Хорошая гипотеза должна быть проверяема.</li>
+              <li>Jira Product Discovery помогает собирать и приоритизировать идеи.</li>
+            </ul>
+          </div>
+
+          <div class="note-block">
+            <h3>Короткая формула</h3>
+            <p>Проблема → инсайт → идея → проверка → приоритет → roadmap → delivery.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+</body>
+</html>

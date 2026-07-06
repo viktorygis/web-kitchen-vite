@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "Основы JavaScript: Массивы", "description": "Полное руководство по работе с массивами в JavaScript" })
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs" id="page-nav" style="max-width: max-content">
+        <ul>
+          <li><a href="#arrays-intro">Введение</a></li>
+          <li><a href="#arrays-basics">Основы</a></li>
+          <li><a href="#arrays-create">Создание</a></li>
+          <li><a href="#arrays-access">Доступ</a></li>
+          <li><a href="#arrays-methods">Методы</a></li>
+          <li><a href="#arrays-operations">Операции</a></li>
+          <li><a href="#arrays-advanced">Продвинутое</a></li>
+        </ul>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="arrays-intro">
+        <div class="container">
+          <h1>Массивы в JavaScript</h1>
+
+          <p class="note">
+            <strong>Массив</strong> — это упорядоченная коллекция данных, которая может содержать элементы разных типов.
+            <br />
+            В JavaScript массивы являются объектами с индексацией, начинающейся с 0, и имеют множество полезных методов для работы с элементами.
+          </p>
+
+          <div class="subsection">
+            <h3>Основные характеристики</h3>
+            <ul class="list-ul">
+              <li><strong>Индексация начинается с 0</strong> — первый элемент имеет индекс 0</li>
+              <li><strong>Динамическая длина</strong> — автоматически изменяется при добавлении/удалении элементов</li>
+              <li><strong>Гетерогенные данные</strong> — могут содержать любые типы данных</li>
+              <li><strong>Мутируемость</strong> — элементы можно изменять в процессе работы</li>
+              <li><strong>Итерируемость</strong> — поддерживают циклы и методы обхода</li>
+            </ul>
+          </div>
+
+          <div class="subsection">
+            <h4>Пример разнородного массива:</h4>
+            <div class="code-block">
+              <pre><code>const mixedArray = [
+  'текст',           // строка
+  42,                // число
+  true,              // булев
+  { name: 'Объект' },// объект
+  [1, 2, 3],         // вложенный массив
+  null,              // null
+  undefined          // undefined
+];
+
+console.log(mixedArray.length); // 7</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Основы -->
+      <section class="section" id="arrays-basics">
+        <div class="container">
+          <h2>Основы работы с массивами</h2>
+
+          <div class="subsection">
+            <h3>Синтаксис объявления</h3>
+            <p>Массив создается с помощью квадратных скобок <code>[ ]</code>, элементы разделяются запятыми:</p>
+
+            <div class="code-block">
+              <pre><code>// Синтаксис
+let array = [element1, element2, element3, ...];
+
+// Примеры
+const fruits = ["яблоко", "банан", "вишня"];
+const numbers = [1, 2, 3, 4, 5];
+const empty = [];
+
+// Многострочный формат (для читаемости)
+const config = [
+  'API_KEY',
+  'https://api.example.com',
+  3000,
+  true
+];</code></pre>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3>Свойство length</h3>
+            <p>Возвращает количество элементов в массиве:</p>
+
+            <div class="code-block">
+              <pre><code>const fruits = ["яблоко", "банан", "вишня"];
+
+console.log(fruits.length); // 3
+
+// Последний элемент всегда имеет индекс length - 1
+console.log(fruits[fruits.length - 1]); // "вишня"
+
+// length изменяется при добавлении элементов
+fruits.push("груша");
+console.log(fruits.length); // 4
+
+// Модификация length удаляет элементы
+fruits.length = 2; // Остаются только первые 2 элемента
+console.log(fruits); // ["яблоко", "банан"]</code></pre>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3>Пустые массивы и проверка</h3>
+
+            <div class="code-block">
+              <pre><code>// Создание пустого массива
+let items = [];
+
+// Проверка, пустой ли массив
+if (items.length === 0) {
+  console.log("Массив пуст");
+}
+
+// Или более изящно
+if (!items.length) {
+  console.log("Массив пуст");
+}
+
+// Проверка, что это действительно массив
+console.log(Array.isArray(items)); // true
+console.log(Array.isArray("not array")); // false
+console.log(Array.isArray({ length: 3 })); // false (только похож на массив)</code></pre>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3>const vs let для массивов</h3>
+            <p class="note note--info">
+              <strong>Важно:</strong> <code>const</code> предотвращает переасинование переменной, но не замораживает содержимое массива.
+            </p>
+
+            <div class="code-block">
+              <pre><code>// const массив — нельзя переасинить, но можно менять элементы
+const numbers = [1, 2, 3];
+numbers[0] = 99;           // ✅ Работает
+numbers.push(4);           // ✅ Работает
+// numbers = [5, 6, 7];    // ❌ Ошибка: Assignment to constant variable
+
+// let массив — можно переасинить
+let fruits = ["яблоко"];
+fruits = ["банан"];        // ✅ Работает
+
+// Если нужна полная неизменяемость, используйте Object.freeze()
+const frozen = Object.freeze([1, 2, 3]);
+// frozen[0] = 99;         // ❌ Ошибка в strict mode</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Доступ к элементам -->
+      <section class="section" id="arrays-access">
+        <div class="container">
+          <h2>Доступ к элементам</h2>
+
+          <div class="subsection">
+            <h3>Индексирование</h3>
+            <p>Доступ к элементу осуществляется через квадратные скобки с индексом:</p>
+
+            <div class="code-block">
+              <pre><code>const fruits = ["яблоко", "банан", "вишня", "груша"];
+
+// Чтение элементов
+console.log(fruits[0]); // "яблоко"
+console.log(fruits[1]); // "банан"
+console.log(fruits[3]); // "груша"
+
+// Изменение элементов
+fruits[1] = "апельсин";
+console.log(fruits); // ["яблоко", "апельсин", "вишня", "груша"]
+
+// Несуществующий индекс возвращает undefined
+console.log(fruits[10]); // undefined
+
+// Добавление элемента по индексу
+fruits[4] = "ягода";
+console.log(fruits.length); // 5</code></pre>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3>Работа с последним элементом</h3>
+
+            <div class="code-block">
+              <pre><code>const items = ["первый", "второй", "третий", "последний"];
+
+// Последний элемент
+const last = items[items.length - 1]; // "последний"
+console.log(last);
+
+// Изменение последнего элемента
+items[items.length - 1] = "новый последний";
+console.log(items); // [..., "новый последний"]
+
+// Удаление последнего элемента через length
+items.length = 3;
+console.log(items); // ["первый", "второй", "третий"]</code></pre>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3>Проверка наличия элемента</h3>
+
+            <div class="code-block">
+              <pre><code>const numbers = [10, 20, 30, 40, 50];
+
+// Метод includes() — самый удобный
+console.log(numbers.includes(30)); // true
+console.log(numbers.includes(99)); // false
+
+// indexOf() — возвращает индекс или -1
+console.log(numbers.indexOf(30));  // 2
+console.log(numbers.indexOf(99));  // -1
+
+// Проверка через -1
+if (numbers.indexOf(20) !== -1) {
+  console.log("Элемент найден");
+}
+
+// Для сложных условий используйте find()
+const found = numbers.find(n => n > 25);
+console.log(found); // 30</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Создание массивов -->
+      <section class="section" id="arrays-create">
+        <div class="container">
+          <h2>Создание массивов</h2>
+
+          <div class="subsection">
+            <h3>Способы создания</h3>
+
+            <table class="table-note">
+              <thead>
+                <tr>
+                  <th>Способ</th>
+                  <th>Пример</th>
+                  <th>Использование</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Литерал</td>
+                  <td><code>const arr = [1, 2, 3];</code></td>
+                  <td>Наиболее распространено</td>
+                </tr>
+                <tr>
+                  <td>Конструктор с элементами</td>
+                  <td><code>new Array(1, 2, 3)</code></td>
+                  <td>Редко используется</td>
+                </tr>
+                <tr>
+                  <td>Array.of()</td>
+                  <td><code>Array.of(5)</code></td>
+                  <td>Для единичных чисел</td>
+                </tr>
+                <tr>
+                  <td>Array.from()</td>
+                  <td><code>Array.from('123')</code></td>
+                  <td>Из итерируемых объектов</td>
+                </tr>
+                <tr>
+                  <td>Spread оператор</td>
+                  <td><code>[...existing]</code></td>
+                  <td>Копирование и объединение</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="subsection">
+            <h3>Примеры каждого способа</h3>
+
+            <div class="code-block">
+              <pre><code>// 1. Литерал (рекомендуется)
+const arr1 = [1, 2, 3];
+const arr2 = ["a", "b", "c"];
+
+// 2. Конструктор с элементами (не рекомендуется)
+const arr3 = new Array(1, 2, 3); // [1, 2, 3]
+
+// 3. Array.of() — полезен для единичного числа
+Array.of(5);           // [5]
+new Array(5);          // [empty × 5] — массив длины 5!
+
+// 4. Array.from() — из других источников
+Array.from("hello");   // ["h", "e", "l", "l", "o"]
+Array.from([1, 2, 3]); // [1, 2, 3] (копия)
+Array.from([1, 2, 3], n => n * 2); // [2, 4, 6]
+
+// 5. Spread оператор
+const original = [1, 2, 3];
+const copy = [...original];     // Копия
+const combined = [0, ...original, 4]; // [0, 1, 2, 3, 4]</code></pre>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3>Создание массива с начальными значениями</h3>
+
+            <div class="code-block">
+              <pre><code>// Массив из n элементов
+const n = 5;
+
+// Способ 1: Заполнить нулями/пустыми строками
+const zeros = new Array(n).fill(0);           // [0, 0, 0, 0, 0]
+const empty = new Array(n).fill("");          // ["", "", "", "", ""]
+
+// Способ 2: Заполнить последовательностью
+const sequence = Array.from({ length: n }, (_, i) => i);
+console.log(sequence); // [0, 1, 2, 3, 4]
+
+// Способ 3: Заполнить объектами
+const objects = Array.from({ length: 3 }, () => ({}));
+// [{}, {}, {}]
+
+// Способ 4: Заполнить одинаковыми значениями
+const repeated = Array(5).fill("одинаково");
+// ["одинаково", "одинаково", ...]</code></pre>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3>⚠️ Осторожно с конструктором Array</h3>
+            <p class="note note--warning">
+              <code>new Array(n)</code> создает массив с пустыми слотами, а не с <code>undefined</code>. Это влияет на методы обхода!
+            </p>
+
+            <div class="code-block">
+              <pre><code>// Разница между пустыми слотами и undefined
+const sparse = new Array(3);      // [empty × 3]
+const dense = [undefined, undefined, undefined]; // [undefined, undefined, undefined]
+
+// Методы обхода пропускают пустые слоты
+sparse.forEach(item => console.log(item)); // Ничего не выводит!
+dense.forEach(item => console.log(item));  // Выводит undefined три раза
+
+// map() тоже пропускает пустые слоты
+sparse.map((_, i) => i);  // [empty × 3]
+dense.map((_, i) => i);   // [0, 1, 2]
+
+// JSON.stringify() игнорирует пустые слоты
+JSON.stringify(sparse);   // "null" (!)
+JSON.stringify(dense);    // "[null,null,null]"</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Методы массивов -->
+      <section class="section" id="arrays-methods">
+        <div class="container">
+          <h2>Методы массивов</h2>
+
+          <p class="note">
+            JavaScript предоставляет множество методов для работы с массивами.
+            <br />
+            <strong>Мутирующие методы</strong> изменяют исходный массив, <strong>неммутирующие</strong> возвращают новый массив.
+          </p>
+
+          <!-- Мутирующие методы -->
+          <div class="subsection">
+            <h3>🔴 Мутирующие методы (изменяют исходный массив)</h3>
+
+            <div class="subsection">
+              <h4>push() — добавить в конец</h4>
+              <p>Добавляет один или несколько элементов в конец массива и возвращает новую длину.</p>
+              <div class="code-block">
+                <pre><code>const arr = [1, 2, 3];
+const newLength = arr.push(4, 5);
+console.log(arr);       // [1, 2, 3, 4, 5]
+console.log(newLength); // 5</code></pre>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h4>pop() — удалить последний</h4>
+              <p>Удаляет последний элемент и возвращает его.</p>
+              <div class="code-block">
+                <pre><code>const arr = [1, 2, 3];
+const last = arr.pop();
+console.log(last); // 3
+console.log(arr);  // [1, 2]</code></pre>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h4>unshift() — добавить в начало</h4>
+              <p>Добавляет элементы в начало массива и возвращает новую длину.</p>
+              <div class="code-block">
+                <pre><code>const arr = [2, 3];
+arr.unshift(0, 1);
+console.log(arr); // [0, 1, 2, 3]</code></pre>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h4>shift() — удалить первый</h4>
+              <p>Удаляет первый элемент и возвращает его.</p>
+              <div class="code-block">
+                <pre><code>const arr = [1, 2, 3];
+const first = arr.shift();
+console.log(first); // 1
+console.log(arr);   // [2, 3]</code></pre>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h4>splice() — универсальное добавление/удаление</h4>
+              <p>Удаляет элементы и/или добавляет новые на их место. Возвращает удаленные элементы.</p>
+              <div class="code-block">
+                <pre><code>const arr = [1, 2, 3, 4, 5];
+
+// splice(startIndex, deleteCount, ...items)
+arr.splice(2, 2, 'a', 'b'); // Удалить 2 элемента с индекса 2, вставить 'a', 'b'
+console.log(arr); // [1, 2, 'a', 'b', 5]
+
+// Удалить без вставки
+const removed = arr.splice(1, 2);
+console.log(removed); // [2, 'a']
+console.log(arr);     // [1, 'b', 5]
+
+// Вставить без удаления
+arr.splice(1, 0, 'x', 'y');
+console.log(arr); // [1, 'x', 'y', 'b', 5]</code></pre>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h4>sort() — сортировка</h4>
+              <p>Сортирует элементы массива. По умолчанию сортирует как строки!</p>
+              <div class="code-block">
+                <pre><code>const nums = [3, 1, 4, 1, 5, 9];
+
+// ❌ Неправильно (сортирует как строки)
+nums.sort();
+console.log(nums); // [1, 1, 3, 4, 5, 9] — работает случайно
+
+const nums2 = [30, 1, 4, 12];
+nums2.sort();
+console.log(nums2); // [1, 12, 30, 4] — НЕПРАВИЛЬНО!
+
+// ✅ Правильно (с компаратором)
+const nums3 = [30, 1, 4, 12];
+nums3.sort((a, b) => a - b);
+console.log(nums3); // [1, 4, 12, 30]
+
+// Сортировка строк
+const words = ["зебра", "апельсин", "банан"];
+words.sort();
+console.log(words); // ["апельсин", "банан", "зебра"]
+
+// Обратная сортировка
+nums3.sort((a, b) => b - a);
+console.log(nums3); // [30, 12, 4, 1]</code></pre>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h4>reverse() — развернуть</h4>
+              <p>Разворачивает массив в обратном порядке.</p>
+              <div class="code-block">
+                <pre><code>const arr = [1, 2, 3, 4, 5];
+arr.reverse();
+console.log(arr); // [5, 4, 3, 2, 1]
+
+// Разворот строки
+const str = "hello";
+const reversed = str.split('').reverse().join('');
+console.log(reversed); // "olleh"</code></pre>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h4>fill() — заполнить значением</h4>
+              <p>Заполняет все элементы массива одинаковым значением.</p>
+              <div class="code-block">
+                <pre><code>const arr = [1, 2, 3, 4, 5];
+
+// fill(value, start, end)
+arr.fill(0);           // [0, 0, 0, 0, 0]
+arr.fill(1, 2);        // [0, 0, 1, 1, 1] — с индекса 2 до конца
+arr.fill(2, 1, 3);     // [0, 2, 2, 1, 1] — с 1 до 3 (не включая 3)</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Немутирующие методы -->
+          <div class="subsection">
+            <h3>🟢 Немутирующие методы (создают новый массив)</h3>
+
+            <div class="subsection">
+              <h4>concat() — объединить</h4>
+              <p>Объединяет два или более массивов и возвращает новый массив.</p>
+              <div class="code-block">
+                <pre><code>const arr1 = [1, 2];
+const arr2 = [3, 4];
+const arr3 = [5, 6];
+
+const combined = arr1.concat(arr2, arr3);
+console.log(combined); // [1, 2, 3, 4, 5, 6]
+console.log(arr1);     // [1, 2] — исходный не изменился
+
+// Можно добавлять отдельные элементы
+const mixed = arr1.concat('a', arr2, 'b');
+console.log(mixed); // [1, 2, 'a', 3, 4, 'b']</code></pre>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h4>slice() — извлечь часть</h4>
+              <p>Возвращает копию части массива от start до end (end не включается).</p>
+              <div class="code-block">
+                <pre><code>const arr = ['a', 'b', 'c', 'd', 'e'];
+
+// slice(start, end)
+console.log(arr.slice(1, 3));   // ['b', 'c']
+console.log(arr.slice(2));      // ['c', 'd', 'e'] — до конца
+console.log(arr.slice(-2));     // ['d', 'e'] — последние 2
+console.log(arr.slice());       // ['a', 'b', 'c', 'd', 'e'] — копия
+
+// Копирование массива
+const copy = arr.slice();
+copy[0] = 'z';
+console.log(arr[0]); // 'a' — исходный не изменился</code></pre>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h4>join() — преобразовать в строку</h4>
+              <p>Объединяет элементы массива в строку с разделителем.</p>
+              <div class="code-block">
+                <pre><code>const arr = ['apple', 'banana', 'cherry'];
+
+console.log(arr.join(', '));    // "apple, banana, cherry"
+console.log(arr.join(' - '));   // "apple - banana - cherry"
+console.log(arr.join(''));      // "applebananacherry"
+console.log(arr.join());        // "apple,banana,cherry" — по умолчанию ','
+
+// Обратно в массив используйте split()
+const str = "apple,banana,cherry";
+const backToArr = str.split(',');
+console.log(backToArr); // ['apple', 'banana', 'cherry']</code></pre>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h4>indexOf() и lastIndexOf() — поиск</h4>
+              <p>Возвращают индекс первого/последнего вхождения элемента или -1.</p>
+              <div class="code-block">
+                <pre><code>const arr = ['a', 'b', 'c', 'b', 'd'];
+
+console.log(arr.indexOf('b'));     // 1 — первое вхождение
+console.log(arr.lastIndexOf('b')); // 3 — последнее вхождение
+console.log(arr.indexOf('x'));     // -1 — не найдено
+
+// Проверка наличия
+if (arr.indexOf('c') !== -1) {
+  console.log("Элемент найден");
+}</code></pre>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h4>includes() — проверка наличия</h4>
+              <p>Возвращает true, если элемент найден, иначе false. Лучше, чем indexOf().</p>
+              <div class="code-block">
+                <pre><code>const arr = [1, 2, 3, NaN];
+
+console.log(arr.includes(2));    // true
+console.log(arr.includes(5));    // false
+console.log(arr.includes(NaN));  // true ✅ (indexOf не работает с NaN!)
+
+// Поиск с начального индекса
+console.log([1, 2, 3].includes(2, 2)); // false — ищет с индекса 2</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Методы обхода (функциональные) -->
+          <div class="subsection">
+            <h3>🔵 Методы обхода и трансформации</h3>
+
+            <div class="subsection">
+              <h4>forEach() — итерация</h4>
+              <p>Вызывает функцию для каждого элемента. Не возвращает ничего.</p>
+              <div class="code-block">
+                <pre><code>const arr = ['a', 'b', 'c'];
+
+// forEach(callback(element, index, array))
+arr.forEach((item, index) => {
+  console.log(`${index}: ${item}`);
+});
+// 0: a
+// 1: b
+// 2: c
+
+// Практический пример
+const numbers = [1, 2, 3, 4];
+let sum = 0;
+numbers.forEach(n => {
+  sum += n;
+});
+console.log(sum); // 10</code></pre>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h4>map() — преобразование</h4>
+              <p>Создает новый массив, применяя функцию к каждому элементу.</p>
+              <div class="code-block">
+                <pre><code>const numbers = [1, 2, 3, 4];
+
+// Умножить на 2
+const doubled = numbers.map(n => n * 2);
+console.log(doubled); // [2, 4, 6, 8]
+
+// Извлечение свойства
+const users = [
+  { name: 'Иван', age: 25 },
+  { name: 'Мария', age: 30 }
+];
+const names = users.map(u => u.name);
+console.log(names); // ['Иван', 'Мария']
+
+// Преобразование типов
+const strs = ['1', '2', '3'];
+const nums = strs.map(Number);
+console.log(nums); // [1, 2, 3]</code></pre>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h4>filter() — фильтрация</h4>
+              <p>Создает новый массив только с элементами, удовлетворяющими условию.</p>
+              <div class="code-block">
+                <pre><code>const numbers = [1, 2, 3, 4, 5, 6];
+
+// Четные числа
+const even = numbers.filter(n => n % 2 === 0);
+console.log(even); // [2, 4, 6]
+
+// Числа больше 3
+const greater = numbers.filter(n => n > 3);
+console.log(greater); // [4, 5, 6]
+
+// Фильтрация объектов
+const users = [
+  { name: 'Иван', age: 25 },
+  { name: 'Мария', age: 17 },
+  { name: 'Петр', age: 30 }
+];
+const adults = users.filter(u => u.age >= 18);
+// [{name: 'Иван', age: 25}, {name: 'Петр', age: 30}]</code></pre>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h4>find() — найти первый</h4>
+              <p>Возвращает первый элемент, удовлетворяющий условию, или undefined.</p>
+              <div class="code-block">
+                <pre><code>const numbers = [1, 2, 3, 4, 5];
+
+// Первое число больше 3
+const first = numbers.find(n => n > 3);
+console.log(first); // 4
+
+// Поиск объекта
+const users = [
+  { id: 1, name: 'Иван' },
+  { id: 2, name: 'Мария' },
+  { id: 3, name: 'Петр' }
+];
+const user = users.find(u => u.id === 2);
+console.log(user); // { id: 2, name: 'Мария' }
+
+// Если не найдено
+const notFound = users.find(u => u.id === 99);
+console.log(notFound); // undefined</code></pre>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h4>findIndex() — найти индекс</h4>
+              <p>Возвращает индекс первого элемента, удовлетворяющего условию, или -1.</p>
+              <div class="code-block">
+                <pre><code>const numbers = [10, 20, 30, 40];
+
+const index = numbers.findIndex(n => n > 25);
+console.log(index); // 2 (элемент 30)
+
+// Практическое применение
+const users = [
+  { id: 1, name: 'Иван' },
+  { id: 2, name: 'Мария' },
+  { id: 3, name: 'Петр' }
+];
+const idx = users.findIndex(u => u.id === 2);
+if (idx !== -1) {
+  console.log('Найден на позиции:', idx); // Найден на позиции: 1
+}</code></pre>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h4>some() — проверить условие</h4>
+              <p>Возвращает true, если хотя бы один элемент удовлетворяет условию.</p>
+              <div class="code-block">
+                <pre><code>const numbers = [1, 2, 3, 4, 5];
+
+// Есть ли четные числа?
+console.log(numbers.some(n => n % 2 === 0)); // true
+
+// Есть ли числа больше 10?
+console.log(numbers.some(n => n > 10)); // false
+
+// Проверка объектов
+const users = [
+  { name: 'Иван', admin: false },
+  { name: 'Мария', admin: true },
+  { name: 'Петр', admin: false }
+];
+console.log(users.some(u => u.admin)); // true</code></pre>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h4>every() — проверить все</h4>
+              <p>Возвращает true, если все элементы удовлетворяют условию.</p>
+              <div class="code-block">
+                <pre><code>const numbers = [2, 4, 6, 8];
+
+// Все числа четные?
+console.log(numbers.every(n => n % 2 === 0)); // true
+
+// Все числа больше 0?
+console.log(numbers.every(n => n > 0)); // true
+
+// Все числа больше 5?
+console.log(numbers.every(n => n > 5)); // false
+
+// Проверка объектов
+const users = [
+  { name: 'Иван', active: true },
+  { name: 'Мария', active: true },
+  { name: 'Петр', active: false }
+];
+console.log(users.every(u => u.active)); // false</code></pre>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h4>reduce() — редукция (свертывание)</h4>
+              <p>Применяет функцию накопления к каждому элементу, возвращая одно значение.</p>
+              <div class="code-block">
+                <pre><code>const numbers = [1, 2, 3, 4, 5];
+
+// Сумма
+const sum = numbers.reduce((acc, n) => acc + n, 0);
+console.log(sum); // 15
+
+// Произведение
+const product = numbers.reduce((acc, n) => acc * n, 1);
+console.log(product); // 120
+
+// Максимальное число
+const max = numbers.reduce((acc, n) => n > acc ? n : acc);
+console.log(max); // 5
+
+// Объединение объектов
+const data = [
+  { id: 1, value: 'a' },
+  { id: 2, value: 'b' },
+  { id: 3, value: 'c' }
+];
+const result = data.reduce((acc, item) => {
+  acc[item.id] = item.value;
+  return acc;
+}, {});
+console.log(result); // { '1': 'a', '2': 'b', '3': 'c' }</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Операции с массивами -->
+      <section class="section" id="arrays-operations">
+        <div class="container">
+          <h2>Операции с массивами</h2>
+
+          <div class="subsection">
+            <h3>Копирование массивов</h3>
+
+            <div class="code-block">
+              <pre><code>const original = [1, 2, 3];
+
+// ✅ Способ 1: Spread оператор (современный)
+const copy1 = [...original];
+
+// ✅ Способ 2: slice()
+const copy2 = original.slice();
+
+// ✅ Способ 3: Array.from()
+const copy3 = Array.from(original);
+
+// ❌ Способ 4: Присваивание (создает ссылку, не копию!)
+const notCopy = original;
+notCopy[0] = 999;
+console.log(original[0]); // 999 — ИЗМЕНИЛСЯ!
+
+// ⚠️ Поверхностная копия для вложенных массивов
+const nested = [[1, 2], [3, 4]];
+const shallowCopy = [...nested];
+shallowCopy[0][0] = 999;
+console.log(nested[0][0]); // 999 — внутренний массив изменился!
+
+// ✅ Глубокая копия
+const deepCopy = JSON.parse(JSON.stringify(nested));
+deepCopy[0][0] = 999;
+console.log(nested[0][0]); // 1 — не изменился!</code></pre>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3>Объединение массивов</h3>
+
+            <div class="code-block">
+              <pre><code>const arr1 = [1, 2];
+const arr2 = [3, 4];
+const arr3 = [5, 6];
+
+// Способ 1: concat() (не мутирует)
+const combined1 = arr1.concat(arr2, arr3);
+console.log(combined1); // [1, 2, 3, 4, 5, 6]
+
+// Способ 2: Spread оператор (не мутирует)
+const combined2 = [...arr1, ...arr2, ...arr3];
+console.log(combined2); // [1, 2, 3, 4, 5, 6]
+
+// Способ 3: push() с spread (мутирует исходный)
+arr1.push(...arr2, ...arr3);
+console.log(arr1); // [1, 2, 3, 4, 5, 6]
+
+// Объединение с новыми элементами
+const mixed = [...arr1, 'new', ...arr2];
+console.log(mixed); // [1, 2, 'new', 3, 4]</code></pre>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3>Удаление дубликатов</h3>
+
+            <div class="code-block">
+              <pre><code>const arr = [1, 2, 2, 3, 1, 4, 3];
+
+// Способ 1: Set (рекомендуется)
+const unique1 = [...new Set(arr)];
+console.log(unique1); // [1, 2, 3, 4]
+
+// Способ 2: filter() + indexOf()
+const unique2 = arr.filter((v, i) => arr.indexOf(v) === i);
+console.log(unique2); // [1, 2, 3, 4]
+
+// Способ 3: reduce()
+const unique3 = arr.reduce((acc, val) =>
+  acc.includes(val) ? acc : [...acc, val], []
+);
+console.log(unique3); // [1, 2, 3, 4]
+
+// Для объектов
+const users = [
+  { id: 1, name: 'Иван' },
+  { id: 2, name: 'Мария' },
+  { id: 1, name: 'Иван' } // дубликат
+];
+const uniqueUsers = [
+  ...new Map(users.map(u => [u.id, u])).values()
+];
+console.log(uniqueUsers);
+// [{id: 1, name: 'Иван'}, {id: 2, name: 'Мария'}]</code></pre>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3>Плоскостью массива (flatten)</h3>
+
+            <div class="code-block">
+              <pre><code>const nested = [1, [2, 3], [4, [5, 6]]];
+
+// Способ 1: flat() — встроенный метод
+const flat1 = nested.flat();       // [1, 2, 3, 4, [5, 6]] (1 уровень)
+const flat2 = nested.flat(2);      // [1, 2, 3, 4, 5, 6] (2 уровня)
+const flat3 = nested.flat(Infinity); // [1, 2, 3, 4, 5, 6] (все уровни)
+
+// Способ 2: flatMap() — комбо map + flat
+const arr = [[1, 2], [3, 4]];
+const result = arr.flatMap(subArr => subArr.map(x => x * 2));
+console.log(result); // [2, 4, 6, 8]</code></pre>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3>Проверки и валидация</h3>
+
+            <div class="code-block">
+              <pre><code>// Проверка, что это массив
+console.log(Array.isArray([1, 2, 3]));      // true
+console.log(Array.isArray("not array"));    // false
+console.log(Array.isArray({ length: 3 })); // false
+
+// Проверка пустого массива
+const arr = [];
+console.log(arr.length === 0); // true
+console.log(!arr.length);      // true
+
+// Проверка наличия элемента
+console.log([1, 2, 3].includes(2));  // true
+console.log([1, 2, 3].some(x => x > 2)); // true
+
+// Проверка, что ВСЕ элементы удовлетворяют условию
+console.log([2, 4, 6].every(x => x % 2 === 0)); // true
+
+// Поиск элемента
+const found = [1, 2, 3].find(x => x > 1); // 2
+const index = [1, 2, 3].findIndex(x => x > 1); // 1</code></pre>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3>Преобразования</h3>
+
+            <div class="code-block">
+              <pre><code>// Массив → Строка
+const arr = ['a', 'b', 'c'];
+console.log(arr.join(', ')); // "a, b, c"
+console.log(arr.toString()); // "a,b,c"
+
+// Строка → Массив
+const str = "hello";
+console.log(str.split('')); // ['h', 'e', 'l', 'l', 'o']
+console.log([...str]); // ['h', 'e', 'l', 'l', 'o']
+
+// Массив → Объект (как словарь)
+const keys = ['a', 'b', 'c'];
+const values = [1, 2, 3];
+const obj = Object.fromEntries(keys.map((k, i) => [k, values[i]]));
+console.log(obj); // {a: 1, b: 2, c: 3}
+
+// Объект → Массив
+const person = { name: 'Иван', age: 25 };
+console.log(Object.entries(person)); // [['name', 'Иван'], ['age', 25]]
+console.log(Object.keys(person));    // ['name', 'age']
+console.log(Object.values(person));  // ['Иван', 25]</code></pre>
+              </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Продвинутое использование -->
+      <section class="section" id="arrays-advanced">
+        <div class="container">
+          <h2>Продвинутое использование</h2>
+
+          <div class="subsection">
+            <h3>Деструктуризация массивов</h3>
+            <p><strong>Деструктуризация</strong> позволяет быстро извлекать значения из массива в отдельные переменные.</p>
+
+            <div class="code-block">
+              <pre><code>// Базовая деструктуризация
+const [first, second, third] = ['a', 'b', 'c'];
+console.log(first);  // 'a'
+console.log(second); // 'b'
+
+// Пропуск элементов
+const [a, , c] = [1, 2, 3];
+console.log(a); // 1
+console.log(c); // 3
+
+// Оставшиеся элементы (rest)
+const [head, ...tail] = [1, 2, 3, 4, 5];
+console.log(head); // 1
+console.log(tail); // [2, 3, 4, 5]
+
+// Значения по умолчанию
+const [x = 10, y = 20] = [5];
+console.log(x); // 5
+console.log(y); // 20
+
+// Обмен переменных
+let a = 1, b = 2;
+[a, b] = [b, a];
+console.log(a, b); // 2, 1
+
+// Деструктуризация в функциях
+const getCoords = () => [10, 20];
+const [x, y] = getCoords();
+console.log(x, y); // 10, 20</code></pre>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3>Цепочки методов (method chaining)</h3>
+            <p>Комбинируйте методы для сложной обработки данных:</p>
+
+            <div class="code-block">
+              <pre><code>const data = [
+  { name: 'Иван', age: 25, salary: 50000 },
+  { name: 'Мария', age: 30, salary: 60000 },
+  { name: 'Петр', age: 22, salary: 40000 },
+  { name: 'Анна', age: 28, salary: 65000 }
+];
+
+// Найти средний оклад сотрудников старше 25
+const avgSalary = data
+  .filter(p => p.age > 25)           // Фильтруем по возрасту
+  .map(p => p.salary)                 // Извлекаем зарплаты
+  .reduce((acc, s) => acc + s, 0) / data.length; // Вычисляем среднее
+
+console.log(avgSalary); // ~53750
+
+// Более сложный пример
+const report = data
+  .filter(p => p.salary > 45000)     // Зарплата > 45000
+  .sort((a, b) => b.salary - a.salary) // Сортируем по зарплате
+  .map(p => ({
+    name: p.name,
+    level: p.salary > 60000 ? 'Senior' : 'Middle'
+  }))
+  .reduce((acc, p) => {
+    acc[p.level] = (acc[p.level] || 0) + 1;
+    return acc;
+  }, {});
+
+console.log(report); // { Middle: 2, Senior: 2 }</code></pre>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3>Практические паттерны</h3>
+
+            <div class="code-block">
+              <pre><code>// 1. Группировка элементов
+const items = ['a', 'b', 'a', 'c', 'b', 'a'];
+const grouped = items.reduce((acc, item) => {
+  acc[item] = (acc[item] || 0) + 1;
+  return acc;
+}, {});
+console.log(grouped); // {a: 3, b: 2, c: 1}
+
+// 2. Разбиение на чанки
+function chunk(arr, size) {
+  const result = [];
+  for (let i = 0; i < arr.length; i += size) {
+    result.push(arr.slice(i, i + size));
+  }
+  return result;
+}
+console.log(chunk([1, 2, 3, 4, 5], 2));
+// [[1, 2], [3, 4], [5]]
+
+// 3. Поиск индекса с условием
+const arr = [5, 10, 15, 20];
+const findGreater = (n) => arr.findIndex(x => x > n);
+console.log(findGreater(12)); // 2 (элемент 15)
+
+// 4. Замена элемента
+const replace = (arr, oldVal, newVal) =>
+  arr.map(x => x === oldVal ? newVal : x);
+console.log(replace([1, 2, 3, 2], 2, 99)); // [1, 99, 3, 99]
+
+// 5. Уникальные элементы с сохранением порядка
+const unique = (arr) => [...new Set(arr)];
+console.log(unique([1, 2, 1, 3, 2])); // [1, 2, 3]</code></pre>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3>Производительность</h3>
+
+            <p class="note note--warning">
+              <strong>⚠️ Рекомендации для больших массивов:</strong>
+            </p>
+
+            <div class="code-block">
+              <pre><code>// ❌ Медленно: цепочка создает новые массивы на каждом шаге
+const slow = largeArray
+  .map(x => x * 2)      // Создает новый массив
+  .filter(x => x > 100) // Создает еще один
+  .map(x => x + 1);     // И еще один
+
+// ✅ Быстро: один проход через данные
+const fast = [];
+for (const item of largeArray) {
+  const doubled = item * 2;
+  if (doubled > 100) {
+    fast.push(doubled + 1);
+  }
+}
+
+// ⚠️ Очень медленно: вложенные циклы O(n²)
+for (let i = 0; i < arr1.length; i++) {
+  for (let j = 0; j < arr2.length; j++) {
+    if (arr1[i] === arr2[j]) { /* ... */ }
+  }
+}
+
+// ✅ Быстро: использование Set O(n)
+const set = new Set(arr2);
+for (const item of arr1) {
+  if (set.has(item)) { /* ... */ }
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3>Типичные ошибки</h3>
+
+            <div class="code-block">
+              <pre><code>// ❌ Ошибка 1: Сортировка чисел без компаратора
+[10, 5, 40].sort(); // [10, 40, 5] — НЕПРАВИЛЬНО!
+[10, 5, 40].sort((a, b) => a - b); // [5, 10, 40] — правильно
+
+// ❌ Ошибка 2: Изменение исходного массива при копировании
+const arr = [[1, 2]];
+const copy = [...arr];
+copy[0][0] = 999;
+console.log(arr[0][0]); // 999 — копия поверхностная!
+
+// ❌ Ошибка 3: forEach возвращает undefined
+const doubled = [1, 2, 3].forEach(x => x * 2); // undefined
+const doubled = [1, 2, 3].map(x => x * 2); // [2, 4, 6] — правильно
+
+// ❌ Ошибка 4: indexOf не работает с NaN
+[NaN].indexOf(NaN); // -1 (не работает!)
+[NaN].includes(NaN); // true (работает!)
+
+// ❌ Ошибка 5: Забыли return в reduce
+const sum = [1, 2, 3].reduce((acc, x) => {
+  acc + x; // Забыли return!
+  return acc;
+}, 0);
+
+// ✅ Правильно
+const sum = [1, 2, 3].reduce((acc, x) => acc + x, 0);</code></pre>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3>Шпаргалка: выбор метода</h3>
+
+            <table class="table-note">
+              <thead>
+                <tr>
+                  <th>Задача</th>
+                  <th>Метод</th>
+                  <th>Мутирует?</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Добавить в конец</td>
+                  <td><code>push()</code> или <code>[...arr, item]</code></td>
+                  <td>да / нет</td>
+                </tr>
+                <tr>
+                  <td>Удалить в конца</td>
+                  <td><code>pop()</code></td>
+                  <td>да</td>
+                </tr>
+                <tr>
+                  <td>Изменить каждый элемент</td>
+                  <td><code>map()</code></td>
+                  <td>нет</td>
+                </tr>
+                <tr>
+                  <td>Отфильтровать элементы</td>
+                  <td><code>filter()</code></td>
+                  <td>нет</td>
+                </tr>
+                <tr>
+                  <td>Найти первый элемент</td>
+                  <td><code>find()</code></td>
+                  <td>нет</td>
+                </tr>
+                <tr>
+                  <td>Найти индекс элемента</td>
+                  <td><code>indexOf()</code> или <code>findIndex()</code></td>
+                  <td>нет</td>
+                </tr>
+                <tr>
+                  <td>Проверить наличие</td>
+                  <td><code>includes()</code></td>
+                  <td>нет</td>
+                </tr>
+                <tr>
+                  <td>Объединить два массива</td>
+                  <td><code>concat()</code> или <code>[...arr1, ...arr2]</code></td>
+                  <td>нет</td>
+                </tr>
+                <tr>
+                  <td>Извлечь часть</td>
+                  <td><code>slice()</code></td>
+                  <td>нет</td>
+                </tr>
+                <tr>
+                  <td>Получить одно значение</td>
+                  <td><code>reduce()</code></td>
+                  <td>нет</td>
+                </tr>
+                <tr>
+                  <td>Отсортировать</td>
+                  <td><code>sort()</code> (с компаратором!)</td>
+                  <td>да</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+
+
+
+</body>
+
+</html>
