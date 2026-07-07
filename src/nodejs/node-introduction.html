@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "Введение в Node.js и основы", "description": "Полное руководство по введению в Node.js, основным концепциям, установке, модулям, npm и созданию простого HTTP-сервера" })
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+
+    <main class="page">
+      <nav class="nav-tabs" id="page-nav" aria-label="Навигация по странице">
+        <a href="#node-intro" class="active">Введение</a>
+        <a href="#node-runtime">Как работает</a>
+        <a href="#node-install">Установка</a>
+        <a href="#node-run">Запуск</a>
+        <a href="#node-modules">Модули</a>
+        <a href="#node-npm">NPM</a>
+        <a href="#node-server">HTTP сервер</a>
+        <a href="#node-summary">Итоги</a>
+      </nav>
+
+      <!-- Введение в Node.js -->
+      <section class="section" id="node-intro">
+        <div class="container">
+          <h1>Введение в Node.js</h1>
+
+          <p class="note">
+            <strong>Node.js</strong> — это среда выполнения JavaScript, которая позволяет запускать код вне браузера.
+          </p>
+
+          <h4>Возможности Node.js</h4>
+          <ul class="list-ul">
+            <li>Создание серверов.</li>
+            <li>Разработка REST API.</li>
+            <li>Работа с базами данных.</li>
+            <li>Создание CLI-приложений.</li>
+            <li>Автоматизация задач.</li>
+            <li>Backend-разработка.</li>
+          </ul>
+          <h4>Для чего это нужно🤷‍♂️</h4>
+          <p class="note note--info">
+            Когда ты хочешь создать сервер, который будет работать 24/7, тебе нужен инструмент, который может обрабатывать запросы, управлять файлами, работать с пользователями — вот для этого и используется Node.js! 🎯
+          </p>
+          <p class="note note--info">
+            В отличие от обычного JavaScript, который работает в браузере, Node.js позволяет <b>запускать твой код на сервере</b>, чтобы ты мог создавать приложения, которые взаимодействуют с базами данных, обрабатывают запросы и многое другое
+          </p>
+        </div>
+      </section>
+
+      <!-- Как работает Node.js -->
+      <section class="section" id="node-runtime">
+        <div class="container">
+          <h2>Как работает Node.js</h2>
+          <p class="note">
+            <strong>Node.js</strong> использует движок V8 для выполнения JavaScript и асинхронную модель обработки событий.
+            <br>
+            <b>V8</b> - это движок, разработанный Google для выполнения JavaScript в браузере Chrome. Node.js использует его для выполнения кода на сервере.
+            <br>
+            <b>Асинхронная модель</b> позволяет Node.js обрабатывать множество запросов одновременно, не блокируя выполнение кода.
+          </p>
+
+          <div class="note-block">
+            <h3>Архитектура Node.js</h3>
+            <ul class="list-ul">
+              <li><strong>V8</strong> — движок выполнения JavaScript.</li>
+              <li><strong>Event Loop</strong> — механизм обработки событий.</li>
+              <li><strong>Libuv</strong> — библиотека для асинхронных операций.</li>
+              <li><strong>Node API</strong> — встроенные возможности платформы.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Установка Node.js -->
+      <section class="section" id="node-install">
+        <div class="container">
+          <h2>Установка Node.js</h2>
+          <p class="note"><strong>Установка Node.js</strong> - Перейди на сайт Node.js и скачай последнюю стабильную версию (LTS). ◽ Установи Node.js, следуя инструкциям на экране.</p>
+
+          <h4>Проверка установки</h4>
+          <p>После установки проверьте версии Node.js и NPM. Открой терминал и введи команду:</p>
+          <p>
+            <code>node -v</code> — проверка версии Node.js.<br>
+            <code>npm -v</code> — проверка версии NPM.
+          </p>
+          <p>Если всё установлено правильно, ты увидишь версию Node.js (например, v14.17.6).
+          </p>
+        </div>
+      </section>
+
+      <!-- Запуск JavaScript в Node.js -->
+      <section class="section" id="node-run">
+        <div class="container">
+          <h2>Запуск JavaScript в Node.js</h2>
+
+          <p><strong>Запуск JavaScript</strong> в Node.js осуществляется через командную строку. Создайте файл <code>app.js</code> с простым кодом:</p>
+
+          <div class="code-block">
+            <pre><code>// app.js
+console.log("Hello Node.js");</code></pre>
+          </div>
+
+          <p>Запуск выполняется командой:</p>
+
+          <div class="code-block">
+            <pre><code>node app.js</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Модули Node.js -->
+      <section class="section" id="node-modules">
+        <div class="container">
+          <h2>Модули Node.js</h2>
+          <p><strong>Модули</strong> — это отдельная часть кода, которая выполняет определённую задачу. Модули помогают разделить код на логические блоки, каждый из которых можно использовать по отдельности.</p>
+
+          <p><strong>Модули</strong> - это файлы JavaScript, которые можно импортировать и использовать в других файлах. Node.js поддерживает два типа модулей: CommonJS и ES Modules.</p>
+
+          <h3>CommonJS</h3>
+          <p><b>CommonJS</b> - это стандарт модулей, используемый в Node.js. Модули экспортируются с помощью <code>module.exports</code> и импортируются с помощью команды <code>require()</code>.</p>
+
+          <div class="code-block">
+            <pre><code>const http = require('http');
+
+//где const http - это переменная, в которую мы сохраняем модуль http,
+//который мы импортируем с помощью require('http').
+//require - это функция, которая позволяет импортировать модули в Node.js.
+//Она принимает имя модуля в качестве аргумента и возвращает объект,
+//который представляет этот модуль.
+//'http' - это имя модуля, который мы хотим импортировать.
+//В данном случае мы импортируем встроенный модуль http,
+//который позволяет создавать HTTP-серверы и обрабатывать HTTP-запросы и ответы.
+            </code></pre>
+          </div>
+          <p>Ты говоришь Node.js, что хочешь подключить модуль http, который уже есть в стандартной библиотеке Node.
+            <br>
+            После этого ты получаешь доступ ко всем функциям, которые этот модуль предоставляет. Это как если бы ты открыл ящик с инструментами и достал нужный тебе инструмент для работы с HTTP.</p>
+
+
+
+          <div class="code-block">
+            <pre><code>// math.js
+function sum(a, b) {
+  return a + b;
+}
+
+module.exports = sum;</code></pre>
+          </div>
+
+          <h3>ES Modules</h3>
+          <p><b>ES Modules</b> - это современный стандарт модулей, который поддерживается в Node.js. Модули экспортируются с помощью <code>export</code> и импортируются с помощью <code>import</code>.</p>
+          <div class="code-block">
+            <pre><code>export function sum(a, b) {
+  return a + b;
+}</code></pre>
+          </div>
+          <h3>Использование ES Modules</h3>
+          <p>Для использования ES Modules в Node.js необходимо указать тип модуля в файле <code>package.json</code>:</p>
+          <div class="code-block">
+            <pre><code>{
+  "type": "module"
+}</code></pre>
+
+          </div>
+
+          <h4>Пример </h4>
+          <div class="code-block">
+            <pre><code>//main.js
+import { sum } from './math.js';
+console.log(sum(2, 3)); // 5
+
+//math.js
+export function sum(a, b) {
+  return a + b;
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- NPM -->
+      <section class="section" id="node-npm">
+        <div class="container">
+          <h2>NPM — менеджер пакетов</h2>
+
+          <p class="note"> <strong>NPM (Node Package Manager)</strong> — это менеджер пакетов для Node.js, который позволяет устанавливать и управлять библиотеками и зависимостями.
+            <br>
+            <b>Библиотеки</b> - это готовые решения, которые можно использовать в своих проектах. <br>
+            <b>Зависимости</b> - это библиотеки, от которых зависит ваш проект. То есть, если ваш проект использует какую-либо библиотеку, она становится зависимостью вашего проекта.
+
+          </p>
+          <h4>Пример использования NPM</h4>
+          <p>Для начала работы с NPM необходимо инициализировать проект и установить необходимые пакеты. Например, для установки фреймворка Express:</p>
+          <div class="code-block">
+            <pre><code>//Инициализация проекта
+npm init
+
+//Установка Express
+npm install express</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="node-server">
+        <div class="container">
+          <h2>Создание HTTP-сервера</h2>
+          <p class="note note--info">
+            Для того чтобы запустить сервер в <strong>Node.js</strong>, мы используем встроенный модуль <strong>http</strong>. Этот модуль помогает создавать серверы, которые могут принимать запросы от пользователей и отправлять ответы.
+          </p>
+          <p class="note">
+            Мы создаём сервер с помощью <b>метода createServer()</b> и говорим ему, чтобы он слушал на определённом порту (например, на порту 3000). </p>
+          <p>Вот пример минимального сервера, который отвечает "Hello, World!" на все запросы:</p>
+          <div class="code-block">
+            <pre><code>const http = require('http');  // Подключаем модуль http
+
+// Создаём сервер, который будет отвечать на запросы
+http.createServer((req, res) => {
+  res.writeHead(200, {'Content-Type': 'text/plain'});  // Устанавливаем статус ответа и тип данных
+  res.end('Hello, World!\n');  // Отправляем ответ
+}).listen(3000, 'localhost');  // Сервер слушает на порту 3000</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="node-summary">
+        <div class="container">
+          <h2>Итоги</h2>
+
+          <div class="note-block info">
+            <ul class="list-ul">
+              <li>Node.js позволяет запускать JavaScript вне браузера.</li>
+              <li>Основой платформы является движок V8.</li>
+              <li>Модули помогают делить код на части.</li>
+              <li>NPM используется для управления зависимостями.</li>
+              <li>Node.js подходит для серверов, API и автоматизации.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    @@include('../partials/footer.html', {})
+  </div>
+
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
+</html>

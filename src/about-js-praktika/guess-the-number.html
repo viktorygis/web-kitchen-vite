@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "Задачи: Функции", "description": "Задачи: Функции" })
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <section class="section">
+        <div class="container">
+          <div class="game-container">
+            <h1>Угадай число</h1>
+            <p>Я загадал число от 1 до 100. Попробуй угадать!</p>
+            <div class="input-container">
+              <input class="game-input" type="number" id="guess" placeholder="Введите число" />
+              <button id="submit-btn">Проверить</button>
+            </div>
+            <div id="message-container">
+              <p id="message"></p>
+            </div>
+            <button id="reset-btn" style="display: none;">Начать заново</button>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="section">
+        <div class="container">
+
+          <div>
+            <p>Давай сделаем интересный и красивый проект — игру "Угадай число". Это будет простой, но забавный проект, который поможет закрепить пройденый материал, используя объекты, методы объектов, стрелочные функции и шаблонные строки.</p>
+
+            <h3>Описание игры:</h3>
+
+            <ul class="list-ul">
+              <li>Игра генерирует случайное число от 1 до 100.</li>
+
+              <li>Игрок должен угадать это число.</li>
+
+              <li>При каждом вводе программы сообщается, больше или меньше число игрока по сравнению с загаданным.</li>
+
+              <li>Игрок может снова попытаться, пока не угадает.</li>
+            </ul>
+
+            <h3>Структура файлов:</h3>
+
+            <ul class="list-ul">
+              <li> <b>HTML</b> — структура страницы (красивое оформление).</li>
+              <li><b>CSS</b> — стили для страницы (красивый дизайн).</li>
+              <li><b>JavaScript (ES6)</b> — логика игры (с использованием ES6).</li>
+            </ul>
+
+            <b>Мы будем работать только с ES6, но вы также можете покопаться в HTML или CSS и исправить дизайн, как вам хочется. Только будьте аккуратнее! Если что-то меняете, учитывайте сразу все 3 файла, чтобы ничего не поломать.</b>
+
+            <h3> 1️⃣ Создание объекта game</h3>
+
+            <p>Мы создаем объект game, который будет хранить:</p>
+
+            <ul class="list-ul">
+              <li>Загаданное число secretNumber с null</li>
+
+              <li> Мы ещё не загадали число. Когда игра начинается, число генерируется случайным образом, и оно будет заменено на реальное число. </li>
+              <li> Количество попыток attempts будет равняться 0 </li>
+              <li> Количество попыток равно нулю, потому что игрок ещё не сделал ни одной попытки. Каждый раз, когда начинается новая игра, попытки сбрасываются на 0.</li>
+              <li>Максимальное количество попыток maxAttempts давайте сделаем 10</li>
+            </ul>
+
+            <h3> 2️⃣ Метод startGame</h3>
+
+            <p> Этот метод запускает игру: генерирует случайное число, сбрасывает количество попыток и очищает сообщения на экране. Он вызывается при старте игры и после сброса.</p>
+
+            <p>
+              Давай обратимся к методу startGame, который находится внутри объекта game
+
+            </p>
+          </div>
+        </div>
+      </section>
+      <style>
+        .game-container {
+          background: linear-gradient(to right, #6a11cb, #2575fc);
+          color: #fff;
+          padding: 40px;
+          border-radius: 20px;
+          width: 350px;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+          font-size: 32px;
+          margin-bottom: 20px;
+          color: #fff;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+        }
+
+        .input-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .game-input {
+          padding: 15px;
+          font-size: 18px;
+          border: none;
+          border-radius: 50px;
+          width: 80%;
+          margin-top: 20px;
+          background: #fff;
+          color: #333;
+          width: 100% !important;
+        }
+
+        button {
+          padding: 12px 25px;
+          font-size: 16px;
+          cursor: pointer;
+          background-color: #4CAF50;
+          color: white;
+          border: none;
+          border-radius: 50px;
+          margin-top: 20px;
+          transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+          background-color: #45a049;
+        }
+
+        #submit-btn {
+          background-color: #007BFF;
+        }
+
+        #submit-btn:hover {
+          background-color: #0056b3;
+        }
+
+        #message-container {
+          margin-top: 20px;
+          font-size: 20px;
+          border-radius: 50%;
+          padding: 20px;
+          background: #fff;
+          color: #333;
+          width: 200px;
+          margin: 20px auto;
+          display: none;
+        }
+
+        #reset-btn {
+          padding: 12px 25px;
+          font-size: 16px;
+          background-color: #ff5733;
+          border-radius: 50px;
+          border: none;
+          cursor: pointer;
+          margin-top: 20px;
+          display: block;
+          width: 200px;
+          margin: 10px auto;
+        }
+
+        #reset-btn:hover {
+          background-color: #e03c24;
+        }
+
+        input:focus,
+        button:focus {
+          outline: none;
+        }
+      </style>
+      <script>
+        // 1️⃣ Часть 1: Объект игры
+        const game = {
+          //тут надо заполнить Загаданное число,Количество попыток и  Максимальное количество попыток
+          secretNumber: null,
+          attempts: 0,
+          maxAttempts: 10,
+
+          // Метод для начала игры
+          startGame: function () {
+            this.secretNumber = Math.floor(Math.random() * 100) + 1; // Генерируем случайное число от 1 до 100
+            this.attempts = 0; // Сбрасываем количество попыток
+            document.getElementById("message").textContent = ""; // Очищаем сообщения
+            document.getElementById("reset-btn").style.display = "none"; // Скрываем кнопку перезапуска
+            console.log(this.secretNumber); // Для удобства, видим загаданное число в консоли
+            document.getElementById("message-container").style.display = "none"; // Скрываем контейнер с сообщением
+          },
+
+          // Метод для проверки числа
+          checkGuess: function (userGuess) {
+            this.attempts++;
+            if (userGuess < this.secretNumber) {
+              return "Загаданное число больше!";
+            } else if (userGuess > this.secretNumber) {
+              return "Загаданное число меньше!";
+            } else {
+              return `Поздравляем, вы угадали число за ${this.attempts} попыток!`;
+            }
+          },
+
+          // Метод для отображения сообщения
+          displayMessage: function (message) {
+            const messageContainer = document.getElementById("message-container");
+            messageContainer.textContent = message;
+            messageContainer.style.display = "block"; // Показываем контейнер с сообщением
+          }
+        };
+
+        // 2️⃣ Запуск игры . При загрузке игры генерируем число
+
+        game.startGame();
+
+
+        //  Обработчик нажатия на кнопку "Проверить"
+        document.getElementById("submit-btn").addEventListener("click", () => {
+          const userGuess = parseInt(document.getElementById("guess").value);
+
+          // Проверяем, что пользователь ввел число
+          if (isNaN(userGuess)) {
+            game.displayMessage("Пожалуйста, введите правильное число!");
+            return;
+          }
+
+          const result = game.checkGuess(userGuess);
+          game.displayMessage(result);
+
+          // Если число угадано или исчерпаны все попытки, показываем кнопку "Начать заново"
+          if (result.includes("Поздравляем")) {
+            document.getElementById("reset-btn").style.display = "block";
+          } else if (game.attempts >= game.maxAttempts) {
+            game.displayMessage("К сожалению, вы не угадали! Попробуйте снова.");
+            document.getElementById("reset-btn").style.display = "block";
+          }
+        });
+
+        // Обработчик нажатия на кнопку "Начать заново"
+        document.getElementById("reset-btn").addEventListener("click", () => {
+          game.startGame(); // Сбрасываем игру
+          document.getElementById("guess").value = ""; // Очищаем поле ввода
+        });
+      </script>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+</body>
+
+</html>

@@ -27,7 +27,8 @@ body {
   background: $backgroundColor;
 }
 
-// =================== Grid ===================
+-img // =================== Grid ===================
+
 .grid-column-50,
 .grid-column-100 {
   display: grid;
@@ -172,6 +173,13 @@ body {
 }
 
 // =================== Notes, Warnings, Summary ===================
+.note-img {
+  width: auto;
+  height: auto;
+  max-height: 400px;
+  margin-right: 10px;
+}
+
 .note-block {
   margin-bottom: 20px;
 }
