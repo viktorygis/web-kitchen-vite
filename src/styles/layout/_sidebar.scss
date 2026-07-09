@@ -1,0 +1,16 @@
+@use '../base/variables' as *;
+
+.layout {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.layout aside {
+  flex: 0 0 200px;
+}
+
+.layout .content {
+  flex: 1;
+  min-width: 0;
+}
