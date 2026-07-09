@@ -7,9 +7,8 @@
 
 <body>
   <a class="skip-link" href="#main">Перейти к содержимому</a>
-  @@include('../partials/header.html', {})
-
   <div class="wrapper">
+    @@include('../partials/header.html', {})
     <main class="page" id="main" tabindex="-1">
       <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
         <a href="#pm-intro" class="active" aria-current="page">Введение</a>
@@ -30,9 +29,10 @@
             <strong>Product Manager</strong> — специалист, который формулирует проблему, проверяет гипотезы, принимает решения о приоритетах и следит за тем, что бизнес и пользователи действительно получают ценность.
           </p>
 
-          <img class="note-img" src="/img/management/pm-1.png" alt="Product Manager">
-                    <!-- подпись под картинкой -->
-          <p class="note-caption">Рис. 1. Product Manager — связующее звено между бизнесом, пользователями и командой разработки</p>
+          <figure>
+            <img class="note-img" src="/img/management/pm-1.png" alt="Product Manager" />
+            <figcaption class="note-caption">Рис. 1. Product Manager — связующее звено между бизнесом, пользователями и командой разработки</figcaption>
+          </figure>
           <div class="note-block">
             <h3>За что отвечает PM</h3>
             <ul class="list-ul">
@@ -62,9 +62,10 @@
           </p>
 
           <p>Коротко: понять проблему → сформировать решение → выпустить MVP → измерить эффект → масштабировать или отойти.</p>
-          <img class="note-img" src="/img/management/pm-2.png" alt="Product Manager">
-          <!-- подпись под картинкой -->
-          <p class="note-caption">Рис. 2. Процесс продукт-менеджмента</p>
+          <figure>
+            <img class="note-img" src="/img/management/pm-2.png" alt="Product Manager" />
+            <figcaption class="note-caption">Рис. 2. Процесс продукт-менеджмента</figcaption>
+          </figure>
           <table class="table-note">
             <thead>
               <tr>
@@ -173,9 +174,10 @@
               </tr>
             </tbody>
           </table>
-          <img class="note-img" src="/img/management/pm-3.png" alt="Product Management Frameworks">
-          <!-- подпись под картинкой -->
-          <p class="note-caption">Рис. 3. Основные фреймворки продукт-менеджмента</p>
+          <figure>
+            <img class="note-img" src="/img/management/pm-3.png" alt="Product Management Frameworks" />
+            <figcaption class="note-caption">Рис. 3. Основные фреймворки продукт-менеджмента</figcaption>
+          </figure>
           <p class="note note--info"><b>Подсказка:</b>
             JTBD + CJM для discovery → RICE для ранжирования → OKR для выравнивания.</p>
         </div>
@@ -196,9 +198,10 @@
             <li><strong>Conversion</strong> — конверсия в целевые шаги (регистрация → активация → покупка).</li>
             <li><strong>North Star Metric</strong> — метрика, коррелирующая с долгосрочной ценностью (выбирается по контексту продукта).</li>
           </ul>
-          <img class="note-img" src="/img/management/pm-4.png" alt="Product Metrics">
-          <!-- подпись под картинкой -->
-          <p class="note-caption">Рис. 4. Основные продуктовые метрики</p>
+          <figure>
+            <img class="note-img" src="/img/management/pm-4.png" alt="Product Metrics" />
+            <figcaption class="note-caption">Рис. 4. Основные продуктовые метрики</figcaption>
+          </figure>
           <p class="note note--info">
             <strong>Подсказка:</strong> для оценки эффективности экспериментов используйте primary и guardrail метрики. <b>Primary</b> — ключевая метрика, отражающая ценность. <b>Guardrail</b> — метрики, которые не должны ухудшаться (например, retention, churn).</p>
 
@@ -247,8 +250,10 @@
               </tr>
             </tbody>
           </table>
-          <img class="note-img" src="/img/management/pm-5.png" alt="jira" >
-          <p class="note-caption">Рис. 5. Инструменты для управления продуктом</p>
+          <figure>
+            <img class="note-img" src="/img/management/pm-5.png" alt="Jira" />
+            <figcaption class="note-caption">Рис. 5. Инструменты для управления продуктом</figcaption>
+          </figure>
 
           <p class="note note--info">
             <strong>Совет:</strong> используйте шаблоны для discovery, PRD и релизных заметок. Это ускоряет процесс и помогает избежать ошибок в коммуникации.
@@ -303,7 +308,8 @@
     @@include('../partials/footer.html', {})
   </div>
 
-  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
 </body>
 
 </html>
