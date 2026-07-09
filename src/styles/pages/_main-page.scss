@@ -5,15 +5,21 @@
 .nav-block {
 	display: flex;
 	flex-direction: column;
-	gap: 30px;
+	gap: 40px;
 
 	//.nav-block__item
 	&__item {
-		background: $whiteColor;
+		background: $surfaceColor;
 		border-radius: $borderRadiusLarge;
 		padding: 2rem;
-		box-shadow: $shadow;
-		transition: transform $transition;
+		box-shadow: $shadowSmall;
+		border: 1px solid $borderColor;
+		transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+		&:hover {
+			transform: translateY(-4px);
+			box-shadow: 0 12px 40px rgba(0, 0, 0, 0.10);
+		}
 	}
 
 	//.nav-block__subtitle
@@ -38,13 +44,15 @@
 
 	//.nav-block__subnav-link
 	&__subnav-link {
-		transition: 0.3s;
+		transition: color 0.2s ease;
 		cursor: pointer;
 		color: $greyColor;
 		line-height: 1.6;
+		font-weight: 400;
 
 		&:hover {
 			color: $blueColor;
+			text-decoration: none;
 		}
 
 		&:active {
@@ -57,8 +65,7 @@
 	&__subgroup-title {
 		margin-bottom: 10px;
 		font-weight: 600;
-		color: $darkColor;
-
+		color: $textColor;
 	}
 
 	// Для группировки подзаголовков и списков

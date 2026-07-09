@@ -94,8 +94,7 @@ header {
   &:hover,
   &:focus-visible {
     color: $headerLinkHoverColor;
-    background: rgba($whiteColor, 0.04);
-    text-shadow: 0 0 8px rgba($yellowColor, 0.55);
+    background: rgba($whiteColor, 0.08);
     outline: none;
   }
 }
@@ -145,7 +144,6 @@ header {
   &:hover,
   &:focus-visible {
     color: $headerLinkHoverColor;
-    text-shadow: 0 0 8px rgba($yellowColor, 0.55);
     transform: translateX(2px);
     outline: none;
   }
@@ -236,8 +234,8 @@ header {
 
     &:focus {
       outline: none;
-      border-color: rgba($yellowColor, 0.8);
-      box-shadow: 0 0 0 3px rgba($yellowColor, 0.18);
+      border-color: rgba($accent, 0.6);
+      box-shadow: 0 0 0 3px rgba($accent, 0.15);
     }
   }
 

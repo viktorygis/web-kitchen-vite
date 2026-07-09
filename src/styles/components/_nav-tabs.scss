@@ -10,22 +10,28 @@
   flex-direction: column;
   gap: 2px;
   background: $tabsBgColor;
-  padding: 0.8rem;
-  border-radius: 0px 8px 8px 0px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.6rem;
+  border-radius: 0px 10px 10px 0px;
   max-width: max-content;
-  box-shadow: $shadow;
+  box-shadow: $shadowSmall;
+  border: 1px solid $borderColor;
+  border-left: none;
 
   a {
     color: $tabsItemTextColor;
     background: $tabsItemBgColor;
     text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
     transition: $transition;
-    font-size: 14px;
+    font-size: 13px;
+    line-height: 1.4;
 
     &:hover {
       background: $tabsItemHoverBgColor;
+      color: $primary;
     }
 
     &.active {
@@ -38,7 +44,7 @@
   ul {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 4px;
   }
 }
 
