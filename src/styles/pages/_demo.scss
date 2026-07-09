@@ -1,5 +1,5 @@
 //src/scss/demo.scss
-@use 'variables' as *; // Импортируем переменные в текущий файл
+@use '../base/variables' as *; // Импортируем переменные в текущий файл
 
 .interactive-demo {
   margin-bottom: 2rem;

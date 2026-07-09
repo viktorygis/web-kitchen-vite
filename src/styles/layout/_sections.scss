@@ -1,0 +1,36 @@
+@use '../base/variables' as *;
+
+.section {
+  padding: 30px 0;
+
+  &:first-of-type {
+    padding: 80px 0 30px 0;
+  }
+
+  &:last-child {
+    padding-bottom: 50px;
+  }
+
+  & .container {
+    background: $whiteColor;
+    border-radius: $borderRadiusLarge;
+    padding: 1rem;
+    box-shadow: $shadow;
+  }
+}
+
+.section-main {
+  padding: 80px 0 30px 0;
+}
+
+.subsection {
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.subsection:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}

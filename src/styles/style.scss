@@ -1,23 +1,33 @@
-//	src/scss/style.scss
-@use 'fonts';
-@use 'null';
+// src/styles/style.scss
+// Точка входа для всех стилей проекта
 
-@use 'code';
-@use 'header';
-@use 'forms';
-@use 'table';
-@use 'back-to-top';
-@use 'nav-tabs';
-@use 'main-page';
-@use 'lists';
-@use 'typography';
-@use 'cards';
-@use 'demo';
-@use 'main';
-@use 'utilities';
-@use 'practice';
-/*
-@use 'variables' as *; // Импортируем переменные в текущий файл
+// =================== Base ===================
+@use 'base/variables';
+@use 'base/reset';
+@use 'base/fonts';
+@use 'base/typography';
 
-*/
-//---------------------------------------
+// =================== Layout ===================
+@use 'layout/container';
+@use 'layout/sections';
+@use 'layout/sidebar';
+
+// =================== Components ===================
+@use 'components/header';
+@use 'components/nav-tabs';
+@use 'components/back-to-top';
+@use 'components/cards';
+@use 'components/forms';
+@use 'components/lists';
+@use 'components/code';
+@use 'components/table';
+@use 'components/notes';
+
+// =================== Pages ===================
+@use 'pages/main-page';
+@use 'pages/practice';
+@use 'pages/demo';
+
+// =================== Utilities ===================
+@use 'utilities/utilities';
+@use 'utilities/examples';

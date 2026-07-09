@@ -1,4 +1,4 @@
-@use 'variables' as *; // Импортируем переменные в текущий файл
+@use '../base/variables' as *; // Импортируем переменные в текущий файл
 
 .practice-buttons {
   display: grid;

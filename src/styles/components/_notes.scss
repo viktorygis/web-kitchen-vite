@@ -1,0 +1,66 @@
+@use '../base/variables' as *;
+
+.note-img {
+  width: auto;
+  height: auto;
+  max-height: 400px;
+  max-width: 100%;
+  margin: 0 auto;
+  border-radius: 8px;
+  border: 1px solid $primary;
+  display: block;
+}
+
+.note-caption {
+  font-size: 14px;
+  color: $darkColor;
+  text-align: center;
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+.note-block {
+  margin-bottom: 20px;
+}
+
+.note {
+  background: $lightBlueColor;
+  border-left: 3px solid $middleBlueColor;
+  padding: 1.5rem;
+  margin: 1.8rem 0;
+  border-radius: 7px;
+  font-family: "Raleway", sans-serif;
+
+  & strong {
+    color: $greenColor;
+  }
+
+  .note code {
+    background-color: $whiteColor;
+  }
+}
+
+.note--info {
+  background: $lightYellowColor;
+  border-left: 3px solid $yellowColor;
+
+  & strong {
+    color: $redColor;
+  }
+}
+
+.warning {
+  background-color: $lightRedColor;
+  border-left: 4px solid $redColor;
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.summary {
+  background-color: $lightBlueColor;
+  border-left: 4px solid $blueColor;
+  padding: 20px;
+  margin: 25px 0;
+  border-radius: 0 8px 8px 0;
+}
