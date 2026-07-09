@@ -33,16 +33,14 @@ $secondary: #7D73FF;
 $lightSecondary: #efedff;
 
 $dark: #212529;
-$darkColor: #333333; // оставляем как базовый цвет header / текста
+$darkColor: #333333;
 $greyColor: #a1a1aa;
 $whiteColor: #ffffff;
 
 // =========================
 // Акцентные цвета
 // =========================
-$yellowColor: #ffcc00; // оставляем как фирменный акцент
-$subnavHeadingColor: #aed5ff; // выносим в переменную вместо хардкода
-
+$yellowColor: #ffcc00;
 $success: #27ae60;
 $warning: #f39c12;
 $greenColor: #27ae60;
@@ -94,21 +92,6 @@ $formLegendBg: $whiteColor;
 $formLabelFontWeight: 600;
 
 // =========================
-// Таблицы и примеры
-// =========================
-$accentColor: #7D73FF;
-$exampleBgColor: #fffbea;
-$captionBgColor: #f2efff;
-$cellBgColor: #fffdf8;
-
-$headerBgColor: $primary;
-$headerTextColor: $whiteColor;
-
-$footerBgColor: #fff3bf;
-$rowHoverBgColor: #f5f7fb;
-$rowHoverTextColor: $darkColor;
-
-// =========================
 // Медиа-запросы
 // =========================
 $media-md: 991px;
@@ -133,3 +116,116 @@ $radioMarginRight: 5px;
 $numberAccentColor: $formAccentColor;
 $numberWidth: 5em;
 $numberHeight: 2em;
+
+// ============================================
+// SEMANTIC TOKENS
+// Роль-ориентированные переменные для компонентов
+// ============================================
+
+// =========================
+// Surface / UI tokens
+// =========================
+$surfaceColor: $whiteColor;
+$surfaceMutedColor: $backgroundColor;
+$surfaceAccentColor: $lightBlueColor;
+
+// =========================
+// Text tokens
+// =========================
+$textColor: $darkColor;
+$textMutedColor: $greyColor;
+$textHeadingColor: $primary;
+$textOnDarkColor: $whiteColor;
+
+// =========================
+// Border tokens
+// =========================
+$borderColor: #d9dee7;
+$borderSoftColor: rgba($primary, 0.12);
+$borderAccentColor: rgba($blueColor, 0.18);
+
+// =========================
+// Header / Nav tokens
+// =========================
+$headerBgColor: $darkColor;
+$headerLinkColor: $yellowColor;
+$headerLinkHoverColor: $whiteColor;
+$subnavBgColor: $darkColor;
+$subnavBorderColor: rgba($yellowColor, 0.18);
+$subnavHeadingColor: #aed5ff;
+
+// =========================
+// Tabs tokens
+// =========================
+$tabsBgColor: $whiteColor;
+$tabsItemBgColor: $whiteColor;
+$tabsItemTextColor: $dark;
+$tabsItemHoverBgColor: $backgroundColor;
+$tabsItemActiveBgColor: $secondary;
+$tabsItemActiveTextColor: $whiteColor;
+
+// =========================
+// Note tokens
+// =========================
+$noteBgColor: linear-gradient(180deg, rgba($lightBlueColor, 0.9) 0%, rgba($whiteColor, 1) 100%);
+$noteBorderColor: rgba($middleBlueColor, 0.22);
+$noteBorderAccentColor: $middleBlueColor;
+
+$noteInfoBgColor: linear-gradient(180deg, rgba($lightYellowColor, 0.95) 0%, rgba($whiteColor, 1) 100%);
+$noteInfoBorderColor: rgba($yellowColor, 0.28);
+$noteInfoBorderAccentColor: $yellowColor;
+
+$warningBgColor: linear-gradient(180deg, rgba($lightRedColor, 0.92) 0%, rgba($whiteColor, 1) 100%);
+$warningBorderColor: rgba($redColor, 0.22);
+$warningBorderAccentColor: $redColor;
+
+$summaryBgColor: linear-gradient(180deg, rgba($lightBlueColor, 0.85) 0%, rgba($whiteColor, 1) 100%);
+$summaryBorderColor: rgba($blueColor, 0.22);
+$summaryBorderAccentColor: $blueColor;
+
+$noteArticleBgColor: $whiteColor;
+$noteArticleBorderColor: rgba($greenColor, 0.2);
+$noteArticleBorderAccentColor: $greenColor;
+
+$noteBlockBgColor: rgba($lightBlueColor, 0.45);
+$noteBlockBorderColor: rgba($middleBlueColor, 0.14);
+
+$noteImgBorderColor: rgba($primary, 0.18);
+$noteStrongColor: $greenColor;
+$noteInfoStrongColor: $redColor;
+$noteCodeBgColor: rgba($whiteColor, 0.95);
+
+// =========================
+// Table tokens
+// =========================
+$tableBgColor: $whiteColor;
+$tableBorderColor: rgba($greenColor, 0.22);
+$tableCellBorderColor: rgba($greenColor, 0.14);
+$tableHeadBgColor: $primary;
+$tableHeadTextColor: $whiteColor;
+$tableStripeBgColor: rgba($lightGreenColor, 0.28);
+$tableHoverBgColor: rgba($lightYellowColor2, 0.65);
+$tableFooterBgColor: rgba($lightGreenColor, 0.65);
+$tableCaptionBgColor: #f2efff;
+$tableCaptionBorderColor: rgba($greenColor, 0.16);
+$tableCodeBgColor: rgba($lightGreenColor, 0.75);
+$tableColspanBgColor: rgba($lightGreenColor, 0.7);
+
+// =========================
+// Table Example tokens
+// =========================
+$accentColor: #7D73FF;
+$tableExampleBorderColor: rgba($accentColor, 0.22);
+$tableExampleCellBorderColor: rgba($accentColor, 0.14);
+$tableExampleStripeBgColor: rgba($accentColor, 0.35);
+$tableExampleCaptionBorderColor: rgba($accentColor, 0.14);
+$cellBgColor: #fffdf8;
+$rowHoverBgColor: #f5f7fb;
+$rowHoverTextColor: $darkColor;
+$footerBgColor: #fff3bf;
+
+// =========================
+// List tokens
+// =========================
+$listMarkerColor: $secondary;
+$listNumberColor: $darkColor;

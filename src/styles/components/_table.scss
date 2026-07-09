@@ -7,8 +7,8 @@
   border-collapse: separate;
   border-spacing: 0;
   overflow: hidden;
-  background: $whiteColor;
-  border: 1px solid rgba($greenColor, 0.22);
+  background: $tableBgColor;
+  border: 1px solid $tableBorderColor;
   border-radius: $borderRadiusLarge;
   box-shadow: $shadowSmall;
   font-family: $fontFamilyAccent;
@@ -19,8 +19,8 @@
     font-size: 0.98em;
     font-weight: 600;
     color: $darkColor;
-    background: $captionBgColor;
-    border-top: 1px solid rgba($greenColor, 0.16);
+    background: $tableCaptionBgColor;
+    border-top: 1px solid $tableCaptionBorderColor;
   }
 
   th,
@@ -29,8 +29,8 @@
     text-align: left;
     font-size: $fontSizeAccent;
     line-height: 1.5;
-    border-right: 1px solid rgba($greenColor, 0.14);
-    border-bottom: 1px solid rgba($greenColor, 0.14);
+    border-right: 1px solid $tableCellBorderColor;
+    border-bottom: 1px solid $tableCellBorderColor;
     vertical-align: top;
 
     &:last-child {
@@ -39,39 +39,39 @@
   }
 
   thead th {
-    background: $primary;
-    color: $headerTextColor;
+    background: $tableHeadBgColor;
+    color: $tableHeadTextColor;
     font-weight: 600;
     letter-spacing: 0.2px;
   }
 
   tbody tr {
-    background: $whiteColor;
+    background: $tableBgColor;
     transition: background-color 0.2s ease;
 
     &:nth-child(even) {
-      background: rgba($lightGreenColor, 0.28);
+      background: $tableStripeBgColor;
     }
 
     &:hover {
-      background: rgba($lightYellowColor2, 0.65);
+      background: $tableHoverBgColor;
     }
   }
 
   tfoot td {
-    background: rgba($lightGreenColor, 0.65);
+    background: $tableFooterBgColor;
     color: $darkColor;
     font-weight: 600;
   }
 
   code {
-    background: rgba($lightGreenColor, 0.75);
+    background: $tableCodeBgColor;
     padding: 2px 6px;
     border-radius: 6px;
   }
 
   td[colspan="3"] {
-    background: rgba($lightGreenColor, 0.7);
+    background: $tableColspanBgColor;
     font-weight: 600;
   }
 
@@ -87,8 +87,8 @@
   border-collapse: separate;
   border-spacing: 0;
   overflow: hidden;
-  background: $whiteColor;
-  border: 1px solid rgba($accentColor, 0.22);
+  background: $tableBgColor;
+  border: 1px solid $tableExampleBorderColor;
   border-radius: $borderRadiusLarge;
   box-shadow: $shadowSmall;
   font-family: $fontFamilyAccent;
@@ -99,8 +99,8 @@
     font-size: 0.98em;
     font-weight: 600;
     color: $darkColor;
-    background: $captionBgColor;
-    border-top: 1px solid rgba($accentColor, 0.14);
+    background: $tableCaptionBgColor;
+    border-top: 1px solid $tableExampleCaptionBorderColor;
   }
 
   th,
@@ -109,8 +109,8 @@
     text-align: center;
     font-size: $fontSizeAccent;
     line-height: 1.5;
-    border-right: 1px solid rgba($accentColor, 0.14);
-    border-bottom: 1px solid rgba($accentColor, 0.14);
+    border-right: 1px solid $tableExampleCellBorderColor;
+    border-bottom: 1px solid $tableExampleCellBorderColor;
     background: $cellBgColor;
     transition: background-color 0.2s ease, color 0.2s ease;
 
@@ -120,8 +120,8 @@
   }
 
   thead th {
-    background: $headerBgColor;
-    color: $headerTextColor;
+    background: $tableHeadBgColor;
+    color: $tableHeadTextColor;
     font-weight: 700;
     letter-spacing: 0.3px;
     text-transform: uppercase;
@@ -129,7 +129,7 @@
 
   tbody tr {
     &:nth-child(even) td {
-      background: rgba($accentColor, 0.35);
+      background: $tableExampleStripeBgColor;
     }
 
     &:hover td {

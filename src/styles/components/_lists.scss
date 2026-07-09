@@ -1,6 +1,6 @@
 //src/scss/lists.scss
 
-@use '../base/variables' as *; // Импортируем переменные в текущий файл
+@use '../base/variables' as *;
 
 // =================== List Styles ===================
 
@@ -24,7 +24,7 @@
     position: absolute;
     left: 0;
     top: -0.5rem;
-    color: $secondary;
+    color: $listMarkerColor;
     font-size: 1.5rem;
   }
 
@@ -58,7 +58,7 @@
     left: 0;
     top: 0.8125rem;
     transform: translateY(-50%);
-    color: $darkColor;
+    color: $listNumberColor;
     font-weight: bold;
   }
 

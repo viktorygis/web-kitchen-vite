@@ -1,12 +1,12 @@
 //src/scss/typography.scss
-@use '../base/variables' as *; // Импортируем переменные в текущий файл
+@use '../base/variables' as *;
 
 // =================== Typography ===================
 h1,
 h2,
 h3,
 h4 {
-	color: $primary;
+	color: $textHeadingColor;
 	font-weight: 700;
 	line-height: 1.3;
 }
@@ -41,7 +41,7 @@ h4 {
 h5 {
 	font-size: 1rem;
 	margin: 1.3rem 0 0.8rem;
-	color: $greyColor;
+	color: $textMutedColor;
 	font-weight: 500;
 	font-family: "Raleway", sans-serif;
 }

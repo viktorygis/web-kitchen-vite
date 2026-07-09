@@ -8,7 +8,7 @@
   height: auto;
   margin: 0 auto;
   border-radius: 14px;
-  border: 1px solid rgba($primary, 0.18);
+  border: 1px solid $noteImgBorderColor;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   background-color: $whiteColor;
 }
@@ -47,53 +47,53 @@
 }
 
 .note {
-  background: linear-gradient(180deg, rgba($lightBlueColor, 0.9) 0%, rgba($whiteColor, 1) 100%);
-  border: 1px solid rgba($middleBlueColor, 0.22);
-  border-left: 4px solid $middleBlueColor;
+  background: $noteBgColor;
+  border: 1px solid $noteBorderColor;
+  border-left: 4px solid $noteBorderAccentColor;
   font-family: "Raleway", sans-serif;
 
   strong {
-    color: $greenColor;
+    color: $noteStrongColor;
   }
 
   code {
-    background-color: rgba($whiteColor, 0.95);
+    background-color: $noteCodeBgColor;
     padding: 2px 6px;
     border-radius: 6px;
   }
 }
 
 .note--info {
-  background: linear-gradient(180deg, rgba($lightYellowColor, 0.95) 0%, rgba($whiteColor, 1) 100%);
-  border: 1px solid rgba($yellowColor, 0.28);
-  border-left: 4px solid $yellowColor;
+  background: $noteInfoBgColor;
+  border: 1px solid $noteInfoBorderColor;
+  border-left: 4px solid $noteInfoBorderAccentColor;
 
   strong {
-    color: $redColor;
+    color: $noteInfoStrongColor;
   }
 }
 
 .warning {
-  background: linear-gradient(180deg, rgba($lightRedColor, 0.92) 0%, rgba($whiteColor, 1) 100%);
-  border: 1px solid rgba($redColor, 0.22);
-  border-left: 4px solid $redColor;
+  background: $warningBgColor;
+  border: 1px solid $warningBorderColor;
+  border-left: 4px solid $warningBorderAccentColor;
 }
 
 .summary {
-  background: linear-gradient(180deg, rgba($lightBlueColor, 0.85) 0%, rgba($whiteColor, 1) 100%);
-  border: 1px solid rgba($blueColor, 0.22);
-  border-left: 4px solid $blueColor;
+  background: $summaryBgColor;
+  border: 1px solid $summaryBorderColor;
+  border-left: 4px solid $summaryBorderAccentColor;
 }
 
 .note-article {
-  background-color: $whiteColor;
-  border: 1px solid rgba($greenColor, 0.2);
-  border-left: 4px solid $greenColor;
+  background-color: $noteArticleBgColor;
+  border: 1px solid $noteArticleBorderColor;
+  border-left: 4px solid $noteArticleBorderAccentColor;
 }
 
 .note-block {
-  background-color: rgba($lightBlueColor, 0.45);
-  border: 1px solid rgba($middleBlueColor, 0.14);
+  background-color: $noteBlockBgColor;
+  border: 1px solid $noteBlockBorderColor;
 }
 
 .list-ul,

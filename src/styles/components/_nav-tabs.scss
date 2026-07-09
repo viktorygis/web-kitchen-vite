@@ -1,4 +1,4 @@
-@use '../base/variables' as *; // Импортируем переменные в текущий файл
+@use '../base/variables' as *;
 
 // =================== Nav Tabs ===================
 .nav-tabs {
@@ -9,36 +9,32 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-  background: $whiteColor;
+  background: $tabsBgColor;
   padding: 0.8rem;
   border-radius: 0px 8px 8px 0px;
   max-width: max-content;
   box-shadow: $shadow;
 
-  //.nav-tabs a--------------------
   a {
-    color: $dark;
-    background: $whiteColor;
+    color: $tabsItemTextColor;
+    background: $tabsItemBgColor;
     text-decoration: none;
     padding: 0.5rem 1rem;
     border-radius: 4px;
     transition: $transition;
     font-size: 14px;
 
-    //.nav-tabs a:hover--------------------
     &:hover {
-      background: $backgroundColor;
+      background: $tabsItemHoverBgColor;
     }
 
-    //.nav-tabs a.active--------------------
     &.active {
-      background: $secondary;
-      color: $whiteColor;
+      background: $tabsItemActiveBgColor;
+      color: $tabsItemActiveTextColor;
       font-weight: 600;
     }
   }
 
-  //.nav-tabs ul--------------------
   ul {
     display: flex;
     flex-direction: column;

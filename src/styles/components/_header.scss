@@ -9,8 +9,8 @@ header {
   left: 0;
   z-index: 100;
   width: 100%;
-  background: $darkColor;
-  color: $whiteColor;
+  background: $headerBgColor;
+  color: $textOnDarkColor;
   box-shadow: $shadowSmall;
   backdrop-filter: blur(6px);
 }
@@ -78,7 +78,7 @@ header {
   align-items: center;
   height: 100%;
   padding: 15px 16px;
-  color: $yellowColor;
+  color: $headerLinkColor;
   font-size: 16px;
   line-height: 140%;
   font-weight: 500;
@@ -87,13 +87,13 @@ header {
 
   &:link,
   &:visited {
-    color: $yellowColor;
+    color: $headerLinkColor;
     text-decoration: none;
   }
 
   &:hover,
   &:focus-visible {
-    color: $whiteColor;
+    color: $headerLinkHoverColor;
     background: rgba($whiteColor, 0.04);
     text-shadow: 0 0 8px rgba($yellowColor, 0.55);
     outline: none;
@@ -113,8 +113,8 @@ header {
   gap: 8px;
   width: 240px;
   padding: 14px;
-  background: $darkColor;
-  border: 1px solid rgba($yellowColor, 0.18);
+  background: $subnavBgColor;
+  border: 1px solid $subnavBorderColor;
   border-radius: 0 0 $borderRadiusLarge $borderRadiusLarge;
   box-shadow: $shadow;
 }
@@ -130,7 +130,7 @@ header {
 
 .subnav-link {
   display: inline-block;
-  color: $yellowColor;
+  color: $headerLinkColor;
   font-size: 14px;
   line-height: 140%;
   font-weight: 400;
@@ -139,12 +139,12 @@ header {
 
   &:link,
   &:visited {
-    color: $yellowColor;
+    color: $headerLinkColor;
   }
 
   &:hover,
   &:focus-visible {
-    color: $whiteColor;
+    color: $headerLinkHoverColor;
     text-shadow: 0 0 8px rgba($yellowColor, 0.55);
     transform: translateX(2px);
     outline: none;
