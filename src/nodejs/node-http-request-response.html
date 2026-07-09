@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html lang="ru">
 @@include('../partials/head.html', {
-"title": "HTTP-запросы и ответы",
-"description": "Руководство по HTTP-запросам и ответам в JavaScript: как устроены запросы, какие бывают методы, как работать с fetch, async/await, GET и POST"
+"title": "HTTP-запросы и ответы — работа с fetch, GET и POST в JavaScript",
+"description": "Руководство по HTTP-запросам и ответам в JavaScript: протокол, fetch, async/await, методы GET и POST с примерами кода."
 })
 
 <body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
   <div class="wrapper">
     @@include('../partials/header.html', {})
 
-    <main class="page">
-      <nav class="nav-tabs" id="page-nav" aria-label="Навигация по странице">
-        <a href="#http-intro" class="active">Введение</a>
+    <main class="page" id="main" tabindex="-1">
+
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#http-intro" class="active" aria-current="page">Введение</a>
         <a href="#http-what">Что такое HTTP</a>
         <a href="#http-message">Запрос и ответ</a>
         <a href="#http-fetch">Fetch API</a>
+        <a href="#http-response">Обработка ответа</a>
+        <a href="#http-response-detail">Разбор ответа</a>
+        <a href="#http-property">Свойства объекта</a>
+        <a href="#http-catch">Обработка ошибок</a>
+        <a href="#http-params">Параметры запроса</a>
         <a href="#http-async">Async/Await</a>
         <a href="#http-get">GET</a>
         <a href="#http-post">POST</a>
@@ -27,29 +35,37 @@
           <h1>HTTP-запросы и ответы</h1>
 
           <p class="note">
-            <strong>HTTP</strong> — это протокол, по которому браузер, приложение или другой клиент запрашивает данные у сервера и получает ответ.
-            <br>
-            Каждый запрос начинается с клиента и завершается ответом сервера.
+            <strong>HTTP-запросы и ответы</strong> — механизм обмена данными между клиентом (браузером или приложением) и сервером по протоколу HTTP.<br />
+            Каждый запрос инициируется клиентом и завершается ответом сервера с данными или кодом ошибки.
           </p>
 
           <p class="note note--info">
-            HTTP лежит в основе работы большинства сайтов и веб-приложений: страницы, изображения, JSON-данные, формы и авторизация — всё это обычно передаётся через HTTP.
+            HTTP лежит в основе работы большинства сайтов и веб-приложений: страницы, изображения, JSON-данные, формы и авторизация — всё это передаётся через HTTP.
           </p>
 
-          <img class="note-img" src="/img/node/client-server-architecture-1.png" alt="Клиент-серверная архитектура" caption="Клиент-серверная архитектура" />
-          <p class="note-caption">Рис. 1. Клиент-серверная архитектура</p>
+          <figure class="image-block">
+            <img class="note-img" src="/img/node/client-server-architecture-1.png" alt="Клиент-серверная архитектура" />
+            <figcaption class="note-caption">Рис. 1. Клиент-серверная архитектура</figcaption>
+          </figure>
+
           <p class="note note--info">
-            Когда мы работаем в интернете, наш браузер (или любое другое приложение) отправляет запросы на сервер, чтобы получить нужную информацию.
-
-            Эти запросы называются HTTP-запросами. Они могут быть разного типа, например <b>GET</b> (для получения данных) или <b>POST</b> (для отправки данных на сервер).
+            Браузер отправляет запрос на сервер, чтобы получить нужные данные. Запросы бывают разных типов:
+            <strong>GET</strong> — получить данные, <strong>POST</strong> — отправить данные на сервер.
           </p>
-          <h4>Пример использования fetch</h4>
+
+          <h2>Пример: простой запрос через fetch</h2>
+
+          <p class="note">
+            <strong>fetch()</strong> — встроенный браузерный метод для выполнения HTTP-запросов.<br />
+            Возвращает Promise, который разрешается в объект Response.
+          </p>
+
           <div class="code-block">
-            <pre><code>fetch('https://jsonplaceholder.typicode.com/todos/1') // Это запрос, который отправляется на сервер
-  .then(response => response.json()) // Сервер возвращает ответ в формате JSON
-  .then(data => console.log(data)); // Мы выводим данные на экран
-            </code></pre>
+            <pre><code>fetch('https://jsonplaceholder.typicode.com/todos/1') // Запрос к серверу
+  .then(response =&gt; response.json()) // Преобразуем ответ в JSON
+  .then(data =&gt; console.log(data));  // Выводим данные в консоль</code></pre>
           </div>
+        </div>
       </section>
 
       <!-- Что такое HTTP -->
@@ -57,14 +73,14 @@
         <div class="container">
           <h2>Что такое HTTP</h2>
 
-          <p>
-            <strong>HTTP</strong> расшифровывается как HyperText Transfer Protocol.
-            Он описывает, как клиент и сервер обмениваются сообщениями в сети.
+          <p class="note">
+            <strong>HTTP</strong> (HyperText Transfer Protocol) — протокол прикладного уровня, описывающий правила обмена сообщениями между клиентом и сервером в сети.<br />
+            Клиент всегда инициирует соединение; сервер отвечает данными или сообщением об ошибке.
           </p>
 
           <p>
             Когда пользователь открывает страницу, браузер отправляет HTTP-запрос, а сервер возвращает HTTP-ответ:
-            HTML, JSON, изображение, файл или сообщение об ошибке.
+            HTML, JSON, изображение, файл или код ошибки.
           </p>
 
           <div class="note-block info">
@@ -84,32 +100,68 @@
         <div class="container">
           <h2>Запрос и ответ</h2>
 
-          <p>
-            HTTP-обмен состоит из двух основных частей: <strong>request</strong> и <strong>response</strong>.
+          <p class="note">
+            <strong>HTTP-обмен</strong> — процесс, состоящий из двух частей: запроса (<code>request</code>) от клиента и ответа (<code>response</code>) от сервера.<br />
+            Каждая часть содержит метаданные (заголовки) и при необходимости тело с данными.
           </p>
 
           <div class="note-block info">
-            <h3>HTTP-запрос</h3>
+            <h3>Структура HTTP-запроса</h3>
             <ul class="list-ul">
-              <li><strong>Метод</strong> — что нужно сделать: получить, создать, изменить или удалить данные.</li>
-              <li><strong>URL</strong> — адрес ресурса.</li>
-              <li><strong>Заголовки</strong> — дополнительная информация о запросе.</li>
-              <li><strong>Тело запроса</strong> — данные, которые отправляются на сервер.</li>
+              <li><strong>Метод</strong> — действие: получить, создать, изменить или удалить данные (GET, POST, PUT, DELETE).</li>
+              <li><strong>URL</strong> — адрес ресурса на сервере.</li>
+              <li><strong>Заголовки</strong> — дополнительная информация: тип контента, авторизация, кэш.</li>
+              <li><strong>Тело запроса</strong> — данные, отправляемые на сервер (только для POST, PUT и др.).</li>
             </ul>
           </div>
 
           <div class="note-block info">
-            <h3>HTTP-ответ</h3>
+            <h3>Структура HTTP-ответа</h3>
             <ul class="list-ul">
-              <li><strong>Статус</strong> — результат обработки запроса, например 200, 404 или 500.</li>
-              <li><strong>Заголовки</strong> — тип контента, кэширование и другая служебная информация.</li>
+              <li><strong>Статус</strong> — числовой код результата: 200 (ОК), 404 (не найдено), 500 (ошибка сервера).</li>
+              <li><strong>Заголовки</strong> — тип контента, кэширование, CORS и другая служебная информация.</li>
               <li><strong>Тело ответа</strong> — данные, которые сервер возвращает клиенту.</li>
             </ul>
           </div>
 
           <p class="note">
-            Чаще всего данные возвращаются в формате <strong>JSON</strong>, потому что его удобно обрабатывать в JavaScript.
+            Чаще всего данные возвращаются в формате <strong>JSON</strong> — компактного текстового формата, нативно поддерживаемого JavaScript.
           </p>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Код статуса</th>
+                <th>Значение</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>200</td>
+                <td>Успех — данные возвращены</td>
+              </tr>
+              <tr>
+                <td>201</td>
+                <td>Ресурс создан</td>
+              </tr>
+              <tr>
+                <td>400</td>
+                <td>Некорректный запрос</td>
+              </tr>
+              <tr>
+                <td>401</td>
+                <td>Не авторизован</td>
+              </tr>
+              <tr>
+                <td>404</td>
+                <td>Ресурс не найден</td>
+              </tr>
+              <tr>
+                <td>500</td>
+                <td>Внутренняя ошибка сервера</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
 
@@ -118,27 +170,268 @@
         <div class="container">
           <h2>Fetch API</h2>
 
-          <p>
-            В браузере для отправки HTTP-запросов часто используют встроенный метод <code>fetch()</code>.
-            Он принимает адрес ресурса и возвращает <strong>Promise</strong>, который разрешается в объект <code>Response</code>.
+          <p class="note">
+            <strong>Fetch API</strong> — встроенный браузерный интерфейс для выполнения HTTP-запросов без сторонних библиотек.<br />
+            Метод <code>fetch()</code> принимает URL и параметры запроса, возвращает Promise с объектом <code>Response</code>.
           </p>
 
           <div class="code-block">
             <pre><code>fetch('https://api.example.com/data')
-  .then(response => response.json())
-  .then(data => {
+  .then(response =&gt; {
+    if (!response.ok) {
+      throw new Error('Ошибка сети: ' + response.status);
+    }
+    return response.json(); // Преобразуем тело ответа в объект
+  })
+  .then(data =&gt; {
     console.log(data);
   })
-  .catch(error => console.error('Ошибка:', error));</code></pre>
+  .catch(error =&gt; console.error('Ошибка:', error));</code></pre>
           </div>
 
           <p>
-            Сначала мы получаем ответ от сервера, затем преобразуем его в JSON и только после этого работаем с данными.
+            Сначала мы получаем объект <code>Response</code>, проверяем статус, затем преобразуем тело в JSON и работаем с данными.
           </p>
 
           <p class="note note--info">
-            `fetch()` полезен не только для получения данных, но и для отправки запросов с разными методами и заголовками.
+            <code>fetch()</code> поддерживает любой HTTP-метод, произвольные заголовки и тело запроса.
           </p>
+
+          <div class="warning">
+            <strong>Важно:</strong> <code>fetch()</code> не выбрасывает ошибку при статусах 4xx/5xx. Всегда проверяйте <code>response.ok</code> вручную.
+          </div>
+        </div>
+      </section>
+
+      <!-- Обработка ответа -->
+      <section class="section" id="http-response">
+        <div class="container">
+          <h2>Как обрабатывать ответ сервера</h2>
+
+          <p class="note">
+            <strong>Ответ сервера</strong> — объект <code>Response</code>, который возвращает <code>fetch()</code> после завершения запроса.<br />
+            Чтобы получить данные из ответа, его нужно преобразовать — чаще всего методом <code>.json()</code>.
+          </p>
+
+          <p>
+            Когда ты отправляешь HTTP-запрос с помощью <code>fetch()</code>, сервер отвечает на него.
+            Ответ чаще всего приходит в формате JSON — его удобно читать и использовать в JavaScript.
+            Важно научиться правильно обрабатывать этот ответ.
+          </p>
+
+          <div class="code-block">
+            <pre><code>// Отправляем запрос на сервер
+fetch('https://jsonplaceholder.typicode.com/todos/1')
+  .then(response =&gt; response.json()) // Преобразуем ответ в формат JSON
+  .then(data =&gt; console.log(data));  // Выводим данные на экран</code></pre>
+          </div>
+
+          <p class="note note--info">Что происходит в этом коде — шаг за шагом:</p>
+
+          <ul class="list-ul">
+            <li>
+              <strong>Шаг 1.</strong> <code>fetch()</code> отправляет запрос на сервер по указанному URL.
+            </li>
+            <li>
+              <strong>Шаг 2.</strong> Когда сервер вернёт ответ, первый <code>.then()</code> получает объект <code>Response</code> и вызывает <code>.json()</code> — это превращает ответ сервера в JavaScript-объект.
+            </li>
+            <li>
+              <strong>Шаг 3.</strong> Второй <code>.then(data =&gt; console.log(data))</code> получает готовый объект и выводит его в консоль.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Разбор ответа на примере -->
+      <section class="section" id="http-response-detail">
+        <div class="container">
+          <h2>Разбор ответа на практическом примере</h2>
+
+          <p class="note">
+            <strong>Практический разбор</strong> — пошаговый анализ реального JSON-ответа от сервера на конкретном примере.<br />
+            Помогает понять, что именно возвращает сервер и как с этим работать в коде.
+          </p>
+
+          <p>
+            Возьмём реальный запрос к публичному API <a href="https://jsonplaceholder.typicode.com" target="_blank" rel="noopener noreferrer">jsonplaceholder.typicode.com</a>.
+            Когда мы отправляем запрос на <code>todos/1</code>, сервер возвращает JSON-объект с данными о задании.
+          </p>
+
+          <div class="code-block">
+            <pre><code>fetch("https://jsonplaceholder.typicode.com/todos/1") // Отправляем запрос
+  .then(response =&gt; response.json()) // Преобразуем ответ в JSON
+  .then(data =&gt; console.log(data));  // Выводим результат</code></pre>
+          </div>
+
+          <p>После выполнения этого кода в консоли появится следующий объект:</p>
+
+          <div class="code-block">
+            <pre><code>{
+  userId: 1,
+  id: 1,
+  title: "Упражнение 5",
+  completed: false
+}</code></pre>
+          </div>
+
+          <p class="note note--info">
+            Это и есть данные, которые сервер вернул в ответ на наш запрос. Теперь с ними можно работать как с обычным JavaScript-объектом.
+          </p>
+        </div>
+      </section>
+
+      <!-- Свойства объекта ответа -->
+      <section class="section" id="http-property">
+        <div class="container">
+          <h2>Свойства объекта ответа</h2>
+
+          <p class="note">
+            <strong>Свойства объекта</strong> — именованные поля внутри JSON-ответа, каждое из которых хранит конкретное значение.<br />
+            После преобразования ответа через <code>.json()</code> к ним можно обращаться через точку: <code>data.title</code>.
+          </p>
+
+          <p>В консоли будет объект с четырьмя свойствами. Разберём каждое:</p>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Свойство</th>
+                <th>Тип</th>
+                <th>Описание</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>userId</code></td>
+                <td>number</td>
+                <td>ID пользователя, которому принадлежит задание.</td>
+              </tr>
+              <tr>
+                <td><code>id</code></td>
+                <td>number</td>
+                <td>Уникальный ID самого задания.</td>
+              </tr>
+              <tr>
+                <td><code>title</code></td>
+                <td>string</td>
+                <td>Название задания — текстовое описание.</td>
+              </tr>
+              <tr>
+                <td><code>completed</code></td>
+                <td>boolean</td>
+                <td>Статус выполнения: <code>true</code> — выполнено, <code>false</code> — нет.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="note note--info">
+            Необязательно выводить весь объект целиком. Можно обратиться к нужному свойству через точку и вывести только его:
+          </p>
+
+          <div class="code-block">
+            <pre><code>fetch('https://jsonplaceholder.typicode.com/todos/1')
+  .then(response =&gt; response.json())
+  .then(data =&gt; console.log(data.title)); // Выведет только название задания</code></pre>
+          </div>
+
+          <p>
+            В этом примере мы обращаемся только к свойству <code>title</code> и выводим его — всё остальное содержимое объекта игнорируется.
+          </p>
+        </div>
+      </section>
+
+      <!-- Обработка ошибок -->
+      <section class="section" id="http-catch">
+        <div class="container">
+          <h2>Обработка ошибок с .catch()</h2>
+
+          <p class="note">
+            <strong>Обработка ошибок</strong> — механизм перехвата сбоев при выполнении запроса: недоступность сервера, проблемы с сетью или неверный URL.<br />
+            Метод <code>.catch()</code> ловит любую ошибку, возникшую в цепочке <code>.then()</code>.
+          </p>
+
+          <p>
+            Когда мы отправляем запрос на сервер, не всегда всё может пройти гладко.
+            Сервер может не ответить или вернуть ошибку. Важно обрабатывать такие ситуации, чтобы приложение не «падало».
+          </p>
+
+          <div class="code-block">
+            <pre><code>fetch('https://jsonplaceholder.typicode.com/todos/1')
+  .then(response =&gt; response.json())       // Преобразуем ответ в JSON
+  .then(data =&gt; console.log(data))         // Если всё прошло хорошо — выводим данные
+  .catch(error =&gt; console.log('Ошибка при запросе:', error)); // Ловим ошибку</code></pre>
+          </div>
+
+          <p class="note note--info">
+            Параметр <code>error</code> в методе <code>.catch()</code> — это объект с информацией о том, что пошло не так.
+            Всегда указывайте его, чтобы вывести понятное сообщение пользователю или записать в лог.
+          </p>
+
+          <div class="warning">
+            <strong>Важно:</strong> <code>.catch()</code> перехватывает только сетевые ошибки (нет соединения, неверный URL).
+            Ответы с кодами 4xx и 5xx ошибкой не считаются — для них нужно проверять <code>response.ok</code> вручную.
+          </div>
+
+          <div class="code-block">
+            <pre><code>// Правильно: проверяем статус + ловим сетевую ошибку
+fetch('https://jsonplaceholder.typicode.com/todos/1')
+  .then(response =&gt; {
+    if (!response.ok) {
+      throw new Error('Сервер вернул ошибку: ' + response.status);
+    }
+    return response.json();
+  })
+  .then(data =&gt; console.log(data))
+  .catch(error =&gt; console.log('Ошибка:', error));</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Параметры запроса -->
+      <section class="section" id="http-params">
+        <div class="container">
+          <h2>Параметры запроса (Query String)</h2>
+
+          <p class="note">
+            <strong>Параметры запроса</strong> — дополнительные данные, которые передаются серверу прямо в URL после знака <code>?</code>.<br />
+            Позволяют фильтровать, сортировать или постранично загружать данные без изменения самого маршрута.
+          </p>
+
+          <p>
+            Иногда нам нужно отправить данные вместе с запросом, чтобы сервер выполнил нужную операцию.
+            Параметры выглядят как <code>?ключ=значение</code>, а если их несколько — соединяются через <code>&amp;</code>.
+          </p>
+
+          <div class="note-block info">
+            <h3>Формат параметров в URL</h3>
+            <ul class="list-ul">
+              <li>Один параметр: <code>/todos?userId=1</code></li>
+              <li>Несколько параметров: <code>/todos?userId=1&amp;completed=false</code></li>
+              <li>Удобный способ строить URL — через <code>URLSearchParams</code>.</li>
+            </ul>
+          </div>
+
+          <div class="code-block">
+            <pre><code>// Запрос только заданий пользователя с userId=1
+fetch('https://jsonplaceholder.typicode.com/todos?userId=1')
+  .then(response =&gt; response.json())
+  .then(data =&gt; console.log(data)); // Массив заданий этого пользователя</code></pre>
+          </div>
+
+          <p class="note note--info">
+            Для автоматического и безопасного формирования параметров используйте <code>URLSearchParams</code> — он корректно экранирует спецсимволы.
+          </p>
+
+          <div class="code-block">
+            <pre><code>// Строим URL с параметрами через URLSearchParams
+const params = new URLSearchParams({ userId: 1, completed: false });
+const url = 'https://jsonplaceholder.typicode.com/todos?' + params;
+
+fetch(url)
+  .then(response =&gt; response.json())
+  .then(data =&gt; console.log(data))
+  .catch(error =&gt; console.log('Ошибка:', error));</code></pre>
+          </div>
         </div>
       </section>
 
@@ -148,25 +441,42 @@
           <h2>Async/Await</h2>
 
           <p class="note">
-            <strong>async/await</strong> делает асинхронный код более читаемым и похожим на обычный последовательный код.
+            <strong>async/await</strong> — синтаксический сахар над Promise, делающий асинхронный код линейным и читаемым.<br />
+            <code>async</code> объявляет функцию асинхронной, <code>await</code> приостанавливает её выполнение до разрешения Promise.
           </p>
 
           <div class="code-block">
             <pre><code>async function loadData() {
   try {
     const response = await fetch('https://api.example.com/data');
-    const data = await response.json();
 
+    if (!response.ok) {
+      throw new Error('Ошибка: ' + response.status);
+    }
+
+    const data = await response.json();
     console.log(data);
   } catch (error) {
+    // Перехватываем ошибки сети и статуса
     console.error('Ошибка:', error);
   }
-}</code></pre>
+}
+
+loadData();</code></pre>
           </div>
 
           <p>
-            Такой подход удобно использовать, когда нужно обрабатывать ошибки, выполнять несколько запросов или строить сложную логику загрузки данных.
+            Такой подход удобен для последовательных запросов, сложной логики и обработки ошибок через стандартный <code>try/catch</code>.
           </p>
+
+          <div class="note-block info">
+            <h3>Когда использовать async/await вместо .then()</h3>
+            <ul class="list-ul">
+              <li>Когда запросов несколько и они зависят друг от друга.</li>
+              <li>Когда нужно обрабатывать ошибки в одном блоке <code>catch</code>.</li>
+              <li>Когда код должен быть легко читаем и поддерживаем.</li>
+            </ul>
+          </div>
         </div>
       </section>
 
@@ -175,27 +485,32 @@
         <div class="container">
           <h2>GET-запросы</h2>
 
-          <p>
-            <strong>GET</strong> используют, когда нужно получить данные с сервера.
+          <p class="note">
+            <strong>GET</strong> — HTTP-метод для получения данных с сервера без их изменения.<br />
+            Параметры передаются в URL, тело запроса отсутствует. Это самый распространённый метод.
           </p>
 
           <p>
-            Это самый распространённый метод для загрузки списков, карточек, новостей, товаров и других ресурсов.
+            GET применяют для загрузки списков, карточек, новостей, товаров и любых других ресурсов, которые нужно только прочитать.
           </p>
 
           <div class="code-block">
             <pre><code>async function loadUsers() {
-  const response = await fetch('https://api.example.com/users', {
-    method: 'GET'
-  });
+  const response = await fetch('https://api.example.com/users'); // метод GET по умолчанию
+
+  if (!response.ok) {
+    throw new Error('Не удалось загрузить пользователей');
+  }
 
   const users = await response.json();
   console.log(users);
-}</code></pre>
+}
+
+loadUsers();</code></pre>
           </div>
 
           <p class="note">
-            GET-запросы обычно не содержат тело запроса, а параметры передаются в URL.
+            GET-запросы идемпотентны — повторный запрос к тому же URL возвращает те же данные и не изменяет состояние сервера.
           </p>
         </div>
       </section>
@@ -205,12 +520,13 @@
         <div class="container">
           <h2>POST-запросы</h2>
 
-          <p>
-            <strong>POST</strong> используют, когда нужно отправить данные на сервер.
+          <p class="note">
+            <strong>POST</strong> — HTTP-метод для отправки данных на сервер с целью создания или обновления ресурса.<br />
+            Данные передаются в теле запроса (<code>body</code>), а не в URL.
           </p>
 
           <p>
-            Этот метод подходит для форм, комментариев, заявок, регистрации и создания новых записей.
+            POST подходит для отправки форм, регистрации, создания комментариев, заявок и любых операций, меняющих состояние сервера.
           </p>
 
           <div class="code-block">
@@ -218,22 +534,65 @@
   const response = await fetch('https://api.example.com/forms', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json' // Указываем формат тела
     },
-    body: JSON.stringify({
+    body: JSON.stringify({               // Преобразуем объект в JSON-строку
       name: 'Ivan',
       message: 'Hello HTTP'
     })
   });
 
+  if (!response.ok) {
+    throw new Error('Ошибка при отправке формы');
+  }
+
   const result = await response.json();
   console.log(result);
-}</code></pre>
+}
+
+sendForm();</code></pre>
           </div>
 
           <p class="note note--info">
-            При POST-запросе данные обычно передаются в <code>body</code>, а перед отправкой преобразуются в JSON с помощью <code>JSON.stringify()</code>.
+            Перед отправкой данные преобразуются в строку через <code>JSON.stringify()</code>. Сервер разбирает тело по заголовку <code>Content-Type: application/json</code>.
           </p>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Метод</th>
+                <th>Назначение</th>
+                <th>Тело запроса</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>GET</td>
+                <td>Получить данные</td>
+                <td>Нет</td>
+              </tr>
+              <tr>
+                <td>POST</td>
+                <td>Создать ресурс</td>
+                <td>Да</td>
+              </tr>
+              <tr>
+                <td>PUT</td>
+                <td>Заменить ресурс</td>
+                <td>Да</td>
+              </tr>
+              <tr>
+                <td>PATCH</td>
+                <td>Частично обновить</td>
+                <td>Да</td>
+              </tr>
+              <tr>
+                <td>DELETE</td>
+                <td>Удалить ресурс</td>
+                <td>Нет / Да</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
 
@@ -242,25 +601,35 @@
         <div class="container">
           <h2>Итоги</h2>
 
+          <p class="note">
+            <strong>Итоги раздела</strong> — краткое резюме ключевых понятий и инструментов для работы с HTTP в JavaScript.<br />
+            Используйте как шпаргалку при реализации запросов в проекте.
+          </p>
+
           <div class="note-block info">
             <ul class="list-ul">
-              <li>HTTP — это протокол обмена данными между клиентом и сервером.</li>
-              <li>HTTP-запрос содержит метод, URL, заголовки и иногда тело.</li>
-              <li>HTTP-ответ содержит статус, заголовки и тело ответа.</li>
-              <li><code>fetch()</code> используется для отправки HTTP-запросов в браузере.</li>
-              <li><code>async/await</code> делает работу с запросами удобнее и понятнее.</li>
-              <li><strong>GET</strong> применяют для получения данных, <strong>POST</strong> — для отправки данных.</li>
+              <li><strong>HTTP</strong> — протокол обмена данными между клиентом и сервером.</li>
+              <li>HTTP-запрос содержит <strong>метод</strong>, <strong>URL</strong>, <strong>заголовки</strong> и иногда <strong>тело</strong>.</li>
+              <li>HTTP-ответ содержит <strong>статус-код</strong>, <strong>заголовки</strong> и <strong>тело</strong> с данными.</li>
+              <li><code>fetch()</code> — браузерный метод для отправки HTTP-запросов, возвращает Promise.</li>
+              <li>Ответ обрабатывается через <code>.then(response =&gt; response.json())</code> — результат это JavaScript-объект.</li>
+              <li>К отдельным свойствам ответа обращаются через точку: <code>data.title</code>, <code>data.id</code>.</li>
+              <li><code>.catch()</code> перехватывает сетевые ошибки; статусы 4xx/5xx проверяйте через <code>response.ok</code>.</li>
+              <li>Параметры запроса передаются в URL: <code>?userId=1&amp;completed=false</code>. Для построения — <code>URLSearchParams</code>.</li>
+              <li>Всегда проверяйте <code>response.ok</code> — <code>fetch()</code> не выбрасывает ошибку при 4xx/5xx.</li>
+              <li><code>async/await</code> делает асинхронный код линейным и удобным для поддержки.</li>
+              <li><strong>GET</strong> — читать данные, параметры в URL. <strong>POST</strong> — отправить данные, тело в <code>body</code>.</li>
             </ul>
           </div>
         </div>
       </section>
+
     </main>
 
     @@include('../partials/footer.html', {})
+    @@include('../partials/popup.html', {})
+    @@include('../partials/js.html', {})
   </div>
-
-  @@include('../partials/popup.html', {})
-  @@include('../partials/js.html', {})
 </body>
 
 </html>

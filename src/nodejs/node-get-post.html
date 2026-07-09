@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', {
+"title": "GET и POST запросы в JavaScript — fetch, параметры, обработка ответа",
+"description": "Подробное руководство по GET и POST запросам в JavaScript: fetch, URLSearchParams, заголовки, body, обработка ответа и ошибок."
+})
+
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+
+    <main class="page" id="main" tabindex="-1">
+
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#intro" class="active" aria-current="page">Введение</a>
+        <a href="#concepts">Основные понятия</a>
+        <a href="#get">GET-запросы</a>
+        <a href="#get-params">Параметры в URL</a>
+        <a href="#response">Обработка ответа</a>
+        <a href="#post">POST-запросы</a>
+        <a href="#errors">Обработка ошибок</a>
+        <a href="#comparison">GET vs POST</a>
+        <a href="#practice">Практика</a>
+        <a href="#tips">Типичные ошибки</a>
+        <a href="#best-practices">Лучшие практики</a>
+        <a href="#summary">Итоги</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="intro">
+        <div class="container">
+          <h1>GET и POST запросы в JavaScript</h1>
+
+          <p class="note">
+            <strong>HTTP-методы</strong> — способы указать серверу, что именно нужно сделать с ресурсом: получить, создать, обновить или удалить.<br />
+            Самые используемые из них — <strong>GET</strong> (получить данные) и <strong>POST</strong> (отправить данные).
+          </p>
+
+          <p class="note note--info">
+            В браузере HTTP-запросы отправляются через встроенный метод <code>fetch()</code>. Он возвращает Promise, который разрешается в объект <code>Response</code> с данными от сервера.
+          </p>
+
+          <article class="article-block">
+            <h3>Зачем нужны GET и POST</h3>
+            <ul class="list-ul">
+              <li><strong>GET</strong> — загрузить список товаров, получить профиль пользователя, запросить данные о погоде.</li>
+              <li><strong>POST</strong> — отправить форму регистрации, создать комментарий, добавить заказ в базу.</li>
+              <li>Правильный выбор метода делает API понятным и предсказуемым.</li>
+            </ul>
+          </article>
+          <figure class="image-block">
+            <img class="note-img" src="/img/node/get-post.webp" alt="Схема клиент-серверной архитектуры: браузер отправляет GET и POST запросы, сервер возвращает ответы" />
+            <figcaption class="note-caption">Рис. 1. Клиент-серверная архитектура с GET и POST запросами</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- Основные понятия -->
+      <section class="section" id="concepts">
+        <div class="container">
+          <h2>Основные понятия</h2>
+
+          <p class="note">
+            <strong>Ключевые термины</strong> — без понимания этих понятий сложно разобраться в том, как работают запросы.<br />
+            Каждый термин — отдельная часть механизма HTTP-обмена.
+          </p>
+
+          <ul class="list-ul">
+            <li><strong>fetch()</strong> — встроенная браузерная функция для отправки HTTP-запросов. Возвращает Promise. </li>
+            <li><strong>Request (запрос)</strong> — сообщение от клиента серверу. Содержит метод, URL, заголовки и иногда тело. </li>
+            <li><strong>Response (ответ)</strong> — сообщение от сервера клиенту. Содержит статус-код, заголовки и тело с данными. </li>
+            <li><strong>response.ok</strong> — булево свойство, которое равно <code>true</code> при статусах 200–299 и <code>false</code> при 4xx/5xx. </li>
+            <li><strong>response.json()</strong> — метод, который преобразует тело ответа из JSON-строки в JavaScript-объект. </li>
+            <li><strong>JSON.stringify()</strong> — обратная операция: превращает JavaScript-объект в JSON-строку для отправки в теле запроса. </li>
+            <li><strong>URLSearchParams</strong> — встроенный класс для безопасного формирования параметров в URL. </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- GET -->
+      <section class="section" id="get">
+        <div class="container">
+          <h2>GET-запросы</h2>
+
+          <p class="note">
+            <strong>GET</strong> — HTTP-метод для получения данных с сервера без их изменения.<br />
+            Это метод по умолчанию в <code>fetch()</code> — его не нужно указывать явно.
+          </p>
+
+          <p>
+            GET применяют для загрузки любых данных: списков пользователей, карточек товаров, статей, погоды.
+            Параметры фильтрации и поиска передаются прямо в URL.
+          </p>
+
+          <h4>Простейший GET-запрос:</h4>
+          <div class="code-block">
+            <pre><code>// GET — метод по умолчанию, указывать необязательно
+fetch('https://jsonplaceholder.typicode.com/users/1')
+  .then(response =&gt; response.json())
+  .then(data =&gt; console.log(data))
+  .catch(error =&gt; console.error('Ошибка:', error));</code></pre>
+          </div>
+          <h4>GET с явным указанием метода:</h4>
+          <div class="code-block">
+            <pre><code>fetch('https://jsonplaceholder.typicode.com/users/1', {
+  method: 'GET' // явно, но необязательно
+})
+  .then(response =&gt; response.json())
+  .then(data =&gt; console.log(data));</code></pre>
+          </div>
+          <h4>Параметры запроса в URL:</h4>
+          <p> Параметры передаются после <code>?</code> в формате <code>ключ=значение</code>. Несколько параметров соединяются через <code>&amp;</code>.
+            Используются для фильтрации, сортировки и постраничной загрузки.
+            <div class="code-block">
+              <pre><code>// GET с параметром userId=1
+fetch('https://jsonplaceholder.typicode.com/todos?userId=1')
+  .then(response =&gt; response.json())
+  .then(data =&gt; console.log(data));</code></pre>
+            </div>
+
+            <p class="note note--info">
+              GET-запросы <strong>идемпотентны</strong> — повторный запрос к тому же URL даёт тот же результат и не меняет состояние сервера. Идемпотентны — значит, что многократное выполнение одного и того же запроса не изменяет состояние сервера.
+            </p>
+        </div>
+      </section>
+
+      <!-- Параметры в URL -->
+      <section class="section" id="get-params">
+        <div class="container">
+          <h2>Параметры запроса (Query String)</h2>
+
+          <p class="note">
+            <strong>Query String</strong> — часть URL после знака <code>?</code>, содержащая пары <code>ключ=значение</code>.<br />
+            Несколько параметров соединяются через <code>&amp;</code>. Используются для фильтрации, сортировки и постраничной загрузки.
+          </p>
+          <h4>Параметры вручную в URL:</h4>
+          <div class="code-block">
+
+            <pre><code>// Получить задания только пользователя с userId=1
+fetch('https://jsonplaceholder.typicode.com/todos?userId=1')
+  .then(response =&gt; response.json())
+  .then(data =&gt; console.log(data)); // массив заданий</code></pre>
+          </div>
+          <h4>Несколько параметров:</h4>
+          <div class="code-block">
+
+            <pre><code>// Фильтр: userId=1 и только выполненные задания
+fetch('https://jsonplaceholder.typicode.com/todos?userId=1&amp;completed=true')
+  .then(response =&gt; response.json())
+  .then(data =&gt; console.log(data));</code></pre>
+          </div>
+
+          <p class="note note--info">
+            Для автоматического и безопасного построения параметров используйте <code>URLSearchParams</code> — он правильно экранирует спецсимволы.
+          </p>
+
+          <div class="code-block">
+            <h4>URLSearchParams — рекомендуемый способ:</h4>
+            <pre><code>// Безопасное формирование параметров
+const params = new URLSearchParams({
+  userId: 1,
+  completed: false
+});
+
+const url = 'https://jsonplaceholder.typicode.com/todos?' + params;
+// Результат: .../todos?userId=1&completed=false
+
+fetch(url)
+  .then(response =&gt; response.json())
+  .then(data =&gt; console.log(data))
+  .catch(error =&gt; console.error('Ошибка:', error));</code></pre>
+          </div>
+
+          <div class="warning">
+            <strong>⚠️ Осторожно:</strong> не вставляйте данные от пользователя прямо в URL строкой — это может сломать запрос или создать уязвимость. Всегда используйте <code>URLSearchParams</code>.
+          </div>
+        </div>
+      </section>
+
+      <!-- Обработка ответа -->
+      <section class="section" id="response">
+        <div class="container">
+          <h2>Обработка ответа сервера</h2>
+
+          <p class="note">
+            <strong>Response</strong> — объект, который возвращает <code>fetch()</code> после завершения запроса.<br />
+            Чтобы получить данные, ответ нужно преобразовать методом <code>.json()</code> — он возвращает ещё один Promise.
+          </p>
+          <h4>Получение всего объекта:</h4>
+          <div class="code-block">
+            <pre><code>fetch('https://jsonplaceholder.typicode.com/todos/1')
+  .then(response =&gt; response.json()) // Promise → объект
+  .then(data =&gt; {
+    console.log(data);
+    // { userId: 1, id: 1, title: "...", completed: false }
+  });</code></pre>
+          </div>
+
+          <h4>Обращение к отдельному свойству:</h4>
+          <div class="code-block">
+            <pre><code>fetch('https://jsonplaceholder.typicode.com/todos/1')
+  .then(response =&gt; response.json())
+  .then(data =&gt; {
+    console.log(data.title);     // название задания
+    console.log(data.completed); // статус: true/false
+    console.log(data.userId);    // ID пользователя
+  });</code></pre>
+          </div>
+
+          <article class="article-block">
+            <h3>Типичные свойства JSON-ответа</h3>
+            <table class="table-note">
+              <thead>
+                <tr>
+                  <th>Свойство</th>
+                  <th>Тип</th>
+                  <th>Описание</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>id</code></td>
+                  <td>number</td>
+                  <td>Уникальный идентификатор ресурса</td>
+                </tr>
+                <tr>
+                  <td><code>userId</code></td>
+                  <td>number</td>
+                  <td>ID пользователя-владельца</td>
+                </tr>
+                <tr>
+                  <td><code>title</code></td>
+                  <td>string</td>
+                  <td>Название или заголовок</td>
+                </tr>
+                <tr>
+                  <td><code>completed</code></td>
+                  <td>boolean</td>
+                  <td>Статус выполнения задания</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+      </section>
+
+      <!-- POST -->
+      <section class="section" id="post">
+        <div class="container">
+          <h2>POST-запросы</h2>
+
+          <p class="note">
+            <strong>POST</strong> — HTTP-метод для отправки данных на сервер с целью создания нового ресурса.<br />
+            Данные передаются в теле запроса (<code>body</code>), а не в URL. Метод нужно указывать явно.
+          </p>
+
+          <p>
+            POST используют при регистрации, отправке форм, создании комментариев, заказов и любых данных, которые нужно сохранить на сервере.
+          </p>
+          <h4>Базовый POST-запрос:</h4>
+          <div class="code-block">
+
+            <pre><code>fetch('https://jsonplaceholder.typicode.com/posts', {
+  method: 'POST',                          // указываем метод явно
+  headers: {
+    'Content-Type': 'application/json'     // говорим серверу формат данных
+  },
+  body: JSON.stringify({                   // преобразуем объект в JSON-строку
+    title: 'Новая запись',
+    body: 'Содержимое записи',
+    userId: 1
+  })
+})
+  .then(response =&gt; response.json())
+  .then(data =&gt; console.log('Создано:', data))
+  .catch(error =&gt; console.error('Ошибка:', error));</code></pre>
+          </div>
+          <h5>Объяснение:</h5>
+          <ul class="list-ul">
+            <li> Метод <b>method</b> Чтобы указать, что это POST-запрос, нужно прописать method: 'POST'. Это говорит серверу, что мы отправляем данные. </li>
+            <li> Заголовки <b>headers</b> указываем Content-Type: 'application/json', чтобы сообщить серверу, что мы отправляем данные в формате JSON. </li>
+            <li> В поле <b>body</b> мы передаем данные, которые хотим отправить. Мы используем метод JSON.stringify(), чтобы преобразовать объект JavaScript в строку формата JSON, потому что сервер ожидает строку в формате JSON. </li>
+          </ul>
+
+          <h4>Ответ сервера</h4>
+          <p class="note">Когда мы отправляем <b>POST-запрос</b>, <strong>сервер может вернуть подтверждение</strong> с данными, которые мы отправили.
+
+            Это обычно происходит через <b>объект JSON</b>, который содержит <b>ID</b> созданного ресурса или сообщение о статусе.</p>
+          <div class="code-block">
+            <pre><code>fetch('https://jsonplaceholder.typicode.com/todos', {
+  method: 'POST', // Указываем метод запроса
+  headers: {
+    'Content-Type': 'application/json', // Тип данных
+  },
+  body: JSON.stringify({
+    userId: 1,
+    title: 'Новая задача',
+    completed: false
+  })
+})
+  .then(response => response.json()) // Преобразуем ответ в JSON
+  .then(data => {
+    console.log('Создано новое задание: ', data); // Выводим данные, которые вернул сервер
+  })
+  .catch(error => console.log('Ошибка при отправке запроса:', error)); // Обрабатываем ошибку</code></pre>
+          </div>
+
+          <p class="note note--info">💡 Запомни! После отправки POST-запроса, всегда нужно проверять ответ от сервера. Используй .then(response => response.json()), чтобы преобразовать его в формат, с которым можно работать.</p>
+
+
+        </div>
+      </section>
+
+      <!-- Обработка ошибок -->
+      <section class="section" id="errors">
+        <div class="container">
+          <h2>Обработка ошибок</h2>
+
+          <p class="note">
+            <strong>Обработка ошибок</strong> — необходимая часть любого запроса, защищающая приложение от неожиданных сбоев.<br />
+            Ошибки бывают двух видов: сетевые (нет соединения) и HTTP (сервер вернул 4xx/5xx).
+          </p>
+
+          <div class="warning">
+            <strong>⚠️ Важно:</strong> <code>fetch()</code> выбрасывает ошибку только при сетевых проблемах. Ответы со статусами 404 и 500 ошибкой не считаются — Promise выполняется успешно. Всегда проверяйте <code>response.ok</code>.
+          </div>
+
+          <div class="code-block">
+            <h4>Правильная обработка обоих видов ошибок:</h4>
+            <pre><code>fetch('https://jsonplaceholder.typicode.com/todos/1')
+  .then(response =&gt; {
+    if (!response.ok) {
+      // HTTP-ошибка (404, 500 и т.д.)
+      throw new Error('Ошибка HTTP: ' + response.status);
+    }
+    return response.json();
+  })
+  .then(data =&gt; console.log(data))
+  .catch(error =&gt; {
+    // Ловит и сетевые ошибки, и throw из .then()
+    console.error('Что-то пошло не так:', error.message);
+  });</code></pre>
+          </div>
+
+          <div class="code-block">
+            <h4>То же самое с async/await:</h4>
+            <pre><code>async function loadData() {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/todos/1');
+
+    if (!response.ok) {
+      throw new Error('Ошибка HTTP: ' + response.status);
+    }
+
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    // try/catch ловит и сетевые, и HTTP-ошибки
+    console.error('Ошибка:', error.message);
+  }
+}
+
+loadData();</code></pre>
+          </div>
+
+          <article class="article-block">
+            <h3>Коды статусов HTTP</h3>
+            <table class="table-note">
+              <thead>
+                <tr>
+                  <th>Код</th>
+                  <th>Значение</th>
+                  <th>Что делать</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>200</td>
+                  <td>Успех</td>
+                  <td>Обработать данные из <code>response.json()</code></td>
+                </tr>
+                <tr>
+                  <td>201</td>
+                  <td>Ресурс создан</td>
+                  <td>Обычно возвращается после POST</td>
+                </tr>
+                <tr>
+                  <td>400</td>
+                  <td>Некорректный запрос</td>
+                  <td>Проверить данные, которые отправляете</td>
+                </tr>
+                <tr>
+                  <td>401</td>
+                  <td>Не авторизован</td>
+                  <td>Проверить токен / заголовок Authorization</td>
+                </tr>
+                <tr>
+                  <td>404</td>
+                  <td>Не найдено</td>
+                  <td>Проверить правильность URL и ID</td>
+                </tr>
+                <tr>
+                  <td>500</td>
+                  <td>Ошибка сервера</td>
+                  <td>Сообщить пользователю, повторить позже</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </div>
+      </section>
+
+      <!-- GET vs POST -->
+      <section class="section" id="comparison">
+        <div class="container">
+          <h2>GET vs POST — сравнение</h2>
+
+          <p class="note">
+            <strong>Выбор метода</strong> — не произвольный: GET и POST имеют чёткие области применения, которые соответствуют семантике HTTP.<br />
+            Использование правильного метода делает API понятным и предсказуемым.
+          </p>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Критерий</th>
+                <th>GET</th>
+                <th>POST</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Назначение</strong></td>
+                <td>Получить данные</td>
+                <td>Создать / отправить данные</td>
+              </tr>
+              <tr>
+                <td><strong>Данные</strong></td>
+                <td>Только в URL (?key=value)</td>
+                <td>В теле запроса (body)</td>
+              </tr>
+              <tr>
+                <td><strong>Тело запроса</strong></td>
+                <td>Нет</td>
+                <td>Да — JSON, FormData и др.</td>
+              </tr>
+              <tr>
+                <td><strong>Идемпотентность</strong></td>
+                <td>✅ Да — повтор безопасен</td>
+                <td>❌ Нет — повтор создаст дубль</td>
+              </tr>
+              <tr>
+                <td><strong>Кэширование</strong></td>
+                <td>✅ Браузер может кэшировать</td>
+                <td>❌ Не кэшируется</td>
+              </tr>
+              <tr>
+                <td><strong>Безопасность данных</strong></td>
+                <td>Данные видны в URL и логах</td>
+                <td>Данные скрыты в теле</td>
+              </tr>
+              <tr>
+                <td><strong>Пример использования</strong></td>
+                <td>Список товаров, профиль, поиск</td>
+                <td>Форма, регистрация, комментарий</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="code-block">
+            <h4>Наглядное сравнение в коде:</h4>
+            <pre><code>// ✅ GET — получить пользователя
+fetch('https://jsonplaceholder.typicode.com/users/1')
+  .then(r =&gt; r.json())
+  .then(data =&gt; console.log(data));
+
+// ✅ POST — создать пост
+fetch('https://jsonplaceholder.typicode.com/posts', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ title: 'Заголовок', userId: 1 })
+})
+  .then(r =&gt; r.json())
+  .then(data =&gt; console.log(data));</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Практика -->
+      <section class="section" id="practice">
+        <div class="container">
+          <h2>Практика</h2>
+
+          <p class="note">
+            <strong>Интерактивные примеры</strong> — демонстрации реальных запросов к публичному тестовому API <a href="https://jsonplaceholder.typicode.com" target="_blank" rel="noopener noreferrer">jsonplaceholder.typicode.com</a>.<br />
+            Все примеры безопасны: только GET-запросы, реальные данные не изменяются.
+          </p>
+
+          <article class="article-block">
+            <h3>GET: получить задание по ID</h3>
+            <p>Нажмите кнопку — запрос уйдёт на сервер и вернёт данные о задании.</p>
+            <button class="practice-btn" data-code="getTodo">Получить задание #1</button>
+          </article>
+
+          <article class="article-block">
+            <h3>GET: получить список пользователей</h3>
+            <p>Запрос вернёт массив из 10 пользователей, выведем первых трёх.</p>
+            <button class="practice-btn" data-code="getUsers">Получить пользователей</button>
+          </article>
+
+          <article class="article-block">
+            <h3>GET с параметром: задания конкретного пользователя</h3>
+            <p>Передаём <code>?userId=1</code> как параметр фильтрации.</p>
+            <button class="practice-btn" data-code="getTodosByUser">Задания пользователя №1</button>
+          </article>
+
+          <div class="code-block">
+            <pre><code id="output-result" aria-live="polite">// Результат появится здесь</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Типичные ошибки -->
+      <section class="section" id="tips">
+        <div class="container">
+          <h2>Типичные ошибки</h2>
+
+          <p class="note">
+            <strong>Типичные ошибки</strong> — проблемы, с которыми сталкиваются при работе с GET и POST почти все.<br />
+            Знание этих ловушек сэкономит часы отладки.
+          </p>
+
+          <div class="warning">
+            <h3>❌ Не проверяют response.ok</h3>
+            <div class="code-block">
+              <pre><code>// ❌ Неправильно: 404 не вызовет ошибку промиса
+fetch('https://jsonplaceholder.typicode.com/todos/99999')
+  .then(response =&gt; response.json()) // выполнится даже при 404!
+  .then(data =&gt; console.log(data));
+
+// ✅ Правильно: проверяем статус
+fetch('https://jsonplaceholder.typicode.com/todos/99999')
+  .then(response =&gt; {
+    if (!response.ok) throw new Error('Статус: ' + response.status);
+    return response.json();
+  })
+  .then(data =&gt; console.log(data))
+  .catch(err =&gt; console.error(err.message));</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Забывают JSON.stringify() в POST</h3>
+            <div class="code-block">
+              <pre><code>// ❌ Неправильно: отправляем объект напрямую
+fetch('/api/posts', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: { title: 'Заголовок' } // объект, не строка — ошибка!
+});
+
+// ✅ Правильно: преобразуем в строку
+fetch('/api/posts', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ title: 'Заголовок' })
+});</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Забывают заголовок Content-Type</h3>
+            <div class="code-block">
+              <pre><code>// ❌ Неправильно: сервер не знает формат данных
+fetch('/api/posts', {
+  method: 'POST',
+  body: JSON.stringify({ title: 'Заголовок' }) // нет headers!
+});
+
+// ✅ Правильно: указываем тип содержимого
+fetch('/api/posts', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ title: 'Заголовок' })
+});</code></pre>
+            </div>
+          </div>
+
+          <div class="warning">
+            <h3>❌ Передают приватные данные через GET</h3>
+            <div class="code-block">
+              <pre><code>// ❌ Неправильно: пароль виден в URL, логах, истории браузера
+fetch('/login?password=secret123');
+
+// ✅ Правильно: приватные данные — только в body POST
+fetch('/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ login: 'user', password: 'secret123' })
+});</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Лучшие практики -->
+      <section class="section" id="best-practices">
+        <div class="container">
+          <h2>Лучшие практики</h2>
+
+          <p class="note">
+            <strong>Лучшие практики</strong> — подходы, которые делают код с запросами надёжным, читаемым и безопасным.<br />
+            Следуйте им с первых проектов, чтобы не переучиваться позже.
+          </p>
+
+          <div class="note-block">
+            <h3>✅ Всегда проверяйте response.ok</h3>
+            <div class="code-block">
+              <pre><code>async function safeFetch(url, options) {
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    throw new Error('HTTP ошибка: ' + response.status);
+  }
+  return response.json();
+}</code></pre>
+            </div>
+            <p>Оберните повторяющуюся проверку в вспомогательную функцию.</p>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Используйте URLSearchParams для параметров</h3>
+            <div class="code-block">
+              <pre><code>// ✅ Безопасно и чисто
+const params = new URLSearchParams({ userId: 1, page: 2 });
+fetch('/api/todos?' + params);
+
+// ❌ Хрупко и опасно при спецсимволах
+fetch('/api/todos?userId=' + userId + '&page=' + page);</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Предпочитайте async/await для сложной логики</h3>
+            <div class="code-block">
+              <pre><code>// ✅ Читаемо, удобно отлаживать
+async function loadProfile(id) {
+  const response = await fetch('/api/users/' + id);
+  if (!response.ok) throw new Error('Не найден');
+  return response.json();
+}
+
+// ❌ Глубокая вложенность — труднее читать
+fetch('/api/users/' + id)
+  .then(r =&gt; r.ok ? r.json() : Promise.reject(r.status))
+  .then(data =&gt; { /* ... */ })
+  .catch(err =&gt; { /* ... */ });</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>✅ Выбирайте метод по смыслу операции</h3>
+            <ul class="list-ul">
+              <li><strong>GET</strong> — только читаем данные, ничего не меняем на сервере.</li>
+              <li><strong>POST</strong> — создаём новый ресурс или отправляем данные.</li>
+              <li><strong>PUT / PATCH</strong> — обновляем существующий ресурс.</li>
+              <li><strong>DELETE</strong> — удаляем ресурс.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Итоги -->
+      <section class="section" id="summary">
+        <div class="container">
+          <h2>Итоги</h2>
+
+          <p class="note">
+            <strong>Итоги</strong> — краткое резюме всего, что разобрали на странице.<br />
+            Используйте как шпаргалку при работе с запросами.
+          </p>
+
+          <div class="note-block">
+            <h3>Что мы изучили</h3>
+            <ul class="list-ul">
+              <li><strong>GET</strong> — получить данные, параметры передаются в URL через <code>?key=value</code>.</li>
+              <li><strong>POST</strong> — отправить данные, тело запроса передаётся в <code>body</code> как JSON-строка.</li>
+              <li><code>fetch()</code> по умолчанию выполняет GET, для POST нужно явно указать <code>method: 'POST'</code>.</li>
+              <li><code>response.json()</code> преобразует тело ответа в JavaScript-объект.</li>
+              <li>К отдельным полям обращаемся через точку: <code>data.title</code>, <code>data.id</code>.</li>
+              <li><code>fetch()</code> не выбрасывает ошибку при 4xx/5xx — всегда проверяйте <code>response.ok</code>.</li>
+              <li>Для формирования параметров используйте <code>URLSearchParams</code>.</li>
+              <li>Приватные данные (пароли, токены) — только через POST в <code>body</code>, никогда в URL.</li>
+            </ul>
+          </div>
+
+          <div class="note-block">
+            <h3>Ключевые правила</h3>
+            <ol class="list-ol">
+              <li>Проверяйте <code>response.ok</code> в каждом запросе.</li>
+              <li>Для POST всегда используйте <code>JSON.stringify()</code> и заголовок <code>Content-Type: application/json</code>.</li>
+              <li>Используйте <code>URLSearchParams</code> для безопасного построения URL с параметрами.</li>
+              <li>Выбирайте метод по смыслу: GET — читать, POST — создавать.</li>
+              <li>Оборачивайте запросы в <code>try/catch</code> при использовании <code>async/await</code>.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    @@include('../partials/footer.html', {})
+  </div>
+
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+
+  <script>
+    // Интерактивные примеры для секции "Практика"
+    const examples = {
+      getTodo: async () => {
+        const response = await fetch('https://jsonplaceholder.typicode.com/todos/1');
+        if (!response.ok) throw new Error('HTTP: ' + response.status);
+        const data = await response.json();
+        return `GET /todos/1\n{\n  id: ${data.id},\n  userId: ${data.userId},\n  title: "${data.title}",\n  completed: ${data.completed}\n}`;
+      },
+
+      getUsers: async () => {
+        const response = await fetch('https://jsonplaceholder.typicode.com/users');
+        if (!response.ok) throw new Error('HTTP: ' + response.status);
+        const users = await response.json();
+        const first3 = users.slice(0, 3);
+        return 'GET /users — первые 3 из 10:\n' + first3.map(u =>
+          `• ${u.name} (${u.email})`
+        ).join('\n');
+      },
+
+      getTodosByUser: async () => {
+        const params = new URLSearchParams({
+          userId: 1
+        });
+        const response = await fetch('https://jsonplaceholder.typicode.com/todos?' + params);
+        if (!response.ok) throw new Error('HTTP: ' + response.status);
+        const todos = await response.json();
+        const done = todos.filter(t => t.completed).length;
+        return `GET /todos?userId=1\nВсего заданий: ${todos.length}\nВыполнено: ${done}\nНе выполнено: ${todos.length - done}`;
+      }
+    };
+
+    document.addEventListener('click', async (e) => {
+      const btn = e.target.closest('.practice-btn');
+      if (!btn) return;
+
+      const key = btn.dataset.code;
+      const fn = examples[key];
+      if (!fn) return;
+
+      const output = document.getElementById('output-result');
+      output.textContent = 'Выполняется запрос...';
+
+      try {
+        const res = fn();
+        if (res instanceof Promise) {
+          output.textContent = await res;
+        } else {
+          output.textContent = res;
+        }
+      } catch (err) {
+        output.textContent = 'Ошибка: ' + (err && err.message ? err.message : String(err));
+      }
+    });
+  </script>
+</body>
+
+</html>
