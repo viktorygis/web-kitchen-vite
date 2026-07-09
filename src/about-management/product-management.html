@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="ru">
 @@include('../partials/head.html', {
-"title": "Product Management: инструменты и практики продакт-менеджера",
-"description": "Практическое руководство по продукт-менеджменту: от discovery и приоритизации до roadmap, метрик и работы с Jira/Confluence, analytics и BI"
+"title": "Product Management — инструменты и практики продакт-менеджера",
+"description": "Практическое руководство по продукт-менеджменту: discovery, приоритизация, roadmap, метрики, релизы и инструменты (Jira/Confluence/BI)."
 })
 
 <body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+  @@include('../partials/header.html', {})
+
   <div class="wrapper">
-    @@include('../partials/header.html', {})
-    <main class="page">
-      <nav class="nav-tabs" id="page-nav">
-        <a href="#pm-intro" class="active">Введение</a>
+    <main class="page" id="main" tabindex="-1">
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#pm-intro" class="active" aria-current="page">Введение</a>
         <a href="#pm-process">Процесс</a>
         <a href="#pm-frameworks">Frameworks</a>
         <a href="#pm-metrics">Метрики</a>
@@ -22,14 +24,17 @@
       <!-- Введение -->
       <section class="section" id="pm-intro">
         <div class="container">
-          <h1>Product Management — кратко и по делу</h1>
+          <h1>Product Management</h1>
 
           <p class="note">
-            Product Manager — специалист, который формулирует проблему, проверяет гипотезы, принимает решения о приоритетах и следит за тем, что бизнес и пользователи действительно получают ценность.
+            <strong>Product Manager</strong> — специалист, который формулирует проблему, проверяет гипотезы, принимает решения о приоритетах и следит за тем, что бизнес и пользователи действительно получают ценность.
           </p>
 
+          <img class="note-img" src="/img/management/pm-1.png" alt="Product Manager">
+                    <!-- подпись под картинкой -->
+          <p class="note-caption">Рис. 1. Product Manager — связующее звено между бизнесом, пользователями и командой разработки</p>
           <div class="note-block">
-            <h3>Коротко: за что отвечает PM</h3>
+            <h3>За что отвечает PM</h3>
             <ul class="list-ul">
               <li>Определяет проблему и целевую аудиторию.</li>
               <li>Формирует стратегию и цель продукта (outcomes).</li>
@@ -39,8 +44,10 @@
             </ul>
           </div>
 
-          <p>
-            Для кого эта страница: начинающие PM, тимлиды, разработчики и аналитики, которые хотят понимать процесс принятия продуктовых решений и ключевые инструментальные практики.
+          <p class="note note--info">
+            <strong>PM</strong> — связующее звено между <b>бизнесом</b>, <b>пользователями</b> и <b>командой разработки</b>. Для контекста по стадиям продукта см. страницу «Product Life Cycle».
+            <br>
+            Ссылка на lifecycle: <a href="/about-management/product-life-cycle.html">Product Life Cycle — стадии и сигналы переходов</a>.
           </p>
         </div>
       </section>
@@ -48,12 +55,16 @@
       <!-- Процесс -->
       <section class="section" id="pm-process">
         <div class="container">
-          <h2>Типичный процесс продукт-менеджмента</h2>
+          <h2>Процесс продукт-менеджмента</h2>
 
           <p class="note">
-            Процесс можно представить как цикл: понять проблему → сформировать решение → выпустить минимально нужное (MVP) → измерить эффект → масштабировать или отойти.
+            <strong>Процесс продукт-менеджмента</strong> — набор шагов для понимания проблемы, проверки гипотез и доставки ценности.
           </p>
 
+          <p>Коротко: понять проблему → сформировать решение → выпустить MVP → измерить эффект → масштабировать или отойти.</p>
+          <img class="note-img" src="/img/management/pm-2.png" alt="Product Manager">
+          <!-- подпись под картинкой -->
+          <p class="note-caption">Рис. 2. Процесс продукт-менеджмента</p>
           <table class="table-note">
             <thead>
               <tr>
@@ -65,55 +76,50 @@
             </thead>
             <tbody>
               <tr>
-                <td><b>Discovery</b></td>
+                <td><b>Discovery/Hypothesis</b></td>
                 <td>Поиск идей и проверка гипотез</td>
                 <td>Интервью, анализ данных, оформление гипотез</td>
                 <td>JTBD, CJM, прототипы, список валидированных гипотез</td>
               </tr>
               <tr>
-                <td><b>Strategy</b></td>
+                <td><b>Strategy/Goals</b></td>
                 <td>Формирование стратегии и целей продукта</td>
-                <td>Определение целей, сегментов, конкурентных преимуществ</td>
+                <td>Определение целей, сегментов, УТП</td>
                 <td>Product Vision, OKR, приоритеты</td>
               </tr>
               <tr>
-                <td><b>Roadmap</b></td>
+                <td><b>Roadmap/Prioritization</b></td>
                 <td>Планирование и приоритизация инициатив</td>
                 <td>Планирование фич по горизонтам: квартал/полугодие</td>
                 <td>Roadmap по эпикам и outcomes</td>
               </tr>
               <tr>
-                <td><b>MVP / Experiments</b></td>
+                <td><b>MVP/Experiments</b></td>
                 <td>Минимальное решение и эксперименты</td>
                 <td>Быстрая реализация минимального решения и A/B тесты</td>
                 <td>MVP, тестовые метрики, learnings</td>
               </tr>
               <tr>
-                <td><b>Delivery</b></td>
+                <td><b>Delivery/Release</b></td>
                 <td>Реализация и выпуск продукта</td>
                 <td>Разработка, QA, релиз и коммуникация</td>
                 <td>Релизная заметка, update в Jira/Confluence</td>
               </tr>
               <tr>
-                <td><b>Measurement & Learning</b></td>
+                <td><b>Measurement/Learning</b></td>
                 <td>Измерение и обучение</td>
                 <td>Сбор метрик, ретроспективы, планирование следующих шагов</td>
-                <td>Аналитические отчёты, решения: масштабировать/ итерация/ откат</td>
+                <td>Аналитические отчёты, решение: масштабировать/итерация/откат</td>
               </tr>
             </tbody>
           </table>
 
           <p class="note">
-            Совет: на каждом этапе фиксируйте критерии успеха (выходные метрики), гипотезы и критерии остановки — это ускоряет принятие решений.
+            Совет: фиксируйте критерии успеха (выходные метрики), гипотезы и критерии остановки — это ускоряет принятие решений.
           </p>
+
           <p class="note note--info">
-            <strong>MVP</strong> - минимально жизнеспособный продукт (Minimum Viable Product) — это версия продукта с минимальным набором функций, достаточным для проверки гипотезы и получения обратной связи от пользователей.
-            <br>
-            <strong>A/B тесты</strong> — метод эксперимента, при котором пользователи случайным образом делятся на две группы: одна получает текущую версию продукта (A), а другая — новую версию с изменениями (B). Сравнивая поведение этих групп, можно определить, какое изменение улучшает метрики.
-            <br>
-            <strong>Delivery</strong> — процесс выпуска продукта в продакшн, включая разработку, тестирование, деплой и коммуникацию с пользователями.
-            <br>
-            <strong>Roadmap</strong> — стратегический план развития продукта, который показывает, какие функции и улучшения будут реализованы в будущем, с указанием сроков и приоритетов.
+            Ключевые понятия: <strong>MVP</strong>, <strong>A/B тесты</strong>, <strong>Roadmap</strong>, <strong>Delivery</strong> — см. соответствующие секции ниже.
           </p>
         </div>
       </section>
@@ -124,9 +130,8 @@
           <h2>Фреймворки и когда их использовать</h2>
 
           <p class="note">
-            Фреймворки помогают структурировать процесс принятия решений, приоритизации и анализа. Ниже приведены основные фреймворки, которые полезны на разных этапах продукт-менеджмента. Нужны для выстраивания процесса, приоритизации и оценки ценности.
+            <strong>Фреймворки</strong> - это проверенные подходы, которые помогают структурировать процесс, формулировать гипотезы и принимать решения. Ниже — основные фреймворки и рекомендации по применению.
           </p>
-
           <table class="table-note">
             <thead>
               <tr>
@@ -138,64 +143,69 @@
             <tbody>
               <tr>
                 <td><a href="/about-management/product-jtbd.html">JTBD</a></td>
-                <td>Фокус на задачах, которые пользователь хочет решить</td>
-                <td>Когда нужно сформулировать проблему и ценность для пользователя</td>
+                <td>Фокус на задачах пользователя</td>
+                <td>Формулирование проблемы и ценности</td>
               </tr>
               <tr>
                 <td><a href="/about-management/product-cjm.html">Customer Journey Map</a></td>
-                <td>Визуализация пользовательского пути</td>
-                <td>Когда нужно найти точки оттока/моменты истины</td>
+                <td>Визуализация пути пользователя</td>
+                <td>Поиск точек оттока/моментов истины</td>
               </tr>
               <tr>
                 <td><a href="/about-management/product-market-fit.html">Product Market Fit</a></td>
-                <td>Оценка соответствия продукта рынку</td>
-                <td>На этапах проверки гипотез и роста</td>
+                <td>Оценка соответствия продукту рынку</td>
+                <td>Проверка гипотез и рост</td>
               </tr>
               <tr>
                 <td><a href="/about-management/product-ice-rice.html">ICE / RICE</a></td>
                 <td>Приоритизация инициатив</td>
-                <td>Когда много идей и нужно быстро выбрать, что запускать</td>
+                <td>Когда много идей и нужно быстро выбрать</td>
               </tr>
               <tr>
                 <td><a href="/about-management/product-okr.html">OKR</a></td>
-                <td>Целеполагание и выравнивание команд</td>
-                <td>При формировании квартальных целей и приоритезации</td>
+                <td>Целеполагание и выравнивание</td>
+                <td>При формировании квартальных целей</td>
               </tr>
               <tr>
                 <td><a href="/about-management/product-north-star-metric.html">North Star Metric</a></td>
-                <td>Главная метрика, которая отражает ценность</td>
-                <td>При выстраивании долгосрочной стратегии роста</td>
+                <td>Главная метрика, отражающая ценность</td>
+                <td>Долгосрочная стратегия роста</td>
               </tr>
             </tbody>
           </table>
-
-          <p>
-            Быстрая подсказка: комбинируйте фреймворки — например, JTBD + CJM для discovery, затем RICE для ранжирования идей и OKR для выравнивания целей.
-          </p>
+          <img class="note-img" src="/img/management/pm-3.png" alt="Product Management Frameworks">
+          <!-- подпись под картинкой -->
+          <p class="note-caption">Рис. 3. Основные фреймворки продукт-менеджмента</p>
+          <p class="note note--info"><b>Подсказка:</b>
+            JTBD + CJM для discovery → RICE для ранжирования → OKR для выравнивания.</p>
         </div>
       </section>
 
       <!-- Metrics -->
       <section class="section" id="pm-metrics">
         <div class="container">
-          <h2>Ключевые продуктовые метрики — пояснения</h2>
+          <h2>Ключевые продуктовые метрики</h2>
 
-          <p class="note">
-            Метрики помогают оценивать ценность продукта для пользователей и бизнеса. Ниже приведены основные метрики, которые полезны для продукт-менеджера.
-          </p>
+          <p class="note"><strong>Ключевые продуктовые метрики</strong> - показатели, которые помогают оценить ценность продукта для пользователей и бизнеса. Ниже — основные метрики и их назначение.</p>
 
           <ul class="list-ul">
-            <li><strong>LTV</strong> (Lifetime Value) — ожидаемая суммарная прибыль от одного пользователя. Используется для оценки долгосрочной ценности.</li>
-            <li><strong>CAC</strong> (Customer Acquisition Cost) — стоимость привлечения одного клиента. Сравнивайте с LTV.</li>
-            <li><strong>Retention</strong> — доля пользователей, возвращающихся через N дней/недель/месяцев.</li>
-            <li><strong>Churn Rate</strong> — доля пользователей, ушедших за период. Важно для SaaS и подписок.</li>
-            <li><strong>Conversion</strong> — конверсия в целевое действие (регистрация → активация → покупка).</li>
-            <li><strong>North Star Metric</strong> — одна метрика, отражающая фундаментальную ценность продукта (пример: «ежемесячные активные платящие пользователи», «время, проведённое в продукте в контексте ценности»).</li>
+            <li><strong>LTV</strong> (Lifetime Value) — ожидаемая суммарная прибыль от одного пользователя.</li>
+            <li><strong>CAC</strong> (Customer Acquisition Cost) — стоимость привлечения одного клиента.</li>
+            <li><strong>Retention</strong> — доля пользователей, возвращающихся через N дней/недель/месяцев (указывать окна и когорты: Day1/Day7/Day30).</li>
+            <li><strong>Churn Rate</strong> — доля пользователей, ушедших за период.</li>
+            <li><strong>Conversion</strong> — конверсия в целевые шаги (регистрация → активация → покупка).</li>
+            <li><strong>North Star Metric</strong> — метрика, коррелирующая с долгосрочной ценностью (выбирается по контексту продукта).</li>
           </ul>
-
+          <img class="note-img" src="/img/management/pm-4.png" alt="Product Metrics">
+          <!-- подпись под картинкой -->
+          <p class="note-caption">Рис. 4. Основные продуктовые метрики</p>
           <p class="note note--info">
-            <strong>Практический подход: </strong>для каждой инициативы определяйте primary metric (что растёт) и guardrail metrics (что не должно ухудшаться).
+            <strong>Подсказка:</strong> для оценки эффективности экспериментов используйте primary и guardrail метрики. <b>Primary</b> — ключевая метрика, отражающая ценность. <b>Guardrail</b> — метрики, которые не должны ухудшаться (например, retention, churn).</p>
+
+          <p class="note">
+            <strong>Совет:</strong> фиксируйте источники данных, версии метрик и используйте дашборды для мониторинга. Это ускоряет принятие решений и помогает избежать ошибок в интерпретации результатов.
           </p>
+
         </div>
       </section>
 
@@ -205,42 +215,43 @@
           <h2>Инструменты Product Manager и шаблоны работы</h2>
 
           <p class="note">
-            Инструменты помогают организовать процесс, хранить артефакты и автоматизировать рутинные задачи. Ниже приведены основные инструменты, которые полезны для продукт-менеджера.
-          </p>
+            <strong>Инструменты</strong> — это программы и сервисы, которые помогают организовать процесс продукт-менеджмента, хранить артефакты и анализировать данные. Ниже — основные инструменты и рекомендации по их использованию.
 
           <table class="table-note">
             <thead>
               <tr>
                 <th>Инструмент</th>
-                <th>Для чего использовать / рекомендации</th>
+                <th>Рекомендации по использованию</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><a href="/about-management/jira.html">Jira</a></td>
-                <td>Backlog, sprint, epic, story. Совет: храните в Jira только рабочие артефакты — требования и acceptance-критерии, а не длинные спецификации.</td>
+                <td>Backlog, sprint, epic, story. Храните в Jira рабочие артефакты — требования и acceptance-критерии.</td>
               </tr>
               <tr>
                 <td><a href="/about-management/confluence.html">Confluence</a></td>
-                <td>Документация, discovery notes, решения по архитектуре. Создайте шаблон: цель → гипотезы → метрики → критерии успеха.</td>
+                <td>Документация, discovery notes, PRD-шаблоны. Шаблон: цель → гипотезы → метрики → критерии успеха.</td>
               </tr>
               <tr>
                 <td><a href="/about-management/excel.html">Excel / Google Sheets</a></td>
-                <td>Быстрый анализ, unit-economics, расчёты LTV/CAC. Держите версии и источники данных.</td>
+                <td>Быстрый анализ, unit-economics, расчёты LTV/CAC. Отслеживайте источники данных и версии.</td>
               </tr>
               <tr>
                 <td><a href="/about-management/sql-basics.html">SQL</a></td>
-                <td>Получение данных из базы/аналитики для проверки гипотез. Шаблон запроса: cohort analysis → retention → funnels.</td>
+                <td>Когортный анализ, retention, funnels — шаблоны запросов для проверки гипотез.</td>
               </tr>
               <tr>
                 <td><a href="/about-management/bi.html">BI (Looker, Metabase и т.д.)</a></td>
-                <td>Дашборды и KPI. Настройте дашборд для основных метрик продукта и дашборд для экспериментов (A/B).</td>
+                <td>Дашборды для KPI и экспериментов. Настройте экспозицию primary/guardrail метрик.</td>
               </tr>
             </tbody>
           </table>
+          <img class="note-img" src="/img/management/pm-5.png" alt="jira" >
+          <p class="note-caption">Рис. 5. Инструменты для управления продуктом</p>
 
-          <p>
-            Интеграции: свяжите Jira с Confluence (спецификации), BI с трекингом событий, и автоматизируйте отчёты по релизам — это экономит время и снижает риски коммуникации.
+          <p class="note note--info">
+            <strong>Совет:</strong> используйте шаблоны для discovery, PRD и релизных заметок. Это ускоряет процесс и помогает избежать ошибок в коммуникации.
           </p>
         </div>
       </section>
@@ -248,39 +259,22 @@
       <!-- Checklists -->
       <section class="section" id="pm-checklists">
         <div class="container">
-          <h2>Практические чек-листы</h2>
+          <h2>Чек-листы и шаблоны для Product Manager</h2>
 
-          <div class="note-block">
-            <h3>Discovery — чек-лист</h3>
-            <ul class="list-ul">
-              <li>Сформулировать гипотезу и желаемый outcome.</li>
-              <li>Провести 5–10 интервью с пользователями/клиентами.</li>
-              <li>Изучить аналитику и выявить паттерны (funnels, retention).</li>
-              <li>Собрать конкурентов и альтернативные решения.</li>
-              <li>Определить критерии успеха и остановки.</li>
-            </ul>
-          </div>
+          <p class="note">
+            <strong>Чек-листы</strong> — это наборы вопросов и критериев, которые помогают убедиться, что все аспекты процесса продукт-менеджмента учтены. Ниже — основные чек-листы и рекомендации по их использованию.
+          </p>
 
-          <div class="note-block">
-            <h3>Before release — чек-лист</h3>
-            <ul class="list-ul">
-              <li>Acceptance criteria и Definition of Done в Jira.</li>
-              <li>Тестовый план и список регрессионных тестов.</li>
-              <li>Метрики для мониторинга релиза (health metrics).</li>
-              <li>Коммуникация: release notes, поддержка, FAQ для CS.</li>
-              <li>План отката на случай критических проблем.</li>
-            </ul>
-          </div>
+          <ul class="list-ul">
+            <li><a href="/about-management/checklist-discovery.html">Discovery Checklist</a> — вопросы для проверки гипотез и понимания проблемы.</li>
+            <li><a href="/about-management/checklist-roadmap.html">Roadmap Checklist</a> — критерии для приоритизации инициатив и формирования плана.</li>
+            <li><a href="/about-management/checklist-metrics.html">Metrics Checklist</a> — вопросы для выбора и мониторинга ключевых метрик.</li>
+            <li><a href="/about-management/checklist-delivery.html">Delivery Checklist</a> — шаги для успешного релиза и коммуникации с командой.</li>
+          </ul>
 
-          <div class="note-block">
-            <h3>После релиза — чек-лист</h3>
-            <ul class="list-ul">
-              <li>Собрать метрики по primary и guardrail metrics.</li>
-              <li>Провести ретроспективу с командой и заинтересованными сторонами.</li>
-              <li>Принять решение: масштабировать, итерация или откат.</li>
-              <li>Документировать learnings в Confluence.</li>
-            </ul>
-          </div>
+          <p class="note note--info">
+            <strong>Совет:</strong> используйте чек-листы на каждом этапе процесса продукт-менеджмента. Это помогает избежать упущений и ускоряет принятие решений.
+          </p>
         </div>
       </section>
 
@@ -288,30 +282,22 @@
       <section class="section" id="pm-next">
         <div class="container">
           <h2>Что изучить дальше — план развития</h2>
+          <p class="note">
+            <strong>План развития</strong> — рекомендации по дальнейшему изучению продукт-менеджмента и смежных областей.
+          </p>
 
-          <div class="note-block">
-            <h3>Короткая дорожная карта обучения</h3>
-            <ol class="list-ul">
-              <li>Основы discovery и интервью с пользователями.</li>
-              <li>Аналитика: SQL, когортный анализ, A/B тесты.</li>
-              <li>Приоритизация: ICE/RICE, экономические кейсы.</li>
-              <li>Стратегия: OKR, North Star, unit-economics.</li>
-              <li>Практика: ведение roadmap и управление релизами в Jira/Confluence.</li>
-            </ol>
-          </div>
-
-          <div class="note-block">
-            <h3>Полезные ресурсы</h3>
-            <ul class="list-ul">
-              <li>Книги: «Inspired» Мартин Каган, «Lean Analytics» Алистер Кролл & Бенджамин Йосквиц.</li>
-              <li>Курсы: практические курсы по продукт-менеджменту и аналитике (Coursera/edX/Platform-specific).</li>
-              <li>Шаблоны: шаблон discovery, шаблон PRD, шаблон релизной заметки (добавьте в Confluence).</li>
-            </ul>
-          </div>
-
-          <p class="note">Если хотите, могу подготовить: 1) шаблон PRD в Confluence, 2) шаблон дашборда для экспериментов, или 3) чек-лист релиза в формате Jira ticket — скажите, что нужно.</p>
+          <ul class="list-ul">
+            <li><a href="/about-management/product-life-cycle.html">Product Life Cycle</a> — стадии продукта и сигналы переходов.</li>
+            <li><a href="/about-management/product-jtbd.html">JTBD</a> — формулирование проблем и ценности для пользователей.</li>
+            <li><a href="/about-management/product-cjm.html">Customer Journey Map</a> — визуализация пути пользователя и точек оттока.</li>
+            <li><a href="/about-management/product-market-fit.html">Product Market Fit</a> — оценка соответствия продукта рынку.</li>
+            <li><a href="/about-management/product-ice-rice.html">ICE / RICE</a> — приоритизация инициатив и идей.</li>
+            <li><a href="/about-management/product-okr.html">OKR</a> — целеполагание и выравнивание команды.</li>
+            <li><a href="/about-management/product-north-star-metric.html">North Star Metric</a> — метрика, отражающая долгосрочную ценность продукта.</li>
+          </ul>
         </div>
       </section>
+
 
     </main>
     @@include('../partials/footer.html', {})

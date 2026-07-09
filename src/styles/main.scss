@@ -177,9 +177,20 @@ body {
   width: auto;
   height: auto;
   max-height: 400px;
-  margin-right: 10px;
-}
+  max-width: 100%;
+  margin: 0 auto;
+  border-radius: 8px;
+  border: 1px solid $primary;
+  display: block;
 
+}
+.note-caption {
+  font-size: 14px;
+  color: $darkColor;
+  text-align: center;
+  margin-top: 4px;
+  font-weight: 600;
+}
 .note-block {
   margin-bottom: 20px;
 }
