@@ -1,81 +1,110 @@
 @use '../base/variables' as *;
 
 .note-img {
+  display: block;
+  max-width: 100%;
+  max-height: 400px;
   width: auto;
   height: auto;
-  max-height: 400px;
-  max-width: 100%;
   margin: 0 auto;
-  border-radius: 8px;
-  border: 1px solid $primary;
-  display: block;
+  border-radius: 14px;
+  border: 1px solid rgba($primary, 0.18);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  background-color: $whiteColor;
 }
 
 .note-caption {
+  margin-top: 10px;
   font-size: 14px;
-  color: $darkColor;
+  line-height: 1.45;
+  color: rgba($darkColor, 0.8);
   text-align: center;
-  margin-top: 4px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
-.note-block {
-  margin-bottom: 20px;
+.note,
+.note-block,
+.note-article,
+.warning,
+.summary {
+  margin: 20px 0;
+  padding: 18px 20px;
+  border-radius: 14px;
+  background-color: $whiteColor;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+
+  h3,
+  h4 {
+    margin-top: 0;
+    margin-bottom: 12px;
+  }
+
+  p:last-child,
+  ul:last-child,
+  ol:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .note {
-  background: $lightBlueColor;
-  border-left: 3px solid $middleBlueColor;
-  padding: 1.5rem;
-  margin: 1.8rem 0;
-  border-radius: 7px;
+  background: linear-gradient(180deg, rgba($lightBlueColor, 0.9) 0%, rgba($whiteColor, 1) 100%);
+  border: 1px solid rgba($middleBlueColor, 0.22);
+  border-left: 4px solid $middleBlueColor;
   font-family: "Raleway", sans-serif;
 
-  & strong {
+  strong {
     color: $greenColor;
   }
 
-  .note code {
-    background-color: $whiteColor;
+  code {
+    background-color: rgba($whiteColor, 0.95);
+    padding: 2px 6px;
+    border-radius: 6px;
   }
 }
 
 .note--info {
-  background: $lightYellowColor;
-  border-left: 3px solid $yellowColor;
+  background: linear-gradient(180deg, rgba($lightYellowColor, 0.95) 0%, rgba($whiteColor, 1) 100%);
+  border: 1px solid rgba($yellowColor, 0.28);
+  border-left: 4px solid $yellowColor;
 
-  & strong {
+  strong {
     color: $redColor;
   }
 }
 
 .warning {
-  background-color: $lightRedColor;
+  background: linear-gradient(180deg, rgba($lightRedColor, 0.92) 0%, rgba($whiteColor, 1) 100%);
+  border: 1px solid rgba($redColor, 0.22);
   border-left: 4px solid $redColor;
-  padding: 15px;
-  margin: 20px 0;
-  border-radius: 0 4px 4px 0;
 }
 
 .summary {
-  background-color: $lightBlueColor;
+  background: linear-gradient(180deg, rgba($lightBlueColor, 0.85) 0%, rgba($whiteColor, 1) 100%);
+  border: 1px solid rgba($blueColor, 0.22);
   border-left: 4px solid $blueColor;
-  padding: 20px;
-  margin: 25px 0;
-  border-radius: 0 8px 8px 0;
 }
 
 .note-article {
-  border: 1px solid $greenColor;
-  padding: 10px 20px;
-  margin: 15px 0;
-  border-radius: 8px;
+  background-color: $whiteColor;
+  border: 1px solid rgba($greenColor, 0.2);
+  border-left: 4px solid $greenColor;
 }
 
 .note-block {
-  border: 1px solid $lightBlueColor;
-  background-color: $lightBlueColor;
-  padding: 10px 20px;
-  margin: 15px 0;
-  border-radius: 8px;
+  background-color: rgba($lightBlueColor, 0.45);
+  border: 1px solid rgba($middleBlueColor, 0.14);
+}
+
+.list-ul,
+.list-ol {
+  padding-left: 22px;
+
+  li+li {
+    margin-top: 8px;
+  }
+}
+
+figure {
+  margin: 28px 0;
 }

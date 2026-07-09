@@ -1,147 +1,160 @@
-@use '../base/variables' as *; // Импортируем переменные в текущий файл
+@use '../base/variables' as *;
 
 // =================== Table (note) ===================
 .table-note {
-  border: 2px dashed $greenColor;
   width: 100%;
-  border-collapse: collapse;
-  margin: 16px 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
-  border-radius: ($borderRadius * 2);
+  margin: 18px 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  background: $whiteColor;
+  border: 1px solid rgba($greenColor, 0.22);
+  border-radius: $borderRadiusLarge;
+  box-shadow: $shadowSmall;
   font-family: $fontFamilyAccent;
-  border: 1px solid $greenColor;
-  background: $lightYellowColor;
 
-  //caption - заголовок таблицы
   caption {
     caption-side: bottom;
-    font-weight: 700;
-    font-size: 1.15em;
-    padding: 10px;
-    color: $greenColor;
+    padding: 12px 14px;
+    font-size: 0.98em;
+    font-weight: 600;
+    color: $darkColor;
     background: $captionBgColor;
-    border: 2px dashed $greenColor;
-    border-radius: 0 0 ($borderRadius * 2) ($borderRadius * 2);
+    border-top: 1px solid rgba($greenColor, 0.16);
   }
 
-  // Стили для ячеек таблицы
   th,
   td {
-    border: 1px solid $greenColor;
-    padding: 10px 16px;
+    padding: 12px 16px;
     text-align: left;
     font-size: $fontSizeAccent;
-    transition: all 0.3s ease 0s;
-    //background: $lightYellowColor;
+    line-height: 1.5;
+    border-right: 1px solid rgba($greenColor, 0.14);
+    border-bottom: 1px solid rgba($greenColor, 0.14);
+    vertical-align: top;
+
+    &:last-child {
+      border-right: none;
+    }
   }
 
-  // Стили для заголовков таблицы
-  th {
-    background: $greenColor;
-    font-weight: 600;
+  thead th {
+    background: $primary;
     color: $headerTextColor;
+    font-weight: 600;
+    letter-spacing: 0.2px;
   }
 
-  // Стили для подвала таблицы
-  tfoot {
-    td {
-      background: $lightGreenColor;
-      font-weight: 600;
-      color: $greenColor;
+  tbody tr {
+    background: $whiteColor;
+    transition: background-color 0.2s ease;
+
+    &:nth-child(even) {
+      background: rgba($lightGreenColor, 0.28);
+    }
+
+    &:hover {
+      background: rgba($lightYellowColor2, 0.65);
     }
   }
 
-  // Стили для тела таблицы
-  thead {
-    tr {
-      border-bottom: 1px solid $greenColor;
-    }
-  }
-
-  // Стили для строк тела таблицы при наведении
-  tbody {
-    tr {
-      &:hover {
-        background: $lightYellowColor2;
-      }
-    }
+  tfoot td {
+    background: rgba($lightGreenColor, 0.65);
+    color: $darkColor;
+    font-weight: 600;
   }
 
   code {
-    background: $lightGreenColor;
+    background: rgba($lightGreenColor, 0.75);
+    padding: 2px 6px;
+    border-radius: 6px;
   }
 
-  //Стили для ячеек с colspan="3"
   td[colspan="3"] {
-    background: $lightGreenColor;
+    background: rgba($lightGreenColor, 0.7);
     font-weight: 600;
-
   }
 
+  tr:last-child td {
+    border-bottom: none;
+  }
 }
 
 // =================== Table Example ===================
 .table-example {
-  border: 2px dashed $accentColor;
   width: 100%;
+  margin: 18px 0;
   border-collapse: separate;
-  margin: 16px 0;
-  font-size: 1.05em;
-  background: $exampleBgColor;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
-  border-radius: ($borderRadius * 2);
+  border-spacing: 0;
   overflow: hidden;
+  background: $whiteColor;
+  border: 1px solid rgba($accentColor, 0.22);
+  border-radius: $borderRadiusLarge;
+  box-shadow: $shadowSmall;
   font-family: $fontFamilyAccent;
 
   caption {
     caption-side: bottom;
-    font-weight: 700;
-    font-size: 1.15em;
-    padding: 10px;
-    color: $accentColor;
+    padding: 12px 14px;
+    font-size: 0.98em;
+    font-weight: 600;
+    color: $darkColor;
     background: $captionBgColor;
-    border: 2px dashed $accentColor;
-    border-radius: 0 0 ($borderRadius * 2) ($borderRadius * 2);
+    border-top: 1px solid rgba($accentColor, 0.14);
   }
 
   th,
   td {
-    border: 1px solid $accentColor;
-    padding: 10px 16px;
+    padding: 12px 16px;
     text-align: center;
-    background: $cellBgColor;
     font-size: $fontSizeAccent;
-    transition: background 0.2s;
+    line-height: 1.5;
+    border-right: 1px solid rgba($accentColor, 0.14);
+    border-bottom: 1px solid rgba($accentColor, 0.14);
+    background: $cellBgColor;
+    transition: background-color 0.2s ease, color 0.2s ease;
+
+    &:last-child {
+      border-right: none;
+    }
   }
 
-  th {
+  thead th {
     background: $headerBgColor;
-    font-weight: 700;
     color: $headerTextColor;
-    letter-spacing: 0.5px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
     text-transform: uppercase;
   }
 
-  tfoot {
-    td {
-      background: $footerBgColor;
-      font-weight: 600;
-      color: $accentColor;
+  tbody tr {
+    &:nth-child(even) td {
+      background: rgba($accentColor, 0.35);
+    }
+
+    &:hover td {
+      background: $rowHoverBgColor;
+      color: $rowHoverTextColor;
     }
   }
 
-  thead {
-    tr {
-      border-bottom: 3px double $accentColor;
-    }
+  tfoot td {
+    background: $footerBgColor;
+    color: $darkColor;
+    font-weight: 600;
   }
 
-  tbody {
-    tr {
-      &:hover {
-        background: $rowHoverBgColor;
-        color: $rowHoverTextColor;
-      }
-    }
+  tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+// =================== Responsive tables ===================
+@media (max-width: $media-sm) {
+  .table-note,
+  .table-example {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }
