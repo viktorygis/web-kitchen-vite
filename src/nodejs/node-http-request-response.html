@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "HTTP-запросы и ответы", "description": "Руководство по работе с HTTP-запросами и ответами в JavaScript: как отправлять запросы, получать данные, использовать fetch, async/await, GET и POST" })
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+
+    <main class="page">
+      <nav class="nav-tabs" id="page-nav" aria-label="Навигация по странице">
+        <a href="#api-intro" class="active">Введение</a>
+        <a href="#api-what">Что такое API</a>
+        <a href="#api-request">Запросы</a>
+        <a href="#api-fetch">Fetch API</a>
+        <a href="#api-async">Async/Await</a>
+        <a href="#api-get">GET</a>
+        <a href="#api-post">POST</a>
+        <a href="#api-summary">Итоги</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="api-intro">
+        <div class="container">
+          <h1>Взаимодействие и работа с API</h1>
+
+          <p class="note">
+            <strong>Клиент-серверная архитектура</strong> — это способ, с помощью которого приложение делит обязанности между <b>клиентом</b> (пользовательским интерфейсом) и <b>сервером</b> (серверной частью)
+            <br>
+
+            <b>Клиент</b>
+            — это устройство или программа (например, браузер), которая отправляет запросы на сервер. <br>
+
+            <b>Сервер</b>
+            — это компьютер, который обрабатывает запросы от клиента и отправляет ответы.
+          </p>
+          <img class="note-img" src="/img/node/client-server-architecture-1.png" alt="Клиент-серверная архитектура" caption="Клиент-серверная архитектура" />
+
+
+          <p class="note note--info">
+            <strong>API</strong> (Application Programming Interface) — это интерфейс для взаимодействия между клиентом и сервером. <br>
+            Он позволяет клиенту отправлять запросы на сервер и получать ответы, обычно в формате JSON.
+          </p>
+
+        </div>
+      </section>
+
+      <!-- Как работают запросы -->
+      <section class="section" id="api-requests">
+        <div class="container">
+          <h2>Как работают запросы</h2>
+          <p>Клиент-серверная архитектура работает следующим образом: </p>
+          <ul class="list-ul">
+            <li><b>Клиент отправляет HTTP-запрос серверу.</b> Это может быть запрос на страницу, данные или ресурсы.</li>
+
+            <li><b>Сервер обрабатывает этот запрос и посылает HTTP-ответ обратно клиенту,</b> обычно в виде веб-страницы или данных (например, JSON).</li>
+          </ul>
+          <h4>Пример:</h4>
+          <p>Предположим, вы хотите получить страницу с новостями. Браузер (клиент) отправляет запрос на сервер:</p>
+          <div class="code-block">
+            <pre><code>// Простой HTTP-запрос с использованием fetch (клиентский запрос)
+fetch('https://example.com/news')
+  .then(response => response.json())
+  .then(data => console.log(data)) // Сервер вернёт данные о новостях
+  .catch(error => console.error('Ошибка:', error));</code></pre>
+          </div>
+          <h5>Что здесь происходит?</h5>
+          <ul class="list-ul">
+            <li><b>fetch</b> отправляет запрос на сервер по указанному URL.</li>
+            <li><b>Сервер</b> обрабатывает запрос и отправляет ответ в виде данных (например, новостей в формате JSON).</li>
+            <li><b>data</b> — это ответ от сервера, который будет отображён в консоли.</li>
+          </ul>
+        </div>
+      </section>
+
+
+      <!-- Что такое API -->
+      <section class="section" id="api-what">
+        <div class="container">
+          <h2>Что такое API</h2>
+
+          <p class="note">
+            <strong>API Application Programming Interface</strong> — это набор инструментов, который позволяет одному приложению взаимодействовать с другим. Когда клиент (например, браузер) хочет получить данные или выполнить операцию на сервере, он может отправить запрос через API.
+          </p>
+
+
+          <h4>Пример простого запроса:</h4>
+          <p>Когда ты заходишь на сайт, браузер отправляет запрос на сервер через API, и сервер возвращает данные (например, новости). Все это происходит в несколько секунд! </p>
+          <div class="code-block">
+            <pre><code>// Запрос к API для получения данных
+fetch('https://api.example.com/news')
+  .then(response => response.json())
+  .then(data => {
+    console.log('Новости:', data); // сервер вернёт список новостей
+  })
+  .catch(error => console.error('Ошибка:', error));</code></pre>
+          </div>
+          <h5>Как это работает?</h5>
+          <ul class="list-ul">
+            <li>Мы используем метод <b>fetch</b>, чтобы отправить запрос на сервер.</li>
+            <li><b>Сервер</b>, получив запрос, возвращает данные о новостях в формате <b>JSON</b>.</li>
+            <li><b>Ответ</b> от сервера обрабатывается и выводится в консоль.</li>
+          </ul>
+          <img class="note-img" src="/img/node/client-server-architecture-2.png" alt="Клиент-серверная архитектура" caption="Клиент-серверная архитектура" />
+
+          <p class="note note--info">
+            <strong>API</strong> позволяет приложениям обмениваться данными и функциональностью. Например, когда ты используешь карту на сайте, она может получать данные о местоположении через API картографического сервиса.
+          </p>
+        </div>
+      </section>
+
+      <!-- Запросы -->
+      <section class="section" id="api-request">
+        <div class="container">
+          <h2>Как работают запросы</h2>
+
+          <p>
+            Обычно работа с API строится по схеме: клиент отправляет запрос, сервер его обрабатывает и возвращает ответ.
+          </p>
+
+          <div class="note-block info">
+            <h3>Основные части запроса</h3>
+            <ul class="list-ul">
+              <li><strong>URL</strong> — адрес, куда отправляется запрос.</li>
+              <li><strong>Метод</strong> — что именно нужно сделать: получить, создать, изменить или удалить данные.</li>
+              <li><strong>Заголовки</strong> — дополнительная информация о запросе.</li>
+              <li><strong>Тело запроса</strong> — данные, которые отправляются на сервер.</li>
+            </ul>
+          </div>
+
+          <p class="note">
+            Самый частый формат ответа от API — JSON. Его удобно читать в JavaScript и использовать в интерфейсе.
+          </p>
+        </div>
+      </section>
+
+      <!-- Fetch API -->
+      <section class="section" id="api-fetch">
+        <div class="container">
+          <h2>Fetch API</h2>
+
+          <p>
+            Для работы с API в браузере часто используют встроенный метод <code>fetch()</code>.
+          </p>
+
+          <p>
+            Он отправляет запрос по указанному адресу и возвращает <strong>Promise</strong>.
+          </p>
+
+          <div class="code-block">
+            <pre><code>fetch('https://api.example.com/data')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  });</code></pre>
+          </div>
+
+          <p>
+            Сначала мы получаем ответ, затем преобразуем его в JSON и только после этого работаем с данными.
+          </p>
+        </div>
+      </section>
+
+      <!-- Async/Await -->
+      <section class="section" id="api-async">
+        <div class="container">
+          <h2>Async/Await</h2>
+
+          <p class="note">
+            <strong>Async/await</strong> делает работу с асинхронным кодом более удобной и читаемой.
+          </p>
+
+          <p>
+            Вместо цепочек <code>.then()</code> можно писать код почти как обычный последовательный скрипт.
+          </p>
+
+          <div class="code-block">
+            <pre><code>async function loadData() {
+  const response = await fetch('https://api.example.com/data');
+  const data = await response.json();
+
+  console.log(data);
+}</code></pre>
+          </div>
+
+          <p class="note note--info">
+            Такой подход особенно удобен, когда нужно выполнять несколько запросов, обрабатывать ошибки или строить более сложную логику.
+          </p>
+        </div>
+      </section>
+
+      <!-- GET -->
+      <section class="section" id="api-get">
+        <div class="container">
+          <h2>GET-запросы</h2>
+
+          <p>
+            <strong>GET</strong> используют, когда нужно получить данные с сервера.
+          </p>
+
+          <p>
+            Это самый распространённый метод для загрузки списков, карточек, новостей, товаров и других данных.
+          </p>
+
+          <div class="code-block">
+            <pre><code>async function loadUsers() {
+  const response = await fetch('https://api.example.com/users', {
+    method: 'GET'
+  });
+
+  const users = await response.json();
+  console.log(users);
+}</code></pre>
+          </div>
+
+          <p class="note">
+            GET-запросы обычно не передают данные в теле запроса, а используют параметры в URL.
+          </p>
+        </div>
+      </section>
+
+      <!-- POST -->
+      <section class="section" id="api-post">
+        <div class="container">
+          <h2>POST-запросы</h2>
+
+          <p>
+            <strong>POST</strong> используют, когда нужно отправить данные на сервер.
+          </p>
+
+          <p>
+            Это подходит для форм, комментариев, заявок, регистрации и создания новых записей.
+          </p>
+
+          <div class="code-block">
+            <pre><code>async function sendForm() {
+  const response = await fetch('https://api.example.com/forms', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: 'Ivan',
+      message: 'Hello API'
+    })
+  });
+
+  const result = await response.json();
+  console.log(result);
+}</code></pre>
+          </div>
+
+          <p class="note note--info">
+            При POST-запросе данные обычно передаются в <code>body</code>, а перед отправкой преобразуются в JSON с помощью <code>JSON.stringify()</code>.
+          </p>
+        </div>
+      </section>
+
+      <!-- Итоги -->
+      <section class="section" id="api-summary">
+        <div class="container">
+          <h2>Итоги</h2>
+
+          <div class="note-block info">
+            <ul class="list-ul">
+              <li>API позволяет приложениям обмениваться данными.</li>
+              <li>Запросы обычно отправляются с помощью <code>fetch()</code>.</li>
+              <li>Ответ от сервера часто приходит в формате JSON.</li>
+              <li><code>async/await</code> делает асинхронный код удобнее.</li>
+              <li><strong>GET</strong> используют для получения данных, <strong>POST</strong> — для отправки данных.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    @@include('../partials/footer.html', {})
+  </div>
+
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
+</html>
