@@ -35,3 +35,18 @@
 .mb-3  { margin-bottom: 1.5rem; }
 .my-2  { margin-top: 1rem; margin-bottom: 1rem; }
 .my-3  { margin-top: 1.5rem; margin-bottom: 1.5rem; }
+
+// =================== Современные UI утилиты ===================
+
+.backdrop-blur {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.glass-effect {
+  background: rgba($whiteColor, 0.80);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba($whiteColor, 0.40);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}

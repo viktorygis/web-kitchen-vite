@@ -19,8 +19,9 @@
 
 body {
   font-family: $fontFamily;
+  font-size: $fontSize;
   line-height: 1.6;
-  color: $darkColor;
+  color: $textColor;
   margin: 0 auto;
   background: $backgroundColor;
 }
