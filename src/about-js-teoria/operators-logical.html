@@ -33,7 +33,7 @@
                             <strong>Операнд</strong> — значение, над которым выполняется операция. Например, в выражении <code>a &amp;&amp; b</code> операндами являются <code>a</code> и <code>b</code>.
                         </p>
 
-                        <article class="article-block">
+                        <article class="note-article">
                             <h3>Основные логические операторы</h3>
                             <ul class="list-ul">
                                 <li><code>||</code> — логическое ИЛИ (OR)</li>
@@ -60,7 +60,7 @@
                             <strong>Оператор &&</strong> проверяет, чтобы ВСЕ условия были истинными. Если все условия истинны, результат будет <code>true</code>. Если хотя бы одно условие ложное, результат будет <code>false</code>.
                         </p>
 
-                        <article class="article-block">
+                        <article class="note-article">
                             <h3>Алгоритм работы</h3>
                             <ol class="list-ol">
                                 <li>Читает операнды слева направо</li>
@@ -102,7 +102,7 @@ if (isLoggedIn) showDashboard();</code></pre>
                             <strong>Оператор ||</strong> проверяет, чтобы хотя бы ОДНО из условий было истинным. Если хотя бы одно условие истинно, результат будет <code>true</code>. Если все условия ложные, результат будет <code>false</code>.
                         </p>
 
-                        <article class="article-block">
+                        <article class="note-article">
                             <h3>Алгоритм работы</h3>
                             <ol class="list-ol">
                                 <li>Читает операнды слева направо</li>
@@ -334,7 +334,7 @@ console.log(true &amp;&amp; (false || true));
                     <div class="container">
                         <h2>Практические шаблоны использования</h2>
 
-                        <article class="article-block">
+                        <article class="note-article">
                             <h3>1. Значение по умолчанию</h3>
                             <div class="code-block">
                                 <pre><code>function greet(name) {
@@ -344,7 +344,7 @@ console.log(true &amp;&amp; (false || true));
                             </div>
                         </article>
 
-                        <article class="article-block">
+                        <article class="note-article">
                             <h3>2. Безопасный доступ к свойствам</h3>
                             <div class="code-block">
                                 <pre><code>// Старый способ (до optional chaining)
@@ -355,7 +355,7 @@ user?.profile?.avatar &amp;&amp; show(user.profile.avatar);</code></pre>
                             </div>
                         </article>
 
-                        <article class="article-block">
+                        <article class="note-article">
                             <h3>3. Короткое выполнение вместо if</h3>
                             <div class="code-block">
                                 <pre><code>isAdmin &amp;&amp; grantAccess();
@@ -364,7 +364,7 @@ if (isAdmin) grantAccess();</code></pre>
                             </div>
                         </article>
 
-                        <article class="article-block">
+                        <article class="note-article">
                             <h3>4. Условное логирование</h3>
                             <div class="code-block">
                                 <pre><code>const DEBUG = true;
@@ -372,7 +372,7 @@ DEBUG &amp;&amp; console.log("STATE =", state);</code></pre>
                             </div>
                         </article>
 
-                        <article class="article-block">
+                        <article class="note-article">
                             <h3>5. Инициализация с оператором ||</h3>
                             <div class="code-block">
                                 <pre><code>// ⚠️ Внимание: 0 потеряется!

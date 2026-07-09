@@ -42,7 +42,7 @@
             В браузере HTTP-запросы отправляются через встроенный метод <code>fetch()</code>. Он возвращает Promise, который разрешается в объект <code>Response</code> с данными от сервера.
           </p>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>Зачем нужны GET и POST</h3>
             <ul class="list-ul">
               <li><strong>GET</strong> — загрузить список товаров, получить профиль пользователя, запросить данные о погоде.</li>
@@ -209,7 +209,7 @@ fetch(url)
   });</code></pre>
           </div>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>Типичные свойства JSON-ответа</h3>
             <table class="table-note">
               <thead>
@@ -365,7 +365,7 @@ fetch(url)
 loadData();</code></pre>
           </div>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>Коды статусов HTTP</h3>
             <table class="table-note">
               <thead>
@@ -498,19 +498,19 @@ fetch('https://jsonplaceholder.typicode.com/posts', {
             Все примеры безопасны: только GET-запросы, реальные данные не изменяются.
           </p>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>GET: получить задание по ID</h3>
             <p>Нажмите кнопку — запрос уйдёт на сервер и вернёт данные о задании.</p>
             <button class="practice-btn" data-code="getTodo">Получить задание #1</button>
           </article>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>GET: получить список пользователей</h3>
             <p>Запрос вернёт массив из 10 пользователей, выведем первых трёх.</p>
             <button class="practice-btn" data-code="getUsers">Получить пользователей</button>
           </article>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>GET с параметром: задания конкретного пользователя</h3>
             <p>Передаём <code>?userId=1</code> как параметр фильтрации.</p>
             <button class="practice-btn" data-code="getTodosByUser">Задания пользователя №1</button>

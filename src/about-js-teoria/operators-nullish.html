@@ -27,7 +27,7 @@
                             <strong>Операторы ?? и ??=</strong> позволяют удобно работать с <code>null</code> и <code>undefined</code>. Они часто используются для задания значений по умолчанию и безопасного присваивания.
                         </p>
 
-                        <article class="article-block">
+                        <article class="note-article">
                             <h3>Основные операторы</h3>
                             <ul class="list-ul">
                                 <li><strong>Нулевого слияние:</strong> <code>??</code> — возвращает первое определённое значение (<code>≠ null/undefined</code>)</li>
@@ -79,7 +79,7 @@ console.log(getName("Вася")); // "Вася"</code></pre>
                             <strong>Разница:</strong> <code>||</code> возвращает первое "истинное" значение, а <code>??</code> — первое определённое (<code>≠ null/undefined</code>).
                         </p>
 
-                        <article class="article-block">
+                        <article class="note-article">
                             <h3>Как они работают</h3>
                             <ul class="list-ul">
                                 <li><code>||</code> использует проверку на "истинность" (truthy/falsy)</li>
@@ -200,7 +200,7 @@ timeout ??= 5000;
 console.log(timeout); // 0 (не изменилась, т.к. 0 ≠ null/undefined)</code></pre>
                         </div>
 
-                        <article class="article-block">
+                        <article class="note-article">
                             <h3>Когда использовать ??=</h3>
                             <ul class="list-ul">
                                 <li>Инициализация переменных только если они не определены</li>

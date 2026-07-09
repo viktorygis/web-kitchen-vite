@@ -27,7 +27,7 @@
             Был введен в ECMAScript 5 (2009) для устранения проблем обратной совместимости и улучшения безопасности кода.
           </p>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>Основные цели строгого режима</h3>
             <ul class="list-ul">
               <li>Устранение "небрежных" и опасных ошибок</li>
@@ -37,7 +37,7 @@
             </ul>
           </article>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>Где применяется</h3>
             <ul class="list-ul">
               <li>В отдельных скриптах</li>
@@ -151,7 +151,7 @@ strictFunction();    // Ошибка!</code></pre>
 }</code></pre>
           </div>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>Важные моменты при использовании</h3>
             <ul class="list-ul">
               <li>Директива должна быть первой исполняемой строкой (комментарии разрешены)</li>
@@ -168,7 +168,7 @@ strictFunction();    // Ошибка!</code></pre>
         <div class="container">
           <h2>Особенности строгого режима</h2>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>1. Переменные должны быть объявлены</h3>
             <p>Нельзя использовать переменные без объявления через <code>var</code>, <code>let</code> или <code>const</code>:</p>
             <div class="code-block">
@@ -186,7 +186,7 @@ var z = 30; // OK</code></pre>
             </div>
           </article>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>2. Удаление переменных запрещено</h3>
             <p>Нельзя удалять переменные, объявленные через <code>var</code>, <code>let</code> или <code>const</code>:</p>
             <div class="code-block">
@@ -201,7 +201,7 @@ delete x; // SyntaxError: Delete of an unqualified identifier in strict mode</co
             </div>
           </article>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>3. Параметры функции должны быть уникальными</h3>
             <p>Запрещены дублирующиеся имена параметров:</p>
             <div class="code-block">
@@ -219,7 +219,7 @@ function sum(a, a) { // SyntaxError: Duplicate parameter name not allowed here
             </div>
           </article>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>4. Свойства объектов не могут быть удалены так же</h3>
             <div class="code-block">
               <pre><code>const obj = {};
@@ -234,7 +234,7 @@ delete obj.x; // TypeError: Cannot delete property 'x' of #&lt;Object&gt;</code>
             </div>
           </article>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>5. Запрещено использование eval()</h3>
             <p>eval() не создаёт переменные в локальной области видимости:</p>
             <div class="code-block">
@@ -249,7 +249,7 @@ console.log(typeof x); // undefined (x локальна для eval)</code></pre
             </div>
           </article>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>6. Запрещено использование with</h3>
             <p>Конструкция <code>with</code> запрещена в строгом режиме:</p>
             <div class="code-block">
@@ -267,7 +267,7 @@ with (obj) { // SyntaxError: Strict mode code may not include a with statement
             </div>
           </article>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>7. Запрещены восьмеричные литералы</h3>
             <p>Синтаксис старых восьмеричных чисел запрещён:</p>
             <div class="code-block">
@@ -280,7 +280,7 @@ let num = 010; // SyntaxError: Octal literals are not allowed in strict mode</co
             </div>
           </article>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>8. Свойства arguments неизменяемы</h3>
             <div class="code-block">
               <pre><code>function test(a) {
@@ -310,7 +310,7 @@ test(1);</code></pre>
             Это одно из самых важных изменений.
           </p>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>this в функциях без объекта</h3>
             <div class="code-block">
               <pre><code>// БЕЗ strict
@@ -328,7 +328,7 @@ greet(); // this = undefined</code></pre>
             </div>
           </article>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>this при вызове через call/apply</h3>
             <div class="code-block">
               <pre><code>function test(value) {
@@ -347,7 +347,7 @@ test.call(undefined, 'c'); // undefined, 'c'</code></pre>
             </div>
           </article>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>this в методах объекта</h3>
             <div class="code-block">
               <pre><code>const obj = {

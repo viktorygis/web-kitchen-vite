@@ -64,3 +64,18 @@
   margin: 25px 0;
   border-radius: 0 8px 8px 0;
 }
+
+.note-article {
+  border: 1px solid $greenColor;
+  padding: 10px 20px;
+  margin: 15px 0;
+  border-radius: 8px;
+}
+
+.note-block {
+  border: 1px solid $lightBlueColor;
+  background-color: $lightBlueColor;
+  padding: 10px 20px;
+  margin: 15px 0;
+  border-radius: 8px;
+}

@@ -29,7 +29,7 @@
                             <strong>Scope (область видимости)</strong> определяет, где в коде можно получить доступ к переменной. <strong>Hoisting (поднятие)</strong> — это механизм, при котором объявления переменных и функций перемещаются в начало области видимости перед выполнением кода.
                         </p>
 
-                        <article class="article-block">
+                        <article class="note-article">
                             <h3>Основные концепции</h3>
                             <ul class="list-ul">
                                 <li><strong>Global Scope</strong> — переменные, доступные везде</li>
@@ -402,7 +402,7 @@ console.log(const1); // ReferenceError
 const const1 = "значение";</code></pre>
                         </div>
 
-                        <article class="article-block">
+                        <article class="note-article">
                             <h3>Различия в Hoisting</h3>
                             <table class="table-note">
                                 <thead>
@@ -556,7 +556,7 @@ let email = "alice@mail.com";
                     <div class="container">
                         <h2>Практические примеры</h2>
 
-                        <article class="article-block">
+                        <article class="note-article">
                             <h3>Пример 1: Closure с сохранением состояния</h3>
                             <div class="code-block">
                                 <pre><code>function createBank(initialBalance) {
@@ -584,7 +584,7 @@ console.log(myBank.getBalance());   // 1300</code></pre>
                             </div>
                         </article>
 
-                        <article class="article-block">
+                        <article class="note-article">
                             <h3>Пример 2: Проблема с var в цикле</h3>
                             <div class="code-block">
                                 <pre><code>// Проблема с var
@@ -624,7 +624,7 @@ callbacks3[2](); // 2</code></pre>
                             </div>
                         </article>
 
-                        <article class="article-block">
+                        <article class="note-article">
                             <h3>Пример 3: Hoisting функций</h3>
                             <div class="code-block">
                                 <pre><code>// Функции поднимаются полностью

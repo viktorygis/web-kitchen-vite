@@ -28,7 +28,7 @@
             Консоль используется для отладки кода, вывода сообщений, логирования событий и анализа работы приложения.
           </p>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>Основные методы console</h3>
             <ul class="list-ul">
               <li><code>console.log()</code> — выводит информацию в консоль</li>
@@ -41,7 +41,7 @@
             </ul>
           </article>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>Где и когда используется console</h3>
             <ul class="list-ul">
               <li>В разработке веб-приложений для отладки</li>
@@ -104,7 +104,7 @@ console.log(numbers);         // выведет массив
 console.log('Numbers:', numbers); // выведет с описанием</code></pre>
           </div>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>Особенности console.log()</h3>
             <ul class="list-ul">
               <li>Может выводить неограниченное количество значений через запятую</li>
@@ -134,7 +134,7 @@ console.log('Конец программы');</code></pre>
 
           <p>JavaScript предоставляет различные методы console для разных типов сообщений:</p>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>console.error() — Ошибки</h3>
             <p>Выводит сообщение об ошибке (обычно красным цветом):</p>
             <div class="code-block">
@@ -148,7 +148,7 @@ if (age < 0) {
             </div>
           </article>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>console.warn() — Предупреждения</h3>
             <p>Выводит предупреждение (обычно жёлтым цветом):</p>
             <div class="code-block">
@@ -162,7 +162,7 @@ if (value === null) {
             </div>
           </article>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>console.info() — Информация</h3>
             <p>Выводит информационное сообщение (обычно синим значком):</p>
             <div class="code-block">
@@ -172,7 +172,7 @@ console.info('Версия: 1.0.0');</code></pre>
             </div>
           </article>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>console.table() — Таблица</h3>
             <p>Выводит данные в виде красивой таблицы:</p>
             <div class="code-block">
@@ -270,7 +270,7 @@ console.log('Вес:', weight, 'кг');
 console.log('Параметры:', height, weight, 'BMI:', (weight / (height * height) * 10000).toFixed(2));</code></pre>
           </div>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>Преимущества описаний (tips)</h3>
             <ul class="list-ul">
               <li>Делает вывод понятнее и читабельнее</li>
@@ -302,7 +302,7 @@ console.log(name, age, email);</code></pre>
             <strong>Форматирование консоли</strong> позволяет улучшить читаемость вывода и добавить стили.
           </p>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>Использование шаблонных строк (template literals)</h3>
             <p>Современный и удобный способ форматирования:</p>
             <div class="code-block">
@@ -316,7 +316,7 @@ console.log(`Имя: ${name}, Возраст: ${age}, Город: ${city}`);
             </div>
           </article>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>Стили CSS в console</h3>
             <p>Можно добавить стили к тексту в консоли используя %c:</p>
             <div class="code-block">
@@ -326,7 +326,7 @@ console.log('%cИнформация', 'color: blue; background: yellow;');</code
             </div>
           </article>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>Группировка сообщений</h3>
             <p>Группируйте связанные сообщения для лучшей организации:</p>
             <div class="code-block">
@@ -350,7 +350,7 @@ console.groupEnd();</code></pre>
         <div class="container">
           <h2>Продвинутые методы</h2>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>console.time() и console.timeEnd() — Измерение времени</h3>
             <p>Измеряйте время выполнения кода:</p>
             <div class="code-block">
@@ -367,7 +367,7 @@ console.timeEnd('Таймер');
             </div>
           </article>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>console.assert() — Условная проверка</h3>
             <p>Выводит сообщение только если условие ложно:</p>
             <div class="code-block">
@@ -377,7 +377,7 @@ console.assert(age >= 30, 'Пользователь должен быть ста
             </div>
           </article>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>console.count() — Подсчёт вызовов</h3>
             <p>Подсчитывает, сколько раз был вызван console.count():</p>
             <div class="code-block">
@@ -391,7 +391,7 @@ console.count('click');  // click: 2</code></pre>
             </div>
           </article>
 
-          <article class="article-block">
+          <article class="note-article">
             <h3>console.clear() — Очистка консоли</h3>
             <p>Очищает все сообщения из консоли:</p>
             <div class="code-block">
