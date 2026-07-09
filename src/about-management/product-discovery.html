@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="ru">
 @@include('../partials/head.html', {
-  "title": "Product Discovery",
-  "description": "Product Discovery: поиск идей, интервью с пользователями, проверка гипотез и приоритизация"
+  "title": "Product Discovery — поиск проблем, проверка гипотез и приоритизация",
+  "description": "Что такое Product Discovery: как искать идеи, проводить исследования пользователей, проверять гипотезы и работать с Jira Product Discovery."
 })
 
 <body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
   <div class="wrapper">
     @@include('../partials/header.html', {})
-    <main class="page">
-      <nav class="nav-tabs" id="page-nav">
-        <a href="#pd-intro" class="active">Введение</a>
+    <main class="page" id="main" tabindex="-1">
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#pd-intro" class="active" aria-current="page">Введение</a>
         <a href="#pd-purpose">Задача</a>
         <a href="#pd-sources">Источники идей</a>
         <a href="#pd-research">Исследование</a>
@@ -28,7 +29,7 @@
           <p class="note">
             <strong>Product Discovery</strong> — это этап, на котором продакт ищет реальные проблемы пользователей, формулирует идеи решения и проверяет, стоит ли их развивать дальше.
             <br />
-            В discovery продакт собирает инсайты, работает с интервью, анализом поведения и обратной связью, а затем выбирает самые перспективные идеи для продуктового backlog [web:76][web:71].
+            В discovery продакт собирает инсайты, работает с интервью, анализом поведения и обратной связью, а затем выбирает самые перспективные идеи для продуктового backlog.
           </p>
 
           <article class="article-block">
@@ -43,12 +44,12 @@
 
           <article class="article-block">
             <h3>Главная идея</h3>
-            <ul class="list-ul">
+            <ol class="list-ol">
               <li>Сначала понять проблему.</li>
               <li>Потом проверить гипотезу.</li>
               <li>Потом приоритизировать.</li>
               <li>И только после этого передавать в delivery.</li>
-            </ul>
+            </ol>
           </article>
         </div>
       </section>
@@ -59,7 +60,7 @@
           <h2>Задача discovery</h2>
 
           <p class="note">
-            Основная задача discovery — быстро понять, есть ли у идеи реальная ценность и стоит ли превращать ее в продуктовую инициативу.
+            <strong>Задача discovery</strong> — быстро понять, есть ли у идеи реальная ценность и стоит ли превращать ее в продуктовую инициативу.
           </p>
 
           <article class="article-block">
@@ -85,7 +86,7 @@
           <h2>Источники идей</h2>
 
           <p class="note">
-            Идеи не берутся из воздуха — они появляются из наблюдений, обратной связи и реальных проблем пользователей.
+            <strong>Источники идей</strong> — наблюдения, обратная связь и реальные проблемы пользователей, из которых формируются продуктовые гипотезы.
           </p>
 
           <article class="article-block">
@@ -112,7 +113,7 @@
           <h2>Исследование</h2>
 
           <p class="note">
-            Исследование помогает понять не только что хочет пользователь, но и почему он так себя ведет.
+            <strong>Исследование</strong> — способ понять не только что хочет пользователь, но и почему он так себя ведет.
           </p>
 
           <article class="article-block">
@@ -143,7 +144,7 @@
           <h2>Работа с идеями</h2>
 
           <p class="note">
-            Идею важно не просто записать, а оформить так, чтобы ее можно было сравнить с другими идеями и дальше приоритизировать.
+            <strong>Работа с идеями</strong> — процесс, в котором идею оформляют так, чтобы ее можно было сравнить с другими и приоритизировать.
           </p>
 
           <article class="article-block">
@@ -156,8 +157,8 @@
             </ul>
           </article>
 
+          <h4>Пример формулировки:</h4>
           <div class="code-block">
-            <h4>Пример формулировки:</h4>
             <pre><code>Пользователь не завершает оформление заказа,
 потому что форма слишком длинная.
 Нужно сократить шаги и проверить, вырастет ли конверсия.</code></pre>
@@ -171,7 +172,7 @@
           <h2>Проверка гипотез</h2>
 
           <p class="note">
-            До разработки важно убедиться, что гипотеза действительно имеет смысл. Для этого продуктовая команда делает быстрые проверки и смотрит на реакцию пользователей.
+            <strong>Проверка гипотез</strong> — этап до разработки, где команда делает быстрые проверки и смотрит на реакцию пользователей.
           </p>
 
           <article class="article-block">
@@ -198,7 +199,7 @@
           <h2>Jira Product Discovery</h2>
 
           <p class="note">
-            Jira Product Discovery — это инструмент для сбора идей, приоритизации и создания roadmap. Он помогает связать discovery с delivery и держать команды в одной картине [web:76][web:74][web:71].
+            <strong>Jira Product Discovery</strong> — инструмент для сбора идей, приоритизации и создания roadmap, который помогает связать discovery с delivery.
           </p>
 
           <article class="article-block">
@@ -224,6 +225,10 @@
         <div class="container">
           <h2>Итоги</h2>
 
+          <p class="note">
+            <strong>Итоги</strong> — ключевые выводы о том, как discovery помогает находить проблемы, проверять гипотезы и принимать решения о приоритетах.
+          </p>
+
           <div class="note-block">
             <h3>Главное о discovery</h3>
             <ul class="list-ul">
@@ -243,6 +248,7 @@
     </main>
     @@include('../partials/footer.html', {})
   </div>
-  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
 </body>
 </html>

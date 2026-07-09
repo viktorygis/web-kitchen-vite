@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', {
+  "title": "Product Roadmap — планирование и коммуникация стратегии продукта",
+  "description": "Что такое product roadmap, зачем нужен, виды roadmap, как строить и приоритизировать, инструменты и типичные ошибки."
+})
+
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+
+    <main class="page" id="main" tabindex="-1">
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#roadmap-intro" class="active" aria-current="page">Введение</a>
+        <a href="#roadmap-why">Зачем нужен roadmap</a>
+        <a href="#roadmap-types">Виды roadmap</a>
+        <a href="#roadmap-how">Как строить roadmap</a>
+        <a href="#roadmap-prioritization">Приоритизация</a>
+        <a href="#roadmap-tools">Инструменты</a>
+        <a href="#roadmap-mistakes">Типичные ошибки</a>
+        <a href="#roadmap-summary">Итоги</a>
+      </nav>
+
+      <section class="section" id="roadmap-intro">
+        <div class="container">
+          <h1>Product Roadmap</h1>
+          <p class="note"><strong>Product Roadmap</strong> — визуальный план развития продукта, показывающий направление, приоритеты и ожидаемые результаты на горизонте времени.<br />Roadmap — инструмент коммуникации, а не список задач разработки.</p>
+        </div>
+      </section>
+
+      <section class="section" id="roadmap-why">
+        <div class="container">
+          <h2>Зачем нужен roadmap</h2>
+          <p class="note"><strong>Зачем нужен roadmap</strong> — согласовать ожидания, сфокусировать команду на приоритетах и связать стратегию с тактическими шагами.<br />Он повышает прозрачность планов для команды и стейкхолдеров.</p>
+          <ul class="list-ul">
+            <li>Согласование ожиданий со стейкхолдерами.</li>
+            <li>Фокус команды на приоритетах.</li>
+            <li>Прозрачность планов и решений.</li>
+            <li>Связь стратегии с тактикой выполнения.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" id="roadmap-types">
+        <div class="container">
+          <h2>Виды roadmap</h2>
+          <p class="note"><strong>Виды roadmap</strong> — форматы планирования, которые выбирают по цели коммуникации и уровню детализации.<br />Один и тот же продукт может использовать разные форматы для разных аудиторий.</p>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Вид roadmap</th>
+                <th>Когда использовать</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Now / Next / Later</strong></td>
+                <td>Без дат, когда важнее показать приоритеты, а не календарь.</td>
+              </tr>
+              <tr>
+                <td><strong>По кварталам / горизонтам</strong></td>
+                <td>С временными рамками для регулярного планирования.</td>
+              </tr>
+              <tr>
+                <td><strong>По целям (Outcome-based)</strong></td>
+                <td>Когда roadmap строится вокруг метрик и outcomes, а не фич.</td>
+              </tr>
+              <tr>
+                <td><strong>По эпикам</strong></td>
+                <td>Когда нужно сгруппировать фичи по крупным темам.</td>
+              </tr>
+              <tr>
+                <td><strong>Release roadmap</strong></td>
+                <td>Для команды разработки с датами и релизными ожиданиями.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="roadmap-how">
+        <div class="container">
+          <h2>Как строить roadmap</h2>
+          <p class="note"><strong>Как строить roadmap</strong> — последовательный процесс от цели продукта к инициативам и регулярному обновлению плана.<br />Каждый шаг должен быть привязан к ожидаемому результату.</p>
+          <ol class="list-ol">
+            <li>Начать с цели продукта.</li>
+            <li>Определить outcomes.</li>
+            <li>Сгруппировать инициативы по горизонтам.</li>
+            <li>Приоритизировать инициативы.</li>
+            <li>Обсудить roadmap со стейкхолдерами.</li>
+            <li>Обновлять roadmap регулярно.</li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section" id="roadmap-prioritization">
+        <div class="container">
+          <h2>Приоритизация</h2>
+          <p class="note"><strong>Приоритизация</strong> — выбор инициатив с наибольшей ожидаемой ценностью при ограниченных ресурсах.<br />Для этого используют стандартизированные методы оценки.</p>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Метод</th>
+                <th>Что оценивает</th>
+                <th>Когда полезен</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>RICE</strong></td>
+                <td>Reach, Impact, Confidence, Effort.</td>
+                <td>Когда нужно ранжировать много инициатив по единой формуле.</td>
+              </tr>
+              <tr>
+                <td><strong>ICE</strong></td>
+                <td>Impact, Confidence, Ease.</td>
+                <td>Когда нужна быстрая оценка гипотез.</td>
+              </tr>
+              <tr>
+                <td><strong>MoSCoW</strong></td>
+                <td>Must, Should, Could, Won't.</td>
+                <td>Когда важно договориться о критичности требований.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="roadmap-tools">
+        <div class="container">
+          <h2>Инструменты</h2>
+          <p class="note"><strong>Инструменты roadmap</strong> — сервисы для фиксации идей, обсуждения приоритетов и публикации планов.<br />Выбор зависит от масштаба команды и процессов коммуникации.</p>
+          <ul class="list-ul">
+            <li>Jira Product Discovery.</li>
+            <li>Confluence.</li>
+            <li>Notion.</li>
+            <li>ProductBoard.</li>
+            <li>Miro.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" id="roadmap-mistakes">
+        <div class="container">
+          <h2>Типичные ошибки</h2>
+          <p class="note"><strong>Типичные ошибки roadmap</strong> — практики, из-за которых план теряет ценность и перестаёт помогать команде.<br />Их важно отслеживать при каждом обновлении roadmap.</p>
+          <div class="warning">
+            <ul class="list-ul">
+              <li>Roadmap воспринимается как фиксированный план на год без пересмотра.</li>
+              <li>Roadmap слишком детализирован и превращается в backlog.</li>
+              <li>Roadmap не связан с целями и метриками.</li>
+              <li>Roadmap не обновляется после смены приоритетов.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="roadmap-summary">
+        <div class="container">
+          <h2>Итоги</h2>
+          <p class="note"><strong>Итоги roadmap</strong> — набор правил, которые помогают держать стратегический фокус и согласованность команды.<br />Регулярная коммуникация и пересмотр плана делают roadmap рабочим инструментом.</p>
+          <ol class="list-ol">
+            <li>Показывайте в roadmap направление и outcomes, а не только фичи.</li>
+            <li>Используйте формат roadmap под конкретную аудиторию.</li>
+            <li>Фиксируйте критерии приоритизации заранее.</li>
+            <li>Обновляйте roadmap после каждого значимого изменения контекста.</li>
+          </ol>
+        </div>
+      </section>
+    </main>
+
+    @@include('../partials/footer.html', {})
+  </div>
+
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', {
+  "title": "Product Strategy — как выстроить стратегию продукта",
+  "description": "Что такое продуктовая стратегия, из чего состоит, как формулировать vision, цели и выбирать направление развития продукта."
+})
+
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+
+    <main class="page" id="main" tabindex="-1">
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#ps-intro" class="active" aria-current="page">Введение</a>
+        <a href="#ps-components">Из чего состоит стратегия</a>
+        <a href="#ps-vision">Product Vision</a>
+        <a href="#ps-goals">Цели и OKR</a>
+        <a href="#ps-positioning">Позиционирование</a>
+        <a href="#ps-mistakes">Типичные ошибки</a>
+        <a href="#ps-summary">Итоги</a>
+      </nav>
+
+      <section class="section" id="ps-intro">
+        <div class="container">
+          <h1>Product Strategy</h1>
+          <p class="note"><strong>Product Strategy</strong> — набор решений о том, что строить, для кого, зачем и как это создаст ценность для пользователей и бизнеса.<br />Стратегия отвечает на вопрос «куда мы идём и почему», а не «что именно будем делать».</p>
+        </div>
+      </section>
+
+      <section class="section" id="ps-components">
+        <div class="container">
+          <h2>Из чего состоит стратегия</h2>
+          <p class="note"><strong>Компоненты стратегии</strong> — обязательные элементы, которые связывают видение, рынок и измеримые цели.<br />Вместе они задают понятное направление развития продукта.</p>
+          <ul class="list-ul">
+            <li><strong>Product Vision</strong> — образ желаемого будущего.</li>
+            <li><strong>Target Audience</strong> — для кого продукт.</li>
+            <li><strong>Problem Statement</strong> — какую проблему решаем.</li>
+            <li><strong>Positioning</strong> — чем отличаемся от конкурентов.</li>
+            <li><strong>Goals &amp; OKR</strong> — измеримые цели.</li>
+            <li><strong>Roadmap</strong> — план движения к целям.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" id="ps-vision">
+        <div class="container">
+          <h2>Product Vision</h2>
+          <p class="note"><strong>Product Vision</strong> — короткое вдохновляющее описание, каким продукт станет через 3–5 лет и какую проблему будет решать.<br />Vision помогает синхронизировать решения команды на долгом горизонте.</p>
+          <p>Пример шаблона: «Для [аудитория], у которых [проблема], наш продукт [решение], которое [ключевая выгода], в отличие от [альтернатива].»</p>
+        </div>
+      </section>
+
+      <section class="section" id="ps-goals">
+        <div class="container">
+          <h2>Цели и OKR</h2>
+          <p class="note"><strong>Цели и OKR</strong> — подход к управлению результатами, где Objective задаёт направление, а Key Results фиксируют измеримый прогресс.<br />Формулировки должны быть конкретными и проверяемыми по данным.</p>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Objective</th>
+                <th>Key Results</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Увеличить ценность onboarding для новых пользователей.</td>
+                <td>Повысить Day1 activation с 35% до 50%; снизить отток в первую неделю на 20%.</td>
+              </tr>
+              <tr>
+                <td>Улучшить удержание платящих клиентов.</td>
+                <td>Повысить retention Day30 с 22% до 30%; увеличить долю продлений подписки на 15%.</td>
+              </tr>
+              <tr>
+                <td>Сократить время вывода ключевых инициатив.</td>
+                <td>Снизить lead time от идеи до релиза с 8 до 5 недель; увеличить долю инициатив с чёткими метриками до 90%.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="ps-positioning">
+        <div class="container">
+          <h2>Позиционирование</h2>
+          <p class="note"><strong>Позиционирование</strong> — выбор сегмента и формулировка уникальной ценности, которая отличает продукт от альтернатив.<br />Чёткое позиционирование снижает размытость стратегии и улучшает коммуникацию с рынком.</p>
+          <ul class="list-ul">
+            <li>Определить, на каком сегменте фокусируется продукт.</li>
+            <li>Сформулировать ключевую проблему сегмента.</li>
+            <li>Показать, чем решение отличается от конкурентов.</li>
+            <li>Зафиксировать и проверить УТП на реальной обратной связи.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" id="ps-mistakes">
+        <div class="container">
+          <h2>Типичные ошибки</h2>
+          <p class="note"><strong>Типичные ошибки стратегии</strong> — причины, по которым стратегия остаётся декларативной и не влияет на работу команды.<br />Регулярная проверка этих рисков помогает удерживать фокус.</p>
+          <div class="warning">
+            <ul class="list-ul">
+              <li>Стратегия на бумаге, не связана с реальными задачами команды.</li>
+              <li>Стратегия слишком абстрактная и без измеримых целей.</li>
+              <li>Стратегия меняется каждый квартал без причины.</li>
+              <li>Стратегия не согласована со стейкхолдерами.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="ps-summary">
+        <div class="container">
+          <h2>Итоги</h2>
+          <p class="note"><strong>Итоги стратегии</strong> — это опорные принципы, которые помогают принимать продуктовые решения последовательно и прозрачно.<br />Стратегия работает только тогда, когда связана с целями, приоритетами и ежедневной практикой команды.</p>
+          <ol class="list-ol">
+            <li>Начинайте со vision и целевого сегмента.</li>
+            <li>Формулируйте измеримые цели и проверяемые KR.</li>
+            <li>Поддерживайте позиционирование через реальные продуктовые решения.</li>
+            <li>Регулярно синхронизируйте стратегию со стейкхолдерами и roadmap.</li>
+          </ol>
+        </div>
+      </section>
+    </main>
+
+    @@include('../partials/footer.html', {})
+  </div>
+
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
+</html>
