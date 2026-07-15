@@ -208,9 +208,40 @@ fetch(url)
     console.log(data.userId);    // ID пользователя
   });</code></pre>
           </div>
+          <h4>Вывод нескольких данных из полученного ответа от сервера:</h4>
+          <p>
+            В этом примере мы получаем задание по ID и выводим несколько его свойств в консоль.
+          </p>
+          <div class="code-block">
+            <pre><code>//Пример ответа от сервера (JSON):
+{
+  "userId": 4,
+  "id": 12,
+  "title": "Упражнение 11",
+  "completed": false
+}</code></pre>
+          </div>
 
-          <article class="note-article">
-            <h3>Типичные свойства JSON-ответа</h3>
+          <div class="code-block">
+            <pre><code>//Отправляем GET-запрос на сервер
+fetch('https://jsonplaceholder.typicode.com/todos/1') // Отправляем запрос
+  .then(response => response.json()) // Преобразуем ответ в JSON
+  .then(data => {console.log('ID пользователя:', data.userId); // Выводим ID пользователя
+    console.log('ID задания:', data.id); // Выводим ID задания
+    console.log('Завершено ли задание?', data.completed); // Выводим статус выполнения
+  });</code></pre>
+          </div>
+          <p>Пояснение к коду:</p>
+          <ul class="list-ul">
+            <li>Мы отправляем GET-запрос на сервер по URL <code>https://jsonplaceholder.typicode.com/todos/1</code>.</li>
+            <li>Метод <code>response.json()</code> преобразует ответ в объект JavaScript.</li>
+            <li>Далее мы обращаемся к свойствам объекта <code>data</code> и выводим их в консоль.</li>
+          </ul>
+
+
+
+
+            <h4>Типичные свойства JSON-ответа</h4>
             <table class="table-note">
               <thead>
                 <tr>
@@ -242,7 +273,7 @@ fetch(url)
                 </tr>
               </tbody>
             </table>
-          </article>
+
         </div>
       </section>
 
@@ -254,6 +285,9 @@ fetch(url)
           <p class="note">
             <strong>POST</strong> — HTTP-метод для отправки данных на сервер с целью создания нового ресурса.<br />
             Данные передаются в теле запроса (<code>body</code>), а не в URL. Метод нужно указывать явно.
+          </p>
+          <p class="note note--info">
+            <strong>Тело запроса</strong> — это данные, которые мы отправляем на сервер. Обычно это JSON-объект, но может быть и FormData, XML или другой формат. Например: <code>{ "title": "Новая запись", "body": "Содержимое записи", "userId": 1 }</code>
           </p>
 
           <p>
@@ -300,14 +334,14 @@ fetch(url)
     completed: false
   })
 })
-  .then(response => response.json()) // Преобразуем ответ в JSON
-  .then(data => {
+  .then(response = &gt; response.json()) // Преобразуем ответ в JSON
+  .then(data = &gt; {
     console.log('Создано новое задание: ', data); // Выводим данные, которые вернул сервер
   })
-  .catch(error => console.log('Ошибка при отправке запроса:', error)); // Обрабатываем ошибку</code></pre>
+  .catch(error = &gt; console.log('Ошибка при отправке запроса:', error)); // Обрабатываем ошибку</code></pre>
           </div>
 
-          <p class="note note--info">💡 Запомни! После отправки POST-запроса, всегда нужно проверять ответ от сервера. Используй .then(response => response.json()), чтобы преобразовать его в формат, с которым можно работать.</p>
+          <p class="note note--info">💡 Запомни! После отправки POST-запроса, всегда нужно проверять ответ от сервера. Используй .then(response = &gt; response.json()), чтобы преобразовать его в формат, с которым можно работать.</p>
 
 
         </div>

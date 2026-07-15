@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "Запросы и маршруты Express — полное руководство", "description": "Изучите маршруты, HTTP-методы, параметры запросов и middleware в Express.js с интерактивными примерами и лучшими практиками" })
+
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+
+    <main class="page" id="main" tabindex="-1">
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#intro" class="active" aria-current="page">Введение</a>
+        <a href="#routing-basics">Основы маршрутизации</a>
+        <a href="#http-methods">HTTP методы</a>
+        <a href="#request-params">Параметры запроса</a>
+        <a href="#middleware">Middleware</a>
+        <a href="#response-methods">Методы ответа</a>
+        <a href="#advanced-routing">Продвинутая маршрутизация</a>
+        <a href="#common-errors">Типичные ошибки</a>
+        <a href="#best-practices">Лучшие практики</a>
+        <a href="#summary">Итоги</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="intro">
+        <div class="container">
+          <h1>Запросы и маршруты в Express.js</h1>
+
+          <p class="note">
+            <strong>Маршруты</strong> — это пути обработки HTTP-запросов, которые определяют, какую функцию вызвать при обращении клиента к конкретному URL.<br>
+            В Express маршруты являются основой приложения и связывают URL с действиями сервера.
+          </p>
+
+          <p>
+            Маршруты состоят из трёх компонентов: <strong>метода</strong> (GET, POST и т.д.), <strong>пути</strong> (/users, /products/:id) и <strong>обработчика</strong> (функция, которая выполняется).
+          </p>
+
+        </div>
+      </section>
+
+      <!-- Основы маршрутизации -->
+      <section class="section" id="routing-basics">
+        <div class="container">
+          <h2>Основы маршрутизации</h2>
+
+          <p class="note">
+            <strong>Маршрут</strong> — определение пути и обработчика для этого пути. Синтаксис: <code>app.method(path, handler)</code>.<br>
+            Express сравнивает URL запроса с определенными маршрутами в порядке их объявления.
+          </p>
+
+          <h4>Простой маршрут:</h4>
+          <div class="code-block">
+            <pre><code>const express = require('express');
+const app = express();
+
+// Основной маршрут
+app.get('/', (req, res) => {
+  res.send('Добро пожаловать на главную! 🏠');
+});
+
+// Маршрут подраздела
+app.get('/about', (req, res) => {
+  res.send('Это страница О нас 📋');
+});
+
+// Маршрут с параметром
+app.get('/users/:id', (req, res) => {
+  const userId = req.params.id;
+  res.send(`Пользователь с ID: ${userId}`);
+});
+
+// Запуск сервера на порту 3000
+app.listen(3000, () => {
+  console.log('Сервер запущен на http://localhost:3000');
+});</code></pre>
+          </div>
+
+          <h4>Как работает маршрут:</h4>
+          <ul class="list-ul">
+            <li><strong>Метод</strong> — тип запроса (<code>get</code>, <code>post</code>, <code>put</code>, <code>delete</code>).</li>
+            <li><strong>Путь</strong> — URL-строка или паттерн (<code>'/'</code>, <code>'/about'</code>, <code>'/users/:id'</code>).</li>
+            <li><strong>Обработчик</strong> — функция, которая получает объекты запроса <code>req</code> и ответа <code>res</code>.</li>
+          </ul>
+
+          <p class="note note--info">
+            <strong>Порядок имеет значение!</strong> Express проверяет маршруты в том порядке, в котором они определены. Если несколько маршрутов совпадают, выполняется первый.
+          </p>
+        </div>
+      </section>
+
+      <!-- HTTP методы -->
+      <section class="section" id="http-methods">
+        <div class="container">
+          <h2>HTTP методы</h2>
+
+          <p class="note">
+            <strong>HTTP методы</strong> — это операции, которые клиент просит выполнить на сервере. Каждый метод используется для разных целей: чтение, создание, изменение или удаление данных.
+          </p>
+
+          <h4>Таблица HTTP методов:</h4>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Метод</th>
+                <th>Синтаксис</th>
+                <th>Назначение</th>
+                <th>Пример</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>GET</strong></td>
+                <td><code>app.get()</code></td>
+                <td>Получить данные</td>
+                <td>Загрузить список товаров</td>
+              </tr>
+              <tr>
+                <td><strong>POST</strong></td>
+                <td><code>app.post()</code></td>
+                <td>Создать новые данные</td>
+                <td>Отправить форму регистрации</td>
+              </tr>
+              <tr>
+                <td><strong>PUT</strong></td>
+                <td><code>app.put()</code></td>
+                <td>Обновить данные целиком</td>
+                <td>Изменить профиль пользователя</td>
+              </tr>
+              <tr>
+                <td><strong>PATCH</strong></td>
+                <td><code>app.patch()</code></td>
+                <td>Обновить часть данных</td>
+                <td>Изменить только имя пользователя</td>
+              </tr>
+              <tr>
+                <td><strong>DELETE</strong></td>
+                <td><code>app.delete()</code></td>
+                <td>Удалить данные</td>
+                <td>Удалить товар из корзины</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>Примеры каждого метода:</h4>
+
+          <h5>GET — получение данных:</h5>
+          <div class="code-block">
+            <pre><code>// Получить список всех товаров
+app.get('/products', (req, res) => {
+  const products = [
+    { id: 1, name: 'Ноутбук', price: 50000 },
+    { id: 2, name: 'Телефон', price: 20000 }
+  ];
+  res.json(products);
+});</code></pre>
+          </div>
+
+          <h5>POST — создание новых данных:</h5>
+          <div class="code-block">
+            <pre><code>// Создать новый товар
+app.post('/products', (req, res) => {
+  const newProduct = req.body; // Данные из тела запроса
+  res.status(201).json({
+    message: 'Товар создан успешно! ✅',
+    product: newProduct
+  });
+});</code></pre>
+          </div>
+
+          <h5>PUT — обновление всего объекта:</h5>
+          <div class="code-block">
+            <pre><code>// Обновить товар полностью
+app.put('/products/:id', (req, res) => {
+  const id = req.params.id;
+  const updatedData = req.body;
+  res.json({
+    message: `Товар ${id} обновлен полностью`,
+    data: updatedData
+  });
+});</code></pre>
+          </div>
+
+          <h5>PATCH — частичное обновление:</h5>
+          <div class="code-block">
+            <pre><code>// Обновить только цену товара
+app.patch('/products/:id', (req, res) => {
+  const id = req.params.id;
+  const partialUpdate = req.body; // Только поля для обновления
+  res.json({
+    message: `Товар ${id} частично обновлен`,
+    update: partialUpdate
+  });
+});</code></pre>
+          </div>
+
+          <h5>DELETE — удаление данных:</h5>
+          <div class="code-block">
+            <pre><code>// Удалить товар
+app.delete('/products/:id', (req, res) => {
+  const id = req.params.id;
+  res.json({
+    message: `Товар ${id} удален ❌`
+  });
+});</code></pre>
+          </div>
+
+          <p class="note note--info">
+            <strong>PUT vs PATCH:</strong> PUT заменяет весь объект, PATCH обновляет только указанные поля. В REST API PATCH предпочтительнее для экономии трафика.
+          </p>
+        </div>
+      </section>
+
+      <!-- Параметры запроса -->
+      <section class="section" id="request-params">
+        <div class="container">
+          <h2>Параметры запроса</h2>
+
+          <p class="note">
+            <strong>Параметры запроса</strong> — это данные, которые клиент передает серверу. Express позволяет получать параметры из разных источников: URL, query-строки и тела запроса.
+          </p>
+
+          <h4>Типы параметров:</h4>
+          <ul class="list-ul">
+            <li><strong>req.params</strong> — параметры из пути URL (например, <code>/users/:id</code>).</li>
+            <li><strong>req.query</strong> — query-параметры из строки адреса (например, <code>?search=text&amp;sort=asc</code>).</li>
+            <li><strong>req.body</strong> — данные из тела запроса (POST, PUT, PATCH).</li>
+            <li><strong>req.headers</strong> — заголовки HTTP-запроса.</li>
+          </ul>
+
+          <h4>1. Параметры пути, маршрута (req.params):</h4>
+          <p><strong>Параметры пути</strong> — это переменные части URL, обозначаются двоеточием (<code>:paramName</code>).</p>
+
+          <div class="code-block">
+            <pre><code>// Маршрут с параметром id
+app.get('/users/:id', (req, res) => {
+  const userId = req.params.id;
+  res.json({ message: `Пользователь ${userId}`, id: userId });
+});
+
+// Маршрут с несколькими параметрами
+app.get('/users/:userId/posts/:postId', (req, res) => {
+  const { userId, postId } = req.params;
+  res.json({
+    message: `Пост ${postId} пользователя ${userId}`,
+    userId,
+    postId
+  });
+});</code></pre>
+          </div>
+
+          <p><strong>Примеры URL:</strong></p>
+          <ul class="list-ul">
+            <li><code>/users/123</code> → <code>req.params.id = '123'</code></li>
+            <li><code>/users/456/posts/789</code> → <code>req.params.userId = '456'</code>, <code>req.params.postId = '789'</code></li>
+          </ul>
+
+          <h4>2. Query-параметры (req.query):</h4>
+          <p><strong>Query-параметры (параметры строки запроса)</strong> — это дополнительные параметры после <code>?</code> в URL, используются для фильтрации, сортировки.</p>
+          <p class="note note--info">Они обычно идут после знака <strong><code>?</code></strong> и разделяются с помощью <strong><code>&</code></strong>. Параметры запроса часто используются для фильтрации данных или для передачи информации от клиента на сервер. </p>
+
+          <h5>Пример URL с параметром запроса:</h5>
+          <div class="code-block">
+            <pre><code>http://localhost:3000/search?query=express&page=2</code></pre>
+          </div>
+          <p>Здесь query и page — это параметры запроса, которые мы можем извлечь на сервере.</p>
+          <p class="note"> Для получения параметров запроса в Express используется объект req.query.
+          </p>
+
+          <div class="code-block">
+            <pre><code>app.get('/search', (req, res) => {
+  const query = req.query.query; // Получаем параметр 'query' из строки запроса
+  const page = req.query.page; // Получаем параметр 'page'
+  res.send(`Поиск по запросу: ${query}, Страница: ${page}`);
+});</code></pre>
+          </div>
+
+
+          <p><strong>Примеры URL:</strong></p>
+          <ul class="list-ul">
+            <li><code>/products?search=phone</code> → <code>req.query.search = 'phone'</code></li>
+            <li><code>/products?category=electronics&amp;sort=price</code> → <code>req.query = { category: 'electronics', sort: 'price' }</code></li>
+          </ul>
+
+          <h4>3. Тело запроса (req.body):</h4>
+          <p><strong>Тело запроса</strong> — это данные, передаваемые в POST, PUT, PATCH запросах. Нужно подключить middleware <code>express.json()</code>.</p>
+          <p>middleware - это функции, которые выполняются во время обработки запроса. Они могут изменять объект запроса и ответа, завершать цикл обработки запроса или передавать управление следующему middleware.</p>
+          <div class="code-block">
+            <pre><code>const express = require('express');
+const app = express();
+
+// Middleware для парсинга JSON
+app.use(express.json());
+
+// POST запрос с данными в теле
+app.post('/users', (req, res) => {
+  const { name, email, age } = req.body;
+  res.status(201).json({
+    message: 'Пользователь создан',
+    user: { name, email, age }
+  });
+});
+
+app.listen(3000);</code></pre>
+          </div>
+
+          <p><strong>Пример запроса:</strong></p>
+          <div class="code-block">
+            <pre><code>// Отправка данных через fetch
+fetch('http://localhost:3000/users', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    name: 'Иван',
+    email: 'ivan@mail.com',
+    age: 25
+  })
+});
+
+// На сервере req.body = { name: 'Иван', email: 'ivan@mail.com', age: 25 }</code></pre>
+          </div>
+
+          <h4>4. Комбинированный пример:</h4>
+          <div class="code-block">
+            <pre><code>app.put('/api/users/:id', (req, res) => {
+  const id = req.params.id;              // Из пути: /api/users/123
+  const { search, sort } = req.query;    // Из URL: ?search=john&sort=asc
+  const { name, email } = req.body;      // Из тела запроса
+
+  res.json({
+    id,
+    search,
+    sort,
+    name,
+    email,
+    message: 'Получены все типы параметров'
+  });
+});</code></pre>
+          </div>
+
+          <p class="note note--info">
+            <strong>Совет:</strong> Используйте <code>req.params</code> для идентификаторов ресурсов, <code>req.query</code> для фильтрации и сортировки, <code>req.body</code> для основных данных.
+          </p>
+        </div>
+      </section>
+
+
+      <!-- Пример запроса -->
+      <section class="section" id="example-request">
+        <div class="container">
+          <h2>Пример запроса</h2>
+          <p class="note">Параметры маршрута и запроса позволяют динамически изменять вывод данных в зависимости от того, что передаёт клиент в URL.
+
+          </p>
+          <div class="code-block">
+            <pre><code>app.get('/products/:category', (req, res) => {
+  const category = req.params.category; // Получаем параметр 'category' из URL
+  const page = req.query.page || 1; // Получаем параметр 'page' из строки запроса, если он есть
+  res.send(`Товары категории: ${category}, Страница: ${page}`);
+});</code></pre>
+          </div>
+
+          <p>Здесь <b>:category</b> — это параметр маршрута, а <b>page</b> — параметр запроса. В зависимости от того, что передано в <b>URL</b>, сервер будет отправлять ответ с информацией о товаре и странице. Мы можем извлечь с помощью <b>req.query</b></p>
+          <h4>🚀 Что будет происходить на сервере?</h4>
+          <p>Когда клиент запрашивает путь, например, <b>/products/electronics?page=2</b>, сервер получает <b>electronics</b> как значение параметра маршрута и <b>page=2</b> как параметр запроса.</p>
+
+          <p>Затем сервер отправляет ответ: Товары категории: electronics, Страница: 2</p>
+        </div>
+      </section>
+
+
+      <!-- Параметр по умолчанию -->
+      <section class="section" id="default-parameter">
+        <div class="container">
+          <h2>Параметр по умолчанию</h2>
+          <p class="note">Иногда параметры запроса могут быть необязательными. Например, если параметр не передан, мы можем задать значение по умолчанию.
+          </p>
+          <div class="code-block">
+            <pre><code>http://localhost:3000/products?category=electronics&page=3
+
+app.get('/products', (req, res) => {
+  const category = req.query.category || 'all'; // Если параметр не передан, по умолчанию будет 'all'
+  const page = req.query.page || 1; // Если параметр 'page' не передан, по умолчанию будет 1
+  res.send(`Категория: ${category}, Страница: ${page}`);
+});</code></pre>
+          </div>
+
+          <p>Здесь параметр <b>category</b> обязателен, а <b>page</b> — это необязательный параметр. Если его нет, мы можем задать значение по умолчанию, например, 1. </p>
+          <p>Если параметр не передан, по умолчанию будет all, а вот если параметр page не передан, по умолчанию будет 1
+
+
+            <h4>Ошибка при отсутствии обязательного параметра</h4>
+            <p class="note">Иногда бывает, что необходимые параметры запроса не переданы. В таких случаях мы можем отправить ошибку или сообщение, что параметр обязательный.
+
+
+            </p>
+            <div class="code-block">
+              <pre><code>app.get('/products', (req, res) => {
+  const category = req.query.category;
+  const page = req.query.page || 1;
+
+  if (!category) { // Проверяем, был ли передан параметр 'category'
+    return res.status(400).send('Параметр "category" обязателен! 🚨');
+  }
+
+  res.send(`Товары категории: ${category}, Страница: ${page}`);
+});</code></pre>
+            </div>
+            <p>Здесь, если параметр category не передан, сервер возвращает ошибку с статусом 400 и сообщением Параметр "category" обязателен! 🚨
+            </p>
+
+
+          </p>
+        </div>
+      </section>
+
+
+      <!-- Middleware -->
+      <section class="section" id="middleware">
+        <div class="container">
+          <h2>Middleware (промежуточное ПО)</h2>
+
+          <p class="note">
+            <strong>Middleware</strong> — функции, которые выполняются во время обработки запроса, перед или после основного обработчика маршрута. Они могут изменять объект запроса, ответа или завершать обработку.
+          </p>
+
+          <h4>Структура middleware:</h4>
+          <div class="code-block">
+            <pre><code>const middleware = (req, res, next) => {
+  // Код выполняется перед маршрутом
+  console.log(`Запрос: ${req.method} ${req.url}`);
+
+  // next() передает управление следующему middleware или маршруту
+  next();
+
+  // Этот код выполняется после маршрута (если нет res.send())
+};</code></pre>
+          </div>
+
+          <h4>Параметры middleware:</h4>
+          <ul class="list-ul">
+            <li><strong>req</strong> — объект запроса с информацией о клиенте, параметрами и данными.</li>
+            <li><strong>res</strong> — объект ответа для отправки данных клиенту.</li>
+            <li><strong>next</strong> — функция для передачи управления следующему middleware. Если не вызвать, запрос зависнет.</li>
+          </ul>
+
+          <h4>1. Глобальный middleware (применяется ко всем маршрутам):</h4>
+          <div class="code-block">
+            <pre><code>// Middleware для логирования ВСЕХ запросов
+app.use((req, res, next) => {
+  console.log(`⏰ ${new Date().toISOString()}`);
+  console.log(`📍 ${req.method} ${req.url}`);
+  next(); // Передаем управление дальше
+});
+
+// Встроенный middleware для парсинга JSON
+app.use(express.json());
+
+// Встроенный middleware для раздачи статических файлов
+app.use(express.static('public'));
+
+app.get('/test', (req, res) => {
+  res.send('Hello!');
+});</code></pre>
+          </div>
+
+          <h4>2. Middleware для конкретного маршрута:</h4>
+          <div class="code-block">
+            <pre><code>// Middleware для проверки аутентификации
+const checkAuth = (req, res, next) => {
+  const token = req.headers.authorization;
+  if (token) {
+    console.log('✅ Пользователь авторизован');
+    next();
+  } else {
+    res.status(401).json({ error: 'Требуется авторизация' });
+  }
+};
+
+// Использование middleware для конкретного маршрута
+app.get('/dashboard', checkAuth, (req, res) => {
+  res.send('Добро пожаловать на панель управления!');
+});</code></pre>
+          </div>
+
+          <h4>3. Цепочка middleware:</h4>
+          <div class="code-block">
+            <pre><code>// Middleware 1: логирование
+const logger = (req, res, next) => {
+  console.log('🔍 Логирование:', req.url);
+  next();
+};
+
+// Middleware 2: проверка токена
+const validateToken = (req, res, next) => {
+  console.log('🔐 Проверка токена');
+  next();
+};
+
+// Middleware 3: установка пользователя
+const setUser = (req, res, next) => {
+  req.user = { id: 1, name: 'Иван' };
+  console.log('👤 Пользователь установлен');
+  next();
+};
+
+// Применить цепочку к маршруту
+app.get('/profile', logger, validateToken, setUser, (req, res) => {
+  res.json({ user: req.user });
+});</code></pre>
+          </div>
+
+          <h4>4. Встроенные middleware Express:</h4>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Middleware</th>
+                <th>Функция</th>
+                <th>Пример</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>express.json()</code></td>
+                <td>Парсинг JSON в теле запроса</td>
+                <td><code>app.use(express.json())</code></td>
+              </tr>
+              <tr>
+                <td><code>express.static()</code></td>
+                <td>Раздача статических файлов</td>
+                <td><code>app.use(express.static('public'))</code></td>
+              </tr>
+              <tr>
+                <td><code>express.urlencoded()</code></td>
+                <td>Парсинг данных формы</td>
+                <td><code>app.use(express.urlencoded({ extended: true }))</code></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="note note--info">
+            <strong>Важно!</strong> Порядок подключения middleware критичен. Middleware выполняются в том порядке, в котором их подключить. Middleware должны быть подключены ДО маршрутов, которые их используют.
+          </p>
+        </div>
+      </section>
+
+      <!-- Методы ответа -->
+      <section class="section" id="response-methods">
+        <div class="container">
+          <h2>Методы ответа (res)</h2>
+
+          <p class="note">
+            <strong>Методы ответа</strong> — это функции объекта <code>res</code>, которые позволяют отправить данные клиенту в разных форматах и с разными статусами.
+          </p>
+
+          <h4>Основные методы res:</h4>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Метод</th>
+                <th>Описание</th>
+                <th>Пример</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>res.send()</code></td>
+                <td>Отправить текст или HTML</td>
+                <td><code>res.send('Hello')</code></td>
+              </tr>
+              <tr>
+                <td><code>res.json()</code></td>
+                <td>Отправить JSON</td>
+                <td><code>res.json({ id: 1 })</code></td>
+              </tr>
+              <tr>
+                <td><code>res.status()</code></td>
+                <td>Установить HTTP-статус</td>
+                <td><code>res.status(404)</code></td>
+              </tr>
+              <tr>
+                <td><code>res.redirect()</code></td>
+                <td>Перенаправить на другой URL</td>
+                <td><code>res.redirect('/home')</code></td>
+              </tr>
+              <tr>
+                <td><code>res.sendFile()</code></td>
+                <td>Отправить файл</td>
+                <td><code>res.sendFile('file.pdf')</code></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>1. res.send() — отправка текста/HTML:</h4>
+          <div class="code-block">
+            <pre><code>app.get('/text', (req, res) => {
+  res.send('Это текстовый ответ! 📄');
+});
+
+app.get('/html', (req, res) => {
+  res.send('&lt;h1&gt;Это HTML-ответ&lt;/h1&gt;&lt;p&gt;С разметкой!&lt;/p&gt;');
+});</code></pre>
+          </div>
+
+          <h4>2. res.json() — отправка JSON:</h4>
+          <div class="code-block">
+            <pre><code>app.get('/user', (req, res) => {
+  const user = {
+    id: 1,
+    name: 'Иван',
+    email: 'ivan@mail.com'
+  };
+  res.json(user); // Автоматически устанавливает Content-Type: application/json
+});</code></pre>
+          </div>
+
+          <h4>3. res.status() — установка статуса с ответом:</h4>
+          <div class="code-block">
+            <pre><code>// ✅ Успешный запрос
+app.get('/success', (req, res) => {
+  res.status(200).json({ message: 'Успешно!' });
+});
+
+// ✅ Ресурс создан
+app.post('/users', (req, res) => {
+  res.status(201).json({ message: 'Пользователь создан', id: 1 });
+});
+
+// ❌ Ошибка: ресурс не найден
+app.get('/notfound', (req, res) => {
+  res.status(404).json({ error: 'Не найдено' });
+});
+
+// ❌ Ошибка: сервер
+app.get('/error', (req, res) => {
+  res.status(500).json({ error: 'Внутренняя ошибка сервера' });
+});</code></pre>
+          </div>
+
+          <h4>4. res.redirect() — перенаправление:</h4>
+          <div class="code-block">
+            <pre><code>// Перенаправить на другую страницу
+app.get('/old-page', (req, res) => {
+  res.redirect('/new-page');
+});
+
+app.get('/new-page', (req, res) => {
+  res.send('Вы на новой странице!');
+});</code></pre>
+          </div>
+
+          <h4>5. Цепирование методов:</h4>
+          <div class="code-block">
+            <pre><code>// Методы можно цеплять
+app.post('/create', (req, res) => {
+  res.status(201).json({ message: 'Создано успешно' });
+});
+
+// Эквивалентно:
+app.post('/create', (req, res) => {
+  res.status(201);
+  res.json({ message: 'Создано успешно' });
+});</code></pre>
+          </div>
+
+          <h4>Таблица HTTP статусов:</h4>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Код</th>
+                <th>Название</th>
+                <th>Значение</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>200</strong></td>
+                <td>OK</td>
+                <td>Успешный запрос</td>
+              </tr>
+              <tr>
+                <td><strong>201</strong></td>
+                <td>Created</td>
+                <td>Ресурс создан</td>
+              </tr>
+              <tr>
+                <td><strong>204</strong></td>
+                <td>No Content</td>
+                <td>Успешно, но нет содержимого</td>
+              </tr>
+              <tr>
+                <td><strong>400</strong></td>
+                <td>Bad Request</td>
+                <td>Неверный запрос</td>
+              </tr>
+              <tr>
+                <td><strong>401</strong></td>
+                <td>Unauthorized</td>
+                <td>Требуется авторизация</td>
+              </tr>
+              <tr>
+                <td><strong>403</strong></td>
+                <td>Forbidden</td>
+                <td>Доступ запрещен</td>
+              </tr>
+              <tr>
+                <td><strong>404</strong></td>
+                <td>Not Found</td>
+                <td>Ресурс не найден</td>
+              </tr>
+              <tr>
+                <td><strong>500</strong></td>
+                <td>Server Error</td>
+                <td>Ошибка на сервере</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Продвинутая маршрутизация -->
+      <section class="section" id="advanced-routing">
+        <div class="container">
+          <h2>Продвинутая маршрутизация</h2>
+
+          <p class="note">
+            <strong>Продвинутая маршрутизация</strong> включает использование паттернов, регулярных выраж��ний, группировки маршрутов и создание модульных роутеров для структурированного кода.
+          </p>
+
+          <h4>1. Маршруты с регулярными выражениями:</h4>
+          <p><strong>Regex маршруты</strong> позволяют более гибко определять пути, используя регулярные выражения.</p>
+
+          <div class="code-block">
+            <pre><code>// Маршрут, совпадающий с /users/123, но не с /users/abc
+app.get(/^\/users\/\d+$/, (req, res) => {
+  res.send('Это числовой ID пользователя');
+});
+
+// Маршрут, совпадающий с /files/ и расширениями .pdf, .doc
+app.get(/\/files\/(.*\.(pdf|doc))$/, (req, res) => {
+  const file = req.params[0];
+  res.send(`Запрошен файл: ${file}`);
+});</code></pre>
+          </div>
+
+          <h4>2. Параметры маршрута с ограничениями:</h4>
+          <div class="code-block">
+            <pre><code>// Параметр только для цифр
+app.get('/posts/:id(\\d+)', (req, res) => {
+  res.json({ postId: req.params.id });
+});
+
+// Это совпадет: /posts/123
+// Это НЕ совпадет: /posts/abc</code></pre>
+          </div>
+
+          <h4>3. Группировка маршрутов (Router):</h4>
+          <p><strong>Router</strong> — это мини-приложение для группировки связанных маршрутов. Позволяет организовать код в отдельные модули.</p>
+
+          <div class="code-block">
+            <pre><code>// users.js — модуль с маршрутами пользователей
+const express = require('express');
+const router = express.Router();
+
+// Все маршруты в этом файле начинаются с /users
+router.get('/', (req, res) => {
+  res.json({ message: 'Список пользователей' });
+});
+
+router.get('/:id', (req, res) => {
+  res.json({ message: `Пользователь ${req.params.id}` });
+});
+
+router.post('/', (req, res) => {
+  res.status(201).json({ message: 'Пользователь создан' });
+});
+
+module.exports = router;</code></pre>
+          </div>
+
+          <div class="code-block">
+            <pre><code>// app.js — главное приложение
+const express = require('express');
+const usersRouter = require('./routes/users');
+const postsRouter = require('./routes/posts');
+
+const app = express();
+
+// Подключить маршруты
+app.use('/api/users', usersRouter);    // /api/users, /api/users/:id
+app.use('/api/posts', postsRouter);    // /api/posts, /api/posts/:id
+
+app.listen(3000);</code></pre>
+          </div>
+
+          <h4>4. Обработка 404 (маршруты не найдены):</h4>
+          <p><strong>Обработчик 404</strong> должен быть подключен ДО других маршрутов, чтобы ловить несоответствующие URL.</p>
+
+          <div class="code-block">
+            <pre><code>// Все маршруты приложения выше...
+
+// Обработчик 404 — ловит все оставшиеся маршруты
+app.use((req, res) => {
+  res.status(404).json({
+    error: 'Страница не найдена',
+    url: req.url,
+    method: req.method
+  });
+});</code></pre>
+          </div>
+
+          <h4>5. Обработка ошибок (error middleware):</h4>
+          <p><strong>Error middleware</strong> имеет 4 параметра и ловит ошибки из других middleware.</p>
+
+          <div class="code-block">
+            <pre><code>// Обработчик ошибок — ВСЕГДА 4 параметра
+app.use((err, req, res, next) => {
+  console.error('Ошибка:', err.message);
+  res.status(err.status || 500).json({
+    error: err.message || 'Внутренняя ошибка сервера',
+    status: err.status || 500
+  });
+});
+
+// Передача ошибки в error middleware
+app.get('/danger', (req, res, next) => {
+  const error = new Error('Что-то пошло не так!');
+  error.status = 400;
+  next(error); // Передаем ошибку в error middleware
+});</code></pre>
+          </div>
+
+          <p class="note note--info">
+            <strong>Порядок подключения Router:</strong> Router должны быть подключены до обработчиков 404 и error, но после основных middleware.
+          </p>
+        </div>
+      </section>
+
+      <!-- Типичные ошибки -->
+      <section class="section" id="common-errors">
+        <div class="container">
+          <h2>Типичные ошибки</h2>
+
+          <p class="note">
+            <strong>Типичные ошибки при работе с маршрутами и запросами</strong> — это распространённые проблемы, которые замораживают запрос, теряют данные или вызывают неопределённое поведение.
+          </p>
+
+          <h4>❌ Ошибка 1: забывчивый next():</h4>
+          <div class="code-block">
+            <pre><code>// ❌ НЕПРАВИЛЬНО — запрос зависнет
+app.use((req, res, next) => {
+  console.log('Логирование');
+  // Забыли вызвать next() — запрос никогда не дойдет до маршрута
+});
+
+app.get('/', (req, res) => {
+  res.send('Hello'); // Это никогда не выполнится
+});
+
+// ✅ ПРАВИЛЬНО
+app.use((req, res, next) => {
+  console.log('Логирование');
+  next(); // Передаем управление дальше
+});</code></pre>
+          </div>
+
+          <h4>❌ Ошибка 2: отправка ответа дважды:</h4>
+          <div class="code-block">
+            <pre><code>// ❌ НЕПРАВИЛЬНО — "Cannot set headers after they are sent"
+app.get('/', (req, res) => {
+  res.json({ message: 'Первый ответ' });
+  res.json({ message: 'Второй ответ' }); // Ошибка!
+});
+
+// ✅ ПРАВИЛЬНО
+app.get('/', (req, res) => {
+  const response = { message: 'Один ответ' };
+  res.json(response); // Отправить один раз
+});</code></pre>
+          </div>
+
+          <h4>❌ Ошибка 3: порядок middleware имеет значение:</h4>
+          <div class="code-block">
+            <pre><code>// ❌ НЕПРАВИЛЬНО — маршруты не найдут middleware
+app.get('/', (req, res) => {
+  res.json(req.body); // req.body еще не парсена!
+});
+
+app.use(express.json()); // Middleware подключен ТО ЖЕ
+
+// ✅ ПРАВИЛЬНО
+app.use(express.json()); // Middleware ПЕРВЫМ
+
+app.get('/', (req, res) => {
+  res.json(req.body); // Теперь req.body доступна
+});</code></pre>
+          </div>
+
+          <h4>❌ Ошибка 4: неправильный порядок маршрутов:</h4>
+          <div class="code-block">
+            <pre><code>// ❌ НЕПРАВИЛЬНО — специфичный маршрут не выполнится
+app.get('/:id', (req, res) => {
+  res.send('Это обработчик :id');
+});
+
+app.get('/profile', (req, res) => {
+  res.send('Это профиль'); // Никогда не выполнится (совпал с /:id)
+});
+
+// ✅ ПРАВИЛЬНО — специфичные маршруты ПЕРЕД общими
+app.get('/profile', (req, res) => {
+  res.send('Это профиль');
+});
+
+app.get('/:id', (req, res) => {
+  res.send('Это обработчик :id');
+});</code></pre>
+          </div>
+
+          <h4>❌ Ошибка 5: забывчивый req.body парсинг:</h4>
+          <div class="code-block">
+            <pre><code>// ❌ НЕПРАВИЛЬНО — req.body будет undefined
+app.post('/user', (req, res) => {
+  console.log(req.body); // undefined!
+  res.json(req.body);
+});
+
+// ✅ ПРАВИЛЬНО
+app.use(express.json()); // Подключить middleware для парсинга JSON
+
+app.post('/user', (req, res) => {
+  console.log(req.body); // Теперь есть данные
+  res.json(req.body);
+});</code></pre>
+          </div>
+
+          <div class="warning">
+            <h4>⚠️ Важные моменты:</h4>
+            <ul class="list-ul">
+              <li>Всегда вызывайте <code>next()</code> в middleware, если нужно передать управление дальше.</li>
+              <li>Не отправляйте ответ дважды — используйте <code>if/else</code> для разных случаев.</li>
+              <li>Подключайте middleware ДО маршрутов, которые их используют.</li>
+              <li>Специфичные маршруты пишите ДО общих параметрических маршрутов.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Лучшие практики -->
+      <section class="section" id="best-practices">
+        <div class="container">
+          <h2>Лучшие практики</h2>
+
+          <p class="note">
+            <strong>Лучшие практики</strong> — это проверенные подходы, которые делают код чище, безопаснее и легче для поддержки.
+          </p>
+
+          <div class="note-block info">
+            <h4>✅ 1. Организуйте маршруты в отдельные файлы:</h4>
+            <div class="code-block">
+              <pre><code>// routes/users.js
+const express = require('express');
+const router = express.Router();
+
+router.get('/', (req, res) => {
+  res.json({ users: [] });
+});
+
+module.exports = router;
+
+// app.js
+app.use('/api/users', require('./routes/users'));</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>✅ 2. Используйте middleware для валидации:</h4>
+            <div class="code-block">
+              <pre><code>// Middleware для проверки данных
+const validateUser = (req, res, next) => {
+  const { name, email } = req.body;
+  if (!name || !email) {
+    return res.status(400).json({ error: 'Name и email обязательны' });
+  }
+  next();
+};
+
+app.post('/users', validateUser, (req, res) => {
+  res.status(201).json({ user: req.body });
+});</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>✅ 3. Обрабатывайте ошибки корректно:</h4>
+            <div class="code-block">
+              <pre><code>// Используйте try-catch для асинхронного кода
+app.get('/data', async (req, res, next) => {
+  try {
+    const data = await fetchData();
+    res.json(data);
+  } catch (err) {
+    next(err); // Передаем ошибку в error middleware
+  }
+});</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>✅ 4. Используйте правильные HTTP статусы:</h4>
+            <div class="code-block">
+              <pre><code>// GET — успех
+app.get('/users', (req, res) => {
+  res.status(200).json(users); // 200 OK
+});
+
+// POST — создано
+app.post('/users', (req, res) => {
+  res.status(201).json(newUser); // 201 Created
+});
+
+// DELETE — успех без содержимого
+app.delete('/users/:id', (req, res) => {
+  res.status(204).send(); // 204 No Content
+});
+
+// Ошибка клиента
+app.get('/notfound', (req, res) => {
+  res.status(404).json({ error: 'Not found' });
+});
+
+// Ошибка сервера
+app.get('/error', (req, res) => {
+  res.status(500).json({ error: 'Server error' });
+});</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>✅ 5. Логируйте запросы:</h4>
+            <div class="code-block">
+              <pre><code>// Middleware для логирования
+app.use((req, res, next) => {
+  const start = Date.now();
+
+  res.on('finish', () => {
+    const duration = Date.now() - start;
+    console.log(`${req.method} ${req.url} ${res.statusCode} (${duration}ms)`);
+  });
+
+  next();
+});</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>✅ 6. Группируйте связанные маршруты:</h4>
+            <div class="code-block">
+              <pre><code>// ❌ Плохо — все маршруты в одном файле
+app.get('/users', ...);
+app.post('/users', ...);
+app.get('/posts', ...);
+app.post('/posts', ...);
+
+// ✅ Хорошо — отдельные роутеры
+app.use('/api/users', userRouter);
+app.use('/api/posts', postRouter);
+app.use('/api/comments', commentRouter);</code></pre>
+            </div>
+          </div>
+
+          <div class="note-block info">
+            <h4>✅ 7. Используйте константы для путей:</h4>
+            <div class="code-block">
+              <pre><code>// constants/routes.js
+const ROUTES = {
+  USERS: '/api/users',
+  POSTS: '/api/posts',
+  HOME: '/'
+};
+
+// app.js
+app.get(ROUTES.HOME, (req, res) => {
+  res.send('Home');
+});
+
+app.use(ROUTES.USERS, userRouter);</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Интерактивные примеры -->
+      <section class="section" id="interactive">
+        <div class="container">
+          <h2>Интерактивные примеры</h2>
+
+          <p class="note">
+            <strong>Интерактивные примеры</strong> помогут вам лучше понять, как работают разные сценарии маршрутов и запросов.
+          </p>
+
+          <h4>Пример 1: Параметры маршрута</h4>
+          <p>Нажмите на кнопки ниже, чтобы увидеть, как разные параметры URL преобразуются в req.params:</p>
+
+          <button class="practice-btn" data-code="paramsExample1">URL: /users/42</button>
+          <button class="practice-btn" data-code="paramsExample2">URL: /users/99/posts/15</button>
+
+          <div class="code-block">
+            <pre><code id="output-params" aria-live="polite">// Результат появится здесь</code></pre>
+          </div>
+
+          <h4>Пример 2: Query параметры</h4>
+          <p>Нажмите кнопку, чтобы увидеть разбор query-параметров:</p>
+
+          <button class="practice-btn" data-code="queryExample">?search=nodejs&sort=date&limit=10</button>
+
+          <div class="code-block">
+            <pre><code id="output-query" aria-live="polite">// Результат появится здесь</code></pre>
+          </div>
+
+          <h4>Пример 3: HTTP методы</h4>
+          <p>Выберите метод и смотрите, какие данные он обрабатывает:</p>
+
+          <button class="practice-btn" data-code="methodGET">GET /products</button>
+          <button class="practice-btn" data-code="methodPOST">POST /products</button>
+          <button class="practice-btn" data-code="methodPUT">PUT /products/1</button>
+          <button class="practice-btn" data-code="methodDELETE">DELETE /products/1</button>
+
+          <div class="code-block">
+            <pre><code id="output-method" aria-live="polite">// Результат появится здесь</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Итоги -->
+      <section class="section" id="summary">
+        <div class="container">
+          <h2>Итоги</h2>
+
+          <div class="note-block info">
+            <ul class="list-ul">
+              <li><strong>Маршруты</strong> связывают URL с обработчиками через метод, путь и функцию.</li>
+              <li><strong>HTTP методы</strong>: GET (читать), POST (создать), PUT (обновить), PATCH (частичное обновление), DELETE (удалить).</li>
+              <li><strong>req.params</strong> — параметры из пути URL, <strong>req.query</strong> — query-параметры, <strong>req.body</strong> — данные из тела.</li>
+              <li><strong>Middleware</strong> — функции, выполняющиеся перед маршрутом. Важен порядок и вызов <code>next()</code>.</li>
+              <li><strong>res методы</strong>: <code>res.send()</code>, <code>res.json()</code>, <code>res.status()</code>, <code>res.redirect()</code>.</li>
+              <li><strong>Router</strong> позволяет группировать связанные маршруты в отдельные модули.</li>
+              <li><strong>Порядок имеет значение</strong> — middleware перед маршрутами, специфичные маршруты перед общими параметрическими.</li>
+              <li><strong>Обработка ошибок</strong> — используйте error middleware с 4 параметрами и правильные HTTP статусы.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    @@include('../partials/footer.html', {})
+  </div>
+
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+
+  <script>
+    // Интерактивные примеры
+    const examples = {
+      paramsExample1: () => {
+        return JSON.stringify({
+          url: '/users/42',
+          'req.params': {
+            id: '42'
+          }
+        }, null, 2);
+      },
+      paramsExample2: () => {
+        return JSON.stringify({
+          url: '/users/99/posts/15',
+          'req.params': {
+            userId: '99',
+            postId: '15'
+          }
+        }, null, 2);
+      },
+      queryExample: () => {
+        return JSON.stringify({
+          url: '/search?search=nodejs&sort=date&limit=10',
+          'req.query': {
+            search: 'nodejs',
+            sort: 'date',
+            limit: '10'
+          }
+        }, null, 2);
+      },
+      methodGET: () => {
+        return JSON.stringify({
+          method: 'GET',
+          url: '/products',
+          purpose: 'Получить данные',
+          'req.body': 'пусто',
+          'res.status': 200,
+          example: 'Получить список товаров'
+        }, null, 2);
+      },
+      methodPOST: () => {
+        return JSON.stringify({
+          method: 'POST',
+          url: '/products',
+          purpose: 'Создать новые данные',
+          'req.body': {
+            name: 'Товар',
+            price: 100
+          },
+          'res.status': 201,
+          example: 'Создать новый товар'
+        }, null, 2);
+      },
+      methodPUT: () => {
+        return JSON.stringify({
+          method: 'PUT',
+          url: '/products/1',
+          purpose: 'Обновить весь объект',
+          'req.params.id': '1',
+          'req.body': {
+            name: 'Обновленный товар',
+            price: 150
+          },
+          'res.status': 200,
+          example: 'Обновить товар полностью'
+        }, null, 2);
+      },
+      methodDELETE: () => {
+        return JSON.stringify({
+          method: 'DELETE',
+          url: '/products/1',
+          purpose: 'Удалить данные',
+          'req.params.id': '1',
+          'res.status': 204,
+          example: 'Удалить товар'
+        }, null, 2);
+      }
+    };
+
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-code]');
+      if (!btn) return;
+
+      const code = btn.getAttribute('data-code');
+      const fn = examples[code];
+      if (!fn) return;
+
+      try {
+        let outputId = 'output-result';
+
+        // Определить нужный output элемент
+        if (code.includes('params')) {
+          outputId = 'output-params';
+        } else if (code.includes('query')) {
+          outputId = 'output-query';
+        } else if (code.includes('method')) {
+          outputId = 'output-method';
+        }
+
+        const output = document.getElementById(outputId);
+        if (output) {
+          output.textContent = fn();
+        }
+      } catch (err) {
+        console.error('Ошибка:', err);
+      }
+    });
+  </script>
+</body>
+
+</html>

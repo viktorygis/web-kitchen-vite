@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "PATCH и DELETE запросы в Express.js", "description": "Изучите PATCH для частичного обновления и DELETE для удаления ресурсов, обработку данных в Express и примеры REST API" })
+
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+
+    <main class="page" id="main" tabindex="-1">
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#intro" class="active" aria-current="page">Введение</a>
+        <a href="#patch-basics">PATCH запросы</a>
+        <a href="#delete-basics">DELETE запросы</a>
+        <a href="#patch-vs-put">PATCH vs PUT</a>
+        <a href="#patch-delete-examples">Примеры использования</a>
+        <a href="#validation">Валидация данных</a>
+        <a href="#error-handling">Обработка ошибок</a>
+        <a href="#practical-examples">Практические примеры</a>
+        <a href="#security">Безопасность</a>
+        <a href="#summary">Итоги</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="intro">
+        <div class="container">
+          <h1>PATCH и DELETE запросы в Express.js</h1>
+
+          <p class="note">
+            <strong>PATCH и DELETE запросы</strong> — это методы для частичного изменения и удаления данных на сервере. <strong>PATCH</strong> используется для частичного обновления ресурсов (обновляются только переданные поля), <strong>DELETE</strong> — для полного удаления ресурсов.<br>
+            В отличие от PUT, который заменяет весь ресурс, PATCH позволяет обновлять только определенные свойства, сохраняя остальные без изменений.
+          </p>
+
+          <p>
+            В этом разделе вы научитесь:
+          </p>
+
+          <ul class="list-ul">
+            <li>Использовать PATCH запросы для частичного обновления данных.</li>
+            <li>Создавать обработчики DELETE для удаления ресурсов.</li>
+            <li>Различать PATCH и PUT для правильного использования.</li>
+            <li>Обрабатывать ошибки при частичном обновлении и удалении.</li>
+            <li>Реализовать полный REST API с поддержкой всех методов.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- PATCH запросы -->
+      <section class="section" id="patch-basics">
+        <div class="container">
+          <h2>PATCH запросы</h2>
+
+          <p class="note">
+            <strong>PATCH запрос</strong> — это HTTP метод для частичного обновления существующего ресурса. В отличие от PUT, который требует передачи всех данных, PATCH позволяет обновлять только те поля, которые были изменены. Остальные поля сохраняют свои текущие значения.
+          </p>
+
+          <h4>Характеристики PATCH:</h4>
+          <ul class="list-ul">
+            <li><strong>Частичное обновление</strong> — обновляет только переданные поля, остальные остаются без изменений.</li>
+            <li><strong>Данные в теле</strong> — информация передается в теле (body) запроса.</li>
+            <li><strong>Требует ID</strong> — ID ресурса передается в URL пути (/resource/:id).</li>
+            <li><strong>Статус ответа</strong> — обычно возвращает 200 (OK).</li>
+            <li><strong>Идемпотентность зависит от реализации</strong> — часто может быть идемпотентным, но не всегда.</li>
+          </ul>
+
+          <h4>Пример PATCH запроса:</h4>
+          <p>Здесь, если передан только параметр price, то только цена будет обновлена, а имя останется прежним.</p>
+          <div class="code-block">
+            <pre><code>app.patch('/update-product/:id', (req, res) =&gt; {
+  const productId = req.params.id; // Получаем ID продукта из URL
+  const updatedData = req.body; // Получаем обновленные данные из тела запроса
+
+  // Это данные, которые были переданы в PATCH-запросе
+  const product = {
+    name: 'Телевизор',  // Имя остаётся без изменений
+    price: updatedData.price || 5000, // Цена будет обновлена, если она передана
+  };
+
+  res.send(`Продукт с ID ${productId} был обновлён! Новые данные: ${JSON.stringify(product)}`);
+});</code></pre>
+          </div>
+
+          <h5>Что происходит на сервере?</h5>
+
+          <ol class="list-ol">
+            <li>Сервер получает ID продукта из URL, например, /update-product/1</li>
+            <li>Затем он получает обновленные данные из тела запроса. Например, запрос может выглядеть так:</li>
+
+            <code> {
+              "price": 4500
+              }
+            </code>
+
+            <li>Сервер обновляет цену продукта на 4500, оставляя остальные данные без изменений.</li>
+          </ol>
+
+
+
+          <h4>Базовый пример PATCH запроса:</h4>
+          <div class="code-block">
+            <pre><code>// Хранилище пользователей
+let users = [
+  { id: 1, name: 'Иван', email: 'ivan@mail.com', age: 25, phone: '+7-999-123-45-67' },
+  { id: 2, name: 'Мария', email: 'maria@mail.com', age: 30, phone: '+7-999-987-65-43' }
+];
+
+// PATCH обработчик — частичное обновление пользователя
+app.patch('/users/:id', (req, res) =&gt; {
+  const userId = parseInt(req.params.id);
+  const { name, email, age, phone } = req.body;
+
+  // Найти пользователя по ID
+  const user = users.find(u =&gt; u.id === userId);
+
+  if (!user) {
+    return res.status(404).json({
+      error: 'Пользователь не найден'
+    });
+  }
+
+  // Обновляем только переданные поля
+  if (name !== undefined) user.name = name;
+  if (email !== undefined) user.email = email;
+  if (age !== undefined) user.age = age;
+  if (phone !== undefined) user.phone = phone;
+
+  user.updatedAt = new Date();
+
+  res.json({
+    message: 'Пользователь частично обновлен',
+    user
+  });
+});
+
+app.listen(3000);</code></pre>
+          </div>
+
+          <h4>Как отправить PATCH запрос:</h4>
+
+          <h5>Через fetch:</h5>
+          <div class="code-block">
+            <pre><code>fetch('http://localhost:3000/users/1', {
+  method: 'PATCH',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    age: 26
+    // Обновляем только возраст, остальные поля остаются без изменений
+  })
+})
+.then(res =&gt; res.json())
+.then(data =&gt; console.log(data));</code></pre>
+          </div>
+
+          <h5>Через curl:</h5>
+          <div class="code-block">
+            <pre><code>curl -X PATCH http://localhost:3000/users/1 \
+  -H "Content-Type: application/json" \
+  -d '{"age":26}'</code></pre>
+          </div>
+
+          <h4>Ответ на успешный PATCH запрос:</h4>
+          <div class="code-block">
+            <pre><code>{
+  "message": "Пользователь частично обновлен",
+  "user": {
+    "id": 1,
+    "name": "Иван",
+    "email": "ivan@mail.com",
+    "age": 26,
+    "phone": "+7-999-123-45-67",
+    "updatedAt": "2024-07-14T11:45:00.000Z"
+  }
+}</code></pre>
+          </div>
+
+          <p class="note note--info">
+            <strong>Преимущество PATCH:</strong> Если обновляем только одно поле (например, только возраст), отправляем только это поле. Это экономит трафик и делает запрос более эффективным.
+          </p>
+        </div>
+      </section>
+
+      <!-- DELETE запросы -->
+      <section class="section" id="delete-basics">
+        <div class="container">
+          <h2>DELETE запросы</h2>
+
+          <p class="note">
+            <strong>DELETE запрос</strong> — это HTTP метод для удаления существующего ресурса на сервере. Это необратимая операция, поэтому перед удалением рекомендуется подтвердить действие и проверить права доступа.
+          </p>
+
+          <h4>Характеристики DELETE:</h4>
+          <ul class="list-ul">
+            <li><strong>Полное удаление</strong> — удаляет весь ресурс из системы.</li>
+            <li><strong>Идентификатор в URL</strong> — ID ресурса передается в URL пути (/resource/:id).</li>
+            <li><strong>Обычно без тела</strong> — DELETE запросы часто не содержат тело, только заголовки.</li>
+            <li><strong>Идемпотентный</strong> — несколько одинаковых DELETE запросов приводят к одному результату (ошибка 404).</li>
+            <li><strong>Статус ответа</strong> — обычно возвращает 204 (No Content) или 200 (OK).</li>
+          </ul>
+
+          <h4>Базовый пример DELETE запроса:</h4>
+          <p>Предположим, у нас есть сервер, который управляет данными о товарах. Каждый товар имеет уникальный ID, и нам нужно удалить товар с конкретным ID. Для этого мы отправляем запрос:
+            <code>DELETE /delete-product/123</code>
+            Здесь 123 — это ID товара, который мы хотим удалить.</p>
+          <div class="code-block">
+            <pre><code>// Подключаем express и создаём приложение
+const express = require('express');
+const app = express();
+
+// Данные для примера, список продуктов с ID
+let products = [
+  { id: 1, name: 'Телефон', price: 500 },
+  { id: 2, name: 'Ноутбук', price: 1000 },
+  { id: 3, name: 'Камера', price: 300 },
+];
+
+// Обработка DELETE-запроса для удаления товара по ID
+app.delete('/delete-product/:id', (req, res)= &gt; {
+  const productId = req.params.id; // Извлекаем ID из параметра URL
+  const productIndex = products.findIndex(product= &gt; product.id == productId); // Находим индекс товара в массиве
+
+  // Проверяем, существует ли товар с таким ID
+  if (productIndex === -1) {
+    // Если товар не найден, отправляем ошибку 404
+    return res.status(404).send('Товар с таким ID не найден!');
+  }
+
+  // Если товар найден, удаляем его из массива
+  products.splice(productIndex, 1);
+
+  // Отправляем сообщение об успешном удалении
+  res.send(`Продукт с ID ${productId} был удалён!`);
+});
+
+// Запуск сервера на порту 3000
+app.listen(3000, ()= &gt; {
+  console.log('Сервер запущен на порту 3000');
+});</code></pre>
+          </div>
+          <h5>Что происходит на <b>сервере</b></h5>
+          <ol class="list-ol">
+            <li>Когда клиент отправляет <b>DELETE-запрос</b> с <b>ID</b> товара, сервер принимает запрос и извлекает ID через <code>req.params.id</code></li>
+
+            <li>Сервер ищет товар с этим <b>ID</b> в <b>базе данных</b> (в нашем случае — в массиве products).</li>
+
+            <li> Если товар найден, он удаляется с помощью метода <b>splice()</b></li>
+
+            <li>Сервер отправляет клиенту ответ с сообщением, что товар был удалён. Если товар с таким ID не найден, сервер вернёт ошибку <b>404</b>.</li>
+          </ol>
+          <h5>Что происходит на другом конце <b>(на клиенте)</b></h5>
+
+          <ol class="list-ol">
+            <li>Что происходит на <b>клиенте</b></li>
+
+            <li>Клиент отправляет запрос DELETE с ID товара, например, /delete-product/123</li>
+            <li>Если товар с таким ID найден, клиент получит сообщение: "Продукт с ID 123 был удалён!"</li>
+
+            <li>Если товар не найден, клиент получит ошибку 404 с сообщением "Товар с таким ID не найден!"</li>
+          </ol>
+
+
+
+          <h4>Базовый пример DELETE запроса:</h4>
+          <div class="code-block">
+            <pre><code>// Хранилище пользователей
+let users = [
+  { id: 1, name: 'Иван', email: 'ivan@mail.com' },
+  { id: 2, name: 'Мария', email: 'maria@mail.com' },
+  { id: 3, name: 'Петр', email: 'petr@mail.com' }
+];
+
+// DELETE обработчик — удаление пользователя
+app.delete('/users/:id', (req, res) = &gt; {
+  const userId = parseInt(req.params.id);
+
+  // Найти индекс пользователя
+  const userIndex = users.findIndex(u = &gt; u.id === userId);
+
+  if (userIndex === -1) {
+    return res.status(404).json({
+      error: 'Пользователь не найден'
+    });
+  }
+
+  // Удаляем пользователя из массива
+  const deletedUser = users.splice(userIndex, 1)[0];
+
+  res.status(204).send(); // 204 No Content
+  // или если нужно вернуть данные удаленного пользователя:
+  // res.json({
+  //   message: 'Пользователь удален',
+  //   user: deletedUser
+  // });
+});
+
+app.listen(3000);</code></pre>
+          </div>
+
+          <h4>Как отправить DELETE запрос:</h4>
+
+          <h5>Через fetch:</h5>
+          <div class="code-block">
+            <pre><code>fetch('http://localhost:3000/users/1', {
+  method: 'DELETE',
+  headers: {
+    'Content-Type': 'application/json'
+  }
+})
+.then(res = &gt; {
+  if (res.status === 204) {
+    console.log('Пользователь удален');
+  } else {
+    return res.json();
+  }
+})
+.then(data = &gt; {
+  if (data) console.log(data);
+});</code></pre>
+          </div>
+
+          <h5>Через curl:</h5>
+          <div class="code-block">
+            <pre><code>curl -X DELETE http://localhost:3000/users/1</code></pre>
+          </div>
+
+          <h4>Ответ на успешный DELETE запрос:</h4>
+          <div class="code-block">
+            <pre><code>// Статус 204 (No Content) — нет содержимого ответа
+// или
+
+{
+  "message": "Пользователь удален",
+  "user": {
+    "id": 1,
+    "name": "Иван",
+    "email": "ivan@mail.com"
+  }
+}</code></pre>
+          </div>
+
+          <p class="note note--info">
+            <strong>Статус 204 (No Content)</strong> — правильный ответ на успешное удаление. Это сообщает клиенту, что операция завершена успешно и нет данных для отправки. Статус 200 с JSON также допустим, если нужно вернуть информацию об удаленном ресурсе.
+          </p>
+        </div>
+      </section>
+
+      <!-- PATCH vs PUT -->
+      <section class="section" id="patch-vs-put">
+        <div class="container">
+          <h2>PATCH vs PUT: Различия</h2>
+
+          <p class="note">
+            <strong>PATCH и PUT</strong> — это разные методы обновления. PUT заменяет весь ресурс, PATCH обновляет только переданные поля. Таблица ниже показывает ключевые различия.
+          </p>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Аспект</th>
+                <th>PUT</th>
+                <th>PATCH</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Назначение</strong></td>
+                <td>Полное обновление ресурса</td>
+                <td>Частичное обновление ресурса</td>
+              </tr>
+              <tr>
+                <td><strong>Обновление полей</strong></td>
+                <td>Все поля заменяются на новые</td>
+                <td>Только переданные поля обновляются</td>
+              </tr>
+              <tr>
+                <td><strong>Обязательность данных</strong></td>
+                <td>Требуются все поля объекта</td>
+                <td>Требуются только изменяемые поля</td>
+              </tr>
+              <tr>
+                <td><strong>Идемпотентность</strong></td>
+                <td>Идемпотентный (результат не меняется)</td>
+                <td>Может быть неидемпотентным</td>
+              </tr>
+              <tr>
+                <td><strong>Пример URL</strong></td>
+                <td>PUT /users/1</td>
+                <td>PATCH /users/1</td>
+              </tr>
+              <tr>
+                <td><strong>Тело запроса</strong></td>
+                <td>{ name, email, age, phone }</td>
+                <td>{ age } (только изменяемые поля)</td>
+              </tr>
+              <tr>
+                <td><strong>Статус ответа</strong></td>
+                <td>200 (OK) или 204 (No Content)</td>
+                <td>200 (OK)</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>Сравнение примеров:</h4>
+
+          <h5>Пример: обновление только возраста пользователя</h5>
+          <div class="code-block">
+            <pre><code>// ❌ PUT требует все поля
+fetch('http://localhost:3000/users/1', {
+  method: 'PUT',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    name: 'Иван',      // Обязательно передать ВСЕ поля
+    email: 'ivan@mail.com',
+    age: 26,
+    phone: '+7-999-123-45-67'
+  })
+});
+
+// ✅ PATCH требуе�� только изменяемые поля
+fetch('http://localhost:3000/users/1', {
+  method: 'PATCH',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    age: 26  // Передаем только поле, которое меняем
+  })
+});</code></pre>
+          </div>
+
+          <h4>Когда использовать PATCH:</h4>
+          <ul class="list-ul">
+            <li>Обновление одного или нескольких полей ресурса.</li>
+            <li>Частичное изменение профиля пользователя (только имя или только email).</li>
+            <li>Изменение состояния ресурса (статус заказа, отметка о прочтении).</li>
+            <li>Экономия трафика — отправляем только нужные данные.</li>
+          </ul>
+
+          <h4>Когда использовать PUT:</h4>
+          <ul class="list-ul">
+            <li>Полная замена всего ресурса.</li>
+            <li>Обновление всех свойств объекта одновременно.</li>
+            <li>Когда требуется гарантия, что неуказанные поля удаляются или становятся нулевыми.</li>
+          </ul>
+
+          <div class="warning">
+            <h4>⚠️ Типичные ошибки:</h4>
+            <ul class="list-ul">
+              <li>Использование PUT, когда нужен PATCH — отправляем все поля, даже если меняем только одно.</li>
+              <li>Использование PATCH, когда нужен PUT — неправильная семантика операции.</li>
+              <li>Забывание обновить поле updatedAt при PATCH запросе.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Примеры использования PATCH и DELETE -->
+      <section class="section" id="patch-delete-examples">
+        <div class="container">
+          <h2>Примеры использования PATCH и DELETE</h2>
+
+          <p class="note">
+            <strong>Практические примеры</strong> демонстрируют реальные сценарии использования PATCH для обновления отдельных полей и DELETE для удаления ресурсов.
+          </p>
+
+          <h4>Пример 1: PATCH для изменения статуса заказа</h4>
+          <div class="code-block">
+            <pre><code>// Хранилище заказов
+let orders = [
+  { id: 1, productName: 'Ноутбук', status: 'pending', total: 50000, createdAt: '2024-07-14' },
+  { id: 2, productName: 'Телефон', status: 'shipped', total: 20000, createdAt: '2024-07-13' }
+];
+
+// PATCH для изменения статуса заказа
+app.patch('/orders/:id/status', (req, res) = &gt; {
+  const orderId = parseInt(req.params.id);
+  const { status } = req.body;
+
+  if (!['pending', 'shipped', 'delivered', 'cancelled'].includes(status)) {
+    return res.status(400).json({ error: 'Неверный статус' });
+  }
+
+  const order = orders.find(o = &gt; o.id === orderId);
+  if (!order) return res.status(404).json({ error: 'Заказ не найден' });
+
+  order.status = status;
+  order.updatedAt = new Date();
+
+  res.json({
+    message: 'Статус заказа обновлен',
+    order
+  });
+});</code></pre>
+          </div>
+
+          <h4>Пример 2: DELETE с мягким удалением (soft delete)</h4>
+          <div class="code-block">
+            <pre><code>// Хранилище сообщений с мягким удалением
+let messages = [
+  { id: 1, text: 'Привет!', author: 'Иван', deletedAt: null },
+  { id: 2, text: 'Как дела?', author: 'Мария', deletedAt: null }
+];
+
+// DELETE с мягким удалением (не удаляем из БД, а устанавливаем флаг)
+app.delete('/messages/:id', (req, res) = &gt; {
+  const messageId = parseInt(req.params.id);
+  const message = messages.find(m = &gt; m.id === messageId);
+
+  if (!message) return res.status(404).json({ error: 'Сообщение не найдено' });
+
+  if (message.deletedAt) {
+    return res.status(410).json({ error: 'Сообщение уже удалено' });
+  }
+
+  // Мягкое удаление — устанавливаем флаг удаления
+  message.deletedAt = new Date();
+
+  res.json({
+    message: 'Сообщение удалено',
+    deletedMessage: message
+  });
+});
+
+// GET для получения только активных сообщений
+app.get('/messages', (req, res) = &gt; {
+  const activeMessages = messages.filter(m = &gt; m.deletedAt === null);
+  res.json(activeMessages);
+});</code></pre>
+          </div>
+
+          <h4>Пример 3: DELETE с проверкой прав доступа</h4>
+          <div class="code-block">
+            <pre><code>// Хранилище постов
+let posts = [
+  { id: 1, title: 'Пост 1', author: 'Иван', authorId: 1 },
+  { id: 2, title: 'Пост 2', author: 'Мария', authorId: 2 }
+];
+
+// Middleware для проверки авторства
+const checkAuthor = (req, res, next) = &gt; {
+  const postId = parseInt(req.params.id);
+  const userId = req.headers['x-user-id'];
+
+  const post = posts.find(p = &gt; p.id === postId);
+  if (!post) return res.status(404).json({ error: 'Пост не найден' });
+
+  if (post.authorId !== parseInt(userId)) {
+    return res.status(403).json({ error: 'Вы не можете удалить чужой пост' });
+  }
+
+  next();
+};
+
+// DELETE с проверкой авторства
+app.delete('/posts/:id', checkAuthor, (req, res) = &gt; {
+  const postId = parseInt(req.params.id);
+  const postIndex = posts.findIndex(p = &gt; p.id === postId);
+
+  const deletedPost = posts.splice(postIndex, 1)[0];
+
+  res.json({
+    message: 'Пост удален',
+    post: deletedPost
+  });
+});</code></pre>
+          </div>
+
+          <p class="note note--info">
+            <strong>Совет:</strong> Используйте мягкое удаление (soft delete) для важных данных. Это позволяет восстановить удаленные данные и сохранить историю.
+          </p>
+        </div>
+      </section>
+
+      <!-- Валидация данных -->
+      <section class="section" id="validation">
+        <div class="container">
+          <h2>Валидация данных при PATCH</h2>
+
+          <p class="note">
+            <strong>Валидация при PATCH</strong> отличается от валидации при POST/PUT. При PATCH нужно проверять только переданные поля, а не все поля ресурса.
+          </p>
+
+          <h4>1. Валидация с проверкой конкретных полей:</h4>
+          <div class="code-block">
+            <pre><code>// Middleware для валидации PATCH запроса
+const validatePatch = (req, res, next) = &gt; {
+  const { age, email, phone } = req.body;
+  const errors = [];
+
+  if (age !== undefined) {
+    if (typeof age !== 'number' || age < 0 || age > 150) {
+      errors.push('age должно быть числом от 0 до 150');
+    }
+  }
+
+  if (email !== undefined) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      errors.push('email должно быть валидным');
+    }
+  }
+
+  if (phone !== undefined) {
+    if (typeof phone !== 'string' || phone.length < 10) {
+      errors.push('phone должно быть строкой минимум 10 символов');
+    }
+  }
+
+  if (errors.length > 0) {
+    return res.status(400).json({ errors });
+  }
+
+  next();
+};
+
+app.patch('/users/:id', validatePatch, (req, res) = &gt; {
+  // ... обработка
+});</code></pre>
+          </div>
+
+          <h4>2. Валидация с Joi для PATCH:</h4>
+          <div class="code-block">
+            <pre><code>const Joi = require('joi');
+
+// Схема для PATCH запроса (все поля опциональны)
+const patchUserSchema = Joi.object({
+  name: Joi.string().min(2).max(50),
+  email: Joi.string().email(),
+  age: Joi.number().integer().min(0).max(150),
+  phone: Joi.string().min(10)
+}).min(1); // Минимум одно поле должно быть передано
+
+const validatePatch = (schema) = &gt; {
+  return (req, res, next) = &gt; {
+    const { error, value } = schema.validate(req.body, { abortEarly: false });
+
+    if (error) {
+      return res.status(400).json({
+        errors: error.details.map(err = &gt; ({
+          field: err.path[0],
+          message: err.message
+        }))
+      });
+    }
+
+    req.body = value;
+    next();
+  };
+};
+
+app.patch('/users/:id', validatePatch(patchUserSchema), (req, res) = &gt; {
+  // ... обработка
+});</code></pre>
+          </div>
+
+          <p class="note note--info">
+            <strong>Важно при PATCH:</strong> Все поля должны быть опциональными, но минимум одно поле должно быть передано. Это предотвращает отправку пустых PATCH запросов.
+          </p>
+        </div>
+      </section>
+
+      <!-- Обработка ошибок -->
+      <section class="section" id="error-handling">
+        <div class="container">
+          <h2>Обработка ошибок при PATCH и DELETE</h2>
+
+          <p class="note">
+            <strong>Обработка ошибок при PATCH и DELETE</strong> требует специальной внимательности, так как эти операции изменяют или удаляют данные.
+          </p>
+
+          <h4>Типы ошибок:</h4>
+          <ul class="list-ul">
+            <li><strong>404 Not Found</strong> — ресурс не существует.</li>
+            <li><strong>400 Bad Request</strong> — неверные данные в запросе.</li>
+            <li><strong>409 Conflict</strong> — конфликт (например, попытка обновить удаленный ресурс).</li>
+            <li><strong>410 Gone</strong> — ресурс был удален (для мягкого удаления).</li>
+            <li><strong>403 Forbidden</strong> — нет прав доступа для операции.</li>
+          </ul>
+
+          <h4>1. Обработка PATCH ошибок:</h4>
+          <div class="code-block">
+            <pre><code>app.patch('/users/:id', (req, res) = &gt; {
+  try {
+    const userId = parseInt(req.params.id);
+    const user = users.find(u = &gt; u.id === userId);
+
+    // Проверка существования
+    if (!user) {
+      return res.status(404).json({
+        error: 'Пользователь не найден'
+      });
+    }
+
+    // Проверка пустого запроса
+    if (Object.keys(req.body).length === 0) {
+      return res.status(400).json({
+        error: 'Передайте хотя бы одно поле для обновления'
+      });
+    }
+
+    // Обновление только переданных полей
+    Object.keys(req.body).forEach(key = &gt; {
+      if (['name', 'email', 'age'].includes(key)) {
+        user[key] = req.body[key];
+      }
+    });
+
+    res.json({
+      message: 'Пользователь обновлен',
+      user
+    });
+  } catch (err) {
+    console.error('Ошибка при обновлении пользователя:', err);
+    res.status(500).json({
+      error: 'Внутренняя ошибка сервера'
+    });
+  }
+});</code></pre>
+          </div>
+
+          <h4>2. Обработка DELETE ошибок:</h4>
+          <div class="code-block">
+            <pre><code>app.delete('/users/:id', (req, res) = &gt; {
+  try {
+    const userId = parseInt(req.params.id);
+    const userIndex = users.findIndex(u = &gt; u.id === userId);
+
+    // Проверка существования
+    if (userIndex === -1) {
+      return res.status(404).json({
+        error: 'Пользователь не найден'
+      });
+    }
+
+    // Проверка уже удаленного ресурса (мягкое удаление)
+    if (users[userIndex].deletedAt) {
+      return res.status(410).json({
+        error: 'Пользователь уже был удален'
+      });
+    }
+
+    // Выполняем удаление
+    const deletedUser = users.splice(userIndex, 1)[0];
+
+    res.json({
+      message: 'Пользователь удален',
+      user: deletedUser
+    });
+  } catch (err) {
+    console.error('Ошибка при удалении пользователя:', err);
+    res.status(500).json({
+      error: 'Внутренняя ошибка сервера'
+    });
+  }
+});</code></pre>
+          </div>
+
+          <h4>3. Таблица HTTP статусов для ошибок:</h4>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Статус</th>
+                <th>Значение</th>
+                <th>Когда использовать</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>400</strong></td>
+                <td>Bad Request</td>
+                <td>Неверные данные в PATCH запросе</td>
+              </tr>
+              <tr>
+                <td><strong>403</strong></td>
+                <td>Forbidden</td>
+                <td>Нет прав удалить/обновить ресурс</td>
+              </tr>
+              <tr>
+                <td><strong>404</strong></td>
+                <td>Not Found</td>
+                <td>Ресурс не существует</td>
+              </tr>
+              <tr>
+                <td><strong>409</strong></td>
+                <td>Conflict</td>
+                <td>Конфликт при обновлении</td>
+              </tr>
+              <tr>
+                <td><strong>410</strong></td>
+                <td>Gone</td>
+                <td>Ресурс был удален (мягкое удаление)</td>
+              </tr>
+              <tr>
+                <td><strong>500</strong></td>
+                <td>Server Error</td>
+                <td>Ошибка на сервере</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="warning">
+            <h4>⚠️ Типичные ошибки обработки:</h4>
+            <ul class="list-ul">
+              <li>Не проверить существование ресурса перед PATCH/DELETE.</li>
+              <li>Не обрабатывать конфликты при одновременном обновлении.</li>
+              <li>Не проверить права доступа перед удалением.</li>
+              <li>Отправлять 200 вместо 404 при удалении несуществующего ресурса.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Практические примеры -->
+      <section class="section" id="practical-examples">
+        <div class="container">
+          <h2>Практические примеры</h2>
+
+          <p class="note">
+            <strong>Практические примеры</strong> показывают полный CRUD API с поддержкой PATCH и DELETE операций для реальных сценариев.
+          </p>
+
+          <h4>Пример 1: Полный API для управления товарами с PATCH</h4>
+          <div class="code-block">
+            <pre><code>const express = require('express');
+const app = express();
+
+app.use(express.json());
+
+let products = [
+  { id: 1, name: 'Ноутбук', price: 50000, stock: 5, category: 'Электроника' },
+  { id: 2, name: 'Телефон', price: 20000, stock: 10, category: 'Электроника' }
+];
+
+// PATCH для обновления цены или количества
+app.patch('/products/:id', (req, res) = &gt; {
+  const product = products.find(p = &gt; p.id === parseInt(req.params.id));
+  if (!product) return res.status(404).json({ error: 'Товар не найден' });
+
+  if (Object.keys(req.body).length === 0) {
+    return res.status(400).json({ error: 'Передайте хотя бы одно поле' });
+  }
+
+  if (req.body.name !== undefined) product.name = req.body.name;
+  if (req.body.price !== undefined) product.price = req.body.price;
+  if (req.body.stock !== undefined) product.stock = req.body.stock;
+  if (req.body.category !== undefined) product.category = req.body.category;
+
+  product.updatedAt = new Date();
+
+  res.json({
+    message: 'Товар обновлен',
+    product
+  });
+});
+
+// DELETE для удаления товара
+app.delete('/products/:id', (req, res) = &gt; {
+  const index = products.findIndex(p = &gt; p.id === parseInt(req.params.id));
+  if (index === -1) return res.status(404).json({ error: 'Товар не найден' });
+
+  const deleted = products.splice(index, 1)[0];
+  res.json({
+    message: 'Товар удален',
+    product: deleted
+  });
+});
+
+app.listen(3000);</code></pre>
+          </div>
+
+          <h4>Пример 2: API для комментариев с мягким удалением</h4>
+          <div class="code-block">
+            <pre><code>let comments = [
+  { id: 1, text: 'Отличная статья!', author: 'Иван', rating: 5, deletedAt: null },
+  { id: 2, text: 'Спасибо за информацию', author: 'Мария', rating: 4, deletedAt: null }
+];
+
+// PATCH для изменения рейтинга комментария
+app.patch('/comments/:id', (req, res) = &gt; {
+  const comment = comments.find(c = &gt; c.id === parseInt(req.params.id));
+  if (!comment) return res.status(404).json({ error: 'Комментарий не найден' });
+
+  if (comment.deletedAt) {
+    return res.status(410).json({ error: 'Комментарий был удален' });
+  }
+
+  if (req.body.rating !== undefined) {
+    if (req.body.rating < 1 || req.body.rating > 5) {
+      return res.status(400).json({ error: 'Рейтинг должен быть от 1 до 5' });
+    }
+    comment.rating = req.body.rating;
+  }
+
+  if (req.body.text !== undefined) {
+    comment.text = req.body.text;
+  }
+
+  res.json({
+    message: 'Комментарий обновлен',
+    comment
+  });
+});
+
+// DELETE с мягким удалением
+app.delete('/comments/:id', (req, res) = &gt; {
+  const comment = comments.find(c = &gt; c.id === parseInt(req.params.id));
+  if (!comment) return res.status(404).json({ error: 'Комментарий не найден' });
+
+  if (comment.deletedAt) {
+    return res.status(410).json({ error: 'Комментарий уже удален' });
+  }
+
+  comment.deletedAt = new Date();
+
+  res.json({
+    message: 'Комментарий удален',
+    comment
+  });
+});
+
+// GET только активные комментарии
+app.get('/comments', (req, res) = &gt; {
+  const activeComments = comments.filter(c = &gt; c.deletedAt === null);
+  res.json(activeComments);
+});</code></pre>
+          </div>
+
+          <p class="note note--info">
+            <strong>Совет:</strong> В реальном приложении используйте базу данных (MongoDB, PostgreSQL). PATCH и DELETE должны выполняться в транзакциях для гарантии целостности данных.
+          </p>
+        </div>
+      </section>
+
+      <!-- Безопасность -->
+      <section class="section" id="security">
+        <div class="container">
+          <h2>Безопасность при PATCH и DELETE</h2>
+
+          <p class="note">
+            <strong>Безопасность при PATCH и DELETE</strong> критична, так как эти операции изменяют или удаляют данные. Нужна правильная авторизация, валидация и аудит.
+          </p>
+
+          <h4>Основные угрозы:</h4>
+          <ul class="list-ul">
+            <li><strong>Несанкционированное удаление</strong> — удаление чужих ресурсов.</li>
+            <li><strong>Случайное удаление</strong> — удаление важных данных без подтверждения.</li>
+            <li><strong>Mass Assignment</strong> — обновление недопустимых полей через PATCH.</li>
+            <li><strong>Race Conditions</strong> — одновременное обновление одного ресурса.</li>
+          </ul>
+
+          <h4>1. Проверка прав доступа:</h4>
+          <div class="code-block">
+            <pre><code>// Middleware для проверки авторства
+const checkOwnership = (req, res, next) = &gt; {
+  const resourceId = parseInt(req.params.id);
+  const userId = req.user.id; // Получаем ID пользователя из токена
+
+  const resource = resources.find(r = &gt; r.id === resourceId);
+  if (!resource) return res.status(404).json({ error: 'Ресурс не найден' });
+
+  if (resource.userId !== userId) {
+    return res.status(403).json({ error: 'Вы не можете модифицировать чужой ресурс' });
+  }
+
+  next();
+};
+
+// DELETE с проверкой авторства
+app.delete('/resources/:id', checkOwnership, (req, res) = &gt; {
+  const index = resources.findIndex(r = &gt; r.id === parseInt(req.params.id));
+  const deleted = resources.splice(index, 1)[0];
+  res.json({ message: 'Ресурс удален', resource: deleted });
+});</code></pre>
+          </div>
+
+          <h4>2. Whitelist для PATCH (избегаем Mass Assignment):</h4>
+          <div class="code-block">
+            <pre><code>// Разрешенные поля для обновления
+const PATCHABLE_FIELDS = ['name', 'email', 'phone', 'bio'];
+
+// PATCH с проверкой разрешенных полей
+app.patch('/users/:id', (req, res) = &gt; {
+  const user = users.find(u = &gt; u.id === parseInt(req.params.id));
+  if (!user) return res.status(404).json({ error: 'Пользователь не найден' });
+
+  // Обновляем только разрешенные поля
+  PATCHABLE_FIELDS.forEach(field = &gt; {
+    if (req.body[field] !== undefined) {
+      user[field] = req.body[field];
+    }
+  });
+
+  // Блокируем обновление защищенных полей
+  if (req.body.role) {
+    return res.status(400).json({ error: 'Нельзя менять роль' });
+  }
+
+  res.json({
+    message: 'Пользователь обновлен',
+    user
+  });
+});</code></pre>
+          </div>
+
+          <h4>3. Подтверждение перед критичным удалением:</h4>
+          <div class="code-block">
+            <pre><code>// DELETE с требованием подтверждения
+app.delete('/users/:id', (req, res) = &gt; {
+  const confirmToken = req.headers['x-confirm-token'];
+
+  if (!confirmToken) {
+    return res.status(400).json({
+      error: 'Требуется подтверждение',
+      message: 'Передайте x-confirm-token в заголовках'
+    });
+  }
+
+  // Проверяем токен подтверждения
+  if (confirmToken !== 'CONFIRM_DELETE_' + req.params.id) {
+    return res.status(403).json({ error: 'Неверный токен подтверждения' });
+  }
+
+  const index = users.findIndex(u = &gt; u.id === parseInt(req.params.id));
+  if (index === -1) return res.status(404).json({ error: 'Пользователь не найден' });
+
+  const deleted = users.splice(index, 1)[0];
+  res.json({ message: 'Пользователь удален', user: deleted });
+});</code></pre>
+          </div>
+
+          <h4>4. Логирование для аудита:</h4>
+          <div class="code-block">
+            <pre><code>// Middleware для логирования PATCH и DELETE
+const auditLog = (req, res, next) = &gt; {
+  const originalSend = res.send;
+
+  res.send = function(data) {
+    if ((req.method === 'PATCH' || req.method === 'DELETE') && res.statusCode < 400) {
+      console.log({
+        timestamp: new Date(),
+        method: req.method,
+        url: req.url,
+        userId: req.user?.id,
+        status: res.statusCode
+      });
+    }
+    return originalSend.call(this, data);
+  };
+
+  next();
+};
+
+app.use(auditLog);</code></pre>
+          </div>
+
+          <div class="warning">
+            <h4>⚠️ Правила безопасности:</h4>
+            <ul class="list-ul">
+              <li>ВСЕГДА проверяйте права доступа перед PATCH и DELETE.</li>
+              <li>Используйте whitelist для разрешенных полей в PATCH.</li>
+              <li>Логируйте все критичные операции удаления.</li>
+              <li>Используйте мягкое удаление для важных данных.</li>
+              <li>Требуйте подтверждение для критичного удаления.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Итоги -->
+      <section class="section" id="summary">
+        <div class="container">
+          <h2>Итоги</h2>
+
+          <div class="note-block info">
+            <ul class="list-ul">
+              <li><strong>PATCH</strong> обновляет только переданные поля, экономит трафик и более гибкий.</li>
+              <li><strong>DELETE</strong> удаляет ресурс по ID, обычно возвращает 204 (No Content).</li>
+              <li><strong>PATCH vs PUT:</strong> PATCH для частичного, PUT для полного обновления.</li>
+              <li><strong>Валидация при PATCH:</strong> проверяем только переданные поля, минимум одно поле обязательно.</li>
+              <li><strong>Ошибки DELETE:</strong> 404 если не найден, 410 если уже удален, 403 если нет прав.</li>
+              <li><strong>Авторизация:</strong> проверяйте права доступа перед PATCH и DELETE.</li>
+              <li><strong>Whitelist:</strong> ограничивайте разрешенные поля в PATCH (избегаем Mass Assignment).</li>
+              <li><strong>Мягкое удаление:</strong> используйте флаг deletedAt вместо физического удаления из БД.</li>
+              <li><strong>Логирование:</strong> записывайте все критичные операции для аудита.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    @@include('../partials/footer.html', {})
+  </div>
+
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
+</html>

@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "POST и PUT запросы в Express.js", "description": "Изучите различия POST и PUT запросов, обработку данных в Express, валидацию и практические примеры REST API" })
+
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+
+    <main class="page" id="main" tabindex="-1">
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#intro" class="active" aria-current="page">Введение</a>
+        <a href="#post-basics">POST запросы</a>
+        <a href="#put-basics">PUT запросы</a>
+        <a href="#post-vs-put">POST vs PUT</a>
+        <a href="#request-body">Работа с телом запроса</a>
+        <a href="#middleware-setup">Настройка middleware</a>
+        <a href="#validation">Валидация данных</a>
+        <a href="#error-handling">Обработка ошибок</a>
+        <a href="#practical-examples">Практические примеры</a>
+        <a href="#security">Безопасность</a>
+        <a href="#summary">Итоги</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="intro">
+        <div class="container">
+          <h1>POST и PUT запросы в Express.js</h1>
+
+          <p class="note">
+            <strong>POST и PUT запросы</strong> — это методы для отправки данных на сервер. <b>POST</b> используется для создания новых ресурсов, <b>PUT</b> — для обновления существующих.<br>
+            Обе используют тело запроса <b>(body)</b> для передачи данных, но имеют разные семантики и применение.
+          </p>
+
+          <h4>Протоколы передачи данных</h4>
+          <ul class="list-ul">
+            <li><b>HTTP</b> — <i>(Hypertext Transfer Protocol - гипертекстовый протокол передачи данных)</i> —
+              стандартный протокол передачи данных в вебе. POST и PUT являются его методами.</li>
+            <li><b>HTTPS</b> — <i>(Hypertext Transfer Protocol Secure — защищенный гипертекстовый протокол передачи данных)</i> —
+              защищенная версия HTTP, шифрует данные между клиентом и сервером. Всегда используйте HTTPS для передачи чувствительных данных.</li>
+            <li><b>HTTP/2</b> — улучшенная версия протокола, поддерживающая мультиплексирование и сжатие заголовков.</li>
+            <li><b>HTTP/3</b> — новейшая версия протокола, использующая QUIC для более быстрой и надежной передачи данных.</li>
+          </ul>
+
+          <p>
+            В этом разделе вы научитесь:
+          </p>
+
+          <ul class="list-ul">
+            <li>Создавать обработчики POST запросов для создания данных.</li>
+            <li>Использовать PUT запросы для полного обновления ресурсов.</li>
+            <li>Работать с телом запроса (req.body).</li>
+            <li>Валидировать и обрабатывать ошибки при работе с данными.</li>
+            <li>Реализовать полноценный REST API.</li>
+          </ul>
+
+          <figure>
+            <img class="note-img" src="/img/node/metody-http.png" alt="Схема обработки POST и PUT запросов" />
+            <figcaption class="note-caption">Рис. 1. Поток данных при POST и PUT запросах</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- POST запросы -->
+      <section class="section" id="post-basics">
+        <div class="container">
+          <h2>POST запросы</h2>
+
+          <p class="note">
+            <strong>POST запрос</strong> — это HTTP метод для создания нового ресурса на сервере. Данные отправляются в теле запроса, а не в URL. POST используется, когда нужно создать новый объект (пользователя, товар, сообщение и т.д.).
+          </p>
+          <h4>Характеристики POST:</h4>
+          <ul class="list-ul">
+            <li><strong>Не идемпотентный</strong> — каждый POST запрос создает новый ресурс. Два одинаковых POST запроса создадут два разных объекта.</li>
+            <li><strong>Данные в теле</strong> — информация передается в теле (body) запроса, не видна в URL.</li>
+            <li><strong>Статус ответа</strong> — обычно возвращает 201 (Created) при успехе.</li>
+            <li><strong>Может иметь побочные эффекты</strong> — изменяет состояние сервера.</li>
+          </ul>
+
+
+          <h4>Базовый пример POST запроса:</h4>
+          <p>POST-запросы — это тип HTTP-запроса, который используется для отправки данных на сервер. В отличие от GET-запросов, которые только получают данные, POST-запросы позволяют серверу получать и сохранять данные.
+
+          </p>
+          <div class="code-block">
+            <pre><code>app.post('/add-user', (req, res) => {
+  const user = req.body; // Получаем данные пользователя из тела запроса
+  res.send(`Пользователь ${user.name} был добавлен!`);
+});</code></pre>
+          </div>
+          <ul class="list-ul">
+            <li><b>app.post</b> — это метод Express для обработки POST-запросов по указанному маршруту.</li>
+
+            <li><b>req.body</b> — объект, содержащий данные, отправленные в теле запроса. Для его использования необходимо подключить middleware <code>express.json()</code> или <code>express.urlencoded()</code>.</li>
+            <li><b>res.send</b> — отправляет ответ клиенту. В данном случае мы отправляем сообщение о том, что пользователь был добавлен.</li>
+          </ul>
+
+
+
+
+
+          <h4>Базовый пример POST запроса:</h4>
+          <div class="code-block">
+            <pre><code>const express = require('express');
+const app = express();
+
+// Middleware для парсинга JSON в теле запроса
+app.use(express.json());
+
+// Хранилище пользователей (в реальном приложении будет БД)
+const users = [];
+
+// POST обработчик — создание нового пользователя
+app.post('/users', (req, res) => {
+  const { name, email, age } = req.body;
+
+  // Создаем новый объект
+  const newUser = {
+    id: users.length + 1,
+    name,
+    email,
+    age,
+    createdAt: new Date()
+  };
+
+  users.push(newUser);
+
+  // Возвращаем созданный ресурс со статусом 201
+  res.status(201).json({
+    message: 'Пользователь успешно создан',
+    user: newUser
+  });
+});
+
+app.listen(3000);</code></pre>
+          </div>
+
+          <h4>Как отправить POST запрос:</h4>
+
+          <h5>Способ 1: Через fetch в браузере:</h5>
+          <div class="code-block">
+            <pre><code>fetch('http://localhost:3000/users', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: 'Иван',
+    email: 'ivan@example.com',
+    age: 25
+  })
+})
+.then(res => res.json())
+.then(data => console.log(data));</code></pre>
+          </div>
+
+          <h5>Способ 2: Через curl в терминале:</h5>
+          <div class="code-block">
+            <pre><code>curl -X POST http://localhost:3000/users \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Иван","email":"ivan@example.com","age":25}'</code></pre>
+          </div>
+
+          <h5>Способ 3: Через fetch с форм-данными:</h5>
+          <div class="code-block">
+            <pre><code>// Отправить данные формы
+const formData = new FormData(document.querySelector('form'));
+
+fetch('http://localhost:3000/users', {
+  method: 'POST',
+  body: formData
+})
+.then(res => res.json())
+.then(data => console.log(data));</code></pre>
+          </div>
+
+          <h4>Ответ сервера на успешный POST запрос:</h4>
+          <div class="code-block">
+            <pre><code>{
+  "message": "Пользователь успешно создан",
+  "user": {
+    "id": 1,
+    "name": "Иван",
+    "email": "ivan@example.com",
+    "age": 25,
+    "createdAt": "2024-07-14T10:30:00.000Z"
+  }
+}</code></pre>
+          </div>
+
+          <p class="note note--info">
+            <strong>Статус 201 (Created)</strong> — правильный ответ на успешное создание ресурса. Браузер и клиенты знают, что ресурс был создан, а не просто обновлен.
+          </p>
+        </div>
+      </section>
+
+      <!-- PUT запросы -->
+      <section class="section" id="put-basics">
+        <div class="container">
+          <h2>PUT запросы</h2>
+
+          <p class="note">
+            <strong>PUT запрос</strong> — это HTTP метод для полного обновления существующего ресурса. Данные отправляются в теле запроса, как и в POST, но PUT предполагает замену всего объекта. ID ресурса обычно передается в URL пути.
+          </p>
+
+          <h4>Характеристики PUT:</h4>
+          <ul class="list-ul">
+            <li><strong>Идемпотентный</strong> — несколько одинаковых PUT запросов приводят к одному и тому же результату.</li>
+            <li><strong>Полное обновление</strong> — заменяет весь ресурс на новые данные.</li>
+            <li><strong>Требует ID</strong> — ID ресурса передается в URL (обычно /resource/:id).</li>
+            <li><strong>Статус ответа</strong> — обычно возвращает 200 (OK) или 204 (No Content).</li>
+            <li><strong>Может создать ресурс</strong> — если ресурс не существует, может его создать (но обычно возвращает 404).</li>
+          </ul>
+
+          <h4>Базовый пример PUT запроса:</h4>
+
+          <p class="note note--info">В отличие от POST-запросов, которые добавляют новые данные, <strong>❕ PUT-запросы</strong> заменяют старые данные новыми. Обычно PUT-запросы отправляются, когда нужно обновить конкретный ресурс.
+
+          </p>
+          <div class="code-block">
+            <pre><code>app.put('/update-user/:id', (req, res) => {
+  const userId = req.params.id; // Получаем ID пользователя из параметра маршрута
+  const updatedData = req.body; // Получаем обновленные данные из тела запроса
+
+  res.send(`Пользователь с ID ${userId} был обновлён! Новые данные: ${JSON.stringify(updatedData)}`);
+});</code></pre>
+          </div>
+          <ul class="list-ul">
+            <li><b>app.put</b> — это метод Express для обработки PUT-запросов по указанному маршруту.</li>
+            <li><b>req.params.id</b> — содержит ID ресурса из URL пути.</li>
+
+            <li><b>req.body</b> — объект, содержащий данные, отправленные в теле запроса. Для его использования необходимо подключить middleware <code>express.json()</code> или <code>express.urlencoded()</code>.</li>
+            <li><b>res.send</b> — отправляет ответ клиенту. В данном случае мы отправляем сообщение о том, что пользователь был обновлён.</li>
+          </ul>
+
+          <h4>Частичное обновление ресурса</h4>
+
+          <p class="note note--info">PUT-запросы обычно используются для полного обновления ресурса, однако мы можем использовать их для частичного обновления, если нужно обновить только часть данных.
+
+            Например, мы можем обновить только название или цену товара, оставив другие данные без изменений.
+
+          </p>
+          <div class="code-block">
+            <pre><code>app.put('/update-product/:id', (req, res) => {
+  const productId = req.params.id; // Получаем ID продукта из URL
+  const updatedData = req.body; // Получаем обновленные данные из тела запроса
+
+  const product = {
+    name: updatedData.name || 'Неизвестный продукт', // Если имя не передано, оставляем дефолтное значение
+    price: updatedData.price || 0, // Если цена не передана, оставляем дефолтное значение
+    description: updatedData.description || 'Нет описания' // Если описание не передано, оставляем дефолтное
+  };
+
+  res.send(`Продукт с ID ${productId} был обновлён! Новые данные: ${JSON.stringify(product)}`);
+});
+</code></pre>
+          </div>
+          <p class="note">Здесь мы обновляем только те данные, которые были переданы в запросе. Если какого-то поля нет в запросе, то оно остаётся с дефолтным значением.
+            <strong>💡 Запомни!</strong> В PUT-запросах для частичного обновления можно использовать условные операторы (например, ||), чтобы оставить старые значения, если новые данные не были переданы.
+          </p>
+          <h4>Базовый пример PUT запроса:</h4>
+          <div class="code-block">
+            <pre><code>// Хранилище пользователей
+let users = [
+  { id: 1, name: 'Иван', email: 'ivan@mail.com', age: 25 },
+  { id: 2, name: 'Мария', email: 'maria@mail.com', age: 30 }
+];
+
+// PUT обработчик — полное обновление пользователя
+app.put('/users/:id', (req, res) => {
+  const userId = parseInt(req.params.id);
+  const { name, email, age } = req.body;
+
+  // Найти пользователя по ID
+  const userIndex = users.findIndex(u => u.id === userId);
+
+  if (userIndex === -1) {
+    return res.status(404).json({
+      error: 'Пользователь не найден'
+    });
+  }
+
+  // Полностью заменяем данные пользователя
+  users[userIndex] = {
+    id: userId,
+    name,
+    email,
+    age,
+    updatedAt: new Date()
+  };
+
+  res.json({
+    message: 'Пользователь обновлен',
+    user: users[userIndex]
+  });
+});
+
+app.listen(3000);</code></pre>
+          </div>
+
+          <h4>Как отправить PUT запрос:</h4>
+
+          <h5>Через fetch:</h5>
+          <div class="code-block">
+            <pre><code>fetch('http://localhost:3000/users/1', {
+  method: 'PUT',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: 'Иван Иванов',
+    email: 'ivan.new@example.com',
+    age: 26
+  })
+})
+.then(res => res.json())
+.then(data => console.log(data));</code></pre>
+          </div>
+
+          <h5>Через curl:</h5>
+          <div class="code-block">
+            <pre><code>curl -X PUT http://localhost:3000/users/1 \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Иван Иванов","email":"ivan.new@example.com","age":26}'</code></pre>
+          </div>
+
+          <h4>Ответ на успешный PUT запрос:</h4>
+          <div class="code-block">
+            <pre><code>{
+  "message": "Пользователь обновлен",
+  "user": {
+    "id": 1,
+    "name": "Иван Иванов",
+    "email": "ivan.new@example.com",
+    "age": 26,
+    "updatedAt": "2024-07-14T11:45:00.000Z"
+  }
+}</code></pre>
+          </div>
+
+          <p class="note note--info">
+            <strong>Идемпотентность PUT:</strong> Отправить одинаковый PUT запрос 10 раз — результат будет одинаковым. При этом POST создаст 10 разных ресурсов.
+          </p>
+        </div>
+      </section>
+
+      <!-- POST vs PUT -->
+      <section class="section" id="post-vs-put">
+        <div class="container">
+          <h2>POST vs PUT: Различия</h2>
+
+          <p class="note">
+            <strong>POST и PUT</strong> часто путают, но они решают разные задачи. Таблица ниже показывает ключевые различия.
+          </p>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Аспект</th>
+                <th>POST</th>
+                <th>PUT</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Назначение</strong></td>
+                <td>Создать новый ресурс</td>
+                <td>Обновить существующий ресурс</td>
+              </tr>
+              <tr>
+                <td><strong>Идемпотентность</strong></td>
+                <td>Не идемпотентный (10 запросов = 10 ресурсов)</td>
+                <td>Идемпотентный (10 запросов = 1 результат)</td>
+              </tr>
+              <tr>
+                <td><strong>ID ресурса</strong></td>
+                <td>Генерируется сервером, не передается</td>
+                <td>Передается в URL пути (/resource/:id)</td>
+              </tr>
+              <tr>
+                <td><strong>Статус ответа</strong></td>
+                <td>201 (Created)</td>
+                <td>200 (OK) или 204 (No Content)</td>
+              </tr>
+              <tr>
+                <td><strong>Пример URL</strong></td>
+                <td>POST /users</td>
+                <td>PUT /users/1</td>
+              </tr>
+              <tr>
+                <td><strong>Пример действия</strong></td>
+                <td>Создать нового пользователя</td>
+                <td>Обновить пользовател�� с ID 1</td>
+              </tr>
+              <tr>
+                <td><strong>Тело запроса</strong></td>
+                <td>Основные данные нового ресурса</td>
+                <td>Полные или частичные данные для обновления</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>Сравнение примеров:</h4>
+
+          <h5>❌ Неправильное использование POST (вместо PUT):</h5>
+          <div class="code-block">
+            <pre><code>// ❌ НЕПРАВИЛЬНО — используем POST для обновления
+fetch('http://localhost:3000/users/1', {
+  method: 'POST', // Должен быть PUT!
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name: 'Новое имя' })
+});
+
+// Проблема: каждый запрос создаст новый ресурс вместо обновления</code></pre>
+          </div>
+
+          <h5>✅ Правильное использование POST и PUT:</h5>
+          <div class="code-block">
+            <pre><code>// ✅ POST для создания
+fetch('http://localhost:3000/users', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name: 'Иван', email: 'ivan@mail.com' })
+});
+
+// ✅ PUT для обновления
+fetch('http://localhost:3000/users/1', {
+  method: 'PUT',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name: 'Иван Обновленный', email: 'ivan.new@mail.com' })
+});</code></pre>
+          </div>
+
+          <h4>Сценарии использования:</h4>
+
+          <h5>Когда использовать POST:</h5>
+          <ul class="list-ul">
+            <li>Создание новой записи в базе данных.</li>
+            <li>Регистрация нового пользователя.</li>
+            <li>Добавление товара в корзину.</li>
+            <li>Публикация нового поста или комментария.</li>
+            <li>Загрузка файла на сервер.</li>
+          </ul>
+
+          <h5>Когда использовать PUT:</h5>
+          <ul class="list-ul">
+            <li>Полное обновление профиля пользователя.</li>
+            <li>Изменение всех свойств товара (название, цена, описание).</li>
+            <li>Замена содержимого статьи.</li>
+            <li>Обновление настроек приложения.</li>
+          </ul>
+
+          <div class="warning">
+            <h4>⚠️ Типичная ошибка:</h4>
+            <ul class="list-ul">
+              <li>Использование POST вместо PUT для обновления — каждый запрос создает новый ресурс.</li>
+              <li>Забывание ID в URL при PUT — <code>PUT /users</code> вместо <code>PUT /users/:id</code>.</li>
+              <li>Отправка одного PUT запроса и ожидание создания ресурса — PUT обновляет существующий.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Работа с телом запроса -->
+      <section class="section" id="request-body">
+        <div class="container">
+          <h2>Работа с телом запроса (req.body)</h2>
+
+          <p class="note">
+            <strong>req.body</strong> — это объект, содержащий данные из тела HTTP запроса. Для парсинга этих данных нужно подключить соответствующий middleware Express.
+          </p>
+
+          <h4>Типы данных в теле запроса:</h4>
+          <ul class="list-ul">
+            <li><strong>JSON</strong> — <code>application/json</code> — парсится middleware <code>express.json()</code>.</li>
+            <li><strong>Данные формы</strong> — <code>application/x-www-form-urlencoded</code> — парсится middleware <code>express.urlencoded()</code>.</li>
+            <li><strong>Файлы</strong> — <code>multipart/form-data</code> — требует специального middleware (<code>multer</code>).</li>
+          </ul>
+
+          <h4>1. Работа с JSON:</h4>
+          <div class="code-block">
+            <pre><code>const express = require('express');
+const app = express();
+
+// Middleware для парсинга JSON
+app.use(express.json());
+
+app.post('/users', (req, res) => {
+  // req.body содержит распарсенные JSON данные
+  console.log(req.body); // { name: 'Иван', age: 25 }
+
+  const { name, age } = req.body;
+
+  res.status(201).json({
+    message: 'Пользователь создан',
+    data: { name, age }
+  });
+});
+
+app.listen(3000);</code></pre>
+          </div>
+
+          <h5>Отправка JSON через fetch:</h5>
+          <div class="code-block">
+            <pre><code>fetch('http://localhost:3000/users', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: 'Иван',
+    age: 25
+  })
+});</code></pre>
+          </div>
+
+          <h4>2. Работа с данными формы:</h4>
+          <div class="code-block">
+            <pre><code>// Middleware для парсинга данных формы
+app.use(express.urlencoded({ extended: true }));
+
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+
+  res.json({
+    message: 'Данные получены',
+    username,
+    password
+  });
+});</code></pre>
+          </div>
+
+          <h5>Отправка данных формы:</h5>
+          <div class="code-block">
+            <pre><code>// HTML форма
+&lt;form method="POST" action="/login"&gt;
+  &lt;input type="text" name="username" required /&gt;
+  &lt;input type="password" name="password" required /&gt;
+  &lt;button type="submit"&gt;Вход&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+          </div>
+
+          <h4>3. Работа с файлами (FormData):</h4>
+          <div class="code-block">
+            <pre><code>// Отправка файла через FormData
+const form = document.querySelector('form');
+const formData = new FormData(form);
+
+fetch('http://localhost:3000/upload', {
+  method: 'POST',
+  body: formData // Автоматически устанавливает multipart/form-data
+});</code></pre>
+          </div>
+
+          <h4>4. Ограничение размера тела запроса:</h4>
+          <div class="code-block">
+            <pre><code>// Ограничить размер JSON до 1MB
+app.use(express.json({ limit: '1mb' }));
+
+// Ограничить размер данных формы до 2MB
+app.use(express.urlencoded({ limit: '2mb', extended: true }));
+
+// Обработчик ошибки при превышении лимита
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    return res.status(413).json({ error: 'Тело запроса слишком большое' });
+  }
+  next();
+});</code></pre>
+          </div>
+
+          <h4>5. Получение сырых данных:</h4>
+          <div class="code-block">
+            <pre><code>// Получить сырые данные без парсинга
+app.post('/raw', express.raw({ type: 'application/octet-stream' }), (req, res) => {
+  console.log(req.body); // Buffer с сырыми данными
+  res.send('Данные получены');
+});</code></pre>
+          </div>
+
+          <p class="note note--info">
+            <strong>Важно!</strong> Middleware для парсинга должны быть подключены ДО маршрутов, которые их используют. Порядок: middleware → маршруты.
+          </p>
+        </div>
+      </section>
+
+      <!-- Настройка middleware -->
+      <section class="section" id="middleware-setup">
+        <div class="container">
+          <h2>Настройка middleware для POST и PUT</h2>
+
+          <p class="note">
+            <strong>Middleware для обработки данных</strong> — это функции Express, которые парсят тело запроса и делают данные доступными в <code>req.body</code>. Правильная настройка критична для работы POST и PUT.
+          </p>
+
+          <h4>Полная настройка middleware:</h4>
+          <div class="code-block">
+            <pre><code>const express = require('express');
+const app = express();
+
+// 1. Middleware для парсинга JSON
+app.use(express.json());
+
+// 2. Middleware для парсинга данных формы
+app.use(express.urlencoded({ extended: true }));
+
+// 3. Middleware для парсинга текста
+app.use(express.text());
+
+// 4. Custom middleware для логирования
+app.use((req, res, next) => {
+  if (req.method === 'POST' || req.method === 'PUT') {
+    console.log(`📨 ${req.method} ${req.url}`);
+    console.log('Body:', req.body);
+  }
+  next();
+});
+
+// Теперь все маршруты имеют доступ к req.body
+app.post('/users', (req, res) => {
+  res.json(req.body);
+});
+
+app.listen(3000);</code></pre>
+          </div>
+
+          <h4>Middleware для конкретного маршрута:</h4>
+          <div class="code-block">
+            <pre><code>// Применить middleware только для определенного маршрута
+app.post('/users', express.json(), (req, res) => {
+  res.json(req.body);
+});
+
+// Применить несколько middleware
+app.put('/users/:id',
+  express.json(),
+  (req, res, next) => {
+    console.log('Custom middleware');
+    next();
+  },
+  (req, res) => {
+    res.json(req.body);
+  }
+);</code></pre>
+          </div>
+
+          <h4>Custom middleware для парсинга:</h4>
+          <div class="code-block">
+            <pre><code>// Custom middleware для проверки типа контента
+const checkContentType = (req, res, next) => {
+  const contentType = req.headers['content-type'];
+
+  if (req.method === 'POST' || req.method === 'PUT') {
+    if (!contentType || !contentType.includes('application/json')) {
+      return res.status(415).json({
+        error: 'Content-Type должен быть application/json'
+      });
+    }
+  }
+
+  next();
+};
+
+app.use(checkContentType);
+app.use(express.json());
+
+app.post('/users', (req, res) => {
+  res.json(req.body);
+});</code></pre>
+          </div>
+
+          <h4>Обработка ошибок парсинга:</h4>
+          <div class="code-block">
+            <pre><code>app.use(express.json());
+
+// Error middleware для обработки ошибок парсинга
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    return res.status(400).json({
+      error: 'Невалидный JSON в теле запроса',
+      details: err.message
+    });
+  }
+  next(err);
+});</code></pre>
+          </div>
+
+          <p class="note note--info">
+            <strong>Порядок middleware:</strong> Подключайте middleware для парсинга В САМОМ НАЧАЛЕ приложения, даже перед маршрутами. Это гарантирует, что все маршруты получат распарсенные данные.
+          </p>
+        </div>
+      </section>
+
+      <!-- Валидация данных -->
+      <section class="section" id="validation">
+        <div class="container">
+          <h2>Валидация данных</h2>
+
+          <p class="note">
+            <strong>Валидация</strong> — это проверка корректности данных, полученных от клиента. Валидировать нужно всегда, даже если вы уверены в клиенте. Валидация защищает приложение от ошибок и атак.
+          </p>
+
+          <h4>Основные правила валидации:</h4>
+          <ul class="list-ul">
+            <li>Проверяйте, что все обязательные поля присутствуют.</li>
+            <li>Проверяйте типы данных (строка, число, булево и т.д.).</li>
+            <li>Проверяйте формат данных (email, URL, телефон и т.д.).</li>
+            <li>Проверяйте длину строк и диапазон чисел.</li>
+            <li>Санитизируйте данные — удаляйте опасный контент.</li>
+          </ul>
+
+          <h4>1. Простая валидация:</h4>
+          <div class="code-block">
+            <pre><code>app.post('/users', (req, res) => {
+  const { name, email, age } = req.body;
+
+  // Проверка обязательных полей
+  if (!name || !email || age === undefined) {
+    return res.status(400).json({
+      error: 'Требуются поля: name, email, age'
+    });
+  }
+
+  // Проверка типов
+  if (typeof name !== 'string' || typeof email !== 'string' || typeof age !== 'number') {
+    return res.status(400).json({
+      error: 'Неверные типы данных: name(string), email(string), age(number)'
+    });
+  }
+
+  // Проверка диапазонов
+  if (age < 0 || age > 150) {
+    return res.status(400).json({
+      error: 'Возраст должен быть от 0 до 150'
+    });
+  }
+
+  // Проверка формата email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({
+      error: 'Некорректный email'
+    });
+  }
+
+  res.status(201).json({ name, email, age });
+});</code></pre>
+          </div>
+
+          <h4>2. Middleware для валидации:</h4>
+          <div class="code-block">
+            <pre><code>// Middleware для валидации пользователя
+const validateUser = (req, res, next) => {
+  const { name, email, age } = req.body;
+  const errors = [];
+
+  if (!name || typeof name !== 'string') {
+    errors.push('name обязательно и должно быть строкой');
+  }
+
+  if (!email || !email.includes('@')) {
+    errors.push('email обязательно и должно быть валидным');
+  }
+
+  if (age === undefined || typeof age !== 'number' || age < 0) {
+    errors.push('age обязательно, должно быть числом и &gt;= 0');
+  }
+
+  if (errors.length > 0) {
+    return res.status(400).json({ errors });
+  }
+
+  next();
+};
+
+// Использование middleware
+app.post('/users', validateUser, (req, res) => {
+  res.status(201).json(req.body);
+});
+
+app.put('/users/:id', validateUser, (req, res) => {
+  res.json(req.body);
+});</code></pre>
+          </div>
+
+          <h4>3. Использование библиотеки Joi (рекомендуется):</h4>
+          <div class="code-block">
+            <pre><code>// npm install joi
+const Joi = require('joi');
+
+// Определить схему валидации
+const userSchema = Joi.object({
+  name: Joi.string().required().min(2).max(50),
+  email: Joi.string().email().required(),
+  age: Joi.number().integer().min(0).max(150).required()
+});
+
+// Middleware для валидации с Joi
+const validate = (schema) => {
+  return (req, res, next) => {
+    const { error, value } = schema.validate(req.body, { abortEarly: false });
+
+    if (error) {
+      return res.status(400).json({
+        errors: error.details.map(err => ({
+          field: err.path[0],
+          message: err.message
+        }))
+      });
+    }
+
+    req.body = value; // Используем валидированные данные
+    next();
+  };
+};
+
+app.post('/users', validate(userSchema), (req, res) => {
+  res.status(201).json(req.body);
+});
+
+app.put('/users/:id', validate(userSchema), (req, res) => {
+  res.json(req.body);
+});</code></pre>
+          </div>
+
+          <h4>4. Санитизация данных:</h4>
+          <div class="code-block">
+            <pre><code>// npm install sanitize-html
+const sanitizeHtml = require('sanitize-html');
+
+app.post('/posts', (req, res) => {
+  let { title, content } = req.body;
+
+  // Санитизировать HTML контент
+  content = sanitizeHtml(content, {
+    allowedTags: ['b', 'i', 'em', 'strong'],
+    allowedAttributes: {}
+  });
+
+  res.status(201).json({ title, content });
+});</code></pre>
+          </div>
+
+          <p class="note note--info">
+            <strong>Лучшая практика:</strong> Используйте библиотеку для валидации (Joi, Yup, Zod). Ручная валидация легко ошибиться и получить уязвимости.
+          </p>
+        </div>
+      </section>
+
+      <!-- Обработка ошибок -->
+      <section class="section" id="error-handling">
+        <div class="container">
+          <h2>Обработка ошибок</h2>
+
+          <p class="note">
+            <strong>Обработка ошибок при POST и PUT</strong> критична для создания надежного API. Нужно обрабатывать ошибки парсинга, валидации, логики приложения и базы данных.
+          </p>
+
+          <h4>Типы ошибок:</h4>
+          <ul class="list-ul">
+            <li><strong>Ошибки синтаксиса</strong> — неправильный JSON (400 Bad Request).</li>
+            <li><strong>Ошибки валидации</strong> — неверные данные (400 Bad Request).</li>
+            <li><strong>Ошибки авторизации</strong> — нет прав доступа (401/403).</li>
+            <li><strong>Ошибки ресурса</strong> — ресурс не найден (404 Not Found).</li>
+            <li><strong>Ошибки сервера</strong> — ошибка в коде или БД (500 Server Error).</li>
+          </ul>
+
+          <h4>1. Базовая обработка ошибок:</h4>
+          <div class="code-block">
+            <pre><code>app.post('/users', (req, res) => {
+  try {
+    const { name, email } = req.body;
+
+    // Валидация
+    if (!name || !email) {
+      return res.status(400).json({
+        error: 'Name и email обязательны'
+      });
+    }
+
+    // Создание пользователя (может быть ошибка БД)
+    const user = createUser(name, email);
+
+    res.status(201).json(user);
+  } catch (err) {
+    // Обработка неожиданных ошибок
+    console.error('Ошибка при создании пользователя:', err);
+    res.status(500).json({
+      error: 'Внутренняя ошибка сервера'
+    });
+  }
+});</code></pre>
+          </div>
+
+          <h4>2. Обработка ошибок парсинга JSON:</h4>
+          <div class="code-block">
+            <pre><code>app.use(express.json());
+
+// Middleware для обработки ошибок парсинга
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    return res.status(400).json({
+      error: 'Невалидный JSON',
+      details: err.message
+    });
+  }
+  next(err);
+});</code></pre>
+          </div>
+
+          <h4>3. Центральный error middleware:</h4>
+          <div class="code-block">
+            <pre><code>// Определить класс для API ошибок
+class ApiError extends Error {
+  constructor(status, message, details = null) {
+    super(message);
+    this.status = status;
+    this.details = details;
+  }
+}
+
+// Маршруты с выбросом ошибок
+app.post('/users', (req, res, next) => {
+  try {
+    const { name, email } = req.body;
+
+    if (!name) {
+      throw new ApiError(400, 'Name обязателен');
+    }
+
+    // ... остальной код
+    res.status(201).json({ name, email });
+  } catch (err) {
+    next(err); // Передать ошибку в error middleware
+  }
+});
+
+// Центральный error middleware
+app.use((err, req, res, next) => {
+  const status = err.status || 500;
+  const message = err.message || 'Внутренняя ошибка сервера';
+
+  console.error(`❌ [${status}] ${message}`, err);
+
+  res.status(status).json({
+    error: message,
+    status,
+    details: err.details || undefined
+  });
+});</code></pre>
+          </div>
+
+          <h4>4. Обработка асинхронных ошибок:</h4>
+          <div class="code-block">
+            <pre><code>// Wrapper для async маршрутов
+const asyncHandler = (fn) => (req, res, next) => {
+  Promise.resolve(fn(req, res, next)).catch(next);
+};
+
+// Использование
+app.post('/users', asyncHandler(async (req, res) => {
+  const user = await User.create(req.body);
+  res.status(201).json(user);
+}));
+
+app.put('/users/:id', asyncHandler(async (req, res) => {
+  const user = await User.findByIdAndUpdate(req.params.id, req.body);
+  if (!user) throw new ApiError(404, 'User not found');
+  res.json(user);
+}));</code></pre>
+          </div>
+
+          <h4>5. Правильные HTTP статусы ошибок:</h4>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Статус</th>
+                <th>Ошибка</th>
+                <th>Когда использовать</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>400</strong></td>
+                <td>Bad Request</td>
+                <td>Невалидный запрос, неверные данные</td>
+              </tr>
+              <tr>
+                <td><strong>401</strong></td>
+                <td>Unauthorized</td>
+                <td>Требуется авторизация</td>
+              </tr>
+              <tr>
+                <td><strong>403</strong></td>
+                <td>Forbidden</td>
+                <td>Нет прав доступа</td>
+              </tr>
+              <tr>
+                <td><strong>404</strong></td>
+                <td>Not Found</td>
+                <td>Ресурс не найден</td>
+              </tr>
+              <tr>
+                <td><strong>409</strong></td>
+                <td>Conflict</td>
+                <td>Конфликт (например, email уже существует)</td>
+              </tr>
+              <tr>
+                <td><strong>422</strong></td>
+                <td>Unprocessable Entity</td>
+                <td>Невозможно обработать (ошибка валидации)</td>
+              </tr>
+              <tr>
+                <td><strong>500</strong></td>
+                <td>Server Error</td>
+                <td>Ошибка на сервере</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="warning">
+            <h4>⚠️ Типичные ошибки обработки ошибок:</h4>
+            <ul class="list-ul">
+              <li>Не выбрасывать ошибку или не передавать в <code>next()</code> — запрос зависнет.</li>
+              <li>Отправлять ответ дважды — "Cannot set headers after they are sent".</li>
+              <li>Не логировать ошибки — потом невозможно найти проблему.</li>
+              <li>Отправлять сложные детали ошибки клиенту — информация об утечке.</li>
+            </ul>
+          </div>
+
+
+          <h4>Пример:</h4>
+          <p>
+            Ниже пример POST запроса с валидацией и обработкой ошибок. Если данные некорректны, сервер вернет 400 с описанием ошибки.
+          </p>
+          <div class="code-block">
+            <pre><code>app.post('/add-product', (req, res) => {
+  const product = req.body;
+
+  if (!product.name||!product.price) {
+    return res.status(400).send('Ошибка: Недостаточно данных для добавления продукта');
+  }
+
+  res.send(`Продукт ${product.name} был добавлен! Цена: ${product.price}`);
+}); </code></pre>
+          </div>
+
+
+
+
+        </div>
+      </section>
+
+      <!-- Практические примеры -->
+      <section class="section" id="practical-examples">
+        <div class="container">
+          <h2>Практические примеры</h2>
+
+          <p class="note">
+            <strong>Практические примеры</strong> показывают, как создать простой но полнофункциональный REST API для управления ресурсами (товары, пользователи, посты и т.д.).
+          </p>
+
+          <h4>Пример 1: Полный CRUD API для товаров</h4>
+          <div class="code-block">
+            <pre><code>const express = require('express');
+const app = express();
+
+app.use(express.json());
+
+// Хранилище товаров
+let products = [
+  { id: 1, name: 'Ноутбук', price: 50000, stock: 5 },
+  { id: 2, name: 'Телефон', price: 20000, stock: 10 }
+];
+
+// GET - получить все товары
+app.get('/products', (req, res) => {
+  res.json(products);
+});
+
+// GET - получить товар по ID
+app.get('/products/:id', (req, res) => {
+  const product = products.find(p => p.id === parseInt(req.params.id));
+  if (!product) return res.status(404).json({ error: 'Товар не найден' });
+  res.json(product);
+});
+
+// POST - создать новый товар
+app.post('/products', (req, res) => {
+  const { name, price, stock } = req.body;
+
+  if (!name || price === undefined || stock === undefined) {
+    return res.status(400).json({ error: 'Требуются: name, price, stock' });
+  }
+
+  const newProduct = {
+    id: Math.max(...products.map(p => p.id), 0) + 1,
+    name,
+    price,
+    stock
+  };
+
+  products.push(newProduct);
+  res.status(201).json(newProduct);
+});
+
+// PUT - обновить товар
+app.put('/products/:id', (req, res) => {
+  const product = products.find(p => p.id === parseInt(req.params.id));
+  if (!product) return res.status(404).json({ error: 'Товар не найден' });
+
+  const { name, price, stock } = req.body;
+
+  product.name = name || product.name;
+  product.price = price !== undefined ? price : product.price;
+  product.stock = stock !== undefined ? stock : product.stock;
+
+  res.json(product);
+});
+
+// DELETE - удалить товар
+app.delete('/products/:id', (req, res) => {
+  const index = products.findIndex(p => p.id === parseInt(req.params.id));
+  if (index === -1) return res.status(404).json({ error: 'Товар не найден' });
+
+  const deleted = products.splice(index, 1)[0];
+  res.json({ message: 'Товар удален', product: deleted });
+});
+
+app.listen(3000, () => console.log('API запущен на порту 3000'));</code></pre>
+          </div>
+
+          <h4>Пример 2: POST с валидацией и обработкой ошибок</h4>
+          <div class="code-block">
+            <pre><code>// Middleware для валидации создания поста
+const validatePost = (req, res, next) => {
+  const { title, content, author } = req.body;
+  const errors = [];
+
+  if (!title || title.length &lt; 3) {
+    errors.push('Title обязателен и минимум 3 символа');
+  }
+
+  if (!content || content.length &lt; 10) {
+    errors.push('Content обязателен и минимум 10 символов');
+  }
+
+  if (!author || author.length &lt; 2) {
+    errors.push('Author обязателен и минимум 2 символа');
+  }
+
+  if (errors.length > 0) {
+    return res.status(422).json({ errors });
+  }
+
+  next();
+};
+
+let posts = [];
+
+app.post('/posts', validatePost, (req, res) => {
+  try {
+    const { title, content, author } = req.body;
+
+    const newPost = {
+      id: posts.length + 1,
+      title,
+      content,
+      author,
+      createdAt: new Date()
+    };
+
+    posts.push(newPost);
+
+    res.status(201).json({
+      message: 'Пост создан успешно',
+      post: newPost
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Ошибка при создании поста' });
+  }
+});</code></pre>
+          </div>
+
+          <h4>Пример 3: PUT с частичным обновлением (PATCH-подобное поведение)</h4>
+          <div class="code-block">
+            <pre><code>// Хранилище профилей пользователей
+let profiles = [
+  {
+    id: 1,
+    name: 'Иван',
+    email: 'ivan@mail.com',
+    bio: 'Разработчик',
+    avatar: 'avatar.jpg'
+  }
+];
+
+// PUT - полное обновление профиля
+app.put('/profiles/:id', (req, res) => {
+  const profile = profiles.find(p => p.id === parseInt(req.params.id));
+  if (!profile) return res.status(404).json({ error: 'Профиль не найден' });
+
+  const { name, email, bio, avatar } = req.body;
+
+  // Если какое-то поле не указано, используем старое значение
+  profile.name = name || profile.name;
+  profile.email = email || profile.email;
+  profile.bio = bio || profile.bio;
+  profile.avatar = avatar || profile.avatar;
+
+  res.json({
+    message: 'Профиль обновлен',
+    profile
+  });
+});</code></pre>
+          </div>
+
+          <p class="note note--info">
+            <strong>Совет:</strong> В реальном приложении используйте базу данных (MongoDB, PostgreSQL) вместо массивов в памяти. Это обеспечит сохранение данных.
+          </p>
+        </div>
+      </section>
+
+      <!-- Безопасность -->
+      <section class="section" id="security">
+        <div class="container">
+          <h2>Безопасность при работе с POST и PUT</h2>
+
+          <p class="note">
+            <strong>Безопасность</strong> критична при обработке POST и PUT запросов, так как они изменяют данные сервера. Нужно защищаться от различных атак и уязвимостей.
+          </p>
+
+          <h4>Основные угрозы безопасности:</h4>
+          <ul class="list-ul">
+            <li><strong>SQL Injection</strong> — внедрение SQL кода в данные.</li>
+            <li><strong>XSS (Cross-Site Scripting)</strong> — внедрение JavaScript кода.</li>
+            <li><strong>CSRF (Cross-Site Request Forgery)</strong> — несанкционированные действия от пользователя.</li>
+            <li><strong>DoS (Denial of Service)</strong> — перегрузка сервера большими запросами.</li>
+          </ul>
+
+          <h4>1. Валидация и санитизация входных данных:</h4>
+          <div class="code-block">
+            <pre><code>// npm install sanitize-html xss
+const sanitizeHtml = require('sanitize-html');
+
+app.post('/posts', (req, res) => {
+  let { title, content } = req.body;
+
+  // Санитизировать опасный контент
+  content = sanitizeHtml(content, {
+    allowedTags: ['b', 'i', 'em', 'strong', 'a'],
+    allowedAttributes: { 'a': ['href'] }
+  });
+
+  // Избежать SQL injection с использованием параметризованных запросов
+  // db.query('INSERT INTO posts (title, content) VALUES (?, ?)', [title, content]);
+
+  res.status(201).json({ title, content });
+});</code></pre>
+          </div>
+
+          <h4>2. Ограничение размера тела запроса:</h4>
+          <div class="code-block">
+            <pre><code>// Защита от больших payload'ов
+app.use(express.json({ limit: '1mb' }));
+app.use(express.urlencoded({ limit: '1mb', extended: true }));
+
+// Custom middleware для проверки размера
+const checkBodySize = (req, res, next) => {
+  const contentLength = parseInt(req.headers['content-length']) || 0;
+  if (contentLength > 1024 * 1024) { // 1MB
+    return res.status(413).json({ error: 'Тело запроса слишком большое' });
+  }
+  next();
+};
+
+app.use(checkBodySize);</code></pre>
+          </div>
+
+          <h4>3. Защита от CSRF атак:</h4>
+          <div class="code-block">
+            <pre><code>// npm install csurf
+const csrf = require('csurf');
+const cookieParser = require('cookie-parser');
+
+app.use(cookieParser());
+app.use(csrf({ cookie: true }));
+
+// Форма с CSRF токеном
+app.get('/form', (req, res) => {
+  res.send(`
+    &lt;form method="POST" action="/users"&gt;
+      &lt;input type="hidden" name="_csrf" value="${req.csrfToken()}"&gt;
+      &lt;input type="text" name="name" required&gt;
+      &lt;button type="submit"&gt;Отправить&lt;/button&gt;
+    &lt;/form&gt;
+  `);
+});
+
+// POST с проверкой CSRF токена
+app.post('/users', (req, res) => {
+  res.json({ message: 'CSRF токен валиден', data: req.body });
+});</code></pre>
+          </div>
+
+          <h4>4. Rate Limiting (ограничение частоты запросов):</h4>
+          <div class="code-block">
+            <pre><code>// npm install express-rate-limit
+const rateLimit = require('express-rate-limit');
+
+// Ограничить 10 POST запросов в минуту с одного IP
+const postLimiter = rateLimit({
+  windowMs: 60 * 1000, // 1 минута
+  max: 10, // максимум 10 запросов
+  message: 'Слишком много запросов, попробуйте позже'
+});
+
+app.post('/users', postLimiter, (req, res) => {
+  res.status(201).json(req.body);
+});</code></pre>
+          </div>
+
+          <h4>5. Аутентификация и авторизация:</h4>
+          <div class="code-block">
+            <pre><code>// Middleware для проверки аутентификации
+const authenticate = (req, res, next) => {
+  const token = req.headers['authorization'];
+
+  if (!token) {
+    return res.status(401).json({ error: 'Требуется токен авторизации' });
+  }
+
+  // Проверить токен (упрощенно)
+  if (token !== 'Bearer valid-token') {
+    return res.status(403).json({ error: 'Неверный токен' });
+  }
+
+  next();
+};
+
+// Использование в маршрутах
+app.post('/users', authenticate, (req, res) => {
+  res.status(201).json(req.body);
+});
+
+app.put('/users/:id', authenticate, (req, res) => {
+  res.json(req.body);
+});</code></pre>
+          </div>
+
+          <h4>6. HTTPS и безопасные cookies:</h4>
+          <div class="code-block">
+            <pre><code>// npm install helmet
+const helmet = require('helmet');
+
+// Helmet устанавливает различные HTTP заголовки для безопасности
+app.use(helmet());
+
+// Безопасные cookies
+app.use(express.json());
+
+app.post('/login', (req, res) => {
+  // После проверки учетных данных
+  res.cookie('token', 'jwt-token-here', {
+    httpOnly: true, // Недоступно для JavaScript
+    secure: true,   // Только через HTTPS
+    sameSite: 'strict' // Защита от CSRF
+  });
+
+  res.json({ message: 'Вход успешен' });
+});</code></pre>
+          </div>
+
+          <div class="warning">
+            <h4>⚠️ Правила безопасности:</h4>
+            <ul class="list-ul">
+              <li>ВСЕГДА валидируйте входные данные на сервере, не доверяйте клиенту.</li>
+              <li>Санитизируйте данные перед сохранением в БД.</li>
+              <li>Используйте параметризованные запросы к БД (избегайте конкатенации строк).</li>
+              <li>Ограничивайте частоту запросов (rate limiting).</li>
+              <li>Используйте HTTPS для всех запросов с данными.</li>
+              <li>Логируйте подозрительную активность.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Итоги -->
+      <section class="section" id="summary">
+        <div class="container">
+          <h2>Итоги</h2>
+
+          <div class="note-block info">
+            <ul class="list-ul">
+              <li><strong>POST</strong> создает новые ресурсы, не идемпотентный, возвращает 201 (Created).</li>
+              <li><strong>PUT</strong> обновляет существующие ресурсы полностью, идемпотентный, возвращает 200 (OK).</li>
+              <li><strong>req.body</strong> содержит данные из тела запроса, требует подходящего middleware.</li>
+              <li><strong>Middleware</strong> для парсинга должны быть подключены ДО маршрутов.</li>
+              <li><strong>Валидация</strong> критична — проверяйте все входные данные на сервере.</li>
+              <li><strong>Обработка ошибок</strong> — используйте try-catch и error middleware для надежности.</li>
+              <li><strong>Безопасность</strong> — санитизируйте данные, ограничивайте размер, используйте аутентификацию.</li>
+              <li><strong>Правильные статусы</strong> — 201 для создания, 200 для обновления, 400 для ошибок клиента, 500 для сервера.</li>
+              <li><strong>REST API</strong> следует стандартам: используйте правильные методы и статусы.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    @@include('../partials/footer.html', {})
+  </div>
+
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
+</html>

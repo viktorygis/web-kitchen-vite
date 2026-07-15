@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "ExpressJS", "description": "ExpressJS - фреймворк для создания веб-приложений на Node.js" })
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+
+    <main class="page">
+      <nav class="nav-tabs" id="page-nav" aria-label="Навигация по странице">
+        <a href="#express-intro" class="active">Введение</a>
+        <a href="#express-what">Что такое ExpressJS</a>
+        <a href="#express-install">Установка</a>
+        <a href="#express-server">Создание сервера</a>
+        <a href="#express-routes">Маршруты</a>
+        <a href="#express-methods">HTTP методы</a>
+        <a href="#express-middleware">Middleware</a>
+        <a href="#express-summary">Итоги</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="express-intro">
+        <div class="container">
+          <h1>ExpressJS - фреймворк для Node.js</h1>
+
+          <p class="note">
+            <strong>ExpressJS</strong> — это минималистичный и гибкий фреймворк для создания веб-приложений на <b>Node.js</b>.
+            <br>
+
+            Он упрощает создание <b>HTTP-серверов</b>, обработку <b>запросов</b> и <b>ответов</b>, управление <b>маршрутами</b> и многое другое.
+            <br>
+
+            <b>Фреймворк</b>
+            — это готовый набор инструментов и правил, которые помогают быстрее разрабатывать приложения.
+          </p>
+          <p class="note">
+            <strong>ExpressJS</strong> — это фреймворк для создания серверов на <b>Node.js.</b> ,а вот что делает его таким крутым:
+            <br>
+            ◽ <b>Простой и быстрый</b> — Express позволяет за несколько строк кода настроить сервер. ⏱️
+            <br>
+            ◽ <b>Гибкость</b> — ты можешь настроить сервер, как тебе нужно, добавлять обработчики для различных типов запросов и многое другое. 🎨
+            <br>
+            ◽ <b>Множество готовых решений</b> — у Express есть большая экосистема, где ты можешь найти решения для множества задач. 🔧
+          </p>
+          <img class="note-img" src="/img/node/maxresdefault.jpg" alt="ExpressJS" caption="ExpressJS" />
+          <p class="note-caption">Рис. 1. ExpressJS - фреймворк для Node.js</p>
+          <p class="note note--info">
+            <strong>Node.js</strong> — Вместо того чтобы вручную обрабатывать каждый запрос, Express всё упрощает и позволяет сосредоточиться на логике приложения.
+
+
+          </p>
+
+        </div>
+      </section>
+
+      <!-- Что такое ExpressJS -->
+      <section class="section" id="express-what">
+        <div class="container">
+          <h2>Что такое ExpressJS</h2>
+
+          <p class="note">
+            <strong>ExpressJS</strong> — это популярный фреймворк для создания веб-приложений и API на Node.js. Он позволяет быстро создавать серверы, обрабатывать HTTP-запросы, управлять маршрутами и строить сложные приложения.
+          </p>
+
+          <h4>Основные возможности:</h4>
+          <ul class="list-ul">
+            <li><strong>Маршрутизация</strong> — определение путей обработки запросов.</li>
+            <li><strong>Middleware</strong> — функции для обработки запросов.</li>
+            <li><strong>Шаблонизация</strong> — использование шаблонов для рендеринга HTML.</li>
+            <li><strong>Статические файлы</strong> — раздача CSS, JS, изображений.</li>
+            <li><strong>Обработка ошибок</strong> — централизованная обработка ошибок.</li>
+          </ul>
+
+          <p class="note note--info">
+            ExpressJS используется в тысячах приложений по всему миру — от стартапов до крупных компаний. Это один из самых популярных фреймворков для Node.js.
+          </p>
+        </div>
+      </section>
+
+      <!-- Установка -->
+      <section class="section" id="express-install">
+        <div class="container">
+          <h2>Установка ExpressJS</h2>
+
+          <p>
+            Для работы с ExpressJS вам нужно установить <strong>Node.js</strong> и <strong>npm</strong> (менеджер пакетов).
+          </p>
+
+          <h4>Шаг 1: Создайте папку проекта</h4>
+          <div class="code-block">
+            <pre><code>mkdir my-express-app
+cd my-express-app</code></pre>
+          </div>
+
+          <h4>Шаг 2: Инициализируйте проект</h4>
+          <p>Открой командную строку и перейди в папку, где хочешь создать проект. Напиши команду:</p>
+          <div class="code-block">
+            <pre><code>npm init -y</code></pre>
+          </div>
+
+          <p>Эта команда создаст файл <code>package.json</code> с базовой конфигурацией проекта.</p>
+
+          <h4>Шаг 3: Установите ExpressJS</h4>
+          <p>Теперь, когда проект готов, установим Express с помощью команды:</p>
+          <div class="code-block">
+            <pre><code>npm install express</code></pre>
+          </div>
+          <p>Эта команда установит Express и добавит его в зависимости нашего проекта.
+
+          </p>
+          <p class="note note--info">
+            После установки ExpressJS будет доступен в папке <code>node_modules</code> и указан в файле <code>package.json</code>.
+          </p>
+          <h4>Шаг 4: Создание простого сервера</h4>
+          <h4>Шаг 5: Сохрани файл, запустите сервер командой</h4>
+          <div class="code-block">
+            <pre><code>node app.js</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Создание сервера -->
+      <section class="section" id="express-server">
+        <div class="container">
+          <h2>Создание простого сервера</h2>
+
+          <p>
+            Давайте создадим простой HTTP-сервер с помощью ExpressJS.
+          </p>
+
+          <div class="code-block">
+            <pre><code>// Импортируем ExpressJS
+const express = require('express');
+
+// Создаём приложение
+const app = express();
+
+// Определяем порт
+const PORT = 3000;
+
+// Обработчик для главной страницы
+app.get('/', (req, res) => {
+  res.send('Добро пожаловать на главную страницу!');
+});
+
+// Запускаем сервер
+app.listen(PORT, () => {
+  console.log(`Сервер запущен на http://localhost:${PORT}`);
+});</code></pre>
+          </div>
+
+          <h5>Как это работает?</h5>
+          <ul class="list-ul">
+            <li><code>require('express')</code> — импортируем модуль ExpressJS.</li>
+            <li><code>express()</code> — создаём приложение ExpressJS.</li>
+            <li><code>app.get()</code> — определяем обработчик для GET-запроса.</li>
+            <li><code>res.send()</code> — отправляем ответ клиенту.</li>
+            <li><code>app.listen()</code> — запускаем сервер на указанном порту.</li>
+          </ul>
+
+          <p class="note note--info">
+            Сохраните этот код в файл <code>app.js</code> и запустите командой <code>node app.js</code>. Затем откройте браузер и перейдите на <code>http://localhost:3000</code>.
+          </p>
+        </div>
+      </section>
+
+      <!-- Маршруты -->
+      <section class="section" id="express-routes">
+        <div class="container">
+          <h2>Маршруты</h2>
+
+          <p class="note">
+            <strong>Маршруты</strong> — это пути, по которым приложение обрабатывает запросы. Каждый маршрут имеет путь (URL) и обработчик (функцию).
+            <br>
+            Маршруты в ExpressJS позволяют нам обрабатывать запросы, поступающие на сервер, и решать, что с ними делать.
+          </p>
+          <p> Каждый маршрут обрабатывает определённый путь и тип запроса. Мы можем создавать маршруты для разных страниц или API. </p>
+
+          <h4>Примеры маршрутов:</h4>
+          <div class="code-block">
+            <pre><code>app.get('/', (req, res) => {
+  res.send('Привет, мир! 🌍');
+});</code></pre>
+          </div>
+
+          <p class="note note--info">
+            <strong>app.get('/')</strong> — это маршрут для обработки <b>GET-запросов</b> на главную страницу <b>/</b> (корень сайта). Когда кто-то посещает твой сайт, например, по адресу <code>http://localhost:3000</code> (если сервер работает на порту 3000), Express будет "слушать" этот запрос и вызовет функцию, которая стоит в этом маршруте.
+            <br>
+            После мы передаём функцию, которая принимает два параметра: объект <b>req (запрос)</b> и объект <b>res (ответ)</b>. В этой функции мы отправляем ответ через <b>res.send()</b>
+          </p>
+
+          <h4>Пример:</h4>
+          <p>В нашем примере мы отправляем текст "Это наш проект на ExpressJS! 🚀" на страницы "О нас" /about. и возвращаем информацию о проекте.
+          </p>
+          <div class="code-block">
+            <pre><code>app.get('/about', (req, res) => {
+  res.send('Это наш проект на ExpressJS! 🚀');
+});</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- HTTP методы -->
+      <section class="section" id="express-methods">
+        <div class="container">
+          <h2>HTTP методы</h2>
+
+          <p>
+            ExpressJS поддерживает различные HTTP методы для обработки разных типов запросов.
+          </p>
+
+          <h4>GET - получение данных</h4>
+          <div class="code-block">
+            <pre><code>app.get('/products', (req, res) => {
+  res.json({ products: ['Товар 1', 'Товар 2', 'Товар 3'] });
+});</code></pre>
+          </div>
+
+          <h4>POST - создание данных</h4>
+          <div class="code-block">
+            <pre><code>app.post('/products', (req, res) => {
+  // req.body содержит данные из тела запроса
+  const newProduct = req.body;
+  res.json({ message: 'Товар создан', product: newProduct });
+});</code></pre>
+          </div>
+
+          <h4>PUT - обновление данных</h4>
+          <div class="code-block">
+            <pre><code>app.put('/products/:id', (req, res) => {
+  const productId = req.params.id;
+  res.json({ message: `Товар ${productId} обновлен` });
+});</code></pre>
+          </div>
+
+          <h4>DELETE - удаление данных</h4>
+          <div class="code-block">
+            <pre><code>app.delete('/products/:id', (req, res) => {
+  const productId = req.params.id;
+  res.json({ message: `Товар ${productId} удален` });
+});</code></pre>
+          </div>
+
+          <p class="note note--info">
+            Для обработки данных из тела запроса используйте middleware <code>express.json()</code>: <code>app.use(express.json());</code>
+          </p>
+        </div>
+      </section>
+
+      <!-- Middleware -->
+      <section class="section" id="express-middleware">
+        <div class="container">
+          <h2>Middleware</h2>
+
+          <p class="note">
+            <strong>Middleware(перевод: промежуточное ПО)</strong> — это функции, которые выполняются во время обработки запроса. Они могут изменять объект запроса <code>req</code>, объект ответа <code>res</code> или завершать обработку запроса.
+
+            <p>
+              Middleware может использоваться для логирования, проверки аутентификации, парсинга данных и многого другого.
+            </p>
+
+            <h4>Пример простого middleware:</h4>
+            <div class="code-block">
+              <pre><code>const express = require('express');
+const app = express();
+
+// Middleware для логирования
+app.use((req, res, next) => {
+  console.log(`Запрос: ${req.method} ${req.url}`);
+  next(); // Передаём управление дальше
+});
+
+// Встроенный middleware для парсинга JSON
+app.use(express.json());
+
+// Middleware для статических файлов
+app.use(express.static('public'));
+
+app.get('/', (req, res) => {
+  res.send('Привет!');
+});
+
+app.listen(3000);</code></pre>
+            </div>
+
+            <h5>Параметры middleware:</h5>
+
+            <ul class="list-ul">
+              <li><code>req</code> — объект запроса с информацией о клиенте.
+                <br> <b>req (request - запрос)</b> — это объект, который содержит информацию о запросе, который пришёл на сервер. Он включает в себя данные о пути запроса, параметрах, заголовках и теле запроса.
+              </li>
+
+              <li><code>res</code> — объект ответа для отправки данных клиенту.
+                <br> <b>res (response - ответ)</b> — это объект, который используется для отправки ответа клиенту. С его помощью можно отправлять текст, HTML, JSON и другие данные.
+              </li>
+
+              <li><code>next</code> — функция для передачи управления следующему middleware.
+                <br> <b>next() (следующий)</b> — это функция, которая вызывается внутри middleware, чтобы передать управление следующему middleware в цепочке. Если не вызвать next(), запрос "зависнет" и не будет обработан дальше.
+              </li>
+
+            </ul>
+            <h4>Пример маршрута с параметром req:</h4>
+            <p>Здесь <b>req.params.name</b> позволяет нам получить параметр <b>name</b>, который передан в <b>URL</b>. Например, если запрос был сделан на <b>/greet/Дима</b>, то <b>req.params.name</b> будет равно <b>"Дима"</b></p>
+            <div class="code-block">
+              <pre><code>app.get('/greet/:name', (req, res) => {
+  const name = req.params.name; // Получаем параметр из URL
+  res.send(`Привет, ${name}! 👋`); // Отправляем ответ с использованием параметра
+});</code></pre>
+            </div>
+
+            <h4>Пример маршрута с параметром res:</h4>
+            <p>А вот объект <b>res</b> в Express используется для отправки ответа клиенту.
+              <br>
+              Мы можем отправить данные в различных форматах, например, текст, JSON, HTML и т. д. Объект res предоставляет различные методы для отправки этих данных, такие как res.send(), res.json(), res.status() и другие.</p>
+            <div class="code-block">
+              <pre><code>app.get('/user', (req, res) => {
+  const user = {
+    name: 'Дмитрий',
+    age: 25
+  };
+  res.json(user); // Отправляем объект user в формате JSON
+});</code></pre>
+            </div>
+            <p>Тут мы отправлям JSON-данные с помощью метода res.json()
+
+            </p>
+            <h4>Методы объекта res:</h4>
+            <p>Это методы объекта <b>res</b>, которые позволяют отправлять ответы клиенту в различных форматах и с различными статусами.</p>
+            <p><b>res.send()</b> - отправляет текстовый ответ клиенту.
+              <br>
+              <b>res.json()</b> - отправляет JSON-ответ клиенту.
+              <br>
+              <b>res.status()</b> - устанавливает HTTP-статус ответа.
+            </p>
+
+
+            <p class="note note--info">
+              Порядок подключения middleware важен! Обработчики маршрутов выполняются в том порядке, в котором они определены.
+            </p>
+        </div>
+      </section>
+
+      <!-- Отправка данных -->
+      <section class="section" id="express-send">
+        <div class="container">
+          <h2>Отправка данных</h2>
+
+          <p>
+            В ExpressJS мы можем отправлять данные клиенту в различных форматах, таких как текст, HTML, JSON и другие.
+          </p>
+          <ul class="list-ul">
+            <li> <b>Текст</b> — с помощью <code>res.send()</code></li>
+            <li> <b>JSON</b> — с помощью <code>res.json()</code></li>
+            <li> <b>Статус</b> — с помощью <code> res.status()</code></li>
+          </ul>
+          <h4>Пример отправки текста:</h4>
+          <div class="code-block">
+            <pre><code>app.get('/text', (req, res) => {
+  res.send('Это текстовый ответ! 📄');
+});</code></pre>
+          </div>
+          <h4>Пример отправки JSON:</h4>
+          <div class="code-block">
+            <pre><code>app.get('/json', (req, res) => {
+  const data = { message: 'Это JSON-ответ! 📦' };
+  res.json(data);
+});</code></pre>
+          </div>
+          <h4>Пример отправки статуса :</h4>
+          <p>Например, если нам нужно вернуть ошибку, мы можем установить статус 404 и отправить текстовое сообщение</p>
+          <div class="code-block">
+            <pre><code>app.get('/notfound', (req, res) => {
+  res.status(404).send('Страница не найдена! 😕');
+});</code></pre>
+          </div>
+
+
+          <p class="note note--info">
+            Метод <b>res.send()</b> автоматически определяет тип данных и устанавливает соответствующий заголовок <b>Content-Type</b>. Метод <b>res.json()</b> устанавливает заголовок <b>Content-Type: application/json</b>.
+          </p>
+        </div>
+      </section>
+
+
+      <!-- Обработка запросов  -->
+      <section class="section" id="express-requests">
+        <div class="container">
+          <h2>Обработка запросов</h2>
+
+          <p class="note">
+            <strong>Обработка запросов</strong> — это процесс получения данных от клиента и отправки ответа обратно. В ExpressJS мы можем обрабатывать различные типы запросов, такие как GET, POST, PUT, DELETE и другие. Каждый тип запроса имеет свои особенности и используется для разных целей.
+          </p>
+          <p><b>params (перевод "параметры")</b> - объект, содержащий параметры маршрута из URL. Например, если маршрут определен как <code>/greet/:name</code>, то <code>req.params.name</code> будет содержать значение параметра <code>name</code>.</p>
+
+          <h4>Пример обработки GET-запроса:</h4>
+          <div class="code-block">
+            <pre><code>app.get('/greet/:name', (req, res) => {
+  const name = req.params.name; // Получаем параметр 'name' из URL
+  res.send(`Привет, ${name}! 👋`); // Отправляем персонализированное сообщение
+});</code></pre>
+          </div>
+          <p>Здесь мы используем req.params.name для получения значения параметра из URL и отправляем персонализированное сообщение.
+
+          </p>
+          <h4>Пример обработки POST-запроса:</h4>
+          <div class="code-block">
+            <pre><code>app.post('/data', (req, res) => {
+  res.send('Это POST-запрос! 📤');
+});</code></pre>
+          </div>
+          <h4>Пример обработки PUT-запроса:</h4>
+          <div class="code-block">
+            <pre><code>app.put('/data', (req, res) => {
+  res.send('Это PUT-запрос! 🔄');
+});</code></pre>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Итоги -->
+      <section class="section" id="express-summary">
+        <div class="container">
+          <h2>Итоги</h2>
+
+          <div class="note-block info">
+            <ul class="list-ul">
+              <li>ExpressJS — популярный фреймворк для создания веб-приложений на Node.js.</li>
+              <li>Установка проста: <code>npm install express</code>.</li>
+              <li>Маршруты определяют пути обработки запросов: GET, POST, PUT, DELETE.</li>
+              <li>Middleware — функции, которые обрабатывают запросы.</li>
+              <li><code>app.listen()</code> запускает сервер на указанном порту.</li>
+              <li><code>res.send()</code> и <code>res.json()</code> отправляют ответ клиенту.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    @@include('../partials/footer.html', {})
+  </div>
+
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
+</html>

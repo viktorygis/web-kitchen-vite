@@ -73,11 +73,13 @@ header {
   align-items: stretch;
 }
 
+//-----------------------
+//.nav-link
 .nav-link {
   display: flex;
   align-items: center;
   height: 100%;
-  padding: 15px 16px;
+  padding: 15px 14px;
   color: $headerLinkColor;
   font-size: 16px;
   line-height: 140%;
