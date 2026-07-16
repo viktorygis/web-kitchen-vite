@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "Как программа принимает решения", "description": "Как программа принимает решения" })
+
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <nav class="nav-tabs" id="page-nav" role="navigation">
+      <a href="#intro" class="active">Введение</a>
+      <a href="#conditions">Условия if / else</a>
+      <a href="#switch">Конструкция switch</a>
+      <a href="#comparison-operators">Операторы сравнения</a>
+      <a href="#logical">Логические операторы</a>
+      <a href="#functions">Функции и логика</a>
+      <a href="#validation">Проверка данных</a>
+      <a href="#business-logic">Бизнес-логика</a>
+      <a href="#middleware">Логика в middleware</a>
+      <a href="#errors">Обработка ошибок</a>
+      <a href="#examples">Практические примеры</a>
+      <a href="#summary">Итоги</a>
+    </nav>
+
+    <!-- Введение -->
+    <section class="section" id="intro">
+      <div class="container">
+        <h1>Управление логикой приложения</h1>
+        <h2>Как программа принимает решения</h2>
+        <p class="note">
+          <strong>Логика приложения</strong> — это набор правил, по которым программа принимает решения:
+          что выполнить, когда выполнить и какой результат вернуть пользователю.
+        </p>
+        <p> Любая программа состоит не только из хранения данных,
+          но и из проверки условий: </p>
+
+        <ul class="list-ul">
+          <li>Если пользователь авторизован — показать личный кабинет.</li>
+          <li>Если пароль неверный — вернуть ошибку.</li>
+          <li>Если товар есть в наличии — разрешить покупку.</li>
+          <li>Если данные некорректные — остановить выполнение.</li>
+        </ul>
+
+      </div>
+    </section>
+
+    <!-- Условия if / else -->
+    <section class="section" id="conditions">
+      <div class="container">
+        <h2>Условия if / else</h2>
+        <p class="note"><strong>Условие if</strong> помогает программе делать выбор между несколькими вариантами, проверяя, верно ли какое-то утверждение. </p>
+
+        <div class="code-block">
+          <pre><code>let age = 20;
+
+if (age &gt;= 18) {
+  console.log("Ты взрослый!");
+}</code></pre>
+        </div>
+
+        <ul class="list-ul">
+          <li>Оно выполняется, если условие внутри if истинно true </li>
+          <li> <b>В круглых скобках <code> ( ) </code></b> пишем условие, которое должно быть проверено. Например, <code>x &gt; 5</code>, <code>age === 18</code> и т. д.</li>
+          <li> <b>В фигурных скобках</b><code>{ }</code> (или без них, если код один) пишем то, что нужно выполнить, если условие выполнится.</li>
+        </ul>
+
+
+        <div class="code-block">
+
+          <pre><code>
+const score = 75;
+
+if(score &gt;= 90){
+ console.log("Отлично");
+}
+else if(score &gt;= 60){
+ console.log("Хорошо");
+}
+else{
+ console.log("Нужно повторить");
+}
+
+</code></pre>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Конструкция switch -->
+    <section class="section" id="switch">
+      <div class="container">
+        <h2>Конструкция switch</h2>
+        <p class="note"><strong>Конструкция switch</strong> позволяет проверять значение переменной и выполнять разные действия в зависимости от этого значения.</p>
+
+        <div class="code-block">
+          <pre><code>const fruit = "apple";
+
+switch (fruit) {
+  case "apple":
+    console.log("Яблоко");
+    break;
+  case "banana":
+    console.log("Банан");
+    break;
+  default:
+    console.log("Неизвестный фрукт");
+}</code></pre>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Операторы сравнения -->
+    <section class="section" id="comparison-operators">
+      <div class="container">
+        <h2>Операторы сравнения</h2>
+
+        <table class="table-note">
+          <tr>
+            <th>Оператор</th>
+            <th>Описание</th>
+          </tr>
+          <tr>
+            <td>===</td>
+            <td>Строгое равенство</td>
+          </tr>
+          <tr>
+            <td>!==</td>
+            <td>Не равно</td>
+          </tr>
+          <tr>
+            <td>&gt;</td>
+            <td>Больше</td>
+          </tr>
+          <tr>
+            <td>&lt;</td>
+            <td>Меньше</td>
+          </tr>
+
+
+          <tr>
+            <td>&gt;=</td>
+            <td>Больше или равно</td>
+          </tr>
+
+
+          <tr>
+            <td>&lt;=</td>
+            <td>Меньше или равно</td>
+          </tr>
+
+
+        </table>
+      </div>
+    </section>
+
+    <!-- Логические операторы -->
+    <section class="section" id="logical">
+      <div class="container">
+        <h2>Логические операторы</h2>
+        <p>
+          <strong>Логические операторы</strong> позволяют объединять несколько условий в одно. Они помогают программе принимать решения на основе нескольких факторов.
+        </p>
+
+        <table class="table-note">
+          <tr>
+            <th>Оператор</th>
+            <th>Описание</th>
+            <th>Пример</th>
+          </tr>
+          <tr>
+            <td>&&</td>
+            <td>Логическое И (AND)</td>
+            <td><code>
+                user.age >= 18 && user.active
+              </code></td>
+          </tr>
+          <tr>
+            <td>||</td>
+            <td>Логическое ИЛИ (OR)</td>
+            <td>if(user.age &gt;= 18 || user.active){
+              console.log("Можно войти");
+              }</td>
+          </tr>
+          <tr>
+            <td>!</td>
+            <td>Логическое НЕ (NOT)</td>
+            <td>if(!isBlocked){
+              console.log("Пользователь активен");
+              }</td>
+          </tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- Функции и логика -->
+    <section class="section" id="functions">
+      <div class="container">
+        <h2>Функции и логика</h2>
+        <p class="note"><strong>Функции</strong> помогают организовать код и сделать его более читаемым. Логику программы можно разделить на функции, каждая из которых выполняет определённую задачу.</p>
+
+        <div class="code-block">
+          <pre><code>function checkAge(age) {
+  if (age &gt;= 18) {
+    return "Ты взрослый!";
+  } else {
+    return "Ты ещё ребёнок!";
+  }
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Проверка данных -->
+    <section class="section" id="validation">
+      <div class="container">
+        <h2>Проверка данных</h2>
+        <p class="note"><strong>Проверка данных</strong> — это процесс проверки входных данных на корректность перед их использованием в программе. Это помогает избежать ошибок и обеспечить безопасность приложения.</p>
+
+        <div class="code-block">
+          <pre><code>function validateEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  return emailRegex.test(email);
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Бизнес-логика -->
+    <section class="section" id="business-logic">
+      <div class="container">
+        <h2>Бизнес-логика</h2>
+        <p class="note"><strong>Бизнес-логика</strong> — это набор правил и процессов, которые определяют, как работает приложение в контексте конкретного бизнеса или задачи. Она включает в себя все условия, проверки и действия, которые необходимо выполнить для достижения целей приложения.</p>
+
+        <div class="code-block">
+          <pre><code>function calculateDiscount(price, userType) {
+  if (userType === "premium") {
+    return price * 0.8; // 20% скидка для премиум
+  } else if (userType === "regular") {
+    return price * 0.9; // 10% скидка для обычных пользователей
+  } else {
+    return price; // без скидки
+  }
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Логика в middleware -->
+    <section class="section" id="middleware">
+      <div class="container">
+        <h2>Логика в middleware</h2>
+        <p class="note"><strong>Middleware</strong> — это функции, которые выполняются между запросом и ответом в веб-приложении. Они могут использоваться для проверки условий, аутентификации, логирования и других задач.</p>
+
+        <div class="code-block">
+          <pre><code>function authMiddleware(req, res, next) {
+  if (req.user) {
+    next(); // пользователь авторизован, продолжаем
+  } else {
+    return res.status(401).send("Не авторизован");
+  }
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Обработка ошибок -->
+    <section class="section" id="errors">
+      <div class="container">
+        <h2>Обработка ошибок</h2>
+        <p class="note"><strong>Обработка ошибок</strong> — это процесс выявления и управления ошибками, которые могут возникнуть во время выполнения программы. Это помогает предотвратить сбои и улучшить пользовательский опыт.</p>
+
+        <div class="code-block">
+          <pre><code>const jsonString = '{"name":"Иван"}';
+
+try {
+  const data = JSON.parse(jsonString);
+  console.log(data);
+} catch (error) {
+  console.error("Ошибка при разборе JSON:", error);
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Практические примеры -->
+    <section class="section" id="examples">
+      <div class="container">
+        <h2>Практические примеры</h2>
+        <p class="note"><strong>Примеры</strong> показывают, как применять условия, логические операторы и функции в реальных сценариях.</p>
+
+        <div class="code-block">
+          <pre><code>function canAccessContent(user) {
+  if (user.age &gt;= 18 &amp;&amp; user.subscription === "active") {
+    return true; // доступ разрешен
+  } else {
+    return false; // доступ запрещен
+  }
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Итоги -->
+    <section class="section" id="summary">
+      <div class="container">
+        <h2>Итоги</h2>
+        <p class="note"><strong>Итоги</strong> подводят основные моменты, которые были рассмотрены в разделе о логике приложения.</p>
+
+        <ul class="list-ul">
+          <li>Условия if / else позволяют программе принимать решения на основе проверок.</li>
+          <li>Конструкция switch удобна для проверки значения переменной и выполнения разных действий.</li>
+          <li>Операторы сравнения и логические операторы помогают объединять условия и делать сложные проверки.</li>
+          <li>Функции помогают организовать код и сделать его более читаемым.</li>
+          <li>Проверка данных, бизнес-логика, middleware и обработка ошибок — важные аспекты разработки приложений.</li>
+        </ul>
+      </div>
+    </section>
+
+
+    </main>
+
+    @@include('../partials/footer.html', {})
+  </div>
+
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
+</html>
