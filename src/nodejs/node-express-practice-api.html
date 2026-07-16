@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "📝 Практика по модулю", "description": "📝 Практика по модулю" })
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+
+    <main class="page">
+      <nav class="nav-tabs" id="page-nav" aria-label="Навигация по странице">
+        <a href="#practice-intro" class="active">Задача</a>
+        <a href="#practice-solution">Решение</a>
+
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="practice-intro">
+        <div class="container">
+          <h1>📝 Практика по модулю</h1>
+          <h2>Задача: создать API для работы с уроками</h2>
+          <h3> План работы</h3>
+          <ol class="list-ol">
+            <li>Создай новый проект Node.js.</li>
+            <li>Установи Express.</li>
+            <li>Сделай server.js или app.js.</li>
+            <li>Подключи express.json(), чтобы сервер понимал JSON из POST, PUT, PATCH.</li>
+            <li>Создай массив с данными в памяти, например lessons = [].</li>
+            <li>Определи базовый роут /lessons.</li>
+          </ol>
+
+          <h3>Маршруты</h3>
+          <ol class="list-ol">
+            <li>Сделай <code>GET /lessons</code> — вернуть все уроки.</li>
+            <li>Сделай <code>GET /lessons/:id</code> — вернуть один урок по id.</li>
+            <li>Сделай <code>POST /lessons</code> — добавить новый урок.</li>
+            <li>Сделай <code>PUT /lessons/:id</code> — заменить урок по id.</li>
+            <li>Сделай <code>PATCH /lessons/:id</code> — обновить урок по id.</li>
+            <li>Сделай <code>DELETE /lessons/:id</code> — удалить урок по id.</li>
+          </ol>
+
+          <h3> Структура кода</h3>
+          <ol class="list-ol">
+            <li>Вынеси массив с данными в отдельный файл data/lessons.js.</li>
+            <li>Вынеси обработчики в отдельный файл controllers/lessons.js.</li>
+            <li>Вынеси маршруты в отдельный файл routes/lessons.js.</li>
+            <li>Вынеси подключение роутера в routes/index.js или сразу в server.js.</li>
+            <li>Если модуль большой, раздели логику на routes, controllers, data.</li>
+          </ol>
+
+          <h3>Проверка логики</h3>
+          <ol class="list-ol">
+            <li>В каждом обработчике сначала находи урок по id.</li>
+            <li>Если урок не найден, возвращай 404.</li>
+            <li>Если данные пришли невалидные, возвращай 400.</li>
+            <li>Для POST добавляй новый объект с новым id.</li>
+            <li>Для PUT заменяй все поля объекта.</li>
+            <li>Для PATCH обновляй только переданные поля.</li>
+            <li>Для DELETE удаляй объект из массива и возвращай подтверждение.</li>
+          </ol>
+
+          <h3>Тестирование</h3>
+          <ol class="list-ol">
+            <li>Проверь все запросы в браузере или Postman.</li>
+            <li>Сначала протестируй GET /lessons.</li>
+            <li>Потом GET /lessons/1.</li>
+            <li>Потом POST /lessons с JSON body.</li>
+            <li>Потом PUT, PATCH, DELETE.</li>
+            <li>Убедись, что ответы приходят в нужном формате JSON.</li>
+          </ol>
+
+          <h3>Что сдать</h3>
+          <ol class="list-ol">
+            <li>Исходный код server.js.</li>
+            <li>Код роутов.</li>
+            <li>Примеры запросов и ответов.</li>
+            <li>Краткое описание, что делает каждый метод.</li>
+          </ol>
+
+          <h3>Как удобнее делать по шагам</h3>
+          <ol class="list-ol">
+            <li>Сначала реализуй только GET /lessons.</li>
+            <li>Потом добавь GET /lessons/:id.</li>
+            <li>Потом POST.</li>
+            <li>Потом PUT и PATCH.</li>
+            <li>В конце DELETE и обработку ошибок.</li>
+          </ol>
+
+
+        </div>
+      </section>
+
+      <!-- Решение -->
+      <section class="section" id="practice-solution">
+        <div class="container">
+          <h2> Решение</h2>
+          <p class="note">Решение задачи будет представлено в виде кода, который можно использовать в своем проекте. Ниже приведен пример реализации API для работы с уроками.</p>
+
+          <!-- 1 -->
+          <div class="note-block">
+            <h4>1.Создай новый проект Node.js.</h4>
+            <p class="note note--info">Создай папку для проекта с названием <b><code>nodejs-express-practice-api</code></b> и инициализируй его с помощью команды <b><code>npm init -y</code></b>.</p>
+            <p>После этого в проектной папке появится файл <code>package.json</code>.</p>
+          </div>
+
+          <!-- 2 -->
+          <div class="note-block">
+            <h4>2.Установи Express.</h4>
+            <p class="note note--info">Установи Express с помощью команды <b><code>npm install express</code></b>.</p>
+            <p>После этого в проектной папке появится папка <code>node_modules</code> и файл <code>package-lock.json</code>.</p>
+          </div>
+
+          <!-- 3 -->
+          <div class="note-block">
+            <h4>3.Сделай server.js или app.js.</h4>
+            <p class="note note--info">Создай файл <code>app.js</code> в корне проекта и добавь следующий код:</p>
+            <div class="code-block">
+              <pre><code>// Импортируем ExpressJS
+const express = require('express');
+
+// Создаём приложение
+const app = express();
+
+// Определяем порт
+const PORT = 3000;
+
+// Обработчик для главной страницы
+app.get('/', (req, res) => {
+  res.send('Добро пожаловать на главную страницу!');
+});
+
+// Запускаем сервер
+app.listen(PORT, () => {
+  console.log(`Сервер запущен на http://localhost:${PORT}`);
+});</code></pre>
+            </div>
+            <p class="note note--info">Теперь можно запустить сервер с помощью команды <b><code>node app.js</code></b> и открыть в браузере <b><code>http://localhost:3000</code></b>, чтобы увидеть сообщение "Добро пожаловать на главную страницу!".</p>
+          </div>
+
+          <!-- 4 -->
+          <div class="note-block">
+            <h4>4.Подключи express.json(), чтобы сервер понимал JSON из POST, PUT, PATCH.</h4>
+            <p class="note note--info">Добавь в <code>app.js</code> следующую строку после создания приложения:</p>
+            <div class="code-block">
+              <pre><code>app.use(express.json());</code></pre>
+            </div>
+            <p>Теперь сервер сможет обрабатывать JSON данные, отправленные в теле запросов POST, PUT и PATCH.</p>
+          </div>
+
+          <!-- 5 -->
+          <div class="note-block">
+            <h4>5.Создай массив с данными в памяти, например lessons = [].</h4>
+            <p class="note note--info">Добавь в <code>app.js</code> после создания приложения (строка <code>const app = express();</code>) следующий код для создания массива уроков:</p>
+            <div class="code-block">
+              <pre><code>let lessons = [
+  { id: 1, title: 'Урок 1', description: 'Описание урока 1' },
+  { id: 2, title: 'Урок 2', description: 'Описание урока 2' },
+  { id: 3, title: 'Урок 3', description: 'Описание урока 3' }
+];
+</code></pre>
+            </div>
+
+            <h5>Промежуточный файл app.js</h5>
+            <div class="code-block">
+              <pre><code>// Импортируем ExpressJS
+const express = require('express');
+
+// Создаём приложение
+const app = express();
+// Подключаем middleware для обработки JSON
+app.use(express.json());
+
+// Массив с данными уроков
+let lessons = [
+  { id: 1, title: 'Урок 1', description: 'Описание урока 1' },
+  { id: 2, title: 'Урок 2', description: 'Описание урока 2' },
+  { id: 3, title: 'Урок 3', description: 'Описание  урока 3' }
+];
+
+// Определяем порт
+const PORT = 3000;
+
+// Обработчик для главной страницы
+app.get('/', (req, res) => {
+  res.send('Добро пожаловать на главную страницу!');
+});
+
+// Запускаем сервер
+app.listen(PORT, () => {
+  console.log(`Сервер запущен на http://localhost:${PORT}`);
+});
+
+</code></pre>
+            </div>
+          </div>
+
+          <!-- 6 -->
+          <div class="note-block">
+            <h4>6.Определи базовый роут /lessons.</h4>
+            <p class="note note--info">Добавь в <code>app.js</code> обработчик для маршрута <code>/lessons</code>:</p>
+            <div class="code-block">
+              <pre><code>app.get('/lessons', (req, res) => {
+  res.json(lessons);
+});</code></pre>
+            </div>
+            <p>Теперь при обращении к <b><code>http://localhost:3000/lessons</code></b> в браузере или Postman, сервер вернет JSON массив с уроками.</p>
+
+
+          </div>
+
+          <!-- 7 -->
+          <div class="note-block">
+            <h4> 7.Реализуй остальные маршруты: GET /lessons/:id, POST /lessons, PUT /lessons/:id, PATCH /lessons/:id, DELETE /lessons/:id.</h4>
+            <p class="note note--info">Добавь в <code>app.js</code> следующие обработчики:</p>
+            <div class="code-block">
+              <pre><code>// GET /lessons/:id - вернуть один урок по id
+app.get('/lessons/:id', (req, res) => {
+  const lessonId = parseInt(req.params.id);
+  const lesson = lessons.find(l => l.id === lessonId);
+  if (!lesson) {
+    return res.status(404).json({ error: 'Урок не найден' });
+  }
+  res.json(lesson);
+});
+
+// POST /lessons - добавить новый урок
+app.post('/lessons', (req, res) => {
+  const { title, description } = req.body || {};
+
+  if (!title) {
+    return res.status(400).json({ error: 'Поле title обязательно' });
+  }
+
+  const newLesson = {
+    id: lessons.length + 1,
+    title,
+    description: description || ''
+  };
+
+  lessons.push(newLesson);
+  res.status(201).json(newLesson);
+});
+
+// PUT /lessons/:id - заменить урок по id
+app.put('/lessons/:id', (req, res) => {
+  const lessonId = parseInt(req.params.id);
+  const lessonIndex = lessons.findIndex(l => l.id === lessonId);
+  if (lessonIndex === -1) {
+    return res.status(404).json({ error: 'Урок не найден' });
+  }
+  lessons[lessonIndex] = {
+    id: lessonId,
+    title: req.body.title,
+    description: req.body.description
+  };
+  res.json(lessons[lessonIndex]);
+});
+
+// PATCH /lessons/:id - обновить урок по id
+app.patch('/lessons/:id', (req, res) => {
+  const lessonId = parseInt(req.params.id);
+  const lesson = lessons.find(l => l.id === lessonId);
+  if (!lesson) {
+    return res.status(404).json({ error: 'Урок не найден' });
+  }
+  if (req.body.title) lesson.title = req.body.title;
+  if (req.body.description) lesson.description = req.body.description;
+  res.json(lesson);
+});
+
+// DELETE /lessons/:id - удалить урок по id
+app.delete('/lessons/:id', (req, res) => {
+  const lessonId = parseInt(req.params.id);
+  const lessonIndex = lessons.findIndex(l => l.id === lessonId);
+  if (lessonIndex === -1) {
+    return res.status(404).json({ error: 'Урок не найден' });
+  }
+  lessons.splice(lessonIndex, 1);
+
+  res.json({ message: 'Урок удален' });
+});</code></pre>
+            </div>
+          </div>
+
+          <!-- 8 -->
+          <div class="note-block">
+            <h4>8.Запусти сервер и проверь все маршруты в Postman или браузере.</h4>
+            <p class="note note--info">Запусти сервер с помощью команды <b><code>node app.js</code></b></p>
+            <p>Проверь все маршруты в Postman или браузере. Например, открой <b><code>http://localhost:3000/lessons</code></b> для получения всех уроков, <b><code>http://localhost:3000/lessons/1</code></b> для получения урока с id 1</p>
+
+            <p>Используй POST, PUT, PATCH и DELETE для добавления, обновления и удаления уроков. Чтобы проверить POST, PUT, PATCH и DELETE, используй Postman или curl с соответствующими методами и JSON телом запроса.</p>
+
+
+
+            <h5>Как проверить POST-запрос</h5>
+
+
+            <p>Postman - это удобный инструмент для тестирования API. Ты можешь скачать его с официального сайта <a href="https://www.postman.com/downloads/" target="_blank">https://www.postman.com/downloads/</a> и использовать для отправки запросов к твоему серверу.</p>
+
+            <p>raw - это формат тела запроса, который позволяет отправлять данные в виде текста. В Postman можно выбрать "raw" и указать тип данных, например JSON, чтобы отправлять JSON объекты в теле запроса.</p>
+
+            <p>Открой Postman, выбери метод POST, введи URL <b><code>http://localhost:3000/lessons</code></b>, перейди на вкладку "Body", выбери "raw" и "JSON", вставь JSON тело запроса, например: <code>{ "title": "Новый урок", "description": "Описание нового урока" }</code> и нажми "Send".</p>
+            <p>Мы получим ответ от сервера с созданным уроком, например: <code>{ "id": 4, "title": "Новый урок", "description": "Описание нового урока" }</code>.</p>
+
+            <!-- картинка -->
+            <figure>
+              <img class="note-img" src="/img/node/lessons-post.jpg" alt="Postman" style=" max-height: 700px;" />
+              <figcaption class="note-caption">Рис. 2. Postman</figcaption>
+            </figure>
+
+
+
+            <h5>Как проверить PUT-запрос</h5>
+            <p>Используй Postman для отправки PUT-запроса на <b><code>http://localhost:3000/lessons/1</code></b> с JSON телом запроса, например: <code>{ "title": "Обновленный урок", "description": "Обновленное описание урока" }</code>. Сервер вернет обновленный урок с id 1.</p>
+
+
+
+
+            <h5>Как проверить PATCH-запрос</h5>
+            <p>Используй Postman или curl для отправки PATCH-запроса на <b><code>http://localhost:3000/lessons/1</code></b> с JSON телом запроса, например: <code>{ "title": "Частично обновленный урок" }</code>. Сервер вернет обновленный урок с id 1.</p>
+          </div>
+
+
+          <!-- 9 -->
+          <div class="note-block">
+            <h4>9. Структура кода</h4>
+
+            <p class="note">
+              Когда приложение становится больше, не стоит хранить все данные, маршруты и обработчики в одном файле <code>app.js</code>.
+              Лучше разделить проект на отдельные части: данные, контроллеры и маршруты.
+              Такой подход делает код понятнее, удобнее для поддержки и позволяет легко расширять приложение.
+            </p>
+
+            <h5>Структура проекта</h5>
+            <p> Создай следующую структуру папок: </p>
+
+            <div class="code-block">
+              <pre><code>project
+│
+├── app.js                         - Главный файл приложения
+│
+├── data                            - Данные приложения
+│   └── lessons.js                  - Массив уроков
+│
+├── controllers                     - Логика обработки запросов
+│   ├── getAllLessons.js            - Получить все уроки
+│   ├── getLessonById.js            - Получить урок по id
+│   ├── createLesson.js             - Создать урок
+│   ├── updateLesson.js             - Полностью обновить урок
+│   ├── patchLesson.js              - Частично обновить урок
+│   └── deleteLesson.js             - Удалить урок
+│
+├── routes                          - Маршруты приложения
+│   │
+│   └── v1                          - Версия API v1
+│       ├── index.js                - Главный файл маршрутов
+│       └── lessons.js              - Маршруты уроков
+│
+├── package.json                    - Настройки проекта и зависимости
+├── package-lock.json               - Зафиксированные версии пакетов
+└── README.md                       - Описание проекта
+</code></pre>
+            </div>
+
+            <h5>1. Выносим данные в data/lessons.js</h5>
+            <p class="note">Файл <code>data/lessons.js</code> содержит данные уроков. Сейчас используется обычный массив, но в будущем его можно заменить на базу данных.</p>
+
+            <div class="code-block">
+              <pre><code>// data/lessons.js
+
+const lessons = [
+  {
+    id: 1,
+    title: "Урок 1",
+    description: "Описание урока 1"
+  },
+  {
+    id: 2,
+    title: "Урок 2",
+    description: "Описание урока 2"
+  }
+];
+
+module.exports = lessons;
+</code></pre>
+            </div>
+
+
+            <h5>2. Контроллеры (controllers)</h5>
+            <p class="note">
+              Контроллеры содержат основную логику приложения.
+              Каждый контроллер отвечает за отдельное действие:
+              получение данных, создание, изменение или удаление уроков.
+            </p>
+            <p>Например, файл:</p>
+
+            <div class="code-block">
+              <pre><code>// controllers/getAllLessons.js
+const lessons = require('../data/lessons');
+
+const getAllLessons = (req, res) => {
+  res.json(lessons);
+};
+
+module.exports = getAllLessons;</code></pre>
+            </div>
+
+            <p>Такой подход позволяет разделить код. Вместо одного большого файла:</p>
+            <div class="code-block">
+              <pre><code>controllers/lessons.js</code></pre>
+            </div>
+            <p>Создаются отдельные файлы:</p>
+
+            <div class="code-block">
+              <pre><code>controllers
+│
+├── getAllLessons.js
+├── getLessonById.js
+├── createLesson.js
+├── updateLesson.js
+├── patchLesson.js
+└── deleteLesson.js
+</code></pre>
+            </div>
+
+
+            <h5><b>3. Маршруты API: routes/v1/lessons.js</b></h5>
+
+            <p class="note">
+              Файл маршрутов отвечает только за URL.
+              Он получает запрос и передает его нужному контроллеру.
+            </p>
+
+            <div class="code-block">
+              <pre><code>// routes/v1/lessons.js
+const express = require('express');
+const router = express.Router();
+
+const getAllLessons = require('../../controllers/getAllLessons');
+const getLessonById = require('../../controllers/getLessonById');
+const createLesson = require('../../controllers/createLesson');
+const updateLesson = require('../../controllers/updateLesson');
+const patchLesson = require('../../controllers/patchLesson');
+const deleteLesson = require('../../controllers/deleteLesson');
+
+// Получить все уроки
+router.get('/', getAllLessons);
+
+// Получить урок по id
+router.get('/:id', getLessonById);
+
+// Создать новый урок
+router.post('/', createLesson);
+
+// Обновить урок полностью
+router.put('/:id', updateLesson);
+
+// Частично обновить урок
+router.patch('/:id', patchLesson);
+
+// Удалить урок
+router.delete('/:id', deleteLesson);
+
+module.exports = router;
+</code></pre>
+            </div>
+
+            <p><code>express.Router()</code> создает отдельный маршрутизатор. Благодаря этому маршруты можно разделять по разным файлам.</p>
+
+
+            <h5>4. Объединяем маршруты в routes/v1/index.js</h5>
+            <p>Файл <code>routes/v1/index.js</code> объединяет все маршруты версии 1.
+              Он подключает маршруты уроков и может подключать другие маршруты в будущем.</p>
+
+            <div class="code-block">
+              <pre><code>// routes/v1/index.js
+const express = require('express');
+const router = express.Router();
+const lessonsRouter = require('./lessons');
+
+// Подключаем маршруты уроков
+router.use('/lessons', lessonsRouter);
+
+module.exports = router;</code></pre>
+            </div>
+
+            <p>Теперь все маршруты уроков начинаются с: <code>/lessons</code></p>
+
+
+
+            <h5><b>5. Подключаем API в app.js</b></h5>
+            <p>В <code>app.js</code> подключаем маршруты версии 1. Все запросы к <code>/api/v1</code> будут обрабатываться соответствующими маршрутами.</p>
+            <div class="code-block">
+              <pre><code>// app.js
+const express = require('express');
+const routes = require('./routes/v1');
+
+const app = express();
+
+const PORT = 3000;
+
+// Обработка JSON
+app.use(express.json());
+
+// Главная страница
+app.get('/', (req,res)=>{
+  res.send(
+    'Добро пожаловать на главную страницу!'
+  );
+});
+
+// Подключение API версии 1
+app.use('/api/v1', routes);
+
+app.listen(PORT,()=>{
+ console.log(
+  `Сервер запущен на http://localhost:${PORT}`
+ );
+});
+</code></pre>
+            </div>
+
+            <h5><b>Почему используется /api/v1?</b></h5>
+            <p class="note">Префикс <code>/api</code> показывает, что это API-запросы. Версия <code>v1</code> позволяет в будущем создать новую версию API и сохранить совместимость со старым кодом.</p>
+
+            <p> После подключения маршрутов получаются следующие адреса: </p>
+
+            <div class="code-block">
+              <pre><code>GET
+http://localhost:3000/api/v1/lessons
+
+GET один урок
+http://localhost:3000/api/v1/lessons/1
+
+POST создать урок
+http://localhost:3000/api/v1/lessons
+</code></pre>
+            </div>
+
+
+            <h5><b>Версии API</b></h5>
+            <p> В больших проектах API может развиваться. Например:</p>
+
+            <div class="code-block">
+              <pre><code>/api/v1/lessons
+
+/api/v2/lessons</code></pre>
+            </div>
+            <p>Первая версия может продолжать работать для старых клиентов, а новая версия будет использовать новый формат данных. </p>
+
+            <div class="code-block">
+              <pre><code>/api/v1/lessons // старая версия
+
+/api/v2/lessons // новая версия</code></pre>
+            </div>
+
+
+            <p class="note">В учебном проекте используется только версия <code>/api/v1</code>. В реальных приложениях версионирование API помогает безопасно развивать сервер. </p>
+
+          </div>
+
+
+          <!-- 10 -->
+          <div class="note-block">
+            <h4>10. Проверка логики контроллеров</h4>
+
+            <p class="note note--info">
+              Каждый контроллер должен правильно обрабатывать входные данные,
+              проверять ошибки и возвращать соответствующий HTTP-статус.
+            </p>
+
+
+            <h5><b>Получение урока по id (GET /lessons/:id)</b></h5>
+
+            <p class="note">
+              Сначала получаем <code>id</code> из параметров запроса и проверяем его корректность.
+              Если урок с таким id не найден, возвращаем ошибку <code>404</code>.
+            </p>
+
+
+            <h5><b>Создание урока (POST /lessons)</b></h5>
+
+             <p class="note">
+              Проверяем данные, которые пришли в теле запроса.
+              Если обязательные поля отсутствуют или имеют неверный формат,
+              возвращаем ошибку <code>400</code>.
+              После проверки создаём новый объект урока с новым уникальным <code>id</code>
+              и добавляем его в массив.
+            </p>
+
+
+            <h5><b>Полное обновление урока (PUT /lessons/:id)</b></h5>
+
+           <p class="note">
+              Сначала проверяем <code>id</code> и ищем существующий урок.
+              Если урок не найден, возвращаем <code>404</code>.
+              При успешной проверке полностью заменяем данные урока,
+              сохраняя только его <code>id</code>.
+            </p>
+
+
+            <h5><b>Частичное обновление урока (PATCH /lessons/:id)</b></h5>
+
+          <p class="note">
+              Проверяем <code>id</code> и наличие урока.
+              Затем изменяем только те поля, которые были переданы в запросе.
+              Остальные данные объекта остаются без изменений.
+            </p>
+
+
+            <h5><b>Удаление урока (DELETE /lessons/:id)</b></h5>
+
+            <p class="note">
+              Проверяем <code>id</code> и ищем урок в массиве.
+              Если урок не найден, возвращаем <code>404</code>.
+              Если урок найден, удаляем его из массива и возвращаем подтверждение удаления.
+            </p>
+
+
+            <h5><b>Используемые HTTP-статусы</b></h5>
+
+            <div class="code-block">
+              <pre><code>
+200 OK
+Запрос успешно выполнен.
+
+201 Created
+Объект успешно создан (используется при POST).
+
+400 Bad Request
+Ошибка в данных запроса:
+- неправильный id;
+- отсутствуют обязательные поля;
+- неверный формат данных.
+
+404 Not Found
+Объект с указанным id не найден.
+    </code></pre>
+            </div>
+
+
+            <p class="note note--info">
+              Таким образом каждый контроллер отвечает только за свою задачу:
+              получение, создание, обновление или удаление данных.
+            </p>
+
+          </div>
+        </div>
+      </section>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
+</html>
