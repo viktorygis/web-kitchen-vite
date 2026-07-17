@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+@@include('../partials/head.html', {
+"title": "OKR — фреймворк целей и результатов Product Manager",
+"description": "OKR — фреймворк Product Manager для постановки целей, измерения результатов и выравнивания команды вокруг продуктовой стратегии.",
+})
+
+<body>
+
+<a class="skip-link" href="#main">Перейти к содержимому</a>
+
+<div class="wrapper">
+
+@@include('../partials/header.html', {})
+
+<main class="page" id="main" tabindex="-1">
+
+
+<nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+
+
+<a href="#pm-intro" class="active" aria-current="true">
+Введение
+</a>
+
+
+<a href="#pm-structure">
+Структура OKR
+</a>
+
+
+<a href="#pm-create">
+Создание OKR
+</a>
+
+
+<a href="#pm-example">
+Пример
+</a>
+
+
+<a href="#pm-faq">
+FAQ
+</a>
+
+
+</nav>
+
+
+
+
+
+
+
+
+<!-- Введение -->
+
+<section class="section" id="pm-intro">
+
+<div class="container">
+
+
+<h1>OKR — Objectives and Key Results</h1>
+
+
+<p class="note">
+
+<strong>OKR (Objectives and Key Results)</strong> — это фреймворк
+постановки целей и измеримых результатов, который помогает командам
+связать ежедневную работу с продуктовой стратегией.
+
+</p>
+
+
+<p>
+Product Manager использует OKR для определения направления развития продукта,
+согласования команды и измерения прогресса.
+</p>
+
+
+
+<div class="note-block">
+
+
+<h3>Зачем нужен OKR</h3>
+
+
+<ul class="list-ul">
+
+<li>Связать продуктовые задачи с бизнес-целями.</li>
+
+<li>Сфокусировать команду на важных результатах.</li>
+
+<li>Измерять влияние, а не количество выполненных задач.</li>
+
+<li>Повысить прозрачность приоритетов.</li>
+
+<li>Синхронизировать разные команды.</li>
+
+</ul>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- Структура -->
+
+<section class="section" id="pm-structure">
+
+
+<div class="container">
+
+
+<h2>Структура OKR</h2>
+
+
+
+<table class="table-note">
+
+
+<thead>
+
+<tr>
+
+<th>Элемент</th>
+
+<th>Описание</th>
+
+<th>Вопрос PM</th>
+
+</tr>
+
+
+</thead>
+
+
+<tbody>
+
+
+
+<tr>
+
+<td>
+<strong>Objective</strong>
+</td>
+
+<td>
+Амбициозная качественная цель.
+</td>
+
+<td>
+Куда мы хотим прийти?
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Key Results</strong>
+</td>
+
+<td>
+Измеримые результаты достижения цели.
+</td>
+
+<td>
+Как поймём, что достигли цели?
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Initiatives</strong>
+</td>
+
+<td>
+Конкретные действия и проекты.
+</td>
+
+<td>
+Что будем делать для результата?
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Metrics</strong>
+</td>
+
+<td>
+Данные для оценки эффекта.
+</td>
+
+<td>
+Какие показатели изменятся?
+</td>
+
+</tr>
+
+
+</tbody>
+
+
+</table>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- Создание -->
+
+<section class="section" id="pm-create">
+
+
+<div class="container">
+
+
+<h2>Как создавать OKR</h2>
+
+
+
+<table class="table-note">
+
+
+<thead>
+
+<tr>
+
+<th>Шаг</th>
+
+<th>Действие</th>
+
+<th>Результат</th>
+
+</tr>
+
+
+</thead>
+
+
+<tbody>
+
+
+
+<tr>
+
+<td>
+<strong>1. Определить направление</strong>
+</td>
+
+<td>
+Выбрать важную проблему или возможность.
+</td>
+
+<td>
+Product Objective.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>2. Сформулировать Objective</strong>
+</td>
+
+<td>
+Описать желаемое состояние продукта.
+</td>
+
+<td>
+Понятная цель команды.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>3. Создать Key Results</strong>
+</td>
+
+<td>
+Добавить измеримые результаты.
+</td>
+
+<td>
+Критерии успеха.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>4. Определить инициативы</strong>
+</td>
+
+<td>
+Выбрать действия для достижения KR.
+</td>
+
+<td>
+Backlog инициатив.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>5. Проверять прогресс</strong>
+</td>
+
+<td>
+Регулярно анализировать результаты.
+</td>
+
+<td>
+Корректировка стратегии.
+</td>
+
+</tr>
+
+
+</tbody>
+
+
+</table>
+
+
+
+<div class="note note--info">
+
+<strong>Важно:</strong>
+
+OKR описывает не список задач, а ожидаемый результат.
+Выполнение всех задач не гарантирует достижение цели.
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- Пример -->
+
+<section class="section" id="pm-example">
+
+
+<div class="container">
+
+
+<h2>Пример продуктового OKR</h2>
+
+
+
+<table class="table-note">
+
+
+<thead>
+
+<tr>
+
+<th>Тип</th>
+
+<th>Пример</th>
+
+</tr>
+
+
+</thead>
+
+
+<tbody>
+
+
+
+<tr>
+
+<td>
+<strong>Objective</strong>
+</td>
+
+<td>
+Сделать первый опыт пользователя простым и ценным.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Key Result 1</strong>
+</td>
+
+<td>
+Увеличить Activation Rate с 35% до 55%.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Key Result 2</strong>
+</td>
+
+<td>
+Сократить время первого действия пользователя с 10 до 3 минут.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Key Result 3</strong>
+</td>
+
+<td>
+Повысить Retention Day 30 на 15%.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Initiatives</strong>
+</td>
+
+<td>
+Новый onboarding, подсказки, улучшение первого сценария.
+</td>
+
+</tr>
+
+
+</tbody>
+
+
+</table>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- Ошибки -->
+
+<section class="section">
+
+
+<div class="container">
+
+
+<h2>Типичные ошибки при работе с OKR</h2>
+
+
+
+<table class="table-note">
+
+
+<thead>
+
+<tr>
+
+<th>Ошибка</th>
+
+<th>Почему плохо</th>
+
+</tr>
+
+
+</thead>
+
+
+<tbody>
+
+
+
+<tr>
+
+<td>
+<strong>OKR превращается в список задач</strong>
+</td>
+
+<td>
+Команда измеряет активность вместо результата.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Слишком много целей</strong>
+</td>
+
+<td>
+Теряется фокус и приоритеты.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Нет измеримых результатов</strong>
+</td>
+
+<td>
+Нельзя понять успех.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>KR не связаны с ценностью</strong>
+</td>
+
+<td>
+Рост метрик не означает улучшение продукта.
+</td>
+
+</tr>
+
+
+</tbody>
+
+
+</table>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- Связь -->
+
+<section class="section">
+
+
+<div class="container">
+
+
+<h2>OKR и другие Product Management фреймворки</h2>
+
+
+
+<table class="table-note">
+
+
+<thead>
+
+<tr>
+
+<th>Фреймворк</th>
+
+<th>Связь с OKR</th>
+
+</tr>
+
+
+</thead>
+
+
+<tbody>
+
+
+
+<tr>
+
+<td>
+<strong>Product Vision</strong>
+</td>
+
+<td>
+Определяет долгосрочное направление продукта.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>North Star Metric</strong>
+</td>
+
+<td>
+Помогает выбрать главный показатель ценности.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>ICE / RICE</strong>
+</td>
+
+<td>
+Помогает выбирать инициативы для достижения целей.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Roadmap</strong>
+</td>
+
+<td>
+Переводит цели в план развития.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Product Metrics</strong>
+</td>
+
+<td>
+Показывают фактический результат изменений.
+</td>
+
+</tr>
+
+
+</tbody>
+
+
+</table>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- FAQ -->
+
+<section class="section" id="pm-faq">
+
+
+<div class="container">
+
+
+<h2>FAQ — OKR</h2>
+
+
+
+<div class="faq">
+
+
+<div class="faq__item">
+
+
+<button class="faq__question">
+
+Чем OKR отличается от KPI?
+
+</button>
+
+
+<div class="faq__answer">
+
+<p>
+KPI чаще измеряет стабильную эффективность,
+а OKR помогает двигаться к новым амбициозным изменениям.
+</p>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="faq__item">
+
+
+<button class="faq__question">
+
+Сколько OKR должно быть у команды?
+
+</button>
+
+
+<div class="faq__answer">
+
+<p>
+Обычно команда работает с небольшим количеством целей,
+чтобы сохранить фокус.
+</p>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="faq__item">
+
+
+<button class="faq__question">
+
+Можно ли менять OKR в течение квартала?
+
+</button>
+
+
+<div class="faq__answer">
+
+<p>
+Да, если изменились стратегические условия или появились новые данные.
+</p>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+</main>
+
+
+@@include('../partials/footer.html', {})
+
+</div>
+
+
+@@include('../partials/popup.html', {})
+@@include('../partials/js.html', {})
+
+</body>
+
+</html>
