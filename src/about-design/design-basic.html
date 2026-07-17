@@ -1,549 +1,526 @@
 <!DOCTYPE html>
 <html lang="ru">
-    @@include('../partials/head.html', { "title": "Фундамент дизайна: Основы визуальной коммуникации", "description": "Основные принципы и элементы дизайна для создания эффективных визуальных решений" })
-    <style>
-        :root {
-            --primary: #2c3e50;
-            --secondary: #8e44ad;
-            --accent: #e74c3c;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --success: #27ae60;
-            --warning: #f39c12;
-            --muted: #6c757d;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            --transition: all 0.3s ease;
-        }
+@@include('../partials/head.html', { "title": "Фундамент дизайна: Основы визуальной коммуникации", "description": "Основные принципы и элементы дизайна для создания эффективных визуальных решений" })
 
-        .card-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
+<style>
+  :root {
+    --primary: #2c3e50;
+    --secondary: #8e44ad;
+    --accent: #e74c3c;
+    --light: #f8f9fa;
+    --dark: #212529;
+    --success: #27ae60;
+    --muted: #6c757d;
+    --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.08);
+    --radius: 10px;
+    --gap: 1.5rem;
+    --transition: 0.25s ease;
+  }
 
-        .card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
+  .principles__title {
+    font-size: 1.6rem;
+    margin: 0 0 .5rem;
+    color: var(--primary);
+  }
 
-        .card-header {
-            background: var(--primary);
-            color: white;
-            padding: 1.2rem;
-            font-weight: 600;
-        }
+  .principles__note {
+    margin-bottom: 1rem;
+    color: var(--muted);
+  }
 
-        .card-body {
-            padding: 1.5rem;
-        }
+  .principles__cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--gap);
+    margin-top: var(--gap);
+  }
 
-        .card-body p {
-            margin-bottom: 1rem;
-        }
+  .principles__card {
+    background: #fff;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
+    padding: 1rem;
+    opacity: 0;
+    transform: translateY(8px);
+  }
 
-        .card-footer {
-            background: var(--light);
-            padding: 1rem;
-            border-top: 1px solid #eee;
-            font-size: 0.9rem;
-        }
+  .principles__card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-md);
+  }
 
-        .principle-demo {
-            display: flex;
-            gap: 1.5rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
+  .principles__card-header {
+    background: var(--primary);
+    color: #fff;
+    padding: .75rem;
+    border-radius: 8px;
+    font-weight: 700;
+    margin: -1rem -1rem 0 -1rem;
+  }
 
-        .demo-item {
-            flex: 1;
-            min-width: 300px;
-            background: white;
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-        }
+  .principles__card-body {
+    padding: .75rem 0 0 0;
+  }
 
-        .demo-title {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-            font-weight: 600;
-        }
+  .principles__card-footer {
+    margin-top: .75rem;
+    font-size: .9rem;
+    color: var(--muted);
+    border-top: 1px solid #f0f0f0;
+    padding-top: .5rem;
+  }
 
-        .demo-visual {
-            height: 120px;
-            margin: 1rem 0;
-            border-radius: 8px;
-            background: #f5f7fa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #eee;
-        }
+  /* Demonstration (bad/good examples) */
+  .principles__demo {
+    display: flex;
+    gap: var(--gap);
+    margin: 2rem 0;
+    flex-wrap: wrap;
+  }
 
-        .demo-bad {
-            border: 2px dashed var(--accent);
-        }
+  .principles__demo-item {
+    flex: 1;
+    min-width: 300px;
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    box-shadow: var(--shadow-sm);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: var(--transition);
+  }
 
-        .demo-good {
-            border: 2px dashed var(--success);
-        }
+  .principles__demo-title {
+    font-size: 1.1rem;
+    margin: 0 0 .5rem;
+    color: var(--primary);
+    font-weight: 600;
+  }
 
-        .elements-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
+  .principles__demo-visual {
+    height: 120px;
+    border-radius: 8px;
+    background: #f5f7fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #eee;
+    margin: .75rem 0;
+  }
 
-        .element-card {
-            background: white;
-            border-radius: 10px;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
+  .principles__demo-visual--bad {
+    border: 2px dashed var(--accent);
+  }
 
-        .element-card:hover {
-            transform: scale(1.05);
-        }
+  .principles__demo-visual--good {
+    border: 2px dashed var(--success);
+  }
 
-        .element-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--secondary);
-        }
+  /* Elements block */
+  .elements {}
 
-        .element-title {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-        }
+  .elements__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--gap);
+    margin-top: var(--gap);
+  }
 
-        .interactive-demo {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            margin: 2.5rem 0;
-            border: 1px solid #eee;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
+  .elements__item {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 1rem;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition);
+    opacity: 0;
+    transform: translateY(8px);
+  }
 
-        .demo-container {
-            display: flex;
-            gap: 1.5rem;
-            margin: 1.5rem 0;
-            flex-wrap: wrap;
-        }
+  .elements__item:hover {
+    transform: scale(1.04);
+  }
 
-        .demo-box {
-            flex: 1;
-            min-width: 250px;
-            background: white;
-            border: 1px solid #eee;
-            border-radius: 10px;
-            padding: 1.8rem;
-            text-align: center;
-            transition: var(--transition);
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-        }
+  .elements__icon {
+    font-size: 2rem;
+    color: var(--secondary);
+    margin-bottom: .5rem;
+  }
 
-        .demo-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
+  .elements__title {
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: .25rem;
+  }
 
-        .demo-box h4 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
+  /* Cards (alias to your global cards if present) */
+  .cards {
+    display: grid;
+    gap: var(--gap);
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    margin-top: var(--gap);
+  }
 
-        .font-example {
-            font-size: 2.2rem;
-            margin: 1.5rem 0;
-            min-height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            border-radius: 8px;
-            background: #fafafa;
-        }
+  .cards__item {
+    /* minimal override if global cards.scss exists */
+  }
 
-        .demo-box p {
-            font-size: 1rem;
-            color: var(--muted);
-        }
+  /* Demo interactive */
+  .demo {}
 
-        .pill {
-            display: inline-block;
-            padding: 0.4rem 0.8rem;
-            background: var(--light);
-            border-radius: 50px;
-            font-size: 0.9rem;
-            margin: 0.25rem 0.5rem 0.25rem 0;
-            border: 1px solid #e0e0e0;
-        }
+  .demo__container {
+    display: flex;
+    gap: var(--gap);
+    flex-wrap: wrap;
+    margin-top: var(--gap);
+  }
 
-        .pill.primary {
-            background: rgba(44, 62, 80, 0.1);
-            border-color: rgba(44, 62, 80, 0.2);
-            color: var(--primary);
-        }
+  .demo__box {
+    flex: 1;
+    min-width: 250px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    padding: 1.4rem;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+    transition: var(--transition);
+    opacity: 0;
+    transform: translateY(8px);
+  }
 
-        .pill.accent {
-            background: rgba(231, 76, 60, 0.1);
-            border-color: rgba(231, 76, 60, 0.2);
-            color: var(--accent);
-        }
+  .demo__box:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-md);
+  }
 
-        @media (max-width: 768px) {
-            .principle-demo,
-            .demo-container {
-                flex-direction: column;
-            }
-        }
-    </style>
-    <body>
-        <div class="wrapper">
-            @@include('../partials/header.html', {})
-            <main class="page">
-                <nav class="nav-tabs">
-                    <a href="#principles" class="active">Принципы</a>
-                    <a href="#elements">Элементы</a>
-                    <a href="#examples">Примеры</a>
-                    <a href="#resources">Ресурсы</a>
-                </nav>
+  .demo__font {
+    font-size: 2.2rem;
+    padding: 1rem;
+    background: #fafafa;
+    border-radius: 8px;
+    margin: 1rem 0;
+  }
 
-                <!-- Введение -->
-                <section class="section" id="intro">
-                    <div class="container">
-                        <h1>Фундамент дизайна</h1>
+  /* Pills & lists */
+  .pill {
+    display: inline-block;
+    padding: .35rem .7rem;
+    border-radius: 999px;
+    background: var(--light);
+    border: 1px solid #e6e6e6;
+    font-size: .9rem;
+    margin: .25rem .35rem .25rem 0;
+  }
 
-                        <p class="note">
-                            <strong>Фундамент дизайна</strong>
-                            — это основные принципы и элементы, которые формируют основу любой визуальной коммуникации. Понимание этих основ позволяет создавать гармоничные, функциональные и эстетически привлекательные работы.
-                        </p>
+  .pill--primary {
+    color: var(--primary);
+    background: rgba(44, 62, 80, 0.06);
+    border-color: rgba(44, 62, 80, 0.12);
+  }
 
-                        <div class="grid-column-50">
-                            <div class="example">
-                                <h4>Основные принципы дизайна:</h4>
-                                <ul class="list-ul">
-                                    <li>Баланс и симметрия</li>
-                                    <li>Контраст и акцент</li>
-                                    <li>Ритм и повторение</li>
-                                    <li>Пропорция и масштаб</li>
-                                    <li>Единство и гармония</li>
-                                    <li>Иерархия и фокус</li>
-                                </ul>
-                            </div>
-                            <div class="example">
-                                <h4>Ключевые элементы дизайна:</h4>
-                                <ul class="list-ul">
-                                    <li>
-                                        <strong>Цвет</strong>
-                                        - эмоции и настроение
-                                    </li>
-                                    <li>
-                                        <strong>Типографика</strong>
-                                        - читаемость и тон
-                                    </li>
-                                    <li>
-                                        <strong>Пространство</strong>
-                                        - баланс и воздух
-                                    </li>
-                                    <li>
-                                        <strong>Форма</strong>
-                                        - структура и направление
-                                    </li>
-                                    <li>
-                                        <strong>Текстура</strong>
-                                        - глубина и тактильность
-                                    </li>
-                                    <li>
-                                        <strong>Линия</strong>
-                                        - разделение и соединение
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+  .pill--accent {
+    color: var(--accent);
+    background: rgba(231, 76, 60, 0.06);
+    border-color: rgba(231, 76, 60, 0.12);
+  }
 
-                <!-- Принципы дизайна -->
-                <section class="section" id="principles" class="section">
-                    <div class="container">
-                        <h2>Основные принципы дизайна</h2>
-                        <p>Эти принципы являются основой любого визуального произведения. Они работают вместе, создавая целостную композицию.</p>
+  .list {
+    list-style: none;
+    padding-left: 1rem;
+    margin: 1rem 0;
+  }
 
-                        <div class="card-container">
-                            <div class="card">
-                                <div class="card-header">Баланс</div>
-                                <div class="card-body">
-                                    <p>Распределение визуального веса элементов для создания стабильности и структуры. Может быть симметричным, асимметричным или радиальным.</p>
-                                </div>
-                                <div class="card-footer">
-                                    <strong>Применение:</strong>
-                                    Расположение элементов на странице
-                                </div>
-                            </div>
+  .list__item {
+    position: relative;
+    padding-left: 1.3rem;
+    margin-bottom: .5rem;
+  }
 
-                            <div class="card">
-                                <div class="card-header">Контраст</div>
-                                <div class="card-body">
-                                    <p>Использование различий в цвете, размере, форме и текстуре для выделения важных элементов и создания визуального интереса.</p>
-                                </div>
-                                <div class="card-footer">
-                                    <strong>Применение:</strong>
-                                    Заголовки, кнопки, акцентные элементы
-                                </div>
-                            </div>
+  .list__item::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--muted);
+    font-size: 1.1rem;
+    top: 0;
+  }
 
-                            <div class="card">
-                                <div class="card-header">Ритм</div>
-                                <div class="card-body">
-                                    <p>Повторение элементов для создания движения и визуальной гармонии. Ритм может быть регулярным, прогрессирующим или случайным.</p>
-                                </div>
-                                <div class="card-footer">
-                                    <strong>Применение:</strong>
-                                    Паттерны, интервалы, последовательности
-                                </div>
-                            </div>
+  /* Utilities */
+  .hidden {
+    display: none !important;
+  }
 
-                            <div class="card">
-                                <div class="card-header">Иерархия</div>
-                                <div class="card-body">
-                                    <p>Организация элементов по важности для направления внимания пользователя. Достигается через размер, цвет, расположение и контраст.</p>
-                                </div>
-                                <div class="card-footer">
-                                    <strong>Применение:</strong>
-                                    Структура контента, навигация
-                                </div>
-                            </div>
-                        </div>
+  @media (max-width:768px) {
 
-                        <div class="principle-demo">
-                            <div class="demo-item">
-                                <div class="demo-title">Плохая иерархия</div>
-                                <div class="demo-visual demo-bad">
-                                    <div>Заголовок раздела</div>
-                                    <div>Подзаголовок</div>
-                                    <div>Основной текст</div>
-                                </div>
-                                <p>Элементы не организованы по важности, отсутствует четкий порядок восприятия.</p>
-                            </div>
+    .principles__demo,
+    .demo__container {
+      flex-direction: column;
+    }
 
-                            <div class="demo-item">
-                                <div class="demo-title">Хорошая иерархия</div>
-                                <div class="demo-visual demo-good">
-                                    <div>Заголовок раздела</div>
-                                    <div>Подзаголовок</div>
-                                    <div>Основной текст</div>
-                                </div>
-                                <p>Четкая визуальная структура с явным акцентом на главных элементах.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+    .elements__grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+  }
 
-                <!-- Элементы дизайна -->
-                <section class="section" id="elements" class="section">
-                    <div class="container">
-                        <h2>Ключевые элементы дизайна</h2>
-                        <p>Эти фундаментальные элементы являются строительными блоками любого визуального произведения.</p>
+  /* reveal animation state (JS will set .is-visible) */
+  .is-visible {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+</style>
 
-                        <div class="elements-grid">
-                            <div class="element-card">
-                                <div class="element-icon">🎨</div>
-                                <div class="element-title">Цвет</div>
-                                <p>Вызывает эмоции, создает настроение и направляет внимание</p>
-                            </div>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
 
-                            <div class="element-card">
-                                <div class="element-icon">✍️</div>
-                                <div class="element-title">Типографика</div>
-                                <p>Обеспечивает читаемость и передает тон сообщения</p>
-                            </div>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
 
-                            <div class="element-card">
-                                <div class="element-icon">📐</div>
-                                <div class="element-title">Пространство</div>
-                                <p>Создает баланс, улучшает читаемость и фокусирует внимание</p>
-                            </div>
+    <main class="page" id="main" tabindex="-1">
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#intro" aria-current="page">Введение</a>
+        <a href="#principles">Принципы</a>
+        <a href="#elements">Элементы</a>
+        <a href="#examples">Примеры</a>
+        <a href="#resources">Ресурсы</a>
+        <a href="#visual-demo">Демо</a>
+      </nav>
 
-                            <div class="element-card">
-                                <div class="element-icon">🔶</div>
-                                <div class="element-title">Форма</div>
-                                <p>Определяет структуру и направляет взгляд пользователя</p>
-                            </div>
+      <!-- INTRO -->
+      <section class="intro section" id="intro">
+        <div class="container">
+          <h1 class="intro__title">Фундамент дизайна</h1>
+          <p class="note"><strong>Фундамент дизайна</strong> — основные принципы и элементы, которые формируют основу любой визуальной коммуникации. Понимание этих основ позволяет создавать гармоничные, функциональные и эстетичные решения.</p>
 
-                            <div class="element-card">
-                                <div class="element-icon">🧵</div>
-                                <div class="element-title">Текстура</div>
-                                <p>Добавляет глубину и тактильное ощущение к визуалу</p>
-                            </div>
-
-                            <div class="element-card">
-                                <div class="element-icon">➖</div>
-                                <div class="element-title">Линия</div>
-                                <p>Разделяет, соединяет и направляет взгляд</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Примеры -->
-                <section class="section" id="examples" class="section">
-                    <div class="container">
-                        <h2>Практические примеры</h2>
-                        <p>Применение фундаментальных принципов в различных контекстах.</p>
-
-                        <div class="grid-column-50">
-                            <div class="example">
-                                <h4>Веб-дизайн</h4>
-                                <ul class="list-ul">
-                                    <li>Контраст для кнопок призыва к действию</li>
-                                    <li>Единство стиля для навигации</li>
-                                    <li>Пространство вокруг элементов форм</li>
-                                    <li>Иерархия в структуре контента</li>
-                                    <li>Цветовая схема для передачи бренда</li>
-                                </ul>
-                            </div>
-
-                            <div class="example">
-                                <h4>Графический дизайн</h4>
-                                <ul class="list-ul">
-                                    <li>Баланс в композиции плаката</li>
-                                    <li>Типографическая иерархия в журнале</li>
-                                    <li>Ритм в паттернах упаковки</li>
-                                    <li>Пропорция в логотипах</li>
-                                    <li>Цветовая психология в рекламе</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Ресурсы -->
-                <section class="section" id="resources" class="section">
-                    <div class="container">
-                        <h2>Дополнительные ресурсы</h2>
-                        <p>Материалы для углубленного изучения основ дизайна.</p>
-
-                        <div class="card-container">
-                            <div class="card">
-                                <div class="card-header">Книги</div>
-                                <div class="card-body">
-                                    <p>
-                                        <strong>Дизайн привычных вещей</strong>
-                                        - Дон Норман
-                                    </p>
-                                    <p>
-                                        <strong>Искусство цвета</strong>
-                                        - Иоханнес Иттен
-                                    </p>
-                                    <p>
-                                        <strong>Типографика</strong>
-                                        - Эмиль Рудер
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="card">
-                                <div class="card-header">Онлайн-курсы</div>
-                                <div class="card-body">
-                                    <p>
-                                        <strong>Основы графического дизайна</strong>
-                                        - Coursera
-                                    </p>
-                                    <p>
-                                        <strong>UI/UX дизайн</strong>
-                                        - Udemy
-                                    </p>
-                                    <p>
-                                        <strong>Цвет в дизайне</strong>
-                                        - Skillbox
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="card">
-                                <div class="card-header">Инструменты</div>
-                                <div class="card-body">
-                                    <p>
-                                        <strong>Adobe Color</strong>
-                                        - подбор цветовых схем
-                                    </p>
-                                    <p>
-                                        <strong>Google Fonts</strong>
-                                        - библиотека шрифтов
-                                    </p>
-                                    <p>
-                                        <strong>Figma</strong>
-                                        - дизайн и прототипирование
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="section" class="interactive-demo">
-                    <div class="container">
-                        <h2>Визуальное восприятие фундамента</h2>
-                        <p>Посмотрите, как одни и те же элементы по-разному воспринимаются при изменении фундаментальных принципов:</p>
-
-                        <div class="demo-container">
-                            <div class="demo-box">
-                                <h4>Хаотичный дизайн</h4>
-                                <div class="font-example">Пример текста</div>
-                                <p>Отсутствие структуры, несбалансированные цвета, плохая читаемость</p>
-                                <div>
-                                    <span class="pill accent">Нет иерархии</span>
-                                    <span class="pill">Дисгармония</span>
-                                </div>
-                            </div>
-
-                            <div class="demo-box">
-                                <h4>Сбалансированный дизайн</h4>
-                                <div class="font-example">Пример текста</div>
-                                <p>Четкая структура, гармоничная цветовая палитра, хорошая читаемость</p>
-                                <div>
-                                    <span class="pill primary">Иерархия</span>
-                                    <span class="pill primary">Баланс</span>
-                                    <span class="pill primary">Контраст</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </main>
-            @@include('../partials/footer.html', {})
+          <div class="note-block">
+            <h2 class="note-block__title">Кратко о принципах и элементах</h2>
+            <ul class="list" aria-label="список принципов">
+              <li class="list__item">Баланс и симметрия</li>
+              <li class="list__item">Контраст и акцент</li>
+              <li class="list__item">Ритм и повторение</li>
+              <li class="list__item">Пропорция и масштаб</li>
+              <li class="list__item">Единство и гармония</li>
+              <li class="list__item">Иерархия и фокус</li>
+            </ul>
+          </div>
         </div>
-        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
-        <script>
-            // Анимация карточек при загрузке
-            document.addEventListener("DOMContentLoaded", function () {
-                const cards = document.querySelectorAll(".card, .element-card, .demo-box");
-                cards.forEach((card, index) => {
-                    setTimeout(() => {
-                        card.style.opacity = "1";
-                        card.style.transform = "translateY(0)";
-                    }, 100 * index);
-                });
-            });
-        </script>
-    </body>
+      </section>
+
+      <!-- PRINCIPLES -->
+      <section class="principles section" id="principles">
+        <div class="container">
+          <h2 class="principles__title">Основные принципы дизайна</h2>
+          <p class="principles__note"><strong>Принципы дизайна</strong> — правила организации визуальных элементов, которые помогают управлять вниманием и создавать понятную структуру.</p>
+
+          <div class="principles__cards" role="list" aria-label="карточки принципов">
+            <article class="principles__card" role="listitem">
+              <div class="principles__card-header">Баланс</div>
+              <div class="principles__card-body">
+                <p>Распределение визуального веса элементов для создания стабильности и структуры. Может быть симметричным, асимметричным или радиальным.</p>
+              </div>
+              <div class="principles__card-footer">Применение: расположение элементов на странице</div>
+            </article>
+
+            <article class="principles__card" role="listitem">
+              <div class="principles__card-header">Контраст</div>
+              <div class="principles__card-body">
+                <p>Использование различий в цвете, размере, форме и текстуре для выделения важных элементов и создания интереса.</p>
+              </div>
+              <div class="principles__card-footer">Применение: заголовки, кнопки, акценты</div>
+            </article>
+
+            <article class="principles__card" role="listitem">
+              <div class="principles__card-header">Ритм</div>
+              <div class="principles__card-body">
+                <p>Повторение элементов для создания движения и визуальной гармонии. Ритм может быть регулярным, прогрессирующим или случайным.</p>
+              </div>
+              <div class="principles__card-footer">Применение: паттерны, интервалы, последовательности</div>
+            </article>
+
+            <article class="principles__card" role="listitem">
+              <div class="principles__card-header">Иерархия</div>
+              <div class="principles__card-body">
+                <p>Организация элементов по важности для направления внимания пользователя. Достигается через размер, цвет, расположение и контраст.</p>
+              </div>
+              <div class="principles__card-footer">Применение: структура контента, навигация</div>
+            </article>
+          </div>
+
+          <div class="principles__demo" role="group" aria-label="Демонстрация плохой и хорошей иерархии">
+            <div class="principles__demo-item">
+              <h3 class="principles__demo-title">Плохая иерархия</h3>
+              <div class="principles__demo-visual principles__demo-visual--bad" aria-hidden="true">
+                <div>Заголовок раздела</div>
+                <div>Подзаголовок</div>
+                <div>Основной текст</div>
+              </div>
+              <p>Элементы не организованы по важности, отсутствует четкий порядок восприятия.</p>
+            </div>
+
+            <div class="principles__demo-item">
+              <h3 class="principles__demo-title">Хорошая иерархия</h3>
+              <div class="principles__demo-visual principles__demo-visual--good" aria-hidden="true">
+                <div>Заголовок раздела</div>
+                <div>Подзаголовок</div>
+                <div>Основной текст</div>
+              </div>
+              <p>Четкая визуальная структура с явным акцентом на главных элементах.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ELEMENTS -->
+      <section class="elements section" id="elements">
+        <div class="container">
+          <h2 class="elements__title">Ключевые элементы дизайна</h2>
+          <p class="elements__note"><strong>Элементы дизайна</strong> — строительные блоки композиции: цвет, типографика, форма, пространство, текстура и линия.</p>
+
+          <div class="elements__grid" role="list" aria-label="Сетка элементов">
+            <article class="elements__item" role="listitem">
+              <div class="elements__icon" aria-hidden="true">🎨</div>
+              <div class="elements__title">Цвет</div>
+              <p>Вызывает эмоции, создаёт настроение и направляет внимание.</p>
+            </article>
+
+            <article class="elements__item" role="listitem">
+              <div class="elements__icon" aria-hidden="true">✍️</div>
+              <div class="elements__title">Типографика</div>
+              <p>Обеспечивает читаемость и передаёт тон сообщения.</p>
+            </article>
+
+            <article class="elements__item" role="listitem">
+              <div class="elements__icon" aria-hidden="true">📐</div>
+              <div class="elements__title">Пространство</div>
+              <p>Создаёт баланс, улучшает читаемость и фокусирует внимание.</p>
+            </article>
+
+            <article class="elements__item" role="listitem">
+              <div class="elements__icon" aria-hidden="true">🔶</div>
+              <div class="elements__title">Форма</div>
+              <p>Определяет структуру и направляет взгляд пользователя.</p>
+            </article>
+
+            <article class="elements__item" role="listitem">
+              <div class="elements__icon" aria-hidden="true">🧵</div>
+              <div class="elements__title">Текстура</div>
+              <p>Добавляет глубину и тактильное ощущение к визуалу.</p>
+            </article>
+
+            <article class="elements__item" role="listitem">
+              <div class="elements__icon" aria-hidden="true">➖</div>
+              <div class="elements__title">Линия</div>
+              <p>Разделяет, соединяет и направляет взгляд.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXAMPLES -->
+      <section class="examples section" id="examples">
+        <div class="container">
+          <h2 class="examples__title">Практические примеры</h2>
+          <p class="examples__note"><strong>Примеры применения</strong> — как принципы и элементы работают в вебе и полиграфии.</p>
+
+          <div class="cards" role="list" aria-label="Примеры использования">
+            <article class="cards__item" role="listitem">
+              <div class="cards__header">Веб‑дизайн</div>
+              <div class="cards__body">
+                <p>Контраст для CTA, единый стиль навигации, пространство вокруг форм, иерархия контента, цветовая схема бренда.</p>
+              </div>
+            </article>
+
+            <article class="cards__item" role="listitem">
+              <div class="cards__header">Графический дизайн</div>
+              <div class="cards__body">
+                <p>Баланс в композиции плаката, типографическая иерархия в журнале, ритм в паттернах, пропорции логотипов.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESOURCES -->
+      <section class="resources section" id="resources">
+        <div class="container">
+          <h2 class="resources__title">Дополнительные ресурсы</h2>
+          <p class="resources__note"><strong>Материалы для углубления</strong> — книги, курсы и инструменты для работы с дизайном.</p>
+
+          <div class="cards" role="list" aria-label="Ресурсы">
+            <article class="cards__item" role="listitem">
+              <div class="cards__header">Книги</div>
+              <div class="cards__body">
+                <p><strong>Дизайн привычных вещей</strong> — Дон Норман</p>
+                <p><strong>Искусство цвета</strong> — И. Иттен</p>
+                <p><strong>Типографика</strong> — Э. Рудер</p>
+              </div>
+            </article>
+
+            <article class="cards__item" role="listitem">
+              <div class="cards__header">Онлайн‑курсы</div>
+              <div class="cards__body">
+                <p><strong>Основы графического дизайна</strong> — Coursera</p>
+                <p><strong>UI/UX дизайн</strong> — Udemy</p>
+                <p><strong>Цвет в дизайне</strong> — Skillbox</p>
+              </div>
+            </article>
+
+            <article class="cards__item" role="listitem">
+              <div class="cards__header">Инструменты</div>
+              <div class="cards__body">
+                <p><strong>Adobe Color</strong> — подбор цветовых схем</p>
+                <p><strong>Google Fonts</strong> — библиотека шрифтов</p>
+                <p><strong>Figma</strong> — дизайн и прототипирование</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- VISUAL DEMO -->
+      <section class="demo section" id="visual-demo">
+        <div class="container">
+          <h2 class="demo__title">Визуальное восприятие фундамента</h2>
+          <p class="demo__note"><strong>Демонстрация</strong> — как изменение принципов влияет на восприятие идентичных элементов.</p>
+
+          <div class="demo__container" aria-live="polite">
+            <div class="demo__box" role="region" aria-label="Хаотичный дизайн">
+              <h4>Хаотичный дизайн</h4>
+              <div class="demo__font">Пример текста</div>
+              <p>Отсутствие структуры, несбалансированные цвета, плохая читаемость.</p>
+              <div><span class="pill pill--accent">Нет иерархии</span><span class="pill">Дисгармония</span></div>
+            </div>
+
+            <div class="demo__box" role="region" aria-label="Сбалансированный дизайн">
+              <h4>Сбалансированный дизайн</h4>
+              <div class="demo__font">Пример текста</div>
+              <p>Четкая структура, гармоничная палитра, хорошая читаемость.</p>
+              <div><span class="pill pill--primary">Иерархия</span><span class="pill pill--primary">Баланс</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    @@include('../partials/footer.html', {})
+  </div>
+
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+
+  <script>
+    // Reveal animation: добавляет класс .is-visible к блокам карточек/элементов/демо
+    document.addEventListener('DOMContentLoaded', () => {
+      const toReveal = document.querySelectorAll('.principles__card, .principles__demo-item, .elements__item, .cards__item, .demo__box');
+      toReveal.forEach((el, idx) => {
+        setTimeout(() => el.classList.add('is-visible'), idx * 80);
+      });
+    });
+  </script>
+</body>
+
 </html>
