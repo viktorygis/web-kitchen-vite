@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+@@include('../partials/head.html', {
+"title": "Product Market Fit (PMF) — соответствие продукта рынку",
+"description": "Product Market Fit — фреймворк Product Manager для оценки соответствия продукта потребностям рынка, проверки ценности и поиска устойчивого роста.",
+})
+
+<body>
+
+<a class="skip-link" href="#main">Перейти к содержимому</a>
+
+<div class="wrapper">
+
+@@include('../partials/header.html', {})
+
+<main class="page" id="main" tabindex="-1">
+
+
+<nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+
+
+<a href="#pm-intro" class="active" aria-current="true">
+Введение
+</a>
+
+
+<a href="#pm-components">
+Компоненты PMF
+</a>
+
+
+<a href="#pm-validation">
+Проверка PMF
+</a>
+
+
+<a href="#pm-metrics">
+Метрики
+</a>
+
+
+<a href="#pm-faq">
+FAQ
+</a>
+
+
+</nav>
+
+
+
+
+
+
+
+
+<!-- Введение -->
+
+<section class="section" id="pm-intro">
+
+
+<div class="container">
+
+
+<h1>Product Market Fit (PMF)</h1>
+
+
+<p class="note">
+
+<strong>Product Market Fit (PMF)</strong> — это состояние,
+когда продукт решает важную проблему пользователей,
+а рынок демонстрирует устойчивый спрос на это решение.
+
+</p>
+
+
+<p>
+Для Product Manager PMF является одним из главных критериев:
+создаёт ли продукт реальную ценность и способен ли он масштабироваться.
+</p>
+
+
+
+<div class="note-block">
+
+
+<h3>Почему Product Market Fit важен</h3>
+
+
+<ul class="list-ul">
+
+<li>Помогает понять, нужен ли продукт рынку.</li>
+
+<li>Позволяет определить ценность продукта для пользователей.</li>
+
+<li>Снижает риск разработки ненужных функций.</li>
+
+<li>Создаёт основу для дальнейшего роста.</li>
+
+<li>Помогает определить стратегию масштабирования.</li>
+
+</ul>
+
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- Компоненты -->
+
+<section class="section" id="pm-components">
+
+
+<div class="container">
+
+
+<h2>Компоненты Product Market Fit</h2>
+
+
+
+<table class="table-note">
+
+
+<thead>
+
+<tr>
+
+<th>Компонент</th>
+
+<th>Описание</th>
+
+<th>Вопрос PM</th>
+
+</tr>
+
+
+</thead>
+
+
+<tbody>
+
+
+
+<tr>
+
+<td>
+<strong>Customer Problem</strong>
+</td>
+
+<td>
+Реальная проблема пользователя.
+</td>
+
+<td>
+Есть ли важная потребность?
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Target Audience</strong>
+</td>
+
+<td>
+Конкретный сегмент пользователей.
+</td>
+
+<td>
+Кто получает максимальную ценность?
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Value Proposition</strong>
+</td>
+
+<td>
+Причина выбора продукта.
+</td>
+
+<td>
+Почему пользователь выбирает нас?
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Solution</strong>
+</td>
+
+<td>
+Продуктовое решение проблемы.
+</td>
+
+<td>
+Действительно ли решение помогает?
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Market Demand</strong>
+</td>
+
+<td>
+Готовность рынка использовать продукт.
+</td>
+
+<td>
+Есть ли устойчивый спрос?
+</td>
+
+</tr>
+
+
+</tbody>
+
+
+</table>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- Проверка -->
+
+<section class="section" id="pm-validation">
+
+
+<div class="container">
+
+
+<h2>Как проверить Product Market Fit</h2>
+
+
+
+<table class="table-note">
+
+
+<thead>
+
+<tr>
+
+<th>Метод</th>
+
+<th>Что проверяет</th>
+
+<th>Результат</th>
+
+</tr>
+
+
+</thead>
+
+
+<tbody>
+
+
+
+<tr>
+
+<td>
+<strong>Customer Interviews</strong>
+</td>
+
+<td>
+Понимание проблемы и ценности.
+</td>
+
+<td>
+Информация о потребностях пользователей.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Problem Validation</strong>
+</td>
+
+<td>
+Существует ли реальная проблема.
+</td>
+
+<td>
+Подтверждение потребности.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>MVP</strong>
+</td>
+
+<td>
+Готовность пользователей использовать решение.
+</td>
+
+<td>
+Первые пользователи и обратная связь.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Surveys</strong>
+</td>
+
+<td>
+Восприятие ценности продукта.
+</td>
+
+<td>
+Оценка удовлетворённости.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Cohort Analysis</strong>
+</td>
+
+<td>
+Удержание пользователей.
+</td>
+
+<td>
+Понимание реального использования.
+</td>
+
+</tr>
+
+
+</tbody>
+
+
+</table>
+
+
+
+<div class="note note--info">
+
+<strong>Популярный подход:</strong>
+
+если значительная часть пользователей говорит,
+что продукт будет «очень сложно заменить»,
+это может быть сигналом сильного Product Market Fit.
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- Метрики -->
+
+<section class="section" id="pm-metrics">
+
+
+<div class="container">
+
+
+<h2>Метрики Product Market Fit</h2>
+
+
+
+<table class="table-note">
+
+
+<thead>
+
+<tr>
+
+<th>Метрика</th>
+
+<th>Что показывает</th>
+
+</tr>
+
+
+</thead>
+
+
+<tbody>
+
+
+
+<tr>
+
+<td>
+<strong>Retention</strong>
+</td>
+
+<td>
+Возвращаются ли пользователи после первого использования.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Activation Rate</strong>
+</td>
+
+<td>
+Получают ли пользователи первую ценность.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>NPS</strong>
+</td>
+
+<td>
+Готовность рекомендовать продукт.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Usage Frequency</strong>
+</td>
+
+<td>
+Как часто используется продукт.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>LTV</strong>
+</td>
+
+<td>
+Экономическая ценность пользователя.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Organic Growth</strong>
+</td>
+
+<td>
+Растёт ли продукт за счёт пользователей.
+</td>
+
+</tr>
+
+
+</tbody>
+
+
+</table>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- Этапы -->
+
+<section class="section">
+
+
+<div class="container">
+
+
+<h2>Этапы достижения Product Market Fit</h2>
+
+
+
+<table class="table-note">
+
+
+<thead>
+
+<tr>
+
+<th>Этап</th>
+
+<th>Фокус Product Manager</th>
+
+</tr>
+
+
+</thead>
+
+
+<tbody>
+
+
+
+<tr>
+
+<td>
+<strong>Problem-Solution Fit</strong>
+</td>
+
+<td>
+Найти проблему и подходящее решение.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>MVP</strong>
+</td>
+
+<td>
+Проверить ценность минимального продукта.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Product Market Fit</strong>
+</td>
+
+<td>
+Добиться устойчивого использования продукта.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Scale</strong>
+</td>
+
+<td>
+Увеличивать рост и эффективность.
+</td>
+
+</tr>
+
+
+</tbody>
+
+
+</table>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- Связь -->
+
+<section class="section">
+
+
+<div class="container">
+
+
+<h2>Product Market Fit и другие фреймворки</h2>
+
+
+
+<table class="table-note">
+
+
+<thead>
+
+<tr>
+
+<th>Фреймворк</th>
+
+<th>Связь с PMF</th>
+
+</tr>
+
+
+</thead>
+
+
+<tbody>
+
+
+
+<tr>
+
+<td>
+<strong>JTBD</strong>
+</td>
+
+<td>
+Помогает понять задачу пользователя.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>CJM</strong>
+</td>
+
+<td>
+Показывает путь пользователя и точки проблем.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>MVP</strong>
+</td>
+
+<td>
+Позволяет быстро проверить ценность решения.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Product Vision</strong>
+</td>
+
+<td>
+Определяет долгосрочное направление продукта.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>North Star Metric</strong>
+</td>
+
+<td>
+Помогает измерять создаваемую ценность.
+</td>
+
+</tr>
+
+
+</tbody>
+
+
+</table>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- FAQ -->
+
+<section class="section" id="pm-faq">
+
+
+<div class="container">
+
+
+<h2>FAQ — Product Market Fit</h2>
+
+
+
+<div class="faq">
+
+
+<div class="faq__item">
+
+
+<button class="faq__question">
+
+Что такое Product Market Fit простыми словами?
+
+</button>
+
+
+<div class="faq__answer">
+
+<p>
+Это ситуация, когда продукт настолько полезен пользователям,
+что они регулярно им пользуются и готовы за него платить.
+</p>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="faq__item">
+
+
+<button class="faq__question">
+
+Как понять, что PMF достигнут?
+
+</button>
+
+
+<div class="faq__answer">
+
+<p>
+По сочетанию сигналов: высокий Retention,
+активное использование, положительная обратная связь
+и устойчивый спрос.
+</p>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="faq__item">
+
+
+<button class="faq__question">
+
+Можно ли масштабировать продукт без PMF?
+
+</button>
+
+
+<div class="faq__answer">
+
+<p>
+Технически возможно, но масштабирование продукта без доказанной ценности
+часто приводит к высоким затратам и низкой эффективности роста.
+</p>
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+</main>
+
+
+@@include('../partials/footer.html', {})
+
+</div>
+
+
+@@include('../partials/popup.html', {})
+@@include('../partials/js.html', {})
+
+</body>
+
+</html>

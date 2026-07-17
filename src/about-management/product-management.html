@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
-@@include('../partials/head.html', {
-"title": "Product Management — инструменты и практики продакт-менеджера",
-"description": "Практическое руководство по продукт-менеджменту: discovery, приоритизация, roadmap, метрики, релизы и инструменты (Jira/Confluence/BI)."
-})
+@@include('../partials/head.html', {"title": "Продакт-менеджер — кто это, обязанности, навыки и инструменты Product Manager","description": "Кто такой Product Manager, чем занимается продакт-менеджер, какие навыки нужны, какие инструменты использует PM и как построить карьеру в Product Management."})
 
 <body>
   <a class="skip-link" href="#main">Перейти к содержимому</a>
@@ -11,306 +8,620 @@
     @@include('../partials/header.html', {})
     <main class="page" id="main" tabindex="-1">
       <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
-        <a href="#pm-intro" class="active" aria-current="true">Введение</a>
-        <a href="#pm-process">Процесс</a>
-        <a href="#pm-frameworks">Фреймворки</a>
+        <a href="#pm-intro" class="active" aria-current="true">Кто такой Product Manager</a>
+        <a href="#pm-role">Роль Product Manager</a>
+        <a href="#pm-tasks">Задачи Product Manager</a>
+        <a href="#pm-decisions">Какие решения принимает PM</a>
+        <a href="#pm-process">Как PM работает над продуктом</a>
+        <a href="#pm-responsibility">Ответственность Product Manager</a>
+        <a href="#pm-day">День Product Manager</a>
+        <a href="#pm-team">Работа с командой</a>
+        <a href="#pm-skills">Навыки Product Manager</a>
         <a href="#pm-metrics">Метрики</a>
-        <a href="#pm-tools">Инструменты</a>
-        <a href="#pm-checklists">Чек-листы</a>
-        <a href="#pm-next">Что изучить дальше</a>
+        <a href="#pm-types">Типы Product Manager</a>
+        <a href="#pm-tools">Инструменты PM</a>
+        <a href="#pm-levels">Уровни Product Manager</a>
+        <a href="#pm-career">Как стать Product Manager</a>
+        <a href="#pm-faq">FAQ</a>
+        <a href="#pm-next">Что изучать дальше</a>
       </nav>
 
-      <!-- Введение -->
+      <!-- 1. Кто такой Product Manager -->
       <section class="section" id="pm-intro">
         <div class="container">
-          <h1>Product Management</h1>
-
-          <p class="note">
-            <strong>Product Manager</strong> — специалист, который формулирует проблему, проверяет гипотезы, принимает решения о приоритетах и следит за тем, что бизнес и пользователи действительно получают ценность.
-          </p>
-
+          <h1>Кто такой Product Manager</h1>
+          <p class="note"><strong>Product Manager (продакт-менеджер)</strong> — специалист, отвечающий за развитие продукта: понимает потребности пользователей, определяет направление развития, управляет приоритетами и помогает команде создавать ценность для бизнеса.</p>
           <figure>
-            <img class="note-img" src="/img/management/pm-1.png" alt="Product Manager" width="800" height="450" />
-            <figcaption class="note-caption">Рис. 1. Product Manager — связующее звено между бизнесом, пользователями и командой разработки</figcaption>
+            <img class="note-img" src="/img/management/product-manager.png" alt="Product Manager работает с продуктом" loading="lazy" width="800" height="450" />
+            <figcaption class="note-caption">Рис. 1. Product Manager соединяет пользователей, бизнес и команду разработки.</figcaption>
           </figure>
           <div class="note-block">
-            <h3>За что отвечает PM</h3>
+            <h3>Главная задача Product Manager</h3>
+            <p>Создать продукт, который решает реальные проблемы пользователей и достигает целей бизнеса.</p>
             <ul class="list-ul">
-              <li>Определяет проблему и целевую аудиторию.</li>
-              <li>Формирует стратегию и цель продукта (outcomes).</li>
-              <li>Приоритизирует идеи и управляет roadmap.</li>
-              <li>Организует delivery совместно с командой разработки.</li>
-              <li>Анализирует результаты и настраивает дальнейшие эксперименты.</li>
+              <li>Понять потребности пользователей.</li>
+              <li>Определить ценность продукта.</li>
+              <li>Выбрать правильные направления развития.</li>
+              <li>Управлять приоритетами команды.</li>
+              <li>Измерять результаты и улучшать продукт.</li>
             </ul>
           </div>
+          <h4>Пример работы PM</h4>
 
-          <p class="note note--info">
-            <strong>PM</strong> — связующее звено между <b>бизнесом</b>, <b>пользователями</b> и <b>командой разработки</b>. Для контекста по стадиям продукта см. страницу «Product Life Cycle».
-            <br>
-            Ссылка на lifecycle: <a href="/about-management/product-life-cycle.html">Product Life Cycle — стадии и сигналы переходов</a>.
+          <p>
+            Пользователи жалуются, что долго оформляют заказ.
+            PM анализирует данные → проводит интервью → предлагает гипотезу → команда делает изменение → PM проверяет, выросла ли конверсия.
           </p>
+          <div class="note note--info"><strong>Главная идея:</strong> Product Manager отвечает не за количество функций, а за то, насколько продукт полезен пользователям и успешен для бизнеса.</div>
         </div>
       </section>
 
-      <!-- Процесс -->
+      <!-- 2. Роль Product Manager -->
+      <section class="section" id="pm-role">
+        <div class="container">
+          <h2>Роль Product Manager</h2>
+          <p class="note"><strong>Product Manager</strong> — связующее звено между бизнесом, пользователями и командой разработки.</p>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Сторона</th>
+                <th>Роль PM</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Пользователь</strong></td>
+                <td>Понять потребности и проблемы.</td>
+              </tr>
+              <tr>
+                <td><strong>Бизнес</strong></td>
+                <td>Достичь целей компании.</td>
+              </tr>
+              <tr>
+                <td><strong>Команда</strong></td>
+                <td>Определить приоритеты и направление.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 3. Задачи Product Manager -->
+      <section class="section" id="pm-tasks">
+        <div class="container">
+          <h2>Задачи Product Manager</h2>
+          <ul class="list-ul">
+            <li>Исследование пользователей и рынка.</li>
+            <li>Формирование Product Vision.</li>
+            <li>Определение roadmap.</li>
+            <li>Приоритизация задач.</li>
+            <li>Проверка гипотез.</li>
+            <li>Анализ продуктовых метрик.</li>
+            <li>Запуск и развитие продукта.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 4. Какие решения принимает PM -->
+      <section class="section" id="pm-decisions">
+        <div class="container">
+          <h2>Какие решения принимает Product Manager</h2>
+          <p class="note"><strong>Product Manager ежедневно принимает решения, которые влияют на развитие продукта.</strong> Его задача — выбирать направления, которые принесут максимальную ценность пользователям и бизнесу.</p>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Область решения</th>
+                <th>Что решает Product Manager</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Проблемы пользователей</td>
+                <td>Какие проблемы пользователей стоит решать в первую очередь.</td>
+              </tr>
+              <tr>
+                <td>Развитие продукта</td>
+                <td>Какие функции и улучшения необходимо создавать.</td>
+              </tr>
+              <tr>
+                <td>Приоритеты</td>
+                <td>Какие задачи попадут в разработку сейчас, а какие будут отложены.</td>
+              </tr>
+              <tr>
+                <td>MVP и эксперименты</td>
+                <td>Как быстро проверить гипотезу и какой минимальный вариант запустить.</td>
+              </tr>
+              <tr>
+                <td>Метрики успеха</td>
+                <td>Какие показатели покажут ценность продукта.</td>
+              </tr>
+              <tr>
+                <td>Баланс бизнеса и пользователя</td>
+                <td>Как найти решение между интересами клиентов, техническими возможностями и целями компании.</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="note note--info"><strong>Главный принцип PM:</strong> не создавать больше функций, а принимать решения, которые помогают продукту достигать целей.</div>
+        </div>
+      </section>
+
+      <!-- 5. Как PM работает над продуктом -->
       <section class="section" id="pm-process">
         <div class="container">
-          <h2>Процесс продукт-менеджмента</h2>
-
-          <p class="note">
-            <strong>Процесс продукт-менеджмента</strong> — набор шагов для понимания проблемы, проверки гипотез и доставки ценности.
-          </p>
-
-          <p>Коротко: понять проблему → сформировать решение → выпустить MVP → измерить эффект → масштабировать или отойти.</p>
-
+          <h2>Как Product Manager работает над продуктом</h2>
+          <p class="note"><strong>Работа Product Manager</strong> — это последовательный процесс: от понимания проблемы пользователя до запуска решения и анализа результатов. PM помогает команде через исследование, проверку гипотез, приоритизацию и измерение результата.</p>
           <figure>
-            <img class="note-img" src="/img/management/pm-2.png" alt="Product Manager" loading="lazy" width="800" height="450" />
-            <figcaption class="note-caption">Рис. 2. Процесс продукт-менеджмента</figcaption>
+            <img class="note-img" src="/img/management/pm-process.png" alt="Этапы работы Product Manager над продуктом" loading="lazy" width="800" height="450" />
+            <figcaption class="note-caption">Рис. 2. Основные этапы работы Product Manager над продуктом.</figcaption>
           </figure>
-
           <table class="table-note">
             <thead>
               <tr>
                 <th>Этап</th>
-                <th>Название</th>
-                <th>Что делаем</th>
-                <th>Ожидаемый результат / артефакт</th>
+                <th>Что делает Product Manager</th>
+                <th>Результат</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><b>Discovery/Hypothesis</b></td>
-                <td>Поиск идей и проверка гипотез</td>
-                <td>Интервью, анализ данных, оформление гипотез</td>
-                <td>JTBD, CJM, прототипы, список валидированных гипотез</td>
+                <td><strong>Discovery</strong></td>
+                <td>Изучает пользователей, рынок и проблемы; проводит интервью и анализ данных.</td>
+                <td>Гипотезы, JTBD, CJM.</td>
               </tr>
               <tr>
-                <td><b>Strategy/Goals</b></td>
-                <td>Формирование стратегии и целей продукта</td>
-                <td>Определение целей, сегментов, УТП</td>
-                <td>Product Vision, OKR, приоритеты</td>
+                <td><strong>Strategy</strong></td>
+                <td>Определяет направление развития продукта и цели.</td>
+                <td>Product Vision и стратегия.</td>
               </tr>
               <tr>
-                <td><b>Roadmap/Prioritization</b></td>
-                <td>Планирование и приоритизация инициатив</td>
-                <td>Планирование фич по горизонтам: квартал/полугодие</td>
-                <td>Roadmap по эпикам и outcomes</td>
+                <td><strong>Roadmap</strong></td>
+                <td>Выбирает инициативы и расставляет приоритеты.</td>
+                <td>Product Roadmap.</td>
               </tr>
               <tr>
-                <td><b>MVP/Experiments</b></td>
-                <td>Минимальное решение и эксперименты</td>
-                <td>Быстрая реализация минимального решения и A/B тесты</td>
-                <td>MVP, тестовые метрики, learnings</td>
+                <td><strong>MVP и эксперименты</strong></td>
+                <td>Проверяет идеи через минимальные версии продукта и A/B тесты.</td>
+                <td>Подтверждённые или отклонённые гипотезы.</td>
               </tr>
               <tr>
-                <td><b>Delivery/Release</b></td>
-                <td>Реализация и выпуск продукта</td>
-                <td>Разработка, QA, релиз и коммуникация</td>
-                <td>Релизная заметка, update в Jira/Confluence</td>
+                <td><strong>Delivery</strong></td>
+                <td>Работает с дизайнерами и разработчиками, готовит релиз.</td>
+                <td>Новый функционал.</td>
               </tr>
               <tr>
-                <td><b>Measurement/Learning</b></td>
-                <td>Измерение и обучение</td>
-                <td>Сбор метрик, ретроспективы, планирование следующих шагов</td>
-                <td>Аналитические отчёты, решение: масштабировать, повторить итерацию или откатить</td>
+                <td><strong>Analytics</strong></td>
+                <td>Анализирует результаты запуска и метрики.</td>
+                <td>Данные для дальнейших решений.</td>
               </tr>
             </tbody>
           </table>
-
-          <p class="note">
-            Совет: фиксируйте критерии успеха (выходные метрики), гипотезы и критерии остановки — это ускоряет принятие решений.
-          </p>
-
-          <p class="note note--info">
-            Ключевые понятия: <strong>MVP</strong>, <strong>A/B тесты</strong>, <strong>Roadmap</strong>, <strong>Delivery</strong> — см. соответствующие секции ниже.
-          </p>
+          <div class="note note--info"><strong>Главный принцип Product Manager:</strong> сначала понять проблему пользователя, затем проверить решение и только после этого масштабировать продукт.</div>
         </div>
       </section>
 
-      <!-- Frameworks -->
-      <section class="section" id="pm-frameworks">
+      <!-- 6. Ответственность Product Manager -->
+      <section class="section" id="pm-responsibility">
         <div class="container">
-          <h2>Фреймворки и когда их использовать</h2>
-
-          <p class="note">
-            <strong>Фреймворки</strong> — это проверенные подходы, которые помогают структурировать процесс, формулировать гипотезы и принимать решения. Ниже — основные фреймворки и рекомендации по применению.
-          </p>
+          <h2>Ответственность Product Manager</h2>
+          <p class="note"><strong>Product Manager отвечает за результат продукта.</strong> Он обычно не управляет каждым специалистом напрямую, но отвечает за направление развития и достижение целей.</p>
           <table class="table-note">
             <thead>
               <tr>
-                <th>Framework</th>
-                <th>Назначение</th>
-                <th>Когда применять</th>
+                <th>Область</th>
+                <th>Ответственность PM</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><a href="/about-management/product-jtbd.html">JTBD</a></td>
-                <td>Фокус на задачах пользователя</td>
-                <td>Формулирование проблемы и ценности</td>
+                <td><strong>Пользователь</strong></td>
+                <td>Понимание потребностей, проблем и поведения пользователей.</td>
               </tr>
               <tr>
-                <td><a href="/about-management/product-cjm.html">Customer Journey Map</a></td>
-                <td>Визуализация пути пользователя</td>
-                <td>Поиск точек оттока/моментов истины</td>
+                <td><strong>Продукт</strong></td>
+                <td>Определение функций, ценности и направления развития.</td>
               </tr>
               <tr>
-                <td><a href="/about-management/product-market-fit.html">Product Market Fit</a></td>
-                <td>Оценка соответствия продукту рынку</td>
-                <td>Проверка гипотез и рост</td>
+                <td><strong>Бизнес</strong></td>
+                <td>Достижение бизнес-целей и рост продукта.</td>
               </tr>
               <tr>
-                <td><a href="/about-management/product-ice-rice.html">ICE / RICE</a></td>
-                <td>Приоритизация инициатив</td>
-                <td>Когда много идей и нужно быстро выбрать</td>
-              </tr>
-              <tr>
-                <td><a href="/about-management/product-okr.html">OKR</a></td>
-                <td>Целеполагание и выравнивание</td>
-                <td>При формировании квартальных целей</td>
-              </tr>
-              <tr>
-                <td><a href="/about-management/product-north-star-metric.html">North Star Metric</a></td>
-                <td>Главная метрика, отражающая ценность</td>
-                <td>Долгосрочная стратегия роста</td>
+                <td><strong>Команда</strong></td>
+                <td>Синхронизация дизайнеров, разработчиков и аналитиков.</td>
               </tr>
             </tbody>
           </table>
-          <figure>
-            <img class="note-img" src="/img/management/pm-3.png" alt="Product Management Frameworks" loading="lazy" width="800" height="450" />
-            <figcaption class="note-caption">Рис. 3. Основные фреймворки продукт-менеджмента</figcaption>
-          </figure>
-          <p class="note note--info"><b>Подсказка:</b>
-            JTBD + CJM для discovery → RICE для ранжирования → OKR для выравнивания.</p>
         </div>
       </section>
 
-      <!-- Metrics -->
+      <!-- 7. День Product Manager -->
+      <section class="section" id="pm-day">
+        <div class="container">
+          <h2>День Product Manager</h2>
+          <p class="note">Работа PM состоит из анализа данных, коммуникации с командой, исследований пользователей и принятия продуктовых решений.</p>
+          <ul class="list-ul">
+            <li>Анализ метрик продукта.</li>
+            <li>Проверка результатов экспериментов.</li>
+            <li>Обсуждение задач с разработчиками.</li>
+            <li>Работа с дизайнерами над UX.</li>
+            <li>Интервью пользователей.</li>
+            <li>Приоритизация новых инициатив.</li>
+            <li>Подготовка решений для бизнеса.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 8. Работа с командой -->
+      <section class="section" id="pm-team">
+        <div class="container">
+          <h2>Работа Product Manager с командой</h2>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Команда</th>
+                <th>Взаимодействие</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Developers</strong></td>
+                <td>Обсуждение требований и технических ограничений.</td>
+              </tr>
+              <tr>
+                <td><strong>Designers</strong></td>
+                <td>Создание удобного пользовательского опыта.</td>
+              </tr>
+              <tr>
+                <td><strong>Analytics</strong></td>
+                <td>Анализ данных и экспериментов.</td>
+              </tr>
+              <tr>
+                <td><strong>Marketing</strong></td>
+                <td>Позиционирование и продвижение продукта.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 9. Навыки Product Manager -->
+      <section class="section" id="pm-skills">
+        <div class="container">
+          <h2>Навыки Product Manager</h2>
+
+          <p class="note">
+            <strong>Product Manager</strong> использует сочетание аналитических,
+            коммуникационных и стратегических навыков. Его задача — понимать
+            пользователей, принимать продуктовые решения и помогать команде создавать
+            ценность.
+          </p>
+          <h4>Таблица навыков Product Manager</h4>
+          <p>Пояснение: навыки бывают аналитическими, коммуникационными, стратегическими и пользовательскими.</p>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Навык</th>
+                <th>Зачем нужен</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Аналитика</strong></td>
+                <td>Работа с данными, метриками продукта и поиск возможностей для роста.</td>
+              </tr>
+              <tr>
+                <td><strong>Коммуникация</strong></td>
+                <td>Синхронизация команды, стейкхолдеров и разных отделов компании.</td>
+              </tr>
+              <tr>
+                <td><strong>Product Thinking</strong></td>
+                <td>Понимание ценности продукта, пользователей и бизнес-целей.</td>
+              </tr>
+              <tr>
+                <td><strong>Приоритизация</strong></td>
+                <td>Выбор наиболее важных задач и распределение ресурсов команды.</td>
+              </tr>
+              <tr>
+                <td><strong>User Research</strong></td>
+                <td>Изучение пользователей через интервью, опросы и анализ поведения.</td>
+              </tr>
+              <tr>
+                <td><strong>Работа с гипотезами</strong></td>
+                <td>Проверка идей через MVP, эксперименты и A/B тесты.</td>
+              </tr>
+              <tr>
+                <td><strong>UX-мышление</strong></td>
+                <td>Создание решений, которые удобны и полезны для пользователей.</td>
+              </tr>
+              <tr>
+                <td><strong>Стратегическое мышление</strong></td>
+                <td>Определение направления развития продукта и долгосрочных целей.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="note-block">
+            <h3>PM vs другие роли</h3>
+
+            <p>
+              Product Manager часто работает вместе с другими специалистами,
+              но отличается зоной ответственности. PM отвечает за то,
+              <strong>что и зачем создавать</strong>, а другие роли помогают
+              реализовать решение.
+            </p>
+
+            <table class="table-note">
+              <thead>
+                <tr>
+                  <th>Роль</th>
+                  <th>Главный фокус</th>
+                  <th>Ответственность</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Product Manager</strong></td>
+                  <td>Ценность продукта</td>
+                  <td>Определяет проблемы пользователей, приоритеты и направление развития.</td>
+                </tr>
+                <tr>
+                  <td><strong>Project Manager</strong></td>
+                  <td>Процесс и сроки</td>
+                  <td>Организует выполнение проекта, контролирует сроки и ресурсы.</td>
+                </tr>
+                <tr>
+                  <td><strong>Product Owner</strong></td>
+                  <td>Команда разработки</td>
+                  <td>Работает с backlog, требованиями и задачами разработки.</td>
+                </tr>
+                <tr>
+                  <td><strong>Team Lead</strong></td>
+                  <td>Техническая реализация</td>
+                  <td>Принимает технические решения и развивает команду разработки.</td>
+                </tr>
+                <tr>
+                  <td><strong>UX/UI Designer</strong></td>
+                  <td>Пользовательский опыт</td>
+                  <td>Создаёт интерфейсы и улучшает взаимодействие пользователя с продуктом.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 10. Метрики -->
       <section class="section" id="pm-metrics">
         <div class="container">
           <h2>Ключевые продуктовые метрики</h2>
-
-          <p class="note"><strong>Ключевые продуктовые метрики</strong> - показатели, которые помогают оценить ценность продукта для пользователей и бизнеса. Ниже — основные метрики и их назначение.</p>
-
-          <ul class="list-ul">
-            <li><strong>LTV</strong> (Lifetime Value) — ожидаемая суммарная прибыль от одного пользователя.</li>
-            <li><strong>CAC</strong> (Customer Acquisition Cost) — стоимость привлечения одного клиента.</li>
-            <li><strong>Retention</strong> — доля пользователей, возвращающихся через N дней/недель/месяцев (указывать окна и когорты: Day1/Day7/Day30).</li>
-            <li><strong>Churn Rate</strong> — доля пользователей, ушедших за период.</li>
-            <li><strong>Conversion</strong> — конверсия в целевые шаги (регистрация → активация → покупка).</li>
-            <li><strong>North Star Metric</strong> — метрика, коррелирующая с долгосрочной ценностью (выбирается по контексту продукта).</li>
-          </ul>
-          <figure>
-            <img class="note-img" src="/img/management/pm-4.png" alt="Product Metrics" loading="lazy" width="800" height="450" />
-            <figcaption class="note-caption">Рис. 4. Основные продуктовые метрики</figcaption>
-          </figure>
-          <p class="note note--info">
-            <strong>Подсказка:</strong> для оценки эффективности экспериментов используйте primary и guardrail метрики. <b>Primary</b> — ключевая метрика, отражающая ценность. <b>Guardrail</b> — метрики, которые не должны ухудшаться (например, retention, churn).</p>
-
-          <p class="note">
-            <strong>Совет:</strong> фиксируйте источники данных, версии метрик и используйте дашборды для мониторинга. Это ускоряет принятие решений и помогает избежать ошибок в интерпретации результатов.
-          </p>
-
-        </div>
-      </section>
-
-      <!-- Tools -->
-      <section class="section" id="pm-tools">
-        <div class="container">
-          <h2>Инструменты Product Manager и шаблоны работы</h2>
-
-          <p class="note">
-            <strong>Инструменты</strong> — это программы и сервисы, которые помогают организовать процесс продукт-менеджмента, хранить артефакты и анализировать данные. Ниже — основные инструменты и рекомендации по их использованию.
-          </p>
-
+          <p class="note"><strong>Продуктовые метрики</strong> помогают понять, насколько продукт полезен пользователям и достигает целей бизнеса.</p>
           <table class="table-note">
             <thead>
               <tr>
-                <th>Инструмент</th>
-                <th>Рекомендации по использованию</th>
+                <th>Метрика</th>
+                <th>Что показывает</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><a href="/about-management/jira.html">Jira</a></td>
-                <td>Backlog, sprint, epic, story. Храните в Jira рабочие артефакты — требования и acceptance-критерии.</td>
+                <td><strong>Activation</strong></td>
+                <td>Насколько быстро пользователь получает первый полезный опыт.</td>
               </tr>
               <tr>
-                <td><a href="/about-management/confluence.html">Confluence</a></td>
-                <td>Документация, discovery notes, PRD-шаблоны. Шаблон: цель → гипотезы → метрики → критерии успеха.</td>
+                <td><strong>Retention</strong></td>
+                <td>Возвращаются ли пользователи в продукт.</td>
               </tr>
               <tr>
-                <td><a href="/about-management/excel.html">Excel / Google Sheets</a></td>
-                <td>Быстрый анализ, unit-economics, расчёты LTV/CAC. Отслеживайте источники данных и версии.</td>
+                <td><strong>Churn Rate</strong></td>
+                <td>Доля ушедших пользователей за период.</td>
               </tr>
               <tr>
-                <td><a href="/about-management/sql-basics.html">SQL</a></td>
-                <td>Когортный анализ, retention, funnels — шаблоны запросов для проверки гипотез.</td>
+                <td><strong>Conversion</strong></td>
+                <td>Доля пользователей, переходящих между этапами воронки.</td>
               </tr>
               <tr>
-                <td><a href="/about-management/bi.html">BI (Looker, Metabase и т.д.)</a></td>
-                <td>Дашборды для KPI и экспериментов. Настройте отображение primary/guardrail метрик.</td>
+                <td><strong>LTV</strong></td>
+                <td>Пожизненная ценность клиента.</td>
+              </tr>
+              <tr>
+                <td><strong>CAC</strong></td>
+                <td>Стоимость привлечения клиента.</td>
+              </tr>
+              <tr>
+                <td><strong>North Star Metric</strong></td>
+                <td>Главная метрика, отражающая долгосрочную ценность.</td>
               </tr>
             </tbody>
           </table>
-          <figure>
-            <img class="note-img" src="/img/management/pm-5.png" alt="Jira" loading="lazy" width="800" height="450" />
-            <figcaption class="note-caption">Рис. 5. Инструменты для управления продуктом</figcaption>
-          </figure>
-
-          <p class="note note--info">
-            <strong>Совет:</strong> используйте шаблоны для discovery, PRD и релизных заметок. Это ускоряет процесс и помогает избежать ошибок в коммуникации.
-          </p>
+          <div class="note note--info"><strong>Важно:</strong> PM использует метрики для принятия решений, проверки гипотез и оценки результата.</div>
         </div>
       </section>
 
-      <!-- Checklists -->
-      <section class="section" id="pm-checklists">
+      <!-- 11. Типы Product Manager -->
+      <section class="section" id="pm-types">
         <div class="container">
-          <h2>Чек-листы и шаблоны для Product Manager</h2>
-
-          <p class="note">
-            <strong>Чек-листы</strong> — это наборы вопросов и критериев, которые помогают убедиться, что все аспекты процесса продукт-менеджмента учтены. Ниже — основные чек-листы и рекомендации по их использованию.
-          </p>
-
-          <ul class="list-ul">
-            <li><a href="/about-management/checklist-discovery.html">Discovery Checklist</a> — вопросы для проверки гипотез и понимания проблемы.</li>
-            <li><a href="/about-management/checklist-roadmap.html">Roadmap Checklist</a> — критерии для приоритизации инициатив и формирования плана.</li>
-            <li><a href="/about-management/checklist-metrics.html">Metrics Checklist</a> — вопросы для выбора и мониторинга ключевых метрик.</li>
-            <li><a href="/about-management/checklist-delivery.html">Delivery Checklist</a> — шаги для успешного релиза и коммуникации с командой.</li>
-          </ul>
-
-          <p class="note note--info">
-            <strong>Совет:</strong> используйте чек-листы на каждом этапе процесса продукт-менеджмента. Это помогает избежать упущений и ускоряет принятие решений.
-          </p>
+          <h2>Типы Product Manager</h2>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Тип PM</th>
+                <th>Фокус работы</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Growth Product Manager</strong></td>
+                <td>Рост пользователей, конверсии, удержание.</td>
+              </tr>
+              <tr>
+                <td><strong>Technical Product Manager</strong></td>
+                <td>Технические продукты, API, платформы.</td>
+              </tr>
+              <tr>
+                <td><strong>Product Owner</strong></td>
+                <td>Работа с командой разработки и backlog.</td>
+              </tr>
+              <tr>
+                <td><strong>B2B Product Manager</strong></td>
+                <td>Корпоративные продукты и бизнес-клиенты.</td>
+              </tr>
+              <tr>
+                <td><strong>Mobile Product Manager</strong></td>
+                <td>Развитие мобильных приложений.</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
 
-      <!-- Next -->
+      <!-- 12. Инструменты PM -->
+      <section class="section" id="pm-tools">
+        <div class="container">
+          <h2>Инструменты Product Manager</h2>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Категория</th>
+                <th>Примеры</th>
+                <th>Для чего</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Управление задачами</strong></td>
+                <td>Jira, Linear, Asana</td>
+                <td>Backlog, спринты, трекинг задач</td>
+              </tr>
+              <tr>
+                <td><strong>Документация</strong></td>
+                <td>Confluence, Notion, Google Docs</td>
+                <td>Требования, спецификации</td>
+              </tr>
+              <tr>
+                <td><strong>Аналитика</strong></td>
+                <td>Amplitude, Mixpanel, Google Analytics</td>
+                <td>Воронки, A/B, retention</td>
+              </tr>
+              <tr>
+                <td><strong>Дизайн</strong></td>
+                <td>Figma, Miro</td>
+                <td>Прототипы, customer journey</td>
+              </tr>
+              <tr>
+                <td><strong>BI / Reporting</strong></td>
+                <td>Looker, Power BI, Metabase</td>
+                <td>Дашборды и отчёты</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 13. Уровни Product Manager -->
+      <section class="section" id="pm-levels">
+        <div class="container">
+          <h2>Уровни Product Manager</h2>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Уровень</th>
+                <th>Что делает</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Junior PM</strong></td>
+                <td>Работает с задачами, аналитикой, исследованиями.</td>
+              </tr>
+              <tr>
+                <td><strong>Middle PM</strong></td>
+                <td>Самостоятельно ведёт направление продукта.</td>
+              </tr>
+              <tr>
+                <td><strong>Senior PM</strong></td>
+                <td>Отвечает за стратегические решения.</td>
+              </tr>
+              <tr>
+                <td><strong>Head of Product</strong></td>
+                <td>Управляет продуктовой функцией компании.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 14. Как стать Product Manager -->
+      <section class="section" id="pm-career">
+        <div class="container">
+          <h2>Как стать Product Manager</h2>
+          <p class="note">Путь в PM возможен из разных профессий. Важно развивать продуктовое мышление и практические навыки.</p>
+          <div class="note-block">
+            <h3>Типичный путь развития</h3>
+            <ul class="list-ul">
+              <li><strong>Junior Product Manager</strong> — изучение процессов, работа с задачами и аналитикой.</li>
+              <li><strong>Product Manager</strong> — самостоятельное управление продуктом.</li>
+              <li><strong>Senior Product Manager</strong> — работа со стратегией и сложными продуктами.</li>
+              <li><strong>Lead Product Manager / Head of Product</strong> — управление продуктовыми командами.</li>
+            </ul>
+            <h3>Возможные переходы в PM</h3>
+            <ul class="list-ul">
+              <li>Разработчик → Product Manager</li>
+              <li>Аналитик → Product Manager</li>
+              <li>Business Analyst → Product Manager</li>
+              <li>Marketing → Product Manager</li>
+              <li>Project Manager → Product Manager</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 15. FAQ -->
+      <section class="section" id="pm-faq">
+        <div class="container">
+          <h2>FAQ — часто задаваемые вопросы</h2>
+          <div class="faq" role="list" aria-label="FAQ по роли Product Manager">
+            <div class="faq__item" role="listitem">
+              <button class="faq__question" aria-expanded="false" aria-controls="pm-faq-1" id="pm-faq-1-btn" type="button">Чем отличается Product Manager от Project Manager?</button>
+              <div id="pm-faq-1" class="faq__answer" role="region" aria-labelledby="pm-faq-1-btn" hidden>
+                <p>Product Manager отвечает за ценность продукта и его успех; Project Manager — за исполнение проекта в срок и в рамках ресурсов.</p>
+              </div>
+            </div>
+            <div class="faq__item" role="listitem">
+              <button class="faq__question" aria-expanded="false" aria-controls="pm-faq-2" id="pm-faq-2-btn" type="button">Нужен ли PM в небольшой команде?</button>
+              <div id="pm-faq-2" class="faq__answer" role="region" aria-labelledby="pm-faq-2-btn" hidden>
+                <p>Да — даже небольшой команде полезен продуктовый подход: приоритизация, эксперименты и измерение результатов.</p>
+              </div>
+            </div>
+            <div class="faq__item" role="listitem">
+              <button class="faq__question" aria-expanded="false" aria-controls="pm-faq-3" id="pm-faq-3-btn" type="button">Какие первые шаги для начинающего PM?</button>
+              <div id="pm-faq-3" class="faq__answer" role="region" aria-labelledby="pm-faq-3-btn" hidden>
+                <p>Учиться проводить интервью, анализировать данные, формулировать гипотезы и делать простые эксперименты (MVP).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 16. Что изучать дальше -->
       <section class="section" id="pm-next">
         <div class="container">
           <h2>Что изучить дальше — план развития</h2>
-          <p class="note">
-            <strong>План развития</strong> — рекомендации по дальнейшему изучению продукт-менеджмента и смежных областей.
-          </p>
-
+          <p class="note"><strong>План развития</strong> — рекомендации по дальнейшему изучению продукт-менеджмента и смежных областей.</p>
           <ul class="list-ul">
-            <li><a href="/about-management/product-life-cycle.html">Product Life Cycle</a> — стадии продукта и сигналы переходов.</li>
-            <li><a href="/about-management/product-jtbd.html">JTBD</a> — формулирование проблем и ценности для пользователей.</li>
-            <li><a href="/about-management/product-cjm.html">Customer Journey Map</a> — визуализация пути пользователя и точек оттока.</li>
-            <li><a href="/about-management/product-market-fit.html">Product-Market Fit</a> — оценка соответствия продукта рынку.</li>
-            <li><a href="/about-management/product-ice-rice.html">ICE / RICE</a> — приоритизация инициатив и идей.</li>
-            <li><a href="/about-management/product-okr.html">OKR</a> — целеполагание и выравнивание команды.</li>
-            <li><a href="/about-management/product-north-star-metric.html">North Star Metric</a> — метрика, отражающая долгосрочную ценность продукта.</li>
+            <li><a href="/about-management/product-life-cycle.html">Product Life Cycle</a></li>
+            <li><a href="/about-management/product-jtbd.html">JTBD</a></li>
+            <li><a href="/about-management/product-cjm.html">Customer Journey Map</a></li>
+            <li><a href="/about-management/product-market-fit.html">Product-Market Fit</a></li>
+            <li><a href="/about-management/product-ice-rice.html">ICE / RICE</a></li>
+            <li><a href="/about-management/product-okr.html">OKR</a></li>
+            <li><a href="/about-management/product-north-star-metric.html">North Star Metric</a></li>
           </ul>
         </div>
       </section>
-
 
     </main>
     @@include('../partials/footer.html', {})
   </div>
-
   @@include('../partials/popup.html', {})
   @@include('../partials/js.html', {})
 </body>

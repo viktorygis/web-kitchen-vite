@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', {"title": "Product Delivery для Product Management: как управлять доставкой ценности продукта","description": "Что такое Product Delivery в Product Management, как Product Manager управляет процессом доставки продукта, этапы, роли, метрики и практики эффективного запуска."})
+
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page" id="main" tabindex="-1">
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#pd-intro" class="active" aria-current="page">Введение</a>
+        <a href="#pd-definition">Что такое Product Delivery</a>
+        <a href="#pd-role">Роль Product Manager</a>
+        <a href="#pd-process">Цикл доставки ценности</a>
+        <a href="#pd-workflow">Процесс работы</a>
+        <a href="#pd-team">Команда</a>
+        <a href="#pd-agile">Agile / Практики</a>
+        <a href="#pd-tools">Инструменты</a>
+        <a href="#pd-metrics">Метрики</a>
+        <a href="#pd-examples">Примеры</a>
+        <a href="#pd-mistakes">Ошибки</a>
+        <a href="#pd-improve">Как улучшить</a>
+        <a href="#pd-faq">FAQ</a>
+        <a href="#pd-summary">Итоги</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="pd-intro">
+        <div class="container">
+          <h1>Product Delivery для Product Management</h1>
+          <p class="note"><strong>Product Delivery</strong> — это процесс превращения продуктовой идеи в реальную ценность для пользователей. Он объединяет стратегию продукта, разработку, запуск, анализ результатов и дальнейшее улучшение продукта.</p>
+          <p>Например:
+            от гипотезы "пользователям нужна новая функция"
+            до её разработки, запуска и анализа,
+            дала ли она пользу.</p>
+          <figure>
+            <img class="note-img" src="/img/management/product-delivery.png" alt="Product Delivery" loading="lazy" width="800" height="450" />
+            <figcaption class="note-caption">Рис. 1. Product Delivery помогает команде понять, как доставлять ценность пользователям и бизнесу.</figcaption>
+          </figure>
+          <p class="note note--info">Для Product Manager delivery — это не только контроль разработки. Главная задача — обеспечить путь от пользовательской проблемы до работающего решения, которое приносит измеримый результат.</p>
+        </div>
+      </section>
+
+      <!-- Что такое Product Delivery -->
+      <section class="section" id="pd-definition">
+        <div class="container">
+          <h2>Что такое Product Delivery в Product Management</h2>
+          <p class="note"><strong>Product Delivery</strong> — это система процессов и практик, которая помогает команде регулярно создавать, запускать и улучшать продуктовые изменения.</p>
+          <h4>Product Manager отвечает за:</h4>
+          <ul class="list-ul">
+            <li>Какую проблему пользователя нужно решить?</li>
+            <li>Почему это важно для бизнеса?</li>
+            <li>Какую ценность должен получить пользователь?</li>
+          </ul>
+          <h4>Product Delivery отвечает за:</h4>
+          <ul class="list-ul">
+            <li>Как организовать работу команды?</li>
+            <li>Как быстро доставить решение пользователям?</li>
+            <li>Как измерить результат после запуска?</li>
+          </ul>
+          <div class="note-block">
+            <h3>Главная идея Product Delivery</h3>
+            <p>Хороший продукт создаётся не тогда, когда команда выпустила функцию, а когда пользователь получил ценность, а бизнес получил измеримый результат.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Роль Product Manager -->
+      <section class="section" id="pd-role">
+        <div class="container">
+          <h2>Роль Product Manager в Product Delivery</h2>
+          <p class="note">Product Manager отвечает за то, чтобы команда создавала правильные решения и доставляла их пользователям в нужный момент.</p>
+          <div class="note-block">
+            <h3>Задачи Product Manager в delivery</h3>
+            <ul class="list-ul">
+              <li><strong>Определение приоритетов.</strong> Выбор функций и изменений, которые создают максимальную ценность.</li>
+              <li><strong>Формирование требований.</strong> Описание пользовательских сценариев, целей и ожидаемого результата.</li>
+              <li><strong>Синхронизация команды.</strong> Связь между бизнесом, дизайном, разработкой и пользователями.</li>
+              <li><strong>Контроль результата.</strong> Анализ данных после запуска и принятие решений о следующих шагах.</li>
+            </ul>
+          </div>
+          <div class="note note--info">
+
+            <strong>Важно:</strong>
+
+            Product Manager не управляет каждым техническим решением.
+            Его задача — создать понятное направление,
+            приоритеты и условия для эффективной работы команды.
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Цикл доставки ценности -->
+      <section class="section" id="pd-process">
+        <div class="container">
+          <h2>Цикл Product Delivery</h2>
+          <p class="note">Product Delivery работает как непрерывный цикл: от понимания проблемы пользователя до анализа результата и следующей итерации.</p>
+          <div class="note-block">
+            <h3>1. Исследование проблемы</h3>
+            <p>Команда изучает пользователей, их потребности и бизнес-цели.</p>
+          </div>
+          <div class="note-block">
+            <h3>2. Формирование решения</h3>
+            <p>Определяется функциональность, пользовательский сценарий и ожидаемый эффект.</p>
+          </div>
+          <div class="note-block">
+            <h3>3. Разработка и подготовка запуска</h3>
+            <p>Команда создаёт решение, проводит тестирование и готовит релиз.</p>
+          </div>
+          <div class="note-block">
+            <h3>4. Запуск и получение обратной связи</h3>
+            <p>После релиза Product Manager анализирует: использование функции, поведение пользователей и бизнес-метрики.</p>
+          </div>
+          <div class="note note--info"><strong>Важно:</strong> Product Delivery не заканчивается релизом. После запуска начинается новый цикл улучшения продукта.</div>
+          <div class="code-block">
+            <pre><code>Проблема (Problem)
+ ↓
+Проблема (Problem)
+ ↓
+Исследование (Discover)
+ ↓
+Гипотеза Hypothesis  - перевод: Гипотеза
+ ↓
+Разработка и тестирование (Build & Test)
+ ↓
+Запуск (Release)
+ ↓
+Измерение (Measure)
+ ↓
+Обучение (Learn)
+ ↓
+Следующая итерация (Next iteration)
+            </code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Process / Workflow -->
+      <section class="section" id="pd-workflow">
+        <div class="container">
+          <h2>Как работает Product Delivery процесс</h2>
+          <p class="note">Эффективный delivery строится вокруг коротких циклов: гипотеза → разработка → запуск → анализ → улучшение.</p>
+          <div class="note-block">
+            <h3>1. Discovery — поиск возможностей</h3>
+            <p>Команда изучает пользователей, анализирует рынок, собирает обратную связь и определяет проблемы, которые нужно решить.</p>
+          </div>
+          <div class="note-block">
+            <h3>2. Prioritization — выбор приоритетов</h3>
+            <p>Product Manager оценивает идеи по ценности для пользователя, бизнес-эффекту и сложности реализации.</p>
+            <ul class="list-ul">
+              <li>RICE</li>
+              <li>ICE</li>
+              <li>Impact / Effort Matrix</li>
+            </ul>
+          </div>
+          <div class="note-block">
+            <h3>3. Delivery — создание решения</h3>
+            <p>Команда превращает идею в работающую функциональность: проектирование, разработка, тестирование и подготовка запуска.</p>
+          </div>
+          <div class="note-block">
+            <h3>4. Release — запуск продукта</h3>
+            <p>Функция становится доступна пользователям. Команда контролирует качество, собирает первые данные и получает обратную связь.</p>
+          </div>
+          <div class="note-block">
+            <h3>5. Learn — анализ результата</h3>
+            <p>После запуска команда оценивает: достигнута ли цель, как пользователи используют продукт и какие изменения нужны дальше.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Команда Product Delivery -->
+      <section class="section" id="pd-team">
+        <div class="container">
+          <h2>Команда Product Delivery</h2>
+          <p class="note">Product Delivery требует взаимодействия разных специалистов. Product Manager связывает бизнес-цели, потребности пользователей и работу команды разработки.</p>
+          <div class="note-block">
+            <h3>Основные роли в delivery-команде</h3>
+            <ul class="list-ul">
+              <li><strong>Product Manager</strong><br>Отвечает за стратегию продукта, приоритеты, roadmap, ценность для пользователей и анализ результата.</li>
+              <li><strong>Product Designer / UX Designer</strong><br>Исследует пользователей, создаёт пользовательские сценарии и проектирует удобный опыт.</li>
+              <li><strong>Tech Lead / Engineering Manager</strong><br>Отвечает за технические решения, архитектуру и качество реализации.</li>
+              <li><strong>Developers</strong><br>Создают функциональность продукта, исправляют ошибки и улучшают систему.</li>
+              <li><strong>QA Engineer</strong><br>Проверяет качество продукта, предотвращает ошибки перед релизом.</li>
+              <li><strong>Analytics / Data Specialist</strong><br>Помогает измерять поведение пользователей и влияние изменений на бизнес.</li>
+              <li>
+                <strong>Stakeholders / Business Owners</strong>
+                <br>
+                Определяют бизнес-цели,
+                ожидаемый эффект и ограничения продукта.
+              </li>
+            </ul>
+          </div>
+          <div class="note note--info"><strong>Главная роль Product Manager:</strong> не управлять каждым шагом команды, а создавать условия, при которых команда может быстро доставлять ценность.</div>
+        </div>
+      </section>
+
+      <!-- Agile / Practices -->
+      <section class="section" id="pd-agile">
+        <div class="container">
+          <h2>Product Delivery и Agile-подход</h2>
+          <p class="note">Большинство продуктовых команд используют Agile, так как он позволяет быстро адаптироваться к изменениям и регулярно получать обратную связь.</p>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Практика</th>
+                <th>Зачем нужна</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Scrum</strong></td>
+                <td>Организация работы через спринты, планирование и регулярные улучшения.</td>
+              </tr>
+              <tr>
+                <td><strong>Kanban</strong></td>
+                <td>Управление потоком задач и контроль загрузки команды.</td>
+              </tr>
+              <tr>
+                <td><strong>User Stories</strong></td>
+                <td>Описание функциональности через потребности пользователя.</td>
+              </tr>
+              <tr>
+                <td><strong>Backlog Management</strong></td>
+                <td>Приоритизация задач и управление развитием продукта.</td>
+              </tr>
+              <tr>
+                <td><strong>Retrospective</strong></td>
+                <td>Поиск способов улучшить процесс команды.</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="note note--info">
+
+            <strong>Agile</strong> — это один из способов организации работы команды.
+            Product Delivery шире:
+            он включает стратегию, запуск,
+            измерение результата и развитие продукта.
+
+          </p>
+        </div>
+      </section>
+
+      <!-- Метрики -->
+     <!-- Метрики -->
+<section class="section" id="pd-metrics">
+  <div class="container">
+
+    <h2>Метрики Product Delivery</h2>
+
+    <p class="note">
+      <strong>Метрики Product Delivery</strong> помогают понять,
+      насколько эффективно команда превращает идеи в работающие изменения
+      и создаёт ценность для пользователей и бизнеса.
+      <br>
+      Product Manager использует их, чтобы оценивать скорость команды,
+      качество запусков и влияние продукта на реальные результаты.
+    </p>
+
+
+    <table class="table-note">
+
+      <thead>
+        <tr>
+          <th>Метрика</th>
+          <th>Расшифровка</th>
+          <th>Что показывает</th>
+          <th>Пример</th>
+        </tr>
+      </thead>
+
+
+      <tbody>
+
+
+        <tr>
+          <td>
+            <strong>Lead Time</strong>
+          </td>
+
+          <td>
+            Время от появления идеи или задачи
+            до момента, когда изменение становится доступно пользователям.
+          </td>
+
+          <td>
+            Насколько быстро команда может доставлять ценность.
+          </td>
+
+          <td>
+            Идея новой функции появилась 1 марта,
+            а пользователи получили её 20 марта.
+            Lead Time — 19 дней.
+          </td>
+        </tr>
+
+
+
+        <tr>
+          <td>
+            <strong>Cycle Time</strong>
+          </td>
+
+          <td>
+            Время выполнения конкретной задачи
+            от начала разработки до готового результата.
+          </td>
+
+          <td>
+            Скорость работы команды над отдельными изменениями.
+          </td>
+
+          <td>
+            Разработка кнопки оплаты началась в понедельник
+            и завершилась в пятницу.
+            Cycle Time — 5 дней.
+          </td>
+        </tr>
+
+
+
+        <tr>
+          <td>
+            <strong>Release Frequency</strong>
+          </td>
+
+          <td>
+            Частота выпуска новых изменений
+            и обновлений продукта.
+          </td>
+
+          <td>
+            Насколько регулярно команда доставляет улучшения.
+          </td>
+
+          <td>
+            Команда выпускает новые версии продукта
+            каждую неделю вместо одного большого релиза раз в полгода.
+          </td>
+        </tr>
+
+
+
+        <tr>
+          <td>
+            <strong>Feature Adoption</strong>
+          </td>
+
+          <td>
+            Доля пользователей, которые начали использовать
+            новую функцию после запуска.
+          </td>
+
+          <td>
+            Востребована ли функция и решает ли она проблему пользователя.
+          </td>
+
+          <td>
+            После запуска нового поиска
+            60% активных пользователей начали им пользоваться.
+          </td>
+        </tr>
+
+
+
+        <tr>
+          <td>
+            <strong>Activation Rate</strong>
+          </td>
+
+          <td>
+            Процент пользователей,
+            которые получили первую ценность от продукта.
+          </td>
+
+          <td>
+            Насколько успешно продукт помогает новым пользователям начать работу.
+          </td>
+
+          <td>
+            Из 1000 зарегистрированных пользователей
+            400 создали первый проект.
+            Activation Rate — 40%.
+          </td>
+        </tr>
+
+
+
+        <tr>
+          <td>
+            <strong>Retention</strong>
+          </td>
+
+          <td>
+            Доля пользователей,
+            которые возвращаются в продукт через определённое время.
+          </td>
+
+          <td>
+            Насколько продукт сохраняет пользовательскую ценность.
+          </td>
+
+          <td>
+            Через 30 дней после регистрации
+            35% пользователей продолжают пользоваться сервисом.
+          </td>
+        </tr>
+
+
+
+        <tr>
+          <td>
+            <strong>Conversion Rate</strong>
+          </td>
+
+          <td>
+            Процент пользователей,
+            которые выполняют целевое действие.
+          </td>
+
+          <td>
+            Эффективность пользовательского пути.
+          </td>
+
+          <td>
+            Из 10 000 посетителей сайта
+            500 оформили подписку.
+            Conversion Rate — 5%.
+          </td>
+        </tr>
+
+
+
+        <tr>
+          <td>
+            <strong>Business Impact</strong>
+          </td>
+
+          <td>
+            Влияние изменений продукта
+            на бизнес-показатели.
+          </td>
+
+          <td>
+            Дала ли новая функция ожидаемый результат.
+          </td>
+
+          <td>
+            После запуска рекомендации продуктов
+            продажи выросли на 15%.
+          </td>
+        </tr>
+
+
+      </tbody>
+
+    </table>
+
+
+
+    <div class="note note--info">
+
+      <strong>
+        Главный принцип:
+      </strong>
+
+      Скорость доставки сама по себе не является целью.
+      Хороший Product Delivery — это способность команды
+      регулярно выпускать изменения,
+      которые улучшают пользовательский опыт
+      и дают измеримый бизнес-результат.
+
+    </div>
+
+
+  </div>
+</section>
+
+      <!-- Инструменты -->
+      <!-- Инструменты -->
+<section class="section" id="pd-tools">
+  <div class="container">
+
+    <h2>Инструменты Product Delivery</h2>
+
+    <p class="note">
+      <strong>Инструменты Product Delivery</strong> помогают команде управлять
+      процессом создания продукта: от исследования пользователей и планирования
+      задач до разработки, запуска и анализа результатов.
+      <br>
+      Product Manager выбирает инструменты не ради самих сервисов,
+      а для повышения прозрачности работы команды и качества принятия решений.
+    </p>
+
+
+    <table class="table-note">
+
+      <thead>
+        <tr>
+          <th>Категория</th>
+          <th>Инструменты</th>
+          <th>Для чего используются</th>
+          <th>Пример применения</th>
+        </tr>
+      </thead>
+
+
+      <tbody>
+
+
+        <tr>
+
+          <td>
+            <strong>
+              Управление продуктом и задачами
+            </strong>
+          </td>
+
+          <td>
+            Jira<br>
+            Linear<br>
+            Productboard<br>
+            Notion<br>
+            YouTrack
+          </td>
+
+          <td>
+            Планирование roadmap,
+            управление backlog,
+            постановка задач,
+            отслеживание прогресса.
+          </td>
+
+          <td>
+            Product Manager создаёт инициативу,
+            разбивает её на задачи команды
+            и отслеживает движение от идеи
+            до релиза.
+          </td>
+
+        </tr>
+
+
+
+        <tr>
+
+          <td>
+            <strong>
+              Исследование пользователей
+            </strong>
+          </td>
+
+          <td>
+            UserTesting<br>
+            Maze<br>
+            Hotjar<br>
+            Dovetail
+          </td>
+
+          <td>
+            Сбор обратной связи,
+            анализ поведения пользователей,
+            проверка гипотез.
+          </td>
+
+          <td>
+            Перед разработкой новой функции
+            команда проверяет прототип
+            на реальных пользователях.
+          </td>
+
+        </tr>
+
+
+
+        <tr>
+
+          <td>
+            <strong>
+              Дизайн и прототипирование
+            </strong>
+          </td>
+
+          <td>
+            Figma<br>
+            FigJam<br>
+            Miro
+          </td>
+
+          <td>
+            Создание интерфейсов,
+            пользовательских сценариев
+            и совместная работа команды.
+          </td>
+
+          <td>
+            Product Manager и дизайнер
+            создают прототип нового сценария
+            и обсуждают его с разработчиками.
+          </td>
+
+        </tr>
+
+
+
+        <tr>
+
+          <td>
+            <strong>
+              Аналитика продукта
+            </strong>
+          </td>
+
+          <td>
+            Amplitude<br>
+            Mixpanel<br>
+            Google Analytics<br>
+            Firebase Analytics
+          </td>
+
+          <td>
+            Измерение поведения пользователей,
+            конверсий, удержания и результатов
+            после запуска.
+          </td>
+
+          <td>
+            После релиза команда анализирует,
+            сколько пользователей используют
+            новую функцию и достигли ли цели.
+          </td>
+
+        </tr>
+
+
+
+        <tr>
+
+          <td>
+            <strong>
+              Коммуникация команды
+            </strong>
+          </td>
+
+          <td>
+            Slack<br>
+            Microsoft Teams<br>
+            Discord
+          </td>
+
+          <td>
+            Обсуждение задач,
+            синхронизация команд,
+            обмен информацией.
+          </td>
+
+          <td>
+            Product, Design и Development
+            обсуждают статус релиза
+            и возникающие проблемы.
+          </td>
+
+        </tr>
+
+
+
+        <tr>
+
+          <td>
+            <strong>
+              Разработка и контроль изменений
+            </strong>
+          </td>
+
+          <td>
+            GitHub<br>
+            GitLab<br>
+            Bitbucket<br>
+            CI/CD инструменты
+          </td>
+
+          <td>
+            Управление кодом,
+            автоматизация тестирования,
+            подготовка релизов.
+          </td>
+
+          <td>
+            После проверки изменений
+            команда автоматически собирает
+            и выпускает новую версию продукта.
+          </td>
+
+        </tr>
+
+
+
+        <tr>
+
+          <td>
+            <strong>
+              Управление экспериментами
+            </strong>
+          </td>
+
+          <td>
+            Optimizely<br>
+            VWO<br>
+            Firebase Remote Config
+          </td>
+
+          <td>
+            Проведение A/B тестов
+            и проверка продуктовых гипотез.
+          </td>
+
+          <td>
+            Команда сравнивает два варианта
+            страницы и выбирает решение
+            с лучшей конверсией.
+          </td>
+
+        </tr>
+
+
+      </tbody>
+
+    </table>
+
+
+
+    <div class="note note--info">
+
+      <strong>
+        Важно:
+      </strong>
+
+      Product Delivery не зависит от конкретного набора инструментов.
+      Главное — чтобы команда имела прозрачный процесс:
+      понимание проблемы → планирование → разработка →
+      запуск → анализ результата.
+
+    </div>
+
+
+  </div>
+</section>
+
+      <!-- Ошибки -->
+      <section class="section" id="pd-mistakes">
+        <div class="container">
+          <h2>Типичные ошибки в Product Delivery</h2>
+          <p class="note">Даже сильные продуктовые команды могут сталкиваться с проблемами delivery. Чаще всего ошибки возникают не из-за технологий, а из-за отсутствия единого процесса и фокуса на ценности.</p>
+          <div class="warning">
+            <ul class="list-ul">
+              <li><strong>Разработка функций без понимания цели.</strong> Команда создаёт новые возможности, но не понимает, какую проблему пользователя они должны решить.</li>
+              <li><strong>Слишком много задач одновременно.</strong> Большой backlog и постоянная смена приоритетов снижают скорость команды.</li>
+              <li><strong>Отсутствие чётких критериев успеха.</strong> После запуска невозможно понять, дала ли новая функция ожидаемый результат.</li>
+              <li><strong>Разрыв между бизнесом и разработкой.</strong> Product Manager, дизайнеры и инженеры работают с разным пониманием целей продукта.</li>
+              <li><strong>Ориентация только на скорость.</strong> Быстрый выпуск функций без анализа качества и пользовательской ценности приводит к накоплению проблем.</li>
+              <li><strong>Нет цикла обучения после релиза.</strong> Команда запускает изменения, но не использует данные для дальнейшего развития.</li>
+              <li><strong>Создание функций вместо решения проблем.</strong> Команда фокусируется на реализации идей, а не на том, как они помогают пользователю и бизнесу.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Как улучшить delivery -->
+      <section class="section" id="pd-improve">
+        <div class="container">
+          <h2>Как улучшить Product Delivery процесс</h2>
+          <p class="note">Эффективный delivery строится вокруг прозрачности, коротких циклов и постоянного обучения команды.</p>
+          <div class="note-block">
+            <h3>1. Связать roadmap с бизнес-целями</h3>
+            <p>Каждое изменение продукта должно иметь понятную цель: какую проблему решаем, какой результат ожидаем, как будем измерять успех.</p>
+          </div>
+          <div class="note-block">
+            <h3>2. Создать единый процесс работы команды</h3>
+            <p>Product, Design и Engineering должны работать как одна команда с общими приоритетами и понятными правилами взаимодействия.</p>
+          </div>
+          <div class="note-block">
+            <h3>3. Использовать данные после запуска</h3>
+            <p>После релиза важно анализировать поведение пользователей, собирать обратную связь и принимать решения на основе фактов.</p>
+          </div>
+          <div class="note note--info"><strong>Главный принцип:</strong> Product Delivery — это не скорость выпуска функций, а способность регулярно создавать ценность.</div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section faq-section" id="pd-faq">
+        <div class="container">
+          <h2 class="faq__title">Часто задаваемые вопросы о Product Delivery</h2>
+          <div class="faq" role="list" aria-label="FAQ по Product Delivery">
+            <div class="faq__item" role="listitem">
+              <button class="faq__question" aria-expanded="false" aria-controls="pd-faq-1" id="pd-faq-1-btn" type="button">Чем Product Delivery отличается от Product Management?</button>
+              <div id="pd-faq-1" class="faq__answer" role="region" aria-labelledby="pd-faq-1-btn" hidden>
+                <p>Product Management отвечает за направление продукта: стратегию, пользователей, рынок и приоритеты. Product Delivery отвечает за то, как команда превращает эти решения в работающий продукт и доставляет ценность пользователям.</p>
+              </div>
+            </div>
+            <div class="faq__item" role="listitem">
+              <button class="faq__question" aria-expanded="false" aria-controls="pd-faq-2" id="pd-faq-2-btn" type="button">Нужен ли Product Delivery небольшой команде?</button>
+              <div id="pd-faq-2" class="faq__answer" role="region" aria-labelledby="pd-faq-2-btn" hidden>
+                <p>Да. Даже небольшие команды выигрывают, если имеют понятный процесс приоритизации, разработки, запуска и анализа результата.</p>
+              </div>
+            </div>
+            <div class="faq__item" role="listitem">
+              <button class="faq__question" aria-expanded="false" aria-controls="pd-faq-3" id="pd-faq-3-btn" type="button">С чего начать внедрение Product Delivery?</button>
+              <div id="pd-faq-3" class="faq__answer" role="region" aria-labelledby="pd-faq-3-btn" hidden>
+                <p>Начать стоит с определения целей продукта, настройки процесса работы команды, приоритетов и прозрачного цикла от идеи до запуска.</p>
+              </div>
+            </div>
+            <div class="faq__item" role="listitem">
+              <button class="faq__question" aria-expanded="false" aria-controls="pd-faq-4" id="pd-faq-4-btn" type="button">Какие метрики важны для Product Delivery?</button>
+              <div id="pd-faq-4" class="faq__answer" role="region" aria-labelledby="pd-faq-4-btn" hidden>
+                <p>Основные показатели: скорость доставки изменений, время от идеи до запуска, использование новых функций, удовлетворённость пользователей и влияние на бизнес-результаты.</p>
+              </div>
+            </div>
+            <div class="faq__item" role="listitem">
+              <button class="faq__question" aria-expanded="false" aria-controls="pd-faq-5" id="pd-faq-5-btn" type="button">Можно ли улучшить delivery без смены команды?</button>
+              <div id="pd-faq-5" class="faq__answer" role="region" aria-labelledby="pd-faq-5-btn" hidden>
+                <p>Да. Часто улучшение начинается не с найма новых специалистов, а с изменения процессов: приоритетов, коммуникации, аналитики и способов работы.</p>
+              </div>
+            </div>
+            <div class="faq__item" role="listitem">
+              <button class="faq__question" aria-expanded="false" aria-controls="pd-faq-5" id="pd-faq-5-btn" type="button">Что является результатом Product Delivery?</button>
+              <div id="pd-faq-5" class="faq__answer" role="region" aria-labelledby="pd-faq-5-btn" hidden>
+                <p>Не просто выпущенная функция,
+                  а изменение поведения пользователей
+                  или бизнес-показателей.</p>
+              </div>
+            </div>
+            <div class="faq__item" role="listitem">
+              <button class="faq__question" aria-expanded="false" aria-controls="pd-faq-5" id="pd-faq-5-btn" type="button">Кто отвечает за Product Delivery?</button>
+              <div id="pd-faq-5" class="faq__answer" role="region" aria-labelledby="pd-faq-5-btn" hidden>
+                <p>Ответственность разделяется между Product,
+                  Design и Engineering командами.
+                  Product Manager отвечает за ценность и приоритеты.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Итоги -->
+      <section class="section" id="pd-summary">
+        <div class="container">
+          <h2>Итоги: Product Delivery как система создания ценности</h2>
+          <p class="note"><strong>Product Delivery помогает Product Manager связать стратегию продукта и реальный результат.</strong> Это процесс, который превращает идеи и гипотезы в работающие решения для пользователей.</p>
+          <ol class="list-ol">
+            <li>Фокусируйтесь на проблемах пользователей, а не только на разработке функций.</li>
+            <li>Связывайте roadmap с бизнес-целями.</li>
+            <li>Создавайте короткие циклы разработки и обратной связи.</li>
+            <li>Измеряйте результат после каждого запуска.</li>
+            <li>Постоянно улучшайте процесс доставки продукта.</li>
+          </ol>
+        </div>
+      </section>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
+</html>

@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+@@include('../partials/head.html', {
+"title": "Инструменты Product Manager — Jira, Figma, SQL, Analytics и BI",
+"description": "Инструменты Product Manager: Jira, Confluence, Figma, SQL, Amplitude, BI-системы и другие сервисы для управления продуктом, аналитики и командной работы.",
+})
+
+<body>
+
+<a class="skip-link" href="#main">Перейти к содержимому</a>
+
+<div class="wrapper">
+
+@@include('../partials/header.html', {})
+
+<main class="page" id="main" tabindex="-1">
+
+
+<nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+
+<a href="#pm-intro" class="active" aria-current="true">
+Введение
+</a>
+
+<a href="#pm-tools">
+Инструменты
+</a>
+
+<a href="#pm-stack">
+Стек PM
+</a>
+
+<a href="#pm-faq">
+FAQ
+</a>
+
+</nav>
+
+
+
+<!-- Введение -->
+
+<section class="section" id="pm-intro">
+
+<div class="container">
+
+
+<h1>Инструменты Product Manager</h1>
+
+
+<p class="note">
+
+<strong>Инструменты Product Manager</strong> — это программы и сервисы,
+которые помогают исследовать пользователей, управлять задачами,
+анализировать данные и принимать продуктовые решения.
+
+</p>
+
+
+<div class="note-block">
+
+<h3>Какие задачи решают инструменты PM</h3>
+
+
+<ul class="list-ul">
+
+<li>Сбор информации о пользователях.</li>
+
+<li>Документирование продуктовых решений.</li>
+
+<li>Управление backlog и roadmap.</li>
+
+<li>Анализ поведения пользователей.</li>
+
+<li>Мониторинг продуктовых метрик.</li>
+
+<li>Коммуникация с командой.</li>
+
+</ul>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+
+
+
+<!-- Инструменты -->
+
+
+<section class="section" id="pm-tools">
+
+
+<div class="container">
+
+
+<h2>Основные инструменты Product Manager</h2>
+
+
+<p class="note">
+
+Product Manager использует разные инструменты на разных этапах
+создания и развития продукта.
+
+</p>
+
+
+
+<table class="table-note">
+
+
+<thead>
+
+<tr>
+
+<th>Категория</th>
+
+<th>Инструменты</th>
+
+<th>Для чего используются</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+
+
+<tr>
+
+<td>
+<strong>Управление задачами</strong>
+</td>
+
+<td>
+<a href="/about-management/jira.html">Jira</a>,
+Linear, Asana
+</td>
+
+<td>
+Backlog, sprint, epic, user story, контроль разработки.
+</td>
+
+</tr>
+
+
+
+
+<tr>
+
+<td>
+<strong>Документация</strong>
+</td>
+
+<td>
+<a href="/about-management/confluence.html">Confluence</a>,
+Notion, Google Docs
+</td>
+
+<td>
+PRD, требования, discovery notes, решения команды.
+</td>
+
+</tr>
+
+
+
+
+<tr>
+
+<td>
+<strong>Прототипирование</strong>
+</td>
+
+<td>
+Figma, Miro
+</td>
+
+<td>
+Создание прототипов, CJM, пользовательских сценариев.
+</td>
+
+</tr>
+
+
+
+
+<tr>
+
+<td>
+<strong>Аналитика</strong>
+</td>
+
+<td>
+SQL, Amplitude, Mixpanel, Google Analytics
+</td>
+
+<td>
+Retention, воронки, когортный анализ, проверка гипотез.
+</td>
+
+</tr>
+
+
+
+
+<tr>
+
+<td>
+<strong>BI и отчёты</strong>
+</td>
+
+<td>
+Looker, Metabase, Power BI
+</td>
+
+<td>
+Дашборды, KPI, продуктовые метрики.
+</td>
+
+</tr>
+
+
+
+
+<tr>
+
+<td>
+<strong>Коммуникация</strong>
+</td>
+
+<td>
+Slack, Teams, Zoom
+</td>
+
+<td>
+Синхронизация команды и работа со стейкхолдерами.
+</td>
+
+</tr>
+
+
+
+</tbody>
+
+
+</table>
+
+
+
+<figure>
+
+<img class="note-img"
+src="/img/management/pm-5.png"
+alt="Инструменты Product Manager"
+loading="lazy"
+width="800"
+height="450" />
+
+
+<figcaption class="note-caption">
+Рис. 1. Инструменты для управления продуктом
+</figcaption>
+
+
+</figure>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- Артефакты -->
+
+<section class="section">
+
+
+<div class="container">
+
+
+<h2>Какие артефакты создаёт Product Manager</h2>
+
+
+
+<table class="table-note">
+
+
+<thead>
+
+<tr>
+
+<th>Артефакт</th>
+
+<th>Инструменты</th>
+
+<th>Назначение</th>
+
+</tr>
+
+
+</thead>
+
+
+
+<tbody>
+
+
+<tr>
+
+<td>
+<strong>PRD</strong>
+</td>
+
+<td>
+Notion, Confluence
+</td>
+
+<td>
+Описание проблемы, решения, метрик и требований.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Roadmap</strong>
+</td>
+
+<td>
+Jira, Productboard, Notion
+</td>
+
+<td>
+План развития продукта.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Backlog</strong>
+</td>
+
+<td>
+Jira, Linear
+</td>
+
+<td>
+Список задач и инициатив.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Dashboard</strong>
+</td>
+
+<td>
+BI-системы, Amplitude
+</td>
+
+<td>
+Контроль продуктовых показателей.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>User Research</strong>
+</td>
+
+<td>
+Miro, Figma, Docs
+</td>
+
+<td>
+Интервью, CJM, анализ пользователей.
+</td>
+
+</tr>
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- Стек -->
+
+
+<section class="section" id="pm-stack">
+
+
+<div class="container">
+
+
+<h2>Пример стека Product Manager</h2>
+
+
+<table class="table-note">
+
+
+<thead>
+
+<tr>
+
+<th>Уровень</th>
+
+<th>Инструменты</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+
+<tr>
+
+<td>
+<strong>Начинающий PM</strong>
+</td>
+
+<td>
+Notion, Google Sheets, Jira, Figma, Google Analytics
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+<strong>Middle PM</strong>
+</td>
+
+<td>
+Jira, Confluence, SQL, Amplitude, Miro, BI
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+<strong>Senior PM</strong>
+</td>
+
+<td>
+Productboard, Data Warehouse, BI, эксперименты, аналитические платформы
+</td>
+
+</tr>
+
+
+</tbody>
+
+
+</table>
+
+
+
+<div class="note note--info">
+
+<strong>Важно:</strong>
+инструменты сами по себе не делают продукт успешным.
+Главное — умение правильно формулировать проблемы,
+проверять гипотезы и принимать решения.
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- FAQ -->
+
+
+<section class="section" id="pm-faq">
+
+
+<div class="container">
+
+
+<h2>FAQ — инструменты Product Manager</h2>
+
+
+
+<div class="faq">
+
+
+<div class="faq__item">
+
+
+<button class="faq__question">
+Какой инструмент нужен начинающему PM?
+</button>
+
+
+<div class="faq__answer">
+
+<p>
+Для старта достаточно Jira, Notion, Google Sheets,
+Figma и базовых инструментов аналитики.
+</p>
+
+</div>
+
+
+</div>
+
+
+
+<div class="faq__item">
+
+
+<button class="faq__question">
+Нужно ли Product Manager уметь программировать?
+</button>
+
+
+<div class="faq__answer">
+
+<p>
+Нет, но понимание SQL, данных и технических ограничений
+значительно помогает в работе.
+</p>
+
+</div>
+
+
+</div>
+
+
+
+<div class="faq__item">
+
+
+<button class="faq__question">
+Какой главный инструмент Product Manager?
+</button>
+
+
+<div class="faq__answer">
+
+<p>
+Главный инструмент PM — это не программа,
+а процесс принятия решений на основе пользователей и данных.
+</p>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+</main>
+
+
+@@include('../partials/footer.html', {})
+
+</div>
+
+
+@@include('../partials/popup.html', {})
+@@include('../partials/js.html', {})
+
+
+</body>
+
+</html>

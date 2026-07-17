@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+@@include('../partials/head.html', {
+"title": "Product Backlog — управление задачами Product Manager",
+"description": "Product Backlog — список задач, гипотез и инициатив продукта. Как Product Manager формирует, приоритизирует и управляет backlog.",
+})
+
+<body>
+
+<a class="skip-link" href="#main">Перейти к содержимому</a>
+
+<div class="wrapper">
+
+@@include('../partials/header.html', {})
+
+<main class="page" id="main" tabindex="-1">
+
+
+<nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+
+<a href="#pm-intro" class="active" aria-current="true">
+Введение
+</a>
+
+<a href="#pm-structure">
+Структура
+</a>
+
+<a href="#pm-workflow">
+Работа с Backlog
+</a>
+
+<a href="#pm-prioritization">
+Приоритизация
+</a>
+
+<a href="#pm-faq">
+FAQ
+</a>
+
+</nav>
+
+
+
+
+
+<!-- Введение -->
+
+<section class="section" id="pm-intro">
+
+<div class="container">
+
+
+<h1>Product Backlog — управление задачами продукта</h1>
+
+
+<p class="note">
+
+<strong>Product Backlog</strong> — это упорядоченный список всех
+идей, задач, улучшений и инициатив продукта, которые потенциально
+могут создать ценность для пользователей и бизнеса.
+
+</p>
+
+
+<p>
+Product Manager использует backlog для управления приоритетами,
+синхронизации команды и планирования развития продукта.
+</p>
+
+
+
+<div class="note-block">
+
+<h3>Зачем нужен Product Backlog</h3>
+
+
+<ul class="list-ul">
+
+<li>Хранить все продуктовые инициативы в одном месте.</li>
+
+<li>Определять порядок реализации задач.</li>
+
+<li>Связывать задачи с бизнес-целями.</li>
+
+<li>Управлять ожиданиями команды и стейкхолдеров.</li>
+
+<li>Фокусироваться на наиболее важных проблемах пользователей.</li>
+
+</ul>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+
+
+
+
+
+<!-- Структура -->
+
+<section class="section" id="pm-structure">
+
+
+<div class="container">
+
+
+<h2>Структура Product Backlog</h2>
+
+
+<table class="table-note">
+
+
+<thead>
+
+<tr>
+
+<th>Элемент</th>
+
+<th>Описание</th>
+
+<th>Пример</th>
+
+</tr>
+
+
+</thead>
+
+
+<tbody>
+
+
+
+<tr>
+
+<td>
+<strong>Epic</strong>
+</td>
+
+<td>
+Большая инициатива или направление развития продукта.
+</td>
+
+<td>
+Запуск мобильного приложения.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>User Story</strong>
+</td>
+
+<td>
+Описание потребности пользователя.
+</td>
+
+<td>
+"Как пользователь, я хочу быстро оформить заказ".
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Task</strong>
+</td>
+
+<td>
+Конкретная задача для команды.
+</td>
+
+<td>
+Добавить кнопку оплаты.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Bug</strong>
+</td>
+
+<td>
+Ошибка или проблема продукта.
+</td>
+
+<td>
+Исправить проблему авторизации.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Improvement</strong>
+</td>
+
+<td>
+Улучшение существующей функции.
+</td>
+
+<td>
+Ускорить загрузку страницы.
+</td>
+
+</tr>
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- Работа -->
+
+<section class="section" id="pm-workflow">
+
+
+<div class="container">
+
+
+<h2>Как Product Manager работает с Backlog</h2>
+
+
+
+<table class="table-note">
+
+
+<thead>
+
+<tr>
+
+<th>Этап</th>
+
+<th>Действие PM</th>
+
+<th>Результат</th>
+
+</tr>
+
+
+</thead>
+
+
+<tbody>
+
+
+
+<tr>
+
+<td>
+<strong>Сбор идей</strong>
+</td>
+
+<td>
+Сбор обратной связи пользователей, команды и бизнеса.
+</td>
+
+<td>
+Новые задачи и гипотезы.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Анализ</strong>
+</td>
+
+<td>
+Проверка ценности, сложности и влияния.
+</td>
+
+<td>
+Понятные требования.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Приоритизация</strong>
+</td>
+
+<td>
+Выбор задач с максимальной ценностью.
+</td>
+
+<td>
+Отсортированный backlog.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Подготовка</strong>
+</td>
+
+<td>
+Создание требований и acceptance criteria.
+</td>
+
+<td>
+Готовые задачи для разработки.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Review</strong>
+</td>
+
+<td>
+Регулярное обновление списка задач.
+</td>
+
+<td>
+Актуальный backlog.
+</td>
+
+</tr>
+
+
+</tbody>
+
+
+</table>
+
+
+
+<div class="note note--info">
+
+<strong>Важно:</strong>
+
+Product Backlog — это не список всех возможных функций.
+Каждая задача должна иметь понятную ценность и причину появления.
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- Приоритизация -->
+
+<section class="section" id="pm-prioritization">
+
+
+<div class="container">
+
+
+<h2>Как приоритизировать Product Backlog</h2>
+
+
+<p class="note">
+
+Product Manager использует различные фреймворки,
+чтобы выбрать задачи с максимальным влиянием.
+
+</p>
+
+
+
+<table class="table-note">
+
+
+<thead>
+
+<tr>
+
+<th>Метод</th>
+
+<th>Когда использовать</th>
+
+<th>Что оценивает</th>
+
+</tr>
+
+
+</thead>
+
+
+<tbody>
+
+
+
+<tr>
+
+<td>
+<strong>RICE</strong>
+</td>
+
+<td>
+Много инициатив и ограниченные ресурсы.
+</td>
+
+<td>
+Reach, Impact, Confidence, Effort.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>ICE</strong>
+</td>
+
+<td>
+Быстрая оценка гипотез.
+</td>
+
+<td>
+Impact, Confidence, Ease.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>MoSCoW</strong>
+</td>
+
+<td>
+Планирование релиза.
+</td>
+
+<td>
+Must, Should, Could, Won't.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Value vs Effort</strong>
+</td>
+
+<td>
+Обсуждение командой.
+</td>
+
+<td>
+Ценность и стоимость реализации.
+</td>
+
+</tr>
+
+
+</tbody>
+
+
+</table>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- Связь -->
+
+<section class="section">
+
+
+<div class="container">
+
+
+<h2>Product Backlog и другие инструменты PM</h2>
+
+
+<table class="table-note">
+
+
+<thead>
+
+<tr>
+
+<th>Инструмент</th>
+
+<th>Связь с Backlog</th>
+
+</tr>
+
+
+</thead>
+
+
+<tbody>
+
+
+
+<tr>
+
+<td>
+<strong>Product Vision</strong>
+</td>
+
+<td>
+Определяет направление, которому должны соответствовать задачи.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Roadmap</strong>
+</td>
+
+<td>
+Показывает крупные направления развития продукта.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>OKR</strong>
+</td>
+
+<td>
+Помогает связать задачи с бизнес-целями.
+</td>
+
+</tr>
+
+
+
+<tr>
+
+<td>
+<strong>Jira / Linear</strong>
+</td>
+
+<td>
+Инструменты хранения и управления backlog.
+</td>
+
+</tr>
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- FAQ -->
+
+<section class="section" id="pm-faq">
+
+
+<div class="container">
+
+
+<h2>FAQ — Product Backlog</h2>
+
+
+
+<div class="faq">
+
+
+<div class="faq__item">
+
+
+<button class="faq__question">
+
+Чем Product Backlog отличается от списка задач?
+
+</button>
+
+
+<div class="faq__answer">
+
+<p>
+Backlog содержит не просто задачи, а инициативы,
+которые связаны с ценностью продукта и имеют приоритет.
+</p>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="faq__item">
+
+
+<button class="faq__question">
+
+Кто отвечает за Product Backlog?
+
+</button>
+
+
+<div class="faq__answer">
+
+<p>
+В Scrum ответственность за backlog обычно лежит на Product Owner,
+но Product Manager также активно управляет приоритетами продукта.
+</p>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="faq__item">
+
+
+<button class="faq__question">
+
+Как часто нужно обновлять Backlog?
+
+</button>
+
+
+<div class="faq__answer">
+
+<p>
+Backlog должен регулярно пересматриваться:
+обычно каждую неделю или перед планированием новых итераций.
+</p>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+</main>
+
+
+@@include('../partials/footer.html', {})
+
+</div>
+
+
+@@include('../partials/popup.html', {})
+@@include('../partials/js.html', {})
+
+</body>
+
+</html>

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+@@include('../partials/head.html', {
+"title": "Продуктовые метрики Product Manager — LTV, CAC, Retention, Churn",
+"description": "Продуктовые метрики Product Manager: LTV, CAC, Retention, Churn, Conversion, North Star Metric. Как PM анализирует продукт и принимает решения на основе данных.",
+})
+
+<body>
+
+<a class="skip-link" href="#main">Перейти к содержимому</a>
+
+<div class="wrapper">
+
+@@include('../partials/header.html', {})
+
+<main class="page" id="main" tabindex="-1">
+
+
+<nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+
+<a href="#pm-intro" class="active" aria-current="true">
+Введение
+</a>
+
+<a href="#pm-main-metrics">
+Основные метрики
+</a>
+
+<a href="#pm-growth">
+Метрики роста
+</a>
+
+<a href="#pm-experiments">
+Эксперименты
+</a>
+
+<a href="#pm-faq">
+FAQ
+</a>
+
+</nav>
+
+
+<!-- Введение -->
+<section class="section" id="pm-intro">
+
+<div class="container">
+
+<h1>Продуктовые метрики Product Manager</h1>
+
+
+<p class="note">
+<strong>Продуктовые метрики</strong> — это показатели, которые помогают Product Manager понимать,
+насколько продукт полезен пользователям, достигает ли он бизнес-целей и какие изменения необходимо внедрять.
+</p>
+
+
+<div class="note-block">
+
+<h3>Зачем PM нужны метрики</h3>
+
+<ul class="list-ul">
+
+<li>Оценивать ценность продукта для пользователей.</li>
+
+<li>Находить проблемы в пользовательском опыте.</li>
+
+<li>Проверять продуктовые гипотезы.</li>
+
+<li>Принимать решения на основе данных.</li>
+
+<li>Определять направления роста продукта.</li>
+
+</ul>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- Основные метрики -->
+
+<section class="section" id="pm-main-metrics">
+
+<div class="container">
+
+
+<h2>Ключевые продуктовые метрики</h2>
+
+
+<table class="table-note">
+
+<thead>
+
+<tr>
+<th>Метрика</th>
+<th>Что показывает</th>
+<th>Пример использования</th>
+</tr>
+
+</thead>
+
+
+<tbody>
+
+
+<tr>
+
+<td><strong>LTV</strong></td>
+
+<td>Сколько ценности приносит пользователь за всё время взаимодействия с продуктом.</td>
+
+<td>Оценка прибыльности клиентов.</td>
+
+</tr>
+
+
+<tr>
+
+<td><strong>CAC</strong></td>
+
+<td>Стоимость привлечения одного пользователя.</td>
+
+<td>Понимание эффективности маркетинга.</td>
+
+</tr>
+
+
+<tr>
+
+<td><strong>Retention</strong></td>
+
+<td>Доля пользователей, которые возвращаются в продукт.</td>
+
+<td>Оценка качества пользовательского опыта.</td>
+
+</tr>
+
+
+<tr>
+
+<td><strong>Churn Rate</strong></td>
+
+<td>Процент пользователей, которые перестали пользоваться продуктом.</td>
+
+<td>Поиск причин ухода клиентов.</td>
+
+</tr>
+
+
+<tr>
+
+<td><strong>Conversion Rate</strong></td>
+
+<td>Доля пользователей, которые выполняют целевое действие.</td>
+
+<td>Оптимизация воронки.</td>
+
+</tr>
+
+
+<tr>
+
+<td><strong>North Star Metric</strong></td>
+
+<td>Главная метрика, отражающая долгосрочную ценность продукта.</td>
+
+<td>Фокус команды на главном результате.</td>
+
+</tr>
+
+
+</tbody>
+
+</table>
+
+
+
+<figure>
+
+<img class="note-img"
+src="/img/management/pm-4.png"
+alt="Основные продуктовые метрики Product Manager"
+loading="lazy"
+width="800"
+height="450" />
+
+<figcaption class="note-caption">
+Рис. 1. Основные продуктовые метрики Product Manager
+</figcaption>
+
+</figure>
+
+
+</div>
+
+</section>
+
+
+
+
+<!-- Формулы -->
+
+<section class="section">
+
+<div class="container">
+
+
+<h2>Основные формулы продуктовых метрик</h2>
+
+
+<table class="table-note">
+
+<thead>
+
+<tr>
+<th>Метрика</th>
+<th>Формула</th>
+</tr>
+
+</thead>
+
+
+<tbody>
+
+
+<tr>
+
+<td><strong>CAC</strong></td>
+
+<td>
+Расходы на привлечение клиентов / количество новых клиентов
+</td>
+
+</tr>
+
+
+<tr>
+
+<td><strong>LTV</strong></td>
+
+<td>
+Средний доход пользователя × срок жизни пользователя
+</td>
+
+</tr>
+
+
+<tr>
+
+<td><strong>Conversion Rate</strong></td>
+
+<td>
+Количество целевых действий / количество пользователей × 100%
+</td>
+
+</tr>
+
+
+</tbody>
+
+</table>
+
+
+</div>
+
+</section>
+
+
+
+
+<!-- Рост -->
+
+<section class="section" id="pm-growth">
+
+
+<div class="container">
+
+
+<h2>Метрики роста продукта</h2>
+
+
+<p class="note">
+
+Growth Product Manager чаще всего работает с метриками,
+которые показывают способность продукта привлекать и удерживать пользователей.
+
+</p>
+
+
+<ul class="list-ul">
+
+<li><strong>Activation</strong> — насколько быстро пользователь получает первый полезный опыт.</li>
+
+<li><strong>Retention</strong> — возвращаются ли пользователи после первого использования.</li>
+
+<li><strong>Revenue</strong> — доход продукта.</li>
+
+<li><strong>ARPU</strong> — средний доход на пользователя.</li>
+
+<li><strong>Referral Rate</strong> — сколько пользователей рекомендуют продукт другим.</li>
+
+</ul>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- Эксперименты -->
+
+
+<section class="section" id="pm-experiments">
+
+
+<div class="container">
+
+
+<h2>Primary и Guardrail метрики</h2>
+
+
+<p class="note">
+
+При проведении экспериментов Product Manager использует несколько типов метрик.
+
+</p>
+
+
+<table class="table-note">
+
+
+<thead>
+
+<tr>
+
+<th>Тип метрики</th>
+
+<th>Назначение</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+
+<tr>
+
+<td><strong>Primary Metric</strong></td>
+
+<td>
+Главный показатель успеха эксперимента.
+Например: рост конверсии регистрации.
+</td>
+
+</tr>
+
+
+<tr>
+
+<td><strong>Guardrail Metric</strong></td>
+
+<td>
+Метрики, которые нельзя ухудшить.
+Например: Retention, Churn, качество продукта.
+</td>
+
+</tr>
+
+
+</tbody>
+
+
+</table>
+
+
+
+<div class="note note--info">
+
+<strong>Важно:</strong>
+рост одной метрики не всегда означает улучшение продукта.
+PM должен учитывать влияние изменений на весь пользовательский опыт.
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+<!-- FAQ -->
+
+
+<section class="section" id="pm-faq">
+
+
+<div class="container">
+
+
+<h2>FAQ — вопросы о продуктовых метриках</h2>
+
+
+<div class="faq">
+
+
+<div class="faq__item">
+
+<button class="faq__question">
+Какая метрика самая важная для Product Manager?
+</button>
+
+<div class="faq__answer">
+
+<p>
+Единственной универсальной метрики нет.
+Каждый продукт выбирает показатели в зависимости от бизнес-модели и целей.
+</p>
+
+</div>
+
+</div>
+
+
+
+<div class="faq__item">
+
+<button class="faq__question">
+Чем отличаются LTV и CAC?
+</button>
+
+<div class="faq__answer">
+
+<p>
+CAC показывает стоимость привлечения клиента, а LTV — ценность клиента для бизнеса.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="faq__item">
+
+<button class="faq__question">
+Почему Retention важнее количества пользователей?
+</button>
+
+<div class="faq__answer">
+
+<p>
+Большое количество регистраций не гарантирует успех.
+Важно, возвращаются ли пользователи и получают ли они ценность.
+</p>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+</main>
+
+
+@@include('../partials/footer.html', {})
+
+</div>
+
+
+@@include('../partials/popup.html', {})
+@@include('../partials/js.html', {})
+
+
+</body>
+
+</html>
