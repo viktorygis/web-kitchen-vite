@@ -1,4 +1,4 @@
-//src/js/app.js
+// src/js/app.js
 
 console.log("app.js loaded");
 
@@ -6,22 +6,25 @@ console.log("app.js loaded");
 import * as flsFunctions from "./modules/functions.js";
 flsFunctions.isWebp();
 
-// Готовая функция, которую установили в папку node_modules/
-/* import Swiper, { Navigation, Pagination } from 'swiper'; */
+import { initMobileMenu, initSubmenu, initTabsScrollSpy, initBackToTop, CopyCode, initFaqAccordion } from "./modules/custom.js";
 
-import { initMobileMenu, initSubmenu, initTabsScrollSpy, initBackToTop, CopyCode } from "./modules/custom.js"; // Правильный путь
-// Инициализация только после загрузки DOM
 document.addEventListener("DOMContentLoaded", () => {
-  // Ваш Swiper
-  /*  const swiper = new Swiper();
-  swiper.prop = 123; */
-
   // Инициализация кастомных модулей
   const submenu = initSubmenu();
   const mobileMenu = initMobileMenu();
-  mobileMenu.setCloseAllSubmenus(() => submenu.closeAllSubmenus());
+  if (mobileMenu && submenu && typeof mobileMenu.setCloseAllSubmenus === "function") {
+    mobileMenu.setCloseAllSubmenus(() => submenu.closeAllSubmenus());
+  }
 
   initTabsScrollSpy();
   initBackToTop();
   new CopyCode();
+
+  // Инициализация FAQ аккордеона
+  // closeOthers: true — только один пункт открыт одновременно. Поставьте false если допустимо несколько открытых.
+  const faqModule = initFaqAccordion({ faqSelector: ".faq", closeOthers: true });
+
+  // при желании можно управлять аккордеоном из кода:
+  // faqModule.openById('faq-2-panel');
+  // faqModule.closeAll();
 });

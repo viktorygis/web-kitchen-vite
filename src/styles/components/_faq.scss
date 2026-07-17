@@ -1,0 +1,187 @@
+// src/styles/components/_faq.scss
+@use '../base/variables' as vars;
+
+/*
+ FAQ (BEM)
+ Block: .faq
+ Elements: .faq__item, .faq__question, .faq__answer
+*/
+
+.faq {
+  // BEM-style CSS Custom Properties (можно переопределять в runtime)
+  --faq__bg: #{vars.$surfaceColor};
+  --faq__item-bg: #{vars.$surfaceColor};
+  --faq__item-border: #{vars.$borderColor};
+  --faq__item-radius: #{vars.$borderRadiusLarge};
+  --faq__item-shadow: #{vars.$shadowSmall};
+  --faq__question-color: #{vars.$textHeadingColor};
+  --faq__question-font-size: 1rem;
+  --faq__question-padding: 1rem 1.25rem;
+  --faq__icon-color: #{vars.$neutral-600};
+  --faq__icon-accent: #{vars.$accent};
+  --faq__answer-color: #{vars.$textMutedColor};
+  --faq__gap: 1rem;
+
+  padding: 2.25rem 0;
+  display: grid;
+  gap: var(--faq__gap);
+  background: transparent;
+  max-width: vars.$maxWidthContainer;
+  margin: 0 auto;
+  box-sizing: border-box;
+
+  //.faq__title
+  &__title {
+    margin-bottom: 0.75rem;
+    color: vars.$textHeadingColor;
+    font-family: vars.$fontFamily;
+    font-weight: 600;
+    font-size: 1.4rem;
+  }
+
+  //.faq__item
+  &__item {
+    background: var(--faq__item-bg);
+    border: 1px solid var(--faq__item-border);
+    border-radius: var(--faq__item-radius);
+    overflow: hidden;
+    box-shadow: var(--faq__item-shadow);
+    transition: transform 220ms ease, box-shadow 220ms ease;
+    will-change: transform;
+
+    // Pointer hover effect — отключается, если элемент или его потомки в фокусе (чтобы не наслаиваться с focus-ring)
+    &:hover:not(:focus-within) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(2, 6, 23, 0.06);
+    }
+
+    // Modifier class for CSS-only open state (optional)
+    &--open {
+      .faq__answer {
+        padding-top: 0.5rem;
+      }
+    }
+  }
+
+  //.faq__question
+  &__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: var(--faq__question-padding);
+    font-size: var(--faq__question-font-size);
+    line-height: 1.3;
+    text-align: left;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    color: var(--faq__question-color);
+    font-family: vars.$fontFamily;
+    -webkit-tap-highlight-color: transparent;
+
+    // focus-visible для клавиатурной навигации (не для мыши)
+    &:focus,
+    &:focus-visible {
+      outline: none;
+      // тонкое внутреннее смещение, чтобы ring не перекрывал бордер контейнера
+      box-shadow: 0 0 0 4px rgba(vars.$info, 0.12);
+      border-radius: calc(var(--faq__item-radius) - 2px);
+      z-index: 2; // чтобы ring был над тенями
+      position: relative;
+    }
+
+    &:hover {
+      color: var(--faq__icon-accent);
+    }
+
+    // Icon using pseudo-element
+    &::after {
+      content: '+';
+      display: inline-block;
+      min-width: 1.25em;
+      text-align: center;
+      margin-left: 1rem;
+      color: var(--faq__icon-color);
+      font-weight: 700;
+      transition: transform 180ms ease, color 180ms ease;
+      font-family: vars.$fontFamilyAccent;
+    }
+
+    // opened state: swap icon and accent color
+    &[aria-expanded="true"]::after {
+      content: '−';
+      color: var(--faq__icon-accent);
+      transform: rotate(0deg);
+    }
+  }
+
+  //.faq__answer
+  &__answer {
+    padding: 1rem 1.25rem;
+    font-size: 0.95rem;
+    color: var(--faq__answer-color);
+    line-height: 1.6;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 260ms cubic-bezier(.2, .9, .2, 1), padding 160ms ease;
+
+    & p {
+      margin: 0;
+    }
+  }
+
+  // Responsive: two-columns on larger screens
+  @media (min-width: 900px) {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  // Wider screens tweaks (if necessary)
+  @media (min-width: 1200px) {
+    &__item {
+      max-width: none;
+    }
+  }
+
+  // Respect reduced motion preference
+  @media (prefers-reduced-motion: reduce) {
+
+    &__question::after,
+    &__item,
+    &__answer {
+      transition: none !important;
+    }
+  }
+
+  //.faq__answer code
+  // Utility: ensure code wraps inside answers
+  &__answer code {
+    background: rgba(vars.$lightBlueColor, 0.6);
+    padding: 0.15rem 0.35rem;
+    border-radius: 4px;
+    font-family: vars.$fontFamilyCode;
+    font-size: 0.92em;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  // Compact / Spacious variants
+  &--compact {
+    --faq__question-padding: 0.75rem 1rem;
+    --faq__gap: 0.6rem;
+
+    &__question {
+      font-size: 0.95rem;
+    }
+  }
+
+  &--spacious {
+    --faq__question-padding: 1.25rem 1.5rem;
+    --faq__gap: 1.5rem;
+
+    &__question {
+      font-size: 1.02rem;
+    }
+  }
+}

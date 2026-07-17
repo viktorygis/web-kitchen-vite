@@ -191,4 +191,149 @@ export class CopyCode {
       }, 2000);
     });
   }
+}// src/js/modules/custom.js
+
+
+
+/**
+ * initFaqAccordion - инициализирует доступный accordion для FAQ
+ * @param {Object} options
+ * @param {string} options.faqSelector - селектор контейнера FAQ (по умолчанию '.faq')
+ * @param {boolean} options.closeOthers - закрывать ли остальные пункты при открытии одного
+ * @returns {Object|null} API { closeAll, openById, destroy } или null если элемент не найден
+ */
+export function initFaqAccordion({ faqSelector = ".faq", closeOthers = false } = {}) {
+  const faq = document.querySelector(faqSelector);
+  if (!faq) return null;
+
+  // храним обработчики чтобы можно было удалить их при destroy
+  const handlers = {
+    click: null,
+    keydown: null,
+  };
+
+  // Инициализация: убедиться что панели скрыты и aria выставлены корректно
+  function initPanels() {
+    faq.querySelectorAll(".faq__item").forEach((item, index) => {
+      const btn = item.querySelector(".faq__question");
+      const panel = item.querySelector(".faq__answer");
+      if (!btn || !panel) return;
+
+      // присвоим id если нет
+      if (!btn.id) btn.id = `${faqSelector.replace(/[^a-z0-9_-]/gi, "")}-q-${index + 1}`;
+      if (!panel.id) panel.id = `${btn.id}-panel`;
+
+      btn.setAttribute("aria-controls", panel.id);
+
+      // если aria-expanded не выставлен — по умолчанию закрываем
+      if (!btn.hasAttribute("aria-expanded")) btn.setAttribute("aria-expanded", "false");
+      // скроем панель если aria-expanded=false
+      const expanded = btn.getAttribute("aria-expanded") === "true";
+      panel.hidden = !expanded;
+      // сбросим maxHeight — будет выставляться при открытии
+      panel.style.maxHeight = expanded ? `${panel.scrollHeight}px` : "0px";
+    });
+  }
+
+  function closeAll() {
+    faq.querySelectorAll(".faq__question[aria-expanded='true']").forEach((btn) => {
+      const panel = document.getElementById(btn.getAttribute("aria-controls"));
+      btn.setAttribute("aria-expanded", "false");
+      if (panel) {
+        panel.style.maxHeight = "0px";
+        panel.hidden = true;
+      }
+      btn.closest(".faq__item")?.classList.remove("open");
+    });
+  }
+
+  function openById(panelId) {
+    const panel = document.getElementById(panelId);
+    if (!panel) return;
+    const btnId = panel.getAttribute("aria-labelledby");
+    const btn = btnId ? document.getElementById(btnId) : faq.querySelector(`.faq-question[aria-controls="${panelId}"]`);
+    if (!btn) return;
+
+    if (closeOthers) closeAll();
+
+    btn.setAttribute("aria-expanded", "true");
+    panel.hidden = false;
+    // выставляем точную высоту для плавного открытия
+    requestAnimationFrame(() => {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    });
+    btn.closest(".faq__item")?.classList.add("open");
+  }
+
+  function toggleItem(button) {
+    const isExpanded = button.getAttribute("aria-expanded") === "true";
+    const panelId = button.getAttribute("aria-controls");
+    const panel = document.getElementById(panelId);
+    const item = button.closest(".faq__item");
+
+    if (isExpanded) {
+      button.setAttribute("aria-expanded", "false");
+      if (panel) {
+        // анимированное сворачивание
+        panel.style.maxHeight = panel.scrollHeight + "px"; // текущая высота
+        requestAnimationFrame(() => {
+          panel.style.maxHeight = "0px";
+        });
+        // скрываем после анимации — но простая реализация: установить hidden сразу
+        panel.hidden = true;
+      }
+      item?.classList.remove("open");
+    } else {
+      if (closeOthers) closeAll();
+      button.setAttribute("aria-expanded", "true");
+      if (panel) {
+        panel.hidden = false;
+        // выставляем высоту для анимации
+        requestAnimationFrame(() => {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        });
+      }
+      item?.classList.add("open");
+    }
+  }
+
+  // делаем делегирование кликов по контейнеру faq
+  handlers.click = (e) => {
+    const btn = e.target.closest(".faq__question");
+    if (!btn || !faq.contains(btn)) return;
+    e.preventDefault();
+    toggleItem(btn);
+  };
+
+  // поддержка клавиатуры: Enter / Space активируют кнопку
+  handlers.keydown = (e) => {
+    const btn = e.target.closest(".faq__question");
+    if (!btn || !faq.contains(btn)) return;
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggleItem(btn);
+    }
+    // навигация стрелками (опционально) можно добавить при необходимости
+  };
+
+  faq.addEventListener("click", handlers.click);
+  faq.addEventListener("keydown", handlers.keydown);
+
+  // Инициализация панелей
+  initPanels();
+
+  // API для внешнего использования
+  return {
+    closeAll,
+    openById,
+    destroy() {
+      faq.removeEventListener("click", handlers.click);
+      faq.removeEventListener("keydown", handlers.keydown);
+      // убрать inline maxHeight/hidden, восстановить состояние (опционально)
+      faq.querySelectorAll(".faq__answer").forEach((panel) => {
+        panel.style.maxHeight = "";
+        panel.hidden = panel.getAttribute("data-initially-open") !== "true" && panel.hidden;
+      });
+    },
+  };
 }

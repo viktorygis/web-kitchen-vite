@@ -71,21 +71,7 @@ input[type="number"] {
 	margin-bottom: 0;
 }
 
-button {
-	background-color: $buttonColor;
-	color: $whiteColor;
-	border: none;
-	cursor: pointer;
-	transition: $transition;
-	padding: 10px 15px;
-	margin: 15px 0;
-	border-radius: $formInputBorderRadius;
-	font-size: $formInputFontSize;
-}
 
-button:hover {
-	background-color: $buttonColorHover;
-}
 
 fieldset {
 	border: 2px solid $formAccentColor;
