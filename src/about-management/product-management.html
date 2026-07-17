@@ -11,9 +11,9 @@
     @@include('../partials/header.html', {})
     <main class="page" id="main" tabindex="-1">
       <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
-        <a href="#pm-intro" class="active" aria-current="page">Введение</a>
+        <a href="#pm-intro" class="active" aria-current="true">Введение</a>
         <a href="#pm-process">Процесс</a>
-        <a href="#pm-frameworks">Frameworks</a>
+        <a href="#pm-frameworks">Фреймворки</a>
         <a href="#pm-metrics">Метрики</a>
         <a href="#pm-tools">Инструменты</a>
         <a href="#pm-checklists">Чек-листы</a>
@@ -30,7 +30,7 @@
           </p>
 
           <figure>
-            <img class="note-img" src="/img/management/pm-1.png" alt="Product Manager" />
+            <img class="note-img" src="/img/management/pm-1.png" alt="Product Manager" width="800" height="450" />
             <figcaption class="note-caption">Рис. 1. Product Manager — связующее звено между бизнесом, пользователями и командой разработки</figcaption>
           </figure>
           <div class="note-block">
@@ -62,10 +62,12 @@
           </p>
 
           <p>Коротко: понять проблему → сформировать решение → выпустить MVP → измерить эффект → масштабировать или отойти.</p>
+
           <figure>
-            <img class="note-img" src="/img/management/pm-2.png" alt="Product Manager" />
+            <img class="note-img" src="/img/management/pm-2.png" alt="Product Manager" loading="lazy" width="800" height="450" />
             <figcaption class="note-caption">Рис. 2. Процесс продукт-менеджмента</figcaption>
           </figure>
+
           <table class="table-note">
             <thead>
               <tr>
@@ -110,7 +112,7 @@
                 <td><b>Measurement/Learning</b></td>
                 <td>Измерение и обучение</td>
                 <td>Сбор метрик, ретроспективы, планирование следующих шагов</td>
-                <td>Аналитические отчёты, решение: масштабировать/итерация/откат</td>
+                <td>Аналитические отчёты, решение: масштабировать, повторить итерацию или откатить</td>
               </tr>
             </tbody>
           </table>
@@ -131,7 +133,7 @@
           <h2>Фреймворки и когда их использовать</h2>
 
           <p class="note">
-            <strong>Фреймворки</strong> - это проверенные подходы, которые помогают структурировать процесс, формулировать гипотезы и принимать решения. Ниже — основные фреймворки и рекомендации по применению.
+            <strong>Фреймворки</strong> — это проверенные подходы, которые помогают структурировать процесс, формулировать гипотезы и принимать решения. Ниже — основные фреймворки и рекомендации по применению.
           </p>
           <table class="table-note">
             <thead>
@@ -175,7 +177,7 @@
             </tbody>
           </table>
           <figure>
-            <img class="note-img" src="/img/management/pm-3.png" alt="Product Management Frameworks" />
+            <img class="note-img" src="/img/management/pm-3.png" alt="Product Management Frameworks" loading="lazy" width="800" height="450" />
             <figcaption class="note-caption">Рис. 3. Основные фреймворки продукт-менеджмента</figcaption>
           </figure>
           <p class="note note--info"><b>Подсказка:</b>
@@ -199,7 +201,7 @@
             <li><strong>North Star Metric</strong> — метрика, коррелирующая с долгосрочной ценностью (выбирается по контексту продукта).</li>
           </ul>
           <figure>
-            <img class="note-img" src="/img/management/pm-4.png" alt="Product Metrics" />
+            <img class="note-img" src="/img/management/pm-4.png" alt="Product Metrics" loading="lazy" width="800" height="450" />
             <figcaption class="note-caption">Рис. 4. Основные продуктовые метрики</figcaption>
           </figure>
           <p class="note note--info">
@@ -219,6 +221,7 @@
 
           <p class="note">
             <strong>Инструменты</strong> — это программы и сервисы, которые помогают организовать процесс продукт-менеджмента, хранить артефакты и анализировать данные. Ниже — основные инструменты и рекомендации по их использованию.
+          </p>
 
           <table class="table-note">
             <thead>
@@ -246,12 +249,12 @@
               </tr>
               <tr>
                 <td><a href="/about-management/bi.html">BI (Looker, Metabase и т.д.)</a></td>
-                <td>Дашборды для KPI и экспериментов. Настройте экспозицию primary/guardrail метрик.</td>
+                <td>Дашборды для KPI и экспериментов. Настройте отображение primary/guardrail метрик.</td>
               </tr>
             </tbody>
           </table>
           <figure>
-            <img class="note-img" src="/img/management/pm-5.png" alt="Jira" />
+            <img class="note-img" src="/img/management/pm-5.png" alt="Jira" loading="lazy" width="800" height="450" />
             <figcaption class="note-caption">Рис. 5. Инструменты для управления продуктом</figcaption>
           </figure>
 
@@ -295,7 +298,7 @@
             <li><a href="/about-management/product-life-cycle.html">Product Life Cycle</a> — стадии продукта и сигналы переходов.</li>
             <li><a href="/about-management/product-jtbd.html">JTBD</a> — формулирование проблем и ценности для пользователей.</li>
             <li><a href="/about-management/product-cjm.html">Customer Journey Map</a> — визуализация пути пользователя и точек оттока.</li>
-            <li><a href="/about-management/product-market-fit.html">Product Market Fit</a> — оценка соответствия продукта рынку.</li>
+            <li><a href="/about-management/product-market-fit.html">Product-Market Fit</a> — оценка соответствия продукта рынку.</li>
             <li><a href="/about-management/product-ice-rice.html">ICE / RICE</a> — приоритизация инициатив и идей.</li>
             <li><a href="/about-management/product-okr.html">OKR</a> — целеполагание и выравнивание команды.</li>
             <li><a href="/about-management/product-north-star-metric.html">North Star Metric</a> — метрика, отражающая долгосрочную ценность продукта.</li>
