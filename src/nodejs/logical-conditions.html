@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+@@include('../partials/head.html', {
+"title": "Ветвления в программе",
+"description": "Как программа выбирает разные действия с помощью ветвлений"
+})
+
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <nav class="nav-tabs" id="page-nav" role="navigation">
+      <a href="#intro" class="active">Введение</a>
+      <a href="#if">Условное ветвление if</a>
+      <a href="#else">Ветка else</a>
+      <a href="#elseif">Несколько условий</a>
+      <a href="#nested">Вложенные условия</a>
+      <a href="#ternary">Тернарный оператор</a>
+      <a href="#logic">Комбинация условий</a>
+      <a href="#examples">Примеры</a>
+      <a href="#summary">Итоги</a>
+    </nav>
+    <section class="section" id="intro">
+      <div class="container">
+        <h1>Ветвления в программе</h1>
+        <h2>Как программа выбирает действия</h2>
+        <p class="note">
+          <strong>Ветвление</strong> — это механизм, который позволяет программе
+          выполнять разные действия в зависимости от условий.
+        </p>
+        <p>
+          Благодаря ветвлениям программа может принимать решения:
+        </p>
+        <ul class="list-ul">
+          <li>Если пользователь вошёл — открыть личный кабинет.</li>
+          <li>Если пароль неверный — показать ошибку.</li>
+          <li>Если возраст больше 18 — разрешить доступ.</li>
+          <li>Если товара нет — запретить покупку.</li>
+        </ul>
+      </div>
+    </section>
+    <section class="section" id="if">
+      <div class="container">
+        <h2>Условное ветвление if</h2>
+        <p class="note">
+          <strong>if</strong> выполняет код только тогда, когда условие является истинным.
+        </p>
+        <div class="code-block">
+          <pre><code>
+const age = 20;
+
+if (age >= 18) {
+  console.log("Доступ разрешён");
+}
+</code></pre>
+        </div>
+        <ul class="list-ul">
+          <li>В круглых скобках пишется условие.</li>
+          <li>Если условие true — выполняется код внутри блока.</li>
+          <li>Если условие false — блок пропускается.</li>
+        </ul>
+      </div>
+    </section>
+    <section class="section" id="else">
+      <div class="container">
+        <h2>Ветка else</h2>
+        <p class="note">
+          <strong>else</strong> выполняется, если условие в if оказалось ложным.
+        </p>
+        <div class="code-block">
+          <pre><code>
+const passwordCorrect = false;
+
+if (passwordCorrect) {
+  console.log("Вход выполнен");
+} else {
+  console.log("Неверный пароль");
+}
+</code></pre>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="elseif">
+      <div class="container">
+        <h2>Несколько условий else if</h2>
+        <p class="note">
+          Когда вариантов больше двух, используют конструкцию
+          <strong>else if</strong>.
+        </p>
+        <p>
+          Каждое <strong>else if</strong> проверяется только если все предыдущие условия не сработали.
+        </p>
+        <div class="code-block">
+          <pre><code>
+const score = 85;
+
+if (score >= 90) {
+  console.log("Отлично");
+}
+else if (score >= 70) {
+  console.log("Хорошо");
+}
+else if (score >= 50) {
+  console.log("Удовлетворительно");
+}
+else {
+  console.log("Нужно повторить");
+}
+</code></pre>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="nested">
+      <div class="container">
+        <h2>Вложенные условия</h2>
+        <p class="note">
+          Иногда одно условие проверяется только после выполнения другого.
+          Такие конструкции называются вложенными.
+        </p>
+        <div class="code-block">
+          <pre><code>
+const user = {
+  loggedIn: true,
+  isAdmin: true
+};
+
+if (user.loggedIn) {
+
+  if (user.isAdmin) {
+    console.log("Панель администратора");
+  }
+
+}
+</code></pre>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="ternary">
+      <div class="container">
+        <h2>Тернарный оператор</h2>
+        <p>
+          Тернарный оператор — короткая запись простого условия.
+        </p>
+        <div class="code-block">
+          <pre><code>
+const age = 18;
+
+const result = age >= 18
+  ? "Можно войти"
+  : "Доступ запрещён";
+
+console.log(result);
+</code></pre>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="logic">
+      <div class="container">
+        <h2>Комбинация условий</h2>
+        <p>
+          Ветвления часто используют вместе с логическими операторами.
+        </p>
+        <table class="table-note">
+          <tr>
+            <th>Оператор</th>
+            <th>Значение</th>
+            <th>Пример</th>
+          </tr>
+          <tr>
+            <td>&&</td>
+            <td>И</td>
+            <td><code>age >= 18 && active</code></td>
+          </tr>
+          <tr>
+            <td>||</td>
+            <td>ИЛИ</td>
+            <td><code>admin || moderator</code></td>
+          </tr>
+          <tr>
+            <td>!</td>
+            <td>НЕ</td>
+            <td><code>!blocked</code></td>
+          </tr>
+        </table>
+      </div>
+    </section>
+    <section class="section" id="examples">
+      <div class="container">
+        <h2>Практические примеры</h2>
+        <p class="note">
+          Ветвления используются практически во всех приложениях.
+        </p>
+        <div class="code-block">
+          <pre><code>
+function checkAccess(user) {
+
+  if (!user) {
+    return "Пользователь не найден";
+  }
+
+  if (user.role === "admin") {
+    return "Полный доступ";
+  }
+
+  if (user.active) {
+    return "Обычный доступ";
+  }
+
+  return "Доступ запрещён";
+}
+</code></pre>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="summary">
+      <div class="container">
+        <h2>Итоги</h2>
+        <ul class="list-ul">
+          <li>Ветвления позволяют программе выбирать разные действия.</li>
+          <li>if выполняет код при истинном условии.</li>
+          <li>else используется для альтернативного варианта.</li>
+          <li>else if помогает создавать несколько вариантов выбора.</li>
+          <li>Вложенные условия позволяют строить сложную логику.</li>
+          <li>Тернарный оператор делает простые проверки короче.</li>
+        </ul>
+      </div>
+    </section>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
+</html>

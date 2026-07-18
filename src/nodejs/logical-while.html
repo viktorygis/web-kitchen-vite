@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+@@include('../partials/head.html', {
+"title": "Цикл while JavaScript — как работает и когда использовать",
+"description": "Цикл while в JavaScript: синтаксис, принцип работы, условия остановки, примеры использования и типичные ошибки."
+})
+
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page" id="main" tabindex="-1">
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#intro" class="active" aria-current="page">Введение</a>
+        <a href="#concept">Что такое while</a>
+        <a href="#syntax">Синтаксис</a>
+        <a href="#work">Как работает</a>
+        <a href="#condition">Условие остановки</a>
+        <a href="#math">Математические операции</a>
+        <a href="#usage">Когда использовать</a>
+        <a href="#forwhile">while и for</a>
+        <a href="#examples">Примеры</a>
+        <a href="#infinite">Бесконечные циклы</a>
+        <a href="#errors">Типичные ошибки</a>
+        <a href="#best">Лучшие практики</a>
+        <a href="#faq">FAQ</a>
+        <a href="#summary">Итоги</a>
+      </nav>
+
+      <section class="section" id="intro">
+        <div class="container">
+          <h1>Цикл while JavaScript</h1>
+          <h2>Повторение действий пока выполняется условие</h2>
+          <p class="note">
+            <strong>Цикл while</strong> — это конструкция JavaScript,
+            которая выполняет блок кода повторно, пока указанное условие возвращает значение true.<br />
+            Количество повторений заранее неизвестно и зависит от изменения состояния программы.
+          </p>
+          <p>
+            Циклы используются, когда программе необходимо выполнять одинаковые действия несколько раз.
+            Например, обработать данные, ожидать событие или выполнять проверку до получения нужного результата.
+          </p>
+          <div class="note-block">
+            <h3>Где используется while</h3>
+            <ul class="list-ul">
+              <li>Ожидание выполнения условия.</li>
+              <li>Обработка данных неизвестного количества.</li>
+              <li>Работа с пользовательским вводом.</li>
+              <li>Создание повторяющихся процессов.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="concept">
+        <div class="container">
+          <h2>Что такое цикл while</h2>
+          <p class="note">
+            <strong>while</strong> — это цикл с предварительной проверкой условия.<br />
+            Перед каждым выполнением блока кода JavaScript сначала проверяет выражение внутри скобок.
+          </p>
+          <p>
+            Если условие возвращает <code>true</code>,
+            тело цикла выполняется.
+            Если условие становится <code>false</code>,
+            цикл завершается.
+          </p>
+          <h4>Простая схема работы while:</h4>
+          <ul class="list-ol">
+            <li>Проверить условие.</li>
+            <li>Если условие истинно — выполнить код.</li>
+            <li>Изменить данные внутри цикла.</li>
+            <li>Повторить проверку.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" id="syntax">
+        <div class="container">
+          <h2>Синтаксис цикла while</h2>
+          <p class="note">
+            <strong>Синтаксис while</strong> — это структура записи цикла,
+            состоящая из ключевого слова while, условия и блока выполняемого кода.
+          </p>
+          <h4>Базовая структура:</h4>
+          <div class="code-block">
+            <pre><code>while (условие) {
+  // код выполняется пока условие true
+}</code></pre>
+          </div>
+          <ul class="list-ul">
+            <li>Условие находится внутри круглых скобок.</li>
+            <li>Код цикла располагается внутри фигурных скобок.</li>
+            <li>Условие должно когда-нибудь стать false.</li>
+          </ul>
+          <h4>Пример:</h4>
+          <div class="code-block">
+            <pre><code>let count = 0;
+while (count &lt; 3) {
+  console.log("Привет! 😊");
+  count++;
+}</code></pre>
+          </div>
+          <h5>Как это работает ⚒</h5>
+          <ol class="list-ol">
+            <li><b>count = 0</b>, проверяется count &lt; 3 → условие true, запускаем код.</li>
+            <li>Выводится "Привет! 😊", <b>count++</b> увеличивает <b>count на 1</b>.</li>
+            <li>Цикл повторяется, пока <b>count &lt; 3</b></li>
+            <li>Когда <b>count = 3</b>, условие <b>false</b>, и цикл останавливается.</li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section" id="work">
+        <div class="container">
+          <h2>Как работает цикл while</h2>
+          <p class="note">
+            <strong>Принцип работы while</strong> — последовательная проверка условия перед каждым повторением.<br />
+            Цикл полностью зависит от изменения переменной или состояния внутри блока.
+          </p>
+          <h4>Пример счётчика:</h4>
+          <div class="code-block">
+            <pre><code>let count = 1;
+
+while (count &lt;= 5) {
+  console.log(count);
+  count++;
+}</code></pre>
+          </div>
+          <p>
+            В этом примере цикл выполнится пять раз.
+            После каждого выполнения переменная <code>count</code> увеличивается.
+          </p>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Шаг</th>
+                <th>Значение count</th>
+                <th>Результат проверки</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>true</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>2</td>
+                <td>true</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>6</td>
+                <td>false — остановка</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="condition">
+        <div class="container">
+          <h2>Условие остановки цикла</h2>
+          <p class="note">
+            <strong>Условие остановки</strong> — это изменение данных,
+            которое приводит выражение while к значению false.<br />
+            Без него цикл может выполняться бесконечно.
+          </p>
+          <h4>Корректное изменение условия:</h4>
+          <div class="code-block">
+            <pre><code>let attempts = 0;
+
+while (attempts &lt; 3) {
+  console.log("Попытка");
+  attempts++;
+}</code></pre>
+          </div>
+          <div class="warning">
+            <p>
+              <strong>Важно:</strong>
+              если переменная условия никогда не изменяется,
+              цикл продолжит выполняться бесконечно.
+            </p>
+          </div>
+          <h4>Ошибка: отсутствие изменения переменной</h4>
+          <div class="code-block">
+            <pre><code>let num = 1;
+while (num &lt; 5) {
+  console.log(num);
+} // ⚠️ num не увеличивается, цикл никогда не остановится!</code></pre>
+          </div>
+          <h4>Правильный вариант:</h4>
+          <div class="code-block">
+            <pre><code>let num = 1;
+while (num &lt; 5) {
+  console.log(num);
+  num++; // ✅ num увеличивается, цикл завершится при num = 5
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="math">
+        <div class="container">
+          <h2>Математические операции с использованием while</h2>
+          <p class="note">Циклы полезны не только для вывода сообщений, но и для выполнения <strong>математических операций</strong>, например, сложения чисел.</p>
+          <h4>Пример: суммирование чисел от 1 до 5</h4>
+          <div class="code-block">
+            <pre><code>let sum = 0;   // Переменная, в которой будем накапливать сумму
+let num = 1;   // Начинаем с 1
+
+while (num &lt;= 5) { // Пока num меньше или равно 5, продолжаем цикл
+  sum += num;  // Прибавляем num к sum
+  num++;       // Увеличиваем num на 1
+}
+
+console.log("Сумма:", sum);</code></pre>
+          </div>
+          <p>В этом примере цикл while суммирует числа от 1 до 5. После завершения цикла переменная <code>sum</code> будет равна 15.</p>
+          <p><b>Перед началом цикла:</b><br />
+            ◽ sum = 0 (пустая копилка, куда будем складывать числа).<br />
+            ◽ num = 1(начинаем складывать с 1).</p>
+          <p><b>Первый проход</b> num = 1 : <br />
+            ◽ sum = sum + num → 0 + 1 = 1.<br />
+            ◽ num++, теперь num = 2</p>
+          <p><b>Второй проход</b> num = 2 : <br />
+            ◽ sum = sum + num → 1 + 2 = 3.<br />
+            ◽ num++, теперь num = 3<br />
+            и так далее...</p>
+          <p>Пока не будет num = 6, а условие num &lt;= 5 ложное false, поэтому цикл завершается. В sum теперь хранится 15, и программа выводит "Сумма: 15" </p>
+          <h3>Другие примеры математических операций с while:</h3>
+          <h4>Умножение чисел: вычисление факториала.</h4>
+          <p>Факториал числа n (обозначается n!) — это произведение всех положительных целых чисел от 1 до n. Например, 5! = 5 × 4 × 3 × 2 × 1 = 120.</p>
+          <div class="code-block">
+            <pre><code>let factorial = 1;
+let n = 5;
+while (n &gt; 1) {
+  factorial *= n;
+  n--;
+}
+console.log("Факториал:", factorial);</code></pre>
+          </div>
+          <h4>Нахождение максимального или минимального значения в массиве.</h4>
+          <p>Этот пример показывает, как с помощью цикла while найти максимальное значение в массиве чисел.</p>
+          <div class="code-block">
+            <pre><code>const numbers = [3, 7, 2, 9, 4];
+let max = numbers[0];
+let index = 1;
+while (index &lt; numbers.length) {
+  if (numbers[index] &gt; max) {
+    max = numbers[index];
+  }
+  index++;
+}
+console.log("Максимальное значение:", max);</code></pre>
+          </div>
+          <h4>Нахождение среднего значения: суммирование и деление на количество элементов.</h4>
+          <p>Этот пример демонстрирует, как с помощью цикла while вычислить среднее значение элементов массива.</p>
+          <div class="code-block">
+            <pre><code>const values = [10, 20, 30, 40];
+let total = 0;
+let count = 0;
+while (count &lt; values.length) {
+  total += values[count];
+  count++;
+}
+console.log("Среднее значение:", total / values.length);</code></pre>
+          </div>
+          <h4>Подсчёт количества чётных чисел</h4>
+          <p>В этом примере мы используем цикл while для подсчёта количества чётных чисел. Используется <b>оператор % - остаток от деления</b> для проверки чётности.</p>
+          <div class="code-block">
+            <pre><code>let num = 1;
+while(num <= 6) {
+  if (num %2===0) {
+    console.log(num);
+  }
+  num++;
+}</code></pre>
+          </div>
+          <p>На каждой итерации проверяем условие: <br />
+            ◽ Если <b>num % 2 === 0</b>, значит число <b>чётное</b> (остаток от деления на 2 равен 0).<br />
+            ◽ Если условие <b>истинно</b>, выводим число в консоль.<br />
+            В конце каждой итерации обязательно увеличиваем <b>num</b> , чтобы избежать бесконечного цикла и перейти к следующему числу.</p>
+        </div>
+      </section>
+
+      <section class="section" id="usage">
+        <div class="container">
+          <h2>Когда использовать while</h2>
+          <p class="note">
+            <strong>Когда использовать while</strong> — цикл подходит для ситуаций,
+            когда заранее неизвестно количество повторений.<br />
+            Например, при обработке данных, ожидании события или повторной проверке состояния программы.
+          </p>
+          <ul class="list-ul">
+            <li>Ожидание пользовательского ввода.</li>
+            <li>Обработка данных из потока.</li>
+            <li>Повторная проверка состояния приложения.</li>
+            <li>Выполнение действий до достижения определённого условия.</li>
+          </ul>
+          <h4>При использовании while</h4>
+          <p>Мы не знаем заранее, сколько раз <b>temperature-- </b> уменьшит значение, пока условие не станет <b>false</b></p>
+          <div class="code-block">
+            <pre><code>let temperature = 35;
+while (temperature &gt; 30) {
+  console.log(`Температура: ${temperature}`);
+  temperature--;
+}
+console.log("Стало прохладнее!");</code></pre>
+          </div>
+          <p>В этом примере цикл while выполняется, пока температура выше 30 градусов. После каждого прохода температура уменьшается на 1, и когда она достигает 30, цикл останавливается.</p>
+        </div>
+      </section>
+
+      <section class="section" id="forwhile">
+        <div class="container">
+          <h2>while и for</h2>
+          <p class="note">
+            <strong>Сравнение while и for</strong> — выбор подходящего цикла зависит от того,
+            известно ли заранее количество повторений.<br />
+            Оба цикла выполняют повторяющийся код, но используются в разных ситуациях.
+          </p>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Цикл</th>
+                <th>Когда использовать</th>
+                <th>Пример</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>while</strong></td>
+                <td>Количество повторений неизвестно заранее.</td>
+                <td>Ожидание условия, обработка данных.</td>
+              </tr>
+              <tr>
+                <td><strong>for</strong></td>
+                <td>Количество повторений известно заранее.</td>
+                <td>Перебор массива, счётчик.</td>
+              </tr>
+            </tbody>
+          </table>
+          <h4>Пример for:</h4>
+          <div class="code-block">
+            <pre><code>for (let i = 1; i &lt;= 5; i++) {
+  console.log(i);
+}</code></pre>
+          </div>
+          <h4>Пример while:</h4>
+          <div class="code-block">
+            <pre><code>let i = 1;
+
+while (i &lt;= 5) {
+  console.log(i);
+  i++;
+}</code></pre>
+          </div>
+          <p>
+            Если количество повторений зависит от внешнего условия,
+            чаще подходит <code>while</code>.
+            Если нужен перебор известного количества элементов —
+            обычно выбирают <code>for</code>.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="examples">
+        <div class="container">
+          <h2>Практические примеры while</h2>
+          <p class="note">
+            <strong>Практическое применение while</strong> — выполнение повторяющихся действий,
+            когда заранее неизвестно количество операций.<br />
+            Цикл часто используется при работе с потоками данных и ожиданием событий.
+          </p>
+          <h3>Обработка массива данных</h3>
+          <h4>Перебор элементов массива:</h4>
+          <div class="code-block">
+            <pre><code>const users = [
+  "Anna",
+  "Ivan",
+  "Maria"
+];
+
+let index = 0;
+
+while (index &lt; users.length) {
+  console.log(users[index]);
+  index++;
+}</code></pre>
+          </div>
+          <p>
+            Такой подход позволяет вручную управлять индексом и условием остановки.
+          </p>
+          <h3>Пример в Node.js</h3>
+          <p class="note">
+            <strong>while в Node.js</strong> — цикл может использоваться
+            для обработки очередей задач или повторных проверок состояния приложения.
+          </p>
+          <h4>Обработка очереди задач:</h4>
+          <div class="code-block">
+            <pre><code>const tasks = [
+  "build",
+  "test",
+  "deploy"
+];
+
+while (tasks.length &gt; 0) {
+  const task = tasks.shift();
+  console.log("Выполняется:", task);
+}</code></pre>
+          </div>
+          <p>
+            После выполнения каждой задачи элемент удаляется из массива.
+            Когда очередь становится пустой, цикл завершается.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="infinite">
+        <div class="container">
+          <h2>Бесконечные циклы</h2>
+          <p class="note">
+            <strong>Бесконечный цикл</strong> — это цикл,
+            условие которого никогда не становится false.<br />
+            Такая ситуация приводит к постоянному выполнению кода.
+          </p>
+          <h4>Ошибка с отсутствием изменения переменной:</h4>
+          <div class="code-block">
+            <pre><code>let count = 0;
+
+while (count &lt; 5) {
+  console.log(count);
+}</code></pre>
+          </div>
+          <div class="warning">
+            <p>
+              <strong>Причина ошибки</strong> — переменная count
+              не изменяется внутри цикла, поэтому условие всегда остаётся true.
+            </p>
+          </div>
+          <h4>Правильный вариант:</h4>
+          <div class="code-block">
+            <pre><code>let count = 0;
+
+while (count &lt; 5) {
+  console.log(count);
+  count++;
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="errors">
+        <div class="container">
+          <h2>Типичные ошибки при работе с while</h2>
+          <p class="note">
+            <strong>Ошибки while</strong> — распространённые проблемы,
+            которые приводят к неправильной логике или зависанию программы.
+          </p>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Ошибка</th>
+                <th>Причина</th>
+                <th>Решение</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Нет изменения условия</td>
+                <td>Переменная остаётся прежней.</td>
+                <td>Изменять значение внутри цикла.</td>
+              </tr>
+              <tr>
+                <td>Неверное условие</td>
+                <td>Цикл завершается слишком рано.</td>
+                <td>Проверить логику сравнения.</td>
+              </tr>
+              <tr>
+                <td>Слишком сложный цикл</td>
+                <td>Много действий внутри блока.</td>
+                <td>Разделить код на функции.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="best">
+        <div class="container">
+          <h2>Лучшие практики использования while</h2>
+          <p class="note">
+            <strong>Лучшие практики while</strong> — правила,
+            которые делают циклы безопасными и понятными.
+          </p>
+          <div class="note-block">
+            <ul class="list-ul">
+              <li>Всегда проверяйте, изменяется ли условие завершения.</li>
+              <li>Используйте понятные имена переменных.</li>
+              <li>Не помещайте слишком много логики внутрь цикла.</li>
+              <li>Используйте другие циклы, если они подходят лучше.</li>
+              <li>Добавляйте защиту от бесконечного выполнения.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="faq">
+        <div class="container">
+          <h2>FAQ — цикл while</h2>
+          <p class="note">
+            <strong>FAQ</strong> — ответы на часто задаваемые вопросы
+            о работе цикла while в JavaScript.
+          </p>
+          <div class="faq">
+            <div class="faq__item">
+              <button class="faq__question">Когда использовать while?</button>
+              <div class="faq__answer">
+                <p>
+                  Когда количество повторений заранее неизвестно,
+                  а выполнение зависит от изменения условия.
+                </p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button class="faq__question">Можно ли заменить while циклом for?</button>
+              <div class="faq__answer">
+                <p>
+                  Да, многие задачи можно решить обоими способами,
+                  но выбор зависит от читаемости и структуры задачи.
+                </p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button class="faq__question">Почему возникает бесконечный цикл?</button>
+              <div class="faq__answer">
+                <p>
+                  Обычно причина в том, что условие никогда не становится false.
+                  Например, переменная внутри цикла не изменяется.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="summary">
+        <div class="container">
+          <h2>Итоги</h2>
+          <p class="note">
+            <strong>Итоги темы</strong> — основные правила работы с циклом while в JavaScript.<br />
+            Правильное использование цикла помогает создавать управляемый и безопасный код.
+          </p>
+          <div class="summary">
+            <ul class="list-ul">
+              <li>while повторяет код, пока условие равно true.</li>
+              <li>Перед каждым повторением выполняется проверка условия.</li>
+              <li>Переменная условия должна изменяться внутри цикла.</li>
+              <li>while подходит для неизвестного количества повторений.</li>
+              <li>Бесконечных циклов следует избегать без специальной причины.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    @@include('../partials/footer.html', {})
+  </div>
+
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
+</html>

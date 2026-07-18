@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+@@include('../partials/head.html', {
+"title": "Логические операторы в условиях",
+"description": "Как использовать логические операторы в условиях JavaScript"
+})
+
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+
+    <nav class="nav-tabs" id="page-nav" role="navigation">
+      <a href="#intro" class="active">Введение</a>
+      <a href="#and">Оператор &&</a>
+      <a href="#or">Оператор ||</a>
+      <a href="#not">Оператор !</a>
+      <a href="#priority">Приоритет операторов</a>
+      <a href="#conditions">Комбинация условий</a>
+      <a href="#examples">Практические примеры</a>
+      <a href="#summary">Итоги</a>
+    </nav>
+
+    <section class="section" id="intro">
+      <div class="container">
+        <h1>Логические операторы в условиях</h1>
+        <h2>Как программа проверяет несколько условий</h2>
+        <p class="note">
+          <strong>Логические операторы</strong> позволяют объединять несколько условий
+          и создавать более сложные проверки в программе.
+        </p>
+        <p>
+          Они помогают программе принимать решения на основе нескольких факторов:
+        </p>
+        <ul class="list-ul">
+          <li>Пользователь должен быть авторизован и активен.</li>
+          <li>Возраст должен быть больше 18 или иметь специальное разрешение.</li>
+          <li>Аккаунт не должен быть заблокирован.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="and">
+      <div class="container">
+        <h2>Оператор && (И)</h2>
+        <p class="note">
+          <strong>Оператор &&</strong> возвращает true только тогда,
+          когда оба условия являются истинными.
+        </p>
+        <div class="code-block">
+          <pre><code>
+const age = 25;
+const hasTicket = true;
+
+if (age >= 18 && hasTicket) {
+  console.log("Можно войти");
+}
+</code></pre>
+        </div>
+        <ul class="list-ul">
+          <li>Первое условие должно быть true.</li>
+          <li>Второе условие должно быть true.</li>
+          <li>Если хотя бы одно условие false — результат false.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="or">
+      <div class="container">
+        <h2>Оператор || (ИЛИ)</h2>
+        <p class="note">
+          <strong>Оператор ||</strong> позволяет выполнить действие,
+          если хотя бы одно из условий истинное.
+        </p>
+        <div class="code-block">
+          <pre><code>
+const isAdmin = false;
+const isModerator = true;
+
+if (isAdmin || isModerator) {
+  console.log("Есть доступ");
+}
+</code></pre>
+        </div>
+        <ul class="list-ul">
+          <li>Достаточно выполнения одного условия.</li>
+          <li>Если оба условия false — результат false.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="not">
+      <div class="container">
+        <h2>Оператор ! (НЕ)</h2>
+        <p class="note">
+          <strong>Оператор !</strong> изменяет значение условия на противоположное.
+        </p>
+        <div class="code-block">
+          <pre><code>
+const blocked = false;
+
+if (!blocked) {
+  console.log("Пользователь активен");
+}
+</code></pre>
+        </div>
+        <p>
+          Если значение было true, оператор ! сделает его false.
+          Если значение было false — станет true.
+        </p>
+      </div>
+    </section>
+
+    <!-- Приоритет логических операторов -->
+    <section class="section" id="priority">
+      <div class="container">
+        <h2>Приоритет логических операторов</h2>
+        <p class="note">
+          Когда в условии несколько операторов, они выполняются по определённому порядку:
+
+          Первым у нас идет ! инверсия значения, после → && проверяет, что оба условия trueи на последнем месте || проверяет, что хотя бы одно условие true
+        </p>
+        <table class="table-note">
+          <tr>
+            <th>Приоритет</th>
+            <th>Оператор</th>
+            <th>Описание</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>!</td>
+            <td>НЕ</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>&&</td>
+            <td>И</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>||</td>
+            <td>ИЛИ</td>
+          </tr>
+        </table>
+        <div class="code-block">
+          <pre><code>
+true || false && false
+
+// сначала выполнится &&
+// затем ||
+</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Комбинация условий -->
+    <section class="section" id="conditions">
+      <div class="container">
+        <h2>Комбинация условий</h2>
+        <p>
+          В реальных приложениях часто используются несколько операторов одновременно.
+        </p>
+        <div class="code-block">
+          <pre><code>const user = {
+  age: 22,
+  active: true,
+  banned: false
+};
+
+if (
+  user.age >= 18 &&
+  user.active &&
+  !user.banned
+) {
+  console.log("Доступ разрешён");
+}</code></pre>
+        </div>
+
+        <p class="note">В сложных выражениях важно группировать условия в скобки ()
+
+          Сначала у нас проверяется условие в скобках. В нашем случае должно выдать true. И потом, чтобы мы могли пойти покупаться 🏊‍♂️, нужно, чтобы оба условия были true</p>
+
+        <div class="code-block">
+          <pre><code>const isSummer = true;
+const isHot = false;
+const isSwimmingPoolOpen = true;
+if (isSummer&&(isHot||isSwimmingPoolOpen)) {
+  console.log("Идём купаться! 🏊‍♂️");
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Практические примеры -->
+    <section class="section" id="examples">
+      <div class="container">
+        <h2>Практические примеры</h2>
+        <p class="note">
+          Логические операторы используются при авторизации,
+          проверке прав доступа и обработке данных.
+        </p>
+        <div class="code-block">
+          <pre><code>
+function canBuyProduct(user, product) {
+
+  if (
+    user.loggedIn &&
+    user.balance >= product.price &&
+    product.available
+  ) {
+    return "Покупка разрешена";
+  }
+
+  return "Покупка невозможна";
+}
+</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Итоги -->
+    <section class="section" id="summary">
+      <div class="container">
+        <h2>Итоги</h2>
+        <ul class="list-ul">
+          <li>
+            Оператор && объединяет условия через "И".
+          </li>
+          <li>
+            Оператор || проверяет вариант "ИЛИ".
+          </li>
+          <li>
+            Оператор ! меняет значение условия на противоположное.
+          </li>
+          <li>
+            Логические операторы позволяют создавать сложные проверки.
+          </li>
+          <li>
+            Они являются основой условий в JavaScript и Node.js.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    </main>
+
+    @@include('../partials/footer.html', {})
+  </div>
+
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
+</html>

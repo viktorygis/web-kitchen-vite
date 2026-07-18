@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+@@include('../partials/head.html', {
+"title": "Тернарный оператор JavaScript",
+"description": "Как использовать тернарный оператор в условиях JavaScript"
+})
+
+<body>
+
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <div class="wrapper">
+
+    @@include('../partials/header.html', {})
+
+
+    <nav class="nav-tabs" id="page-nav" role="navigation">
+      <a href="#intro" class="active">Введение</a>
+      <a href="#syntax">Синтаксис</a>
+      <a href="#simple">Простые условия</a>
+      <a href="#compare">Сравнение с if else</a>
+      <a href="#nested">Вложенный тернарный оператор</a>
+      <a href="#functions">Тернарный оператор в функциях</a>
+      <a href="#common">Частые ошибки</a>
+      <a href="#examples">Примеры</a>
+      <a href="#summary">Итоги</a>
+    </nav>
+
+
+
+    <section class="section" id="intro">
+      <div class="container">
+
+        <h1>Тернарный оператор</h1>
+
+        <h2>Короткая запись условий</h2>
+
+
+        <p class="note">
+          <strong>Тернарный оператор</strong> — это специальный оператор,
+          который позволяет записать простое условие в одну строку.
+        </p>
+
+
+        <p>
+          Он является сокращённой формой конструкции
+          <strong>if / else</strong>.
+        </p>
+
+
+        <ul class="list-ul">
+
+          <li>Проверяет условие.</li>
+
+          <li>Возвращает одно значение, если условие true.</li>
+
+          <li>Возвращает другое значение, если условие false.</li>
+
+        </ul>
+
+
+      </div>
+    </section>
+
+
+
+    <!--Синтаксис тернарного оператора  -->
+
+    <section class="section" id="syntax">
+      <div class="container">
+
+        <h2>Синтаксис тернарного оператора</h2>
+
+        <p class="note">Тернарный оператор ? : позволяет записывать простые условия в одну строку. Он заменяет if...else, если нужно выбрать одно из двух значений.</p>
+        <div class="code-block">
+          <pre><code>условие ? значение_если_true : значение_если_false;</code></pre>
+        </div>
+
+
+        <p>
+          Тернарный оператор состоит из трёх частей:
+        </p>
+
+
+        <ul class="list-ul">
+
+          <li>
+            Условие — что нужно проверить.
+          </li>
+
+          <li>
+            Знак <code>?</code> разделяет условие и первый результат.
+          </li>
+
+          <li>
+            Знак <code>:</code> разделяет два возможных значения.
+          </li>
+
+        </ul>
+        <h4>Пример:</h4>
+        <div class="code-block">
+          <pre><code>let result = 5 > 3 ? "Верно!" : "Неверно!";</code></pre>
+        </div>
+        <h4>Обычный if...else
+
+          :</h4>
+        <div class="code-block">
+          <pre><code>let result;
+if (5 > 3) {
+  result = "Верно!";
+} else {
+  result = "Неверно!";
+}</code></pre>
+        </div>
+
+
+      </div>
+    </section>
+
+    <!--Принимает значение  -->
+
+    <section class="section" id="syntax">
+      <div class="container">
+
+        <h2>Принимает значение</h2>
+
+        <p class="note">Тернарный оператор возвращает значение, которое можно присвоить переменной или использовать в выражении.</p>
+        <div class="code-block">
+          <pre><code>const age = 20;
+const message = age >= 18
+  ? "Совершеннолетний"
+  : "Несовершеннолетний";
+console.log(message); // "Совершеннолетний"</code></pre>
+        </div>
+        <h4>Можно сразу выводить результат через console.log()
+        </h4>
+        <div class="code-block">
+          <pre><code>const age = 20;
+console.log(age >= 18 ? "Доступ разрешён" : "Доступ запрещён");</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Использование в шаблонных строках -->
+    <section class="section" id="strings">
+      <div class="container">
+
+        <h2>Использование в шаблонных строках</h2>
+        <p class="note">
+          Тернарный оператор удобно использовать внутри <strong>шаблонных строк</strong>.
+        </p>
+
+        <div class="note-block">
+          <p>Шаблонные строки template literals удобный способ работать со строками</p>
+          <p>Они позволяют:</p>
+
+          <ul class="list-ul">
+            <li>✅ Вставлять переменные прямо внутрь строки</li>
+
+            <li>✅ Писать длинные строки на нескольких строках без +</li>
+
+            <li>✅ Использовать выражения внутри строки</li>
+          </ul>
+          <p>
+
+            Обычные строки пишутся в кавычках " ", а шаблонные строки используют обратные кавычки ` а вместо + для соединения строк мы просто вставляем переменные в ${ }
+          </p>
+
+          <pre><code>const message = `Привет, ${name}!`;</code></pre>
+        </div>
+
+        <div class="code-block">
+          <pre><code>const isOpen = false;
+console.log(`Парк${isOpen ? "открыт" : "закрыт"}!`);</code></pre>
+        </div>
+        <p>
+          В зависимости от значения <code>isOpen</code> будет выведено
+          <strong>"Парк открыт!"</strong> или <strong>"Парк закрыт!"</strong>.
+        </p>
+
+      </div>
+    </section>
+
+
+    <section class="section" id="simple">
+      <div class="container">
+
+        <h2>Простые условия</h2>
+
+
+        <div class="code-block">
+          <pre><code>const age = 20;
+
+const message = age >= 18
+  ? "Совершеннолетний"
+  : "Несовершеннолетний";
+
+console.log(message);</code></pre>
+        </div>
+
+
+        <p>
+          Если условие <code>age >= 18</code> истинное,
+          будет выбран первый вариант.
+        </p>
+
+
+      </div>
+    </section>
+
+
+
+
+
+
+    <section class="section" id="compare">
+      <div class="container">
+
+        <h2>Сравнение с if / else</h2>
+
+
+        <p>
+          Один и тот же код можно написать двумя способами.
+        </p>
+
+
+        <h3>Через if / else:</h3>
+
+
+        <div class="code-block">
+          <pre><code>
+let access;
+
+if (isAdmin) {
+  access = "Разрешено";
+} else {
+  access = "Запрещено";
+}
+</code></pre>
+        </div>
+
+
+
+        <h3>Через тернарный оператор:</h3>
+
+
+        <div class="code-block">
+          <pre><code>
+const access = isAdmin
+  ? "Разрешено"
+  : "Запрещено";
+</code></pre>
+        </div>
+
+
+
+      </div>
+    </section>
+
+
+
+
+
+
+
+    <section class="section" id="nested">
+      <div class="container">
+
+        <h2>Вложенный тернарный оператор</h2>
+
+
+        <p class="note">
+          Несколько тернарных операторов можно объединять,
+          но такой код может стать сложным для чтения.
+        </p>
+
+
+        <div class="code-block">
+          <pre><code>
+const score = 85;
+
+
+const result =
+  score >= 90
+    ? "Отлично"
+    : score >= 60
+      ? "Хорошо"
+      : "Нужно повторить";
+
+
+console.log(result);
+</code></pre>
+        </div>
+
+
+        <p>
+          Для большого количества условий лучше использовать
+          <strong>if / else if / else</strong>.
+        </p>
+
+
+      </div>
+    </section>
+
+
+
+
+
+
+
+    <section class="section" id="functions">
+      <div class="container">
+
+        <h2>Тернарный оператор в функциях</h2>
+
+
+        <p>
+          Часто используется для возврата простого результата из функции.
+        </p>
+
+
+        <div class="code-block">
+          <pre><code>
+function checkAge(age) {
+
+  return age >= 18
+    ? "Доступ разрешён"
+    : "Доступ запрещён";
+
+}
+</code></pre>
+        </div>
+
+
+      </div>
+    </section>
+
+
+
+
+
+
+
+    <section class="section" id="common">
+      <div class="container">
+
+        <h2>Частые ошибки</h2>
+
+
+        <ul class="list-ul">
+
+          <li>
+            Использование тернарного оператора вместо сложной логики.
+          </li>
+
+          <li>
+            Создание слишком длинных вложенных условий.
+          </li>
+
+          <li>
+            Попытка заменить им все конструкции if.
+          </li>
+
+          <li>
+            Плохая читаемость большого количества условий.
+          </li>
+
+        </ul>
+
+
+      </div>
+    </section>
+
+
+
+
+
+
+
+    <section class="section" id="examples">
+      <div class="container">
+
+        <h2>Практические примеры</h2>
+
+
+        <p class="note">
+          Тернарный оператор часто используется при отображении данных.
+        </p>
+
+
+        <div class="code-block">
+          <pre><code>
+const user = {
+  name: "Иван",
+  online: true
+};
+
+
+const status = user.online
+  ? "Онлайн"
+  : "Оффлайн";
+
+
+console.log(status);
+</code></pre>
+        </div>
+
+
+        <br>
+
+
+        <div class="code-block">
+          <pre><code>
+const price = 1000;
+
+const discount =
+  price > 500
+    ? price * 0.9
+    : price;
+
+
+console.log(discount);
+</code></pre>
+        </div>
+
+
+      </div>
+    </section>
+
+
+
+
+
+
+
+
+    <section class="section" id="summary">
+      <div class="container">
+
+        <h2>Итоги</h2>
+
+
+        <ul class="list-ul">
+
+          <li>
+            Тернарный оператор является короткой формой if / else.
+          </li>
+
+          <li>
+            Он использует три части: условие, true-значение и false-значение.
+          </li>
+
+          <li>
+            Подходит для простых проверок и присваивания значений.
+          </li>
+
+          <li>
+            Сложные условия лучше писать через обычные ветвления.
+          </li>
+
+          <li>
+            Тернарный оператор часто используется в JavaScript и Node.js.
+          </li>
+
+        </ul>
+
+
+      </div>
+    </section>
+
+
+
+    </main>
+
+
+    @@include('../partials/footer.html', {})
+
+  </div>
+
+
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+
+
+</body>
+
+</html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', {
+  "title": "Цикл for JavaScript — синтаксис, примеры и применение",
+  "description": "Цикл for в JavaScript: синтаксис, как работает, примеры кода, сравнение с другими циклами и лучшие практики."
+})
+
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+
+    <main class="page" id="main" tabindex="-1">
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#intro" class="active" aria-current="page">Введение</a>
+        <a href="#concepts">Основные понятия</a>
+        <a href="#syntax">Синтаксис</a>
+        <a href="#work">Как работает</a>
+        <a href="#examples">Примеры</a>
+        <a href="#comparison">for vs while</a>
+        <a href="#errors">Типичные ошибки</a>
+        <a href="#best">Лучшие практики</a>
+        <a href="#summary">Итоги</a>
+      </nav>
+
+      <section class="section" id="intro">
+        <div class="container">
+          <h1>Цикл for в JavaScript</h1>
+
+          <p class="note">
+            <strong>Цикл for</strong> — это конструкция JavaScript, которая выполняет блок кода повторно,
+            пока выполняется условие.<br />
+            Используется, когда заранее известно количество повторений.
+          </p>
+
+          <p>
+            Циклы for применяются для перебора элементов массива, выполнения действий заданное количество раз
+            и работы с диапазонами чисел.
+          </p>
+
+          <div class="note-block">
+            <h3>Где используется for</h3>
+            <ul class="list-ul">
+              <li>Перебор элементов массива.</li>
+              <li>Выполнение действия заданное количество раз.</li>
+              <li>Обработка диапазонов чисел.</li>
+              <li>Итерация по строкам, объектам и другим коллекциям.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="concepts">
+        <div class="container">
+          <h2>Основные понятия</h2>
+
+          <p class="note">
+            <strong>Цикл с известным количеством повторений</strong> — конструкция for проверяет условие,
+            но в отличие от while всегда знает, сколько раз повторится блок кода.
+          </p>
+
+          <ul class="list-ul">
+            <li><strong>Инициализация</strong> — начальное значение переменной-счётчика.</li>
+            <li><strong>Условие</strong> — выражение, при котором цикл продолжается.</li>
+            <li><strong>Инкремент</strong> — изменение счётчика после каждой итерации.</li>
+            <li><strong>Тело цикла</strong> — блок кода, который выполняется при каждой итерации.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" id="syntax">
+        <div class="container">
+          <h2>Синтаксис цикла for</h2>
+
+          <p class="note">
+            <strong>Синтаксис for</strong> — структура записи цикла, состоящая из трёх частей
+            и блока выполняемого кода.
+          </p>
+
+          <h4>Базовая структура:</h4>
+
+          <div class="code-block">
+            <pre><code>for (инициализация; условие; инкремент) {
+  // код выполняется пока условие true
+}</code></pre>
+          </div>
+
+          <ul class="list-ul">
+            <li><strong>Инициализация</strong> — выполняется один раз перед циклом.</li>
+            <li><strong>Условие</strong> — проверяется перед каждой итерацией.</li>
+            <li><strong>Инкремент</strong> — выполняется после каждой итерации.</li>
+            <li><strong>Тело цикла</strong> — находится внутри фигурных скобок.</li>
+          </ul>
+
+          <h4>Простой пример:</h4>
+
+          <div class="code-block">
+            <pre><code>for (let i = 0; i &lt; 3; i++) {
+  console.log("Привет! 😊");
+}</code></pre>
+          </div>
+
+          <h5>Как это работает:</h5>
+
+          <ol class="list-ol">
+            <li><b>i = 0</b>, проверяется i &lt; 3 → условие true, запускаем код.</li>
+            <li>Выводится "Привет! 😊", затем <b>i++</b> увеличивает <b>i на 1</b>.</li>
+            <li>Цикл повторяется: i = 1, i = 2.</li>
+            <li>Когда <b>i = 3</b>, условие <b>false</b>, и цикл останавливается.</li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section" id="work">
+        <div class="container">
+          <h2>Как работает цикл for</h2>
+
+          <p class="note">
+            <strong>Принцип работы for</strong> — цикл автоматически управляет счётчиком
+            и проверяет условие перед каждой итерацией.
+          </p>
+
+          <h4>Пример со счётчиком:</h4>
+
+          <div class="code-block">
+            <pre><code>for (let count = 1; count &lt;= 5; count++) {
+  console.log(count);
+}</code></pre>
+          </div>
+
+          <p>В этом примере цикл выполнится пять раз и выведет числа от 1 до 5.</p>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Итерация</th>
+                <th>Значение count</th>
+                <th>Условие</th>
+                <th>Действие</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1 &lt;= 5 → true</td>
+                <td>Выполнить код, count++</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>2</td>
+                <td>2 &lt;= 5 → true</td>
+                <td>Выполнить код, count++</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>6</td>
+                <td>6 &lt;= 5 → false</td>
+                <td>Цикл завершается</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>Перебор массива через for:</h4>
+
+          <div class="code-block">
+            <pre><code>const users = ["Anna", "Ivan", "Maria"];
+
+for (let i = 0; i &lt; users.length; i++) {
+  console.log(users[i]);
+}</code></pre>
+          </div>
+
+          <p>
+            В этом примере цикл перебирает элементы массива. Значение <code>i</code>
+            используется как индекс для доступа к элементам.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="examples">
+        <div class="container">
+          <h2>Практические примеры</h2>
+
+          <p class="note">
+            <strong>Практическое применение for</strong> — решение реальных задач обработки данных
+            и работы с коллекциями.
+          </p>
+
+          <h3>Суммирование элементов массива</h3>
+
+          <div class="code-block">
+            <pre><code>const numbers = [10, 20, 30, 40];
+let sum = 0;
+
+for (let i = 0; i &lt; numbers.length; i++) {
+  sum += numbers[i];
+}
+
+console.log("Сумма:", sum); // 100</code></pre>
+          </div>
+
+          <h3>Поиск элемента в массиве</h3>
+
+          <div class="code-block">
+            <pre><code>const users = ["Anna", "Ivan", "Maria"];
+const search = "Ivan";
+
+for (let i = 0; i &lt; users.length; i++) {
+  if (users[i] === search) {
+    console.log("Найден на позиции:", i);
+    break; // Выход из цикла
+  }
+}</code></pre>
+          </div>
+
+          <h3>Создание таблицы умножения</h3>
+
+          <div class="code-block">
+            <pre><code>for (let i = 1; i &lt;= 10; i++) {
+  console.log(`${i} × 5 = ${i * 5}`);
+}</code></pre>
+          </div>
+
+          <h3>Обработка строки</h3>
+
+          <div class="code-block">
+            <pre><code>const str = "Hello";
+
+for (let i = 0; i &lt; str.length; i++) {
+  console.log(str[i]);
+}</code></pre>
+          </div>
+
+          <p>Цикл перебирает каждый символ строки и выводит его на экран.</p>
+        </div>
+      </section>
+
+      <section class="section" id="comparison">
+        <div class="container">
+          <h2>for vs while</h2>
+
+          <p class="note">
+            <strong>Сравнение for и while</strong> — выбор подходящего цикла зависит от того,
+            известно ли заранее количество повторений.
+          </p>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Цикл</th>
+                <th>Когда использовать</th>
+                <th>Пример</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>for</strong> — количество повторений известно.</td>
+                <td>Перебор массива, диапазон чисел, известное количество операций.</td>
+                <td><code>for (let i = 0; i &lt; 10; i++)</code></td>
+              </tr>
+              <tr>
+                <td><strong>while</strong> — количество повторений неизвестно.</td>
+                <td>Ожидание условия, обработка потока данных.</td>
+                <td><code>while (condition)</code></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>Пример for:</h4>
+
+          <div class="code-block">
+            <pre><code>for (let i = 0; i &lt; 5; i++) {
+  console.log(i);
+}</code></pre>
+          </div>
+
+          <h4>Эквивалент с while:</h4>
+
+          <div class="code-block">
+            <pre><code>let i = 0;
+while (i &lt; 5) {
+  console.log(i);
+  i++;
+}</code></pre>
+          </div>
+
+          <p>
+            Оба варианта выполняют одно и то же, но <code>for</code> более компактен и удобен
+            для известного количества повторений.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="errors">
+        <div class="container">
+          <h2>Типичные ошибки при работе с for</h2>
+
+          <p class="note">
+            <strong>Ошибки в циклах for</strong> — распространённые проблемы,
+            которые приводят к неправильной логике или бесконечному циклу.
+          </p>
+
+          <h3>Неверное условие выхода</h3>
+
+          <div class="warning">
+            <p>
+              <strong>Ошибка:</strong> если условие никогда не станет false, цикл будет выполняться бесконечно.
+            </p>
+          </div>
+
+          <div class="code-block">
+            <pre><code>// ❌ Бесконечный цикл
+for (let i = 0; i &lt; 5; i--) {
+  console.log(i); // i будет уменьшаться: -1, -2, -3...
+}</code></pre>
+          </div>
+
+          <div class="code-block">
+            <pre><code>// ✅ Правильно
+for (let i = 0; i &lt; 5; i++) {
+  console.log(i); // 0, 1, 2, 3, 4
+}</code></pre>
+          </div>
+
+          <h3>Ошибка с индексом массива</h3>
+
+          <div class="code-block">
+            <pre><code>// ❌ Неправильно
+const arr = [1, 2, 3];
+for (let i = 1; i &lt;= arr.length; i++) {
+  console.log(arr[i]); // Пропустит первый элемент, выведет undefined
+}</code></pre>
+          </div>
+
+          <div class="code-block">
+            <pre><code>// ✅ Правильно
+const arr = [1, 2, 3];
+for (let i = 0; i &lt; arr.length; i++) {
+  console.log(arr[i]); // 1, 2, 3
+}</code></pre>
+          </div>
+
+          <h3>Забывчивость про инкремент</h3>
+
+          <div class="code-block">
+            <pre><code>// ❌ Бесконечный цикл
+for (let i = 0; i &lt; 5;) {
+  console.log(i); // i никогда не изменяется
+}</code></pre>
+          </div>
+
+          <div class="code-block">
+            <pre><code>// ✅ Правильно
+for (let i = 0; i &lt; 5; i++) {
+  console.log(i);
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="best">
+        <div class="container">
+          <h2>Лучшие практики использования for</h2>
+
+          <p class="note">
+            <strong>Лучшие практики for</strong> — правила, которые делают циклы безопасными,
+            понятными и эффективными.
+          </p>
+
+          <div class="note-block">
+            <ul class="list-ul">
+              <li>Всегда используйте содержательные имена переменных (<code>i</code>, <code>index</code> для счётчиков).</li>
+              <li>Проверяйте условие выхода и убедитесь, что цикл завершится.</li>
+              <li>Для перебора массивов предпочитайте <code>for...of</code> или методы массива (<code>forEach</code>, <code>map</code>).</li>
+              <li>Избегайте изменения длины массива внутри цикла без необходимости.</li>
+              <li>Используйте <code>break</code> и <code>continue</code> для управления потоком цикла.</li>
+            </ul>
+          </div>
+
+          <h3>Использование break для ранего выхода</h3>
+
+          <div class="code-block">
+            <pre><code>for (let i = 0; i &lt; 10; i++) {
+  if (i === 5) {
+    break; // Выход из цикла
+  }
+  console.log(i); // 0, 1, 2, 3, 4
+}</code></pre>
+          </div>
+
+          <h3>Использование continue для пропуска итерации</h3>
+
+          <div class="code-block">
+            <pre><code>for (let i = 0; i &lt; 5; i++) {
+  if (i === 2) {
+    continue; // Пропустить эту итерацию
+  }
+  console.log(i); // 0, 1, 3, 4 (2 пропущено)
+}</code></pre>
+          </div>
+
+          <h3>Современные альтернативы for</h3>
+
+          <div class="code-block">
+            <pre><code>const arr = [1, 2, 3];
+
+// for...of — более удобный способ
+for (const item of arr) {
+  console.log(item); // 1, 2, 3
+}
+
+// forEach — функциональный подход
+arr.forEach((item, index) => {
+  console.log(index, item);
+});</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="summary">
+        <div class="container">
+          <h2>Итоги</h2>
+
+          <p class="note">
+            <strong>Итоги темы</strong> — основные правила работы с циклом for в JavaScript.
+          </p>
+
+          <div class="summary">
+            <ul class="list-ul">
+              <li>for используется, когда известно количество повторений.</li>
+              <li>Цикл состоит из инициализации, условия и инкремента.</li>
+              <li>Часто используется для перебора массивов и диапазонов чисел.</li>
+              <li>Необходимо проверять условие выхода, чтобы избежать бесконечного цикла.</li>
+              <li>break и continue помогают управлять потоком выполнения цикла.</li>
+              <li>Для современного кода рекомендуется for...of и методы массива.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    @@include('../partials/footer.html', {})
+  </div>
+
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
+</html>
