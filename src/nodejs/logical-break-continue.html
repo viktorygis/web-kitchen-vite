@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', {
+  "title": "break и continue в JavaScript — управление циклами",
+  "description": "break и continue в JavaScript: синтаксис, примеры использования, различия и практические применения в циклах."
+})
+
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+
+    <main class="page" id="main" tabindex="-1">
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#intro" class="active" aria-current="page">Введение</a>
+        <a href="#concepts">Основные понятия</a>
+        <a href="#break">Оператор break</a>
+        <a href="#continue">Оператор continue</a>
+        <a href="#examples">Практические примеры</a>
+        <a href="#comparison">break vs continue</a>
+        <a href="#errors">Типичные ошибки</a>
+        <a href="#best">Лучшие практики</a>
+        <a href="#summary">Итоги</a>
+      </nav>
+
+      <section class="section" id="intro">
+        <div class="container">
+          <h1>break и continue в JavaScript</h1>
+
+          <p class="note">
+            <strong>break и continue</strong> — это операторы, которые управляют потоком выполнения цикла.<br />
+            Они позволяют досрочно завершить цикл или пропустить текущую итерацию.
+          </p>
+
+          <p>
+            Эти операторы используются для оптимизации циклов, поиска элементов, фильтрации данных
+            и написания более читаемого кода.
+          </p>
+
+          <div class="note-block">
+            <h3>Когда использовать break и continue</h3>
+            <ul class="list-ul">
+              <li>break — для выхода из цикла при выполнении условия.</li>
+              <li>continue — для пропуска текущей итерации и перехода к следующей.</li>
+              <li>Оптимизация обработки больших массивов данных.</li>
+              <li>Поиск элемента в коллекции с ранним выходом.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="concepts">
+        <div class="container">
+          <h2>Основные понятия</h2>
+
+          <p class="note">
+            <strong>Управление циклами</strong> — операторы break и continue позволяют менять
+            обычный ход выполнения цикла без изменения условий цикла.
+          </p>
+
+          <ul class="list-ul">
+            <li><strong>break</strong> — полностью прерывает цикл и переходит к коду после цикла.</li>
+            <li><strong>continue</strong> — пропускает оставшуюся часть итерации и переходит к следующей итерации.</li>
+            <li>Оба оператора работают с циклами (for, while, do...while) и switch.</li>
+            <li>Можно использовать метки для управления вложенными циклами.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" id="break">
+        <div class="container">
+          <h2>Оператор break</h2>
+
+          <p class="note">
+            <strong>break</strong> — оператор, который немедленно завершает цикл
+            и переводит управление на строку кода, следующую за циклом.
+          </p>
+
+          <h4>Синтаксис:</h4>
+
+          <div class="code-block">
+            <pre><code>for (let i = 0; i &lt; 10; i++) {
+  if (i === 5) {
+    break; // Выход из цикла
+  }
+  console.log(i); // 0, 1, 2, 3, 4
+}</code></pre>
+          </div>
+
+          <h5>Как это работает:</h5>
+
+          <ol class="list-ol">
+            <li>Цикл начинает перебирать значения от 0 до 9.</li>
+            <li>Когда i достигает 5, условие `i === 5` становится true.</li>
+            <li>Выполняется оператор break, цикл немедленно завершается.</li>
+            <li>Код после цикла продолжает выполняться обычным образом.</li>
+          </ol>
+
+          <h3>Поиск элемента в массиве</h3>
+
+          <div class="code-block">
+            <pre><code>const users = ["Anna", "Ivan", "Maria", "Peter"];
+let found = false;
+
+for (let i = 0; i &lt; users.length; i++) {
+  if (users[i] === "Maria") {
+    console.log("Найден на позиции:", i);
+    found = true;
+    break; // Выход, элемент найден
+  }
+}
+
+console.log("Поиск завершён");</code></pre>
+          </div>
+
+          <p>
+            Когда нужный элемент найден, цикл прерывается с помощью break,
+            что экономит время на ненужные итерации.
+          </p>
+
+          <h3>break в switch</h3>
+
+          <div class="code-block">
+            <pre><code>const day = 3;
+
+switch (day) {
+  case 1:
+    console.log("Понедельник");
+    break; // Без break выполнится следующий case
+  case 2:
+    console.log("Вторник");
+    break;
+  case 3:
+    console.log("Среда");
+    break;
+  default:
+    console.log("Неизвестный день");
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="continue">
+        <div class="container">
+          <h2>Оператор continue</h2>
+
+          <p class="note">
+            <strong>continue</strong> — оператор, который пропускает оставшуюся часть текущей итерации
+            и переходит к следующей итерации цикла.
+          </p>
+
+          <h4>Синтаксис:</h4>
+
+          <div class="code-block">
+            <pre><code>for (let i = 0; i &lt; 5; i++) {
+  if (i === 2) {
+    continue; // Пропустить эту итерацию
+  }
+  console.log(i); // 0, 1, 3, 4 (2 пропущено)
+}</code></pre>
+          </div>
+
+          <h5>Как это работает:</h5>
+
+          <ol class="list-ol">
+            <li>Цикл начинает выполняться со значения 0.</li>
+            <li>Когда i === 2, выполняется continue.</li>
+            <li>Оставшаяся часть кода цикла пропускается (не выполняется console.log).</li>
+            <li>Цикл переходит к следующей итерации (i = 3).</li>
+          </ol>
+
+          <h3>Фильтрация четных чисел</h3>
+
+          <div class="code-block">
+            <pre><code>const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+for (let i = 0; i &lt; numbers.length; i++) {
+  if (numbers[i] % 2 === 0) {
+    continue; // Пропустить четные числа
+  }
+  console.log(numbers[i]); // 1, 3, 5, 7, 9 (нечетные)
+}</code></pre>
+          </div>
+
+          <p>
+            continue позволяет пропустить обработку четных чисел
+            и вывести только нечетные без использования else.
+          </p>
+
+          <h3>Пропуск элементов при обработке</h3>
+
+          <div class="code-block">
+            <pre><code>const items = ["apple", "", "banana", null, "cherry"];
+
+for (let i = 0; i &lt; items.length; i++) {
+  if (!items[i]) {
+    continue; // Пропустить пустые и null значения
+  }
+  console.log(items[i].toUpperCase()); // APPLE, BANANA, CHERRY
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="examples">
+        <div class="container">
+          <h2>Практические примеры</h2>
+
+          <p class="note">
+            <strong>Практическое применение break и continue</strong> — решение реальных задач
+            обработки данных, поиска и фильтрации.
+          </p>
+
+          <h3>Поиск первого элемента, удовлетворяющего условию</h3>
+
+          <div class="code-block">
+            <pre><code>const products = [
+  { name: "Laptop", price: 1000 },
+  { name: "Phone", price: 500 },
+  { name: "Tablet", price: 300 }
+];
+
+let affordable;
+
+for (let i = 0; i &lt; products.length; i++) {
+  if (products[i].price &lt; 400) {
+    affordable = products[i];
+    break; // Выход, первый товар найден
+  }
+}
+
+console.log(affordable); // { name: "Tablet", price: 300 }</code></pre>
+          </div>
+
+          <h3>Подсчёт количества нечётных чисел</h3>
+
+          <div class="code-block">
+            <pre><code>const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+let oddCount = 0;
+
+for (let i = 0; i &lt; nums.length; i++) {
+  if (nums[i] % 2 === 0) {
+    continue; // Пропустить четные
+  }
+  oddCount++;
+}
+
+console.log("Нечётных чисел:", oddCount); // 5</code></pre>
+          </div>
+
+          <h3>Валидация данных с ранним выходом</h3>
+
+          <div class="code-block">
+            <pre><code>const emails = ["user@example.com", "invalid-email", "admin@site.com"];
+let isValid = true;
+
+for (let i = 0; i &lt; emails.length; i++) {
+  if (!emails[i].includes("@")) {
+    console.log("Ошибка: неверный email:", emails[i]);
+    isValid = false;
+    break; // Выход при первой ошибке
+  }
+}
+
+console.log("Все emails валидны:", isValid); // false</code></pre>
+          </div>
+
+          <h3>Обработка с пропуском определенных условий</h3>
+
+          <div class="code-block">
+            <pre><code>const users = [
+  { name: "Alice", active: true },
+  { name: "Bob", active: false },
+  { name: "Charlie", active: true },
+  { name: "David", active: false }
+];
+
+for (let i = 0; i &lt; users.length; i++) {
+  if (!users[i].active) {
+    continue; // Пропустить неактивных пользователей
+  }
+  console.log("Активный:", users[i].name); // Alice, Charlie
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="comparison">
+        <div class="container">
+          <h2>break vs continue</h2>
+
+          <p class="note">
+            <strong>Различие между break и continue</strong> — оба влияют на ход цикла,
+            но по-разному: break завершает цикл, continue переходит к следующей итерации.
+          </p>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Оператор</th>
+                <th>Действие</th>
+                <th>Когда использовать</th>
+                <th>Пример</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>break</strong> — полное завершение цикла.</td>
+                <td>Цикл немедленно прерывается, управление переходит после цикла.</td>
+                <td>Поиск элемента, обнаружение ошибки, достижение целевого значения.</td>
+                <td><code>if (found) break;</code></td>
+              </tr>
+              <tr>
+                <td><strong>continue</strong> — пропуск текущей итерации.</td>
+                <td>Оставшаяся часть кода итерации пропускается, цикл продолжается со следующей итерации.</td>
+                <td>Фильтрация элементов, пропуск определенных значений, условная обработка.</td>
+                <td><code>if (skip) continue;</code></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>Наглядное сравнение:</h4>
+
+          <div class="code-block">
+            <pre><code>// С break
+for (let i = 0; i &lt; 10; i++) {
+  if (i === 5) break;
+  console.log(i);
+}
+// Результат: 0, 1, 2, 3, 4 (цикл завершён)
+
+// С continue
+for (let i = 0; i &lt; 10; i++) {
+  if (i === 5) continue;
+  console.log(i);
+}
+// Результат: 0, 1, 2, 3, 4, 6, 7, 8, 9 (5 пропущено)</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="errors">
+        <div class="container">
+          <h2>Типичные ошибки при работе с break и continue</h2>
+
+          <p class="note">
+            <strong>Ошибки в использовании break и continue</strong> — распространённые проблемы,
+            которые приводят к неправильной логике или неожиданному поведению.
+          </p>
+
+          <h3>Неправильное использование break вне цикла</h3>
+
+          <div class="warning">
+            <p>
+              <strong>Ошибка:</strong> break может использоваться только внутри цикла или switch.
+              Использование вне этих конструкций вызывает ошибку.
+            </p>
+          </div>
+
+          <div class="code-block">
+            <pre><code>// ❌ Ошибка: SyntaxError
+if (condition) {
+  break; // Неверно, break вне цикла
+}
+
+// ✅ Правильно
+for (let i = 0; i &lt; 10; i++) {
+  if (condition) {
+    break; // Верно, break внутри цикла
+  }
+}</code></pre>
+          </div>
+
+          <h3>Забывчивость про изменение переменной</h3>
+
+          <div class="code-block">
+            <pre><code>// ❌ Ошибка: бесконечный цикл
+for (let i = 0; i &lt; 10; i++) {
+  if (i === 5) {
+    continue; // i не меняется
+  }
+}
+
+// ✅ Правильно: i меняется в for
+for (let i = 0; i &lt; 10; i++) {
+  if (i === 5) {
+    continue; // i++ выполнится автоматически
+  }
+}</code></pre>
+          </div>
+
+          <h3>Использование break в вложенном цикле</h3>
+
+          <div class="code-block">
+            <pre><code>// ❌ Неправильно: break выходит только из внутреннего цикла
+for (let i = 0; i &lt; 3; i++) {
+  for (let j = 0; j &lt; 3; j++) {
+    if (j === 1) break; // Выход только из внутреннего цикла
+    console.log(i, j);
+  }
+}
+
+// ✅ Правильно: использовать метку для выхода из обоих циклов
+outer: for (let i = 0; i &lt; 3; i++) {
+  for (let j = 0; j &lt; 3; j++) {
+    if (j === 1) break outer; // Выход из обоих циклов
+    console.log(i, j);
+  }
+}</code></pre>
+          </div>
+
+          <h3>Путаница между break и continue</h3>
+
+          <div class="code-block">
+            <pre><code>// ❌ Неправильно: когда нужен continue
+for (let i = 0; i &lt; 5; i++) {
+  if (i === 2) {
+    break; // Цикл полностью прерывается
+  }
+  console.log(i); // 0, 1
+}
+
+// ✅ Правильно: используем continue
+for (let i = 0; i &lt; 5; i++) {
+  if (i === 2) {
+    continue; // Пропускает текущую итерацию
+  }
+  console.log(i); // 0, 1, 3, 4
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="best">
+        <div class="container">
+          <h2>Лучшие практики использования break и continue</h2>
+
+          <p class="note">
+            <strong>Лучшие практики</strong> — правила, которые делают код более читаемым,
+            безопасным и эффективным.
+          </p>
+
+          <div class="note-block">
+            <ul class="list-ul">
+              <li>Используйте break для ранего выхода при поиске элемента или обнаружении ошибки.</li>
+              <li>Используйте continue для пропуска ненужной обработки, а не для использования else.</li>
+              <li>Избегайте излишних вложенных циклов с break/continue, они усложняют код.</li>
+              <li>Для вложенных циклов рассмотрите использование функций вместо меток.</li>
+              <li>Комментируйте причину break/continue для ясности кода.</li>
+              <li>Предпочитайте методы массива (find, filter) вместо циклов с break/continue, если возможно.</li>
+            </ul>
+          </div>
+
+          <h3>Современная альтернатива: методы массива</h3>
+
+          <div class="code-block">
+            <pre><code>const users = ["Anna", "Ivan", "Maria"];
+
+// Старый способ с break
+let found;
+for (let i = 0; i &lt; users.length; i++) {
+  if (users[i] === "Ivan") {
+    found = users[i];
+    break;
+  }
+}
+
+// Современный способ с find
+const found2 = users.find(user => user === "Ivan");
+console.log(found2); // "Ivan"</code></pre>
+          </div>
+
+          <h3>Фильтрация: continue vs filter</h3>
+
+          <div class="code-block">
+            <pre><code>const numbers = [1, 2, 3, 4, 5];
+
+// Старый способ с continue
+for (let i = 0; i &lt; numbers.length; i++) {
+  if (numbers[i] % 2 === 0) continue;
+  console.log(numbers[i]);
+}
+
+// Современный способ с filter
+numbers
+  .filter(num => num % 2 !== 0)
+  .forEach(num => console.log(num));</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="summary">
+        <div class="container">
+          <h2>Итоги</h2>
+
+          <p class="note">
+            <strong>Итоги темы</strong> — основные правила использования break и continue
+            для управления циклами в JavaScript.
+          </p>
+
+          <div class="summary">
+            <ul class="list-ul">
+              <li>break — полностью прерывает цикл и переходит к коду после цикла.</li>
+              <li>continue — пропускает текущую итерацию и переходит к следующей.</li>
+              <li>break используется для ранего выхода при поиске или обнаружении ошибки.</li>
+              <li>continue используется для пропуска обработки определённых элементов.</li>
+              <li>break работает с циклами и switch, continue работает только с циклами.</li>
+              <li>Для вложенных циклов можно использовать метки для выхода из нескольких уровней.</li>
+              <li>Современный JavaScript предлагает методы массива как альтернативу break/continue.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    @@include('../partials/footer.html', {})
+  </div>
+
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
+</html>

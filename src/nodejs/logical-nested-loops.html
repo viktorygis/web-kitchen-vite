@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', {
+  "title": "Вложенные циклы в JavaScript — синтаксис, примеры и применение",
+  "description": "Вложенные циклы в JavaScript: синтаксис, как работают, примеры кода, таблицы умножения, обработка матриц и оптимизация."
+})
+
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+
+    <main class="page" id="main" tabindex="-1">
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#intro" class="active" aria-current="page">Введение</a>
+        <a href="#concepts">Основные понятия</a>
+        <a href="#syntax">Синтаксис</a>
+        <a href="#work">Как работают</a>
+        <a href="#examples">Практические примеры</a>
+        <a href="#arrays">Работа с массивами</a>
+        <a href="#optimization">Оптимизация</a>
+        <a href="#errors">Типичные ошибки</a>
+        <a href="#best">Лучшие практики</a>
+        <a href="#summary">Итоги</a>
+      </nav>
+
+      <section class="section" id="intro">
+        <div class="container">
+          <h1>Вложенные циклы в JavaScript</h1>
+
+          <p class="note">
+            <strong>Вложенные циклы</strong> — это циклы, находящиеся внутри других циклов.<br />
+            Используются для обработки двумерных данных (матрицы, таблицы), поиска в массивах и создания сложных структур.
+          </p>
+
+          <p>
+            Вложенные циклы позволяют перебирать элементы по строкам и столбцам,
+            обрабатывать каждую комбинацию элементов двух массивов
+            и выполнять сложные вычисления.
+          </p>
+
+          <div class="note-block">
+            <h3>Где используются вложенные циклы</h3>
+            <ul class="list-ul">
+              <li>Работа с двумерными массивами (матрицы).</li>
+              <li>Создание таблиц умножения и других структур данных.</li>
+              <li>Сравнение элементов двух или нескольких массивов.</li>
+              <li>Поиск дубликатов и фильтрация сложных данных.</li>
+              <li>Обработка вложенных структур объектов и массивов.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="concepts">
+        <div class="container">
+          <h2>Основные понятия</h2>
+
+          <p class="note">
+            <strong>Вложенные циклы</strong> — конструкция, где один цикл находится внутри другого.
+            Внутренний цикл выполняется полностью для каждой итерации внешнего цикла.
+          </p>
+
+          <ul class="list-ul">
+            <li><strong>Внешний цикл</strong> — цикл, который содержит внутренний цикл.</li>
+            <li><strong>Внутренний цикл</strong> — цикл, находящийся внутри внешнего.</li>
+            <li><strong>Итерации</strong> — количество полных прогонов равно произведению итераций обоих циклов.</li>
+            <li><strong>Производительность</strong> — вложенные циклы требуют больше вычислений.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" id="syntax">
+        <div class="container">
+          <h2>Синтаксис вложенных циклов</h2>
+
+          <p class="note">
+            <strong>Синтаксис вложенных циклов</strong> — структура, где один цикл расположен внутри другого.
+            Может быть несколько уровней вложения.
+          </p>
+
+          <h4>Базовая структура:</h4>
+
+          <div class="code-block">
+            <pre><code>for (let i = 0; i &lt; 3; i++) {
+  // Внешний цикл
+  for (let j = 0; j &lt; 3; j++) {
+    // Внутренний цикл
+    console.log(`i = ${i}, j = ${j}`);
+  }
+}</code></pre>
+          </div>
+
+          <h5>Как это работает:</h5>
+
+          <ol class="list-ol">
+            <li><b>i = 0:</b> внешний цикл начинается, запускается внутренний цикл (j: 0, 1, 2).</li>
+            <li><b>i = 1:</b> внешний цикл продолжается, снова запускается внутренний цикл (j: 0, 1, 2).</li>
+            <li><b>i = 2:</b> последняя итерация внешнего цикла, внутренний цикл выполняется (j: 0, 1, 2).</li>
+            <li>Всего: 3 × 3 = 9 итераций внутреннего цикла.</li>
+          </ol>
+
+          <h4>Примеры различных комбинаций:</h4>
+
+          <div class="code-block">
+            <pre><code>// for внутри for
+for (let i = 0; i &lt; 2; i++) {
+  for (let j = 0; j &lt; 2; j++) {
+    console.log(i, j);
+  }
+}
+
+// while внутри for
+for (let i = 0; i &lt; 2; i++) {
+  let j = 0;
+  while (j &lt; 2) {
+    console.log(i, j);
+    j++;
+  }
+}
+
+// for внутри while
+let i = 0;
+while (i &lt; 2) {
+  for (let j = 0; j &lt; 2; j++) {
+    console.log(i, j);
+  }
+  i++;
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="work">
+        <div class="container">
+          <h2>Как работают вложенные циклы</h2>
+
+          <p class="note">
+            <strong>Принцип работы вложенные циклов</strong> — внутренний цикл выполняется полностью
+            при каждой итерации внешнего цикла.
+          </p>
+
+          <h4>Наглядный пример с таблицей:</h4>
+
+          <div class="code-block">
+            <pre><code>for (let row = 1; row &lt;= 3; row++) {
+  for (let col = 1; col &lt;= 3; col++) {
+    console.log(`[${row}, ${col}]`);
+  }
+}</code></pre>
+          </div>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Внешний цикл (row)</th>
+                <th>Внутренний цикл (col)</th>
+                <th>Вывод</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>row = 1</td>
+                <td>col = 1, 2, 3</td>
+                <td>[1,1], [1,2], [1,3]</td>
+              </tr>
+              <tr>
+                <td>row = 2</td>
+                <td>col = 1, 2, 3</td>
+                <td>[2,1], [2,2], [2,3]</td>
+              </tr>
+              <tr>
+                <td>row = 3</td>
+                <td>col = 1, 2, 3</td>
+                <td>[3,1], [3,2], [3,3]</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            Всего итераций: 3 (внешний) × 3 (внутренний) = 9 комбинаций.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="examples">
+        <div class="container">
+          <h2>Практические примеры</h2>
+
+          <p class="note">
+            <strong>Практическое применение вложенных циклов</strong> — решение реальных задач
+            обработки двумерных данных, создание структур и поиск информации.
+          </p>
+
+          <h3>Таблица умножения</h3>
+
+          <div class="code-block">
+            <pre><code>for (let i = 1; i &lt;= 5; i++) {
+  for (let j = 1; j &lt;= 5; j++) {
+    console.log(`${i} × ${j} = ${i * j}`);
+  }
+}</code></pre>
+          </div>
+
+          <h3>Рисование квадрата звёздочками</h3>
+
+          <div class="code-block">
+            <pre><code>const size = 4;
+
+for (let i = 0; i &lt; size; i++) {
+  let row = "";
+  for (let j = 0; j &lt; size; j++) {
+    row += "* ";
+  }
+  console.log(row);
+}</code></pre>
+          </div>
+
+          <p>Результат:</p>
+
+          <div class="code-block">
+            <pre><code>* * * *
+* * * *
+* * * *
+* * * *</code></pre>
+          </div>
+
+          <h3>Поиск пары элементов в двух массивах</h3>
+
+          <div class="code-block">
+            <pre><code>const arr1 = ["apple", "banana", "cherry"];
+const arr2 = ["banana", "grape", "orange"];
+
+for (let i = 0; i &lt; arr1.length; i++) {
+  for (let j = 0; j &lt; arr2.length; j++) {
+    if (arr1[i] === arr2[j]) {
+      console.log(`Найдено совпадение: ${arr1[i]}`);
+    }
+  }
+}</code></pre>
+          </div>
+
+          <p>Результат: "Найдено совпадение: banana"</p>
+
+          <h3>Создание матрицы (двумерный массив)</h3>
+
+          <div class="code-block">
+            <pre><code>const matrix = [];
+
+for (let i = 0; i &lt; 3; i++) {
+  matrix[i] = [];
+  for (let j = 0; j &lt; 3; j++) {
+    matrix[i][j] = i * 3 + j;
+  }
+}
+
+console.log(matrix);
+// [[0, 1, 2], [3, 4, 5], [6, 7, 8]]</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="arrays">
+        <div class="container">
+          <h2>Работа с массивами</h2>
+
+          <p class="note">
+            <strong>Вложенные циклы и массивы</strong> — часто используются для обработки
+            двумерных массивов, фильтрации и поиска элементов.
+          </p>
+
+          <h3>Перебор двумерного массива</h3>
+
+          <div class="code-block">
+            <pre><code>const grid = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9]
+];
+
+for (let row = 0; row &lt; grid.length; row++) {
+  for (let col = 0; col &lt; grid[row].length; col++) {
+    console.log(grid[row][col]);
+  }
+}</code></pre>
+          </div>
+
+          <h3>Поиск элемента в матрице</h3>
+
+          <div class="code-block">
+            <pre><code>const matrix = [
+  [10, 20, 30],
+  [40, 50, 60],
+  [70, 80, 90]
+];
+
+const target = 50;
+let found = false;
+
+for (let i = 0; i &lt; matrix.length; i++) {
+  for (let j = 0; j &lt; matrix[i].length; j++) {
+    if (matrix[i][j] === target) {
+      console.log(`Найдено на позиции [${i}, ${j}]`);
+      found = true;
+      break;
+    }
+  }
+  if (found) break;
+}</code></pre>
+          </div>
+
+          <h3>Подсчёт сумм в матрице</h3>
+
+          <div class="code-block">
+            <pre><code>const data = [
+  [10, 20, 30],
+  [40, 50, 60],
+  [70, 80, 90]
+];
+
+let total = 0;
+
+for (let i = 0; i &lt; data.length; i++) {
+  for (let j = 0; j &lt; data[i].length; j++) {
+    total += data[i][j];
+  }
+}
+
+console.log("Общая сумма:", total); // 450</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="optimization">
+        <div class="container">
+          <h2>Оптимизация вложенных циклов</h2>
+
+          <p class="note">
+            <strong>Оптимизация вложенных циклов</strong> — техники для улучшения производительности,
+            так как вложенные циклы выполняют много операций.
+          </p>
+
+          <h3>Проблема: квадратичная сложность</h3>
+
+          <div class="code-block">
+            <pre><code>// ❌ Медленно: O(n²) сложность
+for (let i = 0; i &lt; 1000; i++) {
+  for (let j = 0; j &lt; 1000; j++) {
+    // 1,000,000 итераций!
+  }
+}</code></pre>
+          </div>
+
+          <h3>Решение: использовать методы массива</h3>
+
+          <div class="code-block">
+            <pre><code>// ✅ Быстрее: с использованием методов
+const arr1 = [1, 2, 3];
+const arr2 = [2, 3, 4];
+
+const common = arr1.filter(item => arr2.includes(item));
+console.log(common); // [2, 3]</code></pre>
+          </div>
+
+          <h3>Оптимизация: ранний выход</h3>
+
+          <div class="code-block">
+            <pre><code>const matrix = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9]
+];
+
+const target = 5;
+let found = false;
+
+for (let i = 0; i &lt; matrix.length &amp;&amp; !found; i++) {
+  for (let j = 0; j &lt; matrix[i].length; j++) {
+    if (matrix[i][j] === target) {
+      console.log("Найдено!");
+      found = true;
+      break; // Выход из внутреннего цикла
+    }
+  }
+}</code></pre>
+          </div>
+
+          <h3>Оптимизация: кэширование длины</h3>
+
+          <div class="code-block">
+            <pre><code>// ❌ Медленно: проверка length каждый раз
+for (let i = 0; i &lt; array.length; i++) {
+  for (let j = 0; j &lt; array[i].length; j++) {
+    // ...
+  }
+}
+
+// ✅ Быстрее: кэширование
+const rows = array.length;
+for (let i = 0; i &lt; rows; i++) {
+  const cols = array[i].length;
+  for (let j = 0; j &lt; cols; j++) {
+    // ...
+  }
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="errors">
+        <div class="container">
+          <h2>Типичные ошибки при работе с вложенными циклами</h2>
+
+          <p class="note">
+            <strong>Ошибки вложенных циклов</strong> — распространённые проблемы,
+            которые приводят к неправильной логике или бесконечному циклу.
+          </p>
+
+          <h3>Ошибка: неправильный индекс</h3>
+
+          <div class="warning">
+            <p>
+              <strong>Ошибка:</strong> использование одной и той же переменной
+              для обоих циклов приводит к перезаписи значения внешнего цикла.
+            </p>
+          </div>
+
+          <div class="code-block">
+            <pre><code>// ❌ Неправильно: обе переменные называются i
+for (let i = 0; i &lt; 3; i++) {
+  for (let i = 0; i &lt; 3; i++) { // Перезаписывает внешнее i
+    console.log(i); // Только 0, 1, 2
+  }
+}
+
+// ✅ Правильно: разные переменные
+for (let i = 0; i &lt; 3; i++) {
+  for (let j = 0; j &lt; 3; j++) {
+    console.log(i, j);
+  }
+}</code></pre>
+          </div>
+
+          <h3>Ошибка: бесконечный цикл</h3>
+
+          <div class="code-block">
+            <pre><code>// ❌ Бесконечный цикл
+for (let i = 0; i &lt; 5; i++) {
+  for (let j = 0; j &lt; 5;) { // j не изменяется!
+    console.log(j);
+  }
+}
+
+// ✅ Правильно
+for (let i = 0; i &lt; 5; i++) {
+  for (let j = 0; j &lt; 5; j++) {
+    console.log(j);
+  }
+}</code></pre>
+          </div>
+
+          <h3>Ошибка: неправильное условие</h3>
+
+          <div class="code-block">
+            <pre><code>// ❌ Пропускает элементы
+const matrix = [[1, 2], [3, 4], [5, 6]];
+for (let i = 0; i &lt;= matrix.length; i++) { // Один лишний
+  for (let j = 0; j &lt;= matrix[i].length; j++) { // Ошибка!
+    console.log(matrix[i][j]);
+  }
+}
+
+// ✅ Правильно
+for (let i = 0; i &lt; matrix.length; i++) {
+  for (let j = 0; j &lt; matrix[i].length; j++) {
+    console.log(matrix[i][j]);
+  }
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="best">
+        <div class="container">
+          <h2>Лучшие практики использования вложенных циклов</h2>
+
+          <p class="note">
+            <strong>Лучшие практики</strong> — правила, которые делают код более читаемым,
+            безопасным и производительным.
+          </p>
+
+          <div class="note-block">
+            <ul class="list-ul">
+              <li>Используйте разные переменные для каждого цикла (i, j, k и т.д.).</li>
+              <li>Избегайте глубокой вложенности (более 3 уровней), рассмотрите функции.</li>
+              <li>Добавляйте комментарии для объяснения назначения каждого цикла.</li>
+              <li>Оптимизируйте производительность, используя break и continue при необходимости.</li>
+              <li>Предпочитайте методы массива (map, filter, find) вместо вложенных циклов.</li>
+              <li>Кэшируйте значения length для улучшения производительности.</li>
+              <li>Используйте for...of для удобства при переборе значений вместо индексов.</li>
+            </ul>
+          </div>
+
+          <h3>Пример с комментариями</h3>
+
+          <div class="code-block">
+            <pre><code>// Перебор строк матрицы
+for (let row = 0; row &lt; matrix.length; row++) {
+  // Перебор столбцов в текущей строке
+  for (let col = 0; col &lt; matrix[row].length; col++) {
+    const element = matrix[row][col];
+    console.log(`[${row}, ${col}]: ${element}`);
+  }
+}</code></pre>
+          </div>
+
+          <h3>Современная альтернатива: методы массива</h3>
+
+          <div class="code-block">
+            <pre><code>const matrix = [[1, 2, 3], [4, 5, 6]];
+
+// Старый способ с вложенными циклами
+for (let i = 0; i &lt; matrix.length; i++) {
+  for (let j = 0; j &lt; matrix[i].length; j++) {
+    console.log(matrix[i][j]);
+  }
+}
+
+// Современный способ с методами
+matrix.forEach(row => {
+  row.forEach(element => {
+    console.log(element);
+  });
+});
+
+// Или с for...of
+for (const row of matrix) {
+  for (const element of row) {
+    console.log(element);
+  }
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="summary">
+        <div class="container">
+          <h2>Итоги</h2>
+
+          <p class="note">
+            <strong>Итоги темы</strong> — основные правила работы с вложенными циклами
+            в JavaScript.
+          </p>
+
+          <div class="summary">
+            <ul class="list-ul">
+              <li>Вложенные циклы — это циклы внутри циклов для обработки двумерных данных.</li>
+              <li>Внутренний цикл выполняется полностью для каждой итерации внешнего цикла.</li>
+              <li>Общее количество итераций равно произведению итераций обоих циклов.</li>
+              <li>Используются для работы с матрицами, таблицами, поиска и сравнения данных.</li>
+              <li>Вложенные циклы имеют квадратичную сложность O(n²), что влияет на производительность.</li>
+              <li>Используйте разные переменные (i, j) для каждого уровня вложения.</li>
+              <li>Избегайте глубокой вложенности и рассмотрите современные методы массива.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    @@include('../partials/footer.html', {})
+  </div>
+
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
+</html>
