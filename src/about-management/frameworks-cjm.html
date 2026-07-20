@@ -1,768 +1,281 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 @@include('../partials/head.html', {
-"title": "Customer Journey Map (CJM) — карта пути пользователя Product Manager",
-"description": "Customer Journey Map (CJM) — фреймворк Product Manager для анализа пути пользователя, поиска проблемных точек и улучшения пользовательского опыта.",
+"title": "Customer Journey Map (CJM) — карта пути пользователя",
+"description": "CJM — фреймворк для анализа пути пользователя. Учимся находить проблемные точки, улучшать UX и повышать конверсию через понимание пути клиента.",
 })
 
 <body>
-
-<a class="skip-link" href="#main">Перейти к содержимому</a>
-
-<div class="wrapper">
-
-@@include('../partials/header.html', {})
-
-<main class="page" id="main" tabindex="-1">
-
-
-<nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
-
-<a href="#pm-intro" class="active" aria-current="true">
-Введение
-</a>
-
-<a href="#pm-structure">
-Структура CJM
-</a>
-
-<a href="#pm-create">
-Как создать CJM
-</a>
-
-<a href="#pm-use">
-Применение
-</a>
-
-<a href="#pm-faq">
-FAQ
-</a>
-
-</nav>
-
-
-
-
-
-
-<!-- Введение -->
-
-<section class="section" id="pm-intro">
-
-<div class="container">
-
-
-<h1>Customer Journey Map (CJM)</h1>
-
-
-<p class="note">
-
-<strong>Customer Journey Map (CJM)</strong> — это визуальная карта пути
-пользователя, которая показывает этапы взаимодействия клиента с продуктом,
-его цели, действия, эмоции и возникающие проблемы.
-
-</p>
-
-
-<p>
-Product Manager использует CJM для понимания пользовательского опыта,
-поиска точек улучшения и формирования продуктовых гипотез.
-</p>
-
-
-
-<div class="note-block">
-
-<h3>Зачем нужен CJM</h3>
-
-
-<ul class="list-ul">
-
-<li>Понять реальный путь пользователя.</li>
-
-<li>Найти проблемные точки и барьеры.</li>
-
-<li>Определить моменты максимальной ценности.</li>
-
-<li>Улучшить UX и продуктовые сценарии.</li>
-
-<li>Синхронизировать команду вокруг пользователя.</li>
-
-</ul>
-
-
-</div>
-
-
-</div>
-
-</section>
-
-
-
-
-
-
-
-
-<!-- Структура -->
-
-<section class="section" id="pm-structure">
-
-
-<div class="container">
-
-
-<h2>Структура Customer Journey Map</h2>
-
-
-<table class="table-note">
-
-
-<thead>
-
-<tr>
-
-<th>Элемент</th>
-
-<th>Описание</th>
-
-<th>Вопрос PM</th>
-
-</tr>
-
-
-</thead>
-
-
-<tbody>
-
-
-
-<tr>
-
-<td>
-<strong>Персона пользователя</strong>
-</td>
-
-<td>
-Описание целевого сегмента клиента.
-</td>
-
-<td>
-Кто наш пользователь?
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Этап пути</strong>
-</td>
-
-<td>
-Последовательность взаимодействия с продуктом.
-</td>
-
-<td>
-Какие шаги проходит клиент?
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Цель пользователя</strong>
-</td>
-
-<td>
-Что пользователь хочет получить.
-</td>
-
-<td>
-Какую задачу решает клиент?
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Действия</strong>
-</td>
-
-<td>
-Что делает пользователь на каждом этапе.
-</td>
-
-<td>
-Какие действия выполняются?
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Боли и проблемы</strong>
-</td>
-
-<td>
-Сложности и негативный опыт.
-</td>
-
-<td>
-Где пользователь испытывает трудности?
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Возможности</strong>
-</td>
-
-<td>
-Идеи улучшений продукта.
-</td>
-
-<td>
-Что можно изменить?
-</td>
-
-</tr>
-
-
-</tbody>
-
-
-</table>
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-
-<!-- Создание -->
-
-<section class="section" id="pm-create">
-
-
-<div class="container">
-
-
-<h2>Как создать Customer Journey Map</h2>
-
-
-
-<table class="table-note">
-
-
-<thead>
-
-<tr>
-
-<th>Шаг</th>
-
-<th>Действие</th>
-
-<th>Результат</th>
-
-</tr>
-
-
-</thead>
-
-
-<tbody>
-
-
-
-<tr>
-
-<td>
-<strong>1. Определить пользователя</strong>
-</td>
-
-<td>
-Выбрать сегмент или persona.
-</td>
-
-<td>
-Описание целевого клиента.
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>2. Собрать данные</strong>
-</td>
-
-<td>
-Интервью, аналитика, отзывы пользователей.
-</td>
-
-<td>
-Реальный пользовательский сценарий.
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>3. Описать путь</strong>
-</td>
-
-<td>
-Зафиксировать этапы взаимодействия.
-</td>
-
-<td>
-Карта Journey.
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>4. Найти проблемы</strong>
-</td>
-
-<td>
-Определить боли и точки оттока.
-</td>
-
-<td>
-Список гипотез улучшения.
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>5. Проверить решения</strong>
-</td>
-
-<td>
-Создать эксперименты и улучшения.
-</td>
-
-<td>
-Новые продуктовые инициативы.
-</td>
-
-</tr>
-
-
-</tbody>
-
-
-</table>
-
-
-
-<div class="note note--info">
-
-<strong>Совет:</strong>
-
-Не создавайте CJM только на основе предположений.
-Используйте реальные данные: интервью, аналитику и обратную связь клиентов.
-
-</div>
-
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-
-
-<!-- Применение -->
-
-<section class="section" id="pm-use">
-
-
-<div class="container">
-
-
-<h2>Когда использовать CJM</h2>
-
-
-<table class="table-note">
-
-
-<thead>
-
-<tr>
-
-<th>Ситуация</th>
-
-<th>Как помогает CJM</th>
-
-</tr>
-
-
-</thead>
-
-
-<tbody>
-
-
-
-<tr>
-
-<td>
-<strong>Discovery</strong>
-</td>
-
-<td>
-Помогает понять проблему пользователя перед созданием решения.
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Улучшение UX</strong>
-</td>
-
-<td>
-Находит сложные места пользовательского опыта.
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Снижение Churn</strong>
-</td>
-
-<td>
-Помогает определить причины ухода пользователей.
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Новые функции</strong>
-</td>
-
-<td>
-Показывает, где новая функция создаст ценность.
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Командная синхронизация</strong>
-</td>
-
-<td>
-Создаёт единое понимание пользователя.
-</td>
-
-</tr>
-
-
-</tbody>
-
-
-</table>
-
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-
-<!-- Связь -->
-
-<section class="section">
-
-
-<div class="container">
-
-
-<h2>CJM и другие Product Management фреймворки</h2>
-
-
-
-<table class="table-note">
-
-
-<thead>
-
-<tr>
-
-<th>Фреймворк</th>
-
-<th>Связь с CJM</th>
-
-</tr>
-
-
-</thead>
-
-
-<tbody>
-
-
-
-<tr>
-
-<td>
-<strong>JTBD</strong>
-</td>
-
-<td>
-Помогает понять задачу пользователя на каждом этапе пути.
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Personas</strong>
-</td>
-
-<td>
-Определяет, для кого создаётся карта пути.
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Service Blueprint</strong>
-</td>
-
-<td>
-Расширяет CJM внутренними процессами компании.
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Product Analytics</strong>
-</td>
-
-<td>
-Подтверждает проблемные точки данными.
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Roadmap</strong>
-</td>
-
-<td>
-Переводит найденные проблемы в инициативы.
-</td>
-
-</tr>
-
-
-</tbody>
-
-
-</table>
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-
-
-<!-- FAQ -->
-
-<section class="section" id="pm-faq">
-
-
-<div class="container">
-
-
-<h2>FAQ — Customer Journey Map</h2>
-
-
-
-<div class="faq">
-
-
-<div class="faq__item">
-
-<button class="faq__question">
-
-Чем CJM отличается от User Flow?
-
-</button>
-
-
-<div class="faq__answer">
-
-<p>
-User Flow показывает последовательность действий пользователя,
-а CJM включает цели, эмоции, боли и контекст взаимодействия.
-</p>
-
-</div>
-
-</div>
-
-
-
-
-
-<div class="faq__item">
-
-<button class="faq__question">
-
-Кто должен создавать CJM?
-
-</button>
-
-
-<div class="faq__answer">
-
-<p>
-Обычно Product Manager работает над CJM вместе с UX-дизайнерами,
-аналитиками и исследовательской командой.
-</p>
-
-</div>
-
-</div>
-
-
-
-
-
-<div class="faq__item">
-
-<button class="faq__question">
-
-Как часто обновлять CJM?
-
-</button>
-
-
-<div class="faq__answer">
-
-<p>
-CJM стоит пересматривать при изменении продукта,
-аудитории или пользовательского поведения.
-</p>
-
-</div>
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-</section>
-
-
-
-
-</main>
-
-
-@@include('../partials/footer.html', {})
-
-</div>
-
-
-@@include('../partials/popup.html', {})
-@@include('../partials/js.html', {})
-
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page" id="main" tabindex="-1">
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#pm-intro" class="active" aria-current="page">Введение</a>
+        <a href="#pm-structure">Структура CJM</a>
+        <a href="#pm-create">Создание CJM</a>
+        <a href="#pm-use">Применение</a>
+        <a href="#pm-faq">FAQ</a>
+      </nav>
+
+      <section class="section" id="pm-intro">
+        <div class="container">
+          <h1>Customer Journey Map (CJM)</h1>
+          <p class="note">
+            <strong>Customer Journey Map (CJM)</strong> — визуальная карта пути пользователя от знакомства с продуктом до достижения результата.
+            <br />
+            CJM показывает этапы взаимодействия, цели, действия, эмоции пользователя и критические точки, где он может отойти.
+          </p>
+          <p>
+            Product Manager использует CJM для понимания реального опыта клиента, выявления проблемных мест и создания гипотез для улучшения UX и конверсии.
+          </p>
+          <div class="note-block">
+            <h3>Зачем нужен CJM</h3>
+            <ul class="list-ul">
+              <li>Увидеть весь путь пользователя, а не только отдельные шаги.</li>
+              <li>Найти критические точки (pain points), где пользователь может уйти.</li>
+              <li>Определить моменты, где продукт создаёт наибольшую ценность.</li>
+              <li>Выявить разрывы между ожиданиями пользователя и реальностью.</li>
+              <li>Синхронизировать команду (дизайнеры, разработчики, маркетинг) вокруг единого понимания пользователя.</li>
+            </ul>
+          </div>
+          <figure>
+            <img class="note-img" src="/img/management/cjm_example.jpg" alt="Пример Customer Journey Map с этапами, действиями и точками боли" />
+            <figcaption class="note-caption">Рис. 1. CJM визуализирует весь путь пользователя, включая эмоции и проблемы на каждом этапе.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section" id="pm-structure">
+        <div class="container">
+          <h2>Структура Customer Journey Map</h2>
+          <p class="note">
+            <strong>CJM состоит из семи основных элементов</strong> — каждый описывает отдельный аспект взаимодействия пользователя.
+          </p>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Элемент</th>
+                <th>Описание</th>
+                <th>Вопрос PM</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Persona</strong></td>
+                <td>Описание целевого сегмента пользователя с его характеристиками.</td>
+                <td>Кто наш пользователь и в какой ситуации?</td>
+              </tr>
+              <tr>
+                <td><strong>Этапы пути</strong></td>
+                <td>Последовательность фаз взаимодействия: осведомлённость, оценка, покупка, использование, лояльность.</td>
+                <td>Какие основные этапы проходит пользователь?</td>
+              </tr>
+              <tr>
+                <td><strong>Цели</strong></td>
+                <td>Что пользователь хочет получить на каждом этапе.</td>
+                <td>Какую задачу решает пользователь?</td>
+              </tr>
+              <tr>
+                <td><strong>Действия</strong></td>
+                <td>Конкретные шаги, которые предпринимает пользователь.</td>
+                <td>Какие действия выполняются на каждом этапе?</td>
+              </tr>
+              <tr>
+                <td><strong>Мотивы и боли</strong></td>
+                <td>Эмоции, сложности, препятствия и разочарования пользователя.</td>
+                <td>Где пользователь испытывает проблемы и негативные эмоции?</td>
+              </tr>
+              <tr>
+                <td><strong>Точки контакта</strong></td>
+                <td>Каналы и сервисы, через которые пользователь взаимодействует с компанией.</td>
+                <td>Где и как пользователь контактирует с нами?</td>
+              </tr>
+              <tr>
+                <td><strong>Возможности</strong></td>
+                <td>Идеи и инициативы для улучшения опыта на критических точках.</td>
+                <td>Как можно улучшить путь пользователя?</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="pm-create">
+        <div class="container">
+          <h2>Как создать Customer Journey Map</h2>
+          <p class="note">
+            <strong>Создание CJM — пятиэтапный процесс</strong> от исследования до формулировки гипотез улучшения.
+          </p>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Шаг</th>
+                <th>Действие PM</th>
+                <th>Инструменты</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. Выбрать persona и сценарий</strong></td>
+                <td>Определить конкретного пользователя и ситуацию, которую вы анализируете.</td>
+                <td>Personas, User Research, аналитика</td>
+              </tr>
+              <tr>
+                <td><strong>2. Собрать данные</strong></td>
+                <td>Провести интервью, собрать аналитику, отзывы пользователей и внутренние данные.</td>
+                <td>Интервью, анкеты, Analytics, Hotjar, записи сессий</td>
+              </tr>
+              <tr>
+                <td><strong>3. Описать путь и действия</strong></td>
+                <td>Зафиксировать все этапы, действия и точки контакта в логической последовательности.</td>
+                <td>Майнд-карты, диаграммы, таблицы</td>
+              </tr>
+              <tr>
+                <td><strong>4. Добавить эмоции и боли</strong></td>
+                <td>Определить, где пользователь испытывает разочарование, радость или неопределённость.</td>
+                <td>User interviews, feedback, NPS</td>
+              </tr>
+              <tr>
+                <td><strong>5. Найти возможности и гипотезы</strong></td>
+                <td>Определить критические точки и сформулировать идеи для улучшения продукта.</td>
+                <td>Brainstorming, Roadmap</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="note-block">
+            <h3>Совет при создании CJM</h3>
+            <ul class="list-ul">
+              <li>Не создавайте CJM на основе только предположений — используйте реальные интервью и данные.</li>
+              <li>Сфокусируйтесь на одном сценарии, а не пытайтесь охватить все пути пользователя одновременно.</li>
+              <li>Включайте мотивы и боли — эмоции часто объясняют поведение пользователя лучше логики.</li>
+              <li>Постоянно обновляйте карту при получении новых данных о пользователях.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="pm-use">
+        <div class="container">
+          <h2>Когда и как использовать CJM</h2>
+          <p class="note">
+            <strong>CJM помогает на разных стадиях разработки продукта</strong> — от исследования до оптимизации конверсии.
+          </p>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Ситуация</th>
+                <th>Как помогает CJM</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Discovery и исследование</strong></td>
+                <td>Помогает понять реальный сценарий пользователя и его проблемы перед разработкой решения.</td>
+              </tr>
+              <tr>
+                <td><strong>Улучшение UX</strong></td>
+                <td>Находит узкие места и точки трения в пользовательском опыте.</td>
+              </tr>
+              <tr>
+                <td><strong>Снижение Churn и повышение retention</strong></td>
+                <td>Определяет, на каком этапе пользователи уходят и почему.</td>
+              </tr>
+              <tr>
+                <td><strong>Разработка новых функций</strong></td>
+                <td>Показывает, где новая фича решит острую проблему пользователя.</td>
+              </tr>
+              <tr>
+                <td><strong>Приоритизация</strong></td>
+                <td>Определяет, какие инициативы наибольший impact на критических этапах пути.</td>
+              </tr>
+              <tr>
+                <td><strong>Кросс-функциональная синхронизация</strong></td>
+                <td>Создаёт единое понимание пользователя в команде: дизайнеры, разработчики, маркетинг, support.</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="note-block">
+            <h3>CJM и другие PM фреймворки</h3>
+            <ul class="list-ul">
+              <li><strong>JTBD</strong> — помогает понять, какую задачу решает пользователь на каждом этапе пути.</li>
+              <li><strong>Personas</strong> — определяет, для кого создаётся карта пути.</li>
+              <li><strong>Service Blueprint</strong> — расширяет CJM, добавляя внутренние процессы компании.</li>
+              <li><strong>Product Analytics</strong> — подтверждает гипотезы CJM данными о поведении пользователей.</li>
+              <li><strong>Roadmap</strong> — переводит найденные проблемы в конкретные продуктовые инициативы.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="pm-faq">
+        <div class="container">
+          <h2>Часто задаваемые вопросы</h2>
+          <div class="faq">
+            <div class="faq__item">
+              <button class="faq__question">
+                Чем CJM отличается от User Flow?
+              </button>
+              <div class="faq__answer">
+                <p>
+                  User Flow показывает последовательность действий (кнопки, окна, шаги).
+                  CJM показывает полный путь с целями, эмоциями, болями и контекстом.
+                  User Flow — технический инструмент, CJM — стратегический.
+                </p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button class="faq__question">
+                Кто должен создавать CJM?
+              </button>
+              <div class="faq__answer">
+                <p>
+                  Product Manager обычно координирует создание CJM в сотрудничестве с UX-исследователем, UX-дизайнером, аналитиком и другими членами кросс-функциональной команды.
+                </p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button class="faq__question">
+                Как часто нужно обновлять CJM?
+              </button>
+              <div class="faq__answer">
+                <p>
+                  Обновляйте CJM при значительных изменениях продукта, изменении целевой аудитории или при получении новых insights о поведении пользователей.
+                  Полезно пересматривать карту каждые 3–6 месяцев.
+                </p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button class="faq__question">
+                Какой формат CJM лучше всего использовать?
+              </button>
+              <div class="faq__answer">
+                <p>
+                  CJM можно представить как таблицу, схему, инфографику или доску Miro.
+                  Выбирайте формат в зависимости от аудитории: для презентаций — визуальная схема, для анализа — таблица с подробными данными.
+                </p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button class="faq__question">
+                Сколько personas нужно описать в CJM?
+              </button>
+              <div class="faq__answer">
+                <p>
+                  Начните с 1–2 основных personas. Для каждой создавайте отдельную карту пути.
+                  Не пытайтесь охватить все сегменты в одной карте — это усложнит анализ.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
 </body>
 
 </html>
