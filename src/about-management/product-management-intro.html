@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 @@include('../partials/head.html', {"title": "Что такое Product Management — роль Product Manager и основы управления продуктом","description": "Что такое Product Management, зачем нужен Product Manager, этапы развития продукта, обязанности PM, отличия от Project Manager и Business Analyst."})
+
 <body>
   <a class="skip-link" href="#main">Перейти к содержимому</a>
   <div class="wrapper">
@@ -26,10 +27,12 @@
         <div class="container">
           <h1>Что такое Product Management</h1>
           <p class="note"><strong>Product Management</strong> — это направление управления продуктом, которое помогает создавать, развивать и улучшать продукты на основе потребностей пользователей, целей бизнеса и возможностей технологий.</p>
+
           <figure>
-            <img class="note-img" src="/img/management/product-management-intro.png" alt="Что такое Product Management" loading="lazy" width="800" height="450" />
+            <img class="note-img" src="/img/management/pm-1.png" alt="Что такое Product Management" loading="lazy" width="800" height="450" />
             <figcaption class="note-caption">Рис. 1. Product Management объединяет пользователей, бизнес и технологическую команду.</figcaption>
           </figure>
+
           <div class="note-block">
             <h3>Главная задача Product Management</h3>
             <p>Создать продукт, который решает реальные проблемы пользователей, приносит пользу бизнесу и способен устойчиво развиваться.</p>
@@ -52,42 +55,85 @@
           <p class="note"><strong>Продукт</strong> — это решение, которое создаёт ценность для пользователя и помогает достигать целей бизнеса.</p>
           <table class="table-note">
             <thead>
-              <tr><th>Тип продукта</th><th>Пример</th></tr>
+              <tr>
+                <th>Тип продукта</th>
+                <th>Пример</th>
+              </tr>
             </thead>
             <tbody>
-              <tr><td>Digital Product</td><td>Мобильное приложение, SaaS-сервис, интернет-магазин</td></tr>
-              <tr><td>Physical Product</td><td>Техника, мебель, автомобиль</td></tr>
-              <tr><td>Service</td><td>Консалтинг, доставка, обучение</td></tr>
+              <tr>
+                <td><b>Цифровой продукт</b> (Digital Product)</td>
+                <td>Мобильное приложение, SaaS-сервис, интернет-магазин</td>
+              </tr>
+              <tr>
+                <td><b>Физический продукт</b> (Physical Product)</td>
+                <td>Техника, мебель, автомобиль</td>
+              </tr>
+              <tr>
+                <td><b>Услуга</b> (Service)</td>
+                <td>Консалтинг, доставка, обучение</td>
+              </tr>
             </tbody>
           </table>
+          <figure>
+            <img class="note-img" src="/img/management/product-value.png" alt="Что такое Product Management" loading="lazy" width="800" height="450" />
+            <figcaption class="note-caption">Рис. 2. Продукт создаёт ценность для пользователя и бизнеса.</figcaption>
+          </figure>
+
         </div>
       </section>
 
       <!-- Что такое Product Management -->
       <section class="section" id="pm-definition">
         <div class="container">
-          <h2>Суть Product Management</h2>
+          <h2>Что такое Product Management</h2>
           <p class="note"><strong>Product Management</strong> — это процесс управления продуктом на всех этапах его жизни: от поиска идеи и исследования рынка до разработки, запуска и дальнейшего развития.</p>
           <div class="note-block">
             <h3>Product Management находится на пересечении трёх областей</h3>
             <table class="table-note">
-              <thead><tr><th>Область</th><th>Что означает</th><th>Задача PM</th></tr></thead>
+              <thead>
+                <tr>
+                  <th>Область</th>
+                  <th>Что означает</th>
+                  <th>Задача PM</th>
+                </tr>
+              </thead>
               <tbody>
-                <tr><td><strong>Business</strong></td><td>Цели компании, прибыль, стратегия роста</td><td>Создать продуктовую ценность для бизнеса</td></tr>
-                <tr><td><strong>User</strong></td><td>Потребности и проблемы пользователей</td><td>Понять, какую проблему нужно решить</td></tr>
-                <tr><td><strong>Technology</strong></td><td>Возможности разработки и ограничения системы</td><td>Найти реалистичное решение</td></tr>
+                <tr>
+                  <td><strong>Бизнес (Business)</strong></td>
+                  <td>Цели компании, прибыль, стратегия роста</td>
+                  <td>Создать продуктовую ценность для бизнеса</td>
+                </tr>
+                <tr>
+                  <td><strong>Пользователь (User)</strong></td>
+                  <td>Потребности и проблемы пользователей</td>
+                  <td>Понять, какую проблему нужно решить</td>
+                </tr>
+                <tr>
+                  <td><strong>Технологии (Technology)</strong></td>
+                  <td>Возможности разработки и ограничения системы</td>
+                  <td>Найти реалистичное решение</td>
+                </tr>
               </tbody>
             </table>
+
+
+            <figure>
+              <img class="note-img" src="/img/management/product-management-intersection.png" alt="Что такое Product Management" loading="lazy" width="800" height="450" />
+              <figcaption class="note-caption">Рис. 3 Product Management объединяет интересы бизнеса, пользователей и технологий.</figcaption>
+            </figure>
+
+
           </div>
           <div class="note-block">
             <h3>Пример</h3>
-            <p>Компания хочет создать мобильное приложение для доставки еды.</p>
+            <p>Компания хочет создать <b>мобильное приложение</b> для доставки еды.</p>
             <ul class="list-ul">
-              <li>Бизнес хочет увеличить продажи.</li>
-              <li>Пользователи хотят быстро получать заказ.</li>
-              <li>Разработка оценивает технические возможности.</li>
+              <li><b>Бизнес</b> хочет увеличить <b>продажи</b>.</li>
+              <li><b>Пользователи</b> хотят быстро получать заказ.</li>
+              <li><b>Разработка оценивает</b> технические возможности.</li>
             </ul>
-            <p>Product Manager соединяет эти интересы и определяет, какой продукт нужно создать и какие задачи решить в первую очередь.</p>
+            <p class="note note--info"><strong>Product Manager</strong> соединяет эти интересы и определяет, какой продукт нужно создать и какие задачи решить в первую очередь.</p>
           </div>
         </div>
       </section>
@@ -96,31 +142,57 @@
       <section class="section" id="pm-business">
         <div class="container">
           <h2>Зачем нужен Product Management бизнесу</h2>
-          <p class="note">Без продуктового подхода компании часто создают функции, которые не решают реальные проблемы пользователей. Product Management помогает принимать решения на основе данных, а не предположений.</p>
+          <p class="note">Без продуктового подхода компании часто создают функции, которые не решают реальные проблемы пользователей. Product Management <strong>помогает</strong> принимать решения на основе данных, а не предположений — и делать это с учётом ресурсов и целей компании.</p>
+
           <div class="note-block">
             <h3>Основные задачи Product Management для бизнеса</h3>
             <table class="table-note">
-              <thead><tr><th>Проблема бизнеса</th><th>Как помогает Product Management</th></tr></thead>
+              <thead>
+                <tr>
+                  <th>Проблема бизнеса</th>
+                  <th>Как помогает Product Management</th>
+                </tr>
+              </thead>
               <tbody>
-                <tr><td>Создание продукта без понимания рынка</td><td>Исследование пользователей, анализ конкурентов, проверка гипотез</td></tr>
-                <tr><td>Слишком много идей и функций</td><td>Приоритизация задач через RICE, ICE, Impact/Effort</td></tr>
-                <tr><td>Низкое использование продукта</td><td>Анализ поведения пользователей, улучшение UX и ценности продукта</td></tr>
-                <tr><td>Отсутствие роста</td><td>Работа с метриками, экспериментами и стратегией развития</td></tr>
+                <tr>
+                  <td>Создание продукта без понимания рынка</td>
+                  <td>Исследования и проверка гипотез снижают риск запуска невостребованного продукта.</td>
+                </tr>
+                <tr>
+                  <td>Слишком много идей и функций</td>
+                  <td>Приоритизация (RICE, ICE, Impact/Effort) помогает выбирать задачи с максимальной отдачей.</td>
+                </tr>
+                <tr>
+                  <td>Низкое использование продукта</td>
+                  <td>Анализ поведения пользователей и улучшение UX повышают вовлечённость и удержание.</td>
+                </tr>
+                <tr>
+                  <td>Отсутствие роста</td>
+                  <td>Работа с метриками и экспериментами делает рост измеримым и управляемым.</td>
+                </tr>
               </tbody>
             </table>
           </div>
+
+          <figure>
+            <img class="note-img" src="/img/management/product-management-intersection02.png" alt="Что такое Product Management" loading="lazy" width="800" height="450" />
+            <figcaption class="note-caption">Рис. 4. Product Management помогает бизнесу создавать ценность для пользователей и достигать целей компании.</figcaption>
+          </figure>
+
           <div class="note-block">
-            <h3>Ценность Product Management</h3>
+            <h3>Ценность Product Management для компании</h3>
             <ul class="list-ul">
-              <li>Снижает риск создания ненужного продукта.</li>
-              <li>Помогает быстрее проверять идеи.</li>
-              <li>Фокусирует команду на важных результатах.</li>
-              <li>Увеличивает вероятность успешного запуска продукта.</li>
+              <li>Снижает стоимость ошибок за счёт ранней проверки идей.</li>
+              <li>Ускоряет окупаемость продукта благодаря фокусу на высокоценных задачах.</li>
+              <li>Делает рост предсказуемым: команда опирается на метрики, а не на интуицию.</li>
+              <li>Оптимизирует использование ресурсов: меньше «мусорных» функций, больше пользы.</li>
             </ul>
           </div>
-          <div class="note note--info"><strong>Главный принцип:</strong> Сначала понять проблему пользователя, затем создавать решение.</div>
+
+          <div class="note note--info"><strong>Главный принцип:</strong> Сначала понять проблему пользователя, затем создавать решение — это экономит ресурсы и повышает шансы на успех.</div>
         </div>
       </section>
+
 
       <!-- Цикл работы продукта -->
       <section class="section" id="pm-cycle">
@@ -128,21 +200,62 @@
           <h2>Цикл работы продукта</h2>
           <p class="note"><strong>Product Management</strong> — это непрерывный процесс создания, развития и улучшения продукта. Product Manager работает не только над запуском продукта, но и над всеми этапами его жизненного цикла: от поиска проблемы до масштабирования и оптимизации.</p>
           <figure>
-            <img class="note-img" src="/img/management/product-management-cycle.png" alt="Цикл работы продукта Product Management" loading="lazy" width="800" height="450" />
-            <figcaption class="note-caption">Рис. 4. Основные этапы работы Product Manager: <strong><a href="/about-management/product-discovery.html">Discovery</a></strong> → <strong><a href="/about-management/product-strategy.html">Strategy</a></strong> → <strong><a href="/about-management/product-roadmap.html">Roadmap</a></strong> → <strong><a href="/about-management/product-delivery.html">Delivery</a></strong> → <strong><a href="/about-management/product-growth.html">Growth</a></strong> → <strong><a href="/about-management/product-optimization.html">Optimization</a></strong></figcaption>
+            <img class="note-img" src="/img/management/plc-2.png" alt="Цикл работы продукта Product Management" loading="lazy" width="800" height="450" />
+            <figcaption class="note-caption">Рис. 5. Основные этапы работы Product Manager: <strong><a href="/about-management/product-discovery.html">Discovery</a></strong> → <strong><a href="/about-management/product-strategy.html">Strategy</a></strong> → <strong><a href="/about-management/product-roadmap.html">Roadmap</a></strong> → <strong><a href="/about-management/product-delivery.html">Delivery</a></strong> → <strong><a href="/about-management/product-growth.html">Growth</a></strong> → <strong><a href="/about-management/product-optimization.html">Optimization</a></strong></figcaption>
           </figure>
           <table class="table-note">
-            <thead><tr><th>Этап</th><th>Цель этапа</th><th>Что делает Product Manager</th><th>Результат</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Этап</th>
+                <th>Цель этапа</th>
+                <th>Что делает Product Manager</th>
+                <th>Результат</th>
+              </tr>
+            </thead>
             <tbody>
-              <tr><td><strong>Discovery</strong></td><td>Найти проблему и понять пользователя</td><td>Проводит исследования, анализирует данные, изучает рынок, собирает обратную связь клиентов.</td><td>Гипотезы, JTBD, CJM, описание проблемы пользователя.</td></tr>
-              <tr><td><strong>Strategy</strong></td><td>Определить направление развития продукта</td><td>Формирует Product Vision, цели, сегменты пользователей, ценность продукта.</td><td>Продуктовая стратегия и цели.</td></tr>
-              <tr><td><strong>Roadmap</strong></td><td>Определить приоритеты и план развития</td><td>Выбирает инициативы, оценивает влияние, расставляет приоритеты.</td><td>Product Roadmap и список инициатив.</td></tr>
-              <tr><td><strong>Delivery</strong></td><td>Создать и выпустить решение</td><td>Работает вместе с дизайнерами, разработчиками, аналитиками и контролирует реализацию.</td><td>MVP, новая функция или релиз.</td></tr>
-              <tr><td><strong>Growth</strong></td><td>Увеличить ценность и количество пользователей</td><td>Анализирует воронки, улучшает активацию, удержание и монетизацию.</td><td>Рост метрик продукта.</td></tr>
-              <tr><td><strong>Optimization</strong></td><td>Постоянно улучшать продукт</td><td>Анализирует результаты, проводит эксперименты, ищет новые точки роста.</td><td>Улучшенные процессы и продуктовые решения.</td></tr>
+              <tr>
+                <td><strong>Discovery</strong> <br> (Идея)</td>
+                <td>Найти проблему и понять пользователя</td>
+                <td>Проводит исследования, анализирует данные, изучает рынок, собирает обратную связь клиентов.</td>
+                <td>Гипотезы, JTBD, CJM, описание проблемы пользователя.</td>
+              </tr>
+              <tr>
+                <td><strong>Strategy</strong> <br> (Стратегия)</td>
+                <td>Определить направление развития продукта</td>
+                <td>Формирует Product Vision, цели, сегменты пользователей, ценность продукта.</td>
+                <td>Продуктовая стратегия и цели.</td>
+              </tr>
+              <tr>
+                <td><strong>Roadmap</strong> <br> (План)</td>
+                <td>Определить приоритеты и план развития</td>
+                <td>Выбирает инициативы, оценивает влияние, расставляет приоритеты.</td>
+                <td>Product Roadmap и список инициатив.</td>
+              </tr>
+              <tr>
+                <td><strong>Delivery</strong> <br> (Реализация)</td>
+                <td>Создать и выпустить решение</td>
+                <td>Работает вместе с дизайнерами, разработчиками, аналитиками и контролирует реализацию.</td>
+                <td>MVP, новая функция или релиз.</td>
+              </tr>
+              <tr>
+                <td><strong>Growth</strong> <br> (Рост)</td>
+                <td>Увеличить ценность и количество пользователей</td>
+                <td>Анализирует воронки, улучшает активацию, удержание и монетизацию.</td>
+                <td>Рост метрик продукта.</td>
+              </tr>
+              <tr>
+                <td><strong>Optimization</strong> <br> (Оптимизация)</td>
+                <td>Постоянно улучшать продукт</td>
+                <td>Анализирует результаты, проводит эксперименты, ищет новые точки роста.</td>
+                <td>Улучшенные процессы и продуктовые решения.</td>
+              </tr>
             </tbody>
           </table>
-          <div class="note note--info"><strong>Главная идея:</strong> Product Management — это цикл постоянного обучения. Команда создаёт решение, получает данные от пользователей, делает выводы и улучшает продукт следующими итерациями.</div>
+          <div class="note note--info">
+            <p><strong>Главная идея:</strong> <b>Product Management</b> — это непрерывный процесс, который помогает создавать ценность для пользователей и бизнеса на всех этапах жизненного цикла продукта.</p>
+
+            <p>Результаты этапа Optimization часто становятся новыми гипотезами для Discovery — так замыкается продуктовая петля</p>
+          </div>
         </div>
       </section>
 
@@ -166,16 +279,46 @@
           <div class="note-block">
             <h3>Навыки Product Manager</h3>
             <table class="table-note">
-              <thead><tr><th>Навык</th><th>Зачем нужен</th></tr></thead>
+              <thead>
+                <tr>
+                  <th>Навык</th>
+                  <th>Зачем нужен</th>
+                </tr>
+              </thead>
               <tbody>
-                <tr><td>Product Thinking</td><td>Понимание ценности продукта и потребностей пользователей.</td></tr>
-                <tr><td>Аналитика</td><td>Работа с метриками, данными и проверка гипотез.</td></tr>
-                <tr><td>Коммуникация</td><td>Синхронизация бизнеса, разработки, дизайна и пользователей.</td></tr>
-                <tr><td>Приоритизация</td><td>Выбор наиболее важных задач с максимальным влиянием.</td></tr>
-                <tr><td>Стратегическое мышление</td><td>Понимание долгосрочного развития продукта.</td></tr>
+                <tr>
+                  <td>Product Thinking</td>
+                  <td>Понимание ценности продукта и потребностей пользователей.</td>
+                </tr>
+                <tr>
+                  <td>Аналитика</td>
+                  <td>Работа с метриками, данными и проверка гипотез.</td>
+                </tr>
+                <tr>
+                  <td>Коммуникация</td>
+                  <td>Синхронизация бизнеса, разработки, дизайна и пользователей.</td>
+                </tr>
+                <tr>
+                  <td>Приоритизация</td>
+                  <td>Выбор наиболее важных задач с максимальным влиянием.</td>
+                </tr>
+                <tr>
+                  <td>Стратегическое мышление</td>
+                  <td>Понимание долгосрочного развития продукта.</td>
+                </tr>
               </tbody>
             </table>
+
+
           </div>
+
+          <figure>
+            <img class="note-img" src="/img/management/product-management-charakter.png" alt="Что такое Product Management" loading="lazy" width="800" height="450" />
+            <figcaption class="note-caption">Рис. 6. Product Manager объединяет интересы бизнеса, пользователей и технологий.</figcaption>
+          </figure>
+
+
+
           <div class="note-block">
             <h3>С кем взаимодействует Product Manager</h3>
             <ul class="list-ul">
@@ -195,17 +338,58 @@
           <h2>Product Management vs Project Management</h2>
           <p class="note"><strong>Product Manager</strong> и <strong>Project Manager</strong> работают вместе, но отвечают за разные области. Product Manager отвечает за ценность продукта и правильность решения, а Project Manager — за организацию выполнения проекта.</p>
           <table class="table-note">
-            <thead><tr><th>Критерий</th><th>Product Manager</th><th>Project Manager</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Критерий</th>
+                <th>Product Manager</th>
+                <th>Project Manager</th>
+              </tr>
+            </thead>
             <tbody>
-              <tr><td>Главный вопрос</td><td>Что создавать и зачем?</td><td>Как сделать вовремя и в рамках ресурсов?</td></tr>
-              <tr><td>Фокус</td><td>Пользователь, рынок, ценность продукта</td><td>Сроки, бюджет, процессы</td></tr>
-              <tr><td>Время</td><td>Долгосрочное развитие продукта</td><td>Ограниченный срок проекта</td></tr>
-              <tr><td>Успех</td><td>Пользовательская ценность и бизнес-результат</td><td>Выполнение плана</td></tr>
-              <tr><td>Основная ответственность</td><td>Успех продукта и достижение бизнес-целей</td><td>Успешное выполнение проекта</td></tr>
-              <tr><td>Работа с задачами</td><td>Определяет приоритеты и направление</td><td>Организует выполнение задач</td></tr>
-              <tr><td>Метрики успеха</td><td>Retention, LTV, Revenue, Growth</td><td>Time, Cost, Scope, Quality</td></tr>
+              <tr>
+                <td>Главный вопрос</td>
+                <td>Что создавать и зачем?</td>
+                <td>Как сделать вовремя и в рамках ресурсов?</td>
+              </tr>
+              <tr>
+                <td>Фокус</td>
+                <td>Пользователь, рынок, ценность продукта</td>
+                <td>Сроки, бюджет, процессы</td>
+              </tr>
+              <tr>
+                <td>Время</td>
+                <td>Долгосрочное развитие продукта</td>
+                <td>Ограниченный срок проекта</td>
+              </tr>
+              <tr>
+                <td>Успех</td>
+                <td>Пользовательская ценность и бизнес-результат</td>
+                <td>Выполнение плана</td>
+              </tr>
+              <tr>
+                <td>Основная ответственность</td>
+                <td>Успех продукта и достижение бизнес-целей</td>
+                <td>Успешное выполнение проекта</td>
+              </tr>
+              <tr>
+                <td>Работа с задачами</td>
+                <td>Определяет приоритеты и направление</td>
+                <td>Организует выполнение задач</td>
+              </tr>
+              <tr>
+                <td>Метрики успеха</td>
+                <td>Retention, LTV, Revenue, Growth</td>
+                <td>Time, Cost, Scope, Quality</td>
+              </tr>
             </tbody>
           </table>
+
+<figure>
+            <img class="note-img" src="/img/management/product-vs-project.png" alt="Что такое Product Management" loading="lazy" width="800" height="450" />
+            <figcaption class="note-caption">Рис. 7. Product Manager отвечает за ценность продукта, а Project Manager — за организацию выполнения проекта.</figcaption>
+          </figure>
+
+
           <div class="note note--info"><strong>Важно:</strong> В небольших компаниях один человек может совмещать роли Product Manager и Project Manager. В крупных продуктовых командах это обычно разные специалисты.</div>
         </div>
       </section>
@@ -216,13 +400,39 @@
           <h2>Product Management vs Business Analysis</h2>
           <p class="note"><strong>Product Manager</strong> и <strong>Business Analyst</strong> работают с требованиями и решениями, но имеют разный фокус. Product Manager отвечает за то, <strong>какой продукт создавать и почему</strong>, а Business Analyst помогает описать требования, процессы и правила системы, чтобы команда могла реализовать решение.</p>
           <table class="table-note">
-            <thead><tr><th>Критерий</th><th>Product Manager</th><th>Business Analyst</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Критерий</th>
+                <th>Product Manager</th>
+                <th>Business Analyst</th>
+              </tr>
+            </thead>
             <tbody>
-              <tr><td>Главный вопрос</td><td>Что нужно создать и какую проблему решить?</td><td>Как правильно описать и реализовать решение?</td></tr>
-              <tr><td>Фокус</td><td>Рынок, пользователи, бизнес-ценность</td><td>Требования, процессы, системы</td></tr>
-              <tr><td>Работа с пользователями</td><td>Исследования, интервью, поиск проблем</td><td>Сбор и уточнение требований</td></tr>
-              <tr><td>Результат работы</td><td>Product Vision, стратегия, roadmap</td><td>Требования, спецификации, документация</td></tr>
-              <tr><td>Метрики</td><td>LTV, Retention, Growth, Revenue</td><td>Качество реализации, соответствие требованиям</td></tr>
+              <tr>
+                <td>Главный вопрос</td>
+                <td>Что нужно создать и какую проблему решить?</td>
+                <td>Как правильно описать и реализовать решение?</td>
+              </tr>
+              <tr>
+                <td>Фокус</td>
+                <td>Рынок, пользователи, бизнес-ценность</td>
+                <td>Требования, процессы, системы</td>
+              </tr>
+              <tr>
+                <td>Работа с пользователями</td>
+                <td>Исследования, интервью, поиск проблем</td>
+                <td>Сбор и уточнение требований</td>
+              </tr>
+              <tr>
+                <td>Результат работы</td>
+                <td>Product Vision, стратегия, roadmap</td>
+                <td>Требования, спецификации, документация</td>
+              </tr>
+              <tr>
+                <td>Метрики</td>
+                <td>LTV, Retention, Growth, Revenue</td>
+                <td>Качество реализации, соответствие требованиям</td>
+              </tr>
             </tbody>
           </table>
           <div class="note note--info"><strong>Важно:</strong> В некоторых компаниях роли могут пересекаться. Product Manager определяет направление продукта, а Business Analyst помогает команде понять детали реализации.</div>
@@ -235,15 +445,52 @@
           <h2>Основные направления работы Product Manager</h2>
           <p class="note"><strong>Product Manager</strong> работает на разных этапах развития продукта: от поиска пользовательских проблем до анализа результатов и масштабирования продукта. В зависимости от компании и типа продукта PM может уделять больше внимания стратегии, аналитике, исследованиям или росту.</p>
           <table class="table-note">
-            <thead><tr><th>Направление</th><th>Что включает</th><th>Основная задача PM</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Направление</th>
+                <th>Что включает</th>
+                <th>Основная задача PM</th>
+              </tr>
+            </thead>
             <tbody>
-              <tr><td><strong>Product Strategy</strong></td><td>Видение продукта, цели, рынок, позиционирование, конкурентный анализ.</td><td>Определить, куда должен развиваться продукт и какую ценность он создаёт.</td></tr>
-              <tr><td><strong>Product Discovery</strong></td><td>Исследования пользователей, интервью, анализ проблем и проверка гипотез.</td><td>Найти реальные проблемы пользователей и понять, какие решения имеют смысл.</td></tr>
-              <tr><td><strong>Product Planning</strong></td><td>Roadmap, приоритизация задач, планирование развития продукта.</td><td>Выбрать наиболее важные инициативы и определить порядок их реализации.</td></tr>
-              <tr><td><strong>Product Delivery</strong></td><td>Работа с разработкой, дизайном, тестирование и запуск новых функций.</td><td>Создать решение, которое соответствует потребностям пользователей.</td></tr>
-              <tr><td><strong>Product Analytics</strong></td><td>Метрики, аналитика поведения пользователей, эксперименты.</td><td>Понять, работает ли продукт и какие изменения дают результат.</td></tr>
-              <tr><td><strong>Growth</strong></td><td>Улучшение привлечения, активации, удержания и монетизации.</td><td>Найти точки роста продукта и увеличить бизнес-результаты.</td></tr>
-              <tr><td><strong>Product Marketing</strong></td><td>Позиционирование продукта, запуск, коммуникация ценности.</td><td>Помочь пользователям понять ценность продукта.</td></tr>
+              <tr>
+                <td><strong>Product Strategy</strong>
+                  <br> (Стратегия продукта)
+
+                </td>
+                <td>Видение продукта, цели, рынок, позиционирование, конкурентный анализ.</td>
+                <td>Определить, куда должен развиваться продукт и какую ценность он создаёт.</td>
+              </tr>
+              <tr>
+                <td><strong>Product Discovery</strong> <br> (Поиск продукта)</td>
+                <td>Исследования пользователей, интервью, анализ проблем и проверка гипотез.</td>
+                <td>Найти реальные проблемы пользователей и понять, какие решения имеют смысл.</td>
+              </tr>
+              <tr>
+                <td><strong>Product Planning</strong> <br> (Планирование продукта)</td>
+                <td>Roadmap, приоритизация задач, планирование развития продукта.</td>
+                <td>Выбрать наиболее важные инициативы и определить порядок их реализации.</td>
+              </tr>
+              <tr>
+                <td><strong>Product Delivery</strong> <br> (Выполнение продукта)</td>
+                <td>Работа с разработкой, дизайном, тестирование и запуск новых функций.</td>
+                <td>Создать решение, которое соответствует потребностям пользователей.</td>
+              </tr>
+              <tr>
+                <td><strong>Product Analytics</strong> <br> (Аналитика продукта)</td>
+                <td>Метрики, аналитика поведения пользователей, эксперименты.</td>
+                <td>Понять, работает ли продукт и какие изменения дают результат.</td>
+              </tr>
+              <tr>
+                <td><strong>Growth</strong> <br> (Рост продукта)</td>
+                <td>Улучшение привлечения, активации, удержания и монетизации.</td>
+                <td>Найти точки роста продукта и увеличить бизнес-результаты.</td>
+              </tr>
+              <tr>
+                <td><strong>Product Marketing</strong> <br> (Маркетинг продукта)</td>
+                <td>Позиционирование продукта, запуск, коммуникация ценности.</td>
+                <td>Помочь пользователям понять ценность продукта.</td>
+              </tr>
             </tbody>
           </table>
           <div class="note note--info"><strong>Главная идея:</strong> Product Manager отвечает не за отдельные задачи, а за полный путь продукта: от понимания проблемы до получения результата.</div>
@@ -258,14 +505,37 @@
           <div class="note-block">
             <h3>Основные типы продуктовых решений</h3>
             <table class="table-note">
-              <thead><tr><th>Область решения</th><th>Пример решения</th></tr></thead>
+              <thead>
+                <tr>
+                  <th>Область решения</th>
+                  <th>Пример решения</th>
+                </tr>
+              </thead>
               <tbody>
-                <tr><td><strong>Проблемы пользователей</strong></td><td>Какую проблему пользователей необходимо решить в первую очередь?</td></tr>
-                <tr><td><strong>Функциональность продукта</strong></td><td>Какие функции создавать, изменять или удалять?</td></tr>
-                <tr><td><strong>MVP</strong></td><td>Какую минимальную версию продукта запустить для проверки гипотезы?</td></tr>
-                <tr><td><strong>Приоритеты</strong></td><td>Какие задачи имеют наибольшее влияние на продукт?</td></tr>
-                <tr><td><strong>Метрики успеха</strong></td><td>Как определить, что изменение продукта принесло результат?</td></tr>
-                <tr><td><strong>Развитие продукта</strong></td><td>Какие направления роста необходимо развивать дальше?</td></tr>
+                <tr>
+                  <td><strong>Проблемы пользователей</strong></td>
+                  <td>Какую проблему пользователей необходимо решить в первую очередь?</td>
+                </tr>
+                <tr>
+                  <td><strong>Функциональность продукта</strong></td>
+                  <td>Какие функции создавать, изменять или удалять?</td>
+                </tr>
+                <tr>
+                  <td><strong>MVP</strong></td>
+                  <td>Какую минимальную версию продукта запустить для проверки гипотезы?</td>
+                </tr>
+                <tr>
+                  <td><strong>Приоритеты</strong></td>
+                  <td>Какие задачи имеют наибольшее влияние на продукт?</td>
+                </tr>
+                <tr>
+                  <td><strong>Метрики успеха</strong></td>
+                  <td>Как определить, что изменение продукта принесло результат?</td>
+                </tr>
+                <tr>
+                  <td><strong>Развитие продукта</strong></td>
+                  <td>Какие направления роста необходимо развивать дальше?</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -300,13 +570,33 @@
           <div class="note-block">
             <h3>Основные навыки Product Manager</h3>
             <table class="table-note">
-              <thead><tr><th>Навык</th><th>Что изучать</th></tr></thead>
+              <thead>
+                <tr>
+                  <th>Навык</th>
+                  <th>Что изучать</th>
+                </tr>
+              </thead>
               <tbody>
-                <tr><td><strong>Product Thinking</strong></td><td>Понимание ценности продукта, проблем пользователей и бизнес-целей.</td></tr>
-                <tr><td><strong>Discovery</strong></td><td>Интервью пользователей, JTBD, CJM, проверка гипотез.</td></tr>
-                <tr><td><strong>Аналитика</strong></td><td>Метрики продукта, SQL, BI, когортный анализ.</td></tr>
-                <tr><td><strong>Управление процессами</strong></td><td>Agile, Scrum, Kanban, работа с командой разработки.</td></tr>
-                <tr><td><strong>Коммуникация</strong></td><td>Работа с бизнесом, дизайнерами, разработчиками и пользователями.</td></tr>
+                <tr>
+                  <td><strong>Product Thinking</strong></td>
+                  <td>Понимание ценности продукта, проблем пользователей и бизнес-целей.</td>
+                </tr>
+                <tr>
+                  <td><strong>Discovery</strong></td>
+                  <td>Интервью пользователей, JTBD, CJM, проверка гипотез.</td>
+                </tr>
+                <tr>
+                  <td><strong>Аналитика</strong></td>
+                  <td>Метрики продукта, SQL, BI, когортный анализ.</td>
+                </tr>
+                <tr>
+                  <td><strong>Управление процессами</strong></td>
+                  <td>Agile, Scrum, Kanban, работа с командой разработки.</td>
+                </tr>
+                <tr>
+                  <td><strong>Коммуникация</strong></td>
+                  <td>Работа с бизнесом, дизайнерами, разработчиками и пользователями.</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -364,4 +654,5 @@
   @@include('../partials/popup.html', {})
   @@include('../partials/js.html', {})
 </body>
+
 </html>

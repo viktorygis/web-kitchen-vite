@@ -1,858 +1,302 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 @@include('../partials/head.html', {
-"title": "Jobs To Be Done (JTBD) — фреймворк Product Manager",
-"description": "Jobs To Be Done (JTBD) — подход Product Manager для понимания задач пользователей, выявления потребностей и создания продуктов с высокой ценностью.",
+"title": "Jobs To Be Done (JTBD) — фреймворк для анализа задач пользователей",
+"description": "JTBD — продуктовый фреймворк для понимания задач пользователей. Учимся выявлять потребности и создавать продукты с высокой ценностью.",
 })
 
 <body>
-
-<a class="skip-link" href="#main">Перейти к содержимому</a>
-
-<div class="wrapper">
-
-@@include('../partials/header.html', {})
-
-<main class="page" id="main" tabindex="-1">
-
-
-<nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
-
-
-<a href="#pm-intro" class="active" aria-current="true">
-Введение
-</a>
-
-
-<a href="#pm-structure">
-Структура JTBD
-</a>
-
-
-<a href="#pm-research">
-Исследование
-</a>
-
-
-<a href="#pm-job-story">
-Job Story
-</a>
-
-
-<a href="#pm-faq">
-FAQ
-</a>
-
-
-</nav>
-
-
-
-
-
-
-
-<!-- Введение -->
-
-<section class="section" id="pm-intro">
-
-
-<div class="container">
-
-
-<h1>Jobs To Be Done (JTBD)</h1>
-
-
-<p class="note">
-
-<strong>Jobs To Be Done (JTBD)</strong> — это продуктовый фреймворк,
-который помогает понять, какую задачу пользователь пытается решить,
-а не только какие функции ему нужны.
-
-</p>
-
-
-<p>
-Главная идея JTBD: пользователи покупают продукты не ради функций,
-а ради результата, которого они хотят достичь.
-</p>
-
-
-
-<div class="note-block">
-
-
-<h3>Основная идея JTBD</h3>
-
-
-<ul class="list-ul">
-
-<li>Люди не покупают дрель — они хотят отверстие в стене.</li>
-
-<li>Пользователь выбирает продукт ради решения конкретной задачи.</li>
-
-<li>Главная единица анализа — не пользователь, а его задача (Job).</li>
-
-<li>Хороший продукт лучше выполняет работу пользователя.</li>
-
-</ul>
-
-
-</div>
-
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-
-<!-- Структура -->
-
-<section class="section" id="pm-structure">
-
-
-<div class="container">
-
-
-<h2>Структура JTBD</h2>
-
-
-
-<table class="table-note">
-
-
-<thead>
-
-<tr>
-
-<th>Элемент</th>
-
-<th>Описание</th>
-
-<th>Вопрос Product Manager</th>
-
-</tr>
-
-
-</thead>
-
-
-<tbody>
-
-
-
-<tr>
-
-<td>
-<strong>Job</strong>
-</td>
-
-<td>
-Задача, которую пользователь хочет выполнить.
-</td>
-
-<td>
-Что пользователь пытается сделать?
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Context</strong>
-</td>
-
-<td>
-Ситуация, в которой возникает потребность.
-</td>
-
-<td>
-Когда и почему появляется проблема?
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Motivation</strong>
-</td>
-
-<td>
-Причина, почему задача важна.
-</td>
-
-<td>
-Какого результата хочет пользователь?
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Pain</strong>
-</td>
-
-<td>
-Сложности и препятствия.
-</td>
-
-<td>
-Что мешает решить задачу?
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Desired Outcome</strong>
-</td>
-
-<td>
-Ожидаемый результат.
-</td>
-
-<td>
-Как выглядит успешное решение?
-</td>
-
-</tr>
-
-
-</tbody>
-
-
-</table>
-
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-
-<!-- Исследование -->
-
-<section class="section" id="pm-research">
-
-
-<div class="container">
-
-
-<h2>Как проводить JTBD исследование</h2>
-
-
-
-<table class="table-note">
-
-
-<thead>
-
-<tr>
-
-<th>Шаг</th>
-
-<th>Что делает PM</th>
-
-<th>Результат</th>
-
-</tr>
-
-
-</thead>
-
-
-<tbody>
-
-
-
-<tr>
-
-<td>
-<strong>1. Найти пользователей</strong>
-</td>
-
-<td>
-Выбрать людей, которые недавно решали проблему.
-</td>
-
-<td>
-Релевантные интервью.
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>2. Провести интервью</strong>
-</td>
-
-<td>
-Изучить прошлое поведение, а не будущие желания.
-</td>
-
-<td>
-Истории реального опыта.
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>3. Найти Job</strong>
-</td>
-
-<td>
-Определить главную задачу пользователя.
-</td>
-
-<td>
-Формулировка потребности.
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>4. Выявить боли</strong>
-</td>
-
-<td>
-Найти препятствия и неудовлетворённые потребности.
-</td>
-
-<td>
-Гипотезы улучшения.
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>5. Создать решение</strong>
-</td>
-
-<td>
-Связать продукт с задачей пользователя.
-</td>
-
-<td>
-Новые продуктовые инициативы.
-</td>
-
-</tr>
-
-
-</tbody>
-
-
-</table>
-
-
-
-<div class="note note--info">
-
-<strong>Совет:</strong>
-
-Спрашивайте пользователей не «какую функцию вы хотите?»,
-а «как вы решали эту задачу раньше?».
-
-</div>
-
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-
-<!-- Job Story -->
-
-<section class="section" id="pm-job-story">
-
-
-<div class="container">
-
-
-<h2>Формат Job Story</h2>
-
-
-
-<p class="note">
-
-<strong>Job Story</strong> — способ описания пользовательской задачи
-через контекст, мотивацию и ожидаемый результат.
-
-</p>
-
-
-
-<table class="table-note">
-
-
-<thead>
-
-<tr>
-
-<th>Часть</th>
-
-<th>Формат</th>
-
-</tr>
-
-
-</thead>
-
-
-<tbody>
-
-
-
-<tr>
-
-<td>
-<strong>Когда</strong>
-</td>
-
-<td>
-Когда я нахожусь в определённой ситуации...
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Я хочу</strong>
-</td>
-
-<td>
-Я хочу выполнить определённую задачу...
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Чтобы</strong>
-</td>
-
-<td>
-Чтобы получить нужный результат.
-</td>
-
-</tr>
-
-
-</tbody>
-
-
-</table>
-
-
-
-<div class="note-block">
-
-
-<h3>Пример Job Story</h3>
-
-
-<p>
-
-Когда я путешествую в незнакомом городе,
-я хочу быстро найти подходящее кафе рядом,
-чтобы не тратить время на поиск и получить хороший опыт.
-
-</p>
-
-
-</div>
-
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-
-<!-- Применение -->
-
-<section class="section">
-
-
-<div class="container">
-
-
-<h2>Когда использовать JTBD</h2>
-
-
-
-<table class="table-note">
-
-
-<thead>
-
-<tr>
-
-<th>Ситуация</th>
-
-<th>Как помогает JTBD</th>
-
-</tr>
-
-
-</thead>
-
-
-<tbody>
-
-
-
-<tr>
-
-<td>
-<strong>Discovery</strong>
-</td>
-
-<td>
-Помогает найти реальные потребности пользователей.
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Создание нового продукта</strong>
-</td>
-
-<td>
-Определяет ценность будущего решения.
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Улучшение функций</strong>
-</td>
-
-<td>
-Показывает, какие задачи пользователей не закрыты.
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Сегментация</strong>
-</td>
-
-<td>
-Помогает разделять пользователей по задачам.
-</td>
-
-</tr>
-
-
-</tbody>
-
-
-</table>
-
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-
-<!-- Связь -->
-
-<section class="section">
-
-
-<div class="container">
-
-
-<h2>JTBD и другие Product Management фреймворки</h2>
-
-
-
-<table class="table-note">
-
-
-<thead>
-
-<tr>
-
-<th>Фреймворк</th>
-
-<th>Связь с JTBD</th>
-
-</tr>
-
-
-</thead>
-
-
-<tbody>
-
-
-
-<tr>
-
-<td>
-<strong>CJM</strong>
-</td>
-
-<td>
-Показывает путь пользователя после определения его задач.
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Personas</strong>
-</td>
-
-<td>
-Помогает понять контекст пользователя.
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Product Vision</strong>
-</td>
-
-<td>
-Связывает задачи пользователей с направлением продукта.
-</td>
-
-</tr>
-
-
-
-<tr>
-
-<td>
-<strong>Roadmap</strong>
-</td>
-
-<td>
-Переводит найденные задачи в продуктовые инициативы.
-</td>
-
-</tr>
-
-
-</tbody>
-
-
-</table>
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-
-<!-- FAQ -->
-
-<section class="section" id="pm-faq">
-
-
-<div class="container">
-
-
-<h2>FAQ — Jobs To Be Done</h2>
-
-
-
-<div class="faq">
-
-
-<div class="faq__item">
-
-
-<button class="faq__question">
-
-Чем JTBD отличается от Personas?
-
-</button>
-
-
-<div class="faq__answer">
-
-<p>
-Persona описывает пользователя,
-а JTBD описывает задачу, которую пользователь хочет решить.
-</p>
-
-</div>
-
-
-</div>
-
-
-
-
-
-<div class="faq__item">
-
-
-<button class="faq__question">
-
-Когда лучше использовать JTBD?
-
-</button>
-
-
-<div class="faq__answer">
-
-<p>
-Чаще всего JTBD используют на этапе Discovery,
-когда нужно понять проблему перед созданием решения.
-</p>
-
-</div>
-
-
-</div>
-
-
-
-
-
-<div class="faq__item">
-
-
-<button class="faq__question">
-
-Можно ли применять JTBD для существующего продукта?
-
-</button>
-
-
-<div class="faq__answer">
-
-<p>
-Да. JTBD помогает находить новые сценарии использования
-и улучшать существующие функции.
-</p>
-
-</div>
-
-
-</div>
-
-
-
-</div>
-
-
-</div>
-
-
-</section>
-
-
-
-
-</main>
-
-
-@@include('../partials/footer.html', {})
-
-</div>
-
-
-@@include('../partials/popup.html', {})
-@@include('../partials/js.html', {})
-
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page" id="main" tabindex="-1">
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#pm-intro" class="active" aria-current="page">Введение</a>
+        <a href="#pm-structure">Структура JTBD</a>
+        <a href="#pm-research">Исследование</a>
+        <a href="#pm-job-story">Job Story</a>
+        <a href="#pm-usage">Применение</a>
+        <a href="#pm-faq">FAQ</a>
+      </nav>
+
+      <section class="section" id="pm-intro">
+        <div class="container">
+          <h1>Jobs To Be Done (JTBD)</h1>
+          <p class="note">
+            <strong>Jobs To Be Done (JTBD)</strong> — продуктовый фреймворк для понимания задач пользователей.
+            <br />
+            Главная идея: люди покупают продукты не ради функций, а ради результата, который они хотят достичь.
+          </p>
+          <p>
+            Вместо вопроса «какие функции нужны?» JTBD помогает ответить на вопрос «какую задачу пользователь пытается решить?».
+          </p>
+          <div class="note-block">
+            <h3>Основная идея JTBD</h3>
+            <ul class="list-ul">
+              <li>Люди не покупают дрель — они хотят отверстие в стене.</li>
+              <li>Пользователь выбирает продукт ради решения конкретной задачи (Job).</li>
+              <li>Главная единица анализа — не пользователь, а его задача.</li>
+              <li>Хороший продукт лучше выполняет работу пользователя, чем конкуренты.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="pm-structure">
+        <div class="container">
+          <h2>Структура JTBD</h2>
+          <p class="note">
+            <strong>JTBD состоит из пяти элементов</strong> — каждый помогает понять поведение пользователя.
+          </p>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Элемент</th>
+                <th>Описание</th>
+                <th>Вопрос PM</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Job</strong></td>
+                <td>Задача, которую пользователь хочет выполнить.</td>
+                <td>Что пользователь пытается сделать?</td>
+              </tr>
+              <tr>
+                <td><strong>Context</strong></td>
+                <td>Ситуация, в которой возникает потребность.</td>
+                <td>Когда и почему появляется проблема?</td>
+              </tr>
+              <tr>
+                <td><strong>Motivation</strong></td>
+                <td>Причина, почему задача важна для пользователя.</td>
+                <td>Какого результата хочет пользователь?</td>
+              </tr>
+              <tr>
+                <td><strong>Pain</strong></td>
+                <td>Сложности и препятствия на пути решения.</td>
+                <td>Что мешает решить задачу?</td>
+              </tr>
+              <tr>
+                <td><strong>Desired Outcome</strong></td>
+                <td>Ожидаемый результат после решения задачи.</td>
+                <td>Как выглядит успешное решение?</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="pm-research">
+        <div class="container">
+          <h2>Как проводить JTBD исследование</h2>
+          <p class="note">
+            <strong>JTBD исследование — процесс в пять шагов</strong> от поиска пользователей до формулировки инсайтов.
+          </p>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Шаг</th>
+                <th>Действие PM</th>
+                <th>Результат</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. Найти пользователей</strong></td>
+                <td>Выбрать людей, которые недавно решали проблему.</td>
+                <td>Релевантная выборка для интервью.</td>
+              </tr>
+              <tr>
+                <td><strong>2. Провести интервью</strong></td>
+                <td>Изучить прошлое поведение, а не будущие желания.</td>
+                <td>Подлинные истории опыта пользователей.</td>
+              </tr>
+              <tr>
+                <td><strong>3. Выявить Job</strong></td>
+                <td>Определить главную задачу в каждой истории.</td>
+                <td>Сформулированная потребность пользователя.</td>
+              </tr>
+              <tr>
+                <td><strong>4. Найти боли</strong></td>
+                <td>Определить препятствия и неудовлетворённые потребности.</td>
+                <td>Гипотезы для улучшения продукта.</td>
+              </tr>
+              <tr>
+                <td><strong>5. Создать решение</strong></td>
+                <td>Связать продуктовые инициативы с задачами пользователя.</td>
+                <td>Направления развития продукта.</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="note-block">
+            <h3>Совет при проведении интервью</h3>
+            <ul class="list-ul">
+              <li>Спрашивайте не «какую функцию вы хотите?», а «как вы решали эту задачу раньше?».</li>
+              <li>Ищите момент, когда пользователь принял решение попробовать новое решение.</li>
+              <li>Интересуйтесь контекстом: время, место, эмоции, сложности.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="pm-job-story">
+        <div class="container">
+          <h2>Формат Job Story</h2>
+          <p class="note">
+            <strong>Job Story</strong> — структурированный способ описания пользовательской задачи через контекст, мотивацию и ожидаемый результат.
+          </p>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Компонент</th>
+                <th>Формулировка</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Когда</strong></td>
+                <td>Когда я нахожусь в определённой ситуации...</td>
+              </tr>
+              <tr>
+                <td><strong>Я хочу</strong></td>
+                <td>...я хочу выполнить определённую задачу...</td>
+              </tr>
+              <tr>
+                <td><strong>Чтобы</strong></td>
+                <td>...чтобы получить нужный результат.</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="note-block">
+            <h3>Пример Job Story</h3>
+            <p>
+              Когда я путешествую в незнакомом городе, я хочу быстро найти подходящее кафе рядом, чтобы не тратить время на поиск и получить хороший опыт.
+            </p>
+          </div>
+          <div class="warning">
+            <strong>Ошибка:</strong> Не путайте Job Story с User Story. Job Story фокусируется на задаче и контексте, а не на персоне.
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="pm-usage">
+        <div class="container">
+          <h2>Когда и как использовать JTBD</h2>
+          <p class="note">
+            <strong>JTBD применяется на разных этапах разработки</strong> — от Discovery до оптимизации существующих решений.
+          </p>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Ситуация</th>
+                <th>Как JTBD помогает</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Discovery фаза</strong></td>
+                <td>Помогает найти реальные потребности пользователей, а не предположения.</td>
+              </tr>
+              <tr>
+                <td><strong>Создание нового продукта</strong></td>
+                <td>Определяет ценность решения и основной Job пользователя.</td>
+              </tr>
+              <tr>
+                <td><strong>Улучшение существующих функций</strong></td>
+                <td>Показывает, какие задачи пользователей остаются нерешёнными.</td>
+              </tr>
+              <tr>
+                <td><strong>Сегментация пользователей</strong></td>
+                <td>Помогает разделять аудиторию не по демографии, а по задачам.</td>
+              </tr>
+              <tr>
+                <td><strong>Приоритизация фич</strong></td>
+                <td>Определяет, какие функции решают наиболее важные задачи.</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="note-block">
+            <h3>JTBD и другие PM фреймворки</h3>
+            <ul class="list-ul">
+              <li><strong>с Customer Journey Map</strong> — CJM показывает путь пользователя после определения его задач.</li>
+              <li><strong>с Personas</strong> — Personas помогает понять контекст и мотивацию пользователя.</li>
+              <li><strong>с Product Vision</strong> — Vision связывает задачи пользователей с направлением продукта.</li>
+              <li><strong>с Roadmap</strong> — Roadmap переводит найденные задачи в конкретные продуктовые инициативы.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="pm-faq">
+        <div class="container">
+          <h2>Часто задаваемые вопросы</h2>
+          <div class="faq">
+            <div class="faq__item">
+              <button class="faq__question">
+                Чем JTBD отличается от Personas?
+              </button>
+              <div class="faq__answer">
+                <p>
+                  Persona описывает пользователя (возраст, профессия, интересы),
+                  а JTBD описывает конкретную задачу и контекст, в котором она возникает.
+                  Можно иметь несколько Jobs для одной Persona.
+                </p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button class="faq__question">
+                Когда лучше всего использовать JTBD?
+              </button>
+              <div class="faq__answer">
+                <p>
+                  JTBD используют на этапе Discovery, когда нужно понять проблему перед созданием решения.
+                  Также эффективен при улучшении существующего продукта для выявления нерешённых задач.
+                </p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button class="faq__question">
+                Можно ли применять JTBD для существующего продукта?
+              </button>
+              <div class="faq__answer">
+                <p>
+                  Да. JTBD помогает находить новые сценарии использования, выявлять неудовлетворённые потребности
+                  и улучшать существующие функции.
+                </p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button class="faq__question">
+                Сколько времени занимает JTBD исследование?
+              </button>
+              <div class="faq__answer">
+                <p>
+                  В среднем 2–4 недели для базового исследования (10–15 интервью).
+                  Полное исследование может занять месяц и более.
+                </p>
+              </div>
+            </div>
+            <div class="faq__item">
+              <button class="faq__question">
+                Сколько интервью нужно для хорошего исследования?
+              </button>
+              <div class="faq__answer">
+                <p>
+                  Минимум 8–10 интервью. Обычно после 15–20 интервью начинают повторяться паттерны и инсайты.
+                  Большее количество даёт более глубокое понимание.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
 </body>
 
 </html>
