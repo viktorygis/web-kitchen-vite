@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
 @@include('../partials/head.html', {
-  "title": "break и continue в JavaScript — управление циклами",
-  "description": "break и continue в JavaScript: синтаксис, примеры использования, различия и практические применения в циклах."
+"title": "break и continue в JavaScript — управление циклами",
+"description": "break и continue в JavaScript: синтаксис, примеры использования, различия и практические применения в циклах."
 })
 
 <body>
@@ -62,8 +62,8 @@
           <ul class="list-ul">
             <li><strong>break</strong> — полностью прерывает цикл и переходит к коду после цикла.</li>
             <li><strong>continue</strong> — пропускает оставшуюся часть итерации и переходит к следующей итерации.</li>
-            <li>Оба оператора работают с циклами (for, while, do...while) и switch.</li>
-            <li>Можно использовать метки для управления вложенными циклами.</li>
+            <li>Оба оператора работают с циклами <b>(for, while, do...while)</b> и <b>switch</b>.</li>
+            <li>Можно использовать <b>метки</b> для управления вложенными циклами.</li>
           </ul>
         </div>
       </section>
@@ -76,8 +76,10 @@
             <strong>break</strong> — оператор, который немедленно завершает цикл
             и переводит управление на строку кода, следующую за циклом.
           </p>
+          <p><b>break</b> сам по себе ничего не проверяет, он просто завершает цикл.
 
-          <h4>Синтаксис:</h4>
+            Поэтому он почти всегда используется внутри <b>if</b>, чтобы остановить цикл в нужный момент.</p>
+          <h4>Пример использования break:</h4>
 
           <div class="code-block">
             <pre><code>for (let i = 0; i &lt; 10; i++) {
@@ -91,9 +93,28 @@
           <h5>Как это работает:</h5>
 
           <ol class="list-ol">
-            <li>Цикл начинает перебирать значения от 0 до 9.</li>
-            <li>Когда i достигает 5, условие `i === 5` становится true.</li>
-            <li>Выполняется оператор break, цикл немедленно завершается.</li>
+            <li>Цикл начинает перебирать значения от <b>0 до 9</b>.</li>
+            <li>Когда <b>i</b> достигает <b>5</b>, условие <b>`i === 5`</b> становится true.</li>
+            <li>Выполняется оператор <b>break</b>, цикл немедленно завершается.</li>
+            <li>Код после цикла продолжает выполняться обычным образом.</li>
+          </ol>
+          <h4>Код без break:</h4>
+
+          <div class="code-block">
+            <pre><code>for (let i = 0; i &lt; 10; i++) {
+  if (i === 5) {
+    // break; // Выход из цикла
+  }
+  console.log(i); // 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+}</code></pre>
+          </div>
+
+          <h5>Как это работает:</h5>
+
+          <ol class="list-ol">
+            <li>Цикл начинает перебирать значения от <b>0 до 9</b>.</li>
+            <li>Когда <b>i</b> достигает <b>5</b>, условие <b>`i === 5`</b> становится true.</li>
+            <li>Оператор <b>break</b> не выполняется, цикл продолжается.</li>
             <li>Код после цикла продолжает выполняться обычным образом.</li>
           </ol>
 
@@ -119,7 +140,28 @@ console.log("Поиск завершён");</code></pre>
             что экономит время на ненужные итерации.
           </p>
 
+          <h3>break в while</h3>
+          <p class="note note--info">Цикл while может работать бесконечно, но break поможет остановить его в нужный момент.
+
+          </p>
+          <div class="code-block">
+            <pre><code>let count = 0;
+while (count &lt; 10) {
+  if (count === 5) {
+    break; // Выход из цикла
+  }
+  console.log(count); // 0, 1, 2, 3, 4
+  count++;
+}</code></pre>
+          </div>
+
+
+
+
           <h3>break в switch</h3>
+          <p class="note note--info">
+            В конструкции <b>switch</b> оператор <b>break</b> предотвращает выполнение последующих case.
+          </p>
 
           <div class="code-block">
             <pre><code>const day = 3;
@@ -141,6 +183,7 @@ switch (day) {
         </div>
       </section>
 
+      <!-- Оператор continue -->
       <section class="section" id="continue">
         <div class="container">
           <h2>Оператор continue</h2>
@@ -150,7 +193,7 @@ switch (day) {
             и переходит к следующей итерации цикла.
           </p>
 
-          <h4>Синтаксис:</h4>
+          <h4>Пример с <b>continue</b>:</h4>
 
           <div class="code-block">
             <pre><code>for (let i = 0; i &lt; 5; i++) {
@@ -169,6 +212,31 @@ switch (day) {
             <li>Оставшаяся часть кода цикла пропускается (не выполняется console.log).</li>
             <li>Цикл переходит к следующей итерации (i = 3).</li>
           </ol>
+          <h4>Пример без <b>continue</b>:</h4>
+          <div class="code-block">
+            <pre><code>
+for (let i = 0; i &lt; 5; i++) {
+  if (i === 2) {
+    // continue; // Пропустить эту итерацию
+  }
+  console.log(i); // 0, 1, 2, 3, 4 (все значения)
+}</code></pre>
+          </div>
+          <h4>Пример с суммой чисел:</h4>
+
+          <div class="code-block">
+            <pre><code>let sum = 0;
+for (let i = 1; i &lt;= 5; i++) {
+  if (i === 3) {
+    continue; // Пропустить число 3
+  }
+  sum += i;
+}
+console.log(sum); // 1 + 2 + 4 + 5 = 12 (3 пропущено)</code>
+</code></pre>
+          </div>
+
+
 
           <h3>Фильтрация четных чисел</h3>
 

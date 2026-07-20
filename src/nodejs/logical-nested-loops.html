@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
 @@include('../partials/head.html', {
-  "title": "Вложенные циклы в JavaScript — синтаксис, примеры и применение",
-  "description": "Вложенные циклы в JavaScript: синтаксис, как работают, примеры кода, таблицы умножения, обработка матриц и оптимизация."
+"title": "Вложенные циклы в JavaScript — синтаксис, примеры и применение",
+"description": "Вложенные циклы в JavaScript: синтаксис, как работают, примеры кода, таблицы умножения, обработка матриц и оптимизация."
 })
 
 <body>
@@ -88,6 +88,7 @@
   for (let j = 0; j &lt; 3; j++) {
     // Внутренний цикл
     console.log(`i = ${i}, j = ${j}`);
+    // Вывод: i = 0, j = 0 / i = 0, j = 1 / i = 0, j = 2 / i = 1, j = 0 / ... / i = 2, j = 2
   }
 }</code></pre>
           </div>
@@ -101,10 +102,18 @@
             <li>Всего: 3 × 3 = 9 итераций внутреннего цикла.</li>
           </ol>
 
-          <h4>Примеры различных комбинаций:</h4>
+
+          <h4>Цикл без вложений:</h4>
 
           <div class="code-block">
-            <pre><code>// for внутри for
+            <pre><code>for (let i = 0; i &lt; 3; i++) {
+  console.log(i); // Вывод: 0, 1, 2
+}</code></pre>
+
+            <h4>Примеры различных комбинаций:</h4>
+
+            <div class="code-block">
+              <pre><code>// for внутри for
 for (let i = 0; i &lt; 2; i++) {
   for (let j = 0; j &lt; 2; j++) {
     console.log(i, j);
@@ -128,8 +137,8 @@ while (i &lt; 2) {
   }
   i++;
 }</code></pre>
+            </div>
           </div>
-        </div>
       </section>
 
       <section class="section" id="work">
@@ -194,6 +203,9 @@ while (i &lt; 2) {
           </p>
 
           <h3>Таблица умножения</h3>
+          <p class="note note--info">
+            <strong>Пример:</strong> создание таблицы умножения с помощью вложенных циклов. Здесь внешний цикл отвечает за множитель, а внутренний — за множимое.
+          </p>
 
           <div class="code-block">
             <pre><code>for (let i = 1; i &lt;= 5; i++) {
@@ -204,7 +216,9 @@ while (i &lt; 2) {
           </div>
 
           <h3>Рисование квадрата звёздочками</h3>
-
+          <p class="note note--info">
+            <strong>Пример:</strong> создание квадрата из символов "*" с помощью вложенных циклов. Внешний цикл отвечает за строки, а внутренний — за столбцы.
+          </p>
           <div class="code-block">
             <pre><code>const size = 4;
 
@@ -573,6 +587,15 @@ for (const row of matrix) {
 
   @@include('../partials/popup.html', {})
   @@include('../partials/js.html', {})
+  <script>
+    for (let i = 0; i < 3; i++) {
+      // Внешний цикл
+      for (let j = 0; j < 3; j++) {
+        // Внутренний цикл
+        console.log(`i = ${i}, j = ${j}`); // Вывод чисел i и j
+      }
+    }
+  </script>
 </body>
 
 </html>
