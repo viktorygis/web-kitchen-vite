@@ -1,526 +1,846 @@
 <!DOCTYPE html>
 <html lang="ru">
-@@include('../partials/head.html', { "title": "Фундамент дизайна: Основы визуальной коммуникации", "description": "Основные принципы и элементы дизайна для создания эффективных визуальных решений" })
 
-<style>
-  :root {
-    --primary: #2c3e50;
-    --secondary: #8e44ad;
-    --accent: #e74c3c;
-    --light: #f8f9fa;
-    --dark: #212529;
-    --success: #27ae60;
-    --muted: #6c757d;
-    --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.08);
-    --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.08);
-    --radius: 10px;
-    --gap: 1.5rem;
-    --transition: 0.25s ease;
-  }
-
-
-  .principles__title {
-    font-size: 1.6rem;
-    margin: 0 0 .5rem;
-    color: var(--primary);
-  }
-
-  .principles__note {
-    margin-bottom: 1rem;
-    color: var(--muted);
-  }
-
-  .principles__cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: var(--gap);
-    margin-top: var(--gap);
-  }
-
-  .principles__card {
-    background: #fff;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-sm);
-    overflow: hidden;
-    transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
-    padding: 1rem;
-    opacity: 0;
-    transform: translateY(8px);
-  }
-
-  .principles__card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-md);
-  }
-
-  .principles__card-header {
-    background: var(--primary);
-    color: #fff;
-    padding: .75rem;
-    border-radius: 8px;
-    font-weight: 700;
-    margin: -1rem -1rem 0 -1rem;
-  }
-
-  .principles__card-body {
-    padding: .75rem 0 0 0;
-  }
-
-  .principles__card-footer {
-    margin-top: .75rem;
-    font-size: .9rem;
-    color: var(--muted);
-    border-top: 1px solid #f0f0f0;
-    padding-top: .5rem;
-  }
-
-  /* Demonstration (bad/good examples) */
-  .principles__demo {
-    display: flex;
-    gap: var(--gap);
-    margin: 2rem 0;
-    flex-wrap: wrap;
-  }
-
-  .principles__demo-item {
-    flex: 1;
-    min-width: 300px;
-    background: #fff;
-    border-radius: var(--radius);
-    padding: 1.25rem;
-    box-shadow: var(--shadow-sm);
-    opacity: 0;
-    transform: translateY(8px);
-    transition: var(--transition);
-  }
-
-  .principles__demo-title {
-    font-size: 1.1rem;
-    margin: 0 0 .5rem;
-    color: var(--primary);
-    font-weight: 600;
-  }
-
-  .principles__demo-visual {
-    height: 120px;
-    border-radius: 8px;
-    background: #f5f7fa;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #eee;
-    margin: .75rem 0;
-  }
-
-  .principles__demo-visual--bad {
-    border: 2px dashed var(--accent);
-  }
-
-  .principles__demo-visual--good {
-    border: 2px dashed var(--success);
-  }
-
-  /* Elements block */
-  .elements {}
-
-  .elements__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: var(--gap);
-    margin-top: var(--gap);
-  }
-
-  .elements__item {
-    background: #fff;
-    border-radius: var(--radius);
-    padding: 1rem;
-    text-align: center;
-    box-shadow: var(--shadow-sm);
-    transition: transform var(--transition);
-    opacity: 0;
-    transform: translateY(8px);
-  }
-
-  .elements__item:hover {
-    transform: scale(1.04);
-  }
-
-  .elements__icon {
-    font-size: 2rem;
-    color: var(--secondary);
-    margin-bottom: .5rem;
-  }
-
-  .elements__title {
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: .25rem;
-  }
-
-  /* Cards (alias to your global cards if present) */
-  .cards {
-    display: grid;
-    gap: var(--gap);
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    margin-top: var(--gap);
-  }
-
-  .cards__item {
-    /* minimal override if global cards.scss exists */
-  }
-
-  /* Demo interactive */
-  .demo {}
-
-  .demo__container {
-    display: flex;
-    gap: var(--gap);
-    flex-wrap: wrap;
-    margin-top: var(--gap);
-  }
-
-  .demo__box {
-    flex: 1;
-    min-width: 250px;
-    background: #fff;
-    border-radius: 12px;
-    border: 1px solid #eee;
-    padding: 1.4rem;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-    transition: var(--transition);
-    opacity: 0;
-    transform: translateY(8px);
-  }
-
-  .demo__box:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-md);
-  }
-
-  .demo__font {
-    font-size: 2.2rem;
-    padding: 1rem;
-    background: #fafafa;
-    border-radius: 8px;
-    margin: 1rem 0;
-  }
-
-  /* Pills & lists */
-  .pill {
-    display: inline-block;
-    padding: .35rem .7rem;
-    border-radius: 999px;
-    background: var(--light);
-    border: 1px solid #e6e6e6;
-    font-size: .9rem;
-    margin: .25rem .35rem .25rem 0;
-  }
-
-  .pill--primary {
-    color: var(--primary);
-    background: rgba(44, 62, 80, 0.06);
-    border-color: rgba(44, 62, 80, 0.12);
-  }
-
-  .pill--accent {
-    color: var(--accent);
-    background: rgba(231, 76, 60, 0.06);
-    border-color: rgba(231, 76, 60, 0.12);
-  }
-
-  .list {
-    list-style: none;
-    padding-left: 1rem;
-    margin: 1rem 0;
-  }
-
-  .list__item {
-    position: relative;
-    padding-left: 1.3rem;
-    margin-bottom: .5rem;
-  }
-
-  .list__item::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    color: var(--muted);
-    font-size: 1.1rem;
-    top: 0;
-  }
-
-  /* Utilities */
-  .hidden {
-    display: none !important;
-  }
-
-  @media (max-width:768px) {
-
-    .principles__demo,
-    .demo__container {
-      flex-direction: column;
-    }
-
-    .elements__grid {
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    }
-  }
-
-  /* reveal animation state (JS will set .is-visible) */
-  .is-visible {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-</style>
+@@include('../partials/head.html', {
+"title": "Основы дизайна — принципы, цвет, типография и композиция",
+"description": "Основы дизайна: визуальные принципы, типография, цветовая теория, композиция, иерархия и лучшие практики создания качественных интерфейсов."
+})
 
 <body>
+
   <a class="skip-link" href="#main">Перейти к содержимому</a>
 
   <div class="wrapper">
+
     @@include('../partials/header.html', {})
 
     <main class="page" id="main" tabindex="-1">
+
       <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
-        <a href="#intro" aria-current="page">Введение</a>
+        <a href="#intro" class="active" aria-current="page">Введение</a>
         <a href="#principles">Принципы</a>
         <a href="#elements">Элементы</a>
-        <a href="#examples">Примеры</a>
-        <a href="#resources">Ресурсы</a>
-        <a href="#visual-demo">Демо</a>
+        <a href="#typography">Типография</a>
+        <a href="#color">Цвет</a>
+        <a href="#composition">Композиция</a>
+        <a href="#accessibility">Доступность</a>
+        <a href="#best-practices">Лучшие практики</a>
+        <a href="#mistakes">Ошибки</a>
+        <a href="#checklist">Чек-лист</a>
+        <a href="#faq">FAQ</a>
+        <a href="#summary">Итоги</a>
+
+
+
+
       </nav>
 
       <!-- INTRO -->
-      <section class="intro section" id="intro">
+      <section class="section" id="intro">
         <div class="container">
-          <h1 class="intro__title">Фундамент дизайна</h1>
-          <p class="note"><strong>Фундамент дизайна</strong> — основные принципы и элементы, которые формируют основу любой визуальной коммуникации. Понимание этих основ позволяет создавать гармоничные, функциональные и эстетичные решения.</p>
+          <h1>Основы дизайна</h1>
+          <p class="note">
+            <strong>Дизайн</strong> — процесс создания визуального решения, которое объединяет эстетику, функциональность и удобство использования.
+            <br />
+            Основы дизайна помогают создавать понятные, гармоничные и эффективные визуальные системы.
+          </p>
+          <div class="note note--info">
+            <p><b>Дизайн используется в:</b></p>
+            <ul class="list-ul">
+              <li>веб-разработке</li>
+              <li>графике</li>
+              <li>интерфейсах</li>
+              <li>брендинге</li>
+              <li>цифровых продуктах</li>
+            </ul>
+            <p>Понимание базовых принципов позволяет создавать решения, которые не только выглядят хорошо, но и помогают пользователю быстрее получать нужную информацию.</p>
+          </div>
+
+          <figure>
+            <img class="note-img" src="/img/about-design/design-basic1.png" alt="Краткое описание содержимого" />
+            <figcaption class="note-caption">Рис. 1. Дизайн используется для создания визуальных решений, которые объединяют эстетику и функциональность</figcaption>
+          </figure>
+
 
           <div class="note-block">
-            <h2 class="note-block__title">Кратко о принципах и элементах</h2>
-            <ul class="list" aria-label="список принципов">
-              <li class="list__item">Баланс и симметрия</li>
-              <li class="list__item">Контраст и акцент</li>
-              <li class="list__item">Ритм и повторение</li>
-              <li class="list__item">Пропорция и масштаб</li>
-              <li class="list__item">Единство и гармония</li>
-              <li class="list__item">Иерархия и фокус</li>
+            <h3>Что включает фундамент дизайна</h3>
+            <p> <strong>Фундамент дизайна</strong> — базовые знания, которые помогают создавать визуально привлекательные и удобные интерфейсы. </p>
+            <ul class="cards cards--3">
+              <li class="card"><strong>Принципы дизайна</strong> <br> Правила, которые помогают создавать гармоничные композиции.</li>
+              <li class="card"><strong>Типография</strong> <br> Искусство выбора и организации текста для обеспечения читаемости и структуры.</li>
+              <li class="card"><strong>Цветовая теория</strong> <br> Система правил работы с цветами для создания гармоничных палитр и управления восприятием.</li>
+              <li class="card"><strong>Композиция</strong> <br> Организация элементов внутри пространства для создания порядка и управления вниманием.</li>
+              <li class="card"><strong>Иерархия</strong> <br> Порядок восприятия элементов пользователем, который помогает быстро находить важную информацию.</li>
+              <li class="card"><strong>Доступность</strong> <br> Создание интерфейсов, которыми могут пользоваться люди с разными возможностями и ограничениями.</li>
             </ul>
           </div>
         </div>
       </section>
 
-      <!-- PRINCIPLES -->
-      <section class="principles section" id="principles">
+      <!-- Принципы дизайна -->
+      <section class="section" id="principles">
         <div class="container">
-          <h2 class="principles__title">Основные принципы дизайна</h2>
-          <p class="principles__note"><strong>Принципы дизайна</strong> — правила организации визуальных элементов, которые помогают управлять вниманием и создавать понятную структуру.</p>
+          <h2>Принципы дизайна</h2>
+          <p class="note">
+            <strong>Принципы дизайна</strong> — основные правила, которые помогают создавать визуально сбалансированные и понятные композиции.
+          </p>
+          <p>Принципы дизайна помогают управлять вниманием пользователя, создавать гармоничные визуальные решения и обеспечивать удобство использования интерфейсов.</p>
+          <h4> Основные принципы дизайна включают: </h4>
 
-          <div class="principles__cards" role="list" aria-label="карточки принципов">
-            <article class="principles__card" role="listitem">
-              <div class="principles__card-header">Баланс</div>
-              <div class="principles__card-body">
-                <p>Распределение визуального веса элементов для создания стабильности и структуры. Может быть симметричным, асимметричным или радиальным.</p>
-              </div>
-              <div class="principles__card-footer">Применение: расположение элементов на странице</div>
-            </article>
+          <ul class="cards cards--3">
+            <!-- Баланс -->
+            <li class="card card--accent ">
+              <div class="card__title">Баланс</div>
+              <div class="card__desc">Распределение визуального веса элементов для создания ощущения стабильности и порядка.</div>
+              <p class="card__example"><b>Пример:</b> симметричный и асимметричный баланс в макете страницы.</p>
+            </li>
 
-            <article class="principles__card" role="listitem">
-              <div class="principles__card-header">Контраст</div>
-              <div class="principles__card-body">
-                <p>Использование различий в цвете, размере, форме и текстуре для выделения важных элементов и создания интереса.</p>
-              </div>
-              <div class="principles__card-footer">Применение: заголовки, кнопки, акценты</div>
-            </article>
+            <!-- Акцент -->
+            <li class="card">
+              <div class="card__title">Акцент</div>
+              <div class="card__desc">Выделение элемента, который должен первым привлечь внимание пользователя.</div>
+              <p class="card__example"><b>Пример:</b> использование яркого цвета или крупного размера для кнопки призыва к действию.</p>
+            </li>
 
-            <article class="principles__card" role="listitem">
-              <div class="principles__card-header">Ритм</div>
-              <div class="principles__card-body">
-                <p>Повторение элементов для создания движения и визуальной гармонии. Ритм может быть регулярным, прогрессирующим или случайным.</p>
-              </div>
-              <div class="principles__card-footer">Применение: паттерны, интервалы, последовательности</div>
-            </article>
+            <!-- Гармония -->
+            <li class="card">
+              <div class="card__title">Гармония</div>
+              <div class="card__desc">Согласованность всех элементов дизайна, которая создаёт единое визуальное впечатление.</div>
+              <p class="card__example"><b>Пример:</b> использование одной цветовой палитры и шрифтового стиля на всей странице.</p>
+            </li>
 
-            <article class="principles__card" role="listitem">
-              <div class="principles__card-header">Иерархия</div>
-              <div class="principles__card-body">
-                <p>Организация элементов по важности для направления внимания пользователя. Достигается через размер, цвет, расположение и контраст.</p>
+            <!-- Движение -->
+            <li class="card">
+              <div class="card__title">Движение</div>
+              <div class="card__desc">Направление взгляда пользователя через расположение элементов и использование линий.</div>
+              <p class="card__example"><b>Пример:</b> использование диагональных линий или последовательного расположения элементов для создания визуального потока.</p>
+            </li>
+
+            <!--  Пропорция и масштаб -->
+            <li class="card">
+              <div class="card__title">Пропорция и масштаб</div>
+              <div class="card__desc">Отношение размеров элементов друг к другу и к окружающему пространству.</div>
+              <p class="card__example"><b>Пример:</b> крупный заголовок и меньший текст для создания визуальной иерархии.</p>
+            </li>
+
+            <!-- Ритм -->
+            <li class="card">
+              <div class="card__title">Ритм</div>
+              <div class="card__desc">Повторение элементов, которое создаёт визуальный поток и структуру.</div>
+              <p class="card__example"><b>Пример:</b> повторяющиеся иконки или блоки информации с одинаковыми отступами.</p>
+            </li>
+
+            <!-- Единство и гармония -->
+            <li class="card">
+              <div class="card__title">Единство и гармония</div>
+              <div class="card__desc">Согласованность всех элементов дизайна для создания целостного визуального впечатления.</div>
+              <p class="card__example"><b>Пример:</b> использование одной цветовой палитры и шрифтового стиля на всей странице.</p>
+            </li>
+
+            <!-- Разнообразие -->
+            <li class="card">
+              <div class="card__title">Разнообразие</div>
+              <div class="card__desc">Использование различных элементов и стилей для создания интересного и динамичного дизайна.</div>
+              <p class="card__example"><b>Пример:</b> сочетание разных форм, цветов и текстур для привлечения внимания.</p>
+            </li>
+
+            <!-- Контраст -->
+            <li class="card">
+              <div class="card__title">Контраст</div>
+              <div class="card__desc">Различие между элементами, которое помогает выделять важную информацию.</div>
+              <p class="card__example"><b>Пример:</b> тёмный текст на светлом фоне или использование яркого цвета для кнопки действия.</p>
+
+            </li>
+
+
+          </ul>
+
+          <figure>
+            <img class="note-img" src="/img/about-design/design-basic2.png" alt="Краткое описание содержимого" />
+            <figcaption class="note-caption">Рис. 2 Принципы дизайна помогают создавать гармоничные и понятные визуальные решения</figcaption>
+          </figure>
+
+        </div>
+      </section>
+
+      <!-- Элементы дизайна -->
+      <section class="section" id="elements">
+        <div class="container">
+          <h2>Элементы дизайна</h2>
+          <p class="note">
+            <strong>Элементы дизайна</strong> — базовые визуальные компоненты, из которых создаётся любая композиция. Они помогают организовать информацию и управлять восприятием.
+          </p>
+
+          <ul class="cards cards--3" role="list" aria-label="Элементы дизайна">
+
+            <!-- Цвет -->
+            <li class="card card--accent">
+              <div class="card__title">Цвет
+                🎨</div>
+              <div class="card__desc">
+                Визуальный элемент, который создаёт настроение, передаёт смысл и помогает управлять вниманием пользователя.
               </div>
-              <div class="principles__card-footer">Применение: структура контента, навигация</div>
-            </article>
+              <p class="card__example">
+                <b>Пример:</b> использование акцентного цвета для кнопки действия и нейтральных цветов для фона.
+              </p>
+            </li>
+
+            <!-- Типографика -->
+            <li class="card">
+              <div class="card__title">Типографика ✍️</div>
+              <div class="card__desc">
+                Организация текста с помощью шрифтов, размеров и интервалов для улучшения читаемости и визуальной иерархии.
+              </div>
+              <p class="card__example">
+                <b>Пример:</b> крупный заголовок, выделенные подзаголовки и удобный размер основного текста.
+              </p>
+            </li>
+
+            <!-- Пространство -->
+            <li class="card">
+              <div class="card__title">Пространство 📐</div>
+              <div class="card__desc">
+                Свободная область между элементами, которая помогает создавать порядок, баланс и улучшает восприятие информации.
+              </div>
+              <p class="card__example">
+                <b>Пример:</b> использование отступов между блоками для разделения групп контента.
+              </p>
+            </li>
+
+            <!-- Форма -->
+            <li class="card">
+              <div class="card__title">Форма 🔷</div>
+              <div class="card__desc">
+                Внешний вид объектов, который определяет структуру, стиль и влияет на восприятие интерфейса.
+              </div>
+              <p class="card__example">
+                <b>Пример:</b> округлые кнопки создают ощущение дружелюбности, а строгие формы — профессиональный стиль.
+              </p>
+            </li>
+
+            <!-- Текстура -->
+            <li class="card">
+              <div class="card__title">Текстура 🖌️</div>
+              <div class="card__desc">
+                Визуальный или тактильный эффект, который добавляет глубину, характер и выразительность дизайну.
+              </div>
+              <p class="card__example">
+                <b>Пример:</b> использование фоновых паттернов или фактурных элементов для усиления визуального стиля.
+              </p>
+            </li>
+
+            <!-- Линия -->
+            <li class="card">
+              <div class="card__title">Линия ➖</div>
+              <div class="card__desc">
+                Элемент, который разделяет области, создаёт направление и помогает управлять движением взгляда.
+              </div>
+              <p class="card__example">
+                <b>Пример:</b> разделительные линии между блоками или направляющие линии в композиции.
+              </p>
+            </li>
+
+          </ul>
+          <figure>
+            <img class="note-img" src="/img/about-design/design-basic3.png" alt="Краткое описание содержимого" />
+            <figcaption class="note-caption">Рис. 3 Элементы дизайна помогают организовать информацию и управлять восприятием пользователя</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- Типография -->
+      <section class="section" id="typography">
+        <div class="container">
+          <h2>Типография</h2>
+          <p class="note">
+            <strong>Типография</strong> — искусство выбора и организации текста для обеспечения читаемости, структуры и визуального стиля. Включает в себя выбор шрифтов, размеров, интервалов и расположения текста на странице.
+          </p>
+          <h4> Основные термины типографии:</h4>
+          <ul class="list-ul">
+            <li><strong>Шрифт</strong> — набор символов с определённым стилем и начертанием.</li>
+            <li><strong>Начертание</strong> — вариация шрифта, например, обычный, жирный или курсив.</li>
+            <li><strong>Размер шрифта</strong> — высота символов, измеряемая в пикселях или пунктах.</li>
+            <li><strong>Межстрочный интервал</strong> — расстояние между строками текста.</li>
+            <li><strong>Кернинг</strong> — регулировка расстояния между отдельными буквами.</li>
+            <li><strong>Трекинг</strong> — равномерное изменение расстояния между всеми буквами в тексте.</li>
+          </ul>
+          <figure>
+            <img class="note-img" src="/img/about-design/design-basic4.png" alt="Краткое описание содержимого" />
+            <figcaption class="note-caption">Рис. 4 Типография </figcaption>
+          </figure>
+
+          <h3>Типы шрифтов</h3>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Тип</th>
+                <th>Особенности</th>
+                <th>Использование</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Serif</strong> — шрифты с засечками.</td>
+                <td>Классический, традиционный и официальный стиль.</td>
+                <td><span style="font-family: 'Courier New', Courier, monospace;">Книги, журналы, презентации.</span></td>
+              </tr>
+              <tr>
+                <td><strong>Sans-serif</strong> — шрифты без засечек.</td>
+                <td>Современный, простой и минималистичный вид.</td>
+                <td><span style="font-family: Arial, Helvetica, sans-serif;">Сайты, приложения, интерфейсы.</span></td>
+              </tr>
+              <tr>
+                <td><strong>Script</strong> — рукописные шрифты.</td>
+                <td>Творческий и персональный стиль.</td>
+                <td><span style="font-family: 'Brush Script MT', cursive;">Логотипы, приглашения, брендинг.</span></td>
+              </tr>
+              <tr>
+                <td><strong>Display</strong> — декоративные шрифты.</td>
+                <td>Выразительный внешний вид.</td>
+                <td><span style="font-family: 'Impact', Charcoal, sans-serif;">Заголовки и рекламные материалы.</span></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Иерархия текста</h3>
+          <p class="note">
+            <strong>Типографическая иерархия</strong> — организация текста по степени важности с помощью размера, начертания и расположения.
+          </p>
+          <ul class="list-ul">
+            <li><strong>H1</strong> — главный заголовок страницы.</li>
+            <li><strong>H2/H3</strong> — разделы и подразделы.</li>
+            <li><strong>Основной текст</strong> — описание и пояснения.</li>
+            <li><strong>Подписи</strong> — дополнительная информация.</li>
+          </ul>
+
+          <h3>Размеры текста</h3>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Элемент</th>
+                <th>Рекомендуемый размер</th>
+                <th>Назначение</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>H1</strong></td>
+                <td>32–48px</td>
+                <td>Главная тема страницы.</td>
+              </tr>
+              <tr>
+                <td><strong>H2</strong></td>
+                <td>24–32px</td>
+                <td>Название раздела.</td>
+              </tr>
+              <tr>
+                <td><strong>Текст</strong></td>
+                <td>14–18px</td>
+                <td>Основная информация.</td>
+              </tr>
+              <tr>
+                <td><strong>Подписи</strong></td>
+                <td>11–14px</td>
+                <td>Второстепенные данные.</td>
+              </tr>
+            </tbody>
+          </table>
+
+
+        </div>
+      </section>
+
+      <!-- COLOR -->
+      <section class="section" id="color">
+        <div class="container">
+          <h2>Цветовая теория</h2>
+          <p class="note">
+            <strong>Цветовая теория</strong> — система правил работы с цветами, которая помогает создавать гармоничные палитры и управлять восприятием пользователя.
+          </p>
+
+          <h3>Цветовой круг</h3>
+          <p class="note">
+            <strong>Цветовой круг</strong> — визуальная модель взаимосвязи цветов, которая используется для создания гармоничных цветовых сочетаний.
+          </p>
+          <ul class="list-ul">
+            <li><strong>Основные цвета</strong> — красный, жёлтый и синий.</li>
+            <li><strong>Вторичные цвета</strong> — получаются смешением основных цветов.</li>
+            <li><strong>Дополнительные цвета</strong> — находятся напротив друг друга на цветовом круге.</li>
+            <li><strong>Аналогичные цвета</strong> — расположены рядом и создают спокойные сочетания.</li>
+          </ul>
+
+          <h3>Цветовые схемы</h3>
+          <p class="note">
+            <strong>Цветовая схема</strong> — способ сочетания нескольких цветов для создания определённого визуального эффекта.
+          </p>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Схема</th>
+                <th>Описание</th>
+                <th>Применение</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Монохроматическая</strong> — один цвет с разными оттенками.</td>
+                <td>Создаёт спокойный и единый стиль.</td>
+                <td>Минималистичные интерфейсы, брендинг.</td>
+              </tr>
+              <tr>
+                <td><strong>Аналогичная</strong> — соседние цвета на круге.</td>
+                <td>Гармоничная и мягкая композиция.</td>
+                <td>Природные темы, сервисы, приложения.</td>
+              </tr>
+              <tr>
+                <td><strong>Комплементарная</strong> — противоположные цвета.</td>
+                <td>Высокий контраст и динамика.</td>
+                <td>Кнопки, акценты, рекламные элементы.</td>
+              </tr>
+              <tr>
+                <td><strong>Триадическая</strong> — три равноудалённых цвета.</td>
+                <td>Яркая и сбалансированная палитра.</td>
+                <td>Креативные проекты и брендинг.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Психология цвета</h3>
+          <p class="note">
+            <strong>Психология цвета</strong> — изучение того, как цвета влияют на восприятие, эмоции и поведение человека.
+          </p>
+          <ul class="list-ul">
+            <li><strong>Красный</strong> — энергия, внимание, активность.</li>
+            <li><strong>Синий</strong> — доверие, спокойствие, профессиональность.</li>
+            <li><strong>Зелёный</strong> — природа, здоровье, развитие.</li>
+            <li><strong>Жёлтый</strong> — оптимизм, творчество, энергия.</li>
+            <li><strong>Чёрный</strong> — стиль, сила, премиальность.</li>
+            <li><strong>Белый</strong> — чистота, простота, пространство.</li>
+          </ul>
+
+          <h3>Контраст и читаемость</h3>
+          <p class="note">
+            <strong>Контраст</strong> — различие между объектами, которое помогает пользователю быстро воспринимать информацию.
+          </p>
+
+          <div class="warning">
+            <p>
+              <strong>Важно:</strong> текст должен иметь достаточный контраст с фоном. Для обычного текста рекомендуется значение не менее 4.5:1.
+            </p>
           </div>
 
-          <div class="principles__demo" role="group" aria-label="Демонстрация плохой и хорошей иерархии">
-            <div class="principles__demo-item">
-              <h3 class="principles__demo-title">Плохая иерархия</h3>
-              <div class="principles__demo-visual principles__demo-visual--bad" aria-hidden="true">
-                <div>Заголовок раздела</div>
-                <div>Подзаголовок</div>
-                <div>Основной текст</div>
-              </div>
-              <p>Элементы не организованы по важности, отсутствует четкий порядок восприятия.</p>
-            </div>
+          <ul class="list-ul">
+            <li>Тёмный текст на светлом фоне обычно читается лучше.</li>
+            <li>Не используйте цвет как единственный способ передачи информации.</li>
+            <li>Проверяйте дизайн для пользователей с нарушением цветового восприятия.</li>
+          </ul>
+        </div>
+      </section>
 
-            <div class="principles__demo-item">
-              <h3 class="principles__demo-title">Хорошая иерархия</h3>
-              <div class="principles__demo-visual principles__demo-visual--good" aria-hidden="true">
-                <div>Заголовок раздела</div>
-                <div>Подзаголовок</div>
-                <div>Основной текст</div>
-              </div>
-              <p>Четкая визуальная структура с явным акцентом на главных элементах.</p>
-            </div>
+      <!-- COMPOSITION -->
+      <section class="section" id="composition">
+        <div class="container">
+          <h2>Композиция</h2>
+          <p class="note">
+            <strong>Композиция</strong> — организация элементов внутри пространства, которая помогает создавать порядок и управлять вниманием.
+          </p>
+
+          <h3>Правило третей</h3>
+          <p class="note">
+            <strong>Правило третей</strong> — метод построения композиции, при котором пространство делится на девять равных частей.
+          </p>
+          <ul class="list-ul">
+            <li>Важные элементы размещаются на пересечениях линий.</li>
+            <li>Композиция становится более динамичной.</li>
+            <li>Используется в интерфейсах, фотографии и графическом дизайне.</li>
+          </ul>
+
+          <h3>Z-паттерн</h3>
+          <p class="note">
+            <strong>Z-паттерн</strong> — движение взгляда пользователя по странице в форме буквы Z.
+          </p>
+          <ul class="list-ul">
+            <li>Взгляд начинается сверху слева.</li>
+            <li>Переходит вправо к важному элементу.</li>
+            <li>Двигается вниз и возвращается влево.</li>
+            <li>Используется в лендингах и рекламных страницах.</li>
+          </ul>
+
+          <h3>F-паттерн</h3>
+          <p class="note">
+            <strong>F-паттерн</strong> — модель чтения веб-страниц, при которой пользователь просматривает контент сверху вниз.
+          </p>
+          <ul class="list-ul">
+            <li>Основное внимание получает верхняя часть страницы.</li>
+            <li>Первые строки текста воспринимаются лучше всего.</li>
+            <li>Важную информацию следует размещать в начале блока.</li>
+          </ul>
+
+          <h3>Направление взгляда</h3>
+          <p class="note">
+            <strong>Визуальное направление</strong> — способы управления движением взгляда пользователя через форму, линии и расположение объектов.
+          </p>
+          <ul class="list-ul">
+            <li><strong>Линии</strong> — направляют внимание к объекту.</li>
+            <li><strong>Размер</strong> — показывает важность элемента.</li>
+            <li><strong>Положение</strong> — верхние области чаще воспринимаются первыми.</li>
+            <li><strong>Изображения людей</strong> — взгляд человека на изображении может направлять внимание.</li>
+          </ul>
+
+          <div class="note-block">
+            <h3>Практический совет</h3>
+            <ul class="list-ul">
+              <li>Размещайте главный элемент там, где пользователь ожидает его увидеть.</li>
+              <li>Не перегружайте страницу большим количеством равнозначных объектов.</li>
+              <li>Используйте пространство для создания визуальной паузы.</li>
+            </ul>
           </div>
         </div>
       </section>
 
-      <!-- ELEMENTS -->
-      <section class="elements section" id="elements">
+      <!-- SPACE -->
+      <section class="section" id="space">
         <div class="container">
-          <h2 class="elements__title">Ключевые элементы дизайна</h2>
-          <p class="elements__note"><strong>Элементы дизайна</strong> — строительные блоки композиции: цвет, типографика, форма, пространство, текстура и линия.</p>
+          <h2>Пространство и отступы</h2>
+          <p class="note">
+            <strong>Пространство</strong> — область между элементами дизайна, которая помогает разделять, группировать и структурировать информацию.
+          </p>
 
-          <div class="elements__grid" role="list" aria-label="Сетка элементов">
-            <article class="elements__item" role="listitem">
-              <div class="elements__icon" aria-hidden="true">🎨</div>
-              <div class="elements__title">Цвет</div>
-              <p>Вызывает эмоции, создаёт настроение и направляет внимание.</p>
-            </article>
+          <h3>Белое пространство</h3>
+          <p class="note">
+            <strong>Белое пространство</strong> — свободная область вокруг элементов, которая улучшает восприятие и делает интерфейс более удобным.
+          </p>
+          <ul class="list-ul">
+            <li><strong>Активное пространство</strong> — используется для выделения важных элементов.</li>
+            <li><strong>Пассивное пространство</strong> — помогает улучшить читаемость текста.</li>
+            <li><strong>Макро-пространство</strong> — расстояния между большими блоками страницы.</li>
+            <li><strong>Микро-пространство</strong> — небольшие интервалы внутри элементов.</li>
+          </ul>
 
-            <article class="elements__item" role="listitem">
-              <div class="elements__icon" aria-hidden="true">✍️</div>
-              <div class="elements__title">Типографика</div>
-              <p>Обеспечивает читаемость и передаёт тон сообщения.</p>
-            </article>
+          <h3>Margin и Padding</h3>
+          <p class="note">
+            <strong>Margin и Padding</strong> — способы управления расстояниями между элементами и внутри компонентов.
+          </p>
 
-            <article class="elements__item" role="listitem">
-              <div class="elements__icon" aria-hidden="true">📐</div>
-              <div class="elements__title">Пространство</div>
-              <p>Создаёт баланс, улучшает читаемость и фокусирует внимание.</p>
-            </article>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Свойство</th>
+                <th>Описание</th>
+                <th>Использование</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Margin</strong> — внешний отступ элемента.</td>
+                <td>Создаёт расстояние между блоками.</td>
+                <td>Разделение секций страницы.</td>
+              </tr>
+              <tr>
+                <td><strong>Padding</strong> — внутренний отступ элемента.</td>
+                <td>Создаёт пространство внутри блока.</td>
+                <td>Карточки, кнопки, поля формы.</td>
+              </tr>
+            </tbody>
+          </table>
 
-            <article class="elements__item" role="listitem">
-              <div class="elements__icon" aria-hidden="true">🔶</div>
-              <div class="elements__title">Форма</div>
-              <p>Определяет структуру и направляет взгляд пользователя.</p>
-            </article>
+          <h3>Система отступов</h3>
+          <p class="note">
+            <strong>Система отступов</strong> — набор фиксированных значений расстояний, который помогает сохранять единый стиль.
+          </p>
+          <ul class="list-ul">
+            <li>Используйте одинаковые интервалы между похожими элементами.</li>
+            <li>Создавайте визуальные группы через расстояния.</li>
+            <li>Не размещайте элементы слишком близко друг к другу.</li>
+            <li>Используйте единый масштаб отступов во всём проекте.</li>
+          </ul>
+        </div>
+      </section>
 
-            <article class="elements__item" role="listitem">
-              <div class="elements__icon" aria-hidden="true">🧵</div>
-              <div class="elements__title">Текстура</div>
-              <p>Добавляет глубину и тактильное ощущение к визуалу.</p>
-            </article>
+      <!-- HIERARCHY -->
+      <section class="section" id="hierarchy">
+        <div class="container">
+          <h2>Визуальная иерархия</h2>
+          <p class="note">
+            <strong>Визуальная иерархия</strong> — порядок восприятия элементов пользователем, который помогает быстро находить важную информацию.
+          </p>
 
-            <article class="elements__item" role="listitem">
-              <div class="elements__icon" aria-hidden="true">➖</div>
-              <div class="elements__title">Линия</div>
-              <p>Разделяет, соединяет и направляет взгляд.</p>
-            </article>
+          <h3>Способы создания иерархии</h3>
+          <ul class="list-ul">
+            <li><strong>Размер</strong> — крупные элементы воспринимаются раньше маленьких.</li>
+            <li><strong>Контраст</strong> — выделяет важные объекты.</li>
+            <li><strong>Расположение</strong> — верхняя часть страницы получает больше внимания.</li>
+            <li><strong>Цвет</strong> — помогает направлять пользователя.</li>
+            <li><strong>Пробелы</strong> — создают группы и разделяют блоки.</li>
+          </ul>
+
+          <h3>Уровни информации</h3>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Уровень</th>
+                <th>Элемент</th>
+                <th>Задача</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Первичный</strong></td>
+                <td>Главный заголовок, основной призыв.</td>
+                <td>Привлечь внимание.</td>
+              </tr>
+              <tr>
+                <td><strong>Вторичный</strong></td>
+                <td>Подзаголовки, разделы.</td>
+                <td>Организовать содержание.</td>
+              </tr>
+              <tr>
+                <td><strong>Третичный</strong></td>
+                <td>Описание, подписи, детали.</td>
+                <td>Дать дополнительную информацию.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="warning">
+            <p>
+              <strong>Типичная ошибка:</strong> все элементы имеют одинаковый визуальный вес. Пользователь не понимает, куда смотреть сначала.
+            </p>
           </div>
         </div>
       </section>
 
-      <!-- EXAMPLES -->
-      <section class="examples section" id="examples">
+      <!-- Доступность дизайна -->
+      <section class="section" id="accessibility">
         <div class="container">
-          <h2 class="examples__title">Практические примеры</h2>
-          <p class="examples__note"><strong>Примеры применения</strong> — как принципы и элементы работают в вебе и полиграфии.</p>
+          <h2>Доступность дизайна</h2>
+          <p class="note">
+            <strong>Доступность</strong> — создание интерфейсов, которыми могут пользоваться люди с разными возможностями и ограничениями.
+          </p>
 
-          <div class="cards" role="list" aria-label="Примеры использования">
-            <article class="cards__item" role="listitem">
-              <div class="cards__header">Веб‑дизайн</div>
-              <div class="cards__body">
-                <p>Контраст для CTA, единый стиль навигации, пространство вокруг форм, иерархия контента, цветовая схема бренда.</p>
-              </div>
-            </article>
+          <h3>Основные правила доступности</h3>
+          <ul class="list-icon">
+            <li>✅ Хороший контраст текста и фона.</li>
+            <li>✅ Понятная структура заголовков.</li>
+            <li>✅ Управление интерфейсом с клавиатуры.</li>
+            <li>✅ Альтернативные описания изображений.</li>
+            <li>✅ Понятные названия кнопок и элементов.</li>
+          </ul>
 
-            <article class="cards__item" role="listitem">
-              <div class="cards__header">Графический дизайн</div>
-              <div class="cards__body">
-                <p>Баланс в композиции плаката, типографическая иерархия в журнале, ритм в паттернах, пропорции логотипов.</p>
-              </div>
-            </article>
-          </div>
+          <h3>Цвет и доступность</h3>
+          <p class="note">
+            <strong>Цветовая доступность</strong> — использование цвета так, чтобы информация оставалась понятной для всех пользователей.
+          </p>
+          <ul class="list-ul">
+            <li>Не используйте только цвет для передачи состояния.</li>
+            <li>Добавляйте текстовые обозначения ошибок.</li>
+            <li>Проверяйте интерфейс с помощью инструментов анализа контраста.</li>
+          </ul>
+
+          <h3>Изображения</h3>
+          <p class="note">
+            <strong>Альтернативный текст</strong> — описание изображения для пользователей, которые используют программы чтения экрана.
+          </p>
+
+          <figure>
+            <img class="note-img" src="/img/design/accessibility.png" alt="Пример доступного интерфейса с хорошим контрастом" />
+            <figcaption class="note-caption">Рис. 1. Пример доступного визуального решения</figcaption>
+          </figure>
         </div>
       </section>
 
-      <!-- RESOURCES -->
-      <section class="resources section" id="resources">
+      <!-- Лучшие практики дизайна -->
+      <section class="section" id="best-practices">
         <div class="container">
-          <h2 class="resources__title">Дополнительные ресурсы</h2>
-          <p class="resources__note"><strong>Материалы для углубления</strong> — книги, курсы и инструменты для работы с дизайном.</p>
+          <h2>Лучшие практики дизайна</h2>
+          <p class="note">
+            <strong>Лучшие практики</strong> — проверенные подходы, которые помогают создавать понятные, эффективные и удобные интерфейсы.
+          </p>
 
-          <div class="cards" role="list" aria-label="Ресурсы">
-            <article class="cards__item" role="listitem">
-              <div class="cards__header">Книги</div>
-              <div class="cards__body">
-                <p><strong>Дизайн привычных вещей</strong> — Дон Норман</p>
-                <p><strong>Искусство цвета</strong> — И. Иттен</p>
-                <p><strong>Типографика</strong> — Э. Рудер</p>
-              </div>
-            </article>
+          <h3>Перед созданием дизайна</h3>
+          <ol class="list-ol">
+            <li>Определите цель страницы и основные задачи пользователя.</li>
+            <li>Изучите аудиторию и её потребности.</li>
+            <li>Создайте структуру информации до начала визуальной работы.</li>
+            <li>Определите основные элементы интерфейса.</li>
+          </ol>
 
-            <article class="cards__item" role="listitem">
-              <div class="cards__header">Онлайн‑курсы</div>
-              <div class="cards__body">
-                <p><strong>Основы графического дизайна</strong> — Coursera</p>
-                <p><strong>UI/UX дизайн</strong> — Udemy</p>
-                <p><strong>Цвет в дизайне</strong> — Skillbox</p>
-              </div>
-            </article>
+          <h3>Во время разработки</h3>
+          <ul class="list-ul">
+            <li>Используйте единую систему цветов.</li>
+            <li>Соблюдайте типографическую иерархию.</li>
+            <li>Повторяйте одинаковые визуальные паттерны.</li>
+            <li>Используйте пространство для улучшения читаемости.</li>
+            <li>Проверяйте дизайн на разных устройствах.</li>
+          </ul>
 
-            <article class="cards__item" role="listitem">
-              <div class="cards__header">Инструменты</div>
-              <div class="cards__body">
-                <p><strong>Adobe Color</strong> — подбор цветовых схем</p>
-                <p><strong>Google Fonts</strong> — библиотека шрифтов</p>
-                <p><strong>Figma</strong> — дизайн и прототипирование</p>
-              </div>
-            </article>
-          </div>
+          <h3>После создания</h3>
+          <ul class="list-icon">
+            <li>✅ Проверьте удобство использования.</li>
+            <li>✅ Проверьте контраст и доступность.</li>
+            <li>✅ Уберите лишние элементы.</li>
+            <li>✅ Получите обратную связь от пользователей.</li>
+          </ul>
         </div>
       </section>
 
-      <!-- VISUAL DEMO -->
-      <section class="demo section" id="visual-demo">
+      <!-- Типичные ошибки дизайна -->
+      <section class="section" id="mistakes">
         <div class="container">
-          <h2 class="demo__title">Визуальное восприятие фундамента</h2>
-          <p class="demo__note"><strong>Демонстрация</strong> — как изменение принципов влияет на восприятие идентичных элементов.</p>
+          <h2>Типичные ошибки дизайна</h2>
+          <p class="note">
+            <strong>Ошибки дизайна</strong> — решения, которые ухудшают восприятие информации и делают интерфейс сложнее для пользователя.
+          </p>
 
-          <div class="demo__container" aria-live="polite">
-            <div class="demo__box" role="region" aria-label="Хаотичный дизайн">
-              <h4>Хаотичный дизайн</h4>
-              <div class="demo__font">Пример текста</div>
-              <p>Отсутствие структуры, несбалансированные цвета, плохая читаемость.</p>
-              <div><span class="pill pill--accent">Нет иерархии</span><span class="pill">Дисгармония</span></div>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Ошибка</th>
+                <th>Проблема</th>
+                <th>Решение</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Слишком много цветов</strong></td>
+                <td>Интерфейс становится перегруженным.</td>
+                <td>Использовать ограниченную палитру.</td>
+              </tr>
+              <tr>
+                <td><strong>Нет визуальной иерархии</strong></td>
+                <td>Пользователь не понимает порядок действий.</td>
+                <td>Добавить уровни заголовков и акценты.</td>
+              </tr>
+              <tr>
+                <td><strong>Маленький текст</strong></td>
+                <td>Ухудшается читаемость.</td>
+                <td>Использовать удобный размер шрифта.</td>
+              </tr>
+              <tr>
+                <td><strong>Отсутствие пространства</strong></td>
+                <td>Элементы выглядят хаотично.</td>
+                <td>Добавить правильные отступы.</td>
+              </tr>
+              <tr>
+                <td><strong>Игнорирование доступности</strong></td>
+                <td>Часть пользователей не сможет пользоваться интерфейсом.</td>
+                <td>Следовать рекомендациям WCAG.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Чек-лист перед публикацией -->
+      <section class="section" id="checklist">
+        <div class="container">
+          <h2>Чек-лист перед публикацией</h2>
+          <p class="note">
+            <strong>Чек-лист дизайна</strong> — список проверок, который помогает убедиться, что страница готова к использованию.
+          </p>
+
+          <ul class="list-icon">
+            <li>✅ Есть один главный визуальный акцент.</li>
+            <li>✅ Заголовки имеют понятную структуру.</li>
+            <li>✅ Текст легко читается.</li>
+            <li>✅ Цвета имеют достаточный контраст.</li>
+            <li>✅ Все элементы имеют одинаковый стиль.</li>
+            <li>✅ Отступы между блоками последовательны.</li>
+            <li>✅ Интерфейс работает на мобильных устройствах.</li>
+            <li>✅ Изображения имеют корректный alt.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Часто задаваемые вопросы -->
+      <section class="section" id="faq">
+        <div class="container">
+          <h2>Часто задаваемые вопросы</h2>
+
+          <div class="faq">
+
+            <div class="faq__item">
+              <button class="faq__question">
+                Почему дизайн — это не только внешний вид?
+              </button>
+              <div class="faq__answer">
+                <p>
+                  Дизайн — это не только визуальная красота, но и решение задач пользователя через структуру, удобство и понятность. Хороший дизайн делает интерфейс интуитивным и приятным в использовании.
+                </p>
+              </div>
             </div>
 
-            <div class="demo__box" role="region" aria-label="Сбалансированный дизайн">
-              <h4>Сбалансированный дизайн</h4>
-              <div class="demo__font">Пример текста</div>
-              <p>Четкая структура, гармоничная палитра, хорошая читаемость.</p>
-              <div><span class="pill pill--primary">Иерархия</span><span class="pill pill--primary">Баланс</span></div>
+            <div class="faq__item">
+              <button class="faq__question">
+                Сколько цветов использовать в интерфейсе?
+              </button>
+              <div class="faq__answer">
+                <p>
+                  Обычно достаточно основного цвета, 2–3 дополнительных и нейтральных оттенков. Ограниченная палитра создаёт единство, а большое количество цветов перегружает интерфейс.
+                </p>
+              </div>
             </div>
+
+            <div class="faq__item">
+              <button class="faq__question">
+                Почему типографика так важна?
+              </button>
+              <div class="faq__answer">
+                <p>
+                  Типографика помогает пользователю быстро находить информацию, правильно воспринимать содержание и создаёт визуальную иерархию. Хорошая типографика делает текст удобнее и приятнее читать.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq__item">
+              <button class="faq__question">
+                Нужно ли всегда следовать трендам дизайна?
+              </button>
+              <div class="faq__answer">
+                <p>
+                  Тренды могут вдохновлять и улучшать внешний вид, но они никогда не должны заменять удобство, функциональность и доступность. Приоритет — всегда пользователь и его нужды.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Итоги -->
+      <section class="section" id="summary">
+        <div class="container">
+          <h2>Итоги</h2>
+          <div class="summary">
+            <p>
+              <strong>Основы хорошего дизайна:</strong>
+            </p>
+            <ul class="list-ul">
+              <li>Понимание принципов композиции.</li>
+              <li>Грамотная работа с цветом и типографикой.</li>
+              <li>Создание визуальной иерархии.</li>
+              <li>Использование пространства.</li>
+              <li>Забота о доступности.</li>
+              <li>Постоянное улучшение через анализ и обратную связь.</li>
+            </ul>
           </div>
         </div>
       </section>
 
     </main>
 
+
+
     @@include('../partials/footer.html', {})
+
   </div>
 
   @@include('../partials/popup.html', {})
+
   @@include('../partials/js.html', {})
 
-  <script>
-    // Reveal animation: добавляет класс .is-visible к блокам карточек/элементов/демо
-    document.addEventListener('DOMContentLoaded', () => {
-      const toReveal = document.querySelectorAll('.principles__card, .principles__demo-item, .elements__item, .cards__item, .demo__box');
-      toReveal.forEach((el, idx) => {
-        setTimeout(() => el.classList.add('is-visible'), idx * 80);
-      });
-    });
-  </script>
 </body>
 
 </html>

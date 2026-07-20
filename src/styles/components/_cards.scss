@@ -55,6 +55,7 @@
     outline-offset: 2px;
   }
 
+  //.card__title
   &__title {
     margin: 0 0 8px;
     font-size: 1.3rem;
@@ -64,7 +65,7 @@
     font-family: $fontFamilyAccent;
   }
 
-  p {
+  &__text {
     margin: 0 0 8px;
     font-size: 1rem;
     line-height: 1.2;
@@ -73,11 +74,22 @@
     font-family: $fontFamily;
   }
 
+  //.card__desc
   &__desc {
     margin: 0;
     color: $darkColor;
     line-height: 1.6;
   }
+
+  //.card__example
+  &__example {
+    margin: 10px 0 0 0;
+    font-size: 0.9rem;
+    color: $greyColor;
+    line-height: 1.6;
+
+  }
+
 
   ul {
     margin: 0;
@@ -112,7 +124,7 @@
     background-color: #f4f9ff;
   }
 
-  /* footer layout helper */
+  //.card__footer
   &__footer {
     display: flex;
     gap: .5rem;
@@ -137,6 +149,7 @@
   box-shadow: 0 6px 18px rgba(231, 76, 60, 0.08);
 }
 
+// Модификатор для прозрачной карточки с пунктирной рамкой
 .card--ghost {
   background: transparent;
   border-style: dashed;
