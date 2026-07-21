@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', {
+"title": "Синхронность и асинхронность в JavaScript — callbacks, promises, async/await",
+"description": "Синхронный и асинхронный код в JavaScript: callbacks, promises, async/await, обработка ошибок и практические примеры."
+})
+
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+
+    <main class="page" id="main" tabindex="-1">
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#intro" class="active" aria-current="page">Введение</a>
+        <a href="#concepts">Основные понятия</a>
+        <a href="#sync">Синхронный код</a>
+        <a href="#async">Асинхронный код</a>
+        <a href="#settimeout">setTimeout()</a>
+        <a href="#cleartimeout">clearTimeout()</a>
+        <a href="#setinterval">setInterval()</a>
+        <a href="#comparison">Сравнение методов</a>
+        <a href="#best-practices">Лучшие практики</a>
+        <a href="#summary">Итоги</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="intro">
+        <div class="container">
+          <h1>Синхронность и асинхронность в JavaScript</h1>
+
+          <p class="note">
+            <strong>Синхронный код</strong> выполняется последовательно — каждая строка ждёт завершения предыдущей.
+            <br />
+            <strong>Асинхронный код</strong> позволяет продолжить выполнение, не ожидая результата долгой операции.
+          </p>
+          <h4>Пример синхронного кода</h4>
+
+          <div class="code-block">
+            <pre><code>console.log('Первая задача');
+console.log('Вторая задача');
+console.log('Третья задача');
+//Вывод будет: Первая задача, Вторая задача, Третья задача</code></pre>
+          </div>
+
+
+          <h4>Пример асинхронного кода</h4>
+          <div class="code-block">
+            <pre><code>console.log('Первая задача');
+setTimeout(() =&gt; {
+  console.log('Вторая задача (асинхронно)');
+}, 1000);
+console.log('Третья задача');
+//Вывод будет: Первая задача, Третья задача, Вторая задача (через 1 секунду)</code>
+</code></pre>
+          </div>
+
+
+
+
+
+          <p>
+            В JavaScript асинхронность критична для сетевых запросов, работы с файлами и задержек. Без неё пользовательский интерфейс замерзал бы на каждый HTTP-запрос.
+          </p>
+
+          <div class="note-block">
+            <h3>Где используется асинхронность</h3>
+            <ul class="list-ul">
+              <li>Сетевые запросы (fetch, axios).</li>
+              <li>Работа с файловой системой (Node.js).</li>
+              <li>Таймеры и задержки (setTimeout, setInterval).</li>
+              <li>Операции с базами данных.</li>
+              <li>Параллельные вычисления.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Основные понятия -->
+      <section class="section" id="concepts">
+        <div class="container">
+          <h2>Основные понятия</h2>
+
+          <p class="note">
+            <strong>Синхронность и асинхронность</strong> — два способа организации выполнения кода в зависимости от времени ожидания результатов операций.
+          </p>
+
+          <ul class="list-ul">
+            <li><strong>Синхронный код</strong> — выполняется блокирующим образом, строки выполняются одна за другой.</li>
+            <li><strong>Асинхронный код</strong> — не блокирует выполнение, результат приходит позже.</li>
+            <li><strong>Callback (колбэк)</strong> — функция, вызываемая после завершения асинхронной операции.</li>
+            <li><strong>Promise (промис)</strong> — объект, представляющий будущее значение или ошибку.</li>
+            <li><strong>Async/Await (асинхронные функции)</strong> — современный синтаксис для работы с асинхронным кодом.</li>
+            <li><strong>Event Loop (событийный цикл)</strong> — механизм, который управляет выполнением асинхронного кода.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Синхронный код -->
+      <section class="section" id="sync">
+        <div class="container">
+          <h2>Синхронный код</h2>
+
+          <p class="note">
+            <strong>Синхронный код</strong> выполняется последовательно. Каждая строка ждёт завершения предыдущей.
+          </p>
+
+          <h3>Пример синхронного кода</h3>
+
+          <div class="code-block">
+            <pre><code>console.log("Начало");
+
+function add(a, b) {
+  return a + b;
+}
+
+const result = add(2, 3); // Выполняется сразу
+console.log(result); // 5
+
+console.log("Конец");</code></pre>
+          </div>
+
+          <p>Вывод:</p>
+
+          <div class="code-block">
+            <pre><code>Начало
+5
+Конец</code></pre>
+          </div>
+
+          <h3>Проблема: блокирующие операции</h3>
+
+          <p class="note note--info">
+            <strong>Проблема:</strong> если операция занимает время (сетевой запрос, чтение файла), весь код замерзает в ожидании.
+          </p>
+
+          <div class="code-block">
+            <pre><code>console.log("Запрос к серверу...");
+
+// Эта функция имитирует долгую операцию
+function slowOperation() {
+  let sum = 0;
+  for (let i = 0; i &lt; 1000000000; i++) {
+    sum += i; // Много вычислений, занимает время
+  }
+  return sum;
+}
+
+const data = slowOperation(); // Код здесь ждёт!
+console.log("Данные получены:", data);
+
+// Эта строка выполнится только после slowOperation
+console.log("Продолжение работы");</code></pre>
+          </div>
+
+          <p>Проблема: пока выполняется slowOperation, ничего больше не может выполниться. Интерфейс замерзнет.</p>
+        </div>
+      </section>
+
+
+
+      <section class="section" id="async">
+        <div class="container">
+          <h2>Асинхронный код</h2>
+
+
+          <p class="note">
+            <strong>Асинхронный код</strong> выполняется не по очереди, а продолжает работать, не ожидая завершения других операций.
+          </p>
+
+          <h4>Как работает асинхронность</h4>
+          <p>Допустим, одна из задач занимает время, но программа не будет ждать её завершения. Тут у нас у второй задачи стоит таймер на 2 секунды.</p>
+
+          <div class="code-block">
+            <pre><code>console.log('Задача 1: Начинаем');
+setTimeout(() =&gt; {
+  console.log('Задача 2: Асинхронная операция');
+}, 2000);
+console.log('Задача 3: Всё идёт параллельно');</code></pre>
+          </div>
+
+          <h5>Вывод будет такой:</h5>
+
+          <div class="code-block">
+            <pre><code>Задача 1: Начинаем
+Задача 3: Всё идёт параллельно
+Задача 2: Асинхронная операция</code></pre>
+          </div>
+
+          <h5>Пояснение:</h5>
+          <ul class="list-ol">
+            <li>Мы сразу выводим "Задача 1".</li>
+            <li>Потом ставим операцию с задержкой в 2 секунды.</li>
+            <li>Параллельно выполняется "Задача 3".</li>
+          </ul>
+
+          <h3>Преимущества асинхронности</h3>
+          <ul class="list-ul">
+            <li>Код не блокируется, интерфейс остаётся отзывчивым.</li>
+            <li>Можно выполнять несколько операций одновременно.</li>
+            <li>Лучше использование ресурсов сервера.</li>
+          </ul>
+
+          <figure>
+            <img class="note-img" src="/img/node/sync-async-timeline.png" alt="Временная шкала синхронного и асинхронного кода" />
+            <figcaption class="note-caption">Рис. 1. Синхронный код блокирует выполнение, асинхронный — нет.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section" id="settimeout">
+        <div class="container">
+          <h3>setTimeout()</h3>
+          <p class="note note--info"><strong>setTimeout()</strong> — встроенная функция JavaScript, которая позволяет выполнить код через определённое время (в миллисекундах).</p>
+
+          <p>Например, если ты хочешь выполнить какое-то действие через 3 секунды, ты используешь <code>setTimeout()</code>.</p>
+
+          <div class="code-block">
+            <pre><code>setTimeout(() =&gt; {
+  console.log('Прошло 3 секунды');
+}, 3000);</code></pre>
+          </div>
+
+          <p>В этом примере сообщение появится через 3 секунды. Таймаут не блокирует остальной код.</p>
+
+          <h4>setTimeout() внутри цикла</h4>
+          <p><strong>setTimeout()</strong> откладывает выполнение функции, и если запускать его внутри цикла, все функции сработают почти одновременно после одинаковой задержки.</p>
+
+          <div class="code-block">
+            <pre><code>for (let i = 0; i &lt; 3; i++) {
+  setTimeout(() =&gt; {
+    console.log(`Задача № ${i}`);
+  }, 1000);
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="cleartimeout">
+        <div class="container">
+          <h3>clearTimeout()</h3>
+          <p class="note note--info"><strong>clearTimeout()</strong> — встроенная функция JavaScript, которая отменяет выполнение кода, запланированного с помощью <strong>setTimeout()</strong>.</p>
+
+          <p>Для этого нужно передать идентификатор таймаута в <code>clearTimeout()</code>.</p>
+
+          <div class="code-block">
+            <pre><code>const timeoutId = setTimeout(() =&gt; {
+  console.log('Прошло 3 секунды');
+}, 3000);
+
+clearTimeout(timeoutId);</code></pre>
+          </div>
+
+          <p class="warning"><b>Что произойдёт, если использовать <code>clearTimeout()</code> до завершения таймаута?</b><br>
+            Запланированная функция не будет выполнена.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="setinterval">
+        <div class="container">
+          <h3>setInterval()</h3>
+          <p class="note note--info"><strong>setInterval()</strong> — встроенная функция JavaScript, которая выполняет код через определённые интервалы времени и повторяет его до отмены. Она отличается от <code>setTimeout()</code>, который выполняет код один раз после задержки [web:17][web:20].</p>
+
+          <h4>Остановка через setTimeout</h4>
+          <div class="code-block">
+            <pre><code>const intervalId = setInterval(() =&gt; {
+  console.log('Прошло 1 секунда');
+}, 1000);
+
+setTimeout(() =&gt; {
+  clearInterval(intervalId);
+  console.log('Интервал остановлен');
+}, 5000);</code></pre>
+          </div>
+
+          <h4>Остановка через clearInterval()</h4>
+          <div class="code-block">
+            <pre><code>const intervalId = setInterval(() =&gt; {
+  console.log('Каждую секунду!');
+}, 1000);
+
+clearInterval(intervalId);</code></pre>
+          </div>
+
+          <p>Если нужен повторяющийся запуск, используют <code>setInterval()</code>, а для остановки — <code>clearInterval()</code> [web:2][web:20].</p>
+        </div>
+      </section>
+
+      <!-- Сравнение методов -->
+      <section class="section" id="comparison">
+        <div class="container">
+          <h2>Сравнение методов</h2>
+
+          <p class="note">
+            <strong>Сравнение setTimeout, clearTimeout и setInterval</strong> — функций для работы с таймерами и интервалами.
+          </p>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Функция</th>
+                <th>Назначение</th>
+                <th>Повторяется</th>
+                <th>Отмена</th>
+                <th>Когда использовать</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>setTimeout</strong></td>
+                <td>Выполнить код через время</td>
+                <td>❌ Нет, один раз</td>
+                <td>✅ clearTimeout(id)</td>
+                <td>Задержки, отложенные действия, запросы после паузы</td>
+              </tr>
+              <tr>
+                <td><strong>clearTimeout</strong></td>
+                <td>Отменить setTimeout</td>
+                <td>—</td>
+                <td>—</td>
+                <td>Отмена таймера до его выполнения</td>
+              </tr>
+              <tr>
+                <td><strong>setInterval</strong></td>
+                <td>Выполнить код повторно</td>
+                <td>✅ Да, каждый интервал</td>
+                <td>✅ clearInterval(id)</td>
+                <td>Часы, счётчики, периодические обновления, опросы сервера</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Практическое сравнение</h3>
+
+          <p><strong>setTimeout — один раз:</strong></p>
+
+          <div class="code-block">
+            <pre><code>setTimeout(() =&gt; console.log("Выполнится один раз"), 1000);</code></pre>
+          </div>
+
+          <p><strong>setInterval — повторно:</strong></p>
+
+          <div class="code-block">
+            <pre><code>setInterval(() =&gt; console.log("Выполнится каждую секунду"), 1000);</code></pre>
+          </div>
+
+          <p><strong>setTimeout с рекурсией (альтернатива setInterval):</strong></p>
+
+          <div class="code-block">
+            <pre><code>function repeatEverySecond() {
+  console.log("Выполнится каждую секунду");
+
+  // Запланировать следующее выполнение
+  setTimeout(repeatEverySecond, 1000);
+}
+
+repeatEverySecond();
+
+// Это более гибко, чем setInterval (можно менять интервал)</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Лучшие практики -->
+      <section class="section" id="best-practices">
+        <div class="container">
+          <h2>Лучшие практики</h2>
+
+          <p class="note">
+            <strong>Лучшие практики</strong> при работе с таймерами и интервалами в JavaScript.
+          </p>
+
+          <div class="note-block">
+            <ul class="list-ul">
+              <li><strong>Всегда сохраняйте ID:</strong> чтобы иметь возможность отменить с clearTimeout/clearInterval.</li>
+              <li><strong>Очищайте интервалы:</strong> забытые setInterval могут привести к утечкам памяти.</li>
+              <li><strong>Проверяйте условия выхода:</strong> используйте if/break для остановки интервалов.</li>
+              <li><strong>Избегайте вложенных таймеров:</strong> это усложняет отладку и может привести к ошибкам.</li>
+              <li><strong>Используйте requestAnimationFrame:</strong> для анимаций вместо setTimeout/setInterval.</li>
+              <li><strong>Передавайте функции:</strong> не вызывайте их сразу (неправильно: callback(), правильно: callback).</li>
+              <li><strong>Очищайте при размонтировании:</strong> в React/Vue удаляйте интервалы в useEffect cleanup.</li>
+            </ul>
+          </div>
+
+          <h3>Пример: правильное использование в React</h3>
+
+          <div class="code-block">
+            <pre><code>import { useEffect, useState } from 'react';
+
+function Timer() {
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() =&gt; {
+    const intervalId = setInterval(() =&gt; {
+      setSeconds(prev =&gt; prev + 1);
+    }, 1000);
+
+    // Cleanup: очищаем интервал при размонтировании
+    return () =&gt; clearInterval(intervalId);
+  }, []);
+
+  return <div>Прошло {seconds} секунд</div>;
+}</code></pre>
+          </div>
+
+          <h3>Пример: отмена всех таймеров</h3>
+
+          <div class="code-block">
+            <pre><code>const timers = [];
+
+function addTimer(callback, delay) {
+  const id = setTimeout(callback, delay);
+  timers.push(id);
+  return id;
+}
+
+function clearAllTimers() {
+  timers.forEach(id =&gt; clearTimeout(id));
+  timers.length = 0;
+  console.log("Все таймеры отменены");
+}
+
+// Использование
+addTimer(() =&gt; console.log("Таймер 1"), 1000);
+addTimer(() =&gt; console.log("Таймер 2"), 2000);
+addTimer(() =&gt; console.log("Таймер 3"), 3000);
+
+// Отменить все
+clearAllTimers();</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Типичные ошибки -->
+      <section class="section" id="errors-common">
+        <div class="container">
+          <h2>Типичные ошибки</h2>
+
+          <h3>Ошибка 1: Вызов функции вместо передачи</h3>
+
+          <div class="code-block">
+            <pre><code>// ❌ Неправильно: функция выполняется сразу
+setTimeout(console.log("Привет"), 1000);
+
+// ✅ Правильно: передаём функцию
+setTimeout(() =&gt; console.log("Привет"), 1000);
+setTimeout(console.log, 1000, "Привет");</code></pre>
+          </div>
+
+          <h3>Ошибка 2: Забыли сохранить ID</h3>
+
+          <div class="code-block">
+            <pre><code>// ❌ Неправильно: не сможем отменить
+setTimeout(() =&gt; console.log("Таймер"), 1000);
+
+// ✅ Правильно: сохраняем ID
+const timerId = setTimeout(() =&gt; console.log("Таймер"), 1000);
+// Теперь можем отменить: clearTimeout(timerId);</code></pre>
+          </div>
+
+          <h3>Ошибка 3: Утечка памяти от setInterval</h3>
+
+          <div class="code-block">
+            <pre><code>// ❌ Неправильно: интервал никогда не останавливается
+setInterval(() =&gt; {
+  console.log("Выполняется бесконечно");
+}, 1000);
+
+// ✅ Правильно: останавливаем интервал
+const intervalId = setInterval(() =&gt; {
+  console.log("Выполняется пока не отменим");
+}, 1000);
+
+// Когда нужно остановить:
+clearInterval(intervalId);</code></pre>
+          </div>
+
+          <h3>Ошибка 4: Неправильная задержка</h3>
+
+          <div class="code-block">
+            <pre><code>// ❌ Неправильно: задержка в секундах (но нужны миллисекунды)
+setTimeout(() =&gt; console.log("Через 5 секунд"), 5); // Это 5ms!
+
+// ✅ Правильно: 5000 миллисекунд = 5 секунд
+setTimeout(() =&gt; console.log("Через 5 секунд"), 5000);</code></pre>
+          </div>
+
+          <div class="warning">
+            <p>
+              <strong>Частая ошибка:</strong> забыть очистить setInterval. Это может привести к утечкам памяти и множественным одновременным выполнениям.
+              <br />
+              <strong>Решение:</strong> всегда сохраняйте ID и вызывайте clearInterval при необходимости.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Итоги -->
+      <section class="section" id="summary">
+        <div class="container">
+          <h2>Итоги</h2>
+
+          <div class="summary">
+            <ul class="list-ul">
+              <li><strong>Синхронный код</strong> выполняется блокирующим образом, строка за строкой.</li>
+              <li><strong>Асинхронный код</strong> не блокирует выполнение, результат приходит позже.</li>
+              <li><strong>Event Loop</strong> управляет выполнением синхронного и асинхронного кода.</li>
+              <li><strong>setTimeout</strong> выполняет код один раз через определённую задержку.</li>
+              <li><strong>clearTimeout</strong> отменяет ранее запланированный setTimeout.</li>
+              <li><strong>setInterval</strong> выполняет код повторно через равные интервалы.</li>
+              <li>Всегда сохраняйте ID таймеров для их отмены.</li>
+              <li>Задержки указываются в миллисекундах, не секундах.</li>
+              <li>Очищайте интервалы, чтобы избежать утечек памяти.</li>
+              <li>setTimeout с задержкой 0 не значит "сразу" — это значит "когда Call Stack пуст".</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+
+
+
+    </main>
+
+    @@include('../partials/footer.html', {})
+  </div>
+
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
+</html>
