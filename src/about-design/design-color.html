@@ -1,767 +1,1200 @@
 <!DOCTYPE html>
 <html lang="ru">
-    @@include('../partials/head.html', { "title": "Цвет", "description": "Руководство по цвету: цветовой круг, психология цвета и подбор палитры" })
-    <style>
-        .intro {
-            background: rgba(142, 68, 173, 0.08);
-            padding: 2rem;
-            border-radius: 10px;
-            margin-bottom: 2.5rem;
-            border-left: 4px solid var(--secondary);
-        }
+@@include('../partials/head.html', {
+"title": "Цветовая теория в дизайне",
+"description": "Цветовая теория, цветовые схемы, психология цвета и практическое применение в интерфейсах"
+})
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#intro">Введение</a>
+        <a href="#why-matter">Почему важен</a>
+        <a href="#color-wheel">Цветовой круг</a>
+        <a href="#color-schemes">Цветовые схемы</a>
+        <a href="#psychology">Психология цвета</a>
+        <a href="#before-after">До / После</a>
+        <a href="#contrast">Контраст и доступность</a>
+        <a href="#mistakes">Типичные ошибки</a>
+        <a href="#checklist">Чек-лист</a>
+        <a href="#practice">Практическое задание</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="intro">
+        <div class="container">
+          <h1>Цветовая теория в дизайне</h1>
+          <p class="note">
+            <strong>Цветовая теория</strong> — система правил работы с цветами, которая помогает создавать гармоничные палитры и управлять восприятием пользователя.
+          </p>
+          <p>
+            Цвет — это мощный инструмент дизайна, который влияет на эмоции, внимание и поведение пользователя. Правильный выбор цветов делает интерфейс более привлекательным и удобным.
+          </p>
+
+          <figure>
+            <img class="note-img" src="/img/design/color-intro.png" alt="Цветовая теория в дизайне" />
+            <figcaption class="note-caption">Рис. 1. Цвет помогает создавать визуальную иерархию и управлять вниманием пользователя.</figcaption>
+          </figure>
 
-        .intro p {
-            font-size: 1.2rem;
-            margin-bottom: 0;
-        }
-
-        .grid-column-50 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .color-wheel {
-            width: 100%;
-            max-width: 500px;
-            height: 500px;
-            margin: 2rem auto;
-            position: relative;
-            border-radius: 50%;
-            background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
-            box-shadow: var(--shadow);
-        }
-
-        .harmony-controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin: 1.5rem 0;
-            justify-content: center;
-        }
-
-        .harmony-btn {
-            padding: 0.8rem 1.5rem;
-            background: var(--light);
-            border: 1px solid #ddd;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
-        }
-
-        .harmony-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .palette {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.5rem;
-            margin: 2rem 0;
-        }
-
-        .color-swatch {
-            width: 80px;
-            height: 80px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .color-swatch:hover {
-            transform: scale(1.1);
-        }
-
-        .psychology-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .color-card {
-            padding: 1.5rem;
-            border-radius: 10px;
-            color: white;
-            box-shadow: var(--shadow);
-        }
-
-        .color-card h3 {
-            color: white;
-            margin-top: 0;
-        }
-
-        .concept-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .concept-item {
-            padding: 1.5rem;
-            border-radius: 10px;
-            background: white;
-            box-shadow: var(--shadow);
-        }
-
-        .concept-visual {
-            height: 150px;
-            border-radius: 8px;
-            margin: 1rem 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: white;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-        }
-
-        .space-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .space-card {
-            padding: 1.5rem;
-            border-radius: 10px;
-            background: white;
-            box-shadow: var(--shadow);
-        }
-
-        .space-visual {
-            height: 150px;
-            border-radius: 8px;
-            margin: 1rem 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: white;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-        }
-
-        .mood-selector {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin: 1.5rem 0;
-            justify-content: center;
-        }
-
-        .mood-btn {
-            padding: 0.8rem 1.5rem;
-            background: var(--light);
-            border: 1px solid #ddd;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
-        }
-
-        .mood-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .contrast-checker {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            margin: 2rem 0;
-        }
-
-        .contrast-controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .color-picker {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .color-picker label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        .color-input {
-            width: 100%;
-            height: 50px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .contrast-result {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .contrast-good {
-            background: rgba(39, 174, 96, 0.1);
-            border-left: 4px solid var(--success);
-            color: var(--success);
-        }
-
-        .contrast-bad {
-            background: rgba(231, 76, 60, 0.1);
-            border-left: 4px solid var(--accent);
-            color: var(--accent);
-        }
-
-        .contrast-demo {
-            padding: 2rem;
-            border-radius: 8px;
-            margin-top: 1.5rem;
-            font-size: 1.2rem;
-            line-height: 1.6;
-            text-align: center;
-        }
-
-        @media (max-width: 768px) {
-            .color-wheel {
-                height: 300px;
-                width: 300px;
-            }
-        }
-    </style>
-
-    <body>
-        <div class="wrapper">
-            @@include('../partials/header.html', {})
-            <main class="page">
-                <nav class="nav-tabs">
-                    <a href="#color-wheel" class="active">Цветовой круг</a>
-                    <a href="#color-psychology">Психология цвета</a>
-                    <a href="#basic-color-concepts">Основные понятия</a>
-                    <a href="#color-spaces">Цветовые пространства</a>
-                    <a href="#color-mood">Цвет-настроение</a>
-                    <a href="#palette-practice">Практика</a>
-                </nav>
-                <!-- Цветовой круг -->
-                <section class="section" id="color-wheel">
-                    <div class="container">
-                        <h1>Цветовой круг и гармонии</h1>
-
-                        <div class="intro">
-                            <p>Цветовой круг — основа для понимания цветовых гармоний. Он помогает визуализировать отношения между цветами и создавать гармоничные сочетания.</p>
-                        </div>
-
-                        <div class="color-wheel"></div>
-
-                        <div class="harmony-controls">
-                            <button class="harmony-btn active" data-harmony="complementary">Дополнительные</button>
-                            <button class="harmony-btn" data-harmony="analogous">Аналоговые</button>
-                            <button class="harmony-btn" data-harmony="triadic">Триадные</button>
-                            <button class="harmony-btn" data-harmony="split">Разделенные</button>
-                            <button class="harmony-btn" data-harmony="monochromatic">Монохромные</button>
-                        </div>
-
-                        <div class="palette" id="harmony-palette">
-                            <div class="color-swatch" style="background: #ff6b6b">#FF6B6B</div>
-                            <div class="color-swatch" style="background: #4ecdc4">#4ECDC4</div>
-                        </div>
-
-                        <div class="card">
-                            <h3>Как использовать цветовые гармонии</h3>
-                            <ul class="list-ul">
-                                <li>
-                                    <strong>Дополнительные:</strong>
-                                    цвета, расположенные напротив друг друга на круге (высокий контраст)
-                                </li>
-                                <li>
-                                    <strong>Аналоговые:</strong>
-                                    соседние цвета на круге (гармоничные сочетания)
-                                </li>
-                                <li>
-                                    <strong>Триадные:</strong>
-                                    три цвета, равноудаленные друг от друга (динамичные сочетания)
-                                </li>
-                                <li>
-                                    <strong>Разделенные:</strong>
-                                    основной цвет и два соседних к его дополнению (сбалансированный контраст)
-                                </li>
-                                <li>
-                                    <strong>Монохромные:</strong>
-                                    различные оттенки одного цвета (минималистичный подход)
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Психология цвета -->
-                <section class="section" id="color-psychology">
-                    <div class="container">
-                        <h2>Психология цвета и контекст</h2>
-                        <p>Цвета вызывают эмоции и ассоциации, которые могут значительно влиять на восприятие вашего дизайна.</p>
-
-                        <div class="psychology-grid">
-                            <div class="color-card" style="background: #e74c3c">
-                                <h3>Красный</h3>
-                                <p>Страсть, энергия, опасность, важность. Используется для призыва к действию, предупреждений.</p>
-                            </div>
-
-                            <div class="color-card" style="background: #3498db">
-                                <h3>Синий</h3>
-                                <p>Спокойствие, доверие, профессионализм. Популярен в корпоративном дизайне, технологиях.</p>
-                            </div>
-
-                            <div class="color-card" style="background: #2ecc71">
-                                <h3>Зеленый</h3>
-                                <p>Природа, рост, гармония, здоровье. Используется в экологических и медицинских проектах.</p>
-                            </div>
-
-                            <div class="color-card" style="background: #f39c12">
-                                <h3>Желтый</h3>
-                                <p>Оптимизм, радость, энергия. Привлекает внимание, но может вызывать напряжение.</p>
-                            </div>
-
-                            <div class="color-card" style="background: #9b59b6">
-                                <h3>Фиолетовый</h3>
-                                <p>Роскошь, творчество, духовность. Ассоциируется с креативностью и инновациями.</p>
-                            </div>
-
-                            <div class="color-card" style="background: #1abc9c">
-                                <h3>Бирюзовый</h3>
-                                <p>Свежесть, ясность, баланс. Сочетает стабильность синего и энергию зеленого.</p>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <h3>Культурные различия</h3>
-                            <p>Значение цветов может сильно различаться в разных культурах:</p>
-                            <ul class="list-ul">
-                                <li>В Китае красный - цвет удачи и процветания</li>
-                                <li>В Индии белый - цвет траура</li>
-                                <li>В Бразилии фиолетовый - цвет смерти</li>
-                                <li>В Египте желтый - цвет траура</li>
-                            </ul>
-                            <p>Всегда учитывайте культурный контекст вашей целевой аудитории.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Основные понятия цвета -->
-                <section class="section" id="basic-color-concepts">
-                    <div class="container">
-                        <h2>Основные понятия цвета</h2>
-                        <p>Понимание этих концепций поможет вам осознанно работать с цветом.</p>
-
-                        <div class="concept-grid">
-                            <div class="concept-item">
-                                <h3>Оттенок (Hue)</h3>
-                                <p>Основное качество цвета, которое отличает его от других цветов (красный, синий, зеленый).</p>
-                                <div class="concept-visual" style="background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet)">Спектр оттенков</div>
-                            </div>
-
-                            <div class="concept-item">
-                                <h3>Насыщенность (Saturation)</h3>
-                                <p>Интенсивность или чистота цвета. Полностью насыщенный цвет не содержит серого.</p>
-                                <div class="concept-visual" style="background: linear-gradient(to right, #cccccc, #ff6b6b)">От ненасыщенного к насыщенному</div>
-                            </div>
-
-                            <div class="concept-item">
-                                <h3>Светлота (Lightness)</h3>
-                                <p>Степень светлоты или темноты цвета. Определяет, насколько цвет близок к белому или черному.</p>
-                                <div class="concept-visual" style="background: linear-gradient(to right, black, #ff6b6b, white)">От темного к светлому</div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <h3>Цветовые модели</h3>
-                            <p>Различные способы описания и работы с цветом:</p>
-                            <ul class="list-ul">
-                                <li>
-                                    <strong>RGB:</strong>
-                                    Аддитивная модель для экранов (Red, Green, Blue)
-                                </li>
-                                <li>
-                                    <strong>CMYK:</strong>
-                                    Субтрактивная модель для печати (Cyan, Magenta, Yellow, Key/Black)
-                                </li>
-                                <li>
-                                    <strong>HSL:</strong>
-                                    Интуитивная модель (Hue, Saturation, Lightness)
-                                </li>
-                                <li>
-                                    <strong>HSV:</strong>
-                                    Похожа на HSL, но с Value вместо Lightness
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Цветовые пространства -->
-                <section class="section" id="color-spaces">
-                    <div class="container">
-                        <h2>Цветовые пространства и технические нюансы</h2>
-                        <p>Различные цветовые пространства используются для разных целей и устройств.</p>
-
-                        <div class="space-cards">
-                            <div class="space-card">
-                                <h3>RGB (Экраны)</h3>
-                                <p>Аддитивная модель, где цвета создаются смешением красного, зеленого и синего света. Используется во всех цифровых устройствах.</p>
-                                <div class="space-visual" style="background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff)">RGB</div>
-                                <p>
-                                    <strong>Диапазон значений:</strong>
-                                    0-255 для каждого канала
-                                </p>
-                            </div>
-
-                            <div class="space-card">
-                                <h3>CMYK (Печать)</h3>
-                                <p>Субтрактивная модель, где цвета создаются вычитанием света из белого. Используется в полиграфии.</p>
-                                <div class="space-visual" style="background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00, #000000)">CMYK</div>
-                                <p>
-                                    <strong>Диапазон значений:</strong>
-                                    0-100% для каждого канала
-                                </p>
-                            </div>
-
-                            <div class="space-card">
-                                <h3>HSL (Дизайн)</h3>
-                                <p>Интуитивная модель, основанная на восприятии цвета человеком. Позволяет легко создавать гармоничные палитры.</p>
-                                <div class="space-visual" style="background: linear-gradient(90deg, hsl(0, 100%, 50%), hsl(60, 100%, 50%), hsl(120, 100%, 50%), hsl(180, 100%, 50%), hsl(240, 100%, 50%), hsl(300, 100%, 50%), hsl(360, 100%, 50%))">HSL</div>
-                                <p>
-                                    <strong>Компоненты:</strong>
-                                    Оттенок (0-360°), Насыщенность (0-100%), Светлота (0-100%)
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <h3>Важные технические аспекты</h3>
-                            <ul class="list-ul">
-                                <li>
-                                    <strong>Цветовой профиль:</strong>
-                                    sRGB для веба, Adobe RGB для фотографии
-                                </li>
-                                <li>
-                                    <strong>Глубина цвета:</strong>
-                                    8-бит (16.7 млн цветов), 10-бит (1 млрд цветов)
-                                </li>
-                                <li>
-                                    <strong>Цветовой охват:</strong>
-                                    sRGB ≈ 35% видимого спектра, Adobe RGB ≈ 50%
-                                </li>
-                                <li>
-                                    <strong>Конвертация:</strong>
-                                    Всегда тестируйте цвета при переходе между пространствами
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Цвет-настроение -->
-                <section class="section" id="color-mood">
-                    <div class="container">
-                        <h2>Цвет-настроение: как выстраивать палитру</h2>
-                        <p>Создавайте палитры, соответствующие нужному настроению и атмосфере.</p>
-
-                        <div class="mood-selector">
-                            <button class="mood-btn active" data-mood="calm">Спокойствие</button>
-                            <button class="mood-btn" data-mood="energy">Энергия</button>
-                            <button class="mood-btn" data-mood="elegant">Элегантность</button>
-                            <button class="mood-btn" data-mood="nature">Природа</button>
-                            <button class="mood-btn" data-mood="tech">Технологии</button>
-                        </div>
-
-                        <div class="palette" id="mood-palette">
-                            <div class="color-swatch" style="background: #3498db">#3498DB</div>
-                            <div class="color-swatch" style="background: #2ecc71">#2ECC71</div>
-                            <div class="color-swatch" style="background: #9b59b6">#9B59B6</div>
-                            <div class="color-swatch" style="background: #f1c40f">#F1C40F</div>
-                            <div class="color-swatch" style="background: #e67e22">#E67E22</div>
-                        </div>
-
-                        <div class="card">
-                            <h3>Структура цветовой палитры</h3>
-                            <p>Эффективная палитра включает несколько типов цветов:</p>
-                            <ul class="list-ul">
-                                <li>
-                                    <strong>Основной цвет:</strong>
-                                    Доминирующий цвет бренда (60% дизайна)
-                                </li>
-                                <li>
-                                    <strong>Вторичный цвет:</strong>
-                                    Дополняет основной (30% дизайна)
-                                </li>
-                                <li>
-                                    <strong>Акцентный цвет:</strong>
-                                    Яркие элементы для привлечения внимания (10% дизайна)
-                                </li>
-                                <li>
-                                    <strong>Нейтральные цвета:</strong>
-                                    Фоны и текст (белый, серый, бежевый)
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Практика: подбор палитры -->
-                <section class="section" id="palette-practice">
-                    <div class="container">
-                        <h2>Практика: подбор палитры и проверка контраста</h2>
-                        <p>Применяйте знания на практике с этими инструментами.</p>
-
-                        <div class="contrast-checker">
-                            <h3>Проверка контраста</h3>
-                            <p>Убедитесь, что ваш текст легко читается на фоне. Рекомендуемое соотношение контраста 4.5:1 для обычного текста.</p>
-
-                            <div class="contrast-controls">
-                                <div class="color-picker">
-                                    <label for="text-color">Цвет текста</label>
-                                    <input type="color" id="text-color" value="#ffffff" class="color-input" />
-                                </div>
-
-                                <div class="color-picker">
-                                    <label for="bg-color">Цвет фона</label>
-                                    <input type="color" id="bg-color" value="#333333" class="color-input" />
-                                </div>
-                            </div>
-
-                            <div class="contrast-result contrast-good" id="contrast-result">Соотношение контраста: 12.3:1 (Отлично)</div>
-
-                            <div class="contrast-demo" id="contrast-demo">Это пример текста для проверки контраста. Убедитесь, что текст легко читается на выбранном фоне.</div>
-                        </div>
-
-                        <div class="card">
-                            <h3>Инструменты для работы с цветом</h3>
-                            <ul class="list-ul">
-                                <li>
-                                    <strong>Adobe Color:</strong>
-                                    Создание и исследование цветовых палитр
-                                </li>
-                                <li>
-                                    <strong>Coolors.co:</strong>
-                                    Генератор цветовых палитр
-                                </li>
-                                <li>
-                                    <strong>Color Contrast Checker:</strong>
-                                    Проверка доступности цветовых сочетаний
-                                </li>
-                                <li>
-                                    <strong>Paletton:</strong>
-                                    Создание гармоничных цветовых схем
-                                </li>
-                                <li>
-                                    <strong>ColorZilla:</strong>
-                                    Расширение для браузера для определения цветов на веб-страницах
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="card">
-                            <h3>Практические советы</h3>
-                            <ul class="list-ul">
-                                <li>Начинайте с ограниченной палитры (3-5 цветов)</li>
-                                <li>Используйте 60-30-10 правило для распределения цветов</li>
-                                <li>Тестируйте палитру на реальных элементах интерфейса</li>
-                                <li>Проверяйте цветовые сочетания на разных устройствах</li>
-                                <li>Учитывайте культурные ассоциации цветов</li>
-                                <li>Создайте систему для последовательного использования цветов</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-            </main>
-            @@include('../partials/footer.html', {})
         </div>
-        @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+      </section>
 
-        <script>
-            // Инициализация страницы
-            document.addEventListener("DOMContentLoaded", function () {
-                // Обновление демо палитры при изменении гармонии
-                const harmonyButtons = document.querySelectorAll(".harmony-btn");
-                const harmonyPalette = document.getElementById("harmony-palette");
+      <!-- Зачем важен цвет -->
+      <section class="section" id="why-matter">
+        <div class="container">
+          <h2>Зачем важен цвет в дизайне</h2>
+          <div class="cards cards--3">
+            <div class="card">
+              <div class="card__title">Эмоции</div>
+              <div class="card__desc">Цвет вызывает эмоциональные реакции и создаёт определённое настроение. Красный — энергия, синий — доверие.</div>
+            </div>
+            <div class="card">
+              <div class="card__title">Внимание</div>
+              <div class="card__desc">Контрастные цвета привлекают взгляд и выделяют важные элементы интерфейса.</div>
+            </div>
+            <div class="card">
+              <div class="card__title">Функциональность</div>
+              <div class="card__desc">Цвет помогает пользователю понять структуру, состояние элементов и возможные действия.</div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-                harmonyButtons.forEach((button) => {
-                    button.addEventListener("click", function () {
-                        harmonyButtons.forEach((btn) => btn.classList.remove("active"));
-                        this.classList.add("active");
+      <!-- Цветовой круг -->
+      <section class="section" id="color-wheel">
+        <div class="container">
+          <h2>Цветовой круг</h2>
+          <p class="note">
+            <strong>Цветовой круг</strong> — визуальная модель взаимосвязи цветов, которая используется для создания гармоничных цветовых сочетаний.
+          </p>
 
-                        const harmony = this.dataset.harmony;
-                        updateHarmonyPalette(harmony);
-                    });
-                });
+          <figure>
+            <img class="note-img" src="/img/design/color-wheel.png" alt="Цветовой круг" />
+            <figcaption class="note-caption">Рис. 2. Цветовой круг показывает взаимосвязь всех цветов в видимом спектре.</figcaption>
+          </figure>
 
-                function updateHarmonyPalette(harmony) {
-                    let colors = [];
+          <div class="cards cards--50">
+            <!-- Основные цвета -->
+            <div class="card">
+              <div class="card__title">Основные цвета</div>
+              <div class="card__desc">
+                <strong>Основные цвета</strong> — красный, жёлтый, синий. Это базовые цвета, из которых смешиванием создаются все остальные оттенки.
+                <br><br>
+                Характеристики:
+                <ul class="list-ul">
+                  <li>Не могут быть получены смешиванием других цветов.</li>
+                  <li>Являются основой для понимания цветовой гармонии.</li>
+                  <li>Используются как акценты в дизайне.</li>
+                </ul>
+              </div>
+              <img class="card__img" src="/img/design/color/color-primary.png" alt="Основные цвета" />
+            </div>
 
-                    switch (harmony) {
-                        case "complementary":
-                            colors = ["#FF6B6B", "#4ECDC4"];
-                            break;
-                        case "analogous":
-                            colors = ["#FF9E6B", "#FF6B6B", "#FF6B9E"];
-                            break;
-                        case "triadic":
-                            colors = ["#FF6B6B", "#6BFF8A", "#6B8AFF"];
-                            break;
-                        case "split":
-                            colors = ["#FF6B6B", "#4ECDC4", "#C4DC4E"];
-                            break;
-                        case "monochromatic":
-                            colors = ["#FF6B6B", "#FF8E8E", "#FFB1B1", "#FFD5D5"];
-                            break;
-                        default:
-                            colors = ["#FF6B6B", "#4ECDC4"];
-                    }
+            <!-- Вторичные цвета -->
+            <div class="card">
+              <div class="card__title">Вторичные цвета</div>
+              <div class="card__desc">
+                <strong>Вторичные цвета</strong> — оранжевый, зелёный, фиолетовый. Получаются смешиванием двух основных цветов.
+                <br><br>
+                Применение:
+                <ul class="list-ul">
+                  <li>Более мягкие и приятные для глаза.</li>
+                  <li>Часто используются в фоновых элементах.</li>
+                  <li>Помогают создавать уравновешенные палитры.</li>
+                </ul>
+              </div>
+              <img class="card__img" src="/img/design/color/color-secondary.png" alt="Вторичные цвета" />
+            </div>
 
-                    harmonyPalette.innerHTML = "";
-                    colors.forEach((color) => {
-                        const swatch = document.createElement("div");
-                        swatch.className = "color-swatch";
-                        swatch.style.backgroundColor = color;
-                        swatch.textContent = color;
-                        harmonyPalette.appendChild(swatch);
-                    });
+            <!-- Дополнительные цвета -->
+            <div class="card">
+              <div class="card__title">Дополнительные цвета</div>
+              <div class="card__desc">
+                <strong>Дополнительные цвета</strong> — цвета, расположенные напротив друг друга на цветовом круге. Например, красный и зелёный.
+                <br><br>
+                Свойства:
+                <ul class="list-ul">
+                  <li>Создают максимальный контраст.</li>
+                  <li>Помогают выделять элементы.</li>
+                  <li>Требуют осторожного применения.</li>
+                </ul>
+              </div>
+              <img class="card__img" src="/img/design/color/color-complementary.png" alt="Дополнительные цвета" />
+            </div>
+
+            <!-- Аналогичные цвета -->
+            <div class="card">
+              <div class="card__title">Аналогичные цвета</div>
+              <div class="card__desc">
+                <strong>Аналогичные цвета</strong> — цвета, расположенные рядом на цветовом круге. Например, синий, голубой, фиолетовый.
+                <br><br>
+                Особенности:
+                <ul class="list-ul">
+                  <li>Создают гармоничные и спокойные сочетания.</li>
+                  <li>Хорошо смотрятся вместе.</li>
+                  <li>Идеальны для природных и мягких дизайнов.</li>
+                </ul>
+              </div>
+              <img class="card__img" src="/img/design/color/color-analogous.png" alt="Аналогичные цвета" />
+            </div>
+
+
+
+          </div>
+          <figure>
+            <img class="note-img" src="/img/design/color/color-visual-hierarchy.png" alt="Цветовая иерархия" />
+            <figcaption class="note-caption">Рис. 3. Цвет помогает создавать визуальную иерархию и управлять вниманием пользователя.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- Цветовые схемы -->
+      <section class="section" id="color-schemes">
+        <div class="container">
+          <h2>Цветовые схемы</h2>
+          <p class="note">
+            <strong>Цветовая схема</strong> — способ сочетания нескольких цветов для создания определённого визуального эффекта и эмоционального воздействия.
+          </p>
+
+          <figure>
+            <img class="note-img" src="/img/design/color/color-schemes.png" alt="Цветовые схемы" />
+            <figcaption class="note-caption">Рис. 4. Цветовые схемы помогают создавать гармоничные палитры и управлять восприятием пользователя.</figcaption>
+          </figure>
+
+          <div class="cards cards--50">
+            <!-- Монохроматическая -->
+            <div class="card">
+              <div class="card__title">Монохроматическая</div>
+              <div class="card__desc">
+                <strong>Монохроматическая схема</strong> — использование одного цвета в разных тонах (светлые и тёмные варианты).
+                <br><br>
+                Преимущества:
+                <ul class="list-ul">
+                  <li>Создаёт спокойный и единый стиль.</li>
+                  <li>Легко создавать иерархию через оттенки.</li>
+                  <li>Выглядит элегантно и профессионально.</li>
+                </ul>
+                Применение: минималистичные интерфейсы, брендинг, серьёзные приложения.
+              </div>
+              <img class="card__img" src="/img/design/color/color-monochromatic.png" alt="Монохроматическая схема" />
+            </div>
+
+            <!-- Аналогичная -->
+            <div class="card">
+              <div class="card__title">Аналогичная</div>
+              <div class="card__desc">
+                <strong>Аналогичная схема</strong> — сочетание 2-3 соседних цветов на цветовом круге.
+                <br><br>
+                Характеристики:
+                <ul class="list-ul">
+                  <li>Гармоничная и мягкая композиция.</li>
+                  <li>Естественно выглядит в природных темах.</li>
+                  <li>Хорошо воспринимается зрением.</li>
+                </ul>
+                Применение: природные сайты, приложения благополучия, творческие проекты.
+              </div>
+              <img class="card__img" src="/img/design/color/color-analogous-scheme.png" alt="Аналогичная схема" />
+            </div>
+
+            <!-- Комплементарная -->
+            <div class="card">
+              <div class="card__title">Комплементарная</div>
+              <div class="card__desc">
+                <strong>Комплементарная схема</strong> — сочетание двух противоположных цветов на цветовом круге.
+                <br><br>
+                Эффект:
+                <ul class="list-ul">
+                  <li>Высокий контраст и динамичность.</li>
+                  <li>Привлекает внимание и создаёт драму.</li>
+                  <li>Требует осторожного баланса.</li>
+                </ul>
+                Применение: кнопки действий, акценты, рекламные материалы.
+              </div>
+              <img class="card__img" src="/img/design/color/color-complementary-scheme.png" alt="Комплементарная схема" />
+            </div>
+
+            <!-- Триадическая -->
+            <div class="card">
+              <div class="card__title">Триадическая</div>
+              <div class="card__desc">
+                <strong>Триадическая схема</strong> — три цвета, равномерно распределённые на цветовом круге.
+                <br><br>
+                Особенности:
+                <ul class="list-ul">
+                  <li>Яркая и сбалансированная палитра.</li>
+                  <li>Интересная, но не перегруженная.</li>
+                  <li>Хорошо работает для креативных проектов.</li>
+                </ul>
+                Применение: креативные агентства, детские приложения, яркие бренды.
+              </div>
+              <img class="card__img" src="/img/design/color/color-triadic.png" alt="Триадическая схема" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Психология цвета -->
+      <section class="section" id="psychology">
+        <div class="container">
+          <h2>Психология цвета</h2>
+          <p class="note">
+            <strong>Психология цвета</strong> — изучение того, как цвета влияют на восприятие, эмоции и поведение человека.
+          </p>
+
+          <figure>
+
+            <img style="max-height: 700px;" class="note-img" src="/img/design/color/color-psychology.png" alt="Психология цвета" />
+            <figcaption class="note-caption">Рис. 5. Цвета вызывают разные эмоции и ассоциации, которые важно учитывать при дизайне интерфейсов.</figcaption>
+          </figure>
+          <div class="cards cards--3">
+            <div class="card">
+              <div class="card__title">🔴 Красный</div>
+              <div class="card__desc">
+                <strong>Эмоции:</strong> энергия, активность, внимание, страсть, опасность.
+                <br><br>
+                <strong>Применение:</strong> кнопки действий, предупреждения, распродажи.
+                <br><br>
+                <strong>Совет:</strong> используйте осторожно, так как красный утомляет глаза.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">🟠 Оранжевый</div>
+              <div class="card__desc">
+                <strong>Эмоции:</strong> оптимизм, веселье, творчество, энтузиазм.
+                <br><br>
+                <strong>Применение:</strong> акценты, кнопки, логотипы.
+                <br><br>
+                <strong>Совет:</strong> хорошо работает для молодёжных брендов.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">🟡 Жёлтый</div>
+              <div class="card__desc">
+                <strong>Эмоции:</strong> оптимизм, счастье, энергия, творчество.
+                <br><br>
+                <strong>Применение:</strong> выделение важного, позитивные сообщения.
+                <br><br>
+                <strong>Совет:</strong> светлый жёлтый лучше, чем интенсивный.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">🟢 Зелёный</div>
+              <div class="card__desc">
+                <strong>Эмоции:</strong> природа, здоровье, рост, спокойствие, развитие.
+                <br><br>
+                <strong>Применение:</strong> кнопки успеха, здоровье, экология.
+                <br><br>
+                <strong>Совет:</strong> универсальный цвет, хорошо работает почти везде.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">🔵 Синий</div>
+              <div class="card__desc">
+                <strong>Эмоции:</strong> доверие, спокойствие, профессионализм, безопасность.
+                <br><br>
+                <strong>Применение:</strong> корпоративные сайты, социальные сети, банки.
+                <br><br>
+                <strong>Совет:</strong> самый популярный в UI-дизайне, универсален.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">🟣 Фиолетовый</div>
+              <div class="card__desc">
+                <strong>Эмоции:</strong> креативность, роскошь, мистика, творчество.
+                <br><br>
+                <strong>Применение:</strong> премиум бренды, творческие проекты.
+                <br><br>
+                <strong>Совет:</strong> хорошо комбинируется с белым и серым.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">⬛ Чёрный</div>
+              <div class="card__desc">
+                <strong>Эмоции:</strong> стиль, сила, элегантность, премиальность.
+                <br><br>
+                <strong>Применение:</strong> текст, контур, премиум интерфейсы.
+                <br><br>
+                <strong>Совет:</strong> используйте для текста и контрастных элементов.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">⬜ Белый</div>
+              <div class="card__desc">
+                <strong>Эмоции:</strong> чистота, простота, безопасность, пространство.
+                <br><br>
+                <strong>Применение:</strong> фон, пространство, минимализм.
+                <br><br>
+                <strong>Совет:</strong> создаёт ощущение лёгкости и простоты.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">⚫ Серый</div>
+              <div class="card__desc">
+                <strong>Эмоции:</strong> нейтральность, профессионализм, стабильность.
+                <br><br>
+                <strong>Применение:</strong> вспомогательные элементы, тень, инертные состояния.
+                <br><br>
+                <strong>Совет:</strong> хорошо работает как нейтральный цвет фона.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- До и После -->
+      <section class="section" id="before-after">
+        <div class="container">
+          <h2>Пример: До и После</h2>
+          <p class="note">
+            Посмотрите, как правильный выбор цветов превращает скучный интерфейс в привлекательный и удобный.
+          </p>
+
+          <!-- Плохо: неправильная палитра -->
+          <div class="before-after__item">
+            <h3 class="before-after__title before-after__title--bad">❌ Плохо — Неправильная палитра</h3>
+            <div class="cards cards--3">
+              <div class="card">
+                <div class="card__desc">
+                  <strong>❌ Слишком много цветов</strong><br>
+                  Каждый элемент своего цвета. Интерфейс выглядит хаотичным.
+                </div>
+              </div>
+              <div class="card">
+                <div class="card__desc">
+                  <strong>❌ Слабый контраст</strong><br>
+                  Главная кнопка того же цвета, что и фон. Её не видно.
+                </div>
+              </div>
+              <div class="card">
+                <div class="card__desc">
+                  <strong>❌ Психология нарушена</strong><br>
+                  Серьёзное приложение в ярких неоновых цветах выглядит непрофессионально.
+                </div>
+              </div>
+            </div>
+
+            <h4>Как это выглядит:</h4>
+            <div class="before-after__preview before-after__preview--bad">
+              <style>
+                .bad-color {
+                  padding: 20px;
+                  background: #ffff00;
+                  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                  border: 3px solid #00ffff;
                 }
 
-                // Обновление палитры настроения
-                const moodButtons = document.querySelectorAll(".mood-btn");
-                const moodPalette = document.getElementById("mood-palette");
-
-                moodButtons.forEach((button) => {
-                    button.addEventListener("click", function () {
-                        moodButtons.forEach((btn) => btn.classList.remove("active"));
-                        this.classList.add("active");
-
-                        const mood = this.dataset.mood;
-                        updateMoodPalette(mood);
-                    });
-                });
-
-                function updateMoodPalette(mood) {
-                    let colors = [];
-
-                    switch (mood) {
-                        case "calm":
-                            colors = ["#3498DB", "#2ECC71", "#9B59B6", "#F1C40F", "#E67E22"];
-                            break;
-                        case "energy":
-                            colors = ["#E74C3C", "#F39C12", "#2ECC71", "#9B59B6", "#3498DB"];
-                            break;
-                        case "elegant":
-                            colors = ["#2C3E50", "#7F8C8D", "#BDC3C7", "#ECF0F1", "#9B59B6"];
-                            break;
-                        case "nature":
-                            colors = ["#27AE60", "#2ECC71", "#F1C40F", "#D35400", "#16A085"];
-                            break;
-                        case "tech":
-                            colors = ["#2980B9", "#3498DB", "#2C3E50", "#1ABC9C", "#E74C3C"];
-                            break;
-                        default:
-                            colors = ["#3498DB", "#2ECC71", "#9B59B6", "#F1C40F", "#E67E22"];
-                    }
-
-                    moodPalette.innerHTML = "";
-                    colors.forEach((color) => {
-                        const swatch = document.createElement("div");
-                        swatch.className = "color-swatch";
-                        swatch.style.backgroundColor = color;
-                        swatch.textContent = color;
-                        moodPalette.appendChild(swatch);
-                    });
+                .bad-color__header {
+                  font-size: 20px;
+                  margin: 0 0 15px 0;
+                  font-weight: 700;
+                  color: #ff00ff;
                 }
 
-                // Проверка контраста
-                const textColorInput = document.getElementById("text-color");
-                const bgColorInput = document.getElementById("bg-color");
-                const contrastResult = document.getElementById("contrast-result");
-                const contrastDemo = document.getElementById("contrast-demo");
-
-                function updateContrast() {
-                    const textColor = textColorInput.value;
-                    const bgColor = bgColorInput.value;
-
-                    // Упрощенный расчет контраста (в реальном приложении нужен точный алгоритм)
-                    const contrast = calculateContrast(textColor, bgColor);
-
-                    contrastDemo.style.color = textColor;
-                    contrastDemo.style.backgroundColor = bgColor;
-
-                    if (contrast > 4.5) {
-                        contrastResult.className = "contrast-result contrast-good";
-                        contrastResult.textContent = `Соотношение контраста: ${contrast.toFixed(2)}:1 (Отлично)`;
-                    } else if (contrast > 3) {
-                        contrastResult.className = "contrast-result contrast-good";
-                        contrastResult.textContent = `Соотношение контраста: ${contrast.toFixed(2)}:1 (Хорошо)`;
-                    } else {
-                        contrastResult.className = "contrast-result contrast-bad";
-                        contrastResult.textContent = `Соотношение контраста: ${contrast.toFixed(2)}:1 (Слишком низкий)`;
-                    }
+                .bad-color__text {
+                  font-size: 14px;
+                  margin: 0 0 15px 0;
+                  line-height: 1.5;
+                  color: #ff6600;
                 }
 
-                function calculateContrast(color1, color2) {
-                    // Упрощенный расчет контраста (в реальном приложении используйте WCAG алгоритм)
-                    const r1 = parseInt(color1.substr(1, 2), 16) / 255;
-                    const g1 = parseInt(color1.substr(3, 2), 16) / 255;
-                    const b1 = parseInt(color1.substr(5, 2), 16) / 255;
-
-                    const r2 = parseInt(color2.substr(1, 2), 16) / 255;
-                    const g2 = parseInt(color2.substr(3, 2), 16) / 255;
-                    const b2 = parseInt(color2.substr(5, 2), 16) / 255;
-
-                    const lum1 = 0.2126 * r1 + 0.7152 * g1 + 0.0722 * b1;
-                    const lum2 = 0.2126 * r2 + 0.7152 * g2 + 0.0722 * b2;
-
-                    const lighter = Math.max(lum1, lum2);
-                    const darker = Math.min(lum1, lum2);
-
-                    return (lighter + 0.05) / (darker + 0.05);
+                .bad-color__buttons {
+                  display: flex;
+                  gap: 10px;
+                  flex-wrap: wrap;
                 }
 
-                textColorInput.addEventListener("input", updateContrast);
-                bgColorInput.addEventListener("input", updateContrast);
+                .bad-color__button {
+                  padding: 10px 15px;
+                  font-size: 14px;
+                  border: none;
+                  border-radius: 4px;
+                  cursor: pointer;
+                  font-weight: 600;
+                }
 
-                // Инициализация
-                updateHarmonyPalette("complementary");
-                updateMoodPalette("calm");
-                updateContrast();
-            });
-        </script>
-    </body>
+                .bad-color__button:nth-child(1) {
+                  background: #ff0000;
+                  color: #ffff00;
+                }
+
+                .bad-color__button:nth-child(2) {
+                  background: #00ff00;
+                  color: #ff00ff;
+                }
+
+                .bad-color__button:nth-child(3) {
+                  background: #ffff00;
+                  color: #00ffff;
+                  border: 2px solid #ff00ff;
+                }
+              </style>
+              <div class="bad-color">
+                <h2 class="bad-color__header">Купить сейчас</h2>
+                <p class="bad-color__text">Выберите товар из каталога. Доставка быстрая. Гарантия качества.</p>
+                <div class="bad-color__buttons">
+                  <button class="bad-color__button">Отмена</button>
+                  <button class="bad-color__button">Назад</button>
+                  <button class="bad-color__button">Купить</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Хорошо: правильная палитра -->
+          <div class="before-after__item">
+            <h3 class="before-after__title before-after__title--good">✅ Хорошо — Правильная палитра</h3>
+            <div class="cards cards--3">
+              <div class="card">
+                <div class="card__desc">
+                  <strong>✅ Ограниченная палитра</strong><br>
+                  Основной цвет + два вспомогательных. Интерфейс выглядит единым и профессиональным.
+                </div>
+              </div>
+              <div class="card">
+                <div class="card__desc">
+                  <strong>✅ Хороший контраст</strong><br>
+                  Главная кнопка выделена синим на белом фоне. Её сразу видно.
+                </div>
+              </div>
+              <div class="card">
+                <div class="card__desc">
+                  <strong>✅ Психология работает</strong><br>
+                  Синий цвет создаёт доверие. Серый — стабильность. Зелёный — успех.
+                </div>
+              </div>
+            </div>
+
+            <h4>Как это выглядит:</h4>
+            <div class="before-after__preview before-after__preview--good">
+              <style>
+                .good-color {
+                  padding: 32px;
+                  background: #ffffff;
+                  max-width: 400px;
+                  margin: 0 auto;
+                  border-radius: 8px;
+                  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                  border: 1px solid #e5e5e5;
+                }
+
+                .good-color__header {
+                  font-size: 24px;
+                  margin: 0 0 16px 0;
+                  font-weight: 700;
+                  color: #1a1a1a;
+                }
+
+                .good-color__text {
+                  font-size: 14px;
+                  margin: 0 0 8px 0;
+                  line-height: 1.6;
+                  color: #333;
+                }
+
+                .good-color__helper {
+                  font-size: 12px;
+                  margin: 0 0 24px 0;
+                  line-height: 1.5;
+                  color: #777;
+                }
+
+                .good-color__buttons {
+                  display: flex;
+                  gap: 12px;
+                }
+
+                .good-color__button {
+                  padding: 12px 16px;
+                  font-size: 14px;
+                  border-radius: 4px;
+                  cursor: pointer;
+                  border: none;
+                  flex: 1;
+                  font-weight: 600;
+                  transition: all 0.3s ease;
+                }
+
+                .good-color__button--secondary {
+                  background: #f5f5f5;
+                  color: #666;
+                }
+
+                .good-color__button--secondary:hover {
+                  background: #e8e8e8;
+                }
+
+                .good-color__button--primary {
+                  background: #0066cc;
+                  color: white;
+                  flex: 1.5;
+                }
+
+                .good-color__button--primary:hover {
+                  background: #0052a3;
+                }
+
+                .good-color__badge {
+                  display: inline-block;
+                  background: #d4edda;
+                  color: #155724;
+                  padding: 4px 8px;
+                  border-radius: 3px;
+                  font-size: 11px;
+                  font-weight: 600;
+                  margin-bottom: 16px;
+                }
+              </style>
+              <div class="good-color">
+                <div class="good-color__badge">✅ В наличии</div>
+                <h2 class="good-color__header">Купить сейчас</h2>
+                <p class="good-color__text">Выберите товар из каталога.</p>
+                <p class="good-color__helper">Доставка быстрая. Гарантия качества 12 месяцев.</p>
+                <div class="good-color__buttons">
+                  <button class="good-color__button good-color__button--secondary">Назад</button>
+                  <button class="good-color__button good-color__button--primary">Купить</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Сравнение -->
+          <div class="note-block">
+            <h3>Сравнение цветовых подходов</h3>
+            <table class="table-note">
+              <thead>
+                <tr>
+                  <th>Параметр</th>
+                  <th>❌ Плохо</th>
+                  <th>✅ Хорошо</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Кол-во цветов</strong></td>
+                  <td>8+ разных ярких цветов</td>
+                  <td>1 основной (синий) + вспомогательные (серый, зелёный)</td>
+                </tr>
+                <tr>
+                  <td><strong>Контраст</strong></td>
+                  <td>Жёлтый фон, жёлтая кнопка — не видно</td>
+                  <td>Синяя кнопка на белом фоне — хорошо видна</td>
+                </tr>
+                <tr>
+                  <td><strong>Психология</strong></td>
+                  <td>Неоновые цвета — выглядит недорого и хаотично</td>
+                  <td>Синий + серый — доверие и профессионализм</td>
+                </tr>
+                <tr>
+                  <td><strong>Гармония</strong></td>
+                  <td>Цвета конфликтуют друг с другом</td>
+                  <td>Палитра связана и сбалансирована</td>
+                </tr>
+                <tr>
+                  <td><strong>Читаемость</strong></td>
+                  <td>Сложно читать из-за контраста цветов</td>
+                  <td>Чёрный текст на белом фоне — легко читать</td>
+                </tr>
+                <tr>
+                  <td><strong>Иерархия</strong></td>
+                  <td>Все элементы одинаково яркие</td>
+                  <td>Главная кнопка выделена, вспомогательные серые</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Контраст и доступность -->
+      <section class="section" id="contrast">
+        <div class="container">
+          <h2>Контраст и доступность</h2>
+          <p class="note">
+            <strong>Контраст</strong> — это различие в яркости между элементами. Правильный контраст делает интерфейс доступным для всех пользователей, включая людей с нарушением зрения.
+          </p>
+
+          <div class="cards cards--50">
+            <div class="card">
+              <div class="card__title">Стандарты WCAG</div>
+              <div class="card__desc">
+                <strong>WCAG AA (рекомендуемый стандарт):</strong> контраст 4.5:1 для обычного текста.
+                <br><br>
+                <strong>WCAG AAA (высокий стандарт):</strong> контраст 7:1 для обычного текста.
+                <br><br>
+                Используйте инструменты:
+                <ul class="list-ul">
+                  <li>WebAIM Contrast Checker</li>
+                  <li>Lighthouse (в Chrome DevTools)</li>
+                  <li>axe DevTools</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">Практические советы</div>
+              <div class="card__desc">
+                <strong>Для хорошего контраста:</strong>
+                <ul class="list-ul">
+                  <li>Тёмный текст на светлом фоне (обычно лучше).</li>
+                  <li>Не полагайтесь только на цвет для передачи информации.</li>
+                  <li>Проверяйте дизайн в режиме оттенков серого.</li>
+                  <li>Тестируйте с людьми с дальтонизмом.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <figure>
+            <img class="note-img" src="/img/design/color-contrast-example.png" alt="Примеры хорошего и плохого контраста" />
+            <figcaption class="note-caption">Рис. 3. Примеры плохого контраста (слева) и хорошего (справа).</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- Типичные ошибки -->
+      <section class="section" id="mistakes">
+        <div class="container">
+          <h2>Типичные ошибки с цветом</h2>
+
+          <!-- Ошибка 1: Слишком много цветов -->
+          <div class="mistake-example">
+            <h3 class="mistake-example__title">❌ Ошибка 1: Слишком много цветов</h3>
+            <div class="cards cards--2">
+              <div class="card">
+                <div class="card__desc">
+                  <strong>Проблема:</strong> Интерфейс выглядит хаотично и непрофессионально. Сложно создать иерархию. Пользователь не понимает, куда смотреть.
+                </div>
+              </div>
+              <div class="card">
+                <div class="card__desc">
+                  <strong>Решение:</strong> Используйте максимум 3-5 цветов. Один основной (для акцентов) и 2-3 вспомогательных (для фона, текста, вспомогательных элементов).
+                </div>
+              </div>
+            </div>
+
+            <h4>Как это выглядит:</h4>
+            <div class="mistake-preview">
+              <style>
+                .too-many-colors {
+                  padding: 24px;
+                  background: #f0f0f0;
+                  border-radius: 8px;
+                  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                }
+
+                .too-many-colors__item {
+                  display: flex;
+                  gap: 12px;
+                  margin-bottom: 12px;
+                  padding: 16px;
+                  border-radius: 4px;
+                  align-items: center;
+                }
+
+                .too-many-colors__item:nth-child(1) {
+                  background: #FF6B6B;
+                }
+
+                .too-many-colors__item:nth-child(2) {
+                  background: #4ECDC4;
+                }
+
+                .too-many-colors__item:nth-child(3) {
+                  background: #FFE66D;
+                  color: #333;
+                }
+
+                .too-many-colors__item:nth-child(4) {
+                  background: #95E1D3;
+                  color: #333;
+                }
+
+                .too-many-colors__item:nth-child(5) {
+                  background: #F38181;
+                }
+
+                .too-many-colors__item:nth-child(6) {
+                  background: #AA96DA;
+                }
+
+                .too-many-colors__label {
+                  color: white;
+                  font-weight: 600;
+                  font-size: 14px;
+                }
+
+                .too-many-colors__item:nth-child(3) .too-many-colors__label,
+                .too-many-colors__item:nth-child(4) .too-many-colors__label {
+                  color: #333;
+                }
+              </style>
+              <div class="too-many-colors">
+                <div class="too-many-colors__item">
+                  <span class="too-many-colors__label">Красный</span>
+                </div>
+                <div class="too-many-colors__item">
+                  <span class="too-many-colors__label">Бирюзовый</span>
+                </div>
+                <div class="too-many-colors__item">
+                  <span class="too-many-colors__label">Жёлтый</span>
+                </div>
+                <div class="too-many-colors__item">
+                  <span class="too-many-colors__label">Мятный</span>
+                </div>
+                <div class="too-many-colors__item">
+                  <span class="too-many-colors__label">Розовый</span>
+                </div>
+                <div class="too-many-colors__item">
+                  <span class="too-many-colors__label">Фиолетовый</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ошибка 2: Слабый контраст -->
+          <div class="mistake-example">
+            <h3 class="mistake-example__title">❌ Ошибка 2: Слабый контраст</h3>
+            <div class="cards cards--2">
+              <div class="card">
+                <div class="card__desc">
+                  <strong>Проблема:</strong> Текст сложно читать. Главные элементы теряются. Интерфейс недоступен для людей с нарушением зрения.
+                </div>
+              </div>
+              <div class="card">
+                <div class="card__desc">
+                  <strong>Решение:</strong> Проверяйте контраст инструментами (WebAIM, Lighthouse). Минимум 4.5:1 для обычного текста.
+                </div>
+              </div>
+            </div>
+
+            <h4>Как это выглядит:</h4>
+            <div class="mistake-preview">
+              <style>
+                .low-contrast {
+                  padding: 24px;
+                  background: #e8e8e8;
+                  border-radius: 8px;
+                  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                }
+
+                .low-contrast__example {
+                  padding: 16px;
+                  margin-bottom: 12px;
+                  border-radius: 4px;
+                }
+
+                .low-contrast__example:nth-child(1) {
+                  background: #cccccc;
+                  color: #bbbbbb;
+                }
+
+                .low-contrast__example:nth-child(2) {
+                  background: #f0f0f0;
+                  color: #e8e8e8;
+                }
+
+                .low-contrast__example:nth-child(3) {
+                  background: #d0d0d0;
+                  color: #c0c0c0;
+                }
+
+                .low-contrast__text {
+                  font-size: 14px;
+                  font-weight: 600;
+                  margin: 0;
+                }
+              </style>
+              <div class="low-contrast">
+                <p class="low-contrast__example low-contrast__text">Это текст серого цвета на сером фоне — его очень сложно читать</p>
+                <p class="low-contrast__example low-contrast__text">Кнопка тоже почти не видна на светлом фоне</p>
+                <p class="low-contrast__example low-contrast__text">Всё сливается в одно серое пятно</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ошибка 3: Неправильная психология -->
+          <div class="mistake-example">
+            <h3 class="mistake-example__title">❌ Ошибка 3: Неправильная психология цвета</h3>
+            <div class="cards cards--2">
+              <div class="card">
+                <div class="card__desc">
+                  <strong>Проблема:</strong> Серьёзный банк в ярких неоновых цветах выглядит ненадёжно. Цвета не соответствуют сути продукта. Пользователь теряет доверие.
+                </div>
+              </div>
+              <div class="card">
+                <div class="card__desc">
+                  <strong>Решение:</strong> Выбирайте цвета, соответствующие характеру бренда. Банк — синий/чёрный. Детское приложение — яркие цвета.
+                </div>
+              </div>
+            </div>
+
+            <h4>Как это выглядит:</h4>
+            <div class="mistake-preview">
+              <style>
+                .wrong-psychology {
+                  padding: 24px;
+                  background: linear-gradient(135deg, #FF00FF 0%, #00FFFF 50%, #FFFF00 100%);
+                  border-radius: 8px;
+                  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                }
+
+                .wrong-psychology__content {
+                  background: rgba(0, 0, 0, 0.7);
+                  color: white;
+                  padding: 20px;
+                  border-radius: 4px;
+                  text-align: center;
+                }
+
+                .wrong-psychology__title {
+                  font-size: 20px;
+                  font-weight: 700;
+                  margin: 0 0 12px 0;
+                  color: #FFFF00;
+                }
+
+                .wrong-psychology__text {
+                  font-size: 14px;
+                  margin: 0 0 16px 0;
+                  line-height: 1.5;
+                }
+
+                .wrong-psychology__button {
+                  padding: 12px 24px;
+                  font-size: 14px;
+                  background: #FF00FF;
+                  color: #00FFFF;
+                  border: 2px solid #00FFFF;
+                  border-radius: 4px;
+                  cursor: pointer;
+                  font-weight: 600;
+                }
+              </style>
+              <div class="wrong-psychology">
+                <div class="wrong-psychology__content">
+                  <h3 class="wrong-psychology__title">🏦 Ваш безопасный банк</h3>
+                  <p class="wrong-psychology__text">Вложите деньги в надёжное место!</p>
+                  <button class="wrong-psychology__button">Открыть счёт</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ошибка 4: Несвязная палитра -->
+          <div class="mistake-example">
+            <h3 class="mistake-example__title">❌ Ошибка 4: Несвязная палитра</h3>
+            <div class="cards cards--2">
+              <div class="card">
+                <div class="card__desc">
+                  <strong>Проблема:</strong> Цвета не гармонируют друг с другом. Интерфейс выглядит случайно собранным. Нет визуального единства.
+                </div>
+              </div>
+              <div class="card">
+                <div class="card__desc">
+                  <strong>Решение:</strong> Используйте одну из цветовых схем: монохроматическую, аналогичную или комплементарную. Все цвета должны подчиняться одной системе.
+                </div>
+              </div>
+            </div>
+
+            <h4>Как это выглядит:</h4>
+            <div class="mistake-preview">
+              <style>
+                .unrelated-palette {
+                  padding: 24px;
+                  background: #f5f5f5;
+                  border-radius: 8px;
+                  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                }
+
+                .unrelated-palette__grid {
+                  display: grid;
+                  grid-template-columns: 1fr 1fr 1fr;
+                  gap: 12px;
+                }
+
+                .unrelated-palette__swatch {
+                  height: 80px;
+                  border-radius: 4px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: white;
+                  font-weight: 600;
+                  font-size: 12px;
+                  text-align: center;
+                  padding: 8px;
+                }
+
+                .unrelated-palette__swatch:nth-child(1) {
+                  background: #FF6B6B;
+                }
+
+                .unrelated-palette__swatch:nth-child(2) {
+                  background: #4ECDC4;
+                }
+
+                .unrelated-palette__swatch:nth-child(3) {
+                  background: #FFE66D;
+                  color: #333;
+                }
+
+                .unrelated-palette__swatch:nth-child(4) {
+                  background: #FF1493;
+                }
+
+                .unrelated-palette__swatch:nth-child(5) {
+                  background: #006400;
+                  color: #fff;
+                }
+
+                .unrelated-palette__swatch:nth-child(6) {
+                  background: #FF8C00;
+                }
+              </style>
+              <div class="unrelated-palette">
+                <div class="unrelated-palette__grid">
+                  <div class="unrelated-palette__swatch">Красный</div>
+                  <div class="unrelated-palette__swatch">Бирюза</div>
+                  <div class="unrelated-palette__swatch">Жёлтый</div>
+                  <div class="unrelated-palette__swatch">Малиновый</div>
+                  <div class="unrelated-palette__swatch">Зелёный</div>
+                  <div class="unrelated-palette__swatch">Оранжевый</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ошибка 5: Только цвет для информации -->
+          <div class="mistake-example">
+            <h3 class="mistake-example__title">❌ Ошибка 5: Только цвет для передачи информации</h3>
+            <div class="cards cards--2">
+              <div class="card">
+                <div class="card__desc">
+                  <strong>Проблема:</strong> Красный для ошибки, зелёный для успеха. Люди с дальтонизмом не видят разницы. Интерфейс недоступен.
+                </div>
+              </div>
+              <div class="card">
+                <div class="card__desc">
+                  <strong>Решение:</strong> Используйте цвет + иконку + текст. Никогда не полагайтесь только на цвет для передачи важной информации.
+                </div>
+              </div>
+            </div>
+
+            <h4>Как это выглядит:</h4>
+            <div class="mistake-preview">
+              <style>
+                .color-only-info {
+                  padding: 24px;
+                  background: #fff;
+                  border-radius: 8px;
+                  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                }
+
+                .color-only-info__messages {
+                  display: flex;
+                  flex-direction: column;
+                  gap: 12px;
+                }
+
+                .color-only-info__message {
+                  padding: 16px;
+                  border-radius: 4px;
+                  font-size: 14px;
+                  font-weight: 600;
+                }
+
+                .color-only-info__message--error {
+                  background: #ffcccc;
+                  color: #cc0000;
+                }
+
+                .color-only-info__message--success {
+                  background: #ccffcc;
+                  color: #00cc00;
+                }
+
+                .color-only-info__message--warning {
+                  background: #ffffcc;
+                  color: #cc8800;
+                }
+
+                .color-only-info__note {
+                  margin-top: 16px;
+                  padding: 12px;
+                  background: #e8e8e8;
+                  border-radius: 4px;
+                  font-size: 12px;
+                  color: #666;
+                  text-align: center;
+                }
+              </style>
+              <div class="color-only-info">
+                <div class="color-only-info__messages">
+                  <div class="color-only-info__message color-only-info__message--error">Красный квадрат — это ошибка</div>
+                  <div class="color-only-info__message color-only-info__message--success">Зелёный квадрат — это успех</div>
+                  <div class="color-only-info__message color-only-info__message--warning">Жёлтый квадрат — это предупреждение</div>
+                </div>
+                <div class="color-only-info__note">
+                  Люди с дальтонизмом видят только одинаковые квадраты и не понимают, что означает каждый.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ошибка 6: Игнорирование фона -->
+          <div class="mistake-example">
+            <h3 class="mistake-example__title">❌ Ошибка 6: Игнорирование фона</h3>
+            <div class="cards cards--2">
+              <div class="card">
+                <div class="card__desc">
+                  <strong>Проблема:</strong> Цвет хорошо выглядит отдельно, но плохо на фоне интерфейса. Нет проверки на разных фонах.
+                </div>
+              </div>
+              <div class="card">
+                <div class="card__desc">
+                  <strong>Решение:</strong> Всегда проверяйте цвет на фоне, на котором он будет использоваться. Тестируйте на светлом и тёмном фонах.
+                </div>
+              </div>
+            </div>
+
+            <h4>Как это выглядит:</h4>
+            <div class="mistake-preview">
+              <style>
+                .wrong-background {
+                  padding: 24px;
+                  border-radius: 8px;
+                  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                  display: grid;
+                  grid-template-columns: 1fr 1fr;
+                  gap: 16px;
+                }
+
+                .wrong-background__example {
+                  padding: 20px;
+                  border-radius: 4px;
+                }
+
+                .wrong-background__example:nth-child(1) {
+                  background: #ffaaaa;
+                }
+
+                .wrong-background__example:nth-child(2) {
+                  background: #ffeeee;
+                }
+
+                .wrong-background__text {
+                  font-size: 14px;
+                  font-weight: 600;
+                  margin: 0;
+                  color: #ff6666;
+                }
+
+                .wrong-background__title {
+                  font-size: 12px;
+                  color: #666;
+                  margin-top: 8px;
+                  text-align: center;
+                }
+              </style>
+              <div class="wrong-background">
+                <div class="wrong-background__example">
+                  <p class="wrong-background__text">Розовый текст на розовом фоне</p>
+                  <div class="wrong-background__title">На тёмном фоне</div>
+                </div>
+                <div class="wrong-background__example">
+                  <p class="wrong-background__text">Розовый текст на светлом фоне</p>
+                  <div class="wrong-background__title">На светлом фоне</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Чек-лист -->
+      <section class="section" id="checklist">
+        <div class="container">
+          <h2>Чек-лист цветовой палитры</h2>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Вопрос</th>
+                <th>Проверка</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Сколько основных цветов?</td>
+                <td>Максимум 3-5 цветов в палитре (основной + вспомогательные).</td>
+              </tr>
+              <tr>
+                <td>Цвета гармонируют?</td>
+                <td>Используете ли вы одну из цветовых схем (монохроматическая, аналогичная, комплементарная)?</td>
+              </tr>
+              <tr>
+                <td>Хороший контраст?</td>
+                <td>Текст и главные элементы имеют контраст минимум 4.5:1.</td>
+              </tr>
+              <tr>
+                <td>Правильная психология?</td>
+                <td>Цвета соответствуют сути и тону продукта?</td>
+              </tr>
+              <tr>
+                <td>Иерархия видна?</td>
+                <td>Главные элементы выделены цветом, вспомогательные приглушены.</td>
+              </tr>
+              <tr>
+                <td>Доступность?</td>
+                <td>Дизайн работает в режиме оттенков серого? Информация не только в цвете?</td>
+              </tr>
+              <tr>
+                <td>Консистентность?</td>
+                <td>Одинаковые цвета используются для одинаковых элементов (кнопки, ссылки, статусы)?</td>
+              </tr>
+              <tr>
+                <td>На всех устройствах?</td>
+                <td>Цвета хорошо выглядят на мобильных, планшетах и десктопе?</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Практическое задание -->
+      <section class="section" id="practice">
+        <div class="container">
+          <div class="note-block">
+            <h2>Практическое задание</h2>
+            <p>Выберите три вам нравящихся сайта или приложения и проанализируйте:</p>
+            <ul class="list-ul">
+              <li>Какую цветовую схему они используют (монохроматическая, аналогичная, комплементарная)?</li>
+              <li>Сколько основных цветов в палитре?</li>
+              <li>Как цвета создают иерархию и управляют вниманием?</li>
+              <li>Какую психологию цвета они используют?</li>
+              <li>Хороший ли контраст между текстом и фоном?</li>
+              <li>Как дизайн выглядит в режиме оттенков серого?</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
 </html>

@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', {
+"title": "Типографика в дизайне",
+"description": "Типографика, классификация шрифтов, психология цвета, контраст и практические примеры"
+})
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#intro">Введение</a>
+        <a href="#why-matter">Почему важна</a>
+        <a href="#classification">Классификация</a>
+        <a href="#character">Характер шрифта</a>
+        <a href="#pairing">Сочетание</a>
+        <a href="#principles">Принципы</a>
+        <a href="#before-after">До / После</a>
+        <a href="#mistakes">Ошибки</a>
+        <a href="#checklist">Чек-лист</a>
+        <a href="#practice">Практическое задание</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="intro">
+        <div class="container">
+          <h1>Типографика в дизайне</h1>
+          <p class="note">
+            <strong>Типографика</strong> — это искусство и техника оформления текста, которая определяет не только читаемость, но и эмоциональное восприятие контента. Выбор шрифта формирует первое впечатление и создаёт визуальную иерархию.
+          </p>
+          <p>
+            Хорошая типографика невидима — она работает, когда люди концентрируются на контенте, а не на оформлении. Плохая типографика сразу раздражает и отвлекает.
+          </p>
+
+          <figure>
+            <img class="note-img" src="/img/design/typography-intro.png" alt="Типографика в дизайне" />
+            <figcaption class="note-caption">Рис. 1. Типографика — это визуальное воплощение языка.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- Почему важна типографика -->
+      <section class="section" id="why-matter">
+        <div class="container">
+          <h2>Почему типографика важна</h2>
+          <div class="cards cards--3">
+            <div class="card">
+              <div class="card__title">Эмоции и настроение</div>
+              <div class="card__desc">Каждый шрифт передаёт определённое настроение: серьёзное, дружелюбное, креативное, премиальное.</div>
+            </div>
+            <div class="card">
+              <div class="card__title">Первое впечатление</div>
+              <div class="card__desc">Пользователь судит об интерфейсе за секунды. Выбор шрифта критичен для восприятия бренда.</div>
+            </div>
+            <div class="card">
+              <div class="card__title">Читаемость и удобство</div>
+              <div class="card__desc">Размер, межстрочный интервал и длина строки влияют на комфорт чтения и понимание текста.</div>
+            </div>
+          </div>
+
+          <div class="cards cards--3">
+            <div class="card">
+              <div class="card__title">Визуальная иерархия</div>
+              <div class="card__desc">Контраст размеров и вес показывают пользователю, что важно и в каком порядке читать.</div>
+            </div>
+            <div class="card">
+              <div class="card__title">Брендинг и узнаваемость</div>
+              <div class="card__desc">Правильный выбор шрифтов укрепляет идентичность бренда и делает его узнаваемым.</div>
+            </div>
+            <div class="card">
+              <div class="card__title">Доступность</div>
+              <div class="card__desc">Читаемые шрифты, достаточный размер и контраст делают контент доступным для всех.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Классификация шрифтов -->
+      <section class="section" id="classification">
+        <div class="container">
+          <h2>Классификация шрифтов</h2>
+          <p class="note">
+            <strong>Классификация шрифтов</strong> помогает понять их назначение и правильно применять в дизайне. Каждый класс имеет свои особенности и эмоциональный заряд.
+          </p>
+
+          <div class="cards cards--50">
+            <!-- Антиква / Serif -->
+            <div class="card">
+              <div class="card__title">Антиква (Serif)</div>
+              <div class="card__desc">
+                <strong>Шрифты с засечками</strong> — маленькие линии на концах букв.
+                <br><br>
+                Характеристики:
+                <ul class="list-ul">
+                  <li>Традиционные, формальные и классические.</li>
+                  <li>Отлично подходят для длинных текстов в печати.</li>
+                  <li>Создают ощущение надёжности и стабильности.</li>
+                </ul>
+                Примеры: Georgia, Times New Roman, Garamond, Bodoni.
+              </div>
+              <img class="card__img" src="/img/design/font-serif.png" alt="Шрифты Serif" />
+            </div>
+
+            <!-- Гротеск / Sans-serif -->
+            <div class="card">
+              <div class="card__title">Гротеск (Sans-serif)</div>
+              <div class="card__desc">
+                <strong>Шрифты без засечек</strong> — чистые линии без дополнительных элементов.
+                <br><br>
+                Характеристики:
+                <ul class="list-ul">
+                  <li>Современные, минималистичные и нейтральные.</li>
+                  <li>Король интерфейсов и веб-дизайна.</li>
+                  <li>Отлично работают на экранах в любых размерах.</li>
+                </ul>
+                Примеры: Arial, Helvetica, Roboto, Inter, Verdana.
+              </div>
+              <img class="card__img" src="/img/design/font-sans-serif.png" alt="Шрифты Sans-serif" />
+            </div>
+
+            <!-- Рукописные / Script -->
+            <div class="card">
+              <div class="card__title">Рукописные (Script)</div>
+              <div class="card__desc">
+                <strong>Имитация ручного письма</strong> — творческие и выразительные шрифты.
+                <br><br>
+                Характеристики:
+                <ul class="list-ul">
+                  <li>Элегантные, индивидуальные и креативные.</li>
+                  <li>Используются для акцентов, не для основного текста.</li>
+                  <li>Создают ощущение личности и творчества.</li>
+                </ul>
+                Примеры: Brush Script, Pacifico, Dancing Script, Lobster.
+              </div>
+              <img class="card__img" src="/img/design/font-script.png" alt="Рукописные шрифты" />
+            </div>
+
+            <!-- Моноширинные / Monospace -->
+            <div class="card">
+              <div class="card__title">Моноширинные (Monospace)</div>
+              <div class="card__desc">
+                <strong>Все символы одинаковой ширины</strong> — технические и систематичные.
+                <br><br>
+                Характеристики:
+                <ul class="list-ul">
+                  <li>Для отображения кода и технических данных.</li>
+                  <li>Создают ощущение техничности и точности.</li>
+                  <li>Каждый символ занимает ровно одинаковое место.</li>
+                </ul>
+                Примеры: Courier New, Monaco, Fira Code, Inconsolata.
+              </div>
+              <img class="card__img" src="/img/design/font-monospace.png" alt="Моноширинные шрифты" />
+            </div>
+
+            <!-- Декоративные / Display -->
+            <div class="card">
+              <div class="card__title">Декоративные (Display)</div>
+              <div class="card__desc">
+                <strong>Экспрессивные и оригинальные</strong> — для крупных размеров.
+                <br><br>
+                Характеристики:
+                <ul class="list-ul">
+                  <li>Используются только для заголовков и акцентов.</li>
+                  <li>Создают сильное впечатление и привлекают внимание.</li>
+                  <li>Плохо читаются в маленьких размерах.</li>
+                </ul>
+                Примеры: Impact, Playfair Display, Fredoka One.
+              </div>
+              <img class="card__img" src="/img/design/font-display.png" alt="Декоративные шрифты" />
+            </div>
+          </div>
+
+          <!-- Интерактивный просмотр -->
+          <div class="note-block">
+            <h3>Эксперимент: Сила первого впечатления</h3>
+            <p>Прочитайте одно и то же сообщение в разных шрифтах и обратите внимание на возникающие эмоции:</p>
+
+            <div class="demo-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+              <style>
+                .demo-box {
+                  padding: 24px;
+                  border-radius: 8px;
+                  background: #f5f5f5;
+                  text-align: center;
+                  border: 2px solid #e0e0e0;
+                }
+
+                .demo-box__title {
+                  font-size: 14px;
+                  color: #999;
+                  margin: 0 0 16px 0;
+                  font-weight: 600;
+                  text-transform: uppercase;
+                }
+
+                .demo-box__example {
+                  font-size: 28px;
+                  margin: 0 0 12px 0;
+                  line-height: 1.3;
+                  font-weight: 600;
+                }
+
+                .demo-box__emotion {
+                  font-size: 12px;
+                  color: #666;
+                  margin: 0;
+                }
+              </style>
+
+              <div class="demo-box">
+                <div class="demo-box__title">Классический</div>
+                <p class="demo-box__example" style="font-family: 'Georgia', serif;">Добро пожаловать!</p>
+                <p class="demo-box__emotion">Традиционность, надёжность</p>
+              </div>
+
+              <div class="demo-box">
+                <div class="demo-box__title">Современный</div>
+                <p class="demo-box__example" style="font-family: 'Arial', sans-serif;">Добро пожаловать!</p>
+                <p class="demo-box__emotion">Чистота, нейтральность</p>
+              </div>
+
+              <div class="demo-box">
+                <div class="demo-box__title">Рукописный</div>
+                <p class="demo-box__example" style="font-family: 'Brush Script MT', cursive;">Добро пожаловать!</p>
+                <p class="demo-box__emotion">Творчество, индивидуальность</p>
+              </div>
+
+              <div class="demo-box">
+                <div class="demo-box__title">Технический</div>
+                <p class="demo-box__example" style="font-family: 'Courier New', monospace;">Добро пожаловать!</p>
+                <p class="demo-box__emotion">Точность, техничность</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Характер шрифтов -->
+      <section class="section" id="character">
+        <div class="container">
+          <h2>Характер шрифтов</h2>
+          <p class="note">
+            <strong>Характер шрифта</strong> — это психологическое и эмоциональное впечатление, которое он создаёт. Каждый шрифт «говорит» с пользователем определённым голосом.
+          </p>
+
+          <div class="cards cards--3">
+            <div class="card">
+              <div class="card__title">🏛️ Традиционные</div>
+              <div class="card__desc">
+                <strong>Вызывают:</strong> надёжность, стабильность, авторитет.
+                <br><br>
+                <strong>Используются:</strong> юридические документы, банки, газеты, образовательные учреждения.
+                <br><br>
+                <strong>Примеры:</strong> Times New Roman, Garamond, Georgia.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">🚀 Современные</div>
+              <div class="card__desc">
+                <strong>Вызывают:</strong> инновации, прогресс, минимализм.
+                <br><br>
+                <strong>Используются:</strong> IT-компании, стартапы, технологические бренды.
+                <br><br>
+                <strong>Примеры:</strong> Helvetica, Inter, Roboto, Futura.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">😊 Дружелюбные</div>
+              <div class="card__desc">
+                <strong>Вызывают:</strong> открытость, доступность, человечность.
+                <br><br>
+                <strong>Используются:</strong> социальные сети, приложения благополучия, детские проекты.
+                <br><br>
+                <strong>Примеры:</strong> Comic Sans (осторожно!), Segoe UI, Montserrat.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">✨ Элегантные</div>
+              <div class="card__desc">
+                <strong>Вызывают:</strong> роскошь, изысканность, премиальность.
+                <br><br>
+                <strong>Используются:</strong> модные бренды, ювелирные изделия, люксовые продукты.
+                <br><br>
+                <strong>Примеры:</strong> Bodoni, Didot, Playfair Display.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">🎨 Креативные</div>
+              <div class="card__desc">
+                <strong>Вызывают:</strong> творчество, индивидуальность, оригинальность.
+                <br><br>
+                <strong>Используются:</strong> дизайн-студии, агентства, культурные проекты.
+                <br><br>
+                <strong>Примеры:</strong> Fredoka One, Pacifico, Dancing Script.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">⚙️ Технические</div>
+              <div class="card__desc">
+                <strong>Вызывают:</strong> точность, систематичность, функциональность.
+                <br><br>
+                <strong>Используются:</strong> документация, код, инженерные решения.
+                <br><br>
+                <strong>Примеры:</strong> Courier New, Fira Code, Monaco.
+              </div>
+            </div>
+          </div>
+
+          <figure>
+            <img class="note-img" src="/img/design/font-character.png" alt="Характер шрифтов" />
+            <figcaption class="note-caption">Рис. 2. Каждый шрифт имеет свой характер и говорит с пользователем определённым голосом.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- Сочетание шрифтов -->
+      <section class="section" id="pairing">
+        <div class="container">
+          <h2>Сочетание шрифтов</h2>
+          <p class="note">
+            <strong>Сочетание шрифтов</strong> — это искусство выбрать 2-3 шрифта, которые дополняют друг друга и создают гармоничную типографику.
+          </p>
+
+          <div class="cards cards--3">
+            <div class="card">
+              <div class="card__title">✅ Контраст</div>
+              <div class="card__desc">Сочетайте шрифты с разными характеристиками: serif + sans-serif, жирный + светлый, большой + маленький.</div>
+            </div>
+            <div class="card">
+              <div class="card__title">✅ Гармония</div>
+              <div class="card__desc">Шрифты должны дополнять друг друга, а не конфликтовать. Одинаковый период и цвет помогают.</div>
+            </div>
+            <div class="card">
+              <div class="card__title">✅ Ограничение</div>
+              <div class="card__desc">Используйте не более 2-3 шрифтов в проекте. Больше — хаос, меньше — скучно.</div>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <h3>Правила сочетания:</h3>
+            <ul class="list-ul">
+              <li><strong>Правило 1:</strong> Serif для заголовков + Sans-serif для текста (классический подход).</li>
+              <li><strong>Правило 2:</strong> Sans-serif для заголовков + Serif для текста (современный подход).</li>
+              <li><strong>Правило 3:</strong> Display для заголовков + Sans-serif для текста (динамичный подход).</li>
+              <li><strong>Правило 4:</strong> Один шрифт разных размеров и весов (монотипичный подход).</li>
+            </ul>
+          </div>
+
+          <h3>Примеры удачных сочетаний:</h3>
+          <div class="cards cards--50">
+            <div class="card">
+              <div class="card__title">Классика</div>
+              <p style="font-family: 'Playfair Display', serif; font-size: 24px; margin: 0 0 12px 0; font-weight: 700;">Заголовок</p>
+              <p style="font-family: 'Roboto', sans-serif; font-size: 14px; margin: 0; line-height: 1.6;">Основной текст описывает содержание. Контраст заголовка и текста явный: serif с засечками и sans-serif без.</p>
+            </div>
+
+            <div class="card">
+              <div class="card__title">Современно</div>
+              <p style="font-family: 'Inter', sans-serif; font-size: 24px; margin: 0 0 12px 0; font-weight: 700;">Заголовок</p>
+              <p style="font-family: 'Georgia', serif; font-size: 14px; margin: 0; line-height: 1.6;">Основной текст описывает содержание. Здесь заголовок в современном sans-serif, а текст в классическом serif.</p>
+            </div>
+          </div>
+
+          <figure>
+            <img class="note-img" src="/img/design/font-pairing.png" alt="Сочетание шрифтов" />
+            <figcaption class="note-caption">Рис. 3. Правильное сочетание шрифтов создаёт гармонию и визуальную иерархию.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- Принципы типографики -->
+      <section class="section" id="principles">
+        <div class="container">
+          <h2>Принципы типографики</h2>
+          <p class="note">
+            <strong>Принципы типографики</strong> — это основные правила, которые делают текст читаемым, доступным и удобным.
+          </p>
+
+          <div class="cards cards--3">
+            <div class="card">
+              <div class="card__title">📏 Размер шрифта</div>
+              <div class="card__desc">
+                Для веба минимум <strong>16px</strong> для основного текста. Заголовки — 24-48px в зависимости от роли.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">📋 Длина строки</div>
+              <div class="card__desc">
+                Оптимальная длина строки — <strong>50-75 символов</strong>. Больше — сложно читать, меньше — странно выглядит.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">⬆️ Межстрочный интервал</div>
+              <div class="card__desc">
+                Line-height должен быть <strong>1.4-1.6</strong> для основного текста. Это делает чтение комфортным.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">🎯 Контраст</div>
+              <div class="card__desc">
+                Контраст между текстом и фоном должен быть минимум <strong>4.5:1</strong> по WCAG.
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">↔️ Выравнивание</div>
+              <div class="card__desc">
+                На вебе избегайте выравнивания по ширине. Лучше — влево или по центру (кратко).
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">ритм Ритм и вертикаль</div>
+              <div class="card__desc">
+                Соблюдайте вертикальный ритм: отступы между элементами должны быть кратными друг другу.
+              </div>
+            </div>
+          </div>
+
+          <figure>
+            <img class="note-img" src="/img/design/typography-principles.png" alt="Принципы типографики" />
+            <figcaption class="note-caption">Рис. 4. Основные принципы типографики: размер, интерлиния, контраст и выравнивание.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- До / После -->
+      <section class="section" id="before-after">
+        <div class="container">
+          <h2>Пример: До и После</h2>
+          <p class="note">
+            Посмотрите, как правильная типографика превращает неудобный текст в приятный для чтения контент.
+          </p>
+
+          <!-- Плохая типографика -->
+          <div class="before-after__item">
+            <h3 class="before-after__title before-after__title--bad">❌ Плохая типографика</h3>
+            <div class="cards cards--3">
+              <div class="card">
+                <div class="card__desc">
+                  <strong>❌ Маленький размер</strong><br>
+                  11px текст слишком мелкий и утомляет глаза.
+                </div>
+              </div>
+              <div class="card">
+                <div class="card__desc">
+                  <strong>❌ Слабый контраст</strong><br>
+                  Серый текст на светло-сером фоне почти не видна.
+                </div>
+              </div>
+              <div class="card">
+                <div class="card__desc">
+                  <strong>❌ Слишком длинные строки</strong><br>
+                  Текст во всю ширину сложно читать, глаз теряется.
+                </div>
+              </div>
+            </div>
+
+            <h4>Как это выглядит:</h4>
+            <div class="before-after__preview before-after__preview--bad">
+              <style>
+                .bad-typography {
+                  padding: 20px;
+                  background: #f0f0f0;
+                  font-family: Arial, sans-serif;
+                }
+
+                .bad-typography__title {
+                  font-size: 14px;
+                  margin: 0 0 10px 0;
+                  font-weight: 400;
+                  color: #666;
+                }
+
+                .bad-typography__text {
+                  font-size: 11px;
+                  margin: 0 0 8px 0;
+                  line-height: 1.2;
+                  color: #999;
+                  text-align: justify;
+                }
+
+                .bad-typography__text p {
+                  margin: 0 0 8px 0;
+                }
+              </style>
+              <div class="bad-typography">
+                <h2 class="bad-typography__title">О хорошей типографике</h2>
+                <div class="bad-typography__text">
+                  <p>Типографика — это искусство оформления текста. Когда типографика плохая, она создаёт дополнительную нагрузку на читателя. Маленький размер шрифта заставляет вглядываться, слабый контраст слепит, а длинные строки заставляют шею вертеть, ища конец строки. Всё это убивает удовольствие от чтения.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Хорошая типографика -->
+          <div class="before-after__item">
+            <h3 class="before-after__title before-after__title--good">✅ Хорошая типографика</h3>
+            <div class="cards cards--3">
+              <div class="card">
+                <div class="card__desc">
+                  <strong>✅ Оптимальный размер</strong><br>
+                  16px текст комфортен для чтения на экране.
+                </div>
+              </div>
+              <div class="card">
+                <div class="card__desc">
+                  <strong>✅ Хороший контраст</strong><br>
+                  Чёрный текст на белом фоне даёт контраст 21:1.
+                </div>
+              </div>
+              <div class="card">
+                <div class="card__desc">
+                  <strong>✅ Правильная ширина строки</strong><br>
+                  Текст в 600px — глаз легко находит начало строки.
+                </div>
+              </div>
+            </div>
+
+            <h4>Как это выглядит:</h4>
+            <div class="before-after__preview before-after__preview--good">
+              <style>
+                .good-typography {
+                  padding: 32px;
+                  background: #ffffff;
+                  max-width: 600px;
+                  margin: 0 auto;
+                  border-radius: 8px;
+                  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                }
+
+                .good-typography__title {
+                  font-size: 28px;
+                  margin: 0 0 16px 0;
+                  font-weight: 700;
+                  color: #1a1a1a;
+                  line-height: 1.3;
+                }
+
+                .good-typography__text {
+                  font-size: 16px;
+                  margin: 0 0 16px 0;
+                  line-height: 1.6;
+                  color: #333;
+                }
+
+                .good-typography__text p {
+                  margin: 0 0 16px 0;
+                }
+
+                .good-typography__text p:last-child {
+                  margin-bottom: 0;
+                }
+              </style>
+              <div class="good-typography">
+                <h2 class="good-typography__title">О хорошей типографике</h2>
+                <div class="good-typography__text">
+                  <p>Типографика — это искусство оформления текста. Когда типографика хорошая, она работает незаметно. Читатель не замечает шрифт, размер или интерлинию — он просто читает контент, погружаясь в смысл.</p>
+                  <p>Хороший размер шрифта, достаточный контраст и удобная длина строки создают комфорт для глаз. Межстрочный интервал помогает отследить начало новой строки. Всё вместе это делает чтение удовольствием.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Сравнение -->
+          <div class="note-block">
+            <h3>Сравнение параметров</h3>
+            <table class="table-note">
+              <thead>
+                <tr>
+                  <th>Параметр</th>
+                  <th>❌ Плохо</th>
+                  <th>✅ Хорошо</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Размер основного текста</strong></td>
+                  <td>11px — слишком мелко</td>
+                  <td>16px — комфортно читать</td>
+                </tr>
+                <tr>
+                  <td><strong>Размер заголовка</strong></td>
+                  <td>14px — не отличается от текста</td>
+                  <td>28px — ясная иерархия</td>
+                </tr>
+                <tr>
+                  <td><strong>Межстрочный интервал</strong></td>
+                  <td>1.2 — тесно, сложно читать</td>
+                  <td>1.6 — комфортно</td>
+                </tr>
+                <tr>
+                  <td><strong>Контраст</strong></td>
+                  <td>#999 на #f0f0f0 — 2:1, плохо</td>
+                  <td>#1a1a1a на #fff — 21:1, отлично</td>
+                </tr>
+                <tr>
+                  <td><strong>Ширина строки</strong></td>
+                  <td>100% ширины экрана — слишком длинно</td>
+                  <td>600px — оптимально</td>
+                </tr>
+                <tr>
+                  <td><strong>Выравнивание</strong></td>
+                  <td>По ширине с переносом по слогам</td>
+                  <td>Влево без переноса по слогам</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Типичные ошибки -->
+      <section class="section" id="mistakes">
+        <div class="container">
+          <h2>Типичные ошибки с типографикой</h2>
+
+          <div class="cards cards--3">
+            <div class="card">
+              <div class="card__title">❌ Слишком много шрифтов</div>
+              <div class="card__desc">Используется 4-5 разных гарнитур. Интерфейс выглядит хаотично и непрофессионально.</div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">❌ Маленький размер</div>
+              <div class="card__desc">Текст 12px или меньше утомляет глаза и не соответствует WCAG.</div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">❌ Слабый контраст</div>
+              <div class="card__desc">Серый текст на сером фоне почти не видена. Недоступно для людей с нарушением зрения.</div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">❌ Плохой межстрочный интервал</div>
+              <div class="card__desc">Line-height менее 1.4 делает текст тесным и сложным для чтения.</div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">❌ Слишком длинные строки</div>
+              <div class="card__desc">Текст во всю ширину монитора заставляет глаз прыгать и теряться.</div>
+            </div>
+
+            <div class="card">
+              <div class="card__title">❌ Несогласованная иерархия</div>
+              <div class="card__desc">Заголовок, текст и подписи выглядят без чёткой разницы в размере и весе.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Чек-лист -->
+      <section class="section" id="checklist">
+        <div class="container">
+          <h2>Чек-лист типографики</h2>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Вопрос</th>
+                <th>Проверка</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Сколько шрифтов используется?</td>
+                <td>Максимум 2-3 гарнитуры (заголовок, текст, акцент).</td>
+              </tr>
+              <tr>
+                <td>Размер основного текста достаточен?</td>
+                <td>Минимум 16px для веба, 12pt для печати.</td>
+              </tr>
+              <tr>
+                <td>Хороший контраст между текстом и фоном?</td>
+                <td>Минимум 4.5:1 для обычного текста (WCAG AA).</td>
+              </tr>
+              <tr>
+                <td>Межстрочный интервал комфортен?</td>
+                <td>Line-height 1.4-1.6 для основного текста.</td>
+              </tr>
+              <tr>
+                <td>Ширина строки оптимальна?</td>
+                <td>50-75 символов (обычно 600-800px).</td>
+              </tr>
+              <tr>
+                <td>Есть ясная визуальная иерархия?</td>
+                <td>Заголовки отличаются размером, весом и цветом от текста.</td>
+              </tr>
+              <tr>
+                <td>Шрифты подходят к бренду?</td>
+                <td>Характер шрифтов соответствует тону и сути проекта.</td>
+              </tr>
+              <tr>
+                <td>Форматирование последовательно?</td>
+                <td>Одинаковые элементы выглядят одинаково (кнопки, ссылки, заголовки).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Практическое задание -->
+      <section class="section" id="practice">
+        <div class="container">
+          <div class="note-block">
+            <h2>Практическое задание</h2>
+            <p>Выберите два-три сайта или приложения и проанализируйте их типографику:</p>
+            <ul class="list-ul">
+              <li>Сколько шрифтов используется и какие они?</li>
+              <li>Какие шрифты применены для заголовков, основного текста, акцентов?</li>
+              <li>Каков размер основного текста и межстрочный интервал?</li>
+              <li>Ясна ли визуальная иерархия?</li>
+              <li>Какой характер у выбранных шрифтов? Соответствует ли он бренду?</li>
+              <li>Как они сочетаются друг с другом?</li>
+              <li>Хороший ли контраст между текстом и фоном?</li>
+              <li>Какие решения можно позаимствовать для своего проекта?</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
+</html>

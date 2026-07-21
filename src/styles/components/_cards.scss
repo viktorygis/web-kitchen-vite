@@ -87,7 +87,14 @@
     font-size: 0.9rem;
     color: $greyColor;
     line-height: 1.6;
+  }
 
+  &__img{
+    width: 100%;
+    height: auto;
+
+    border-radius: $borderRadius;
+    margin: 10px 0 0 0;
   }
 
 

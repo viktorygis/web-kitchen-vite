@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', {
+"title": "Базовые принципы дизайна",
+"description": "Базовые принципы дизайна и их применение в интерфейсах"
+})
+
+<body>
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+    <main class="page">
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#intro">Введение</a>
+        <a href="#why-matter">Почему важны</a>
+        <a href="#principles">Основные принципы</a>
+        <a href="#before-after">До / После</a>
+        <a href="#ui-principles">Принципы в UI</a>
+        <a href="#mistakes">Типичные ошибки</a>
+        <a href="#checklist">Чек-лист</a>
+        <a href="#practice">Практическое задание</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="intro">
+        <div class="container">
+          <h1>Принципы дизайна</h1>
+          <p class="note">
+            <strong>Принципы дизайна</strong> — это основные правила, которые помогают создавать понятные, гармоничные и эффективные визуальные решения.
+          </p>
+          <p>
+            Дизайнер использует эти принципы для управления вниманием пользователя, создания структуры и улучшения восприятия информации.
+          </p>
+
+          <figure>
+            <img class="note-img" src="/img/design/foundation-principles.png" alt="Принципы дизайна" />
+            <figcaption class="note-caption">Рис. 1. Принципы дизайна помогают создавать понятные и гармоничные визуальные решения.</figcaption>
+          </figure>
+
+        </div>
+      </section>
+
+      <!-- Зачем нужны принципы дизайна -->
+      <section class="section" id="why-matter">
+        <div class="container">
+          <h2>Зачем нужны принципы дизайна</h2>
+          <div class="cards cards--3">
+            <div class="card">
+              <div class="card__title">Понятность</div>
+              <div class="card__desc">Помогают пользователю быстрее понимать интерфейс и находить нужную информацию.</div>
+            </div>
+            <div class="card">
+              <div class="card__title">Удобство</div>
+              <div class="card__desc">Снижают когнитивную нагрузку и упрощают взаимодействие с продуктом.</div>
+            </div>
+            <div class="card">
+              <div class="card__title">Последовательность</div>
+              <div class="card__desc">Создают единый визуальный язык и делают интерфейс предсказуемым.</div>
+            </div>
+          </div>
+      </section>
+
+      <!-- Основные принципы -->
+      <section class="section" id="principles">
+        <div class="container">
+          <h2>Основные принципы</h2>
+          <p class="note">
+            <strong>Принципы дизайна</strong> — это основные правила, которые помогают создавать понятные, гармоничные и эффективные визуальные решения.
+          </p>
+          <p>
+            Дизайнер использует эти принципы для управления вниманием пользователя, создания структуры и улучшения восприятия информации.
+          </p>
+          <div class="cards cards--50">
+
+            <!-- Баланс -->
+            <div class="card">
+              <div class="card__title">Баланс</div>
+              <div class="card__desc">
+                <strong>Баланс</strong> — распределение визуального веса элементов в композиции. Помогает создавать устойчивый дизайн, где ни один объект не перегружает внимание пользователя.
+                <br><br>
+                Баланс бывает:
+                <ul class="list-ul">
+                  <li><strong>Симметричный</strong> — элементы расположены зеркально.</li>
+                  <li><strong>Асимметричный</strong> — разные элементы создают равновесие за счёт размера, цвета или положения.</li>
+                </ul>
+                В интерфейсах баланс помогает создавать гармоничные экраны и удобное восприятие информации.
+              </div>
+              <img class="card__img" src="/img/design/principles-balance.png" alt="Принципы дизайна" />
+
+            </div>
+
+            <!--  Контраст-->
+            <div class="card">
+              <div class="card__title">Контраст</div>
+              <div class="card__desc">
+                <strong>Контраст</strong> — различие между элементами, которое помогает выделять важную информацию. Создаётся через:
+                <ul class="list-ul">
+                  <li>цвет;</li>
+                  <li>размер;</li>
+                  <li>форму;</li>
+                  <li>толщину;</li>
+                  <li>пространство.</li>
+                </ul>
+                В UI-дизайне контраст помогает пользователю быстро находить главные действия, например кнопку «Купить» или «Продолжить».
+              </div>
+              <img class="card__img" src="/img/design/principles-contrast.png" alt="Принципы дизайна" />
+            </div>
+
+            <!-- Визуальная иерархия -->
+            <div class="card">
+              <div class="card__title">Визуальная иерархия</div>
+              <div class="card__desc">
+                <strong>Иерархия</strong> — порядок восприятия элементов по степени важности. Она помогает пользователю понять:
+                <ul class="list-ul">
+                  <li>что прочитать первым;</li>
+                  <li>куда обратить внимание;</li>
+                  <li>какое действие выполнить.</li>
+                </ul>
+                Создаётся через размер, цвет, расположение и типографику.
+              </div>
+              <img class="card__img" src="/img/design/foundation-hierarchy.png" alt="Принципы дизайна" />
+            </div>
+
+            <!-- Выравнивание -->
+            <div class="card">
+              <div class="card__title">Выравнивание</div>
+              <div class="card__desc">
+                <strong>Выравнивание</strong> — размещение элементов относительно общей структуры. Оно создаёт:
+                <ul class="list-ul">
+                  <li>порядок;</li>
+                  <li>связь между объектами;</li>
+                  <li>ощущение профессионального дизайна.</li>
+                </ul>
+                В интерфейсах выравнивание помогает создавать понятные сетки и аккуратные экраны.
+              </div>
+              <img class="card__img" src="/img/design/foundation-alignment.png" alt="Принципы дизайна" />
+            </div>
+
+
+            <!-- Повторение -->
+            <div class="card">
+              <div class="card__title">Повторение</div>
+              <div class="card__desc">
+                <strong>Повторение</strong> — использование одинаковых визуальных правил в разных элементах. Например:
+                <ul class="list-ul">
+                  <li>одинаковый стиль кнопок;</li>
+                  <li>единые заголовки;</li>
+                  <li>повторяющиеся цвета.</li>
+                </ul>
+                Помогает создавать целостность и узнаваемый визуальный язык продукта.
+              </div>
+              <img class="card__img" src="/img/design/foundation-repetition.png" alt="Принципы дизайна" />
+            </div>
+
+            <!-- Близость -->
+            <div class="card">
+              <div class="card__title">Близость</div>
+              <div class="card__desc">
+                <strong>Близость</strong> — принцип, согласно которому элементы рядом воспринимаются как связанные. Используется для:
+                <ul class="list-ul">
+                  <li>группировки информации;</li>
+                  <li>создания структуры;</li>
+                  <li>уменьшения сложности.</li>
+                </ul>
+                Например, подпись поля формы должна находиться рядом с самим полем.
+              </div>
+              <img class="card__img" src="/img/design/foundation-proximity.png" alt="Принципы дизайна" />
+            </div>
+
+            <!-- Масштаб -->
+            <div class="card">
+              <div class="card__title">Масштаб</div>
+              <div class="card__desc">
+                <strong>Масштаб</strong> — отношение размеров элементов между собой. Большие элементы воспринимаются как более важные. Используется для:
+                <ul class="list-ul">
+                  <li>выделения заголовков;</li>
+                  <li>создания акцентов;</li>
+                  <li>управления вниманием.</li>
+                </ul>
+              </div>
+              <img class="card__img" src="/img/design/foundation-scale.png" alt="Принципы дизайна" />
+            </div>
+
+            <!-- Белое пространство -->
+            <div class="card">
+              <div class="card__title">Белое пространство</div>
+              <div class="card__desc">
+                <strong>Белое пространство</strong> — свободная область между элементами. Оно помогает:
+                <ul class="list-ul">
+                  <li>улучшить читаемость;</li>
+                  <li>разделить блоки;</li>
+                  <li>создать визуальную паузу.</li>
+                </ul>
+                Хороший дизайн использует не только элементы, но и пространство вокруг них.
+              </div>
+              <img class="card__img" src="/img/design/whitespace.png" alt="Принципы дизайна" />
+            </div>
+
+            <!-- Единство -->
+            <div class="card">
+              <div class="card__title">Единство</div>
+              <div class="card__desc">
+                <strong>Единство</strong> — ощущение, что все элементы принадлежат одной системе. Создаётся через:
+                <ul class="list-ul">
+                  <li>единый стиль;</li>
+                  <li>общие правила;</li>
+                  <li>повторяющиеся компоненты.</li>
+                </ul>
+                Особенно важно при создании дизайн-систем.
+              </div>
+              <img class="card__img" src="/img/design/foundation-unity.png" alt="Принципы дизайна" />
+            </div>
+
+            <!-- Фигура и фон -->
+            <div class="card">
+              <div class="card__title">Фигура и фон</div>
+              <div class="card__desc">
+                <strong>Фигура и фон</strong> — принцип, который объясняет, как пользователь отделяет главный объект от окружающего пространства. Дизайнер использует этот принцип, чтобы выделять:
+                <ul class="list-ul">
+                  <li>главные элементы;</li>
+                  <li>кнопки действий;</li>
+                  <li>важный контент.</li>
+                </ul>
+                Например, активная кнопка должна визуально отличаться от окружающего интерфейса.
+              </div>
+              <img class="card__img" src="/img/design/gestalt-figure-ground.png" alt="Принципы дизайна" />
+            </div>
+
+            <!-- Ритм -->
+            <div class="card">
+              <div class="card__title">Ритм</div>
+              <div class="card__desc">
+                <strong>Ритм</strong> — повторение визуальных элементов через одинаковые интервалы, размеры или закономерности. Создаёт:
+                <ul class="list-ul">
+                  <li>предсказуемость;</li>
+                  <li>порядок;</li>
+                  <li>визуальную целостность.</li>
+                </ul>
+                В интерфейсах проявляется через отступы, сетки и повторяющиеся компоненты.
+              </div>
+              <img class="card__img" src="/img/design/foundation-rhythm.png" alt="Принципы дизайна" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- До и После -->
+      <section class="section" id="before-after">
+        <div class="container">
+          <h2>Пример: До и После</h2>
+          <p class="note">
+            Посмотрите, как применение принципов дизайна превращает запутанный интерфейс в понятный и приятный продукт.
+          </p>
+
+          <!-- Плохой дизайн -->
+          <div class="before-after__item">
+            <h3 class="before-after__title before-after__title--bad">❌ Плохой дизайн — Что не так</h3>
+            <div class="cards cards--3">
+              <div class="card">
+                <div class="card__desc">
+                  <strong>❌ Все кнопки одинаковые</strong><br>
+                  Основное действие не выделено. Пользователь не понимает, что нажать в первую очередь.
+                </div>
+              </div>
+              <div class="card">
+                <div class="card__desc">
+                  <strong>❌ Нет визуальной иерархии</strong><br>
+                  Текст, кнопки и элементы имеют одинаковый размер и вес. Нечетко, что прочитать первым.
+                </div>
+              </div>
+              <div class="card">
+                <div class="card__desc">
+                  <strong>❌ Мало пространства</strong><br>
+                  Элементы прижаты друг к другу. Интерфейс выглядит перегруженным и сложным.
+                </div>
+              </div>
+            </div>
+
+            <h4>Как это выглядит:</h4>
+            <div class="before-after__preview before-after__preview--bad">
+              <style>
+                .bad-design {
+                  padding: 5px;
+                  background: #f5f5f5;
+                  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                }
+
+                .bad-design__title {
+                  font-size: 16px;
+                  margin: 0 0 5px 0;
+                  font-weight: 600;
+                  color: #333;
+                }
+
+                .bad-design__text {
+                  font-size: 14px;
+                  margin: 0 0 5px 0;
+                  line-height: 1.3;
+                  color: #555;
+                }
+
+                .bad-design__buttons {
+                  display: flex;
+                  gap: 3px;
+                  flex-wrap: wrap;
+                }
+
+                .bad-design__button {
+                  padding: 8px 12px;
+                  font-size: 14px;
+                  background: #e0e0e0;
+                  border: 1px solid #999;
+                  border-radius: 2px;
+                  cursor: pointer;
+                  color: #333;
+                }
+              </style>
+              <div class="bad-design">
+                <h2 class="bad-design__title">Оформить заказ</h2>
+                <p class="bad-design__text">Выберите товар и оплатите. Доставка в течение 5-7 дней. Можно вернуть товар в течение 30 дней. Все наши товары сертифицированы и проверены.</p>
+                <div class="bad-design__buttons">
+                  <button class="bad-design__button">Назад</button>
+                  <button class="bad-design__button">Продолжить</button>
+                  <button class="bad-design__button">Оплатить</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Хороший дизайн -->
+          <div class="before-after__item">
+            <h3 class="before-after__title before-after__title--good">✅ Хороший дизайн — Что изменилось</h3>
+            <div class="cards cards--3">
+              <div class="card">
+                <div class="card__desc">
+                  <strong>✅ Одна главная кнопка</strong><br>
+                  Кнопка "Оплатить" выделена цветом и размером. Это явно главное действие.
+                </div>
+              </div>
+              <div class="card">
+                <div class="card__desc">
+                  <strong>✅ Понятная иерархия</strong><br>
+                  Заголовок больше, текст средний, вспомогательная информация маленькая. Очевидный порядок чтения.
+                </div>
+              </div>
+              <div class="card">
+                <div class="card__desc">
+                  <strong>✅ Правильные отступы</strong><br>
+                  Элементы разделены пространством. Интерфейс дышит, информация воспринимается легче.
+                </div>
+              </div>
+            </div>
+
+            <h4>Как это выглядит:</h4>
+            <div class="before-after__preview before-after__preview--good">
+              <style>
+                .good-design {
+                  padding: 32px;
+                  background: #ffffff;
+                  max-width: 400px;
+                  margin: 0 auto;
+                  border-radius: 8px;
+                  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                }
+
+                .good-design__title {
+                  font-size: 24px;
+                  font-weight: 700;
+                  margin: 0 0 16px 0;
+                  color: #1a1a1a;
+                }
+
+                .good-design__text {
+                  font-size: 14px;
+                  margin: 0 0 8px 0;
+                  line-height: 1.6;
+                  color: #333;
+                }
+
+                .good-design__helper {
+                  font-size: 12px;
+                  margin: 0 0 24px 0;
+                  line-height: 1.5;
+                  color: #777;
+                }
+
+                .good-design__buttons {
+                  display: flex;
+                  gap: 12px;
+                }
+
+                .good-design__button {
+                  padding: 12px;
+                  font-size: 14px;
+                  border-radius: 4px;
+                  cursor: pointer;
+                  border: none;
+                  flex: 1;
+                }
+
+                .good-design__button--secondary {
+                  background: #f5f5f5;
+                  border: 1px solid #ddd;
+                  color: #666;
+                }
+
+                .good-design__button--primary {
+                  background: #0066cc;
+                  color: white;
+                  font-weight: 600;
+                  flex: 2;
+                }
+
+                .good-design__button--primary:hover {
+                  background: #0052a3;
+                }
+              </style>
+              <div class="good-design">
+                <h2 class="good-design__title">Оформить заказ</h2>
+                <p class="good-design__text">Выберите товар и оплатите.</p>
+                <p class="good-design__helper">Доставка в течение 5-7 дней. Можно вернуть товар в течение 30 дней.</p>
+                <div class="good-design__buttons">
+                  <button class="good-design__button good-design__button--secondary">Назад</button>
+                  <button class="good-design__button good-design__button--primary">Оплатить</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Сравнение принципов -->
+          <div class="note-block">
+            <h3>Сравнение принципов</h3>
+            <table class="table-note">
+              <thead>
+                <tr>
+                  <th>Принцип</th>
+                  <th>❌ Плохой дизайн</th>
+                  <th>✅ Хороший дизайн</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Контраст</strong></td>
+                  <td>Все кнопки серые, одинаковые</td>
+                  <td>Главная кнопка синяя, выделена цветом</td>
+                </tr>
+                <tr>
+                  <td><strong>Визуальная иерархия</strong></td>
+                  <td>Заголовок 16px, как описание 14px</td>
+                  <td>Заголовок 24px, описание 14px, подпись 12px</td>
+                </tr>
+                <tr>
+                  <td><strong>Отступы</strong></td>
+                  <td>Padding 5px, margin 3px — тесно</td>
+                  <td>Padding 32px, margin 16px 24px — просторно</td>
+                </tr>
+                <tr>
+                  <td><strong>Пространство</strong></td>
+                  <td>Элементы прижаты друг к другу</td>
+                  <td>Каждый элемент имеет своё место</td>
+                </tr>
+                <tr>
+                  <td><strong>Единство</strong></td>
+                  <td>Нет единого стиля оформления</td>
+                  <td>Единый цвет, шрифты, border-radius</td>
+                </tr>
+                <tr>
+                  <td><strong>Фокус</strong></td>
+                  <td>Непонятно, куда нажать в первую очередь</td>
+                  <td>Очевидно, что "Оплатить" — главное действие</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Принципы дизайна в интерфейсах -->
+      <section class="section" id="ui-principles">
+        <div class="container">
+          <h2>Принципы дизайна в интерфейсах</h2>
+          <p class="note">
+            <strong>Принципы дизайна</strong> помогают создавать интерфейсы, которые легко воспринимать и использовать. В UI-дизайне каждый принцип решает конкретную задачу: управляет вниманием, создаёт порядок и помогает пользователю быстрее выполнять действия.
+          </p>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Принцип</th>
+                <th>Что решает</th>
+                <th>Пример в интерфейсе</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Контраст</strong></td>
+                <td>Выделяет главное и помогает пользователю понять, куда обратить внимание.</td>
+                <td>CTA-кнопка отличается цветом и размером от второстепенных элементов.</td>
+              </tr>
+              <tr>
+                <td><strong>Визуальная иерархия</strong></td>
+                <td>Показывает порядок восприятия информации: что важно, а что вторично.</td>
+                <td>Заголовок → описание → кнопка действия.</td>
+              </tr>
+              <tr>
+                <td><strong>Близость</strong></td>
+                <td>Объединяет связанные элементы и помогает пользователю понимать структуру.</td>
+                <td>Поле ввода находится рядом с подписью, а связанные настройки собраны вместе.</td>
+              </tr>
+              <tr>
+                <td><strong>Повторение</strong></td>
+                <td>Создаёт единый визуальный язык и делает интерфейс предсказуемым.</td>
+                <td>Одинаковый стиль кнопок, карточек и компонентов во всём продукте.</td>
+              </tr>
+              <tr>
+                <td><strong>Выравнивание</strong></td>
+                <td>Создаёт порядок и помогает пользователю быстро сканировать экран.</td>
+                <td>Элементы интерфейса расположены по единой сетке Grid Layout.</td>
+              </tr>
+              <tr>
+                <td><strong>Белое пространство</strong></td>
+                <td>Улучшает читаемость, разделяет блоки и снижает нагрузку.</td>
+                <td>Отступы между секциями, карточками и элементами формы.</td>
+              </tr>
+              <tr>
+                <td><strong>Баланс</strong></td>
+                <td>Помогает распределить визуальный вес и создать гармоничный экран.</td>
+                <td>Размер изображений и текста сбалансирован относительно друг друга.</td>
+              </tr>
+              <tr>
+                <td><strong>Масштаб</strong></td>
+                <td>Показывает важность элементов через их размер.</td>
+                <td>Главный заголовок крупнее, чем описание и вспомогательный текст.</td>
+              </tr>
+              <tr>
+                <td><strong>Единство</strong></td>
+                <td>Создаёт ощущение целостного продукта.</td>
+                <td>Использование дизайн-системы с едиными компонентами и правилами.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Типичные ошибки -->
+      <section class="section" id="mistakes">
+        <div class="container">
+          <h2>Типичные ошибки</h2>
+          <div class="cards cards--3">
+            <div class="card">
+              <div class="card__title">Нет визуальной иерархии</div>
+              <div class="card__desc">Все элементы выглядят одинаково важными. Пользователь не понимает, куда смотреть.</div>
+            </div>
+            <div class="card">
+              <div class="card__title">Слишком мало пространства</div>
+              <div class="card__desc">Элементы расположены слишком близко, из-за чего интерфейс становится сложным.</div>
+            </div>
+            <div class="card">
+              <div class="card__title">Слабый контраст</div>
+              <div class="card__desc">Главные действия теряются, а пользователь не понимает следующий шаг.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Чек-лист дизайнера -->
+      <section class="section" id="checklist">
+        <div class="container">
+          <h2>Чек-лист дизайнера</h2>
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Вопрос</th>
+                <th>Проверка</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Есть ли главный элемент?</td>
+                <td>Пользователь сразу понимает, куда смотреть?</td>
+              </tr>
+              <tr>
+                <td>Есть ли визуальная иерархия?</td>
+                <td>Понятно, что важно, а что вторично?</td>
+              </tr>
+              <tr>
+                <td>Есть ли баланс?</td>
+                <td>Композиция выглядит устойчивой?</td>
+              </tr>
+              <tr>
+                <td>Используется ли контраст?</td>
+                <td>Выделены ключевые элементы?</td>
+              </tr>
+              <tr>
+                <td>Есть ли единый стиль?</td>
+                <td>Все элементы выглядят частью одной системы?</td>
+              </tr>
+              <tr>
+                <td>Есть ли визуальный ритм?</td>
+                <td>Повторяются ли размеры, интервалы и стили?</td>
+              </tr>
+              <tr>
+                <td>Можно ли убрать лишнее?</td>
+                <td>Каждый элемент действительно нужен?</td>
+              </tr>
+              <tr>
+                <td>Понятен ли путь пользователя?</td>
+                <td>Очевидно ли, куда смотреть и что делать дальше?</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Практическое задание -->
+      <section class="section" id="practice">
+        <div class="container">
+          <div class="note-block">
+            <h2>Практическое задание</h2>
+            <p>Возьмите любой экран мобильного приложения и найдите:</p>
+            <ul class="list-ul">
+              <li>главный элемент;</li>
+              <li>визуальную иерархию;</li>
+              <li>использование контраста;</li>
+              <li>повторяющиеся элементы;</li>
+              <li>работу с пространством.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+    @@include('../partials/footer.html', {})
+  </div>
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+</body>
+
+</html>
