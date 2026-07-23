@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', {
+"title": "async/await и Promise в Node.js — асинхронный JavaScript",
+"description": "Изучите Promise и async/await в Node.js: создание промисов, обработка ошибок, последовательное и параллельное выполнение асинхронного кода."
+})
+
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+
+    <main class="page" id="main" tabindex="-1">
+
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#intro" class="active" aria-current="page">Введение</a>
+        <a href="#promise">Promise</a>
+        <a href="#async-await">async/await</a>
+        <a href="#node-example">async/await в Node.js</a>
+        <a href="#errors">Ошибки</a>
+        <a href="#promise-all">Promise.all()</a>
+        <a href="#best-practices">Лучшие практики</a>
+        <a href="#faq">FAQ</a>
+
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="intro">
+        <div class="container">
+
+          <h1>async/await и Promise в Node.js</h1>
+
+          <p class="note">
+            <strong>Promise</strong>
+            — объект JavaScript, который представляет результат асинхронной операции.
+            <br />
+            <strong>async/await</strong>
+            — удобный синтаксис для работы с Promise, позволяющий писать асинхронный код так, будто он выполняется последовательно.
+          </p>
+
+          <p>
+            В Node.js многие операции выполняются асинхронно: чтение файлов,
+            запросы к базе данных, сетевые обращения и работа с API.
+            Promise и async/await помогают управлять такими операциями без
+            большого количества вложенных callback-функций.
+          </p>
+
+        </div>
+      </section>
+
+      <!-- Promise в JavaScript -->
+      <section class="section" id="promise">
+        <div class="container">
+
+          <h2>Promise в JavaScript</h2>
+
+          <p class="note">
+            <strong>Promise</strong>
+            — специальный объект, который хранит состояние будущего результата асинхронной операции.
+          </p>
+          <p class="note note--info">
+            <strong>Promise</strong>
+            — это как <b>«обещание»</b> выполнения какой-то асинхронной операции, которое в будущем либо выполнится успешно, либо с ошибкой.
+
+            Когда операция завершена, <b>Promise</b> либо <b>resolve (успех)</b>, либо <b>reject (ошибка)</b>.
+          </p>
+          <h4>Пример создания Promise:</h4>
+          <div class="code-block">
+            <pre><code>// Создание Promise
+let promise = new Promise((resolve, reject) => {
+  let success = true; // Сделаем успех
+  if (success) {
+    resolve("Операция успешна!");
+  } else {
+    reject("Произошла ошибка");
+  }
+}); </code></pre>
+          </div>
+          <p>Здесь мы создаём <b>Promise</b> с помощью конструктора <b>Promise</b> и проверяем переменную <b>success</b>. Если она <b>true</b>, <b>Promise</b> завершается успешно <b>resolve</b>. Если нет — с ошибкой <b>reject</b>.</p>
+
+          <h4>Состояния Promise:</h4>
+
+          <ul class="list-ul">
+            <li>
+              <strong>pending</strong>
+              — операция выполняется.
+            </li>
+            <li>
+              <strong>fulfilled</strong>
+              — операция успешно завершена.
+            </li>
+            <li>
+              <strong>rejected</strong>
+              — произошла ошибка.
+            </li>
+          </ul>
+
+
+          <h3>Создание Promise</h3>
+
+          <p class="note">
+            <strong>Конструктор Promise</strong>
+            — способ создать собственную асинхронную операцию.
+          </p>
+
+
+          <div class="code-block">
+            <pre><code>const userPromise = new Promise((resolve, reject) => {
+  const success = true;
+
+  if (success) {
+    resolve("Пользователь найден");
+  } else {
+    reject("Ошибка загрузки");
+  }
+});
+
+userPromise
+  .then(result => console.log(result))
+  .catch(error => console.log(error));</code></pre>
+          </div>
+
+
+          <h3>Методы Promise</h3>
+
+          <ul class="list-ul">
+            <li>
+              <strong>then()</strong>
+              — выполняется после успешного результата.
+            </li>
+            <li>
+              <strong>catch()</strong>
+              — обрабатывает ошибки.
+            </li>
+            <li>
+              <strong>finally()</strong>
+              — выполняется всегда после завершения.
+            </li>
+          </ul>
+
+
+          <h4>Цепочка Promise:</h4>
+
+          <div class="code-block">
+            <pre><code>fetchUser()
+  .then(user => fetchPosts(user.id))
+  .then(posts => console.log(posts))
+  .catch(error => console.error(error))
+  .finally(() => console.log("Готово"));</code></pre>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- async/await -->
+      <section class="section" id="async-await">
+        <div class="container">
+
+          <h2>async/await</h2>
+
+          <p class="note">
+            <strong>async/await</strong>
+            — синтаксический способ работы с Promise, который делает асинхронный код более читаемым. <br> Это <b>синтаксический сахар</b>, который упрощает работу с асинхронным кодом.
+            <br>
+            async используется перед функцией, чтобы сделать её асинхронной. А <b>await</b> заставляет функцию <b>"подождать"</b>, пока Promise не выполнится.
+          </p>
+          <div class="code-block">
+            <pre><code>async function example() {
+  let result = await promise;
+  console.log(result);
+}</code></pre>
+          </div>
+          <p>Здесь <b>await</b> ждёт, пока <b>Promise</b> не выполнится, и только потом продолжает выполнение кода.
+
+          </p>
+
+          <ul class="list-ul">
+            <li>
+              <strong>async</strong>
+              — делает функцию асинхронной и возвращает Promise.
+            </li>
+            <li>
+              <strong>await</strong>
+              — ожидает завершение Promise внутри async-функции.
+            </li>
+          </ul>
+
+
+          <h3>Базовый пример async/await</h3>
+
+
+          <div class="code-block">
+            <pre><code>async function testAsync() {
+  let result = await new Promise((resolve) => {
+    setTimeout(() => resolve("Операция завершена!"), 1000); // Заполните время ожидания
+  });
+  console.log(result);
+}</code></pre>
+          </div>
+
+
+          <h3>Последовательное выполнение</h3>
+
+          <p class="note">
+            <strong>Последовательное выполнение</strong>
+            — следующая операция начинается после завершения предыдущей.
+          </p>
+
+
+          <div class="code-block">
+            <pre><code>async function loadData() {
+  const user = await getUser();
+  const posts = await getPosts(user.id);
+
+  console.log(posts);
+}
+
+loadData();</code></pre>
+          </div>
+
+
+          <h3>Параллельное выполнение Promise</h3>
+
+          <p class="note">
+            <strong>Promise.all()</strong>
+            — запускает несколько Promise одновременно и ждёт завершения всех операций.
+          </p>
+
+
+          <div class="code-block">
+            <pre><code>async function loadAll() {
+  const [users, posts] = await Promise.all([
+    getUsers(),
+    getPosts()
+  ]);
+
+  console.log(users, posts);
+}
+
+loadAll();</code></pre>
+          </div>
+
+
+        </div>
+      </section>
+
+      <!--async/await в Node.js  -->
+      <section class="section" id="node-example">
+        <div class="container">
+
+          <h2>async/await в Node.js</h2>
+
+          <p class="note">
+            <strong>Асинхронные API Node.js</strong>
+            часто возвращают Promise, поэтому async/await является основным способом работы с ними.
+          </p>
+
+
+          <h3>Чтение файла через fs/promises</h3>
+
+
+          <div class="code-block">
+            <pre><code>const fs = require("fs/promises");
+
+async function readFile() {
+  const text = await fs.readFile(
+    "data.txt",
+    "utf8"
+  );
+
+  console.log(text);
+}
+
+readFile();</code></pre>
+          </div>
+
+
+        </div>
+      </section>
+
+      <!-- errors -->
+      <section class="section" id="errors">
+        <div class="container">
+
+          <h2>Обработка ошибок</h2>
+
+          <p class="note">
+            <strong>try...catch</strong>
+            — способ перехватывать ошибки внутри async-функций.
+          </p>
+          <ul class="list-ul">
+            <li> <b>try</b> — в этом блоке пишешь код, который может вызвать ошибку. </li>
+            <li> <b>catch</b> — в этом блоке обрабатываешь ошибку, если она возникла в блоке try</li>
+          </ul>
+
+          <div class="code-block">
+            <pre><code>async function example() {
+  try {
+    let result = await someAsyncFunction();
+    console.log(result);
+  } catch (error) {
+    console.log("Произошла ошибка:", error);
+  }
+}</code></pre>
+          </div>
+          <p>Здесь <b>try</b> пытается выполнить код, а <b>catch</b> перехватывает ошибку, если она возникла.
+
+          </p>
+
+          <div class="warning"> <strong>Частая ошибка:</strong> Не обрабатывать ошибки Promise. <br />
+            Решение: всегда использовать <code>catch()</code> или <code>try...catch</code> вместе с async/await. </div>
+
+          <h4>async/await и Promise</h4>
+          <p class="note note--info "> async/await и Promise работают вместе, чтобы упрощать асинхронные операции.</p>
+
+          <ul class="list-ul">
+            <li><b>Promise</b> выполняется первым и возвращает результат.</li>
+            <li><b>await</b> останавливает выполнение функции до завершения Promise</li>
+          </ul>
+
+          <div class="code-block">
+            <pre><code>async function example() {
+  let result = await new Promise((resolve) => {
+    setTimeout(() => resolve("Задача выполнена!"), 1000);
+  });
+  console.log(result);
+} </code></pre>
+          </div>
+          <p>В этом примере await ждёт результат от Promise, а выполнение функции продолжается только после его получения. </p>
+          <h5>Что происходит:</h5>
+          <ul class="list-ul">
+            <li>Создаётся Promise, который выполняется через 1 секунду.</li>
+            <li>await останавливает выполнение функции до завершения Promise.</li>
+            <li>После завершения Promise результат выводится в консоль.</li>
+          </ul>
+          <h5>Если не использовать await</h5>
+          <p>Если не использовать await, Promise будет создан, но выполнение функции не будет ждать его завершения. В результате консоль может вывести Promise вместо его результата.</p>
+          <h5>Если не использовать Promise</h5>
+          <p>Если не использовать Promise, await будет ожидать обычное значение, и асинхронность теряется. В результате код может работать синхронно, что не всегда соответствует ожиданиям.</p>
+          <h5>Если не использовать await и Promise</h5>
+          <p>Если не использовать await и Promise, код будет выполняться синхронно, что может привести к блокировке выполнения и потере асинхронности. В результате приложение может стать медленным и неэффективным.</p>
+        </div>
+      </section>
+
+      <!-- Promise.all() -->
+      <section class="section" id="promise-all">
+        <div class="container">
+
+          <h2>Promise.all()</h2>
+
+          <p class="note">
+            <strong>Promise.all()</strong>
+            — метод, который позволяет запускать несколько Promise одновременно и ждать их завершения.
+          </p>
+
+          <div class="code-block">
+            <pre><code>async function parallelTasks() {
+let result = await Promise.all([
+new Promise ((resolve) => setTimeout(resolve, 1000)),
+new Promise ((resolve) => setTimeout(resolve, 2000)),
+]);
+  console.log("Все задачи завершены!");
+}</code></pre>
+          </div>
+
+          <p>
+            В этом примере <b>Promise.all()</b> запускает две задачи параллельно. Первая задача завершится через 1 секунду, а вторая — через 2 секунды. После завершения обеих задач выводится сообщение..
+          </p>
+
+        </div>
+      </section>
+
+      <!-- Лучшие практики async/await -->
+      <section class="section" id="best-practices">
+        <div class="container">
+
+          <div class="note-block">
+
+            <h3>Лучшие практики async/await</h3>
+
+            <ul class="list-ul">
+              <li>Используйте async/await вместо длинных цепочек then().</li>
+              <li>Всегда обрабатывайте возможные ошибки.</li>
+              <li>Используйте Promise.all() для независимых операций.</li>
+              <li>Не добавляйте лишний await без необходимости.</li>
+            </ul>
+
+          </div>
+
+
+          <div class="summary">
+
+            <h3>Итоги</h3>
+
+            <ul class="list-ul">
+              <li>Promise управляет результатом асинхронной операции.</li>
+              <li>async/await упрощает работу с Promise.</li>
+              <li>await можно использовать только внутри async-функции.</li>
+              <li>try...catch помогает безопасно обрабатывать ошибки.</li>
+            </ul>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Часто задаваемые вопросы -->
+      <section class="section" id="faq">
+        <div class="container">
+
+          <h2>Часто задаваемые вопросы</h2>
+
+
+          <div class="faq">
+
+            <div class="faq__item">
+
+              <button class="faq__question">
+                Чем Promise отличается от async/await?
+              </button>
+
+              <div class="faq__answer">
+                <p>
+                  async/await является удобным синтаксисом поверх Promise.
+                  Под капотом async-функции всё равно используют Promise.
+                </p>
+              </div>
+
+            </div>
+
+
+
+            <div class="faq__item">
+
+              <button class="faq__question">
+                Можно ли использовать await без async?
+              </button>
+
+              <div class="faq__answer">
+                <p>
+                  Обычно нет. await используется внутри async-функций,
+                  кроме специальных случаев с top-level await в ES-модулях.
+                </p>
+              </div>
+
+            </div>
+
+
+
+            <div class="faq__item">
+
+              <button class="faq__question">
+                Когда использовать Promise.all()?
+              </button>
+
+              <div class="faq__answer">
+                <p>
+                  Когда несколько асинхронных операций независимы друг от друга
+                  и могут выполняться одновременно.
+                </p>
+              </div>
+
+            </div>
+
+
+          </div>
+
+        </div>
+      </section>
+
+
+    </main>
+
+
+    @@include('../partials/footer.html', {})
+
+  </div>
+
+
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+
+</body>
+
+</html>

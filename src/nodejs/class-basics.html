@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', {
+"title": "Использование классов в JavaScript — классы в Node.js",
+"description": "Изучите классы JavaScript в Node.js: создание классов, конструкторы, методы, наследование, статические методы и лучшие практики."
+})
+
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <div class="wrapper">
+
+    @@include('../partials/header.html', {})
+
+    <main class="page" id="main" tabindex="-1">
+
+
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#intro" class="active" aria-current="page">Введение</a>
+        <a href="#syntax">Создание класса</a>
+        <a href="#methods">Методы</a>
+        <a href="#inheritance">Наследование</a>
+        <a href="#node">Node.js пример</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+
+
+      <section class="section" id="intro">
+
+        <div class="container">
+
+          <h1>Использование классов в JavaScript</h1>
+
+
+          <p class="note">
+            <strong>Класс</strong>
+            — шаблон для создания объектов с общими свойствами и методами.
+            <br />
+            В Node.js классы используются для организации кода, создания моделей данных и построения архитектуры приложений.
+          </p>
+
+
+          <p>
+            Классы появились в JavaScript стандарта ES6 и являются удобным
+            способом работы с объектно-ориентированным программированием.
+            Под капотом они используют прототипное наследование JavaScript.
+          </p>
+
+
+        </div>
+
+      </section>
+
+
+
+
+
+      <section class="section" id="syntax">
+
+        <div class="container">
+
+
+          <h2>Создание класса</h2>
+
+
+          <p class="note">
+            <strong>Объявление класса</strong>
+            — создание структуры, которая описывает свойства и поведение будущих объектов.
+          </p>
+
+
+          <ul class="list-ul">
+
+            <li>
+              <strong>class</strong>
+              — ключевое слово для создания класса.
+            </li>
+
+            <li>
+              <strong>constructor()</strong>
+              — специальный метод для начальной настройки объекта.
+            </li>
+
+            <li>
+              <strong>new</strong>
+              — оператор создания экземпляра класса.
+            </li>
+
+          </ul>
+
+
+
+          <h3>Простой класс пользователя</h3>
+
+
+          <div class="code-block">
+            <pre><code>class User {
+
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+}
+
+const user = new User(
+  "Alex",
+  25
+);
+
+console.log(user.name);</code></pre>
+          </div>
+
+
+
+          <p>
+            Каждый объект, созданный через
+            <code>new User()</code>,
+            получает собственные свойства
+            <code>name</code>
+            и
+            <code>age</code>.
+          </p>
+
+
+        </div>
+
+      </section>
+
+
+
+
+
+
+
+      <section class="section" id="methods">
+
+        <div class="container">
+
+
+          <h2>Методы класса</h2>
+
+
+          <p class="note">
+            <strong>Методы класса</strong>
+            — функции внутри класса, которые описывают действия объекта.
+          </p>
+
+
+
+          <h3>Добавление методов</h3>
+
+
+          <div class="code-block">
+            <pre><code>class User {
+
+  constructor(name) {
+    this.name = name;
+  }
+
+
+  sayHello() {
+    console.log(
+      `Привет, ${this.name}`
+    );
+  }
+
+}
+
+
+const user = new User("Alex");
+
+user.sayHello();</code></pre>
+          </div>
+
+
+
+          <h3>Геттеры и сеттеры</h3>
+
+
+          <p class="note">
+            <strong>get и set</strong>
+            — специальные методы для безопасного чтения и изменения свойств объекта.
+          </p>
+
+
+
+          <div class="code-block">
+            <pre><code>class Product {
+
+  constructor(price) {
+    this._price = price;
+  }
+
+
+  get price() {
+    return this._price;
+  }
+
+
+  set price(value) {
+    this._price = value;
+  }
+
+}
+
+
+const item = new Product(100);
+
+item.price = 200;
+
+console.log(item.price);</code></pre>
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+
+
+
+
+
+      <section class="section" id="inheritance">
+
+        <div class="container">
+
+
+          <h2>Наследование классов</h2>
+
+
+          <p class="note">
+            <strong>Наследование</strong>
+            — механизм, позволяющий создавать новый класс на основе существующего.
+          </p>
+
+
+          <ul class="list-ul">
+
+            <li>
+              <strong>extends</strong>
+              — создаёт связь между классами.
+            </li>
+
+            <li>
+              <strong>super()</strong>
+              — вызывает конструктор родительского класса.
+            </li>
+
+          </ul>
+
+
+
+          <h3>Пример наследования</h3>
+
+
+          <div class="code-block">
+            <pre><code>class Animal {
+
+  constructor(name) {
+    this.name = name;
+  }
+
+
+  speak() {
+    console.log(
+      "Звук животного"
+    );
+  }
+
+}
+
+
+class Dog extends Animal {
+
+
+  speak() {
+    console.log(
+      "Гав!"
+    );
+  }
+
+}
+
+
+const dog = new Dog("Bob");
+
+dog.speak();</code></pre>
+          </div>
+
+
+
+        </div>
+
+      </section>
+
+
+
+
+
+
+
+      <section class="section" id="static">
+
+        <div class="container">
+
+
+          <h2>Статические методы</h2>
+
+
+          <p class="note">
+            <strong>static</strong>
+            — метод класса, который вызывается напрямую через класс, а не через объект.
+          </p>
+
+
+
+          <div class="code-block">
+            <pre><code>class MathHelper {
+
+
+  static sum(a, b) {
+
+    return a + b;
+
+  }
+
+
+}
+
+
+console.log(
+  MathHelper.sum(5, 10)
+);</code></pre>
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+
+
+
+
+
+      <section class="section" id="node">
+
+        <div class="container">
+
+
+          <h2>Классы в Node.js</h2>
+
+
+          <p class="note">
+            <strong>Классы Node.js</strong>
+            — удобный способ создавать структуры приложения: сервисы, модели, контроллеры и менеджеры данных.
+          </p>
+
+
+
+          <h3>Пример сервиса пользователя</h3>
+
+
+          <div class="code-block">
+            <pre><code>class UserService {
+
+
+  constructor(database) {
+
+    this.database = database;
+
+  }
+
+
+  async findUser(id) {
+
+    return this.database.find(id);
+
+  }
+
+
+}
+
+
+const service =
+  new UserService(db);
+
+
+service.findUser(1);</code></pre>
+          </div>
+
+
+
+        </div>
+
+      </section>
+
+
+
+
+
+
+
+      <section class="section">
+
+        <div class="container">
+
+
+          <div class="warning">
+
+            <strong>Типичные ошибки:</strong>
+
+            <ul class="list-ul">
+
+              <li>
+                Забывать использовать
+                <code>new</code>
+                при создании объекта.
+              </li>
+
+              <li>
+                Использовать стрелочные функции вместо методов класса без понимания контекста.
+              </li>
+
+              <li>
+                Изменять свойства объекта напрямую без проверки.
+              </li>
+
+            </ul>
+
+          </div>
+
+
+
+          <div class="note-block">
+
+            <h3>Лучшие практики работы с классами</h3>
+
+
+            <ul class="list-ul">
+
+              <li>Один класс должен отвечать за одну задачу.</li>
+
+              <li>Используйте понятные имена классов.</li>
+
+              <li>Не создавайте слишком большие классы.</li>
+
+              <li>Используйте наследование только когда оно действительно необходимо.</li>
+
+            </ul>
+
+          </div>
+
+
+
+          <div class="summary">
+
+            <h3>Итоги</h3>
+
+
+            <ul class="list-ul">
+
+              <li>Классы являются шаблонами для создания объектов.</li>
+
+              <li>constructor() задаёт начальное состояние объекта.</li>
+
+              <li>Методы описывают поведение объекта.</li>
+
+              <li>extends позволяет создавать дочерние классы.</li>
+
+              <li>Классы широко применяются в Node.js проектах.</li>
+
+            </ul>
+
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+
+
+
+
+
+      <section class="section" id="faq">
+
+        <div class="container">
+
+
+          <h2>Часто задаваемые вопросы</h2>
+
+
+          <div class="faq">
+
+
+            <div class="faq__item">
+
+              <button class="faq__question">
+                Классы заменили прототипы JavaScript?
+              </button>
+
+              <div class="faq__answer">
+
+                <p>
+                  Нет. Классы являются удобным синтаксисом поверх существующей системы прототипов.
+                </p>
+
+              </div>
+
+            </div>
+
+
+
+            <div class="faq__item">
+
+              <button class="faq__question">
+                Когда использовать классы?
+              </button>
+
+
+              <div class="faq__answer">
+
+                <p>
+                  Классы подходят для больших приложений,
+                  где нужно создавать много объектов с одинаковой логикой.
+                </p>
+
+              </div>
+
+            </div>
+
+
+
+
+            <div class="faq__item">
+
+              <button class="faq__question">
+                Можно ли использовать async внутри класса?
+              </button>
+
+
+              <div class="faq__answer">
+
+                <p>
+                  Да. Методы класса могут быть асинхронными и использовать async/await.
+                </p>
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+
+    </main>
+
+
+    @@include('../partials/footer.html', {})
+
+  </div>
+
+
+  @@include('../partials/popup.html', {})
+  @@include('../partials/js.html', {})
+
+</body>
+
+</html>

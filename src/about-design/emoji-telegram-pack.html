@@ -1,420 +1,384 @@
 <!DOCTYPE html>
 <html lang="ru">
-@@include('../partials/head.html', {"title":"Emoji Telegram Pack — набор эмодзи для Telegram","description":"Emoji Telegram Pack — подборка эмодзи для оформления сообщений, каналов, проектов и рабочих коммуникаций в Telegram."})
-<body>
-  <a class="skip-link" href="#main">Перейти к содержимому</a>
-  <div class="wrapper">
-    @@include('../partials/header.html', {})
-    <main class="page" id="main" tabindex="-1">
+  @@include('../partials/head.html', { "title": "Кастомные эмодзи в Telegram — виды, требования, создание", "description": "Кастомные эмодзи в Telegram: чем отличаются от обычных эмодзи и стикеров, как появляются прямо в тексте сообщений, требования и порядок создания." })
 
-      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
-        <a href="#emoji-intro" class="active" aria-current="page">Введение</a>
-        <a href="#emoji-structure">Структура</a>
-        <a href="#emoji-categories">Категории</a>
-        <a href="#emoji-pack">Набор</a>
-        <a href="#emoji-management">Создание и управление</a>
-        <a href="#emoji-install">Как добавить в Telegram</a>
-        <a href="#emoji-requirements">Требования</a>
-        <a href="#emoji-examples">Примеры</a>
-        <a href="#emoji-rules">Правила</a>
-        <a href="#emoji-faq">FAQ</a>
-      </nav>
+  <body>
+    <a class="skip-link" href="#main">Перейти к содержимому</a>
 
-      <!-- Введение -->
-      <section class="section" id="emoji-intro">
-        <div class="container">
-          <h1>Emoji Telegram Pack</h1>
-          <p class="note"><strong>Emoji Telegram Pack</strong> — набор эмодзи для оформления сообщений, каналов, проектов и рабочих процессов в Telegram. Эмодзи ускоряют восприятие, помогают выделять важное и формируют единый стиль коммуникации.</p>
-          <div class="note-block">
-            <h2>Где использовать эмодзи</h2>
+    <div class="wrapper">
+      @@include('../partials/header.html', {})
+
+      <main class="page" id="main" tabindex="-1">
+        <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+          <a href="#emoji-intro" class="active" aria-current="page">Введение</a>
+          <a href="#emoji-types">Виды эмодзи</a>
+          <a href="#emoji-custom">Кастомные эмодзи</a>
+          <a href="#emoji-requirements">Технические требования</a>
+          <a href="#emoji-create">Создание пака</a>
+          <a href="#emoji-install">Установка</a>
+          <a href="#emoji-rules">Правила и ограничения</a>
+          <a href="#emoji-mistakes">Типичные ошибки</a>
+          <a href="#emoji-summary">Итоги</a>
+          <a href="#emoji-faq">FAQ</a>
+        </nav>
+
+        <!-- Введение -->
+        <section class="section" id="emoji-intro">
+          <div class="container">
+            <h1>Кастомные эмодзи в Telegram</h1>
+            <p class="note">
+              <strong>Эмодзи в Telegram</strong>
+              — графические символы, которые можно вставлять в текст сообщений, каналы и чаты для ускорения восприятия и выделения смысла.
+              <br />
+              Отдельный вид — <strong>кастомные эмодзи</strong>, которые в отличие от обычных Unicode-эмодзи отображаются как собственная графика прямо между буквами текста, сохраняя формат обычного символа.
+            </p>
+
+            <div class="note-block">
+              <h3>Где применяются эмодзи</h3>
+              <ul class="list-ul">
+                <li>Telegram-каналы и группы — оформление постов и заголовков</li>
+                <li>Рабочие чаты — статусы задач, приоритеты, уведомления</li>
+                <li>Личный бренд и оформление канала — фирменный набор символов</li>
+                <li>Боты — реакции и элементы интерфейса</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Виды эмодзи -->
+        <section class="section" id="emoji-types">
+          <div class="container">
+            <h2>Виды эмодзи и стикеров в Telegram</h2>
+            <p class="note">
+              <strong>Три разных механизма</strong>
+              — обычные Unicode-эмодзи, кастомные эмодзи и стикеры выглядят похоже, но технически устроены по-разному и имеют разные ограничения на создание и использование.
+            </p>
+
+            <div class="table-responsive">
+              <table class="table-note" aria-describedby="types-desc">
+                <caption id="types-desc" class="note-caption">Сравнение видов эмодзи и стикеров</caption>
+                <thead>
+                  <tr>
+                    <th>Тип</th>
+                    <th>Где отображается</th>
+                    <th>Кто может создать</th>
+                    <th>Особенность</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Unicode-эмодзи</strong></td>
+                    <td>В любом тексте, на любой платформе</td>
+                    <td>Никто — набор фиксирован стандартом Unicode</td>
+                    <td>Не требует загрузки, доступен всем без ограничений</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Кастомные эмодзи</strong></td>
+                    <td>Прямо в тексте сообщения, между буквами</td>
+                    <td>Только пользователи с Telegram Premium</td>
+                    <td>Своя графика, но ведёт себя как обычный символ текста</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Стикеры</strong></td>
+                    <td>Отдельным блоком в чате, вне текста</td>
+                    <td>Любой пользователь</td>
+                    <td>Крупная самостоятельная картинка, не встраивается в строку</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Кастомные эмодзи -->
+        <section class="section" id="emoji-custom">
+          <div class="container">
+            <h2>Кастомные эмодзи: как работают</h2>
+            <p class="note">
+              <strong>Кастомный эмодзи</strong>
+              — символ, который технически ведёт себя как обычный текстовый эмодзи (можно поставить курсор внутри строки, удалить как один символ, скопировать вместе с текстом), но визуально показывает собственное изображение или короткую анимацию вместо стандартного Unicode-глифа.
+            </p>
+
+            <h3>Отличие от стикеров</h3>
             <ul class="list-ul">
-              <li>Telegram-каналы и группы</li>
-              <li>Рабочие чаты и командные сообщения</li>
-              <li>Презентации и документация</li>
-              <li>Задачи и проекты</li>
-              <li>Личные заметки</li>
+              <li>Кастомный эмодзи встраивается <strong>внутрь строки текста</strong>, стикер — отдельное сообщение</li>
+              <li>Размер кастомного эмодзи фиксирован под высоту строки текста, стикер занимает произвольную площадь чата</li>
+              <li>Один кастомный эмодзи можно комбинировать с обычными словами в одном предложении</li>
             </ul>
-          </div>
-        </div>
-      </section>
 
-      <!-- Структура -->
-      <section class="section" id="emoji-structure">
-        <div class="container">
-          <h2>Структура Emoji Pack</h2>
-          <p class="note"><strong>Структура слоями</strong> — разделение набора на смысловые уровни упрощает поиск и поддержку.</p>
+            <h3>Кто видит и кто отправляет</h3>
+            <p class="note">
+              <strong>Доступ по подписке</strong>
+              — создавать паки и отправлять кастомные эмодзи могут только пользователи с активной подпиской Telegram Premium.
+            </p>
+            <ul class="list-icon">
+              <li>✅ Premium-пользователь — видит, отправляет, создаёт свои паки</li>
+              <li>✅ Пользователь без Premium — видит уже отправленные кастомные эмодзи в чате</li>
+              <li>❌ Пользователь без Premium — не может отправить свой кастомный эмодзи или загрузить новый пак</li>
+            </ul>
 
-          <div class="table-responsive">
-            <table class="table-note" aria-describedby="structure-desc">
-              <caption id="structure-desc" class="note-caption">Таблица: слои набора и их назначение</caption>
-              <thead>
-                <tr>
-                  <th>Слой</th>
-                  <th>Назначение</th>
-                  <th>Пример</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>Статусы</strong></td>
-                  <td>Состояние процесса или задачи</td>
-                  <td>✅ Done, 🔄 Progress, ⏳ Waiting</td>
-                </tr>
-                <tr>
-                  <td><strong>Категории</strong></td>
-                  <td>Разделение информации</td>
-                  <td>📊 Analytics, 💡 Ideas</td>
-                </tr>
-                <tr>
-                  <td><strong>Действия</strong></td>
-                  <td>Команды и процессы</td>
-                  <td>🚀 Launch, 🔍 Research</td>
-                </tr>
-                <tr>
-                  <td><strong>Акценты</strong></td>
-                  <td>Выделение важного</td>
-                  <td>⚠️ Important, 🔥 Priority</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- Категории -->
-      <section class="section" id="emoji-categories">
-        <div class="container">
-          <h2>Категории Telegram Emoji</h2>
-          <p class="note"><strong>Категории эмодзи</strong> — логические группы по назначению (статусы, проекты, идеи и т.д.), облегчающие поиск и поддержку пакета.</p>
-          <div class="table-responsive">
-            <table class="table-note" aria-describedby="categories-desc">
-              <caption id="categories-desc" class="note-caption">Категории и примеры эмодзи</caption>
-              <thead>
-                <tr>
-                  <th>Категория</th>
-                  <th>Использование</th>
-                  <th>Примеры</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>Статусы</strong></td>
-                  <td>Обозначение состояния задачи или процесса</td>
-                  <td>✅ 🔄 ⏳ 🚀 ❌</td>
-                </tr>
-                <tr>
-                  <td><strong>Проекты</strong></td>
-                  <td>Разделение тем и направлений</td>
-                  <td>📌 📂 🗂️ 📝</td>
-                </tr>
-                <tr>
-                  <td><strong>Идеи</strong></td>
-                  <td>Гипотезы и новые предложения</td>
-                  <td>💡 🔥 ✨ 🧠</td>
-                </tr>
-                <tr>
-                  <td><strong>Аналитика</strong></td>
-                  <td>Метрики и результаты</td>
-                  <td>📊 📈 📉 🎯</td>
-                </tr>
-                <tr>
-                  <td><strong>Команда</strong></td>
-                  <td>Коммуникация и роли</td>
-                  <td>👥 🤝 🧑‍💻 👑</td>
-                </tr>
-                <tr>
-                  <td><strong>Внимание</strong></td>
-                  <td>Важные сообщения</td>
-                  <td>⚠️ 🚨 ❗ 🔔</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- Pack -->
-      <section class="section" id="emoji-pack">
-        <div class="container">
-          <h2>Готовый Emoji Pack</h2>
-          <p class="note"><strong>Рекомендуемый набор</strong> — базовый комплект эмодзи с назначениями и примерами использования, готовый для быстрой интеграции.</p>
-
-          <div class="controls" style="margin-bottom:0.75rem;display:flex;gap:0.5rem;align-items:center;">
-            <button id="download-csv" class="btn" type="button">Скачать CSV</button>
-            <div id="copy-feedback" aria-live="polite" style="margin-left:0.5rem;color:var(--info)"></div>
-          </div>
-
-          <div class="table-responsive">
-            <table class="table-note" id="emoji-pack-table" aria-describedby="pack-desc">
-              <caption id="pack-desc" class="note-caption">Таблица: набор эмодзи, назначение и пример использования. Кнопка "Копировать" копирует эмодзи в буфер обмена.</caption>
-              <thead>
-                <tr>
-                  <th>Значение</th>
-                  <th>Emoji</th>
-                  <th>Пример</th>
-                  <th aria-hidden="true">Действие</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr data-emoji="✅ 🎉 🏆">
-                  <td>Успех</td>
-                  <td class="emoji-cell">✅ 🎉 🏆</td>
-                  <td>"Задача завершена ✅"</td>
-                  <td><button class="copy-emoji btn" type="button" aria-label="Скопировать эмодзи Успех">Копировать</button></td>
-                </tr>
-                <tr data-emoji="🔄 ⚙️ 🛠️">
-                  <td>В процессе</td>
-                  <td class="emoji-cell">🔄 ⚙️ 🛠️</td>
-                  <td>"Разработка в процессе 🔄"</td>
-                  <td><button class="copy-emoji btn" type="button" aria-label="Скопировать эмодзи В процессе">Копировать</button></td>
-                </tr>
-                <tr data-emoji="⏳ 🕐 📅">
-                  <td>Ожидание</td>
-                  <td class="emoji-cell">⏳ 🕐 📅</td>
-                  <td>"Ждём ответа ⏳"</td>
-                  <td><button class="copy-emoji btn" type="button" aria-label="Скопировать эмодзи Ожидание">Копировать</button></td>
-                </tr>
-                <tr data-emoji="❌ ⚠️ 🚨">
-                  <td>Ошибка</td>
-                  <td class="emoji-cell">❌ ⚠️ 🚨</td>
-                  <td>"Найдена проблема ⚠️"</td>
-                  <td><button class="copy-emoji btn" type="button" aria-label="Скопировать эмодзи Ошибка">Копировать</button></td>
-                </tr>
-                <tr data-emoji="🔥 ⭐ 🚀">
-                  <td>Приоритет</td>
-                  <td class="emoji-cell">🔥 ⭐ 🚀</td>
-                  <td>"Главная задача недели 🚀"</td>
-                  <td><button class="copy-emoji btn" type="button" aria-label="Скопировать эмодзи Приоритет">Копировать</button></td>
-                </tr>
-                <tr data-emoji="📄 📚 📝">
-                  <td>Документы</td>
-                  <td class="emoji-cell">📄 📚 📝</td>
-                  <td>"Обновили документацию 📄"</td>
-                  <td><button class="copy-emoji btn" type="button" aria-label="Скопировать эмодзи Документы">Копировать</button></td>
-                </tr>
-                <tr data-emoji="❓ 💬 🙋">
-                  <td>Вопрос</td>
-                  <td class="emoji-cell">❓ 💬 🙋</td>
-                  <td>"Есть вопрос ❓"</td>
-                  <td><button class="copy-emoji btn" type="button" aria-label="Скопировать эмодзи Вопрос">Копировать</button></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- Management -->
-      <section class="section" id="emoji-management">
-        <div class="container">
-          <h2>Как создавать и редактировать Emoji Pack</h2>
-          <p class="note"><strong>Процесс создания</strong> — от определения назначения до проверки отображения и документирования.</p>
-          <div class="table-responsive">
-            <table class="table-note" aria-describedby="management-desc">
-              <caption id="management-desc" class="note-caption">Этапы создания и проверки набора</caption>
-              <thead>
-                <tr><th>Этап</th><th>Что делаем</th><th>Результат</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><strong>1. Создание</strong></td><td>Определяем назначение (статусы, проекты, уведомления) и собираем список эмодзи.</td><td>Структура Emoji Pack и список элементов</td></tr>
-                <tr><td><strong>2. Проектирование</strong></td><td>Определяем единый стиль: настроение, формат, правила использования.</td><td>Единый визуальный язык команды</td></tr>
-                <tr><td><strong>3. Редактирование</strong></td><td>Удаляем дубли, обновляем устаревшие элементы, добавляем новые сценарии.</td><td>Актуальный набор</td></tr>
-                <tr><td><strong>4. Проверка</strong></td><td>Проверяем читаемость, отображение в Telegram на разных устройствах.</td><td>Готовый набор для использования</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- Install section omitted here for brevity since it repeats; keep as earlier -->
-
-      <!-- Requirements -->
-      <section class="section" id="emoji-requirements">
-        <div class="container">
-          <h2>Требования к Emoji Pack</h2>
-          <p class="note"><strong>Критерии оценки</strong> — понятность, стиль, документирование и совместимость.</p>
-          <div class="table-responsive">
-            <table class="table-note" aria-describedby="req-desc">
-              <caption id="req-desc" class="note-caption">Технические и содержательные требования</caption>
-              <thead><tr><th>Требование</th><th>Описание</th></tr></thead>
-              <tbody>
-                <tr><td><strong>Понятное значение</strong></td><td>Каждый emoji имеет одно назначение.</td></tr>
-                <tr><td><strong>Единый стиль</strong></td><td>Согласованные графика и толщина линий.</td></tr>
-                <tr><td><strong>Минимальность</strong></td><td>Лучше меньше, но понятнее.</td></tr>
-                <tr><td><strong>Масштабируемость</strong></td><td>Можно добавлять категории без переработки.</td></tr>
-                <tr><td><strong>Совместимость</strong></td><td>Корректное отображение в Telegram на разных устройствах.</td></tr>
-                <tr><td><strong>Документирование</strong></td><td>CSV/Notion: Emoji → значение → пример.</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- Examples -->
-      <section class="section" id="emoji-examples">
-        <div class="container">
-          <h2>Примеры оформления сообщений</h2>
-          <p class="note"><strong>Шаблоны</strong> — типовые форматы сообщений с эмодзи, которые можно закрепить как руководство.</p>
-          <div class="table-responsive">
-            <table class="table-note">
-              <thead><tr><th>Ситуация</th><th>Пример</th></tr></thead>
-              <tbody>
-                <tr><td>Обновление проекта</td><td>🚀 <strong>Release v2.0</strong><br>Новая версия продукта опубликована.</td></tr>
-                <tr><td>Статус задачи</td><td>🔄 <strong>В работе</strong><br>Настройка аналитики продолжается.</td></tr>
-                <tr><td>Важное сообщение</td><td>⚠️ <strong>Важно</strong><br>Изменились сроки релиза.</td></tr>
-                <tr><td>Новая идея</td><td>💡 <strong>Гипотеза</strong><br>Проверить новый сценарий onboarding.</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- Rules -->
-      <section class="section" id="emoji-rules">
-        <div class="container">
-          <h2>Правила использования Emoji</h2>
-          <p class="note"><strong>Принципы</strong> — простые правила для сохранения читаемости и единого стиля.</p>
-          <div class="table-responsive">
-            <table class="table-note">
-              <thead><tr><th>Правило</th><th>Описание</th></tr></thead>
-              <tbody>
-                <tr><td><strong>Используйте умеренно</strong></td><td>1–3 эмодзи на сообщение обычно достаточно.</td></tr>
-                <tr><td><strong>Создайте систему</strong></td><td>Одинаковые значения должны иметь одинаковые эмодзи.</td></tr>
-                <tr><td><strong>Учитывайте аудиторию</strong></td><td>Для рабочих сообщений используйте более нейтральный стиль.</td></tr>
-                <tr><td><strong>Не заменяйте текст</strong></td><td>Emoji помогают пониманию, но не заменяют поясняющий текст.</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="note note--info"><strong>Совет:</strong> заведите Emoji Dictionary команды и закрепите правила в wiki/Notion.</div>
-        </div>
-      </section>
-
-      <!-- FAQ -->
-      <section class="section" id="emoji-faq">
-        <div class="container">
-          <h2>FAQ — Emoji Telegram Pack</h2>
-          <p class="note"><strong>Частые вопросы</strong> — короткие ответы на типичные вопросы по созданию и использованию пакета.</p>
-          <div class="faq" role="list" aria-label="FAQ по Emoji Pack">
-            <div class="faq__item" role="listitem">
-              <button class="faq__question" id="faq1-btn" aria-controls="faq1" aria-expanded="false" type="button">Можно ли использовать эмодзи в рабочих чатах?</button>
-              <div id="faq1" class="faq__answer" role="region" aria-labelledby="faq1-btn" hidden>
-                <p>Да — при умеренном и осознанном использовании эмодзи улучшают восприятие. Не заменяйте ими важную информацию.</p>
-              </div>
+            <h3>Как эмодзи хранится технически</h3>
+            <p class="note">
+              <strong>custom_emoji_id</strong>
+              — в Bot API кастомный эмодзи передаётся не как обычный символ, а как отдельная сущность (entity) с уникальным идентификатором внутри текста сообщения.
+            </p>
+            <h4>Пример JSON-сущности кастомного эмодзи:</h4>
+            <div class="code-block">
+              <pre><code>{
+  "type": "custom_emoji",
+  "offset": 12,
+  "length": 2,
+  "custom_emoji_id": "5432000000000000123"
+}</code></pre>
             </div>
-            <div class="faq__item" role="listitem">
-              <button class="faq__question" id="faq2-btn" aria-controls="faq2" aria-expanded="false" type="button">Как выбрать emoji для статуса?</button>
-              <div id="faq2" class="faq__answer" role="region" aria-labelledby="faq2-btn" hidden>
-                <p>Выберите одно эмодзи на каждое состояние (например: ✅ — done, 🔄 — in progress, ⏳ — waiting) и закрепите в словаре.</p>
-              </div>
+          </div>
+        </section>
+
+        <!-- Требования -->
+        <section class="section" id="emoji-requirements">
+          <div class="container">
+            <h2>Технические требования к файлам</h2>
+            <p class="note">
+              <strong>Три формата</strong>
+              — статичный, видео и векторный, у каждого свои жёсткие лимиты по размеру и весу файла.
+            </p>
+
+            <div class="table-responsive">
+              <table class="table-note" aria-describedby="req-desc">
+                <caption id="req-desc" class="note-caption">Требования к файлам кастомных эмодзи</caption>
+                <thead>
+                  <tr>
+                    <th>Тип</th>
+                    <th>Формат</th>
+                    <th>Размер</th>
+                    <th>Ограничения</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Статичный</strong></td>
+                    <td>PNG / WebP</td>
+                    <td>ровно 100×100 px</td>
+                    <td>прозрачный фон, квадрат</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Видео</strong></td>
+                    <td>WebM (VP9)</td>
+                    <td>100×100 px</td>
+                    <td>до 3 сек, до 30 FPS, без звука, ≤256 KB</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Векторный</strong></td>
+                    <td>TGS (Lottie)</td>
+                    <td>512×512 px</td>
+                    <td>до 3 сек, 60 FPS, ≤64 KB</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <div class="faq__item" role="listitem">
-              <button class="faq__question" id="faq3-btn" aria-controls="faq3" aria-expanded="false" type="button">Нужно ли хранить исходники?</button>
-              <div id="faq3" class="faq__answer" role="region" aria-labelledby="faq3-btn" hidden>
-                <p>Да. Храните PNG/WebP/Source (Figma, SVG) в общем репозитории — это упростит обновления и локализацию.</p>
+
+            <h4>Пример конвертации видео в WebM для эмодзи:</h4>
+            <div class="code-block">
+              <pre><code>// Приводим ролик к формату кастомного эмодзи
+ffmpeg -i input.mp4 -vf "scale=100:100" -c:v libvpx-vp9 -an -t 3 -b:v 130k output.webm</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Создание пака -->
+        <section class="section" id="emoji-create">
+          <div class="container">
+            <h2>Как создать пак кастомных эмодзи</h2>
+            <p class="note">
+              <strong>Процесс создания</strong>
+              — от подготовки макета до публикации пака через официального бота @Stickers, без сторонних инструментов.
+            </p>
+
+            <div class="table-responsive">
+              <table class="table-note" aria-describedby="create-desc">
+                <caption id="create-desc" class="note-caption">Этапы создания пака кастомных эмодзи</caption>
+                <thead>
+                  <tr>
+                    <th>Этап</th>
+                    <th>Что делаем</th>
+                    <th>Результат</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>1. Макет</strong></td>
+                    <td>Рисуем на большом холсте с прозрачным фоном, единый стиль на весь пак</td>
+                    <td>Исходники изображений</td>
+                  </tr>
+                  <tr>
+                    <td><strong>2. Экспорт</strong></td>
+                    <td>Уменьшаем до 100×100 px в PNG/WebP или конвертируем в WebM/TGS</td>
+                    <td>Файлы, готовые к загрузке</td>
+                  </tr>
+                  <tr>
+                    <td><strong>3. Загрузка</strong></td>
+                    <td>Отправляем боту @Stickers команду /newemojipack и файлы документами</td>
+                    <td>Черновик пака в Telegram</td>
+                  </tr>
+                  <tr>
+                    <td><strong>4. Ключевики</strong></td>
+                    <td>Привязываем к каждому изображению стандартный эмодзи для поиска</td>
+                    <td>Пак, доступный через поиск</td>
+                  </tr>
+                  <tr>
+                    <td><strong>5. Публикация</strong></td>
+                    <td>Отправляем /publish, задаём короткое имя пака</td>
+                    <td>Ссылка вида t.me/addemoji/&lt;name&gt;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Установка -->
+        <section class="section" id="emoji-install">
+          <div class="container">
+            <h2>Как добавить готовый пак в Telegram</h2>
+            <p class="note">
+              <strong>Добавление пака</strong>
+              — переход по ссылке пака и подтверждение в один шаг, доступно только с активной подпиской Premium.
+            </p>
+            <ol class="list-ol">
+              <li>Откройте ссылку пака вида <code>t.me/addemoji/название</code></li>
+              <li>Нажмите «Добавить набор эмодзи» во всплывающем окне</li>
+              <li>Откройте панель эмодзи в любом чате — новый пак появится в списке доступных</li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- Правила -->
+        <section class="section" id="emoji-rules">
+          <div class="container">
+            <h2>Правила использования и ограничения</h2>
+            <p class="note">
+              <strong>Основные ограничения</strong>
+              — подписка Premium требуется и для отправки чужих кастомных эмодзи, и для создания собственного пака.
+            </p>
+            <div class="table-responsive">
+              <table class="table-note">
+                <thead>
+                  <tr>
+                    <th>Правило</th>
+                    <th>Описание</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Подписка обязательна</strong></td>
+                    <td>Без Premium нельзя ни отправить, ни создать пак кастомных эмодзи</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Единый стиль пака</strong></td>
+                    <td>Все эмодзи пака должны быть в одном визуальном стиле</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Прозрачный фон обязателен</strong></td>
+                    <td>Без альфа-канала эмодзи отображается с белым или чёрным квадратом вокруг</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Умеренность</strong></td>
+                    <td>1–3 эмодзи на сообщение обычно достаточно, не заменяют пояснительный текст</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Типичные ошибки -->
+        <section class="section" id="emoji-mistakes">
+          <div class="container">
+            <h2>Типичные ошибки при создании</h2>
+
+            <div class="warning">
+              <strong>Файл отправлен как фото, а не как документ</strong>
+              <p>Telegram сжимает «фотографии» в чате, из-за чего теряется точный размер и прозрачность. Загружать файлы боту @Stickers нужно только как документы.</p>
+            </div>
+
+            <div class="warning">
+              <strong>Непрозрачный фон</strong>
+              <p>Если у изображения нет альфа-канала, эмодзи в тексте будет с видимым белым или чёрным квадратом вокруг символа.</p>
+            </div>
+
+            <div class="warning">
+              <strong>Неточный размер файла</strong>
+              <p>Файл, не подогнанный строго под 100×100 px (или под лимит по весу), будет отклонён ботом при загрузке.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Итоги -->
+        <section class="section" id="emoji-summary">
+          <div class="container">
+            <h2>Итоги</h2>
+            <div class="summary">
+              <ul class="list-ul">
+                <li>Кастомный эмодзи встраивается прямо в текст сообщения, в отличие от стикера</li>
+                <li>Создание и отправка кастомных эмодзи требует подписки Telegram Premium</li>
+                <li>Статичный эмодзи — PNG/WebP 100×100 px, видео — WebM VP9, вектор — TGS</li>
+                <li>Пак создаётся и публикуется через официального бота @Stickers</li>
+                <li>Прозрачный фон и единый стиль пака — обязательные условия качественного результата</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="section" id="emoji-faq">
+          <div class="container">
+            <h2>Часто задаваемые вопросы</h2>
+
+            <div class="faq" role="list" aria-label="FAQ по кастомным эмодзи Telegram">
+              <div class="faq__item" role="listitem">
+                <button class="faq__question" id="faq1-btn" aria-controls="faq1" aria-expanded="false" type="button">
+                  Может ли пользователь без Premium увидеть кастомный эмодзи?
+                </button>
+                <div id="faq1" class="faq__answer" role="region" aria-labelledby="faq1-btn" hidden>
+                  <p>Да, увидеть уже отправленный кастомный эмодзи в чате может любой пользователь. Отправить свой или создать пак — только с подпиской Premium.</p>
+                </div>
+              </div>
+
+              <div class="faq__item" role="listitem">
+                <button class="faq__question" id="faq2-btn" aria-controls="faq2" aria-expanded="false" type="button">
+                  Чем кастомный эмодзи отличается от стикера?
+                </button>
+                <div id="faq2" class="faq__answer" role="region" aria-labelledby="faq2-btn" hidden>
+                  <p>Кастомный эмодзи встраивается прямо в строку текста и ведёт себя как символ. Стикер — отдельное самостоятельное сообщение, не часть текста.</p>
+                </div>
+              </div>
+
+              <div class="faq__item" role="listitem">
+                <button class="faq__question" id="faq3-btn" aria-controls="faq3" aria-expanded="false" type="button">
+                  Сколько эмодзи должно быть в паке?
+                </button>
+                <div id="faq3" class="faq__answer" role="region" aria-labelledby="faq3-btn" hidden>
+                  <p>Жёсткого минимума нет, но пак из одного эмодзи не имеет смысла — обычно делают серию от 6–12 штук в едином стиле.</p>
+                </div>
+              </div>
+
+              <div class="faq__item" role="listitem">
+                <button class="faq__question" id="faq4-btn" aria-controls="faq4" aria-expanded="false" type="button">
+                  Почему эмодзи после загрузки выглядит размытым?
+                </button>
+                <div id="faq4" class="faq__answer" role="region" aria-labelledby="faq4-btn" hidden>
+                  <p>Чаще всего файл был отправлен боту как сжатое фото, а не как документ, либо исходник заранее уменьшили до маленького размера и потом растянули обратно.</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
-    </main>
-    @@include('../partials/footer.html', {})
-  </div>
+      @@include('../partials/footer.html', {})
+    </div>
 
-  @@include('../partials/popup.html', {})
-
- <!-- Inline scripts: копирование эмодзи, экспорт CSV, JSON-LD (без аккордеона FAQ) -->
-  <script>
-    // Copy emoji buttons and feedback
-    (function () {
-      const feedback = document.getElementById('copy-feedback');
-      const copyButtons = document.querySelectorAll('.copy-emoji');
-      if (!copyButtons.length) return;
-      copyButtons.forEach(btn => {
-        btn.addEventListener('click', async () => {
-          const row = btn.closest('tr');
-          if (!row) return;
-          const value = row.dataset && row.dataset.emoji ? row.dataset.emoji : (row.querySelector('.emoji-cell') ? row.querySelector('.emoji-cell').textContent.trim() : '');
-          if (!value) return;
-          try {
-            await navigator.clipboard.writeText(value);
-            showFeedback('Скопировано: ' + value);
-          } catch (err) {
-            showFeedback('Не удалось скопировать');
-          }
-        });
-      });
-      function showFeedback(text) {
-        if (!feedback) return;
-        feedback.textContent = text;
-        setTimeout(() => { feedback.textContent = ''; }, 2500);
-      }
-    })();
-
-    // CSV download for emoji pack table
-    (function () {
-      const dlBtn = document.getElementById('download-csv');
-      if (!dlBtn) return;
-      dlBtn.addEventListener('click', () => {
-        const table = document.getElementById('emoji-pack-table');
-        if (!table) return;
-        const rows = Array.from(table.querySelectorAll('tbody tr'));
-        const lines = [['Значение', 'Emoji', 'Пример']];
-        rows.forEach(tr => {
-          const cols = tr.querySelectorAll('td');
-          const text = Array.from(cols).slice(0, 3).map(td => td.textContent.trim().replace(/\s+/g, ' '));
-          lines.push(text);
-        });
-        const csv = lines.map(r => r.map(cell => '"' + cell.replace(/"/g, '""') + '"').join(',')).join('\n');
-        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'emoji-pack.csv';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        URL.revokeObjectURL(url);
-      });
-    })();
-
-    // JSON-LD: Breadcrumb + FAQ
-    (function () {
-      const ld = {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              { "@type": "ListItem", "position": 1, "name": "Главная", "item": "/" },
-              { "@type": "ListItem", "position": 2, "name": "Tools", "item": "/tools/" },
-              { "@type": "ListItem", "position": 3, "name": "Emoji Telegram Pack", "item": window.location.href }
-            ]
-          },
-          {
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "Можно ли использовать эмодзи в рабочих чатах?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Да — при умеренном и осознанном использовании эмодзи улучшают восприятие. Не заменяйте ими важную информацию." }
-              },
-              {
-                "@type": "Question",
-                "name": "Как выбрать emoji для статуса?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Выберите одно эмодзи на каждое состояние (например: ✅ — done, 🔄 — in progress, ⏳ — waiting) и закрепите в словаре." }
-              }
-            ]
-          }
-        ]
-      };
-      const s = document.createElement('script');
-      s.type = 'application/ld+json';
-      s.text = JSON.stringify(ld);
-      document.body.appendChild(s);
-    })();
-  </script>
-
-  @@include('../partials/js.html', {})
-</body>
+    @@include('../partials/popup.html', {})
+    @@include('../partials/js.html', {})
+  </body>
 </html>

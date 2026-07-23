@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('../partials/head.html', { "title": "Алгоритмы сортировки — виды, сложность и примеры кода", "description": "Разбираем основные алгоритмы сортировки: пузырьком, выбором, вставками, быстрая и слияние. Сравниваем сложность, смотрим код и типичные ошибки." })
+
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <div class="wrapper">
+    @@include('../partials/header.html', {})
+
+    <main class="page" id="main" tabindex="-1">
+      <nav class="nav-tabs" id="page-nav" role="navigation" aria-label="Навигация по разделам страницы">
+        <a href="#sorting-intro" class="active" aria-current="page">Введение</a>
+        <a href="#sorting-comparison">Сравнение алгоритмов</a>
+        <a href="#sorting-simple">Простые алгоритмы</a>
+        <a href="#sorting-advanced">Быстрая сортировка и слияние</a>
+        <a href="#sorting-mistakes">Ошибки</a>
+        <a href="#sorting-faq">FAQ</a>
+      </nav>
+
+      <!-- Введение -->
+      <section class="section" id="sorting-intro">
+        <div class="container">
+          <h1>Алгоритмы сортировки</h1>
+
+          <p class="note">
+            <strong>Сортировка</strong>
+            — это упорядочивание элементов набора данных по определённому признаку: числа по возрастанию, слова по
+            алфавиту, товары по цене.
+            <br />
+            Это одна из самых частых операций в программировании: без неё сложно построить поиск, аналитику или
+            красивый вывод данных пользователю.
+          </p>
+
+          <p>
+            Алгоритмов сортировки много, и они отличаются не результатом (отсортированный массив), а тем,
+            <strong>как быстро</strong> и <strong>какой ценой</strong> они его получают. Разберёмся, какие бывают
+            подходы и когда какой выбирать.
+          </p>
+        </div>
+      </section>
+
+      <!-- Сравнение алгоритмов -->
+      <section class="section" id="sorting-comparison">
+        <div class="container">
+          <h2>Сравнение алгоритмов сортировки</h2>
+
+          <p class="note">
+            <strong>Сложность алгоритма</strong>
+            — примерное число операций, которое нужно выполнить в зависимости от размера массива
+            <code>n</code>.
+          </p>
+
+          <p class="note">
+            <strong>Таблица сравнения</strong>
+            — время работы и память для основных алгоритмов сортировки.
+          </p>
+
+          <table class="table-note">
+            <thead>
+              <tr>
+                <th>Алгоритм</th>
+                <th>Среднее время</th>
+                <th>Память</th>
+                <th>Когда использовать</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Сортировка пузырьком</strong> — сравнивает соседние элементы.</td>
+                <td>O(n²)</td>
+                <td>O(1)</td>
+                <td>Для обучения, не для реальных задач.</td>
+              </tr>
+              <tr>
+                <td><strong>Сортировка выбором</strong> — ищет минимум на каждом шаге.</td>
+                <td>O(n²)</td>
+                <td>O(1)</td>
+                <td>Маленькие массивы, простота важнее скорости.</td>
+              </tr>
+              <tr>
+                <td><strong>Сортировка вставками</strong> — вставляет элемент в отсортированную часть.</td>
+                <td>O(n²)</td>
+                <td>O(1)</td>
+                <td>Почти отсортированные или небольшие массивы.</td>
+              </tr>
+              <tr>
+                <td><strong>Быстрая сортировка</strong> — делит массив вокруг опорного элемента.</td>
+                <td>O(n log n)</td>
+                <td>O(log n)</td>
+                <td>Общий случай, самый быстрый на практике.</td>
+              </tr>
+              <tr>
+                <td><strong>Сортировка слиянием</strong> — делит массив пополам и сливает отсортированные части.</td>
+                <td>O(n log n)</td>
+                <td>O(n)</td>
+                <td>Когда важна стабильность и предсказуемая скорость.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="note note--info">
+            💡 O(n log n) — это ощутимо быстрее, чем O(n²), на больших массивах: для 1000 элементов разница может
+            быть в десятки раз.
+          </p>
+        </div>
+      </section>
+
+      <!-- Простые алгоритмы -->
+      <section class="section" id="sorting-simple">
+        <div class="container">
+          <h2>Простые алгоритмы сортировки</h2>
+
+          <p class="note">
+            <strong>Простые алгоритмы</strong>
+            — сортировки со сложностью O(n²), которые легко понять и реализовать, но которые медленно работают на
+            больших данных.
+          </p>
+
+          <h3>Сортировка пузырьком</h3>
+          <p class="note">
+            <strong>Сортировка пузырьком (bubble sort)</strong>
+            — на каждом проходе сравнивает пары соседних элементов и меняет их местами, если порядок неверный.
+          </p>
+          <ul class="list-ul">
+            <li>После каждого прохода самый большой ещё не отсортированный элемент "всплывает" в конец.</li>
+            <li>Проходов нужно столько же, сколько элементов в массиве.</li>
+          </ul>
+
+          <h4>Реализация:</h4>
+          <div class="code-block">
+            <pre><code>function bubbleSort(arr) {
+  for (let i = 0; i < arr.length - 1; i++) {
+    for (let j = 0; j < arr.length - 1 - i; j++) {
+      if (arr[j] > arr[j + 1]) {
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+      }
+    }
+  }
+  return arr;
+}
+
+bubbleSort([5, 2, 9, 1, 5]); // [1, 2, 5, 5, 9]</code></pre>
+          </div>
+
+          <h3>Сортировка выбором</h3>
+          <p class="note">
+            <strong>Сортировка выбором (selection sort)</strong>
+            — на каждом шаге ищет минимальный элемент в неотсортированной части и ставит его в начало.
+          </p>
+
+          <h4>Реализация:</h4>
+          <div class="code-block">
+            <pre><code>function selectionSort(arr) {
+  for (let i = 0; i < arr.length - 1; i++) {
+    let minIndex = i;
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[j] < arr[minIndex]) {
+        minIndex = j;
+      }
+    }
+    [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+  }
+  return arr;
+}
+
+selectionSort([5, 2, 9, 1, 5]); // [1, 2, 5, 5, 9]</code></pre>
+          </div>
+
+          <h3>Сортировка вставками</h3>
+          <p class="note">
+            <strong>Сортировка вставками (insertion sort)</strong>
+            — берёт очередной элемент и вставляет его на нужное место в уже отсортированной части массива.
+          </p>
+
+          <h4>Реализация:</h4>
+          <div class="code-block">
+            <pre><code>function insertionSort(arr) {
+  for (let i = 1; i < arr.length; i++) {
+    const current = arr[i];
+    let j = i - 1;
+    while (j >= 0 && arr[j] > current) {
+      arr[j + 1] = arr[j];
+      j--;
+    }
+    arr[j + 1] = current;
+  }
+  return arr;
+}
+
+insertionSort([5, 2, 9, 1, 5]); // [1, 2, 5, 5, 9]</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Быстрая сортировка и слияние -->
+      <section class="section" id="sorting-advanced">
+        <div class="container">
+          <h2>Быстрая сортировка и сортировка слиянием</h2>
+
+          <p class="note">
+            <strong>Эффективные алгоритмы</strong>
+            — сортировки со сложностью O(n log n), которые устроены сложнее, но заметно быстрее на больших
+            массивах.
+          </p>
+
+          <h3>Быстрая сортировка</h3>
+          <p class="note">
+            <strong>Быстрая сортировка (quick sort)</strong>
+            — выбирает опорный элемент, делит массив на меньшие и большие относительно него части, а затем
+            рекурсивно сортирует каждую часть.
+          </p>
+          <ul class="list-ul">
+            <li>Использует рекурсию: подробнее — в уроке про <a href="/algorithms/algorithms-recursion.html">рекурсию</a>.</li>
+            <li>На практике часто быстрее сортировки слиянием за счёт меньшего расхода памяти.</li>
+          </ul>
+
+          <h4>Реализация:</h4>
+          <div class="code-block">
+            <pre><code>function quickSort(arr) {
+  if (arr.length <= 1) return arr;
+
+  const pivot = arr[arr.length - 1];
+  const left = arr.filter((x, i) => x < pivot && i !== arr.length - 1);
+  const right = arr.filter((x, i) => x >= pivot && i !== arr.length - 1);
+
+  return [...quickSort(left), pivot, ...quickSort(right)];
+}
+
+quickSort([5, 2, 9, 1, 5]); // [1, 2, 5, 5, 9]</code></pre>
+          </div>
+
+          <h3>Сортировка слиянием</h3>
+          <p class="note">
+            <strong>Сортировка слиянием (merge sort)</strong>
+            — делит массив пополам до одиночных элементов, а затем последовательно сливает отсортированные части
+            в один массив.
+          </p>
+
+          <h4>Реализация:</h4>
+          <div class="code-block">
+            <pre><code>function mergeSort(arr) {
+  if (arr.length <= 1) return arr;
+
+  const mid = Math.floor(arr.length / 2);
+  const left = mergeSort(arr.slice(0, mid));
+  const right = mergeSort(arr.slice(mid));
+
+  const result = [];
+  while (left.length && right.length) {
+    result.push(left[0] <= right[0] ? left.shift() : right.shift());
+  }
+  return [...result, ...left, ...right];
+}
+
+mergeSort([5, 2, 9, 1, 5]); // [1, 2, 5, 5, 9]</code></pre>
+          </div>
+
+          <button class="practice-btn" data-code="quickSort">Запустить пример быстрой сортировки</button>
+          <div class="code-block">
+            <pre><code id="output-result" aria-live="polite">// результат</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ошибки -->
+      <section class="section" id="sorting-mistakes">
+        <div class="container">
+          <h2>Типичные ошибки</h2>
+
+          <div class="warning">
+            <p class="note">
+              <strong>Сортировка чисел как строк</strong>
+              — стандартный <code>Array.prototype.sort()</code> в JavaScript по умолчанию сравнивает элементы как
+              строки.
+            </p>
+            <p>
+              Решение: передавайте функцию сравнения —
+              <code>arr.sort((a, b) => a - b)</code> для чисел по возрастанию.
+            </p>
+          </div>
+
+          <div class="warning">
+            <p class="note">
+              <strong>Использование O(n²) на больших данных</strong>
+              — пузырёк, выбор и вставки резко замедляются, когда элементов становится много.
+            </p>
+            <p>Решение: для массивов от нескольких тысяч элементов используйте быструю сортировку или слияние.</p>
+          </div>
+
+          <div class="warning">
+            <p class="note">
+              <strong>Забытая стабильность сортировки</strong>
+              — не все алгоритмы сохраняют порядок равных элементов.
+            </p>
+            <p>
+              Решение: если порядок равных элементов важен (например, при многоступенчатой сортировке таблицы),
+              выбирайте стабильный алгоритм, например сортировку слиянием.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Советы -->
+      <section class="section" id="sorting-tips">
+        <div class="container">
+          <div class="note-block">
+            <h3>Советы по выбору алгоритма</h3>
+            <ul class="list-ul">
+              <li>На практике почти всегда можно использовать встроенную сортировку языка — она уже оптимизирована.</li>
+              <li>Реализуйте сортировки вручную в первую очередь для обучения и для собеседований.</li>
+              <li>Для почти отсортированных данных сортировка вставками может быть быстрее быстрой сортировки.</li>
+              <li>Если важна стабильность порядка равных элементов — выбирайте сортировку слиянием.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Итоги -->
+      <section class="section" id="sorting-summary">
+        <div class="container">
+          <div class="summary">
+            <h3>Итоги</h3>
+            <ul class="list-icon">
+              <li>✅ Сортировка — упорядочивание данных по заданному признаку.</li>
+              <li>✅ Простые алгоритмы (пузырёк, выбор, вставки) понятны, но работают за O(n²).</li>
+              <li>✅ Быстрая сортировка и сортировка слиянием работают за O(n log n) и подходят для больших данных.</li>
+              <li>✅ На практике чаще всего используют встроенную сортировку языка, а не реализуют алгоритм вручную.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section" id="sorting-faq">
+        <div class="container">
+          <h2>Часто задаваемые вопросы</h2>
+
+          <div class="faq">
+            <div class="faq__item">
+              <button class="faq__question">Какой алгоритм сортировки самый быстрый?</button>
+              <div class="faq__answer">
+                <p>
+                  В общем случае быстрая сортировка показывает лучшее среднее время на практике, хотя в худшем
+                  случае её сложность совпадает с простыми алгоритмами — O(n²). Для гарантированного O(n log n) в
+                  любом случае подходит сортировка слиянием.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq__item">
+              <button class="faq__question">Нужно ли писать сортировку вручную в реальных проектах?</button>
+              <div class="faq__answer">
+                <p>
+                  Обычно нет — языки программирования уже предоставляют оптимизированную встроенную сортировку.
+                  Ручная реализация нужна для обучения, понимания сложности алгоритмов и на технических
+                  собеседованиях.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq__item">
+              <button class="faq__question">Что такое стабильная сортировка?</button>
+              <div class="faq__answer">
+                <p>
+                  Стабильная сортировка сохраняет исходный порядок элементов, которые считаются равными по
+                  ключу сортировки. Это важно, когда данные уже отсортированы по одному признаку, а вы
+                  досортировываете их по другому.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    @@include('../partials/footer.html', {})
+  </div>
+
+  @@include('../partials/popup.html', {}) @@include('../partials/js.html', {})
+</body>
+
+</html>
